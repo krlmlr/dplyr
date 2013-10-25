@@ -1,12 +1,18 @@
-# travis config, based on https://github.com/craigcitro/r-travis
-
 language: c
-script: ./travis-tool.sh run_tests
-before_script:
-  - curl -OL https://raw.github.com/hadley/r-travis/patch-1/scripts/travis-tool.sh
-  - chmod 755 ./travis-tool.sh
-  - ./travis-tool.sh bootstrap
-  - ./travis-tool.sh github_package assertthat
-  - ./travis-tool.sh github_package testthat
-  - ./travis-tool.sh github_package bigrquery
-  - ./travis-tool.sh install_deps
+
+env:
+  global:
+    - RTRAVISPATH=~root/R-travis
+    - RTRAVISR="install_github(c('assertthat', 'testthat', 'bigrquery')); " # add custom R code to be executed before installing package
+  matrix:
+    - RTRAVISTYPE=quick
+    - RTRAVISTYPE=full
+
+# install dependencies
+install:
+  - sudo git clone https://github.com/krlmlr/R-travis.git $RTRAVISPATH
+  - sudo -E $RTRAVISPATH/r-travis install
+
+# run tests
+script:
+  - $RTRAVISPATH/r-travis test
