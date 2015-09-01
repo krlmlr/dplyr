@@ -11,6 +11,16 @@ test_that("frame_data() constructs 'data_frame' as expected", {
   compared <- data_frame(colA = c("a", "b"), colB = c(1, 2))
   expect_equal(result, compared)
 
+  result <- frame_data(
+    ~colA, ~colB,
+    "a", 1,
+    "b", 2,
+    "c", 3
+  )
+
+  compared <- data_frame(colA = c("a", "b", "c"), colB = c(1, 2, 3))
+  expect_equal(result, compared)
+
 })
 
 test_that("frame_data() errs appropriately on bad calls", {
