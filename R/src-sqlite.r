@@ -129,7 +129,7 @@ src_translate_env.src_sqlite <- function(x) {
 
 #' @export
 db_query_fields.SQLiteConnection <- function(con, sql, ...) {
-  rs <- DBI::dbSendQuery(con, build_sql("SELECT * FROM ", sql))
+  rs <- DBI::dbSendQuery(con, build_sql("SELECT * FROM ", sql, " LIMIT 0"))
   on.exit(DBI::dbClearResult(rs))
 
   names(fetch(rs, 0L))
