@@ -214,7 +214,7 @@ test_that("grouped_df requires a list of symbols (#665)", {
 })
 
 test_that("group_by gives meaningful message with unknow column (#716)",{
-  expect_error( group_by(iris, wrong_name_of_variable), "unknown column" )
+  expect_error( group_by(iris, wrong_name_of_variable), "unknown variable" )
 })
 
 test_that("[ on grouped_df preserves grouping if subset includes grouping vars", {
