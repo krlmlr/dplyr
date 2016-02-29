@@ -107,7 +107,6 @@ as.data.frame.tbl_sql <- function(x, row.names = NULL, optional = NULL,
 }
 
 #' @export
-#' @rdname dplyr-formatting
 print.tbl_sql <- function(x, ..., n = NULL, width = NULL) {
   cat("Source: ", src_desc(x$src), "\n", sep = "")
 
