@@ -1,11 +1,3 @@
-#' @importFrom tibble dim_desc
-#' @export
-tibble::dim_desc
-
-#' @importFrom tibble trunc_mat
-#' @export
-tibble::trunc_mat
-
 wrap <- function(..., indent = 0) {
   x <- paste0(..., collapse = "")
   wrapped <- strwrap(x, indent = indent, exdent = indent + 2,
