@@ -2,7 +2,10 @@ language: R
 sudo: false
 cache: packages
 
-before_script:
-- R CMD INSTALL .
-- Rscript -e "dplyr::lahman_sqlite()"
-- Rscript -e "dplyr::nycflights13_sqlite()"
+warnings_are_errors: false
+
+env:
+- _R_CHECK_FORCE_SUGGESTS_=false
+
+after_success:
+- Rscript -e 'covr::codecov()'

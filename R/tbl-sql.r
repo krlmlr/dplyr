@@ -181,6 +181,12 @@ union.tbl_sql <- function(x, y, copy = FALSE, ...) {
   update(tbl(x$src, sql), group_by = groups(x))
 }
 #' @export
+union_all.tbl_sql <- function(x, y, copy = FALSE, ...) {
+  y <- auto_copy(x, y, copy)
+  sql <- sql_set_op(x$src$con, x, y, "UNION ALL")
+  update(tbl(x$src, sql), group_by = groups(x))
+}
+#' @export
 setdiff.tbl_sql <- function(x, y, copy = FALSE, ...) {
   y <- auto_copy(x, y, copy)
   sql <- sql_set_op(x$src$con, x, y, "EXCEPT")
@@ -529,17 +535,18 @@ do_.tbl_sql <- function(.data, ..., .dots, .chunk_size = 1e4L) {
   i <- 0
 
   chunky$query$fetch_paged(.chunk_size, function(chunk) {
-    if (!is.null(last_group)) chunk <- rbind(last_group, chunk)
+    if (!is.null(last_group)) {
+      chunk <- rbind(last_group, chunk)
+    }
 
     # Create an id for each group
-    group_id <- id(chunk[gvars], drop = TRUE)
-    n <- attr(group_id, "n")
+    grouped <- chunk %>% group_by_(.dots = names(chunk)[gvars])
+    index <- attr(grouped, "indices") # zero indexed
 
-    index <- split_indices(group_id, n)
-    last_group <<- chunk[index[[length(index)]], , drop = FALSE]
+    last_group <<- chunk[index[[length(index)]] + 1L, , drop = FALSE]
 
     for (j in seq_len(n - 1)) {
-      env$. <- chunk[index[[j]], , drop = FALSE]
+      env$. <- chunk[index[[j]] + 1L, , drop = FALSE]
       for (k in seq_len(m)) {
         out[[k]][i + j] <<- list(eval(args[[k]]$expr, envir = env))
         p$tick()$print()
@@ -580,7 +587,6 @@ do_.tbl_sql <- function(.data, ..., .dots, .chunk_size = 1e4L) {
 #' compared with \code{=} not with more general operators.
 #'
 #' @inheritParams join
-#' @param x,y tbls to join
 #' @param copy If \code{x} and \code{y} are not from the same data source,
 #'   and \code{copy} is \code{TRUE}, then \code{y} will be copied into a
 #'   temporary table in same database as \code{x}. \code{join} will automatically
@@ -652,20 +658,50 @@ NULL
 #' @rdname join.tbl_sql
 #' @export
 inner_join.tbl_sql <- function(x, y, by = NULL, copy = FALSE,
+                               suffix = c(".x", ".y"),
                                auto_index = FALSE, ...) {
-  by <- common_by(by, x, y)
-  y <- auto_copy(x, y, copy, indexes = if (auto_index) list(by$y))
-  sql <- sql_join(x$src$con, x, y, type = "inner", by = by)
-  update(tbl(x$src, sql), group_by = groups(x))
+  sql_mutating_join("inner",
+    x, y, by = by, copy = copy, suffix = suffix,auto_index = auto_index, ...
+  )
 }
 
 #' @rdname join.tbl_sql
 #' @export
 left_join.tbl_sql <- function(x, y, by = NULL, copy = FALSE,
+                              suffix = c(".x", ".y"),
+                              auto_index = FALSE, ...) {
+  sql_mutating_join("left",
+    x, y, by = by, copy = copy, suffix = suffix,auto_index = auto_index, ...
+  )
+}
+
+#' @rdname join.tbl_sql
+#' @export
+right_join.tbl_sql <- function(x, y, by = NULL, copy = FALSE,
+                               suffix = c(".x", ".y"),
+                               auto_index = FALSE, ...) {
+  sql_mutating_join("right",
+    x, y, by = by, copy = copy, suffix = suffix,auto_index = auto_index, ...
+  )
+}
+
+#' @rdname join.tbl_sql
+#' @export
+full_join.tbl_sql <- function(x, y, by = NULL, copy = FALSE,
+                              suffix = c(".x", ".y"),
+                              auto_index = FALSE, ...) {
+
+  sql_mutating_join("full",
+    x, y, by = by, copy = copy, suffix = suffix,auto_index = auto_index, ...
+  )
+}
+
+sql_mutating_join <- function(type, x, y, by = NULL, copy = FALSE,
+                              suffix = c(".x", ".y"),
                               auto_index = FALSE, ...) {
   by <- common_by(by, x, y)
   y <- auto_copy(x, y, copy, indexes = if (auto_index) list(by$y))
-  sql <- sql_join(x$src$con, x, y, type = "left", by = by)
+  sql <- sql_join(x$src$con, x, y, type = type, by = by, suffix = suffix)
   update(tbl(x$src, sql), group_by = groups(x))
 }
 

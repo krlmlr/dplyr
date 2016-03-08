@@ -1,5 +1,61 @@
 # dplyr 0.4.3.9000
 
+* `select()` works even if the grouping variable has a non-syntactic name 
+  (#1138).
+
+* In `select()`, negating a failed match (e.g. `select(mtcars, -contains("x"))`)
+  returns all columns, instead of no columns (#1176)
+  
+* The naming behaviour of `summarise_each()` and `mutate_each()` has been
+  tweaked so that you can force inclusion of both the function and the 
+  variable name: `summarise_each(mtcars, funs(mean = mean), everything())` 
+  (#442).
+
+* All data table related code has been separated out in to a new dtplyr package.
+  You'll get a message reminding you to load it if both data.table and dplyr are
+  loaded.
+
+* Unary `-` minus is better translated in to SQL (fixes #1002).
+
+* New `union_all()` method. Maps to `UNION ALL` for SQL sources, `bind_rows()`
+  for data frames/tbl\_dfs, and `combine()` for vectors (#1045).
+
+* `src_sqlite()` throws errors if you try and use it with window functions 
+  (#907).
+
+* Add tbl\_sql methods for `right_join()` and `full_join()` (#1172).
+
+* `inner_join()`, `left_join()`, `right_join()`, and `full_join()` gain a
+  `suffix` argument which allows you to control what suffix duplicated variable
+  names recieve (#1296).
+
+* `escape.POSIXt()` method makes it easier to use date times with databases.
+  The date is rendered in ISO 8601 format in UTC, which should work in most
+  databases (#857).
+
+* `grouped_df()` methods for `rbind` and `cbind` (#1385).
+
+* `filter.tbl_sql()` now puts parens around each argument (#934).
+
+* `select()` now informs you that it's adding missing the grouping variables
+  (#1511).
+
+* The `select()` helpers are now exported and have their own documentation 
+  (#1410).
+
+* `one_of()` gives a useful error message if variables names are not found 
+  in data frame (#1407).
+
+* `arrange()` once again ignores grouping (#1206)
+
+* `coalesce()` finds the first non-missing value from a set of vectors.
+  (#1666, thanks to @krlmlr for initial implementation).
+
+* `nth()` now supports negative indices to select from end, e.g. `nth(x, -2)`
+  selects the 2nd value from the end of `x` (#1584).
+
+* new `near(x, y)` is a helper for `abs(x, y) < tol` (#1607).
+
 * new `as_data_frame.tbl_cube()` (#1563, @krlmlr).
 
 * new parameters `indexes` and `unique_indexes` to `compute()` (#1499, @krlmlr).

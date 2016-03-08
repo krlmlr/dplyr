@@ -1,22 +1,31 @@
 context("Mutate - windowed")
 
 df <- data.frame(x = 1:10, y = seq(1,10,by=1), g = rep(c(1, 2), each = 5))
-srcs <- temp_srcs("df", "dt", "postgres")
+srcs <- temp_srcs("df", "postgres")
 tbls <- temp_load(srcs, df)
 
 test_that("mutate calls windowed versions of sql functions", {
+  skip_on_travis()
+  if (!has_postgres()) skip("Postgres not available")
+
   compare_tbls(tbls, function(x) {
     x %>% group_by(g) %>% mutate(r = as.numeric(row_number(x)))
   })
 })
 
 test_that("recycled aggregates generate window function", {
+  skip_on_travis()
+  if (!has_postgres()) skip("Postgres not available")
+
   compare_tbls(tbls, function(x) {
     x %>% group_by(g) %>% mutate(r = x > mean(x))
   })
 })
 
 test_that("cumulative aggregates generate window function", {
+  skip_on_travis()
+  if (!has_postgres()) skip("Postgres not available")
+
   compare_tbls(tbls, function(x) {
     x %>% group_by(g) %>% mutate(cx = as.integer(cumsum(x)))
   })

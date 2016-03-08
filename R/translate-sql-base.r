@@ -13,7 +13,11 @@ base_scalar <- sql_translator(
   `^`    = sql_prefix("power", 2),
   `-`    = function(x, y = NULL) {
     if (is.null(y)) {
-      build_sql(sql(" - "), x)
+      if (is.numeric(x)) {
+        -x
+      } else {
+        build_sql(sql("-"), x)
+      }
     } else {
       build_sql(x, sql(" - "), y)
     }
@@ -137,8 +141,9 @@ base_win <- sql_translator(
   percent_rank = win_rank("percent_rank"),
   cume_dist    = win_rank("cume_dist"),
   ntile        = function(order_by, n) {
+    browser()
     over(
-      build_sql("NTILE", list(n)),
+      build_sql("NTILE", list(as.integer(n))),
       partition_group(),
       order_by %||% partition_order()
     )
@@ -194,4 +199,32 @@ base_win <- sql_translator(
 
     expr
   }
+)
+
+#' @export
+#' @rdname sql_variant
+#' @format NULL
+base_no_win <- sql_translator(
+  row_number   = win_absent("row_number"),
+  min_rank     = win_absent("rank"),
+  rank         = win_absent("rank"),
+  dense_rank   = win_absent("dense_rank"),
+  percent_rank = win_absent("percent_rank"),
+  cume_dist    = win_absent("cume_dist"),
+  ntile        = win_absent("ntile"),
+  mean         = win_absent("avg"),
+  sum          = win_absent("sum"),
+  min          = win_absent("min"),
+  max          = win_absent("max"),
+  n            = win_absent("n"),
+  cummean      = win_absent("mean"),
+  cumsum       = win_absent("sum"),
+  cummin       = win_absent("min"),
+  cummax       = win_absent("max"),
+  nth          = win_absent("nth_value"),
+  first        = win_absent("first_value"),
+  last         = win_absent("last_value"),
+  lead         = win_absent("lead"),
+  lag          = win_absent("lag"),
+  order_by     = win_absent("order_by")
 )

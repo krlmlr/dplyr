@@ -23,7 +23,7 @@ test_that("repeated outputs applied progressively (grouped_df)", {
 
 
 df <- data.frame(x = rep(1:4, each = 4), y = rep(1:2, each = 8), z = runif(16))
-srcs <- temp_srcs(c("df", "dt", "sqlite", "postgres"))
+srcs <- temp_srcs(c("df", "sqlite", "postgres"))
 tbls <- temp_load(srcs, df)
 
 test_that("summarise peels off a single layer of grouping", {
@@ -202,9 +202,11 @@ test_that("integer overflow (#304)",{
                 X1 = as.integer(values),
                 X2 = values)
   # now group and summarise
-  res <- group_by(dat, groups) %>%
-               summarise(sum_integer = sum(X1),
-                         sum_numeric = sum(X2))
+  expect_warning(
+    res <- group_by(dat, groups) %>%
+      summarise(sum_integer = sum(X1), sum_numeric = sum(X2)),
+    "integer overflow"
+  )
   expect_true( all(is.na(res$sum_integer)) )
   expect_equal( res$sum_numeric, rep(3e9, 2L) )
 })
@@ -326,17 +328,21 @@ test_that( "hybrid eval handles $ and @ (#645)", {
   tmp <- expand.grid(a = 1:3, b = 0:1, i = 1:10)
   g   <- tmp %>% group_by(a)
 
+  f <- function(a, b) {
+    list(x = 1:10)
+  }
+
   res <- g %>% summarise(
     r = sum(b),
     n = length(b),
-    p = prop.test(r, n, p = 0.05)$conf.int[1]
+    p = f(r, n)$x[1]
   )
   expect_equal(names(res), c("a", "r", "n", "p" ))
 
   res <- tmp %>% summarise(
     r = sum(b),
     n = length(b),
-    p = prop.test(r, n, p = 0.05)$conf.int[1]
+    p = f(r, n)$x[1]
   )
   expect_equal(names(res), c("r", "n", "p" ))
 

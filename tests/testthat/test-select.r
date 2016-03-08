@@ -1,7 +1,7 @@
 context("Select")
 
 df <- as.data.frame(as.list(setNames(1:26, letters)))
-srcs <- temp_srcs(c("df", "dt", "sqlite", "postgres"))
+srcs <- temp_srcs(c("df", "sqlite", "postgres"))
 tbls <- temp_load(srcs, df)
 
 
@@ -15,6 +15,18 @@ test_that("select does not lose grouping (#147)", {
   grouped <- df %>% group_by(a) %>% select(a, b, x)
 
   expect_equal(groups(grouped), list(quote(a)))
+})
+
+test_that("grouping variables preserved with a message (#1511)", {
+  df <- data_frame(g = 1:3, x = 3:1) %>% group_by(g)
+
+  expect_message(res <- select(df, x), "Adding missing grouping variables")
+  expect_named(res, c("g", "x"))
+})
+
+test_that("non-syntactic grouping variable is preserved (#1138)", {
+  df <- data_frame(`a b` = 1L) %>% group_by(`a b`) %>% select()
+  expect_named(df, "a b")
 })
 
 test_that("select doesn't fail if some names missing", {
@@ -41,28 +53,12 @@ test_that("select excluding all vars returns nothing", {
   expect_equal(dim(select(mtcars, -matches("."))), c(32, 0))
 })
 
+test_that("negating empty match returns everything", {
+  df <- data.frame(x = 1:3, y = 3:1)
+  expect_equal(select(df, -starts_with("xyz")), df)
+})
+
 # Select variables -----------------------------------------------
-
-test_that("select_vars prefix/suffix matching", {
-  vars <- c("abc", "acd", "bbc", "bbd", "eee")
-  expect_equal(
-    select_vars(vars, starts_with("a")),
-    c("abc" = "abc", "acd" = "acd")
-  )
-  expect_equal(
-    select_vars(vars, ends_with("d")),
-    c("acd" = "acd", "bbd" = "bbd")
-  )
-  expect_equal(select_vars(vars, contains("eee")), c("eee" = "eee"))
-})
-
-test_that("select_vars throws an error if an empty pattern is provided", {
-  vars <- c("abc", "def", "ghi")
-  expect_error(select_vars(vars, starts_with("")))
-  expect_error(select_vars(vars, ends_with("")))
-  expect_error(select_vars(vars, contains("")))
-  expect_error(select_vars(vars, matches("")))
-})
 
 test_that("select_vars can rename variables", {
   vars <- c("a", "b")
@@ -73,7 +69,6 @@ test_that("last rename wins", {
   vars <- c("a", "b")
 
   expect_equal(select_vars(vars, b = a, c = a), c("c" = "a"))
-
 })
 
 test_that("negative index removes values", {
@@ -83,31 +78,6 @@ test_that("negative index removes values", {
   expect_equal(select_vars(vars, a:c, -c), c("a" = "a", "b" = "b"))
   expect_equal(select_vars(vars, a, b, c, -c), c("a" = "a", "b" = "b"))
   expect_equal(select_vars(vars, -c, a, b), c("a" = "a", "b" = "b"))
-})
-
-
-test_that("num_range selects numeric ranges", {
-  vars <- c("x1", "x2", "x01", "x02", "x10", "x11")
-  names(vars) <- vars
-
-  expect_equal(select_vars(vars, num_range("x", 1:2)), vars[1:2])
-  expect_equal(select_vars(vars, num_range("x", 1:2, width = 2)), vars[3:4])
-  expect_equal(select_vars(vars, num_range("x", 10:11)), vars[5:6])
-  expect_equal(select_vars(vars, num_range("x", 10:11, width = 2)), vars[5:6])
-})
-
-# Data table -------------------------------------------------------------------
-
-test_that("select changes columns in copy of data table", {
-  dt <- data.table::data.table(x = 1:4, y = letters[1:4])
-
-  expect_equal(names(select(dt, x, z = y)), c("x", "z"))
-  expect_equal(names(dt), c("x", "y"))
-
-
-  gdt <- dt %>% group_by(x)
-  expect_equal(names(select(gdt, x, z = y)), c("x", "z"))
-  expect_equal(names(gdt), c("x", "y"))
 })
 
 test_that("select can be before group_by (#309)",{
@@ -141,7 +111,7 @@ test_that("rename handles grouped data (#640)", {
 })
 
 # combine_vars ------------------------------------------------------------
-# This is the low C++ function with on sees integer indices
+# This is the low C++ function which works on integer indices
 
 test_that("empty index gives empty output", {
   vars <- combine_vars(letters, list())

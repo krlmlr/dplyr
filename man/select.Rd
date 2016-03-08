@@ -17,7 +17,7 @@ rename_(.data, ..., .dots)
 }
 \arguments{
 \item{.data}{A tbl. All main verbs are S3 generics and provide methods
-for \code{\link{tbl_df}}, \code{\link{tbl_dt}} and \code{\link{tbl_sql}}.}
+for \code{\link{tbl_df}}, \code{\link[dtplyr]{tbl_dt}} and \code{\link{tbl_sql}}.}
 
 \item{...}{Comma separated list of unquoted expressions. You can treat
 variable names like they are positions. Use positive values to select
@@ -41,22 +41,6 @@ keeps all variables.
 As well as using existing functions like \code{:} and \code{c}, there are
 a number of special functions that only work inside \code{select}
 
-\itemize{
- \item \code{starts_with(x, ignore.case = TRUE)}:
-   names starts with \code{x}
- \item \code{ends_with(x, ignore.case = TRUE)}:
-   names ends in \code{x}
- \item \code{contains(x, ignore.case = TRUE)}:
-   selects all variables whose name contains \code{x}
- \item \code{matches(x, ignore.case = TRUE)}:
-   selects all variables whose name matches the regular expression \code{x}
- \item \code{num_range("x", 1:5, width = 2)}:
-   selects all variables (numerically) from x01 to x05.
- \item \code{one_of("x", "y", "z")}:
-   selects variables provided in a character vector.
- \item \code{everything()}:
-   selects all variables.
-}
 
 To drop variables, use \code{-}. You can rename variables with
 named arguments.

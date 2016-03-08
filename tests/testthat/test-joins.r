@@ -139,10 +139,24 @@ test_that("univariate left join has all columns, all rows", {
   expect_equal(j2$z.y, c(1, 2, 3, 3, NA))
 })
 
+test_that("can control suffixes with suffix argument", {
+
+  j1 <- inner_join(e, f, "x", suffix = c("1", "2"))
+  j2 <- left_join(e, f, "x", suffix = c("1", "2"))
+  j3 <- right_join(e, f, "x", suffix = c("1", "2"))
+  j4 <- full_join(e, f, "x", suffix = c("1", "2"))
+
+  expect_named(j1, c("x", "z1", "z2"))
+  expect_named(j2, c("x", "z1", "z2"))
+  expect_named(j3, c("x", "z1", "z2"))
+  expect_named(j4, c("x", "z1", "z2"))
+})
+
+
 test_that("inner_join does not segfault on NA in factors (#306)", {
   a <- data.frame(x=c("p", "q", NA), y=c(1, 2, 3), stringsAsFactors=TRUE)
   b <- data.frame(x=c("p", "q", "r"), z=c(4,5,6), stringsAsFactors=TRUE)
-  res <- inner_join(a, b, "x")
+  expect_warning(res <- inner_join(a, b, "x"), "joining factors with different levels")
   expect_equal( nrow(res), 2L )
 })
 
@@ -172,9 +186,15 @@ test_that("join handles type promotions #123", {
 
   df1 <- data.frame( a = c("a", "b" ), b = 1:2, stringsAsFactors = TRUE )
   df2 <- data.frame( a = c("a", "b" ), c = 4:5, stringsAsFactors = FALSE )
-  res <- semi_join( df1, df2, "a" )
-  res <- semi_join( df2, df1, "a" )
 
+  expect_warning(
+    semi_join( df1, df2, "a" ),
+    "joining factor and character vector"
+  )
+  expect_warning(
+    semi_join( df2, df1, "a" ),
+    "joining character vector and factor"
+  )
 })
 
 test_that("indices don't get mixed up when nrow(x) > nrow(y). #365",{
@@ -201,56 +221,12 @@ test_that("join functions error on column not found #371", {
   )
 })
 
-test_that("joining data tables yields a data table (#470)", {
-  a <- data.table::data.table(x = c(1, 1, 2, 3), y = 1:4)
-  b <- data.table::data.table(x = c(1, 2, 2, 4), z = 1:4)
-
-  out <- left_join(a, b, "x")
-  expect_is(out, "data.table")
-  out <- semi_join(a, b, "x")
-  expect_is(out, "data.table")
-})
-
-test_that("joining data tables does not modify them (#659)", {
-  a <- data.table::data.table(x = c(1, 1, 2, 3), y = 4:1)
-  b <- data.table::data.table(x = c(1, 2, 2, 4), z = 1:4)
-
-  for (ak in names(a)) {
-    for (bk in names(b)) {
-      label <- sprintf("keys: %s, %s", ak, bk)
-      data.table::setkeyv(a, ak)
-      data.table::setkeyv(b, bk)
-      ac <- data.table::copy(a)
-      bc <- data.table::copy(b)
-
-      out <- left_join(a, b, "x")
-      expect_equal(a, ac, label = label)
-      expect_equal(b, bc, label = label)
-      out <- semi_join(a, b, "x")
-      expect_equal(a, ac, label = label)
-      expect_equal(b, bc, label = label)
-      out <- right_join(a, b, "x")
-      expect_equal(a, ac, label = label)
-      expect_equal(b, bc, label = label)
-      out <- full_join(a, b, "x")
-      expect_equal(a, ac, label = label)
-      expect_equal(b, bc, label = label)
-      out <- inner_join(a, b, "x")
-      expect_equal(a, ac, label = label)
-      expect_equal(b, bc, label = label)
-      out <- anti_join(a, b, "x")
-      expect_equal(a, ac, label = label)
-      expect_equal(b, bc, label = label)
-    }
-  }
-})
-
 test_that("inner_join is symmetric (even when joining on character & factor)", {
   foo <- data_frame(id = factor(c("a", "b")), var1 = "foo")
   bar <- data_frame(id = c("a", "b"), var2 = "bar")
 
-  tmp1 <- inner_join(foo, bar, by="id")
-  tmp2 <- inner_join(bar, foo, by="id")
+  expect_warning(tmp1 <- inner_join(foo, bar, by="id"), "joining factor and character")
+  expect_warning(tmp2 <- inner_join(bar, foo, by="id"), "joining character vector and factor")
 
   expect_is(tmp1$id, "character")
   expect_is(tmp2$id, "character")
@@ -336,12 +312,12 @@ test_that("JoinStringFactorVisitor and JoinFactorStringVisitor handle NA #688", 
   y <- data.frame(Greek = c("Alpha", "Beta", "Gamma"),
                         Letters = c("C", "B", "C"), stringsAsFactors = F)
 
-  res <- left_join(x, y, by = "Greek")
+  expect_warning(res <- left_join(x, y, by = "Greek"), "joining character vector")
   expect_true( is.na(res$Greek[3]) )
   expect_true( is.na(res$Letters[3]) )
   expect_equal( res$numbers, 1:3 )
 
-  res <- left_join(y, x, by="Greek" )
+  expect_warning(res <- left_join(y, x, by="Greek" ), "joining factor")
   expect_equal( res$Greek, y$Greek)
   expect_equal( res$Letters, y$Letters )
   expect_equal( res$numbers[1:2], 1:2 )

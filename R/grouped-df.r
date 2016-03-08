@@ -75,14 +75,35 @@ ungroup.grouped_df <- function(x, ...) {
 
 }
 
+#' @method rbind grouped_df
+#' @export
+rbind.grouped_df <- function(...) {
+  bind_rows(...)
+}
+
+#' @method cbind grouped_df
+#' @export
+cbind.grouped_df <- function(...) {
+  bind_cols(...)
+}
+
 # One-table verbs --------------------------------------------------------------
 
 #' @export
 select_.grouped_df <- function(.data, ..., .dots) {
   dots <- lazyeval::all_dots(.dots, ...)
+  vars <- select_vars_(names(.data), dots)
 
-  vars <- select_vars_(names(.data), dots,
-    include = as.character(groups(.data)))
+  # Ensure all grouping variables are present, notifying user with a message
+  group_names <- vapply(groups(.data), as.character, character(1))
+  missing <- setdiff(group_names, vars)
+
+  if (length(missing) > 0) {
+    message("Adding missing grouping variables: ",
+      paste0("`", missing, "`", collapse = ", "))
+
+    vars <- c(stats::setNames(missing, missing), vars)
+  }
 
   select_impl(.data, vars)
 }

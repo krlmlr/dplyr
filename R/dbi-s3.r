@@ -221,8 +221,9 @@ sql_select.DBIConnection <- function(con, select, from, where = NULL,
 
   if (length(where) > 0L) {
     assert_that(is.character(where))
-    out$where <- build_sql("WHERE ",
-      escape(where, collapse = " AND ", con = con))
+
+    where_paren <- escape(where, parens = TRUE, con = con)
+    out$where <- build_sql("WHERE ", sql_vector(where_paren, collapse = " AND "))
   }
 
   if (!is.null(group_by)) {
@@ -274,7 +275,8 @@ sql_join <- function(con, x, y, type = "inner", by = NULL, ...) {
   UseMethod("sql_join")
 }
 #' @export
-sql_join.DBIConnection <- function(con, x, y, type = "inner", by = NULL, ...) {
+sql_join.DBIConnection <- function(con, x, y, type = "inner", by = NULL,
+                                   suffix = c(".x", ".y"), ...) {
   join <- switch(type,
     left = sql("LEFT"),
     inner = sql("INNER"),
@@ -289,7 +291,9 @@ sql_join.DBIConnection <- function(con, x, y, type = "inner", by = NULL, ...) {
   # Ensure tables have unique names
   x_names <- auto_names(x$select)
   y_names <- auto_names(y$select)
-  uniques <- unique_names(x_names, y_names, by$x[by$x == by$y])
+  uniques <- unique_names(
+    x_names, y_names, by = by$x[by$x == by$y], suffix = suffix
+  )
 
   if (is.null(uniques)) {
     sel_vars <- c(x_names, y_names)
@@ -399,7 +403,7 @@ db_query_fields.DBIConnection <- function(con, sql, ...) {
   qry <- dbSendQuery(con, fields)
   on.exit(dbClearResult(qry))
 
-  dbListFields(qry)
+  dbColumnInfo(qry)$name
 }
 #' @export
 db_query_fields.PostgreSQLConnection <- function(con, sql, ...) {

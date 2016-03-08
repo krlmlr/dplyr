@@ -4,7 +4,7 @@ df <- expand.grid(a = 1:10, b = letters[1:10],
   KEEP.OUT.ATTRS = FALSE,
   stringsAsFactors = FALSE)
 
-srcs <- temp_srcs(c("df", "dt", "sqlite", "postgres"))
+srcs <- temp_srcs(c("df", "sqlite", "postgres"))
 tbls <- temp_load(srcs, df)
 
 test_that("filter results independent of data tbl (simple)", {
@@ -165,17 +165,13 @@ test_that( "$ does not end call traversing. #502", {
 })
 
 test_that( "GroupedDataFrame checks consistency of data (#606)", {
-  df1 <- data.frame(
-   group = factor(rep(c("C", "G"), 5)),
-   value = 1:10)
-  df1 <- df1 %>% group_by(group) #df1 is now tbl
-  df2 <- data.frame(
-     group = factor(rep("G", 10)),
-     value = 11:20)
-  df3 <- rbind(df1, df2) #df2 is data.frame
+  df1 <- data_frame(
+   g = rep(1:2, each = 5),
+   x = 1:10
+  ) %>% group_by(g)
+  attr(df1, "group_sizes") <- c(2, 2)
 
-  expect_error( df3 %>% filter(group == "C"), "corrupt 'grouped_df', contains" )
-
+  expect_error(df1 %>% filter(x == 1), "corrupt 'grouped_df'" )
 })
 
 test_that( "filter uses the white list (#566)", {
@@ -230,15 +226,6 @@ test_that("hybrid evaluation handles $ correctly (#1134)", {
   expect_equal( nrow(res), 9L )
 })
 
-# data.table --------------------------------------------------------------
-
-test_that("filter succeeds even if column called V1 (#615)", {
-  dt <- data.table::data.table(x = 1:10 ,V1 = 0)
-  out <- dt %>% group_by(V1) %>% filter(x > 5)
-
-  expect_equal(nrow(out), 5)
-})
-
 test_that("filter correctly handles empty data frames (#782)", {
   res <- data_frame() %>% filter(F)
   expect_equal( nrow(res), 0L )
@@ -291,12 +278,6 @@ test_that("grouped filter handles indices (#880)", {
   res2 <- mutate( res, Petal = Petal.Width * Petal.Length)
   expect_equal( nrow(res), nrow(res2) )
   expect_equal( attr(res, "indices"), attr(res2, "indices") )
-})
-
-test_that("filter_ works (#906)", {
-  dt <- data.table::data.table(x = 1:10 ,V1 = 0)
-  out <- dt %>% filter_(~x > 5)
-  expect_equal(nrow(out), 5)
 })
 
 test_that("filter(FALSE) drops indices", {
@@ -377,4 +358,26 @@ test_that("filter understands column. #1012", {
     expect_error( iris %>% group_by(Species) %>% filter(column(~foo) < 5), "expands to a symbol that is not a variable from the data")
     expect_error( iris %>% group_by(Species) %>% filter(column(letters) < 5), "column must return a single string" )
 
+})
+
+
+test_that("each argument gets implicit parens", {
+  df <- data_frame(
+    v1 = c("a", "b", "a", "b"),
+    v2 = c("b", "a", "a", "b"),
+    v3 = c("a", "b", "c", "d")
+  )
+
+  tbls <- temp_load(srcs, df)
+
+  one <- tbls %>% lapply(. %>% filter((v1 == "a" | v2 == "a") & v3 == "a"))
+  two <- tbls %>% lapply(. %>% filter(v1 == "a" | v2 == "a", v3 == "a"))
+
+  expect_equal(one$df, two$df)
+  expect_equal(collect(one$sqlite), collect(two$sqlite))
+
+  skip_on_travis()
+  if (!has_postgres())
+    skip("Postgres not available")
+  expect_equal(collect(one$postgres), collect(two$postgres))
 })
