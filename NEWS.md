@@ -1,5 +1,17 @@
 # dplyr 0.4.3.9000
 
+* `db_explain()` gains a default method for DBIConnections (#1177).
+
+* Database window functions:
+
+    * Work on ungrouped data (#1061).
+
+    * Warning if order is not set on cumulative window functions.
+    
+    * Multiple partitions or ordering variables in windowed functions no
+      longer generate extra parentheses, so should work for more databases 
+      (#1060)
+
 * The were some minor improvements to SQL translation. `is.na()` gets a missing
   space. `if`, `is.na()`, and `is.null()` get extra parens to make precendence
   more clear (#1695).

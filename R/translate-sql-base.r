@@ -143,7 +143,6 @@ base_win <- sql_translator(
   percent_rank = win_rank("percent_rank"),
   cume_dist    = win_rank("cume_dist"),
   ntile        = function(order_by, n) {
-    browser()
     over(
       build_sql("NTILE", list(as.integer(n))),
       partition_group(),
@@ -158,7 +157,7 @@ base_win <- sql_translator(
   min   = win_recycled("min"),
   max   = win_recycled("max"),
   n     = function() {
-    over(sql("COUNT(*)"), partition_group(), frame = c(-Inf, Inf))
+    over(sql("COUNT(*)"), partition_group())
   },
 
   # Cumulative function are like recycled aggregates except that R names

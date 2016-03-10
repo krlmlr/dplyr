@@ -90,3 +90,35 @@ test_that("binary minus subtracts", {
   expect_equal(translate_sql(1L - 10L), sql("1 - 10"))
 })
 
+# Window functions --------------------------------------------------------
+
+test_that("window functions without group have empty over", {
+  expect_equal(translate_window_sql(n()), sql("COUNT(*) OVER ()"))
+  expect_equal(translate_window_sql(sum(x)), sql('sum("x") OVER ()'))
+})
+
+test_that("aggregating window functions ignore order_by", {
+  expect_equal(
+    translate_window_sql(n(), order_by = "x"),
+    sql("COUNT(*) OVER ()")
+  )
+  expect_equal(
+    translate_window_sql(sum(x), order_by = "x"),
+    sql('sum("x") OVER ()')
+  )
+
+})
+
+test_that("cumulative windows warn if no order", {
+  expect_warning(translate_window_sql(cumsum(x)), "does not have explicit order")
+  expect_warning(translate_window_sql(cumsum(x), order_by = "x"), NA)
+})
+
+test_that("ntile always casts to integer", {
+  expect_equal(
+    translate_window_sql(ntile(x, 10.5)),
+    sql('NTILE(10) OVER (ORDER BY "x")')
+  )
+})
+
+
