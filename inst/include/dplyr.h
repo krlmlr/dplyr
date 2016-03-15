@@ -149,11 +149,6 @@ typedef dplyr::Result* (*HybridHandler)(SEXP, const dplyr::LazySubsets&, int) ;
 #include <dplyr/SummarisedVariable.h>
 #include <dplyr/Result/all.h>
 #include <dplyr/vector_class.h>
-#include <dplyr/Gatherer.h>
-#include <dplyr/Replicator.h>
-#include <dplyr/Collecter.h>
-#include <dplyr/NamedListAccumulator.h>
-#include <dplyr/train.h>
 
 void check_not_groups(const CharacterVector& result_names, const GroupedDataFrame& gdf) ;
 void check_not_groups(const CharacterVector& result_names, const RowwiseDataFrame& gdf) ;
