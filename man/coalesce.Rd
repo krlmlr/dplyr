@@ -22,11 +22,14 @@ which does the same thing for \code{NULL}s.
 \examples{
 # Use a single value to replace all missing values
 x <- sample(c(1:5, NA, NA, NA))
-coalesce(x, 0)
+coalesce(x, 0L)
 
 # Or match together a complete vector from missing pieces
 y <- c(1, 2, NA, NA, 5)
 z <- c(NA, NA, 3, 4, 5)
 coalesce(y, z)
+}
+\seealso{
+\code{\link{na_if}()} to replace specified values with a \code{NA}.
 }
 

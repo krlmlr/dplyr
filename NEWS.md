@@ -1,5 +1,30 @@
 # dplyr 0.4.3.9000
 
+* `distinct()` now only keeps the distinct variables. If you want to return
+  all variables (using the first row for non-distinct values) use
+  `.keep_all = TRUE` (#1110).
+
+* `count()` now adds additional grouping variables, rather than overriding
+  existing (#1703).
+
+* `pmin()` and `pmax()` are translated to SQL `MIN()` and `MAX()` (#1711).
+
+* `case_when()` is a general vectorised if + else if (#631).
+
+* `recode()` provides a vectorised equivalent to `switch()` (#1710).
+
+* `if_else()` is a vectorisd if statement: it's a stricter (type-safe), faster, 
+  and more predictable version of `ifelse()`. In SQL it is translated to a 
+  `CASE` statement.
+
+* `na_if()` makes it easy to replace a certain value with an `NA` (#1707).
+  In SQL it is translated to `NULL_IF`.
+
+* `tally()` and `count()` can now count a variable called `n` (#1633).
+
+* `bind_rows` and `bind_cols` infer classes and extra information (e.g. about
+   the groupings) from the first data frame (#1692). 
+
 * `db_explain()` gains a default method for DBIConnections (#1177).
 
 * Database window functions:
@@ -7,16 +32,16 @@
     * Work on ungrouped data (#1061).
 
     * Warning if order is not set on cumulative window functions.
-    
+
     * Multiple partitions or ordering variables in windowed functions no
-      longer generate extra parentheses, so should work for more databases 
+      longer generate extra parentheses, so should work for more databases
       (#1060)
 
 * The were some minor improvements to SQL translation. `is.na()` gets a missing
   space. `if`, `is.na()`, and `is.null()` get extra parens to make precendence
   more clear (#1695).
 
-* The backend testing system has been improved. This lead to the removal of 
+* The backend testing system has been improved. This lead to the removal of
   `temp_srcs()`. In the unlikely event that you were using this function,
   you can instead use `test_register_src()` and `test_load()`.
 
@@ -25,15 +50,15 @@
 
 * Joins now use correct class when joining on POSIXct colums (#1582, @joel23888).
 
-* `select()` works even if the grouping variable has a non-syntactic name 
+* `select()` works even if the grouping variable has a non-syntactic name
   (#1138).
 
 * In `select()`, negating a failed match (e.g. `select(mtcars, -contains("x"))`)
   returns all columns, instead of no columns (#1176)
-  
+
 * The naming behaviour of `summarise_each()` and `mutate_each()` has been
-  tweaked so that you can force inclusion of both the function and the 
-  variable name: `summarise_each(mtcars, funs(mean = mean), everything())` 
+  tweaked so that you can force inclusion of both the function and the
+  variable name: `summarise_each(mtcars, funs(mean = mean), everything())`
   (#442).
 
 * All data table related code has been separated out in to a new dtplyr package.
@@ -45,7 +70,7 @@
 * New `union_all()` method. Maps to `UNION ALL` for SQL sources, `bind_rows()`
   for data frames/tbl\_dfs, and `combine()` for vectors (#1045).
 
-* `src_sqlite()` throws errors if you try and use it with window functions 
+* `src_sqlite()` throws errors if you try and use it with window functions
   (#907).
 
 * Add tbl\_sql methods for `right_join()` and `full_join()` (#1172).
@@ -65,10 +90,10 @@
 * `select()` now informs you that it's adding missing the grouping variables
   (#1511).
 
-* The `select()` helpers are now exported and have their own documentation 
+* The `select()` helpers are now exported and have their own documentation
   (#1410).
 
-* `one_of()` gives a useful error message if variables names are not found 
+* `one_of()` gives a useful error message if variables names are not found
   in data frame (#1407).
 
 * `arrange()` once again ignores grouping (#1206)
@@ -91,7 +116,7 @@
 
 * Cluster code moved out to [multidplyr](http://github.com/hadley/multidplyr).
 
-* Dplyr uses `setOldClass(c("tbl_df", "tbl", "data.frame"))` to help with S4 
+* Dplyr uses `setOldClass(c("tbl_df", "tbl", "data.frame"))` to help with S4
   (#969).
 
 *  `glimpse` now (invisibly) returns its argument (#1570).
@@ -104,7 +129,7 @@
 
 * Avoid unnecessary execution of SQL query for determining column names (#1548, @krlmlr).
 
-* `bind_rows` handles 0 length named list (#1515). 
+* `bind_rows` handles 0 length named list (#1515).
 
 * hybrid `n_distinct` falls back to R evaluation when needed (#1657), this
   revert the decision made in (#567)
