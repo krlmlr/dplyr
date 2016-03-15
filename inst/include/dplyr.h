@@ -194,11 +194,4 @@ SEXP strip_group_attributes(Data df){
   return attribs ;
 }
 
-template <typename T>
-CharacterVector names( const T& obj ){
-    SEXP x = obj ;
-    return Rf_getAttrib(x, Rf_install("names" ) ) ;
-}
-
-
 #endif
