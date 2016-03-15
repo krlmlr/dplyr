@@ -301,3 +301,108 @@ namespace dplyr{
 IntegerVector rank_strings( CharacterVector s ){
   return dplyr::CharacterVectorOrderer(s).get() ;
 }
+const char* address(SEXP x){
+  static char buffer[20] ;
+  snprintf( buffer, 20, "%p", reinterpret_cast<void*>(x) ) ;
+  return (const char*)buffer ;  
+}
+
+// [[Rcpp::export]]
+CharacterVector loc(RObject data) {
+  CharacterVector out(1);
+  out[0] = address(data);
+  return out;
+}
+
+// [[Rcpp::export]]
+CharacterVector dfloc(List df){ 
+  int n = df.size() ;
+  CharacterVector pointers(n); 
+  for( int i=0; i<n; i++) {
+    pointers[i] = address(df[i]) ;
+  }
+  pointers.names() = df.names() ;
+  return pointers ;
+}
+
+// [[Rcpp::export]]
+CharacterVector plfloc(Pairlist data){
+  int n = data.size() ;
+  CharacterVector pointers(n), names(n) ;
+  SEXP p = data ;
+  int i=0 ;
+  while( ! Rf_isNull(p) ){
+    pointers[i] = address(CAR(p)) ; 
+    names[i] = PRINTNAME(TAG(p)) ;
+    p = CDR(p) ;
+    i++ ;
+  }
+  pointers.names() = names ;
+  return pointers;
+}
+
+// [[Rcpp::export]]
+CharacterVector strings_addresses(CharacterVector s){
+    static char buffer[20] ;
+    int n = s.size() ;
+    
+    CharacterVector res(n) ;
+    for( int i=0; i<n; i++){
+        SEXP x = s[i] ;
+        snprintf( buffer, 20, "%p", reinterpret_cast<void*>(x) ) ;
+        res[i] = buffer ;
+    }
+    res.names() = s ;
+    
+    return res ;
+}
+
+
+//' Do values in a numeric vector fall in specified range?
+//'
+//' This is a shortcut for \code{x >= left & x <= right}, implemented
+//' efficiently in C++ for local values, and translated to the
+//' appropriate SQL for remote tables.
+//'
+//' @param x A numeric vector of values
+//' @param left,right Boundary values
+//' @export
+//' @examples
+//' x <- rnorm(1e2)
+//' x[between(x, -1, 1)]
+// [[Rcpp::export]]
+LogicalVector between(NumericVector x, double left, double right) {
+  int n = x.size();
+  LogicalVector out = no_init(n);
+
+  for (int i = 0; i < n; ++i) {
+    if (NumericVector::is_na(x[i])) {
+      out[i] = NA_REAL;
+    } else if ( (x[i] >= left) && (x[i] <= right) ) {
+      out[i] = true;
+    } else {
+      out[i] = false;
+    }
+  }
+
+  return out;
+}
+
+/*** R
+
+library(microbenchmark)
+
+betweenr <- function(x, left, right) {
+ x >= left & x <= right
+}
+
+x <- c(NA, runif(1e4), NA)
+stopifnot(all.equal(between(x, 0.1, 0.9), betweenr(x, 0.1, 0.9)))
+
+microbenchmark(
+  between(x, 0.1, 0.9),
+  betweenr(x, 0.1, 0.9)
+)
+
+*/
+
