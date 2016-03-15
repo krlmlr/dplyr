@@ -155,8 +155,6 @@ typedef dplyr::Result* (*HybridHandler)(SEXP, const dplyr::LazySubsets&, int) ;
 #include <dplyr/NamedListAccumulator.h>
 #include <dplyr/train.h>
 
-#include <dplyr/registration.h>
-
 void check_not_groups(const CharacterVector& result_names, const GroupedDataFrame& gdf) ;
 void check_not_groups(const CharacterVector& result_names, const RowwiseDataFrame& gdf) ;
 
