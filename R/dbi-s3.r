@@ -16,8 +16,17 @@ src_desc <- function(x) UseMethod("src_desc")
 
 #' @name backend_src
 #' @export
-src_translate_env <- function(x) UseMethod("src_translate_env")
+sql_translate_env <- function(con) UseMethod("sql_translate_env")
 
+#' @name backend_src
+#' @export
+sql_translate_env.NULL <- function(con) {
+  sql_variant(
+    base_scalar,
+    base_agg,
+    base_win
+  )
+}
 
 #' Database generics.
 #'
@@ -209,21 +218,23 @@ NULL
 #' @rdname backend_sql
 #' @export
 sql_select <- function(con, select, from, where = NULL, group_by = NULL,
-  having = NULL, order_by = NULL, limit = NULL, offset = NULL, ...) {
+                       having = NULL, order_by = NULL, distinct = FALSE, ...) {
   UseMethod("sql_select")
 }
 #' @export
 sql_select.DBIConnection <- function(con, select, from, where = NULL,
                                      group_by = NULL, having = NULL,
-                                     order_by = NULL, limit = NULL,
-                                     offset = NULL, ...) {
+                                     order_by = NULL, distinct = FALSE, ...) {
 
-  out <- vector("list", 8)
-  names(out) <- c("select", "from", "where", "group_by", "having", "order_by",
-    "limit", "offset")
+  out <- vector("list", 6)
+  names(out) <- c("select", "from", "where", "group_by", "having", "order_by")
 
   assert_that(is.character(select), length(select) > 0L)
-  out$select <- build_sql("SELECT ", escape(select, collapse = ", ", con = con))
+  out$select <- build_sql(
+    "SELECT ",
+    if (distinct) sql("DISTINCT "),
+    escape(select, collapse = ", ", con = con)
+  )
 
   assert_that(is.character(from), length(from) == 1L)
   out$from <- build_sql("FROM ", from, con = con)
@@ -235,36 +246,28 @@ sql_select.DBIConnection <- function(con, select, from, where = NULL,
     out$where <- build_sql("WHERE ", sql_vector(where_paren, collapse = " AND "))
   }
 
-  if (!is.null(group_by)) {
-    assert_that(is.character(group_by), length(group_by) > 0L)
+  if (length(group_by) > 0L) {
+    assert_that(is.character(group_by))
     out$group_by <- build_sql("GROUP BY ",
       escape(group_by, collapse = ", ", con = con))
   }
 
-  if (!is.null(having)) {
-    assert_that(is.character(having), length(having) == 1L)
+  if (length(having) > 0L) {
+    assert_that(is.character(having))
     out$having <- build_sql("HAVING ",
       escape(having, collapse = ", ", con = con))
   }
 
-  if (!is.null(order_by)) {
-    assert_that(is.character(order_by), length(order_by) > 0L)
+  if (length(order_by) > 0L) {
+    assert_that(is.character(order_by))
     out$order_by <- build_sql("ORDER BY ",
       escape(order_by, collapse = ", ", con = con))
   }
 
-  if (!is.null(limit)) {
-    assert_that(is.integer(limit), length(limit) == 1L)
-    out$limit <- build_sql("LIMIT ", limit, con = con)
-  }
-
-  if (!is.null(offset)) {
-    assert_that(is.integer(offset), length(offset) == 1L)
-    out$offset <- build_sql("OFFSET ", offset, con = con)
-  }
-
   escape(unname(compact(out)), collapse = "\n", parens = FALSE, con = con)
 }
+#' @export
+sql_select.NULL <- sql_select.DBIConnection
 
 #' @export
 #' @rdname backend_sql
@@ -273,10 +276,18 @@ sql_subquery <- function(con, sql, name = random_table_name(), ...) {
 }
 #' @export
 sql_subquery.DBIConnection <- function(con, sql, name = unique_name(), ...) {
-  if (is.ident(sql)) return(sql)
-
-  build_sql("(", sql, ") AS ", ident(name), con = con)
+  if (is.ident(sql)) {
+    setNames(sql, name)
+  } else {
+    if (is.null(name)) {
+      build_sql("(", sql, ")", con = con)
+    } else {
+      build_sql("(", sql, ") AS ", ident(name), con = con)
+    }
+  }
 }
+#' @export
+sql_subquery.NULL <- sql_subquery.DBIConnection
 
 #' @rdname backend_sql
 #' @export
@@ -284,8 +295,7 @@ sql_join <- function(con, x, y, type = "inner", by = NULL, ...) {
   UseMethod("sql_join")
 }
 #' @export
-sql_join.DBIConnection <- function(con, x, y, type = "inner", by = NULL,
-                                   suffix = c(".x", ".y"), ...) {
+sql_join.DBIConnection <- function(con, x, y, type = "inner", by = NULL, ...) {
   join <- switch(type,
     left = sql("LEFT"),
     inner = sql("INNER"),
@@ -294,27 +304,7 @@ sql_join.DBIConnection <- function(con, x, y, type = "inner", by = NULL,
     stop("Unknown join type:", type, call. = FALSE)
   )
 
-  by <- common_by(by, x, y)
   using <- all(by$x == by$y)
-
-  # Ensure tables have unique names
-  x_names <- auto_names(x$select)
-  y_names <- auto_names(y$select)
-  uniques <- unique_names(
-    x_names, y_names, by = by$x[by$x == by$y], suffix = suffix
-  )
-
-  if (is.null(uniques)) {
-    sel_vars <- c(x_names, y_names)
-  } else {
-    x <- update(x, select = setNames(x$select, uniques$x))
-    y <- update(y, select = setNames(y$select, uniques$y))
-
-    by$x <- unname(uniques$x[by$x])
-    by$y <- unname(uniques$y[by$y])
-
-    sel_vars <- unique(c(uniques$x, uniques$y))
-  }
 
   if (using) {
     cond <- build_sql("USING ", lapply(by$x, ident), con = con)
@@ -324,17 +314,17 @@ sql_join.DBIConnection <- function(con, x, y, type = "inner", by = NULL,
     cond <- build_sql("ON ", on, con = con)
   }
 
-  from <- build_sql(
-    'SELECT * FROM ',
-    sql_subquery(con, x$query$sql), "\n\n",
-    join, " JOIN \n\n" ,
-    sql_subquery(con, y$query$sql), "\n\n",
-    cond, con = con
+  build_sql(
+    'SELECT * FROM ',x, "\n\n",
+    join, " JOIN\n\n" ,
+    y, "\n\n",
+    cond,
+    con = con
   )
-  attr(from, "vars") <- lapply(sel_vars, as.name)
-
-  from
 }
+
+#' @export
+sql_join.NULL <- sql_join.DBIConnection
 
 #' @rdname backend_sql
 #' @export
@@ -343,23 +333,30 @@ sql_semi_join <- function(con, x, y, anti = FALSE, by = NULL, ...) {
 }
 #' @export
 sql_semi_join.DBIConnection <- function(con, x, y, anti = FALSE, by = NULL, ...) {
-  by <- common_by(by, x, y)
-
+  # X and Y are subqueries named _LEFT and _RIGHT
   left <- escape(ident("_LEFT"), con = con)
   right <- escape(ident("_RIGHT"), con = con)
-  on <- sql_vector(paste0(
-    left, ".", sql_escape_ident(con, by$x), " = ", right, ".", sql_escape_ident(con, by$y)),
-    collapse = " AND ", parens = TRUE)
-
-  from <- build_sql(
-    'SELECT * FROM ', sql_subquery(con, x$query$sql, "_LEFT"), '\n\n',
-    'WHERE ', if (anti) sql('NOT '), 'EXISTS (\n',
-    '  SELECT 1 FROM ', sql_subquery(con, y$query$sql, "_RIGHT"), '\n',
-    '  WHERE ', on, ')'
+  on <- sql_vector(
+    paste0(
+      left,  ".", sql_escape_ident(con, by$x), " = ",
+      right, ".", sql_escape_ident(con, by$y)
+    ),
+    collapse = " AND ",
+    parens = TRUE,
+    con = con
   )
-  attr(from, "vars") <- x$select
-  from
+
+  build_sql(
+    'SELECT * FROM ', x, '\n\n',
+    'WHERE ', if (anti) sql('NOT '), 'EXISTS (\n',
+    '  SELECT 1 FROM ', y, '\n',
+    '  WHERE ', on, '\n',
+    ')',
+    con = con
+  )
 }
+#' @export
+sql_semi_join.NULL <- sql_semi_join.DBIConnection
 
 #' @rdname backend_sql
 #' @export
@@ -368,14 +365,14 @@ sql_set_op <- function(con, x, y, method) {
 }
 #' @export
 sql_set_op.DBIConnection <- function(con, x, y, method) {
-  sql <- build_sql(
-    x$query$sql,
+  build_sql(
+    x,
     "\n", sql(method), "\n",
-    y$query$sql
+    y
   )
-  attr(sql, "vars") <- x$select
-  sql
 }
+#' @export
+sql_set_op.NULL <- sql_set_op.DBIConnection
 
 #' @rdname backend_sql
 #' @export
@@ -407,21 +404,12 @@ db_query_fields <- function(con, sql, ...) {
 }
 #' @export
 db_query_fields.DBIConnection <- function(con, sql, ...) {
-  fields <- build_sql("SELECT * FROM ", sql, " WHERE 0=1", con = con)
-
-  qry <- dbSendQuery(con, fields)
+  sql <- sql_select(con, sql("*"), sql_subquery(con, sql), where = sql("0 = 1"))
+  qry <- dbSendQuery(con, sql)
   on.exit(dbClearResult(qry))
 
-  dbColumnInfo(qry)$name
-}
-#' @export
-db_query_fields.PostgreSQLConnection <- function(con, sql, ...) {
-  fields <- build_sql("SELECT * FROM ", sql, " WHERE 0=1", con = con)
-
-  qry <- dbSendQuery(con, fields)
-  on.exit(dbClearResult(qry))
-
-  dbGetInfo(qry)$fieldDescription[[1]]$name
+  res <- dbFetch(qry, 0)
+  names(res)
 }
 
 #' @rdname backend_db

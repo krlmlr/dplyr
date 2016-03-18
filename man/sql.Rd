@@ -8,9 +8,9 @@
 \alias{sql}
 \title{SQL escaping.}
 \usage{
-sql(x)
+sql(...)
 
-ident(x)
+ident(...)
 
 is.sql(x)
 
@@ -19,6 +19,10 @@ is.ident(x)
 escape(x, parens = NA, collapse = " ", con = NULL)
 }
 \arguments{
+\item{...}{Character vectors that will be combined into a single SQL
+expression. \code{ident} flags its input as a identifier, to ensure that
+it gets the correct quoting.}
+
 \item{x}{An object to escape. Existing sql vectors will be left as is,
 character vectors are escaped with single quotes, numeric vectors have
 trailing \code{.0} added if they're whole numbers, identifiers are
@@ -31,10 +35,6 @@ escaped with double quotes.}
   Default behaviour: lists are always wrapped in parens and separated by
   commas, identifiers are separated by commas and never wrapped,
   atomic vectors are separated by spaces and wrapped in parens if needed.}
-
-\item{...}{Character vectors that will be combined into a single SQL
-expression. \code{ident} flags its input as a identifier, to ensure that
-it gets the correct quoting.}
 }
 \description{
 These functions are critical when writing functions that translate R
@@ -55,23 +55,6 @@ escape(ident("X"))
 escape("X")
 escape(escape("X"))
 escape(escape(escape("X")))
-
-# You can use these functions to make your own R wrappers for SQL functions.
-# The following is a more sophisticated version of round that have more
-# informative variable names and if present, checks that the second argument
-# is a number.
-sql_round <- function(x, dp = NULL) {
-  x <- escape(x)
-  if (is.null(dp)) return(sql(paste0("ROUND(", x, ")")))
-
-  stopifnot(is.numeric(dp), length(dp) == 1)
-  sql(paste0("ROUND(", x, ", ", dp, ")"))
-}
-sql_round(sql("X"), 5)
-
-rounder <- sql_variant(sql_translator(round = sql_round, .parent = base_agg))
-translate_sql(round(X), variant = rounder)
-translate_sql(round(X, 5), variant = rounder)
 }
 \keyword{internal}
 

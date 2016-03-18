@@ -7,3 +7,9 @@ if (identical(Sys.info()[["user"]], "hadley")) {
   test_register_src("postgres", src_postgres("test", user = "travis", password = ""))
 }
 
+
+
+skip_if_no_sqlite <- function() {
+  if (!test_srcs$has("sqlite"))
+    skip("No SQLite")
+}

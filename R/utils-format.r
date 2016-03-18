@@ -6,9 +6,30 @@ wrap <- function(..., indent = 0) {
   paste0(wrapped, collapse = "\n")
 }
 
-rule <- function(char = "-") {
-  paste0(rep(char, getOption("width") - 2), collapse = "")
+ruler <- function(width = getOption("width")) {
+  x <- seq_len(width)
+  y <- case_when(
+    x %% 10 == 0 ~ as.character((x %/% 10) %% 10),
+    x %% 5 == 0  ~ "+",
+    TRUE         ~ "-"
+  )
+  cat(y, "\n", sep = "")
+  cat(x %% 10, "\n", sep = "")
 }
+
+rule <- function(pad = "-", gap = 2L) {
+  paste0(rep(pad, getOption("width") - gap), collapse = "")
+}
+
+named_rule <- function(..., pad = "-") {
+  if (nargs() == 0) {
+    title <- ""
+  } else {
+    title <- paste0(...)
+  }
+  paste0(title, " ", rule(pad = pad, gap = nchar(title) - 1))
+}
+
 
 #' @export
 print.BoolResult <- function(x, ...) {

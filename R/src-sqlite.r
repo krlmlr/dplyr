@@ -5,6 +5,8 @@
 #' If you are running a local sqliteql database, leave all parameters set as
 #' their defaults to connect. If you're connecting to a remote database,
 #' ask your database administrator for the values of these variables.
+#' \code{\link{src_memdb}} is an easy way to use an in-memory SQLite database
+#' that is scoped to the current session.
 #'
 #' @template db-info
 #' @param path Path to SQLite database
@@ -101,7 +103,36 @@ src_sqlite <- function(path, create = FALSE) {
   con <- DBI::dbConnect(RSQLite::SQLite(), path)
   RSQLite::initExtension(con)
 
-  src_sql("sqlite", con, path = path, info = DBI::dbGetInfo(con))
+  src_sql("sqlite", con, path = path)
+}
+
+#' Per-session in-memory SQLite databases.
+#'
+#' \code{src_memdb} lets you easily access a sessio-temporary in-memory
+#' SQLite database. \code{memdb_frame()} works like \code{\link{data_frame}},
+#' but instead of creating a new data frame in R, it creates a table in
+#' \code{src_memdb}
+#'
+#' @export
+#' @examples
+#' if (require("RSQLite")) {
+#' src_memdb()
+#'
+#' df <- memdb_frame(x = runif(100), y = runif(100))
+#' df %>% arrange(x)
+#' df %>% arrange(x) %>% show_query()
+#' }
+src_memdb <- function() {
+  cache_computation("src_memdb", src_sqlite(":memory:", TRUE))
+}
+
+#' @inheritParams data_frame
+#' @param .name Name of table in database: defaults to a random name that's
+#'   unlikely to conflict with exist
+#' @export
+#' @rdname src_memdb
+memdb_frame <- function(..., .name = random_table_name()) {
+  copy_to(src_memdb(), data_frame(...), name = .name)
 }
 
 #' @export
@@ -112,11 +143,11 @@ tbl.src_sqlite <- function(src, from, ...) {
 
 #' @export
 src_desc.src_sqlite <- function(x) {
-  paste0("sqlite ", x$info$serverVersion, " [", x$path, "]")
+  paste0("sqlite ", RSQLite::rsqliteVersion()[[2]], " [", x$path, "]")
 }
 
 #' @export
-src_translate_env.src_sqlite <- function(x) {
+sql_translate_env.SQLiteConnection <- function(con) {
   sql_variant(
     sql_translator(.parent = base_scalar,
       log = sql_prefix("log")
@@ -128,17 +159,16 @@ src_translate_env.src_sqlite <- function(x) {
   )
 }
 
-# DBI methods ------------------------------------------------------------------
-
 #' @export
-db_query_fields.SQLiteConnection <- function(con, sql, ...) {
-  rs <- DBI::dbSendQuery(con, build_sql("SELECT * FROM ", sql))
-  on.exit(DBI::dbClearResult(rs))
-
-  names(fetch(rs, 0L))
+sql_escape_ident.SQLiteConnection <- function(con, x) {
+  sql_quote(x, '`')
 }
+
+
+# DBI methods ------------------------------------------------------------------
 
 #' @export
 db_insert_into.SQLiteConnection <- function(con, table, values, ...) {
   DBI::dbWriteTable(con, table, values, append = TRUE, row.names = FALSE)
 }
+

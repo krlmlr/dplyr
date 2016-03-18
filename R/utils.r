@@ -109,6 +109,15 @@ deparse_all <- function(x) {
   vapply(x, deparse2, FUN.VALUE = character(1))
 }
 
+named_commas <- function(...) {
+  x <- c(...)
+  if (is.null(names(x))) {
+    paste0(x, collapse = ", ")
+  } else {
+    paste0(names(x), " = ", x, collapse = ", ")
+  }
+}
+
 commas <- function(...) paste0(..., collapse = ", ")
 
 in_travis <- function() identical(Sys.getenv("TRAVIS"), "true")
@@ -132,6 +141,10 @@ unique_name <- local({
 })
 
 isFALSE <- function(x) identical(x, FALSE)
+
+f_lhs <- function(x) if (length(x) >= 3) x[[2]] else NULL
+f_rhs <- function(x) x[[length(x)]]
+
 
 substitute_q <- function(x, env) {
   call <- substitute(substitute(x, env), list(x = x))

@@ -6,6 +6,7 @@ df2 <- copy_to(src, data.frame(a = 5:1, b = 1:5), "df2")
 fam <- copy_to(src, data.frame(id = 1:5, parent = c(NA, 1, 2, 2, 4)), "fam")
 
 test_that("named by join by different x and y vars", {
+  skip_if_no_sqlite()
 
   j1 <- collect(inner_join(df1, df2, c("x" = "a")))
   expect_equal(names(j1), c("x", "y", "a", "b"))
@@ -17,13 +18,16 @@ test_that("named by join by different x and y vars", {
 })
 
 test_that("self-joins allowed with named by", {
-  j1 <- collect(left_join(fam, fam, by = c("parent" = "id")))
-  j2 <- collect(inner_join(fam, fam, by = c("parent" = "id")))
+  skip_if_no_sqlite()
+  fam <- memdb_frame(id = 1:5, parent = c(NA, 1, 2, 2, 4))
 
-  expect_equal(names(j1), c("id.x", "parent.x", "id.y", "parent.y"))
-  expect_equal(names(j2), c("id.x", "parent.x", "id.y", "parent.y"))
-  expect_equal(nrow(j1), 5)
-  expect_equal(nrow(j2), 4)
+  j1 <- fam %>% left_join(fam, by = c("parent" = "id"))
+  j2 <- fam %>% inner_join(fam, by = c("parent" = "id"))
+
+  expect_equal(op_vars(j1), c("id.x", "parent.x", "id.y", "parent.y"))
+  expect_equal(op_vars(j2), c("id.x", "parent.x", "id.y", "parent.y"))
+  expect_equal(nrow(collect(j1)), 5)
+  expect_equal(nrow(collect(j2)), 4)
 
   j3 <- collect(semi_join(fam, fam, by = c("parent" = "id")))
   j4 <- collect(anti_join(fam, fam, by = c("parent" = "id")))
@@ -33,6 +37,7 @@ test_that("self-joins allowed with named by", {
 })
 
 test_that("suffix modifies duplicated variable names", {
+  skip_if_no_sqlite()
   j1 <- collect(inner_join(fam, fam, by = c("parent" = "id"), suffix = c("1", "2")))
   j2 <- collect(left_join(fam, fam, by = c("parent" = "id"), suffix = c("1", "2")))
 

@@ -60,6 +60,8 @@
 #'
 #' summarise(players, mean_g = mean(G), best_ab = max(AB))
 #' best_year <- filter(players, AB == max(AB) | G == max(G))
+#' best_year
+#'
 #' progress <- mutate(players,
 #'   cyear = yearID - min(yearID) + 1,
 #'   ab_rank = rank(desc(AB)),
@@ -124,7 +126,7 @@ src_desc.src_postgres <- function(x) {
 }
 
 #' @export
-src_translate_env.src_postgres <- function(x) {
+sql_translate_env.PostgreSQLConnection <- function(con) {
   sql_variant(
     base_scalar,
     sql_translator(.parent = base_agg,
@@ -140,6 +142,17 @@ src_translate_env.src_postgres <- function(x) {
     base_win
   )
 }
+
+#' @export
+sql_subquery.PostgreSQLConnection <- function(con, sql, name = unique_name(), ...) {
+
+  if (is.ident(sql)) {
+    setNames(sql, name)
+  } else {
+    build_sql("(", sql, ") ", ident(name %||% random_table_name()), con = con)
+  }
+}
+
 
 # DBI methods ------------------------------------------------------------------
 
@@ -181,4 +194,15 @@ db_insert_into.PostgreSQLConnection <- function(con, table, values, ...) {
 
   sql <- build_sql("INSERT INTO ", ident(table), " VALUES ", sql(values))
   dbGetQuery(con, sql)
+}
+
+#' @export
+db_query_fields.PostgreSQLConnection <- function(con, sql, ...) {
+  fields <- build_sql("SELECT * FROM ", sql_subquery(con, sql), " WHERE 0=1",
+    con = con)
+
+  qry <- dbSendQuery(con, fields)
+  on.exit(dbClearResult(qry))
+
+  dbGetInfo(qry)$fieldDescription[[1]]$name
 }

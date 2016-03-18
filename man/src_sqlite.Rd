@@ -31,6 +31,8 @@ and \code{tbl} to connect to tables within that database.
 If you are running a local sqliteql database, leave all parameters set as
 their defaults to connect. If you're connecting to a remote database,
 ask your database administrator for the values of these variables.
+\code{\link{src_memdb}} is an easy way to use an in-memory SQLite database
+that is scoped to the current session.
 }
 \section{Debugging}{
 

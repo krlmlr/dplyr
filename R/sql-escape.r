@@ -34,32 +34,22 @@
 #' escape("X")
 #' escape(escape("X"))
 #' escape(escape(escape("X")))
-#'
-#' # You can use these functions to make your own R wrappers for SQL functions.
-#' # The following is a more sophisticated version of round that have more
-#' # informative variable names and if present, checks that the second argument
-#' # is a number.
-#' sql_round <- function(x, dp = NULL) {
-#'   x <- escape(x)
-#'   if (is.null(dp)) return(sql(paste0("ROUND(", x, ")")))
-#'
-#'   stopifnot(is.numeric(dp), length(dp) == 1)
-#'   sql(paste0("ROUND(", x, ", ", dp, ")"))
-#' }
-#' sql_round(sql("X"), 5)
-#'
-#' rounder <- sql_variant(sql_translator(round = sql_round, .parent = base_agg))
-#' translate_sql(round(X), variant = rounder)
-#' translate_sql(round(X, 5), variant = rounder)
-sql <- function(x) {
-  structure(x, class = c("sql", "character"))
+sql <- function(...) {
+  x <- c(...)
+  if (length(x) == 0) {
+    structure(character(), class = c("sql", "character"))
+  } else {
+    stopifnot(is.character(x))
+    structure(x, class = c("sql", "character"))
+  }
 }
 
 #' @export
 #' @rdname sql
-ident <- function(x) {
-  if (is.null(x)) return()
-  if (is.ident(x)) return(x)
+ident <- function(...) {
+  x <- c(...)
+  if (length(x) == 0) return(sql())
+  stopifnot(is.character(x))
 
   structure(x, class = c("ident", "sql", "character"))
 }
@@ -72,6 +62,7 @@ c.sql <- function(..., drop_null = FALSE) {
   out <- unlist(lapply(input, escape, collapse = NULL))
   sql(out)
 }
+
 
 #' @export
 unique.sql <- function(x, ...) {
@@ -95,6 +86,8 @@ is.ident <- function(x) inherits(x, "ident")
 print.sql <- function(x, ...) cat(format(x, ...), sep = "\n")
 #' @export
 format.sql <- function(x, ...) paste0("<SQL> ", x)
+#' @export
+format.ident <- function(x, ...) paste0("<VAR> ", escape(x))
 
 #' @rdname sql
 #' @export
