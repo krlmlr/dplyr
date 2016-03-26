@@ -1,7 +1,6 @@
 language: R
 sudo: false
 cache:
-- packages
 - directories:
   - $HOME/.ccache
 
