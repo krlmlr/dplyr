@@ -1,6 +1,6 @@
 language: R
 sudo: false
-cache: packages
+cache: packages ccache
 
 warnings_are_errors: false
 env:
