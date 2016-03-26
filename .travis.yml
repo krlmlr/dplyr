@@ -11,7 +11,7 @@ env:
 
 before_script:
   - psql -c 'create database test;' -U postgres
-  - mkdir ~/.R; ( echo "CC := ccache $(CC)"; echo "CXX := ccache $(CXX)"; echo "MAKEFLAGS := -j 2" ) > ~/.R/Makevars
+  - mkdir ~/.R; ( echo "CC := ccache gcc $(CC)"; echo "CXX := ccache g++ $(CXX)"; echo "MAKEFLAGS := -j 2" ) > ~/.R/Makevars
 
 after_success:
 - Rscript -e 'covr::codecov()'
