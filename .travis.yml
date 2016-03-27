@@ -6,8 +6,9 @@ cache:
 
 warnings_are_errors: false
 env:
-- _R_CHECK_FORCE_SUGGESTS_=false
-- PATH=/usr/lib/ccache:$PATH
+  global:
+  - _R_CHECK_FORCE_SUGGESTS_=false
+  - PATH=/usr/lib/ccache:$PATH
 
 before_script:
   - psql -c 'create database test;' -U postgres
