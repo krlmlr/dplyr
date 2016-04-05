@@ -13,7 +13,7 @@
 #' @name lazy_ops
 NULL
 
-op_base_remote <- function(src, x, vars = NULL) {
+op_base_remote <- function(src, x, vars = NULL, rows = NULL) {
   # If not literal sql, must be a table identifier
   if (!is.sql(x)) {
     x <- ident(x)
@@ -22,7 +22,7 @@ op_base_remote <- function(src, x, vars = NULL) {
   if (is.null(vars)) {
     vars <- db_query_fields(src$con, x)
   }
-  op_base("remote", src, x, vars)
+  op_base("remote", src, x, vars, rows)
 }
 
 #' @export
@@ -49,14 +49,15 @@ print.op_base_local <- function(x, ...) {
 
 #' @export
 #' @rdname lazy_ops
-op_base <- function(name, src, x, vars) {
+op_base <- function(name, src, x, vars, rows = NULL) {
   stopifnot(is.character(vars))
 
   structure(
     list(
       src = src,
       x = x,
-      vars = vars
+      vars = vars,
+      rows = rows
     ),
     class = c(paste0("op_base_", name), "op_base", "op")
   )

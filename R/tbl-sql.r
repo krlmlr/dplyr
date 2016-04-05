@@ -13,7 +13,7 @@
 #'   dplyr. However, you should usually be able to leave this blank and it
 #'   will be determined from the context.
 tbl_sql <- function(subclass, src, from, ..., vars = attr(from, "vars")) {
-  make_tbl(c("sql", "lazy"), src = src, ops = op_base_remote(src, from))
+  make_tbl(c("sql", "lazy"), src = src, ops = op_base_remote(src, from, ...))
 }
 
 #' @export
@@ -75,7 +75,7 @@ dimnames.tbl_sql <- function(x) {
 
 #' @export
 dim.tbl_sql <- function(x) {
-  c(NA, length(op_vars(x$ops)))
+  c(x$ops$rows %||% NA, length(op_vars(x$ops)))
 }
 
 #' @export
@@ -375,11 +375,14 @@ compute.tbl_sql <- function(x, name = random_table_name(), temporary = TRUE,
   vars <- op_vars(x)
   assert_that(all(unlist(indexes) %in% vars))
   assert_that(all(unlist(unique_indexes) %in% vars))
-  db_save_query(x$src$con, sql_render(select_(x, .dots = vars)), name = name, temporary = temporary)
+  saved <- db_save_query(x$src$con, sql_render(select_(x, .dots = vars)),
+                         name = name, temporary = temporary)
   db_create_indexes(x$src$con, name, unique_indexes, unique = TRUE)
   db_create_indexes(x$src$con, name, indexes, unique = FALSE)
 
-  tbl(x$src, name) %>% group_by_(.dots = groups(x))
+  res <- tbl(x$src, name) %>% group_by_(.dots = groups(x))
+  res$ops$rows <- saved$rows
+  res
 }
 
 #' @export

@@ -82,8 +82,12 @@ db_save_query.DBIConnection <- function(con, sql, name, temporary = TRUE,
                                         ...) {
   tt_sql <- build_sql("CREATE ", if (temporary) sql("TEMPORARY "),
     "TABLE ", ident(name), " AS ", sql, con = con)
-  dbGetQuery(con, tt_sql)
-  name
+
+  res <- dbSendQuery(con, tt_sql)
+  on.exit(dbClearResult(res), add = TRUE)
+  dbFetch(res)
+
+  list(name = name, rows = dbGetRowsAffected(res))
 }
 
 #' @name backend_db
