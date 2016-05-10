@@ -8,6 +8,8 @@ env:
     - _R_CHECK_FORCE_SUGGESTS_=false
     - MAKEFLAGS=-j 2
 
+r_github_packages: hadley/dtplyr
+
 before_script:
   - psql -c 'create database test;' -U postgres
 
