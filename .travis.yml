@@ -4,7 +4,9 @@ cache: packages
 
 warnings_are_errors: false
 env:
-- _R_CHECK_FORCE_SUGGESTS_=false
+  global:
+    - _R_CHECK_FORCE_SUGGESTS_=false
+    - MAKEFLAGS=-j 2
 
 before_script:
   - psql -c 'create database test;' -U postgres
