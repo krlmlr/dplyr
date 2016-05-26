@@ -19,6 +19,9 @@ before_install:
   - Rscript -e "devtools::install_github('hadley/devtools#1184')"
   - Rscript -e "devtools::install_deps(dependencies = TRUE)"
 
+r_github_packages:
+  - hadley/devtools
+
 before_script:
   - psql -c 'create database test;' -U postgres
 
