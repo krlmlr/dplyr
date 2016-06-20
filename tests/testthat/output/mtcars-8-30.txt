@@ -1,7 +1,6 @@
 Source:   query [?? x 11]
 Database: sqlite 3.11.1 [:memory:]
 
-# S3: tbl_sqlite
     mpg   cyl  disp    hp
   <dbl> <dbl> <dbl> <dbl>
 1  21.0     6 160.0   110
@@ -12,8 +11,9 @@ Database: sqlite 3.11.1 [:memory:]
 6  18.1     6 225.0   105
 7  14.3     8 360.0   245
 8  24.4     4 146.7    62
-... with more rows, and 7
-  more variables: drat <dbl>,
-  wt <dbl>, qsec <dbl>,
-  vs <dbl>, am <dbl>,
-  gear <dbl>, carb <dbl>
+# ... with more rows, and 7
+#   more variables:
+#   drat <dbl>, wt <dbl>,
+#   qsec <dbl>, vs <dbl>,
+#   am <dbl>, gear <dbl>,
+#   carb <dbl>

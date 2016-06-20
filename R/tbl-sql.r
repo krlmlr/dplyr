@@ -57,6 +57,11 @@ as.data.frame.tbl_sql <- function(x, row.names = NULL, optional = NULL,
 }
 
 #' @export
+tbl_sum.tbl_sql <- function(x) {
+  NULL
+}
+
+#' @export
 print.tbl_sql <- function(x, ..., n = NULL, width = NULL) {
   cat("Source:   query ", dim_desc(x), "\n", sep = "")
   cat("Database: ", src_desc(x$src), "\n", sep = "")
