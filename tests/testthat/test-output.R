@@ -8,7 +8,7 @@ test_that("ungrouped output", {
   iris_mem <- src_memdb() %>% copy_to(iris, name = random_table_name())
 
   with_mock(
-    sqlite_version = function() "x.y.z",
+    `dplyr::sqlite_version` = function() "x.y.z",
     {
       expect_output_file_rel(
         print(mtcars_mem, n = 8L, width = 30L),
