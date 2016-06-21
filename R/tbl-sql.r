@@ -56,6 +56,7 @@ as.data.frame.tbl_sql <- function(x, row.names = NULL, optional = NULL,
   as.data.frame(collect(x, n = n))
 }
 
+#' @importFrom tibble tbl_sum
 #' @export
 tbl_sum.tbl_sql <- function(x) {
   NULL
