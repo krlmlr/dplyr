@@ -7,6 +7,7 @@
 
 #include <dplyr/Result/CallElementProxy.h>
 #include <dplyr/Result/LazyGroupedSubsets.h>
+#include <dplyr/Result/LazySubsets.h>
 #include <dplyr/Result/GroupedHybridCall.h>
 
 namespace dplyr {
@@ -38,29 +39,6 @@ namespace dplyr {
 
     ~GroupedCallProxy() {}
 
-    SEXP eval() {
-      if (TYPEOF(call) == LANGSXP) {
-
-        if (can_simplify(call)) {
-          SlicingIndex indices(0,subsets.nrows());
-          while (simplified(indices))
-            ;
-          set_call(call);
-        }
-
-        int n = proxies.size();
-        for (int i=0; i<n; i++) {
-          proxies[i].set(subsets[proxies[i].symbol]);
-        }
-        return call.eval(env);
-      } else if (TYPEOF(call) == SYMSXP) {
-        // SYMSXP
-        if (subsets.count(call)) return subsets.get_variable(call);
-        return call.eval(env);
-      }
-      return call;
-    }
-
     template <typename Container>
     SEXP get(const Container& indices) {
       subsets.clear();
@@ -77,19 +55,25 @@ namespace dplyr {
         LOG_VERBOSE << "setting " << n << " proxies";
         for (int i=0; i<n; i++) {
           LOG_VERBOSE << "setting proxy " << CHAR(PRINTNAME(proxies[i].symbol));
-          proxies[i].set(subsets.get(proxies[i].symbol, indices));
+          proxies[i].set(detail::get_proxy_subset(subsets, proxies[i].symbol, indices));
         }
 
         return call.eval(env);
       } else if (TYPEOF(call) == SYMSXP) {
         if (subsets.count(call)) {
-          return subsets.get(call, indices);
+          return detail::get_proxy_subset(subsets, call, indices);
         }
         return env.find(CHAR(PRINTNAME(call)));
       } else {
         // all other types that evaluate to themselves
         return call;
       }
+    }
+
+    // Only for ungrouped CallProxy, always use full slicing index; see detail::get_proxy_subset()
+    SEXP eval() {
+      SlicingIndex indices(0, subsets.nrows());
+      return get(indices);
     }
 
     void set_call(SEXP call_) {
