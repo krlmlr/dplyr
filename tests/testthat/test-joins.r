@@ -370,6 +370,21 @@ test_that("joins between factor and character coerces to character with a warnin
 
 })
 
+test_that("group column names reflect renamed duplicate columns (#2330)", {
+  d1 <- data_frame(x = 1:5, y = 1:5) %>% group_by(x, y)
+  d2 <- data_frame(x = 1:5, y = 1:5)
+  res <- inner_join(d1, d2, by = "x")
+  expect_equal(groups(d1), list(quote(x), quote(y)))
+  expect_equal(groups(res), list(quote(x), quote(y.x)))
+})
+
+test_that("group column names are null when joined data frames are not grouped (#2330)", {
+  d1 <- data_frame(x = 1:5, y = 1:5)
+  d2 <- data_frame(x = 1:5, y = 1:5)
+  res <- inner_join(d1, d2, by = "x")
+  expect_null(groups(res))
+})
+
 # Guessing variables in x and y ------------------------------------------------
 
 test_that("unnamed vars are the same in both tables", {
@@ -611,4 +626,32 @@ test_that( "left_join handles mix of encodings in column names (#1571)", {
   expect_equal( res$baz, 1:6)
   expect_equal( res[["l\u00f8penummer"]], 1:6)
 
+})
+
+test_that("can handle empty string in suffix argument, left side (#2228, #2182, #2007)", {
+   skip( "not yet resolved, would cause stack overflow" )
+   
+   j1 <- inner_join(e, f, "x", suffix = c("", "2"))
+   j2 <- left_join(e, f, "x", suffix = c("", "2"))
+   j3 <- right_join(e, f, "x", suffix = c("", "2"))
+   j4 <- full_join(e, f, "x", suffix = c("", "2"))
+   
+   expect_named(j1, c("x", "z", "z2"))
+   expect_named(j2, c("x", "z", "z2"))
+   expect_named(j3, c("x", "z", "z2"))
+   expect_named(j4, c("x", "z", "z2"))
+})
+
+test_that("can handle empty string in suffix argument, right side (#2228, #2182, #2007)", {
+   skip( "not yet resolved, would cause stack overflow" )
+
+   j1 <- inner_join(e, f, "x", suffix = c("1", ""))
+   j2 <- left_join(e, f, "x", suffix = c("1", ""))
+   j3 <- right_join(e, f, "x", suffix = c("1", ""))
+   j4 <- full_join(e, f, "x", suffix = c("1", ""))
+   
+   expect_named(j1, c("x", "z1", "z"))
+   expect_named(j2, c("x", "z1", "z"))
+   expect_named(j3, c("x", "z1", "z"))
+   expect_named(j4, c("x", "z1", "z"))
 })

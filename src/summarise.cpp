@@ -27,12 +27,13 @@ SEXP summarise_grouped(const DataFrame& df, const LazyDots& dots) {
   int nvars = gdf.nvars();
   check_not_groups(dots, gdf);
 
-  LOG_VERBOSE << "copying data to accumulator";
+  LOG_VERBOSE << "copying " << nvars << " variables to accumulator";
 
   NamedListAccumulator<Data> accumulator;
   int i=0;
   List results(nvars + nexpr);
   for (; i<nvars; i++) {
+    LOG_VERBOSE << "copying " << CHAR(PRINTNAME(gdf.symbol(i)));
     results[i] = shared_SEXP(gdf.label(i));
     accumulator.set(PRINTNAME(gdf.symbol(i)), results[i]);
   }
@@ -41,25 +42,29 @@ SEXP summarise_grouped(const DataFrame& df, const LazyDots& dots) {
 
   Subsets subsets(gdf);
   for (int k=0; k<nexpr; k++, i++) {
+    LOG_VERBOSE << "processing variable " << k;
     Rcpp::checkUserInterrupt();
     const Lazy& lazy = dots[k];
     const Environment& env = lazy.env();
 
-    LOG_VERBOSE << "processing variable " << CHAR(lazy.name());
+    LOG_VERBOSE << "processing variable " << lazy.name().c_str();
 
     Shield<SEXP> expr_(lazy.expr());
     SEXP expr = expr_;
     boost::scoped_ptr<Result> res(get_handler(expr, subsets, env));
 
-    // if we could not find a direct Result
-    // we can use a GroupedCallReducer which will callback to R
+    // If we could not find a direct Result,
+    // we can use a GroupedCallReducer which will callback to R.
+    // Note that the GroupedCallReducer currently doesn't apply
+    // special treatment to summary variables, for which hybrid
+    // evaluation should be turned off completely (#2312)
     if (!res) {
       res.reset(new GroupedCallReducer<Data, Subsets>(lazy.expr(), subsets, env));
     }
     RObject result = res->process(gdf);
     results[i] = result;
     accumulator.set(lazy.name(), result);
-    subsets.input(lazy.name(), SummarisedVariable(result));
+    subsets.input_summarised(lazy.name(), SummarisedVariable(result));
 
   }
 

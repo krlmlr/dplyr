@@ -9,6 +9,7 @@ set(R_INCLUDE "/usr/share/R/include")
 include_directories(${R_LIBRARY}/BH/include)
 include_directories(${R_LIBRARY}/Rcpp/include)
 include_directories(${R_LIBRARY}/plogr/include)
+include_directories(${R_LIBRARY}/bindrcpp/include)
 include_directories(${R_INCLUDE})
 include_directories(inst/include)
 
@@ -18,5 +19,5 @@ add_library(dplyr ${SOURCE_FILES})
 add_custom_target(
     Rinstall
     # Using MAKEFLAGS=-j$(nproc) didn't work
-    COMMAND MAKEFLAGS=-j4 nice R CMD INSTALL --libs-only --no-test-load ${dplyr_SOURCE_DIR}
+    COMMAND MAKEFLAGS=-j8 nice R CMD INSTALL --libs-only --no-test-load ${dplyr_SOURCE_DIR}
 )

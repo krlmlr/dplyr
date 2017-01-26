@@ -36,16 +36,7 @@ SEXP structure_mutate(const NamedListAccumulator<Data>& accumulator, const DataF
   return res;
 }
 
-void check_not_groups(const CharacterVector& result_names, const RowwiseDataFrame& gdf) {}
 void check_not_groups(const LazyDots& dots, const RowwiseDataFrame& gdf) {}
-
-void check_not_groups(const CharacterVector& result_names, const GroupedDataFrame& gdf) {
-  int n = result_names.size();
-  for (int i=0; i<n; i++) {
-    if (gdf.has_group(result_names[i]))
-      stop("cannot modify grouping variable");
-  }
-}
 
 void check_not_groups(const LazyDots& dots, const GroupedDataFrame& gdf) {
   int n = dots.size();
@@ -65,7 +56,7 @@ SEXP mutate_not_grouped(DataFrame df, const LazyDots& dots) {
   if (nvars) {
     CharacterVector df_names = df.names();
     for (int i=0; i<nvars; i++) {
-      accumulator.set(df_names[i], df[i]);
+      accumulator.set(Symbol(df_names[i]), df[i]);
     }
   }
 
@@ -78,7 +69,7 @@ SEXP mutate_not_grouped(DataFrame df, const LazyDots& dots) {
 
     Shield<SEXP> call_(lazy.expr());
     SEXP call = call_;
-    SEXP name = lazy.name();
+    Symbol name = lazy.name();
     Environment env = lazy.env();
     call_proxy.set_env(env);
 
@@ -101,7 +92,7 @@ SEXP mutate_not_grouped(DataFrame df, const LazyDots& dots) {
       stop("cannot handle");
     }
 
-    check_supported_type(results[i], name);
+    check_supported_type(results[i], name.c_str());
 
     if (Rf_inherits(results[i], "POSIXlt")) {
       stop("`mutate` does not support `POSIXlt` results");
@@ -152,7 +143,7 @@ SEXP mutate_grouped(const DataFrame& df, const LazyDots& dots) {
   int ncolumns = df.size();
   CharacterVector column_names = df.names();
   for (int i=0; i<ncolumns; i++) {
-    accumulator.set(column_names[i], df[i]);
+    accumulator.set(Symbol(column_names[i]), df[i]);
   }
 
   LOG_VERBOSE << "processing " << nexpr << " variables";
@@ -165,41 +156,12 @@ SEXP mutate_grouped(const DataFrame& df, const LazyDots& dots) {
     Environment env = lazy.env();
     Shield<SEXP> call_(lazy.expr());
     SEXP call = call_;
-    SEXP name = lazy.name();
+    Symbol name = lazy.name();
     proxy.set_env(env);
 
     LOG_VERBOSE << "processing " << CharacterVector(name);
 
-    if (TYPEOF(call) == SYMSXP) {
-      if (proxy.has_variable(call)) {
-        SEXP variable = variables[i] = proxy.get_variable(PRINTNAME(call));
-        proxy.input(name, variable);
-        accumulator.set(name, variable);
-      } else {
-        SEXP v = env.find(CHAR(PRINTNAME(call)));
-        check_supported_type(v, name);
-        if (Rf_isNull(v)) {
-          stop("unknown variable: %s", CHAR(PRINTNAME(call)));
-        } else if (Rf_length(v) == 1) {
-          boost::scoped_ptr<Gatherer> rep(constant_gatherer(v, gdf.nrows()));
-          SEXP variable = variables[i] = rep->collect();
-          proxy.input(name, variable);
-          accumulator.set(name, variable);
-        } else {
-          int n = Rf_length(v);
-          bool test = all(gdf.get_group_sizes() == n).is_true();
-          if (!test) {
-            stop("impossible to replicate vector of size %d", n);
-          }
-
-          boost::scoped_ptr<Replicator> rep(replicator<Data>(v, gdf));
-          SEXP variable = variables[i] = rep->collect();
-          proxy.input(name, variable);
-          accumulator.set(name, variable);
-        }
-      }
-
-    } else if (TYPEOF(call) == LANGSXP) {
+    if (TYPEOF(call) == LANGSXP || TYPEOF(call) == SYMSXP) {
       proxy.set_call(call);
       boost::scoped_ptr<Gatherer> gather(gatherer<Data, Subsets>(proxy, gdf, name));
       SEXP variable = variables[i] = gather->collect();

@@ -4,6 +4,8 @@
 #include <dplyr/registration.h>
 #include <tools/SlicingIndex.h>
 
+#include <dplyr/Result/GroupedSubset.h>
+
 namespace dplyr {
 
   inline void check_valid_colnames(const DataFrame& df) {
@@ -37,7 +39,7 @@ namespace dplyr {
 
     GroupedDataFrameIndexIterator& operator++();
 
-    SlicingIndex operator*() const;
+    GroupedSlicingIndex operator*() const;
 
     int i;
     const GroupedDataFrame& gdf;
@@ -47,6 +49,9 @@ namespace dplyr {
   class GroupedDataFrame {
   public:
     typedef GroupedDataFrameIndexIterator group_iterator;
+    typedef GroupedSlicingIndex slicing_index;
+    typedef GroupedSubset subset;
+
     GroupedDataFrame(SEXP x):
       data_(x),
       group_sizes(),
@@ -108,17 +113,20 @@ namespace dplyr {
       return biggest_group_size;
     }
 
-    inline bool has_group(SEXP g) const {
-      SEXP symb = Rf_installChar(g);
+    inline bool has_group(Symbol g) const {
       int n = symbols.size();
       for (int i=0; i<n; i++) {
-        if (symbols[i] == symb) return true;
+        if (symbols[i] == g) return true;
       }
       return false;
     }
 
     inline const IntegerVector& get_group_sizes() const {
       return group_sizes;
+    }
+
+    inline subset* create_subset(SEXP x) const {
+      return grouped_subset(x, max_group_size());
     }
 
   private:
@@ -139,8 +147,8 @@ namespace dplyr {
     return *this;
   }
 
-  inline SlicingIndex GroupedDataFrameIndexIterator::operator*() const {
-    return SlicingIndex(IntegerVector(indices[i]), i);
+  inline GroupedSlicingIndex GroupedDataFrameIndexIterator::operator*() const {
+    return GroupedSlicingIndex(IntegerVector(indices[i]), i);
   }
 
 }

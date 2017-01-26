@@ -42,7 +42,7 @@ namespace dplyr {
       ++git;
       i++;
       for (; i<ngroups; i++, ++git) {
-        SlicingIndex indices = *git;
+        const SlicingIndex& indices = *git;
         Shield<SEXP> subset(proxy.get(indices));
         grab(subset, indices);
       }
@@ -122,7 +122,7 @@ namespace dplyr {
       ++git;
       i++;
       for (; i<ngroups; i++, ++git) {
-        SlicingIndex indices = *git;
+        const SlicingIndex& indices = *git;
         List subset(proxy.get(indices));
         perhaps_duplicate(subset);
         grab(subset, indices);
@@ -200,7 +200,7 @@ namespace dplyr {
       int i = 0;
       for (; i<first_non_na; i++) ++git;
       for (; i<ngroups; i++, ++git) {
-        SlicingIndex indices = *git;
+        const SlicingIndex& indices = *git;
         Factor subset(proxy.get(indices));
         grab(subset, indices);
       }
@@ -302,14 +302,17 @@ namespace dplyr {
   }
 
   template <typename Data, typename Subsets>
-  inline Gatherer* gatherer(GroupedCallProxy<Data,Subsets>& proxy, const Data& gdf, SEXP name) {
+  inline Gatherer* gatherer(GroupedCallProxy<Data,Subsets>& proxy, const Data& gdf, Symbol name) {
     typename Data::group_iterator git = gdf.group_begin();
-    SlicingIndex indices = *git;
+    typename Data::slicing_index indices = *git;
     RObject first(proxy.get(indices));
+
+    check_supported_type(first, name.c_str());
 
     if (Rf_inherits(first, "POSIXlt")) {
       stop("`mutate` does not support `POSIXlt` results");
     }
+
     int ng = gdf.ngroups();
     int i = 0;
     while (all_na(first)) {
@@ -341,7 +344,6 @@ namespace dplyr {
       break;
     }
 
-    check_supported_type(first, name);
     return 0;
   }
 

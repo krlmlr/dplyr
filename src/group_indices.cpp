@@ -23,7 +23,7 @@ IntegerVector grouped_indices_grouped_df_impl(GroupedDataFrame gdf) {
   int ngroups = gdf.ngroups();
   GroupedDataFrameIndexIterator it = gdf.group_begin();
   for (int i=0; i<ngroups; i++, ++it) {
-    SlicingIndex index = *it;
+    const SlicingIndex& index = *it;
     int n_index = index.size();
     for (int j=0; j<n_index; j++) {
       res[ index[j] ] = i + 1;
@@ -105,7 +105,7 @@ DataFrame build_index_cpp(DataFrame data) {
   for (int i=0; i<nsymbols; i++) {
     int pos = indx[i];
     if (pos == NA_INTEGER) {
-      stop("unknown column '%s' ", CHAR(names[i]));
+      stop("unknown column '%s' ", CHAR(vars[i]));
     }
 
     SEXP v = data[pos-1];

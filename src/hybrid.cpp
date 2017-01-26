@@ -5,7 +5,7 @@
 #include <dplyr/Hybrid.h>
 #include <dplyr/HybridHandlerMap.h>
 
-#include <dplyr/Result/LazySubsets.h>
+#include <dplyr/Result/ILazySubsets.h>
 #include <dplyr/Result/Rank.h>
 #include <dplyr/Result/ConstantResult.h>
 
@@ -43,7 +43,7 @@ bool hybridable(RObject arg) {
 }
 
 template <template <int> class Templ>
-Result* cumfun_prototype(SEXP call, const LazySubsets& subsets, int nargs) {
+Result* cumfun_prototype(SEXP call, const ILazySubsets& subsets, int nargs) {
   if (nargs != 1) return 0;
   RObject data(CADR(call));
   if (TYPEOF(data) == SYMSXP) {
@@ -76,6 +76,7 @@ HybridHandlerMap& get_handlers() {
     install_window_handlers(handlers);
     install_offset_handlers(handlers);
     install_in_handlers(handlers);
+    install_debug_handlers(handlers);
   }
   return handlers;
 }
@@ -102,27 +103,74 @@ Result* constant_handler(SEXP constant) {
   return 0;
 }
 
+class VariableResult : public Result {
+public:
+  VariableResult(const ILazySubsets& subsets_, const Symbol& name_) : subsets(subsets_), name(name_)  {}
+
+  SEXP process(const GroupedDataFrame& gdf) {
+    return subsets.get_variable(name);
+  }
+
+  SEXP process(const RowwiseDataFrame&) {
+    return subsets.get_variable(name);
+  }
+
+  virtual SEXP process(const FullDataFrame&) {
+    return subsets.get_variable(name);
+  }
+
+  virtual SEXP process(const SlicingIndex& index) {
+    return subsets.get(name, index);
+  }
+
+private:
+  const ILazySubsets& subsets;
+  Symbol name;
+};
+
+Result* variable_handler(const ILazySubsets& subsets, Symbol variable) {
+  return new VariableResult(subsets, variable);
+}
+
 namespace dplyr {
 
-  Result* get_handler(SEXP call, const LazySubsets& subsets, const Environment& env) {
-    LOG_INFO << "Looking up hybrid handler for call of type " << TYPEOF(call);
+  Result* get_handler(SEXP call, const ILazySubsets& subsets, const Environment& env) {
+    LOG_INFO << "Looking up hybrid handler for call of type " << type2name(call);
 
     if (TYPEOF(call) == LANGSXP) {
       int depth = Rf_length(call);
       HybridHandlerMap& handlers = get_handlers();
       SEXP fun_symbol = CAR(call);
-      if (TYPEOF(fun_symbol) != SYMSXP) return 0;
+      if (TYPEOF(fun_symbol) != SYMSXP) {
+        LOG_VERBOSE << "Not a function: " << type2name(fun_symbol);
+        return 0;
+      }
+
+      LOG_VERBOSE << "Searching hybrid handler for function " << CHAR(PRINTNAME(fun_symbol));
 
       HybridHandlerMap::const_iterator it = handlers.find(fun_symbol);
-      if (it == handlers.end()) return 0;
+      if (it == handlers.end()) {
+        LOG_VERBOSE << "Not found";
+        return 0;
+      }
 
       LOG_INFO << "Using hybrid handler for " << CHAR(PRINTNAME(fun_symbol));
 
       return it->second(call, subsets, depth - 1);
     } else if (TYPEOF(call) == SYMSXP) {
-      if (!subsets.count(call)) {
+      LOG_VERBOSE << "Searching hybrid handler for symbol " << CHAR(PRINTNAME(call));
+
+      if (subsets.count(call)) {
+        LOG_VERBOSE << "Using hybrid variable handler";
+        return variable_handler(subsets, call);
+      }
+      else {
         SEXP data = env.find(CHAR(PRINTNAME(call)));
-        if (Rf_length(data) == 1) return constant_handler(data);
+        // Constants of length != 1 are handled via regular evaluation
+        if (Rf_length(data) == 1) {
+          LOG_VERBOSE << "Using hybrid constant handler";
+          return constant_handler(data);
+        }
       }
     } else {
       // TODO: perhaps deal with SYMSXP separately
@@ -135,22 +183,4 @@ namespace dplyr {
 
 void registerHybridHandler(const char* name, HybridHandler proto) {
   get_handlers()[Rf_install(name)] = proto;
-}
-
-bool can_simplify(SEXP call) {
-  if (TYPEOF(call) == LISTSXP) {
-    bool res = can_simplify(CAR(call));
-    if (res) return true;
-    return can_simplify(CDR(call));
-  }
-
-  if (TYPEOF(call) == LANGSXP) {
-    SEXP fun_symbol = CAR(call);
-    if (TYPEOF(fun_symbol) != SYMSXP) return false;
-
-    if (get_handlers().count(fun_symbol)) return true;
-
-    return can_simplify(CDR(call));
-  }
-  return false;
 }
