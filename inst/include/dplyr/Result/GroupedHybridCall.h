@@ -56,7 +56,7 @@ private:
     // Environment::new_child() performs an R callback, creating the environment
     // in R should be slightly faster
     Environment active_env =
-      create_env_string(
+      create_env_symbol(
         names, &GroupedHybridEnv::hybrid_get_callback,
         PAYLOAD(const_cast<void*>(reinterpret_cast<const void*>(callback))), env);
 
@@ -82,10 +82,11 @@ private:
       );
   }
 
-  static SEXP hybrid_get_callback(const String& name, bindrcpp::PAYLOAD payload) {
+  static SEXP hybrid_get_callback(const Symbol& name, bindrcpp::PAYLOAD payload) {
     LOG_VERBOSE;
     IHybridCallback* callback_ = reinterpret_cast<IHybridCallback*>(payload.p);
-    return callback_->get_subset(SymbolString(name));
+    SymbolString name_symbol(name);
+    return callback_->get_subset(name_symbol);
   }
 
 private:
