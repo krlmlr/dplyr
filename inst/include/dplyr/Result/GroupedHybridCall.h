@@ -20,7 +20,8 @@ SEXP rlang_object(const char* name) {
 
 class IHybridCallback {
 protected:
-  virtual ~IHybridCallback() {}
+  IHybridCallback() { LOG_VERBOSE; }
+  virtual ~IHybridCallback() { LOG_VERBOSE; }
 
 public:
   virtual SEXP get_subset(const SymbolString& name) const = 0;
