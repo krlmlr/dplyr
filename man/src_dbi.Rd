@@ -2,6 +2,7 @@
 % Please edit documentation in R/src_dbi.R
 \name{src_dbi}
 \alias{src_dbi}
+\alias{src_sql}
 \alias{src_mysql}
 \alias{src_postgres}
 \alias{src_sqlite}

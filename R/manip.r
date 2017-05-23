@@ -439,6 +439,11 @@ select <- function(.data, ...) {
   UseMethod("select")
 }
 #' @export
+select.list <- function(.data, ...) {
+  # Takes precedence over utils::select.list()
+  select.default(data, ...)
+}
+#' @export
 select.default <- function(.data, ...) {
   select_(.data, .dots = compat_as_lazy_dots(...))
 }

@@ -88,6 +88,7 @@
 #'   show_query()
 #' }
 #' @name src_dbi
+#' @aliases src_sql
 NULL
 
 #' @rdname src_dbi
