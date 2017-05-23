@@ -113,12 +113,9 @@ static const R_CallMethodDef CallEntries[] = {
 /* Raw function pointers */
 extern bool dplyr_is_bind_spliceable(SEXP x);
 
-extern void init_verbose_logging();
-
 void R_init_dplyr(DllInfo *dll)
 {
   R_registerRoutines(dll, NULL, CallEntries, NULL, NULL);
   R_useDynamicSymbols(dll, FALSE);
   rlang_register_pointer("dplyr", "is_bind_spliceable", (DL_FUNC) &dplyr_is_bind_spliceable);
-  init_verbose_logging();
 }
