@@ -441,7 +441,7 @@ select <- function(.data, ...) {
 #' @export
 select.list <- function(.data, ...) {
   # Takes precedence over utils::select.list()
-  select.default(data, ...)
+  select.default(.data, ...)
 }
 #' @export
 select.default <- function(.data, ...) {
