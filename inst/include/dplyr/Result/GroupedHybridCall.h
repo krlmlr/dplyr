@@ -77,7 +77,7 @@ private:
     return
       as_dictionary(
         env,
-        _["lookup_msg"] = "Column `%s`: not found in data",
+        _["lookup_msg"] = "Column `%s` not found in data",
         _["read_only"] = true
       );
   }
