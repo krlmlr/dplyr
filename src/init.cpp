@@ -38,3 +38,8 @@ SEXP get_time_classes() {
 // [[Rcpp::interfaces(cpp)]]
 // [[Rcpp::export]]
 DataFrame build_index_cpp(DataFrame data);
+
+
+extern "C" void init_verbose_logging() {
+  plog::init_r(plog::verbose);
+}
