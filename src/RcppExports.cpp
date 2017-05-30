@@ -677,3 +677,62 @@ RcppExport SEXP dplyr_RcppExport_registerCCallable() {
     R_RegisterCCallable("dplyr", "dplyr_RcppExport_validate", (DL_FUNC)dplyr_RcppExport_validate);
     return R_NilValue;
 }
+
+static const R_CallMethodDef CallEntries[] = {
+    {"dplyr_loc", (DL_FUNC) &dplyr_loc, 1},
+    {"dplyr_dfloc", (DL_FUNC) &dplyr_dfloc, 1},
+    {"dplyr_plfloc", (DL_FUNC) &dplyr_plfloc, 1},
+    {"dplyr_strings_addresses", (DL_FUNC) &dplyr_strings_addresses, 1},
+    {"dplyr_gp", (DL_FUNC) &dplyr_gp, 1},
+    {"dplyr_init_logging", (DL_FUNC) &dplyr_init_logging, 1},
+    {"dplyr_arrange_impl", (DL_FUNC) &dplyr_arrange_impl, 2},
+    {"dplyr_between", (DL_FUNC) &dplyr_between, 3},
+    {"dplyr_flatten_bindable", (DL_FUNC) &dplyr_flatten_bindable, 1},
+    {"dplyr_bind_rows_", (DL_FUNC) &dplyr_bind_rows_, 2},
+    {"dplyr_cbind_all", (DL_FUNC) &dplyr_cbind_all, 1},
+    {"dplyr_combine_all", (DL_FUNC) &dplyr_combine_all, 1},
+    {"dplyr_combine_vars", (DL_FUNC) &dplyr_combine_vars, 2},
+    {"dplyr_distinct_impl", (DL_FUNC) &dplyr_distinct_impl, 3},
+    {"dplyr_n_distinct_multi", (DL_FUNC) &dplyr_n_distinct_multi, 2},
+    {"dplyr_filter_impl", (DL_FUNC) &dplyr_filter_impl, 2},
+    {"dplyr_grouped_df_impl", (DL_FUNC) &dplyr_grouped_df_impl, 3},
+    {"dplyr_as_regular_df", (DL_FUNC) &dplyr_as_regular_df, 1},
+    {"dplyr_ungroup_grouped_df", (DL_FUNC) &dplyr_ungroup_grouped_df, 1},
+    {"dplyr_test_grouped_df", (DL_FUNC) &dplyr_test_grouped_df, 1},
+    {"dplyr_grouped_indices_grouped_df_impl", (DL_FUNC) &dplyr_grouped_indices_grouped_df_impl, 1},
+    {"dplyr_group_size_grouped_cpp", (DL_FUNC) &dplyr_group_size_grouped_cpp, 1},
+    {"dplyr_get_date_classes", (DL_FUNC) &dplyr_get_date_classes, 0},
+    {"dplyr_get_time_classes", (DL_FUNC) &dplyr_get_time_classes, 0},
+    {"dplyr_build_index_cpp", (DL_FUNC) &dplyr_build_index_cpp, 1},
+    {"dplyr_semi_join_impl", (DL_FUNC) &dplyr_semi_join_impl, 5},
+    {"dplyr_anti_join_impl", (DL_FUNC) &dplyr_anti_join_impl, 5},
+    {"dplyr_inner_join_impl", (DL_FUNC) &dplyr_inner_join_impl, 7},
+    {"dplyr_left_join_impl", (DL_FUNC) &dplyr_left_join_impl, 7},
+    {"dplyr_right_join_impl", (DL_FUNC) &dplyr_right_join_impl, 7},
+    {"dplyr_full_join_impl", (DL_FUNC) &dplyr_full_join_impl, 7},
+    {"dplyr_mutate_impl", (DL_FUNC) &dplyr_mutate_impl, 2},
+    {"dplyr_select_impl", (DL_FUNC) &dplyr_select_impl, 2},
+    {"dplyr_compatible_data_frame_nonames", (DL_FUNC) &dplyr_compatible_data_frame_nonames, 3},
+    {"dplyr_compatible_data_frame", (DL_FUNC) &dplyr_compatible_data_frame, 4},
+    {"dplyr_equal_data_frame", (DL_FUNC) &dplyr_equal_data_frame, 5},
+    {"dplyr_union_data_frame", (DL_FUNC) &dplyr_union_data_frame, 2},
+    {"dplyr_intersect_data_frame", (DL_FUNC) &dplyr_intersect_data_frame, 2},
+    {"dplyr_setdiff_data_frame", (DL_FUNC) &dplyr_setdiff_data_frame, 2},
+    {"dplyr_slice_impl", (DL_FUNC) &dplyr_slice_impl, 2},
+    {"dplyr_summarise_impl", (DL_FUNC) &dplyr_summarise_impl, 2},
+    {"dplyr_test_comparisons", (DL_FUNC) &dplyr_test_comparisons, 0},
+    {"dplyr_test_matches", (DL_FUNC) &dplyr_test_matches, 0},
+    {"dplyr_test_length_wrap", (DL_FUNC) &dplyr_test_length_wrap, 0},
+    {"dplyr_assert_all_white_list", (DL_FUNC) &dplyr_assert_all_white_list, 1},
+    {"dplyr_shallow_copy", (DL_FUNC) &dplyr_shallow_copy, 1},
+    {"dplyr_cumall", (DL_FUNC) &dplyr_cumall, 1},
+    {"dplyr_cumany", (DL_FUNC) &dplyr_cumany, 1},
+    {"dplyr_cummean", (DL_FUNC) &dplyr_cummean, 1},
+    {"dplyr_RcppExport_registerCCallable", (DL_FUNC) &dplyr_RcppExport_registerCCallable, 0},
+    {NULL, NULL, 0}
+};
+
+RcppExport void R_init_dplyr(DllInfo *dll) {
+    R_registerRoutines(dll, NULL, CallEntries, NULL, NULL);
+    R_useDynamicSymbols(dll, FALSE);
+}
