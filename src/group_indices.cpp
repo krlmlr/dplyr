@@ -36,6 +36,7 @@ IntegerVector grouped_indices_grouped_df_impl(GroupedDataFrame gdf) {
 
 // [[Rcpp::export]]
 IntegerVector group_size_grouped_cpp(GroupedDataFrame gdf) {
+  int unused;
   return Count().process(gdf);
 }
 
