@@ -148,8 +148,6 @@ DataFrame mutate_grouped(const DataFrame& df, const QuosureList& dots) {
   int nexpr = dots.size();
   check_not_groups(dots, gdf);
 
-  Proxy proxy(gdf);
-
   LOG_VERBOSE << "copying data to accumulator";
 
   NamedListAccumulator<Data> accumulator;
@@ -169,6 +167,8 @@ DataFrame mutate_grouped(const DataFrame& df, const QuosureList& dots) {
     Shield<SEXP> call_(quosure.expr());
     SEXP call = call_;
     SymbolString name = quosure.name();
+
+    Proxy proxy(gdf);
     proxy.set_env(env);
 
     LOG_VERBOSE << "processing " << name.get_utf8_cstring();
