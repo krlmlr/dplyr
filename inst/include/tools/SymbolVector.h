@@ -9,12 +9,17 @@ namespace dplyr {
 class SymbolVector {
 public:
   SymbolVector() {}
+  SymbolVector(const SymbolVector& x) : v(x.v) {}
 
-  template <class T>
-  explicit SymbolVector(T v_) : v(v_) {}
-
+  explicit SymbolVector(const CharacterVector& x) : v(init(x)) {}
   explicit SymbolVector(SEXP x) : v(init(x)) {}
   explicit SymbolVector(RObject x) : v(init(x)) {}
+
+public:
+  template <class T>
+  static SymbolVector from_names(const T& x) {
+    return SymbolVector(CharacterVector(x.names()));
+  }
 
 public:
   void push_back(const SymbolString& s) {

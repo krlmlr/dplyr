@@ -25,7 +25,7 @@ public:
   DataFrameSubsetVisitors(const Rcpp::DataFrame& data_) :
     data(data_),
     visitors(),
-    visitor_names(data.names()),
+    visitor_names(SymbolVector::from_names(data)),
     nvisitors(visitor_names.size())
   {
     CharacterVector names = data.names();

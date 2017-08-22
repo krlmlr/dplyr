@@ -79,8 +79,8 @@ DataFrame select_grouped(GroupedDataFrame gdf, const SymbolVector& keep, const S
 DataFrame select_impl(DataFrame df, CharacterVector vars) {
   check_valid_colnames(df);
   if (is<GroupedDataFrame>(df)) {
-    return select_grouped(GroupedDataFrame(df), SymbolVector(vars), SymbolVector(vars.names()));
+    return select_grouped(GroupedDataFrame(df), SymbolVector(vars), SymbolVector::from_names(vars));
   } else {
-    return select_not_grouped(df, SymbolVector(vars), SymbolVector(vars.names()));
+    return select_not_grouped(df, SymbolVector(vars), SymbolVector::from_names(vars));
   }
 }
