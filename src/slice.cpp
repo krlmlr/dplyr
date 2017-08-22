@@ -116,7 +116,7 @@ DataFrame slice_grouped(GroupedDataFrame gdf, const QuosureList& dots) {
   }
 
   DataFrame res = subset(data, indx, names, classes_grouped<GroupedDataFrame>());
-  set_vars(res, get_vars(data));
+  copy_vars(res, data);
   strip_index(res);
 
   return GroupedDataFrame(res).data();
