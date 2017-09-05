@@ -96,7 +96,6 @@ n_name <- function(x) {
   }
 
   name
-
 }
 
 #' @export

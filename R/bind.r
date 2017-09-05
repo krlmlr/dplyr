@@ -119,7 +119,8 @@ bind_rows <- function(..., .id = NULL) {
 
   if (!is_null(.id)) {
     if (!(is_string(.id))) {
-      bad_args(".id", "must be a scalar string, ",
+      bad_args(
+        ".id", "must be a scalar string, ",
         "not {type_of(.id)} of length {length(.id)}"
       )
     }

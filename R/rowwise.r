@@ -85,7 +85,7 @@ do.rowwise_df <- function(.data, ...) {
   # for . that resolves to the current subset. `_i` is found in environment
   # of this function because of usual scoping rules.
   env <- child_env(NULL)
-  current_row <- function() lapply(group_data[`_i`, , drop = FALSE], "[[", 1)
+  current_row <- function() lapply(group_data[`_i`,, drop = FALSE], "[[", 1)
   env_bind_fns(.env = env, . = current_row, .data = current_row)
 
   overscope <- new_overscope(env)

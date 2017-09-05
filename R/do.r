@@ -107,7 +107,8 @@ do_.NULL <- function(.data, ..., .dots = list()) {
 label_output_dataframe <- function(labels, out, groups) {
   data_frame <- vapply(out[[1]], is.data.frame, logical(1))
   if (any(!data_frame)) {
-    bad("Results {bad} must be data frames, not {first_bad_class}",
+    bad(
+      "Results {bad} must be data frames, not {first_bad_class}",
       bad = fmt_comma(which(!data_frame)),
       first_bad_class = fmt_classes(out[[1]][[which.min(data_frame)]])
     )
@@ -121,7 +122,7 @@ label_output_dataframe <- function(labels, out, groups) {
     labels <- labels[setdiff(names(labels), names(out))]
 
     # Repeat each row to match data
-    labels <- labels[rep(seq_len(nrow(labels)), rows), , drop = FALSE]
+    labels <- labels[rep(seq_len(nrow(labels)), rows),, drop = FALSE]
     rownames(labels) <- NULL
 
     grouped_df(bind_cols(labels, out), groups)

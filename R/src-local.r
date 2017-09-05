@@ -17,7 +17,8 @@
 #' }
 src_local <- function(tbl, pkg = NULL, env = NULL) {
   if (!xor(is.null(pkg), is.null(env))) {
-    glubort(NULL, "Exactly one of `pkg` and `env` must be non-NULL, ",
+    glubort(
+      NULL, "Exactly one of `pkg` and `env` must be non-NULL, ",
       "not {(!is.null(pkg)) + (!is.null(env))}"
     )
   }
@@ -55,9 +56,9 @@ tbl.src_local <- function(src, from, ...) {
 #' @export
 copy_to.src_local <- function(dest, df, name = deparse(substitute(df)),
                               overwrite = FALSE, ...) {
-
   if (!overwrite && exists(name, envir = dest$env, inherits = FALSE)) {
-    glubort(NULL, "object with `name` = {fmt_obj(name)} must not already exist, ",
+    glubort(
+      NULL, "object with `name` = {fmt_obj(name)} must not already exist, ",
       "unless `overwrite` = TRUE"
     )
   }

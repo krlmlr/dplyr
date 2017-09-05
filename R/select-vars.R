@@ -119,7 +119,8 @@ select_vars <- function(vars, ..., include = character(), exclude = character())
     bad <- quos[!is_integerish]
     first <- ind_list[!is_integerish][[1]]
     first_type <- friendly_type(type_of(first))
-    bad_calls(bad,
+    bad_calls(
+      bad,
       "must resolve to integer column positions, not {first_type}"
     )
   }
@@ -213,7 +214,8 @@ rename_vars_ <- function(vars, args) {
 # FIXME: that's not a tidy implementation yet because we need to
 # handle non-existing symbols silently when `strict = FALSE`
 switch_rename <- function(expr, name) {
-  switch_type(expr,
+  switch_type(
+    expr,
     string = ,
     symbol =
       return(as_string(expr)),

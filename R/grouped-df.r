@@ -16,7 +16,7 @@ grouped_df <- function(data, vars, drop = TRUE) {
   }
   assert_that(
     is.data.frame(data),
-    (is.list(vars) && all(sapply(vars,is.name))) || is.character(vars),
+    (is.list(vars) && all(sapply(vars, is.name))) || is.character(vars),
     is.flag(drop)
   )
   if (is.list(vars)) {
@@ -97,7 +97,6 @@ ungroup.grouped_df <- function(x, ...) {
   } else {
     grouped_df(y, group_names)
   }
-
 }
 
 #' @method rbind grouped_df
@@ -190,7 +189,7 @@ do.grouped_df <- function(.data, ...) {
       out <- label_output_list(labels, out, groups(.data))
     } else {
       env_bind(.env = env, . = group_data, .data = group_data)
-      out <- eval_tidy_(args[[1]], env)[0, , drop = FALSE]
+      out <- eval_tidy_(args[[1]], env)[0,, drop = FALSE]
       out <- label_output_dataframe(labels, list(list(out)), groups(.data))
     }
     return(out)
@@ -201,7 +200,7 @@ do.grouped_df <- function(.data, ...) {
   # usual scoping rules.
   group_slice <- function(value) {
     if (missing(value)) {
-      group_data[index[[`_i`]] + 1L, , drop = FALSE]
+      group_data[index[[`_i`]] + 1L,, drop = FALSE]
     } else {
       group_data[index[[`_i`]] + 1L, ] <<- value
     }
@@ -259,7 +258,6 @@ distinct_.grouped_df <- function(.data, ..., .dots = list(), .keep_all = FALSE) 
 #' @export
 sample_n.grouped_df <- function(tbl, size, replace = FALSE,
                                 weight = NULL, .env = NULL) {
-
   assert_that(is_scalar_integerish(size), size >= 0)
   if (!is_null(.env)) {
     inform("`.env` is deprecated and no longer has any effect")
@@ -267,7 +265,8 @@ sample_n.grouped_df <- function(tbl, size, replace = FALSE,
   weight <- enquo(weight)
 
   index <- attr(tbl, "indices")
-  sampled <- lapply(index, sample_group,
+  sampled <- lapply(
+    index, sample_group,
     frac = FALSE,
     tbl = tbl,
     size = size,
@@ -276,7 +275,7 @@ sample_n.grouped_df <- function(tbl, size, replace = FALSE,
   )
   idx <- unlist(sampled) + 1
 
-  grouped_df(tbl[idx, , drop = FALSE], vars = groups(tbl))
+  grouped_df(tbl[idx,, drop = FALSE], vars = groups(tbl))
 }
 
 #' @export
@@ -287,14 +286,16 @@ sample_frac.grouped_df <- function(tbl, size = 1, replace = FALSE,
     inform("`.env` is deprecated and no longer has any effect")
   }
   if (size > 1 && !replace) {
-    bad_args("size", "of sampled fraction must be less or equal to one, ",
+    bad_args(
+      "size", "of sampled fraction must be less or equal to one, ",
       "set `replace` = TRUE to use sampling with replacement"
     )
   }
   weight <- enquo(weight)
 
   index <- attr(tbl, "indices")
-  sampled <- lapply(index, sample_group,
+  sampled <- lapply(
+    index, sample_group,
     frac = TRUE,
     tbl = tbl,
     size = size,
@@ -303,7 +304,7 @@ sample_frac.grouped_df <- function(tbl, size = 1, replace = FALSE,
   )
   idx <- unlist(sampled) + 1
 
-  grouped_df(tbl[idx, , drop = FALSE], vars = groups(tbl))
+  grouped_df(tbl[idx,, drop = FALSE], vars = groups(tbl))
 }
 
 sample_group <- function(tbl, i, frac, size, replace, weight) {
@@ -315,7 +316,7 @@ sample_group <- function(tbl, i, frac, size, replace, weight) {
     check_size(size, n, replace)
   }
 
-  weight <- eval_tidy(weight, tbl[i + 1, , drop = FALSE])
+  weight <- eval_tidy(weight, tbl[i + 1,, drop = FALSE])
   if (!is_null(weight)) {
     weight <- check_weight(weight, n)
   }

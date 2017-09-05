@@ -25,9 +25,9 @@ test_that("matches return integer positions", {
   on.exit(set_current_vars(old))
 
   expect_equal(starts_with("a"), c(1L, 2L))
-  expect_equal(ends_with("d"),   c(2L, 4L))
-  expect_equal(contains("eee"),  5L)
-  expect_equal(matches(".b."),   c(1L, 3L, 4L))
+  expect_equal(ends_with("d"), c(2L, 4L))
+  expect_equal(contains("eee"), 5L)
+  expect_equal(matches(".b."), c(1L, 3L, 4L))
 })
 
 test_that("throws with empty pattern is provided", {
@@ -74,7 +74,7 @@ test_that("num_range selects numeric ranges", {
 test_that("position must resolve to numeric variables throws error", {
   expect_error(
     select_vars(letters, !! list()),
-    'must resolve to integer column positions',
+    "must resolve to integer column positions",
     fixed = TRUE
   )
 })
@@ -97,7 +97,6 @@ test_that("one_of tolerates but warns for unknown variables", {
   expect_equal(res, integer(0))
   expect_warning(res <- one_of(c("x", "z"), vars = vars), "Unknown variables: `z`")
   expect_equal(res, 1L)
-
 })
 
 test_that("one_of converts names to positions", {
@@ -223,8 +222,8 @@ test_that("can select with .data pronoun (#2715)", {
   expect_identical(select_vars("foo", .data$foo), c(foo = "foo"))
   expect_identical(select_vars("foo", .data[["foo"]]), c(foo = "foo"))
 
-  expect_identical(select_vars(c("a", "b", "c"), .data$a : .data$b), c(a = "a", b = "b"))
-  expect_identical(select_vars(c("a", "b", "c"), .data[["a"]] : .data[["b"]]), c(a = "a", b = "b"))
+  expect_identical(select_vars(c("a", "b", "c"), .data$a:.data$b), c(a = "a", b = "b"))
+  expect_identical(select_vars(c("a", "b", "c"), .data[["a"]]:.data[["b"]]), c(a = "a", b = "b"))
 })
 
 
@@ -246,7 +245,7 @@ test_that("when strict = FALSE, rename_vars always succeeds", {
 test_that("rename_vars() expects symbol or string", {
   expect_error(
     rename_vars(letters, d = 1),
-    '`d` = 1 must be a symbol or a string',
+    "`d` = 1 must be a symbol or a string",
     fixed = TRUE
   )
 })

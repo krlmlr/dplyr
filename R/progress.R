@@ -39,7 +39,8 @@ progress_estimated <- function(n, min_time = 0) {
 }
 
 #' @importFrom R6 R6Class
-Progress <- R6::R6Class("Progress",
+Progress <- R6::R6Class(
+  "Progress",
   public = list(
     n = NULL,
     i = 0,
@@ -127,7 +128,6 @@ Progress <- R6::R6Class("Progress",
 
       invisible(self)
     }
-
   )
 )
 

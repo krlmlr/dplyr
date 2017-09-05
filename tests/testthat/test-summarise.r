@@ -24,9 +24,11 @@ test_that("repeated outputs applied progressively (grouped_df)", {
 
 test_that("summarise peels off a single layer of grouping", {
   df <- tibble(x = rep(1:4, each = 4), y = rep(1:2, each = 8), z = runif(16))
-  grouped <- df %>% group_by(x, y, z)
+  grouped <- df %>%
+    group_by(x, y, z)
   expect_equal(group_vars(grouped), c("x", "y", "z"))
-  expect_equal(group_vars(grouped %>% summarise(n = n())), c("x", "y"))
+  expect_equal(group_vars(grouped %>%
+    summarise(n = n())), c("x", "y"))
 })
 
 test_that("summarise can refer to variables that were just created (#138)", {
@@ -123,9 +125,9 @@ test_that("summarise handles constants (#153)", {
     tbl_df(df),
     int = 1L, num = 1, str = "foo", bool = TRUE, date = today, time = now
   )
-  expect_equal(res$int,  1L)
-  expect_equal(res$num,  1.0)
-  expect_equal(res$str,  "foo")
+  expect_equal(res$int, 1L)
+  expect_equal(res$num, 1.0)
+  expect_equal(res$str, "foo")
   expect_equal(res$bool, TRUE)
   expect_equal(res$date, today)
   expect_equal(res$time, now)
@@ -134,13 +136,12 @@ test_that("summarise handles constants (#153)", {
     group_by(df, a),
     int = 1L, num = 1, str = "foo", bool = TRUE, date = today, time = now
   )
-  expect_equal(res$int,  rep(1L, 4))
-  expect_equal(res$num,  rep(1.0, 4))
-  expect_equal(res$str,  rep("foo", 4))
+  expect_equal(res$int, rep(1L, 4))
+  expect_equal(res$num, rep(1.0, 4))
+  expect_equal(res$str, rep("foo", 4))
   expect_equal(res$bool, rep(TRUE, 4))
   expect_equal(res$date, rep(today, 4))
   expect_equal(res$time, rep(now, 4))
-
 })
 
 test_that("summarise handles passing ...", {
@@ -178,7 +179,6 @@ test_that("summarise handles passing ...", {
   expect_equal(res$x2, rep(2, 4))
   expect_equal(res$before, rep("before", 4))
   expect_equal(res$after, rep("after", 4))
-
 })
 
 test_that("summarise propagate attributes (#194)", {
@@ -191,33 +191,38 @@ test_that("summarise propagate attributes (#194)", {
     group_by(b)
 
   min_ <- min
-  res <- summarise(df,
-    min_f  = min(f),
-    max_f  = max(f),
-    min_g  = min(g),
-    max_g  = max(g),
+  res <- summarise(
+    df,
+    min_f = min(f),
+    max_f = max(f),
+    min_g = min(g),
+    max_g = max(g),
     min__f = min_(f),
     min__g = min_(g)
   )
 
-  expect_equal(class(res$min_f) , "Date")
-  expect_equal(class(res$max_f) , "Date")
+  expect_equal(class(res$min_f), "Date")
+  expect_equal(class(res$max_f), "Date")
   expect_equal(class(res$min__f), "Date")
 
-  expect_equal(class(res$min_g) , c("POSIXct", "POSIXt"))
-  expect_equal(class(res$max_g) , c("POSIXct", "POSIXt"))
+  expect_equal(class(res$min_g), c("POSIXct", "POSIXt"))
+  expect_equal(class(res$max_g), c("POSIXct", "POSIXt"))
   expect_equal(class(res$min__g), c("POSIXct", "POSIXt"))
-
 })
 
 test_that("summarise strips names, but only if grouped (#2231, #2675)", {
-  data <- data_frame(a = 1:3) %>% summarise(b = setNames(nm = a[[1]]))
+  data <- data_frame(a = 1:3) %>%
+    summarise(b = setNames(nm = a[[1]]))
   expect_equal(names(data$b), "1")
 
-  data <- data_frame(a = 1:3) %>% rowwise %>% summarise(b = setNames(nm = a))
+  data <- data_frame(a = 1:3) %>%
+    rowwise() %>%
+    summarise(b = setNames(nm = a))
   expect_null(names(data$b))
 
-  data <- data_frame(a = c(1, 1, 2)) %>% group_by(a) %>% summarise(b = setNames(nm = a[[1]]))
+  data <- data_frame(a = c(1, 1, 2)) %>%
+    group_by(a) %>%
+    summarise(b = setNames(nm = a[[1]]))
   expect_null(names(data$b))
 })
 
@@ -244,7 +249,8 @@ test_that("hybrid nests correctly", {
     summarise(a = if (n() > 10) 1 else 2)
   expect_equal(res$a, c(1, 2, 1))
 
-  res <- mtcars %>% summarise(a = if (n() > 10) 1 else 2)
+  res <- mtcars %>%
+    summarise(a = if (n() > 10) 1 else 2)
   expect_equal(res$a, 1)
 })
 
@@ -253,14 +259,17 @@ test_that("hybrid min and max propagate attributes (#246)", {
     id = c(rep("a", 2), rep("b", 2)),
     date = as.POSIXct(c("2014-01-13", "2014-01-14", "2014-01-15", "2014-01-16"), tz = "GMT")
   )
-  y <- x %>% group_by(id) %>% summarise(max_date = max(date), min_date = min(date))
+  y <- x %>%
+    group_by(id) %>%
+    summarise(max_date = max(date), min_date = min(date))
 
   expect_true("tzone" %in% names(attributes(y$min_date)))
   expect_true("tzone" %in% names(attributes(y$max_date)))
 })
 
 test_that("summarise can use newly created variable more than once", {
-  df <- data.frame(id = c(1, 1, 2, 2, 3, 3), a = 1:6) %>% group_by(id)
+  df <- data.frame(id = c(1, 1, 2, 2, 3, 3), a = 1:6) %>%
+    group_by(id)
   for (i in 1:10) {
     res <- summarise(
       df,
@@ -321,10 +330,11 @@ test_that("AsIs class is white listed (#453)", {
 test_that("names attribute is not retained (#357)", {
   df <- data.frame(x = c(1:3), y = letters[1:3])
   df <- group_by(df, y)
-  m <- df %>% summarise(
-    a = length(x),
-    b = quantile(x, 0.5)
-  )
+  m <- df %>%
+    summarise(
+      a = length(x),
+      b = quantile(x, 0.5)
+    )
   expect_equal(m$b, c(1, 2, 3))
   expect_null(names(m$b))
 })
@@ -370,11 +380,11 @@ test_that("na.rm is supported (#168)", {
   expect_equal(res$min_x[2], 7)
   expect_equal(res$min_z[1], min(df$z[1:5]))
   expect_equal(res$min_z[2], min(df$z[7:10]))
-
 })
 
 test_that("summarise hybrid functions can use summarized variables", {
-  df <- data.frame(x = c(1:5, NA, 7:10), y = rep(1:2, each = 5)) %>% group_by(y)
+  df <- data.frame(x = c(1:5, NA, 7:10), y = rep(1:2, each = 5)) %>%
+    group_by(y)
   res <- summarise(
     df,
     x = mean(x),
@@ -390,7 +400,8 @@ test_that("summarise hybrid functions can use summarized variables", {
 })
 
 test_that("LazySubset is not confused about input data size (#452)", {
-  res <- data.frame(a = c(10, 100)) %>% summarise(b = sum(a), c = sum(a) * 2)
+  res <- data.frame(a = c(10, 100)) %>%
+    summarise(b = sum(a), c = sum(a) * 2)
   expect_equal(res$b, 110)
   expect_equal(res$c, 220)
 })
@@ -419,7 +430,9 @@ test_that("nth, first, last promote dates and times (#509)", {
   expect_is(res$first_time, "POSIXct")
   expect_is(res$last_time, "POSIXct")
   # error messages from rlang
-  expect_error(data %>% group_by(ID) %>% summarise(time2 = nth(times, 2)))
+  expect_error(data %>%
+    group_by(ID) %>%
+    summarise(time2 = nth(times, 2)))
 })
 
 test_that("nth, first, last preserves factor data (#509)", {
@@ -461,44 +474,48 @@ test_that("nth handle negative value (#1584) ", {
   expect_equal(res$x4[2], 9)
   expect_equal(res$x5, c(99, 6))
   expect_equal(res$x6, c(99, 9))
-
 })
 
 test_that("LazyGroupSubsets is robust about columns not from the data (#600)", {
   foo <- data_frame(x = 1:10, y = 1:10)
   # error messages from rlang
-  expect_error(foo %>% group_by(x) %>% summarise(first_y = first(z)))
+  expect_error(foo %>%
+    group_by(x) %>%
+    summarise(first_y = first(z)))
 })
 
 test_that("can summarise first(x[-1]) (#1980)", {
   expect_equal(
-    tibble(x = 1:3) %>% summarise(f = first(x[-1])),
+    tibble(x = 1:3) %>%
+      summarise(f = first(x[-1])),
     tibble(f = 2L)
   )
 })
 
 test_that("hybrid eval handles $ and @ (#645)", {
   tmp <- expand.grid(a = 1:3, b = 0:1, i = 1:10)
-  g   <- tmp %>% group_by(a)
+  g <- tmp %>%
+    group_by(a)
 
   f <- function(a, b) {
     list(x = 1:10)
   }
 
-  res <- g %>% summarise(
-    r = sum(b),
-    n = length(b),
-    p = f(r, n)$x[1]
-  )
+  res <- g %>%
+    summarise(
+      r = sum(b),
+      n = length(b),
+      p = f(r, n)$x[1]
+    )
   expect_equal(names(res), c("a", "r", "n", "p"))
 
-  res <- tmp %>% summarise(
-    r = sum(b),
-    n = length(b),
-    p = f(r, n)$x[1]
-  )
+  res <- tmp %>%
+    summarise(
+      r = sum(b),
+      n = length(b),
+      p = f(r, n)$x[1]
+    )
   expect_equal(names(res), c("r", "n", "p"))
-
 })
 
 test_that("argument order_by in last is flexible enough to handle more than just a symbol (#626)", {
@@ -520,7 +537,6 @@ test_that("argument order_by in last is flexible enough to handle more than just
       second = nth.(mpg[drat > 3], 2, order_by = wt[drat > 3])
     )
   expect_equal(res1, res2)
-
 })
 
 test_that("min(., na.rm=TRUE) correctly handles Dates that are coded as REALSXP (#755)", {
@@ -534,7 +550,8 @@ test_that("min(., na.rm=TRUE) correctly handles Dates that are coded as REALSXP 
 test_that("nth handles expressions for n argument (#734)", {
   df <- data.frame(x = c(1:4, 7:9, 13:19), y = sample(100:999, 14))
   idx <- which(df$x == 16)
-  res <- df %>% summarize(abc = nth(y, n = which(x == 16)))
+  res <- df %>%
+    summarize(abc = nth(y, n = which(x == 16)))
   expect_equal(res$abc, df$y[idx])
 })
 
@@ -544,21 +561,27 @@ test_that("summarise is not polluted by logical NA (#599)", {
     res <- mean(x, na.rm = TRUE)
     if (res > thresh) res else NA
   }
-  res <- dat %>% group_by(grp) %>% summarise(val = Mean(val, thresh = 2))
+  res <- dat %>%
+    group_by(grp) %>%
+    summarise(val = Mean(val, thresh = 2))
   expect_is(res$val, "numeric")
   expect_true(is.na(res$val[1]))
 })
 
 test_that("summarise handles list output columns (#832)", {
   df <- data_frame(x = 1:10, g = rep(1:2, each = 5))
-  res <- df %>% group_by(g) %>% summarise(y = list(x))
+  res <- df %>%
+    group_by(g) %>%
+    summarise(y = list(x))
   expect_equal(res$y[[1]], 1:5)
   expect_equal(res$y[[2]], 6:10)
   # just checking objects are not messed up internally
   expect_equal(gp(res$y[[1]]), 0L)
   expect_equal(gp(res$y[[2]]), 0L)
 
-  res <- df %>% group_by(g) %>% summarise(y = list(x + 1))
+  res <- df %>%
+    group_by(g) %>%
+    summarise(y = list(x + 1))
   expect_equal(res$y[[1]], 1:5 + 1)
   expect_equal(res$y[[2]], 6:10 + 1)
   # just checking objects are not messed up internally
@@ -566,16 +589,18 @@ test_that("summarise handles list output columns (#832)", {
   expect_equal(gp(res$y[[2]]), 0L)
 
   df <- data_frame(x = 1:10, g = rep(1:2, each = 5))
-  res <- df %>% summarise(y = list(x))
+  res <- df %>%
+    summarise(y = list(x))
   expect_equal(res$y[[1]], 1:10)
-  res <- df %>% summarise(y = list(x + 1))
+  res <- df %>%
+    summarise(y = list(x + 1))
   expect_equal(res$y[[1]], 1:10 + 1)
-
 })
 
 test_that("summarise works with empty data frame (#1142)", {
   df <- data.frame()
-  res <- df %>% summarise
+  res <- df %>%
+    summarise()
   expect_equal(nrow(res), 0L)
   expect_equal(length(res), 0L)
 })
@@ -585,9 +610,9 @@ test_that("n_distint uses na.rm argument", {
   res <- summarise(df, n = n_distinct(x, na.rm = TRUE))
   expect_equal(res$n, 3L)
 
-  res <- group_by(df, g) %>% summarise(n = n_distinct(x, na.rm = TRUE))
+  res <- group_by(df, g) %>%
+    summarise(n = n_distinct(x, na.rm = TRUE))
   expect_equal(res$n, c(2L, 1L))
-
 })
 
 test_that("n_distinct front end supports na.rm argument (#1052)", {
@@ -618,14 +643,22 @@ test_that("hybrid evaluation does not take place for objects with a class (#1237
 })
 
 test_that("summarise handles promotion of results (#893)", {
-  df <- structure(list(
-    price = c(580L, 650L, 630L, 706L, 1080L, 3082L, 3328L, 4229L, 1895L,
-              3546L, 752L, 13003L, 814L, 6115L, 645L, 3749L, 2926L, 765L,
-              1140L, 1158L),
-    cut = structure(c(2L, 4L, 4L, 2L, 3L, 2L, 2L, 3L, 4L, 1L, 1L, 3L, 2L,
-                      4L, 3L, 3L, 1L, 2L, 2L, 2L),
-                    .Label = c("Good", "Ideal", "Premium", "Very Good"),
-                    class = "factor")),
+  df <- structure(
+    list(
+      price = c(
+        580L, 650L, 630L, 706L, 1080L, 3082L, 3328L, 4229L, 1895L,
+        3546L, 752L, 13003L, 814L, 6115L, 645L, 3749L, 2926L, 765L,
+        1140L, 1158L
+      ),
+      cut = structure(
+        c(
+          2L, 4L, 4L, 2L, 3L, 2L, 2L, 3L, 4L, 1L, 1L, 3L, 2L,
+          4L, 3L, 3L, 1L, 2L, 2L, 2L
+        ),
+        .Label = c("Good", "Ideal", "Premium", "Very Good"),
+        class = "factor"
+      )
+    ),
     row.names = c(NA, -20L),
     .Names = c("price", "cut"),
     class = "data.frame"
@@ -635,7 +668,6 @@ test_that("summarise handles promotion of results (#893)", {
     select(price) %>%
     summarise(price = median(price))
   expect_is(res$price, "numeric")
-
 })
 
 test_that("summarise correctly handles logical (#1291)", {
@@ -655,7 +687,6 @@ test_that("summarise correctly handles logical (#1291)", {
     )
 
   expect_equal(test_sum$anyvar, c(TRUE, TRUE, FALSE, TRUE))
-
 })
 
 test_that("summarise correctly handles NA groups (#1261)", {
@@ -665,9 +696,13 @@ test_that("summarise correctly handles NA groups (#1261)", {
     b2 = NA_character_
   )
 
-  res <- tmp %>% group_by(a, b1) %>% summarise(n())
+  res <- tmp %>%
+    group_by(a, b1) %>%
+    summarise(n())
   expect_equal(nrow(res), 2L)
-  res <- tmp %>% group_by(a, b2) %>% summarise(n())
+  res <- tmp %>%
+    group_by(a, b2) %>%
+    summarise(n())
   expect_equal(nrow(res), 2L)
 })
 
@@ -680,7 +715,8 @@ test_that("n_distinct handles multiple columns (#1084)", {
   res <- summarise(df, n = n_distinct(x, y))
   expect_equal(res$n, 4L)
 
-  res <- group_by(df, g) %>% summarise(n = n_distinct(x, y))
+  res <- group_by(df, g) %>%
+    summarise(n = n_distinct(x, y))
   expect_equal(res$n, c(4L, 4L))
 
   df$x[3] <- df$y[7] <- NA
@@ -689,10 +725,12 @@ test_that("n_distinct handles multiple columns (#1084)", {
   res <- summarise(df, n = n_distinct(x, y, na.rm = TRUE))
   expect_equal(res$n, 4L)
 
-  res <- group_by(df, g) %>% summarise(n = n_distinct(x, y))
+  res <- group_by(df, g) %>%
+    summarise(n = n_distinct(x, y))
   expect_equal(res$n, c(4L, 4L))
 
-  res <- group_by(df, g) %>% summarise(n = n_distinct(x, y, na.rm = TRUE))
+  res <- group_by(df, g) %>%
+    summarise(n = n_distinct(x, y, na.rm = TRUE))
   expect_equal(res$n, c(2L, 4L))
 })
 
@@ -705,7 +743,8 @@ test_that("hybrid max works when not used on columns (#1369)", {
 
 test_that("min and max handle empty sets in summarise (#1481)", {
   df <- data_frame(A = numeric())
-  res <- df %>% summarise(Min = min(A, na.rm = TRUE), Max = max(A, na.rm = TRUE))
+  res <- df %>%
+    summarise(Min = min(A, na.rm = TRUE), Max = max(A, na.rm = TRUE))
   expect_equal(res$Min, Inf)
   expect_equal(res$Max, -Inf)
 })
@@ -722,7 +761,7 @@ test_that("lead and lag behave correctly in summarise (#1434)", {
     )
   expect_true(all(is.na(res$lagn)))
   expect_true(all(is.na(res$leadn)))
-  expect_true(all(res$lagn10  == 10))
+  expect_true(all(res$lagn10 == 10))
   expect_true(all(res$leadn10 == 10))
 
   res <- mtcars %>%
@@ -736,17 +775,19 @@ test_that("lead and lag behave correctly in summarise (#1434)", {
     )
   expect_true(all(is.na(res$lagn)))
   expect_true(all(is.na(res$leadn)))
-  expect_true(all(res$lagn10  == 10))
+  expect_true(all(res$lagn10 == 10))
   expect_true(all(res$leadn10 == 10))
-
 })
 
 # .data and .env tests now in test-hybrid-traverse.R
 
 test_that("data.frame columns are supported in summarise (#1425)", {
   df <- data.frame(x1 = rep(1:3, times = 3), x2 = 1:9)
-  df$x3 <- df %>% mutate(x3 = x2)
-  res <- df %>% group_by(x1) %>% summarise(nr = nrow(x3))
+  df$x3 <- df %>%
+    mutate(x3 = x2)
+  res <- df %>%
+    group_by(x1) %>%
+    summarise(nr = nrow(x3))
   expect_true(all(res$nr == 3))
 })
 
@@ -772,12 +813,12 @@ test_that("group_by keeps classes (#1631)", {
     group_by(a) %>%
     summarize(c = min(b))
   expect_equal(class(df$c), c("POSIXct", "POSIXt"))
-
 })
 
 test_that("hybrid n_distinct falls back to R evaluation when needed (#1657)", {
   dat3 <- data.frame(id = c(2, 6, 7, 10, 10))
-  res <- dat3 %>% summarise(n_unique = n_distinct(id[id > 6]))
+  res <- dat3 %>%
+    summarise(n_unique = n_distinct(id[id > 6]))
   expect_equal(res$n_unique, 2)
 })
 
@@ -825,14 +866,16 @@ test_that("typing and NAs for grouped summarise (#1839)", {
       group_by(id) %>%
       summarise(a = a[[1]]) %>%
       .$a,
-    NA_character_)
+    NA_character_
+  )
 
   expect_identical(
     data_frame(id = 1:2, a = c(NA, "a")) %>%
       group_by(id) %>%
       summarise(a = a[[1]]) %>%
       .$a,
-    c(NA, "a"))
+    c(NA, "a")
+  )
 
   # Properly upgrade NA (logical) to character
   expect_identical(
@@ -840,7 +883,8 @@ test_that("typing and NAs for grouped summarise (#1839)", {
       group_by(id) %>%
       summarise(a = ifelse(all(a < 2), NA, "yes")) %>%
       .$a,
-    c(NA, "yes"))
+    c(NA, "yes")
+  )
 
   expect_error(
     data_frame(id = 1:2, a = list(1, "2")) %>%
@@ -856,23 +900,26 @@ test_that("typing and NAs for grouped summarise (#1839)", {
       group_by(id) %>%
       summarise(a = a[1]) %>%
       .$a,
-    list(1, "2"))
+    list(1, "2")
+  )
 })
 
 test_that("typing and NAs for rowwise summarise (#1839)", {
   expect_identical(
     data_frame(id = 1L, a = NA_character_) %>%
-      rowwise %>%
+      rowwise() %>%
       summarise(a = a[[1]]) %>%
       .$a,
-    NA_character_)
+    NA_character_
+  )
 
   expect_identical(
     data_frame(id = 1:2, a = c(NA, "a")) %>%
-      rowwise %>%
+      rowwise() %>%
       summarise(a = a[[1]]) %>%
       .$a,
-    c(NA, "a"))
+    c(NA, "a")
+  )
 
   # Properly promote NA (logical) to character
   expect_identical(
@@ -880,11 +927,12 @@ test_that("typing and NAs for rowwise summarise (#1839)", {
       group_by(id) %>%
       summarise(a = ifelse(all(a < 2), NA, "yes")) %>%
       .$a,
-    c(NA, "yes"))
+    c(NA, "yes")
+  )
 
   expect_error(
     data_frame(id = 1:2, a = list(1, "2")) %>%
-      rowwise %>%
+      rowwise() %>%
       summarise(a = a[[1]]) %>%
       .$a,
     "Column `a` can't promote group 1 to numeric",
@@ -893,7 +941,7 @@ test_that("typing and NAs for rowwise summarise (#1839)", {
 
   expect_error(
     data_frame(id = 1:2, a = list(1, "2")) %>%
-      rowwise %>%
+      rowwise() %>%
       summarise(a = a[1]) %>%
       .$a,
     "Column `a` can't promote group 1 to numeric",
@@ -935,14 +983,17 @@ test_that("min, max preserves ordered factor data  (#2200)", {
 test_that("ungrouped summarise() uses summary variables correctly (#2404)", {
   df <- tibble::as_tibble(seq(1:10))
 
-  out <- df %>% summarise(value = mean(value), sd = sd(value))
+  out <- df %>%
+    summarise(value = mean(value), sd = sd(value))
   expect_equal(out$value, 5.5)
   expect_equal(out$sd, NA_real_)
 })
 
 test_that("proper handling of names in summarised list columns (#2231)", {
   d <- data_frame(x = rep(1:3, 1:3), y = 1:6, names = letters[1:6])
-  res <- d %>% group_by(x) %>% summarise(y = list(setNames(y, names)))
+  res <- d %>%
+    group_by(x) %>%
+    summarise(y = list(setNames(y, names)))
   expect_equal(names(res$y[[1]]), letters[[1]])
   expect_equal(names(res$y[[2]]), letters[2:3])
   expect_equal(names(res$y[[3]]), letters[4:6])
@@ -954,7 +1005,9 @@ test_that("proper handling of NA factors (#2588)", {
     y = factor(c(NA, NA, NA, "2", "3", "3"))
   )
 
-  ret <- df %>% group_by(x) %>% summarise(y = y[1])
+  ret <- df %>%
+    group_by(x) %>%
+    summarise(y = y[1])
   expect_identical(as.character(ret$y), c(NA, NA, "3"))
 })
 

@@ -57,7 +57,9 @@ test_that("can select/rename with vars()", {
 })
 
 test_that("select_if keeps grouping cols", {
-  expect_silent(df <- iris %>% group_by(Species) %>% select_if(is.numeric))
+  expect_silent(df <- iris %>%
+    group_by(Species) %>%
+    select_if(is.numeric))
   expect_equal(df, tbl_df(iris[c(5, 1:4)]))
 })
 

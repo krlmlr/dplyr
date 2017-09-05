@@ -8,12 +8,12 @@ test_that("desc is correctly handled by window functions", {
 
   expect_equal(mutate(df, rank = row_number(desc(x)))$rank, 10:1)
   expect_equal(mutate(group_by(df, g), rank = row_number(desc(x)))$rank, rep(5:1, 2))
-
 })
 
 test_that("row_number gives correct results", {
   tmp <- data.frame(id = rep(c(1, 2), each = 5), value = c(1, 1, 2, 5, 0, 6, 4, 0, 0, 2))
-  res <- group_by(tmp, id) %>% mutate(var = row_number(value))
+  res <- group_by(tmp, id) %>%
+    mutate(var = row_number(value))
   expect_equal(res$var, c(2, 3, 4, 5, 1, 5, 4, 1, 2, 3))
 })
 
@@ -25,7 +25,8 @@ test_that("row_number works with 0 arguments", {
 test_that("cum(sum,min,max) works", {
   df <- data.frame(x = 1:10, y = seq(1, 10, by = 1), g = rep(c(1, 2), each = 5))
 
-  res <- mutate(df,
+  res <- mutate(
+    df,
     csumx = cumsum(x), csumy = cumsum(y),
     cminx = cummin(x), cminy = cummin(y),
     cmaxx = cummax(x), cmaxy = cummax(y)
@@ -37,11 +38,12 @@ test_that("cum(sum,min,max) works", {
   expect_equal(res$cmaxx, cummax(df$x))
   expect_equal(res$cmaxy, cummax(df$y))
 
-  res <- mutate(group_by(df, g),
+  res <- mutate(
+    group_by(df, g),
     csumx = cumsum(x), csumy = cumsum(y),
     cminx = cummin(x), cminy = cummin(y),
     cmaxx = cummax(x), cmaxy = cummax(y)
-    )
+  )
   expect_equal(res$csumx, c(cumsum(df$x[1:5]), cumsum(df$x[6:10])))
   expect_equal(res$csumy, c(cumsum(df$y[1:5]), cumsum(df$y[6:10])))
   expect_equal(res$cminx, c(cummin(df$x[1:5]), cummin(df$x[6:10])))
@@ -51,7 +53,8 @@ test_that("cum(sum,min,max) works", {
 
   df$x[3] <- NA
   df$y[4] <- NA
-  res <- mutate(df,
+  res <- mutate(
+    df,
     csumx = cumsum(x), csumy = cumsum(y),
     cminx = cummin(x), cminy = cummin(y),
     cmaxx = cummax(x), cmaxy = cummax(y)
@@ -64,7 +67,6 @@ test_that("cum(sum,min,max) works", {
 
   expect_true(all(is.na(res$cmaxx[3:10])))
   expect_true(all(is.na(res$cmaxy[4:10])))
-
 })
 
 test_that("lead and lag simple hybrid version gives correct results (#133)", {
@@ -91,20 +93,22 @@ test_that("min_rank handles columns full of NaN (#726)", {
     ID = c(1, 1, 1, 1, 1),
     expression = c(NaN, NaN, NaN, NaN, NaN)
   )
-  data <- group_by(test, ID) %>% mutate(rank = min_rank(expression))
+  data <- group_by(test, ID) %>%
+    mutate(rank = min_rank(expression))
   expect_true(all(is.na(data$rank)))
 })
 
 test_that("rank functions deal correctly with NA (#774)", {
   data <- data_frame(x = c(1, 2, NA, 1, 0, NA))
-  res <- data %>% mutate(
-    min_rank = min_rank(x),
-    percent_rank = percent_rank(x),
-    dense_rank = dense_rank(x),
-    cume_dist = cume_dist(x),
-    ntile = ntile(x, 2),
-    row_number = row_number(x)
-  )
+  res <- data %>%
+    mutate(
+      min_rank = min_rank(x),
+      percent_rank = percent_rank(x),
+      dense_rank = dense_rank(x),
+      cume_dist = cume_dist(x),
+      ntile = ntile(x, 2),
+      row_number = row_number(x)
+    )
   expect_true(all(is.na(res$min_rank[c(3, 6)])))
   expect_true(all(is.na(res$dense_rank[c(3, 6)])))
   expect_true(all(is.na(res$percent_rank[c(3, 6)])))
@@ -146,27 +150,27 @@ test_that("rank functions deal correctly with NA (#774)", {
   expect_equal(res$cume_dist[ c(1, 2, 4, 5, 7, 8, 10, 11) ], rep(c(.75, 1, .75, .25), 2))
   expect_equal(res$ntile[ c(1, 2, 4, 5, 7, 8, 10, 11) ], rep(c(1L, 2L, 2L, 1L), 2))
   expect_equal(res$row_number[ c(1, 2, 4, 5, 7, 8, 10, 11) ], rep(c(2L, 4L, 3L, 1L), 2))
-
 })
 
 test_that("lag and lead work on factors inside mutate (#955)", {
   test_factor <- factor(rep(c("A", "B", "C"), each = 3))
-  exp_lag  <- test_factor != lag(test_factor)
+  exp_lag <- test_factor != lag(test_factor)
   exp_lead <- test_factor != lead(test_factor)
 
   test_df <- tbl_df(data.frame(test = test_factor))
-  res <- test_df %>% mutate(
-    is_diff_lag  = (test != lag(test)),
-    is_diff_lead = (test != lead(test))
+  res <- test_df %>%
+    mutate(
+      is_diff_lag = (test != lag(test)),
+      is_diff_lead = (test != lead(test))
     )
-  expect_equal(exp_lag , res$is_diff_lag)
+  expect_equal(exp_lag, res$is_diff_lag)
   expect_equal(exp_lead, res$is_diff_lead)
-
 })
 
 test_that("lag handles default argument in mutate (#915)", {
   blah <- data.frame(x1 = c(5, 10, 20, 27, 35, 58, 5, 6), y = 8:1)
-  blah <- mutate(blah,
+  blah <- mutate(
+    blah,
     x2 = x1 - lag(x1, n = 1, default = 0),
     x3 = x1 - lead(x1, n = 1, default = 0),
     x4 = lag(x1, n = 1L, order_by = y),

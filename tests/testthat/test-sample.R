@@ -28,7 +28,8 @@ test_that("sample respects weight", {
     fixed = TRUE
   )
   expect_error(
-    sample_frac(df %>% group_by(y), 2),
+    sample_frac(df %>%
+      group_by(y), 2),
     "`size` of sampled fraction must be less or equal to one, set `replace` = TRUE to use sampling with replacement",
     fixed = TRUE
   )
@@ -71,7 +72,9 @@ test_that("sample gives informative error for unknown type", {
 # Grouped ----------------------------------------------------------------------
 
 test_that("sampling grouped tbl samples each group", {
-  sampled <- mtcars %>% group_by(cyl) %>% sample_n(2)
+  sampled <- mtcars %>%
+    group_by(cyl) %>%
+    sample_n(2)
   expect_is(sampled, "grouped_df")
   expect_groups(sampled, "cyl")
   expect_equal(nrow(sampled), 6)
@@ -79,7 +82,8 @@ test_that("sampling grouped tbl samples each group", {
 })
 
 test_that("can't sample more values than obs (without replacement)", {
-  by_cyl <- mtcars %>% group_by(cyl)
+  by_cyl <- mtcars %>%
+    group_by(cyl)
   expect_error(
     sample_n(by_cyl, 10),
     "`size` must be less or equal than 7 (size of data), set `replace` = TRUE to use sampling with replacement",
@@ -95,7 +99,8 @@ df2 <- data.frame(
 
 
 test_that("grouped sample respects weight", {
-  grp <- df2 %>% group_by(g)
+  grp <- df2 %>%
+    group_by(g)
 
   # error message from base R
   expect_error(sample_n(grp, 2, weight = y))

@@ -72,12 +72,18 @@ test_that("duplicate", {
 
 test_that("filter", {
   expect_equal(
-    nasa %>% filter(month == 1) %>% filter(year == 2000),
-    nasa %>% filter(year == 2000) %>% filter(month == 1)
+    nasa %>%
+      filter(month == 1) %>%
+      filter(year == 2000),
+    nasa %>%
+      filter(year == 2000) %>%
+      filter(month == 1)
   )
 
   expect_equal(
-    nasa %>% filter(month == 1) %>% filter(year == 2000),
+    nasa %>%
+      filter(month == 1) %>%
+      filter(year == 2000),
     filter(nasa, month == 1, year == 2000)
   )
 

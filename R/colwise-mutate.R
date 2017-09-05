@@ -121,24 +121,24 @@ transmute_if <- function(.tbl, .predicate, .funs, ...) {
 }
 #' @rdname summarise_all
 #' @export
-transmute_at <- function(.tbl, .vars, .funs, ..., .cols = NULL) {
-  .vars <- check_dot_cols(.vars, .cols)
-  funs <- manip_at(.tbl, .vars, .funs, enquo(.funs), caller_env(), ...)
-  transmute(.tbl, !!! funs)
-}
+
+
+
+
+
 
 # Helpers -----------------------------------------------------------------
 
-manip_all <- function(.tbl, .funs, .quo, .env, ...) {
-  syms <- syms(tbl_nongroup_vars(.tbl))
-  funs <- as_fun_list(.funs, .quo, .env, ...)
-  manip_apply_syms(funs, syms, .tbl)
-}
-manip_if <- function(.tbl, .predicate, .funs, .quo, .env, ...) {
-  vars <- tbl_if_syms(.tbl, .predicate, .env)
-  funs <- as_fun_list(.funs, .quo, .env, ...)
-  manip_apply_syms(funs, vars, .tbl)
-}
+
+
+
+
+
+
+
+
+
+
 manip_at <- function(.tbl, .vars, .funs, .quo, .env, ...) {
   syms <- tbl_at_syms(.tbl, .vars)
   funs <- as_fun_list(.funs, .quo, .env, ...)

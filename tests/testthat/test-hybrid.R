@@ -3,7 +3,8 @@ context("hybrid")
 test_that("hybrid evaluation environment is cleaned up (#2358)", {
   # Can't use pipe here, f and g should have top-level parent.env()
   df <- data_frame(x = 1)
-  df <- mutate(df, f = list(function(){}))
+  df <- mutate(df, f = list(function() {
+  }))
   df <- mutate(df, g = list(quo(.)))
   df <- mutate(df, h = list(~.))
 
@@ -284,7 +285,7 @@ test_that("first(), last(), and nth() work", {
     tibble(a = c(1, 1, 2), b = letters[1:3]) %>%
       group_by(a) %>%
       summarize(b = b[1], b = first(b)) %>%
-      ungroup,
+      ungroup(),
     tibble(a = c(1, 2), b = c("a", "c"))
   )
 })
@@ -491,7 +492,7 @@ test_that("row_number(), ntile(), min_rank(), percent_rank(), dense_rank(), and 
     tibble(a = c(1, 1, 2), b = letters[1:3]) %>%
       group_by(a) %>%
       summarize(b = b[1], b = min_rank(desc(b))) %>%
-      ungroup,
+      ungroup(),
     tibble(a = c(1, 2), b = c(1L, 1L))
   )
 })
@@ -766,10 +767,14 @@ test_that("constant folding and argument matching in hybrid evaluator (#2299)", 
   df <- data_frame(x = c(NA, 1L, 2L, NA, 3L, 4L, NA))
   expected <- rep(4L, nrow(df))
 
-  expect_equal(mutate(df, y = last(na.omit(x)))$y,           expected)
-  expect_equal(mutate(df, y = last(x[!is.na(x)]))$y,         expected)
-  expect_equal(mutate(df, y = x %>% na.omit() %>% last())$y, expected)
-  expect_equal(mutate(df, y = x %>% na.omit %>% last)$y,     expected)
+  expect_equal(mutate(df, y = last(na.omit(x)))$y, expected)
+  expect_equal(mutate(df, y = last(x[!is.na(x)]))$y, expected)
+  expect_equal(mutate(df, y = x %>%
+    na.omit() %>%
+    last())$y, expected)
+  expect_equal(mutate(df, y = x %>%
+    na.omit() %>%
+    last())$y, expected)
 
   data_frame(x = c(1, 1)) %>%
     mutate(y = 1) %>%

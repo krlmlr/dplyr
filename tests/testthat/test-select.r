@@ -2,20 +2,25 @@ context("Select")
 
 test_that("select does not lose grouping (#147)", {
   df <- tibble(a = rep(1:4, 2), b = rep(1:4, each = 2), x = runif(8))
-  grouped <- df %>% group_by(a) %>% select(a, b, x)
+  grouped <- df %>%
+    group_by(a) %>%
+    select(a, b, x)
 
   expect_groups(grouped, "a")
 })
 
 test_that("grouping variables preserved with a message (#1511)", {
-  df <- data_frame(g = 1:3, x = 3:1) %>% group_by(g)
+  df <- data_frame(g = 1:3, x = 3:1) %>%
+    group_by(g)
 
   expect_message(res <- select(df, x), "Adding missing grouping variables")
   expect_named(res, c("g", "x"))
 })
 
 test_that("non-syntactic grouping variable is preserved (#1138)", {
-  df <- data_frame(`a b` = 1L) %>% group_by(`a b`) %>% select()
+  df <- data_frame(`a b` = 1L) %>%
+    group_by(`a b`) %>%
+    select()
   expect_named(df, "a b")
 })
 
@@ -83,18 +88,22 @@ test_that("select can be before group_by (#309)", {
     summarise(var1 = mean(var1))
   expect_equal(names(dfagg), c("id", "year", "var1"))
   expect_equal(attr(dfagg, "vars"), "id")
-
 })
 
 test_that("rename does not crash with invalid grouped data frame (#640)", {
-  df <- data_frame(a = 1:3, b = 2:4, d = 3:5) %>% group_by(a, b)
+  df <- data_frame(a = 1:3, b = 2:4, d = 3:5) %>%
+    group_by(a, b)
   df$a <- NULL
   expect_equal(
-    df %>% rename(e = d) %>% ungroup,
+    df %>%
+      rename(e = d) %>%
+      ungroup(),
     data_frame(b = 2:4, e = 3:5)
   )
   expect_equal(
-    df %>% rename(e = b) %>% ungroup,
+    df %>%
+      rename(e = b) %>%
+      ungroup(),
     data_frame(e = 2:4, d = 3:5)
   )
 })
@@ -207,7 +216,8 @@ test_that("can select() with character vectors", {
 
 test_that("rename() to UTF-8 column names", {
   skip_on_os("windows") # needs an rlang update? #3049
-  df <- data_frame(a = 1) %>% rename("\u5e78" := a)
+  df <- data_frame(a = 1) %>%
+    rename("\u5e78" := a)
 
   expect_equal(colnames(df), "\u5e78")
 })

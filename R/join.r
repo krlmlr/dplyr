@@ -145,14 +145,16 @@ common_by_from_vector <- function(by) {
 common_by.list <- function(by, x, y) {
   x_vars <- tbl_vars(x)
   if (!all(by$x %in% x_vars)) {
-    bad_args("by", "can't contain join column {missing} which is missing from LHS",
+    bad_args(
+      "by", "can't contain join column {missing} which is missing from LHS",
       missing = fmt_obj(setdiff(by$x, x_vars))
     )
   }
 
   y_vars <- tbl_vars(y)
   if (!all(by$y %in% y_vars)) {
-    bad_args("by", "can't contain join column {missing} which is missing from RHS",
+    bad_args(
+      "by", "can't contain join column {missing} which is missing from RHS",
       missing = fmt_obj(setdiff(by$y, y_vars))
     )
   }
@@ -186,14 +188,16 @@ auto_by_msg <- function(by) {
 
 #' @export
 common_by.default <- function(by, x, y) {
-  bad_args("by", "must be a (named) character vector, list, or NULL for ",
+  bad_args(
+    "by", "must be a (named) character vector, list, or NULL for ",
     "natural joins (not recommended in production code), not {type_of(by)}"
   )
 }
 
 check_suffix <- function(x) {
   if (!is.character(x) || length(x) != 2) {
-    bad_args("suffix", "must be a character vector of length 2, ",
+    bad_args(
+      "suffix", "must be a character vector of length 2, ",
       "not {type_of(x)} of length {length(x)}"
     )
   }

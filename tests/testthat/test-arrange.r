@@ -40,14 +40,17 @@ test_that("local arrange sorts missing values to end", {
 
 test_that("two arranges equivalent to one", {
   df <- tribble(
-    ~x,  ~y,
-    2,  1,
-    2,  -1,
-    1,  1
+    ~x, ~y,
+    2, 1,
+    2, -1,
+    1, 1
   )
 
-  df1 <- df %>% arrange(x, y)
-  df2 <- df %>% arrange(y) %>% arrange(x)
+  df1 <- df %>%
+    arrange(x, y)
+  df2 <- df %>%
+    arrange(y) %>%
+    arrange(x)
 
   expect_equal(df1, df2)
 })
@@ -71,17 +74,23 @@ test_that("arrange handles 0-rows data frames", {
 test_that("grouped arrange ignores group (#491 -> #1206)", {
   df <- data.frame(g = c(2, 1, 2, 1), x = c(4:1))
 
-  out <- df %>% group_by(g) %>% arrange(x)
+  out <- df %>%
+    group_by(g) %>%
+    arrange(x)
   expect_equal(out$x, 1:4)
 })
 
 test_that("arrange keeps the grouping structure (#605)", {
   dat <- data_frame(g = c(2, 2, 1, 1), x = c(1, 3, 2, 4))
-  res <- dat %>% group_by(g) %>% arrange()
+  res <- dat %>%
+    group_by(g) %>%
+    arrange()
   expect_is(res, "grouped_df")
   expect_equal(res$x, dat$x)
 
-  res <- dat %>% group_by(g) %>% arrange(x)
+  res <- dat %>%
+    group_by(g) %>%
+    arrange(x)
   expect_is(res, "grouped_df")
   expect_equal(res$x, 1:4)
   expect_equal(attr(res, "indices"), list(c(1, 3), c(0, 2)))
@@ -103,7 +112,6 @@ test_that("arrange handles complex vectors", {
 
   res <- arrange(d, desc(y))
   expect_true(all(is.na(res$y[9:10])))
-
 })
 
 test_that("arrange respects attributes #1105", {
@@ -118,7 +126,8 @@ test_that("arrange respects attributes #1105", {
 
 test_that("arrange works with empty data frame (#1142)", {
   df <- data.frame()
-  res <- df %>% arrange
+  res <- df %>%
+    arrange()
   expect_equal(nrow(res), 0L)
   expect_equal(length(res), 0L)
 })
@@ -126,12 +135,13 @@ test_that("arrange works with empty data frame (#1142)", {
 test_that("arrange respects locale (#1280)", {
   df2 <- data_frame(words = c("casa", "\u00e1rbol", "zona", "\u00f3rgano"))
 
-  res <- df2 %>% arrange(words)
+  res <- df2 %>%
+    arrange(words)
   expect_equal(res$words, sort(df2$words))
 
-  res <- df2 %>% arrange(desc(words))
+  res <- df2 %>%
+    arrange(desc(words))
   expect_equal(res$words, sort(df2$words, decreasing = TRUE))
-
 })
 
 test_that("duplicated column name is explicit about which column (#996)", {
@@ -139,13 +149,15 @@ test_that("duplicated column name is explicit about which column (#996)", {
   names(df) <- c("x", "x")
 
   # Error message created by tibble
-  expect_error(df %>% arrange)
+  expect_error(df %>%
+    arrange())
 
   df <- data.frame(x = 1:10, x = 1:10, y = 1:10, y = 1:10)
   names(df) <- c("x", "x", "y", "y")
 
   # Error message created by tibble
-  expect_error(df %>% arrange)
+  expect_error(df %>%
+    arrange())
 })
 
 test_that("arrange fails gracefully on list columns (#1489)", {
@@ -186,11 +198,13 @@ test_that("arrange fails gracefully on matrix input (#1870)", {
 # grouped_df --------------------------------------------------------------
 
 test_that("can choose to inclue grouping vars", {
-  df <- tibble(g = c(1, 2), x = c(2, 1)) %>% group_by(g)
+  df <- tibble(g = c(1, 2), x = c(2, 1)) %>%
+    group_by(g)
 
-  df1 <- df %>% arrange(x, .by_group = TRUE)
-  df2 <- df %>% arrange(g, x)
+  df1 <- df %>%
+    arrange(x, .by_group = TRUE)
+  df2 <- df %>%
+    arrange(g, x)
 
   expect_equal(df1, df2)
 })
-

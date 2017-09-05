@@ -44,21 +44,26 @@ expect_classes <- function(tbl, expected) {
 }
 
 test_that("can select colwise", {
-  columns <- iris %>% mutate_at(vars(starts_with("Petal")), as.character)
+  columns <- iris %>%
+    mutate_at(vars(starts_with("Petal")), as.character)
   expect_classes(columns, "nnccf")
 
-  numeric <- iris %>% mutate_at(c(1, 3), as.character)
+  numeric <- iris %>%
+    mutate_at(c(1, 3), as.character)
   expect_classes(numeric, "cncnf")
 
-  character <- iris %>% mutate_at("Species", as.character)
+  character <- iris %>%
+    mutate_at("Species", as.character)
   expect_classes(character, "nnnnc")
 })
 
 test_that("can probe colwise", {
-  predicate <- iris %>% mutate_if(is.factor, as.character)
+  predicate <- iris %>%
+    mutate_if(is.factor, as.character)
   expect_classes(predicate, "nnnnc")
 
-  logical <- iris %>% mutate_if(c(TRUE, FALSE, TRUE, TRUE, FALSE), as.character)
+  logical <- iris %>%
+    mutate_if(c(TRUE, FALSE, TRUE, TRUE, FALSE), as.character)
   expect_classes(logical, "cnccf")
 })
 

@@ -1,7 +1,10 @@
 # UTF-8 tests that can't be run on Windows CRAN
 df <- data.frame(中文1 = 1:10, 中文2 = 1:10, eng = 1:10)
-df2 <- df %>% mutate(中文1 = 中文1 + 1)
-gdf2 <- df %>% group_by(eng) %>% mutate(中文1 = 中文1 + 1)
+df2 <- df %>%
+  mutate(中文1 = 中文1 + 1)
+gdf2 <- df %>%
+  group_by(eng) %>%
+  mutate(中文1 = 中文1 + 1)
 
 expect_equal(strings_addresses(names(df)), strings_addresses(names(df2)))
 expect_equal(strings_addresses(names(df)), strings_addresses(names(gdf2)))

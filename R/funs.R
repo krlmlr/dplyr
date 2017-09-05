@@ -106,7 +106,8 @@ is_fun_list <- function(x, env) {
 }
 #' @export
 `[.fun_list` <- function(x, i) {
-  structure(NextMethod(),
+  structure(
+    NextMethod(),
     class = "fun_list",
     has_names = attr(x, "has_names")
   )

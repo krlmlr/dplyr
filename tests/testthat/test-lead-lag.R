@@ -12,10 +12,10 @@ test_that("lead and lag preserves dates and times", {
   y <- as.POSIXct(x)
 
   expect_is(lead(x), "Date")
-  expect_is(lag(x),  "Date")
+  expect_is(lag(x), "Date")
 
   expect_is(lead(y), "POSIXct")
-  expect_is(lag(y),  "POSIXct")
+  expect_is(lag(y), "POSIXct")
 })
 
 test_that("#925 is fixed", {
@@ -23,7 +23,9 @@ test_that("#925 is fixed", {
     name = c("Rob", "Pete", "Rob", "John", "Rob", "Pete", "John", "Pete", "John", "Pete", "Rob", "Rob"),
     time = c(3, 2, 5, 3, 2, 3, 2, 4, 1, 1, 4, 1)
   )
-  res <- data %>% group_by(name) %>% mutate(lag_time = lag(time))
+  res <- data %>%
+    group_by(name) %>%
+    mutate(lag_time = lag(time))
   expect_equal(
     res$lag_time[res$name == "Rob"],
     c(NA, head(data$time[data$name == "Rob"], -1))
@@ -44,7 +46,9 @@ test_that("#937 is fixed", {
     score = rep(c(100, 80, 60), 2)
   )
 
-  res <- df %>% group_by(name) %>% mutate(next.score = lead(score))
+  res <- df %>%
+    group_by(name) %>%
+    mutate(next.score = lead(score))
   expect_equal(
     res$next.score[res$name == "Al"],
     c(tail(df$score[df$name == "Al"], -1), NA)

@@ -85,15 +85,17 @@
 #' summarise(by_loc, pressure = max(pressure), temp = mean(temperature))
 tbl_cube <- function(dimensions, measures) {
   if (!is.list(dimensions) || any_apply(dimensions, Negate(is.atomic)) ||
-      is.null(names(dimensions))) {
-    bad_args("dimensions", "must be a named list of vectors, ",
+    is.null(names(dimensions))) {
+    bad_args(
+      "dimensions", "must be a named list of vectors, ",
       "not {type_of(dimensions)}"
     )
   }
 
   if (!is.list(measures) || any_apply(measures, Negate(is.array)) ||
     is.null(names(measures))) {
-    bad_args("measures", "must be a named list of arrays, ",
+    bad_args(
+      "measures", "must be a named list of arrays, ",
       "not {type_of(measures)}"
     )
   }
@@ -106,7 +108,8 @@ tbl_cube <- function(dimensions, measures) {
   )
   if (any(!dims_ok)) {
     bad <- names(measures)[!dims_ok]
-    bad_measures(bad, "needs dimensions {fmt_dims(dims)}, not {bad_dim}",
+    bad_measures(
+      bad, "needs dimensions {fmt_dims(dims)}, not {bad_dim}",
       bad_dim = fmt_dims(dim(measures[!dims_ok][[1L]]))
     )
   }
@@ -274,8 +277,9 @@ as.tbl_cube.data.frame <- function(x, dim_names = NULL, met_name = guess_met(x),
     dupe_row <- anyDuplicated(all[dim_names])
     dupe <- unlist(all[dupe_row, dim_names])
 
-    bad_args("x", "must be unique in all combinations of dimension variables, ",
-      'duplicates: {fmt_named(dupe)}'
+    bad_args(
+      "x", "must be unique in all combinations of dimension variables, ",
+      "duplicates: {fmt_named(dupe)}"
     )
   }
 
@@ -340,7 +344,8 @@ filter_.tbl_cube <- function(.data, ..., .dots = list()) {
 find_index_check <- function(i, x, names) {
   idx <- find_index(f_rhs(x), names)
   if (length(idx) != 1) {
-    bad_calls(x, "must refer to exactly one dimension, ",
+    bad_calls(
+      x, "must refer to exactly one dimension, ",
       "not {fmt_obj(names[idx])}"
     )
   }
@@ -404,7 +409,7 @@ summarise.tbl_cube <- function(.data, ...) {
 
   # Loop over each group
   for (i in seq_len(nrow(slices))) {
-    index <- as_list(slices[i, , drop = FALSE])
+    index <- as_list(slices[i,, drop = FALSE])
     mets <- map(
       .data$mets, subs_index, i = .data$groups, val = index,
       drop = TRUE

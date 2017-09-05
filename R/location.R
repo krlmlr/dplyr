@@ -73,12 +73,11 @@ changes <- function(x, y) {
     cat("Changed attributes:\n")
     print(attr, quote = FALSE)
   }
-
 }
 
 match_up <- function(x, y) {
-  both <-    intersect(names(x), names(y))
-  added <-   setdiff(names(x), names(y))
+  both <- intersect(names(x), names(y))
+  added <- setdiff(names(x), names(y))
   deleted <- setdiff(names(y), names(x))
 
   out <- cbind(
@@ -86,5 +85,5 @@ match_up <- function(x, y) {
     new = c(y[both], rep("<deleted>", length(added)), y[deleted])
   )
   rownames(out) <- c(both, added, deleted)
-  out[out[, "old"] != out[, "new"], , drop = FALSE]
+  out[out[, "old"] != out[, "new"],, drop = FALSE]
 }

@@ -63,36 +63,74 @@ NULL
 
 #' @export
 #' @rdname bench_compare
-bench_tbls <- function(tbls, op, ..., times = 10) {
-  check_pkg("microbenchmark", "compute table benchmarks")
 
-  # Generate call to microbenchmark function that evaluates op for each tbl
-  calls <- lapply(seq_along(tbls), function(i) {
-    substitute(op(tbls[[i]]), list(i = i))
-  })
-  names(calls) <- names(tbls)
 
-  mb <- as.call(c(
-    quote(microbenchmark::microbenchmark), calls, dots(...),
-    list(times = times)
-  ))
-  eval(mb)
-}
 
-#' @export
-#' @rdname bench_compare
-compare_tbls <- function(tbls, op, ref = NULL, compare = equal_data_frame, ...) {
-  results <- eval_tbls(tbls, op)
-  expect_equal_tbls(results, compare = compare, ...)
-}
+
+
+
+
+
+
+
+
+
+
+
+
 
 #' @export
 #' @rdname bench_compare
-compare_tbls2 <- function(tbls_x, tbls_y, op, ref = NULL, compare = equal_data_frame, ...) {
-  results <- eval_tbls2(tbls_x, tbls_y, op)
-  expect_equal_tbls(results, compare = compare, ...)
-}
 
+
+
+
+
+#' @export
+#' @rdname bench_compare
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#' @export
+#' @rdname bench_compare
+
+
+
+
+#' @export
+#' @rdname bench_compare
 expect_equal_tbls <- function(results, ref = NULL, compare = equal_data_frame, ...) {
   check_pkg("testthat", "compare tables")
 
@@ -123,14 +161,14 @@ expect_equal_tbls <- function(results, ref = NULL, compare = equal_data_frame, .
   invisible(TRUE)
 }
 
-#' @export
-#' @rdname bench_compare
-eval_tbls <- function(tbls, op) {
-  lapply(tbls, function(x) as.data.frame(op(x)))
-}
 
-#' @export
-#' @rdname bench_compare
+
+
+
+
+
+
+
 eval_tbls2 <- function(tbls_x, tbls_y, op) {
   Map(function(x, y) as.data.frame(op(x, y)), tbls_x, tbls_y)
 }
