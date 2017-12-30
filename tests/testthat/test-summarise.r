@@ -762,6 +762,34 @@ test_that("summarise handles min/max of already summarised variable (#1622)", {
   expect_equal(df_summary$FIRST_DAY, df_summary$LAST_DAY)
 })
 
+test_that("summarise handles double summary (#3233)", {
+  df <- data.frame(a = 1:3)
+
+  df_summary <-
+    df %>%
+    summarise(b = sum(a), c = sum(b))
+
+  expect_equal(df_summary, data.frame(b = 6, c = 6))
+
+  df_summary <-
+    df %>%
+    summarise(b = mean(a), c = mean(b))
+
+  expect_equal(df_summary, data.frame(b = 2, c = 2))
+
+  df_summary <-
+    df %>%
+    summarise(b = var(a), c = var(b))
+
+  expect_equal(df_summary, data.frame(b = 1, c = NA_real_))
+
+  df_summary <-
+    df %>%
+    summarise(b = sd(a), c = sd(b))
+
+  expect_equal(df_summary, data.frame(b = 1, c = NA_real_))
+})
+
 test_that("group_by keeps classes (#1631)", {
   df <- data.frame(a = 1, b = as.Date(NA)) %>%
     group_by(a) %>%
@@ -793,18 +821,10 @@ test_that("summarise() correctly coerces factors with different levels (#1678)",
   expect_equal(as.character(res$z), c("a", "b", "b"))
 })
 
-test_that("summarise works if raw columns exist but are not involved (#1803)", {
+test_that("summarise handles raw columns (#1803)", {
   df <- data_frame(a = 1:3, b = as.raw(1:3))
   expect_equal(summarise(df, c = sum(a)), data_frame(c = 6L))
-})
-
-test_that("summarise fails gracefully on raw columns (#1803)", {
-  df <- data_frame(a = 1:3, b = as.raw(1:3))
-  expect_error(
-    summarise(df, c = b[[1]]),
-    "Column `c` is of unsupported type raw vector",
-    fixed = TRUE
-  )
+  expect_identical( summarise(df, c = b[[1]]), data_frame(c = as.raw(1) ) )
 })
 
 test_that("dim attribute is stripped from grouped summarise (#1918)", {
