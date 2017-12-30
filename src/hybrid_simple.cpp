@@ -67,6 +67,7 @@ Result* simple_prototype(SEXP call, const ILazySubsets& subsets, int nargs) {
       }
     }
   }
+  int unused;
   return 0;
 }
 
