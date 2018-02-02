@@ -4,6 +4,7 @@
 #include <boost/scoped_ptr.hpp>
 
 #include <tools/Call.h>
+#include <tools/utils.h>
 
 #include <dplyr/Result/Result.h>
 
@@ -12,9 +13,9 @@
 namespace dplyr {
 
 inline static
-SEXP rlang_object(const char* name) {
-  static Environment rlang = Rcpp::Environment::namespace_env("rlang");
-  return rlang[name];
+SEXP dplyr_object(const char* name) {
+  static Environment dplyr = Rcpp::Environment::namespace_env("dplyr");
+  return dplyr[name];
 }
 
 
@@ -37,8 +38,11 @@ public:
 
   ~GroupedHybridEnv() {
     if (has_overscope) {
-      static Function overscope_clean = rlang_object("overscope_clean");
-      overscope_clean(overscope);
+      // We need to call into R because there is no C API for removing
+      // bindings from environments
+      static Function env_wipe = dplyr_object("env_wipe");
+      env_wipe(mask_active);
+      env_wipe(mask_bottom);
     }
   }
 
@@ -55,31 +59,20 @@ private:
 
     // Environment::new_child() performs an R callback, creating the environment
     // in R should be slightly faster
-    Environment active_env =
+    mask_active =
       create_env_string(
         names, &GroupedHybridEnv::hybrid_get_callback,
         PAYLOAD(const_cast<void*>(reinterpret_cast<const void*>(callback))), env);
 
     // If bindr (via bindrcpp) supported the creation of a child environment, we could save the
-    // call to Rcpp_eval() triggered by active_env.new_child()
-    Environment bottom = active_env.new_child(true);
-    bottom[".data"] = rlang_new_data_source(active_env);
+    // call to Rcpp_eval() triggered by mask_active.new_child()
+    mask_bottom = mask_active.new_child(true);
+    mask_bottom[".data"] = internal::rlang_api().as_data_pronoun(mask_active);
 
     // Install definitions for formula self-evaluation and unguarding
-    Function new_overscope = rlang_object("new_overscope");
-    overscope = new_overscope(bottom, active_env, env);
+    overscope = internal::rlang_api().new_data_mask(mask_bottom, mask_active, env);
 
     has_overscope = true;
-  }
-
-  static List rlang_new_data_source(Environment env) {
-    static Function as_dictionary = rlang_object("as_dictionary");
-    return
-      as_dictionary(
-        env,
-        _["lookup_msg"] = "Column `%s`: not found in data",
-        _["read_only"] = true
-      );
   }
 
   static SEXP hybrid_get_callback(const String& name, bindrcpp::PAYLOAD payload) {
@@ -94,6 +87,8 @@ private:
   const IHybridCallback* callback;
 
   mutable Environment overscope;
+  mutable Environment mask_active;
+  mutable Environment mask_bottom;
   mutable bool has_overscope;
 };
 
