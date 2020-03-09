@@ -136,7 +136,7 @@ distinct.data.frame <- function(.data, ..., .keep_all = FALSE) {
 #' n_distinct(x)
 #' @export
 n_distinct <- function(..., na.rm = FALSE) {
-  data <- tibble(!!!list2(...))
+  data <- tibble(...)
   if (isTRUE(na.rm)){
     data <- vec_slice(data, !reduce(map(data, vec_equal_na), `|`))
   }

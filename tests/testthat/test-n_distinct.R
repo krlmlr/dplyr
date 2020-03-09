@@ -68,3 +68,8 @@ test_that("n_distinct() can use .data (tidyverse/tibble#721)", {
   d <- tibble(a = 1:3)
   expect_equal(d %>% mutate(n = n_distinct(.data$a)) %>% pull(), rep(3L, 3))
 })
+
+test_that("n_distinct() has mutate semantics (tidyverse/tibble#721)", {
+  d <- tibble(a = 1:3)
+  expect_equal(d %>% mutate(n = n_distinct(x = .data$a, y = x + 1)) %>% pull(), rep(3L, 3))
+})
