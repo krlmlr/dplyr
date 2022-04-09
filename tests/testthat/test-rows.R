@@ -41,6 +41,21 @@ test_that("rows_insert() allows you to ignore matched keys with `conflict = 'ign
   )
 })
 
+test_that("rows_insert() allows you to insert unconditionally with `conflict = 'backend'`", {
+  x <- tibble(a = 1, b = 2)
+
+  y <- tibble(a = 1, b = 3)
+
+  expect_identical(rows_insert(x, y, conflict = "backend"), bind_rows(x, y))
+
+  y <- tibble(a = c(1, 2, 1), b = c(3, 4, 5))
+
+  expect_identical(
+    rows_insert(x, y, conflict = "backend"),
+    bind_rows(x, y)
+  )
+})
+
 test_that("rows_insert() allows `x` keys to be duplicated (#5553)", {
   x <- tibble(a = c(1, 1), b = c(2, 3))
   y <- tibble(a = 2, b = 4)
@@ -63,11 +78,12 @@ test_that("rows_insert() allows `y` keys to be duplicated (#5553)", {
 
 test_that("`conflict` is validated", {
   x <- tibble(a = 1)
-  y <- tibble(a = 2)
+  y <- tibble(a = 1)
 
   expect_snapshot({
     (expect_error(rows_insert(x, y, by = "a", conflict = "foo")))
     (expect_error(rows_insert(x, y, by = "a", conflict = 1)))
+    rows_insert(x, y, by = "a", conflict = "backend")
   })
 })
 

@@ -41,6 +41,9 @@
 #'   - `"error"`, the default, will error if there are any keys in `y` that
 #'     conflict with keys in `x`.
 #'   - `"ignore"` will silently ignore rows in `y` with keys that exist in `x`.
+#'   - `"backend"` ignores the `by` argument (and warns if it is given anyway).
+#'     This option can lead to duplicate rows, and is most useful for databases
+#'     that always check uniqueness of primary keys and unique indexes.
 #' @param nonexistent What should happen if there is a key in `y` that
 #'   doesn't exist in `x`?
 #'
@@ -103,7 +106,7 @@ rows_insert <- function(x,
                         y,
                         by = NULL,
                         ...,
-                        conflict = c("error", "ignore"),
+                        conflict = c("error", "ignore", "backend"),
                         copy = FALSE,
                         in_place = FALSE) {
   lifecycle::signal_stage("experimental", "rows_insert()")
@@ -115,7 +118,7 @@ rows_insert.data.frame <- function(x,
                                    y,
                                    by = NULL,
                                    ...,
-                                   conflict = c("error", "ignore"),
+                                   conflict = c("error", "ignore", "backend"),
                                    copy = FALSE,
                                    in_place = FALSE) {
   check_dots_empty()
@@ -125,7 +128,9 @@ rows_insert.data.frame <- function(x,
 
   rows_check_containment(x, y)
 
-  by <- rows_check_by(by, y)
+  conflict <- rows_check_conflict(conflict)
+
+  by <- rows_check_by(by, y, conflict = conflict)
 
   x_key <- rows_select_key(x, by, "x")
   y_key <- rows_select_key(y, by, "y")
@@ -352,8 +357,13 @@ rows_delete.data.frame <- function(x,
 
 # helpers -----------------------------------------------------------------
 
-rows_check_by <- function(by, y, ..., error_call = caller_env()) {
+rows_check_by <- function(by, y, conflict = NULL, ..., error_call = caller_env()) {
   check_dots_empty()
+
+  if (!is.null(conflict) && conflict == "backend" && !is.null(by)) {
+    warn("`by` ignored with `conflict = \"backend\"`.")
+    return(NULL)
+  }
 
   if (is.null(by)) {
     if (ncol(y) == 0L) {
@@ -446,7 +456,9 @@ rows_check_y_matched <- function(x_key,
                                  error_call = caller_env()) {
   check_dots_empty()
 
-  conflict <- rows_check_conflict(conflict, error_call = error_call)
+  if (conflict == "backend") {
+    return(NULL)
+  }
 
   keep <- NULL
   matched <- vec_in(y_key, x_key)
@@ -510,7 +522,7 @@ rows_check_conflict <- function(conflict, ..., error_call = caller_env()) {
 
   arg_match(
     arg = conflict,
-    values = c("error", "ignore"),
+    values = c("error", "ignore", "backend"),
     error_arg = "conflict",
     error_call = error_call
   )

@@ -14,7 +14,7 @@ rows_insert(
   y,
   by = NULL,
   ...,
-  conflict = c("error", "ignore"),
+  conflict = c("error", "ignore", "backend"),
   copy = FALSE,
   in_place = FALSE
 )
@@ -73,6 +73,9 @@ One of:
 \item \code{"error"}, the default, will error if there are any keys in \code{y} that
 conflict with keys in \code{x}.
 \item \code{"ignore"} will silently ignore rows in \code{y} with keys that exist in \code{x}.
+\item \code{"backend"} ignores the \code{by} argument (and warns if it is given anyway).
+This option can lead to duplicate rows, and is most useful for databases
+that always check uniqueness of primary keys and unique indexes.
 }}
 
 \item{copy}{If \code{x} and \code{y} are not from the same data source,

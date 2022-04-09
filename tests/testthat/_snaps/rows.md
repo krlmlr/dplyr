@@ -25,13 +25,24 @@
     Output
       <error/rlang_error>
       Error in `rows_insert()`:
-      ! `conflict` must be one of "error" or "ignore", not "foo".
+      ! `conflict` must be one of "error", "ignore", or "backend", not "foo".
     Code
       (expect_error(rows_insert(x, y, by = "a", conflict = 1)))
     Output
       <error/rlang_error>
       Error in `rows_insert()`:
       ! `conflict` must be a character vector, not a number.
+    Code
+      rows_insert(x, y, by = "a", conflict = "backend")
+    Condition
+      Warning:
+      `by` ignored with `conflict = "backend"`.
+    Output
+      # A tibble: 2 x 1
+            a
+        <dbl>
+      1     1
+      2     1
 
 # rows_update() requires `y` keys to exist in `x` by default
 
