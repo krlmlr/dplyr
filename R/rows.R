@@ -34,20 +34,20 @@
 #'
 #'   When `TRUE`, a modified version of `x` is returned invisibly;
 #'   when `FALSE`, a new object representing the resulting changes is returned.
-#' @param conflict How should keys in `y` that conflict with keys in `x` be
-#'   handled?
-#'
-#'   For `rows_insert()`, a conflict arises if there is a key in `y` that
-#'   already exists in `x`.
-#'
-#'   For `rows_patch()`, `rows_delete()`, and `rows_update()`, a conflict arises
-#'   if there is a key in `y` that doesn't exist in `x`.
+#' @param conflict What should happen if there is a key in `y` that
+#'   already exists in `x`?
 #'
 #'   One of:
 #'   - `"error"`, the default, will error if there are any keys in `y` that
 #'     conflict with keys in `x`.
-#'   - `"ignore"` will ignore rows in `y` with keys that conflict with keys in
-#'     `x`.
+#'   - `"ignore"` will silently ignore rows in `y` with keys that exist in `x`.
+#' @param nonexistent What should happen if there is a key in `y` that
+#'   doesn't exist in `x`?
+#'
+#'   One of:
+#'   - `"error"`, the default, will error if there are any keys in `y` that
+#'     exist in `x`.
+#'   - `"ignore"` will ignore rows in `y` with keys that exist in `x`.
 #' @returns
 #' An object of the same type as `x`. The order of the rows and columns of `x`
 #' is preserved as much as possible. The output has the following properties:
@@ -145,7 +145,7 @@ rows_update <- function(x,
                         y,
                         by = NULL,
                         ...,
-                        conflict = c("error", "ignore"),
+                        nonexistent = c("error", "ignore"),
                         copy = FALSE,
                         in_place = FALSE) {
   lifecycle::signal_stage("experimental", "rows_update()")
@@ -157,7 +157,7 @@ rows_update.data.frame <- function(x,
                                    y,
                                    by = NULL,
                                    ...,
-                                   conflict = c("error", "ignore"),
+                                   nonexistent = c("error", "ignore"),
                                    copy = FALSE,
                                    in_place = FALSE) {
   check_dots_empty()
@@ -172,7 +172,7 @@ rows_update.data.frame <- function(x,
   x_key <- rows_select_key(x, by, "x")
   y_key <- rows_select_key(y, by, "y", unique = TRUE)
 
-  keep <- rows_check_y_unmatched(x_key, y_key, conflict)
+  keep <- rows_check_y_unmatched(x_key, y_key, nonexistent)
 
   if (!is.null(keep)) {
     y <- dplyr_row_slice(y, keep)
@@ -198,7 +198,7 @@ rows_patch <- function(x,
                        y,
                        by = NULL,
                        ...,
-                       conflict = c("error", "ignore"),
+                       nonexistent = c("error", "ignore"),
                        copy = FALSE,
                        in_place = FALSE) {
   lifecycle::signal_stage("experimental", "rows_patch()")
@@ -210,7 +210,7 @@ rows_patch.data.frame <- function(x,
                                   y,
                                   by = NULL,
                                   ...,
-                                  conflict = c("error", "ignore"),
+                                  nonexistent = c("error", "ignore"),
                                   copy = FALSE,
                                   in_place = FALSE) {
   check_dots_empty()
@@ -225,7 +225,7 @@ rows_patch.data.frame <- function(x,
   x_key <- rows_select_key(x, by, "x")
   y_key <- rows_select_key(y, by, "y", unique = TRUE)
 
-  keep <- rows_check_y_unmatched(x_key, y_key, conflict)
+  keep <- rows_check_y_unmatched(x_key, y_key, nonexistent)
 
   if (!is.null(keep)) {
     y <- dplyr_row_slice(y, keep)
@@ -305,7 +305,7 @@ rows_delete <- function(x,
                         y,
                         by = NULL,
                         ...,
-                        conflict = c("error", "ignore"),
+                        nonexistent = c("error", "ignore"),
                         copy = FALSE,
                         in_place = FALSE) {
   lifecycle::signal_stage("experimental", "rows_delete()")
@@ -317,7 +317,7 @@ rows_delete.data.frame <- function(x,
                                    y,
                                    by = NULL,
                                    ...,
-                                   conflict = c("error", "ignore"),
+                                   nonexistent = c("error", "ignore"),
                                    copy = FALSE,
                                    in_place = FALSE) {
   check_dots_empty()
@@ -330,7 +330,7 @@ rows_delete.data.frame <- function(x,
   x_key <- rows_select_key(x, by, "x")
   y_key <- rows_select_key(y, by, "y")
 
-  keep <- rows_check_y_unmatched(x_key, y_key, conflict)
+  keep <- rows_check_y_unmatched(x_key, y_key, nonexistent)
 
   if (!is.null(keep)) {
     y_key <- dplyr_row_slice(y_key, keep)
@@ -474,18 +474,18 @@ rows_check_y_matched <- function(x_key,
 
 rows_check_y_unmatched <- function(x_key,
                                    y_key,
-                                   conflict,
+                                   nonexistent,
                                    ...,
                                    error_call = caller_env()) {
   check_dots_empty()
 
-  conflict <- rows_check_conflict(conflict, error_call = error_call)
+  nonexistent <- rows_check_nonexistent(nonexistent, error_call = error_call)
 
   keep <- NULL
   unmatched <- !vec_in(y_key, x_key)
 
   if (any(unmatched)) {
-    if (conflict == "error") {
+    if (nonexistent == "error") {
       unmatched <- which(unmatched)
       unmatched <- err_locs(unmatched)
 
@@ -495,10 +495,10 @@ rows_check_y_unmatched <- function(x_key,
       )
 
       abort(message, call = error_call)
-    } else if (conflict == "ignore") {
+    } else if (nonexistent == "ignore") {
       keep <- which(!unmatched)
     } else {
-      abort("Unknown `conflict` value.", .internal = TRUE)
+      abort("Unknown `nonexistent` value.", .internal = TRUE)
     }
   }
 
@@ -512,6 +512,17 @@ rows_check_conflict <- function(conflict, ..., error_call = caller_env()) {
     arg = conflict,
     values = c("error", "ignore"),
     error_arg = "conflict",
+    error_call = error_call
+  )
+}
+
+rows_check_nonexistent <- function(nonexistent, ..., error_call = caller_env()) {
+  check_dots_empty()
+
+  arg_match(
+    arg = nonexistent,
+    values = c("error", "ignore"),
+    error_arg = "nonexistent",
     error_call = error_call
   )
 }

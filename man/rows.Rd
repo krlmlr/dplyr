@@ -24,7 +24,7 @@ rows_update(
   y,
   by = NULL,
   ...,
-  conflict = c("error", "ignore"),
+  nonexistent = c("error", "ignore"),
   copy = FALSE,
   in_place = FALSE
 )
@@ -34,7 +34,7 @@ rows_patch(
   y,
   by = NULL,
   ...,
-  conflict = c("error", "ignore"),
+  nonexistent = c("error", "ignore"),
   copy = FALSE,
   in_place = FALSE
 )
@@ -46,7 +46,7 @@ rows_delete(
   y,
   by = NULL,
   ...,
-  conflict = c("error", "ignore"),
+  nonexistent = c("error", "ignore"),
   copy = FALSE,
   in_place = FALSE
 )
@@ -65,21 +65,14 @@ a reasonable place to put an identifier variable.}
 
 \item{...}{Other parameters passed onto methods.}
 
-\item{conflict}{How should keys in \code{y} that conflict with keys in \code{x} be
-handled?
-
-For \code{rows_insert()}, a conflict arises if there is a key in \code{y} that
-already exists in \code{x}.
-
-For \code{rows_patch()}, \code{rows_delete()}, and \code{rows_update()}, a conflict arises
-if there is a key in \code{y} that doesn't exist in \code{x}.
+\item{conflict}{What should happen if there is a key in \code{y} that
+already exists in \code{x}?
 
 One of:
 \itemize{
 \item \code{"error"}, the default, will error if there are any keys in \code{y} that
 conflict with keys in \code{x}.
-\item \code{"ignore"} will ignore rows in \code{y} with keys that conflict with keys in
-\code{x}.
+\item \code{"ignore"} will silently ignore rows in \code{y} with keys that exist in \code{x}.
 }}
 
 \item{copy}{If \code{x} and \code{y} are not from the same data source,
@@ -92,6 +85,16 @@ relevant for mutable backends (e.g. databases, data.tables).
 
 When \code{TRUE}, a modified version of \code{x} is returned invisibly;
 when \code{FALSE}, a new object representing the resulting changes is returned.}
+
+\item{nonexistent}{What should happen if there is a key in \code{y} that
+doesn't exist in \code{x}?
+
+One of:
+\itemize{
+\item \code{"error"}, the default, will error if there are any keys in \code{y} that
+exist in \code{x}.
+\item \code{"ignore"} will ignore rows in \code{y} with keys that exist in \code{x}.
+}}
 }
 \value{
 An object of the same type as \code{x}. The order of the rows and columns of \code{x}
