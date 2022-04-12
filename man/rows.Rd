@@ -3,6 +3,7 @@
 \name{rows}
 \alias{rows}
 \alias{rows_insert}
+\alias{rows_append}
 \alias{rows_update}
 \alias{rows_patch}
 \alias{rows_upsert}
@@ -14,10 +15,12 @@ rows_insert(
   y,
   by = NULL,
   ...,
-  conflict = c("error", "ignore", "backend"),
+  conflict = c("error", "ignore"),
   copy = FALSE,
   in_place = FALSE
 )
+
+rows_append(x, y, ..., copy = FALSE, in_place = FALSE)
 
 rows_update(
   x,
@@ -73,9 +76,6 @@ One of:
 \item \code{"error"}, the default, will error if there are any keys in \code{y} that
 conflict with keys in \code{x}.
 \item \code{"ignore"} will silently ignore rows in \code{y} with keys that exist in \code{x}.
-\item \code{"backend"} ignores the \code{by} argument (and warns if it is given anyway).
-This option can lead to duplicate rows, and is most useful for databases
-that always check uniqueness of primary keys and unique indexes.
 }}
 
 \item{copy}{If \code{x} and \code{y} are not from the same data source,
@@ -124,6 +124,7 @@ by SQL's \code{INSERT}, \code{UPDATE}, and \code{DELETE}, and can optionally mod
 \itemize{
 \item \code{rows_insert()} adds new rows (like \code{INSERT}). By default, key values in
 \code{y} must not exist in \code{x}.
+\item \code{rows_append()} works like \code{rows_insert()} but ignores keys.
 \item \code{rows_update()} modifies existing rows (like \code{UPDATE}). Key values in \code{y}
 must be unique, and, by default, key values in \code{y} must exist in \code{x}.
 \item \code{rows_patch()} works like \code{rows_update()} but only overwrites \code{NA} values.
@@ -142,9 +143,11 @@ rows_insert(data, tibble(a = 4, b = "z"))
 
 # By default, if a key in `y` matches a key in `x`, then it can't be inserted
 # and will throw an error. Alternatively, you can ignore rows in `y`
-# containing keys that conflict with keys in `x` with `conflict = "ignore"`.
+# containing keys that conflict with keys in `x` with `conflict = "ignore"`,
+# or use `rows_append()`.
 try(rows_insert(data, tibble(a = 3, b = "z")))
 rows_insert(data, tibble(a = 3, b = "z"), conflict = "ignore")
+rows_append(data, tibble(a = 3, b = "z"))
 
 # Update
 rows_update(data, tibble(a = 2:3, b = "z"))

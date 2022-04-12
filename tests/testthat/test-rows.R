@@ -41,17 +41,17 @@ test_that("rows_insert() allows you to ignore matched keys with `conflict = 'ign
   )
 })
 
-test_that("rows_insert() allows you to insert unconditionally with `conflict = 'backend'`", {
+test_that("rows_append() allows you to insert unconditionally", {
   x <- tibble(a = 1, b = 2)
 
   y <- tibble(a = 1, b = 3)
 
-  expect_identical(rows_insert(x, y, conflict = "backend"), bind_rows(x, y))
+  expect_identical(rows_append(x, y), bind_rows(x, y))
 
   y <- tibble(a = c(1, 2, 1), b = c(3, 4, 5))
 
   expect_identical(
-    rows_insert(x, y, conflict = "backend"),
+    rows_append(x, y),
     bind_rows(x, y)
   )
 })

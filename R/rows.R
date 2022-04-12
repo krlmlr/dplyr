@@ -11,6 +11,7 @@
 #'
 #' * `rows_insert()` adds new rows (like `INSERT`). By default, key values in
 #'   `y` must not exist in `x`.
+#' * `rows_append()` works like `rows_insert()` but ignores keys.
 #' * `rows_update()` modifies existing rows (like `UPDATE`). Key values in `y`
 #'   must be unique, and, by default, key values in `y` must exist in `x`.
 #' * `rows_patch()` works like `rows_update()` but only overwrites `NA` values.
@@ -41,9 +42,6 @@
 #'   - `"error"`, the default, will error if there are any keys in `y` that
 #'     conflict with keys in `x`.
 #'   - `"ignore"` will silently ignore rows in `y` with keys that exist in `x`.
-#'   - `"backend"` ignores the `by` argument (and warns if it is given anyway).
-#'     This option can lead to duplicate rows, and is most useful for databases
-#'     that always check uniqueness of primary keys and unique indexes.
 #' @param nonexistent What should happen if there is a key in `y` that
 #'   doesn't exist in `x`?
 #'
@@ -73,9 +71,11 @@
 #'
 #' # By default, if a key in `y` matches a key in `x`, then it can't be inserted
 #' # and will throw an error. Alternatively, you can ignore rows in `y`
-#' # containing keys that conflict with keys in `x` with `conflict = "ignore"`.
+#' # containing keys that conflict with keys in `x` with `conflict = "ignore"`,
+#' # or use `rows_append()`.
 #' try(rows_insert(data, tibble(a = 3, b = "z")))
 #' rows_insert(data, tibble(a = 3, b = "z"), conflict = "ignore")
+#' rows_append(data, tibble(a = 3, b = "z"))
 #'
 #' # Update
 #' rows_update(data, tibble(a = 2:3, b = "z"))
@@ -106,7 +106,7 @@ rows_insert <- function(x,
                         y,
                         by = NULL,
                         ...,
-                        conflict = c("error", "ignore", "backend"),
+                        conflict = c("error", "ignore"),
                         copy = FALSE,
                         in_place = FALSE) {
   lifecycle::signal_stage("experimental", "rows_insert()")
@@ -118,7 +118,7 @@ rows_insert.data.frame <- function(x,
                                    y,
                                    by = NULL,
                                    ...,
-                                   conflict = c("error", "ignore", "backend"),
+                                   conflict = c("error", "ignore"),
                                    copy = FALSE,
                                    in_place = FALSE) {
   check_dots_empty()
@@ -140,6 +140,33 @@ rows_insert.data.frame <- function(x,
   if (!is.null(keep)) {
     y <- dplyr_row_slice(y, keep)
   }
+
+  rows_bind(x, y)
+}
+
+#' @rdname rows
+#' @export
+rows_append <- function(x,
+                        y,
+                        ...,
+                        copy = FALSE,
+                        in_place = FALSE) {
+  lifecycle::signal_stage("experimental", "rows_append()")
+  UseMethod("rows_append")
+}
+
+#' @export
+rows_append.data.frame <- function(x,
+                                   y,
+                                   ...,
+                                   copy = FALSE,
+                                   in_place = FALSE) {
+  check_dots_empty()
+  rows_df_in_place(in_place)
+
+  y <- auto_copy(x, y, copy = copy)
+
+  rows_check_containment(x, y)
 
   rows_bind(x, y)
 }
@@ -360,11 +387,6 @@ rows_delete.data.frame <- function(x,
 rows_check_by <- function(by, y, conflict = NULL, ..., error_call = caller_env()) {
   check_dots_empty()
 
-  if (!is.null(conflict) && conflict == "backend" && !is.null(by)) {
-    warn("`by` ignored with `conflict = \"backend\"`.")
-    return(NULL)
-  }
-
   if (is.null(by)) {
     if (ncol(y) == 0L) {
       abort("`y` must have at least one column.", call = error_call)
@@ -456,10 +478,6 @@ rows_check_y_matched <- function(x_key,
                                  error_call = caller_env()) {
   check_dots_empty()
 
-  if (conflict == "backend") {
-    return(NULL)
-  }
-
   keep <- NULL
   matched <- vec_in(y_key, x_key)
 
@@ -522,7 +540,7 @@ rows_check_conflict <- function(conflict, ..., error_call = caller_env()) {
 
   arg_match(
     arg = conflict,
-    values = c("error", "ignore", "backend"),
+    values = c("error", "ignore"),
     error_arg = "conflict",
     error_call = error_call
   )
