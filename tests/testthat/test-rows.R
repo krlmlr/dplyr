@@ -78,12 +78,11 @@ test_that("rows_insert() allows `y` keys to be duplicated (#5553)", {
 
 test_that("`conflict` is validated", {
   x <- tibble(a = 1)
-  y <- tibble(a = 1)
+  y <- tibble(a = 2)
 
   expect_snapshot({
     (expect_error(rows_insert(x, y, by = "a", conflict = "foo")))
     (expect_error(rows_insert(x, y, by = "a", conflict = 1)))
-    rows_insert(x, y, by = "a", conflict = "backend")
   })
 })
 
