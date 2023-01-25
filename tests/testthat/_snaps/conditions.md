@@ -167,7 +167,7 @@
           x
        1. +-df %>% mutate(x = f()) %>% invisible()
        2. +-dplyr::mutate(., x = f())
-       3. \-dplyr:::mutate.data.frame(., x = f())
+       3. \-dplyr:::mutate.default(., x = f())
       
 
 ---
@@ -199,7 +199,7 @@
           x
        1. +-df %>% group_by(id) %>% mutate(x = f()) %>% invisible()
        2. +-dplyr::mutate(., x = f())
-       3. \-dplyr:::mutate.data.frame(., x = f())
+       3. \-dplyr:::mutate.default(., x = f())
       
       [[2]]
       <warning/rlang_warning>
@@ -213,7 +213,7 @@
           x
        1. +-df %>% group_by(id) %>% mutate(x = f()) %>% invisible()
        2. +-dplyr::mutate(., x = f())
-       3. \-dplyr:::mutate.data.frame(., x = f())
+       3. \-dplyr:::mutate.default(., x = f())
       
 
 ---
@@ -245,7 +245,7 @@
           x
        1. +-df %>% rowwise() %>% mutate(x = f()) %>% invisible()
        2. +-dplyr::mutate(., x = f())
-       3. \-dplyr:::mutate.data.frame(., x = f())
+       3. \-dplyr:::mutate.default(., x = f())
       
       [[2]]
       <warning/rlang_warning>
@@ -259,7 +259,7 @@
           x
        1. +-df %>% rowwise() %>% mutate(x = f()) %>% invisible()
        2. +-dplyr::mutate(., x = f())
-       3. \-dplyr:::mutate.data.frame(., x = f())
+       3. \-dplyr:::mutate.default(., x = f())
       
 
 ---
@@ -308,7 +308,7 @@
        4. +-dplyr::mutate(., x = f())
        5. +-dplyr::rowwise(.)
        6. +-dplyr::group_by(., g = f():n())
-       7. \-dplyr:::group_by.data.frame(., g = f():n())
+       7. \-dplyr:::group_by.default(., g = f():n())
       
       [[2]]
       <warning/rlang_warning>
@@ -324,7 +324,7 @@
        2. +-dplyr::mutate(., x = f())
        3. +-dplyr::group_by(., id)
        4. +-dplyr::mutate(., x = f())
-       5. \-dplyr:::mutate.data.frame(., x = f())
+       5. \-dplyr:::mutate.default(., x = f())
       
       [[3]]
       <warning/rlang_warning>
@@ -340,7 +340,7 @@
        2. +-dplyr::mutate(., x = f())
        3. +-dplyr::group_by(., id)
        4. +-dplyr::mutate(., x = f())
-       5. \-dplyr:::mutate.data.frame(., x = f())
+       5. \-dplyr:::mutate.default(., x = f())
       
       [[4]]
       <warning/rlang_warning>
@@ -354,7 +354,7 @@
           x
        1. +-... %>% invisible()
        2. +-dplyr::mutate(., x = f())
-       3. \-dplyr:::mutate.data.frame(., x = f())
+       3. \-dplyr:::mutate.default(., x = f())
       
       [[5]]
       <warning/rlang_warning>
@@ -368,7 +368,7 @@
           x
        1. +-... %>% invisible()
        2. +-dplyr::mutate(., x = f())
-       3. \-dplyr:::mutate.data.frame(., x = f())
+       3. \-dplyr:::mutate.default(., x = f())
       
 
 ---
@@ -407,7 +407,7 @@
           x
        1. +-df %>% rowwise() %>% mutate(x = f())
        2. +-dplyr::mutate(., x = f())
-       3. \-dplyr:::mutate.data.frame(., x = f())
+       3. \-dplyr:::mutate.default(., x = f())
       
     Message
       ... with 1 more warning.
@@ -453,7 +453,7 @@
           x
        1. +-df %>% rowwise() %>% mutate(x = f())
        2. +-dplyr::mutate(., x = f())
-       3. \-dplyr:::mutate.data.frame(., x = f())
+       3. \-dplyr:::mutate.default(., x = f())
       
     Message
       ... with 4 more warnings.
@@ -502,7 +502,7 @@
        3. |   \-df %>% group_by(x = f(1):n()) %>% mutate(x = f(1, base = FALSE))
        4. +-dplyr::mutate(., x = f(1, base = FALSE))
        5. +-dplyr::group_by(., x = f(1):n())
-       6. \-dplyr:::group_by.data.frame(., x = f(1):n())
+       6. \-dplyr:::group_by.default(., x = f(1):n())
       
       [[2]]
       <warning/rlang_warning>
@@ -518,7 +518,7 @@
        2. | \-dplyr (local) bar()
        3. |   \-df %>% group_by(x = f(1):n()) %>% mutate(x = f(1, base = FALSE))
        4. +-dplyr::mutate(., x = f(1, base = FALSE))
-       5. \-dplyr:::mutate.data.frame(., x = f(1, base = FALSE))
+       5. \-dplyr:::mutate.default(., x = f(1, base = FALSE))
       
       [[3]]
       <warning/rlang_warning>
@@ -534,7 +534,7 @@
        2. | \-dplyr (local) bar()
        3. |   \-df %>% group_by(x = f(1):n()) %>% mutate(x = f(1, base = FALSE))
        4. +-dplyr::mutate(., x = f(1, base = FALSE))
-       5. \-dplyr:::mutate.data.frame(., x = f(1, base = FALSE))
+       5. \-dplyr:::mutate.default(., x = f(1, base = FALSE))
       
       [[4]]
       <warning/rlang_warning>
@@ -550,7 +550,7 @@
        2. | \-dplyr (local) bar()
        3. |   \-df %>% group_by(x = f(1):n()) %>% mutate(x = f(1, base = FALSE))
        4. +-dplyr::mutate(., x = f(1, base = FALSE))
-       5. \-dplyr:::mutate.data.frame(., x = f(1, base = FALSE))
+       5. \-dplyr:::mutate.default(., x = f(1, base = FALSE))
       
 
 # can collect warnings in main verbs

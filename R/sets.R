@@ -102,6 +102,10 @@ symdiff.default <- function (x, y, ...) {
 
 #' @export
 intersect.default <- function(x, y, ...) {
+  if (!is.data.frame(x)) {
+    return(base::intersect(x, y, ...))
+  }
+
   check_dots_empty()
   check_compatible(x, y)
 
@@ -112,6 +116,10 @@ intersect.default <- function(x, y, ...) {
 
 #' @export
 union.default <- function(x, y, ...) {
+  if (!is.data.frame(x)) {
+    return(base::union(x, y, ...))
+  }
+
   check_dots_empty()
   check_compatible(x, y)
 
@@ -122,6 +130,10 @@ union.default <- function(x, y, ...) {
 
 #' @export
 union_all.default <- function(x, y, ...) {
+  if (!is.data.frame(x)) {
+    return(vec_c(x, y))
+  }
+
   check_dots_empty()
   check_compatible(x, y)
 
@@ -131,6 +143,10 @@ union_all.default <- function(x, y, ...) {
 
 #' @export
 setdiff.default <- function(x, y, ...) {
+  if (!is.data.frame(x)) {
+    return(base::setdiff(x, y, ...))
+  }
+
   check_dots_empty()
   check_compatible(x, y)
 
@@ -141,6 +157,10 @@ setdiff.default <- function(x, y, ...) {
 
 #' @export
 setequal.default <- function(x, y, ...) {
+  if (!is.data.frame(x)) {
+    return(base::setequal(x, y, ...))
+  }
+
   check_dots_empty()
   if (!is.data.frame(y)) {
     abort("`y` must be a data frame.")
@@ -155,6 +175,10 @@ setequal.default <- function(x, y, ...) {
 
 #' @export
 symdiff.default <- function(x, y, ...) {
+  if (!is.data.frame(x)) {
+    return(base::setdiff(union(x, y), base::intersect(x, y)))
+  }
+
   check_dots_empty()
   check_compatible(x, y)
 

@@ -76,6 +76,11 @@ sample_n.default <- function(tbl, size, replace = FALSE, weight = NULL,
 #' @export
 sample_n.default <- function(tbl, size, replace = FALSE,
                                 weight = NULL, .env = NULL, ...) {
+  if (!is.data.frame(tbl)) {
+    msg <- glue("`tbl` must be a data frame, not {obj_type_friendly(tbl)}.")
+    abort(msg)
+  }
+
   if (!is_null(.env)) {
     inform("`sample_n() argument `.env` is deprecated and no longer has any effect.")
   }
@@ -108,6 +113,11 @@ sample_frac.default <- function(tbl, size = 1, replace = FALSE, weight = NULL,
 #' @export
 sample_frac.default <- function(tbl, size = 1, replace = FALSE,
                                    weight = NULL, .env = NULL, ...) {
+  if (!is.data.frame(tbl)) {
+    msg <- glue("`tbl` must be a data frame, not {obj_type_friendly(tbl)}.")
+    abort(msg)
+  }
+
   if (!is_null(.env)) {
     inform("`.env` is deprecated and no longer has any effect")
   }
