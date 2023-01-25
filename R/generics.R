@@ -93,7 +93,7 @@ dplyr_row_slice <- function(data, i, ...) {
 }
 
 #' @export
-dplyr_row_slice.data.frame <- function(data, i, ...) {
+dplyr_row_slice.default <- function(data, i, ...) {
   dplyr_reconstruct(vec_slice(data, i), data)
 }
 
@@ -132,7 +132,7 @@ dplyr_col_modify <- function(data, cols) {
 }
 
 #' @export
-dplyr_col_modify.data.frame <- function(data, cols) {
+dplyr_col_modify.default <- function(data, cols) {
   # Must be implemented from first principles to avoiding edge cases in
   # [.data.frame and [.tibble (2.1.3 and earlier).
 
@@ -190,7 +190,7 @@ dplyr_reconstruct_dispatch <- function(data, template) {
 }
 
 #' @export
-dplyr_reconstruct.data.frame <- function(data, template) {
+dplyr_reconstruct.default <- function(data, template) {
   attrs <- attributes(template)
   attrs$names <- names(data)
   attrs$row.names <- .row_names_info(data, type = 0L)

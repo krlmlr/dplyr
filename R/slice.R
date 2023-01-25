@@ -132,7 +132,7 @@ slice <- function(.data, ..., .by = NULL, .preserve = FALSE) {
 }
 
 #' @export
-slice.data.frame <- function(.data, ..., .by = NULL, .preserve = FALSE) {
+slice.default <- function(.data, ..., .by = NULL, .preserve = FALSE) {
   check_dots_unnamed()
 
   dots <- enquos(...)
@@ -158,7 +158,7 @@ slice_head <- function(.data, ..., n, prop, by = NULL) {
 }
 
 #' @export
-slice_head.data.frame <- function(.data, ..., n, prop, by = NULL) {
+slice_head.default <- function(.data, ..., n, prop, by = NULL) {
   check_dots_empty0(...)
 
   size <- get_slice_size(n = n, prop = prop)
@@ -182,7 +182,7 @@ slice_tail <- function(.data, ..., n, prop, by = NULL) {
 }
 
 #' @export
-slice_tail.data.frame <- function(.data, ..., n, prop, by = NULL) {
+slice_tail.default <- function(.data, ..., n, prop, by = NULL) {
   check_dots_empty0(...)
 
   size <- get_slice_size(n = n, prop = prop)
@@ -219,7 +219,7 @@ slice_min <- function(.data, order_by, ..., n, prop, by = NULL, with_ties = TRUE
 }
 
 #' @export
-slice_min.data.frame <- function(.data, order_by, ..., n, prop, by = NULL, with_ties = TRUE, na_rm = FALSE) {
+slice_min.default <- function(.data, order_by, ..., n, prop, by = NULL, with_ties = TRUE, na_rm = FALSE) {
   check_dots_empty0(...)
 
   size <- get_slice_size(n = n, prop = prop)
@@ -259,7 +259,7 @@ slice_max <- function(.data, order_by, ..., n, prop, by = NULL, with_ties = TRUE
 }
 
 #' @export
-slice_max.data.frame <- function(.data, order_by, ..., n, prop, by = NULL, with_ties = TRUE, na_rm = FALSE) {
+slice_max.default <- function(.data, order_by, ..., n, prop, by = NULL, with_ties = TRUE, na_rm = FALSE) {
   check_dots_empty0(...)
 
   size <- get_slice_size(n = n, prop = prop)
@@ -303,7 +303,7 @@ slice_sample <- function(.data, ..., n, prop, by = NULL, weight_by = NULL, repla
 }
 
 #' @export
-slice_sample.data.frame <- function(.data, ..., n, prop, by = NULL, weight_by = NULL, replace = FALSE) {
+slice_sample.default <- function(.data, ..., n, prop, by = NULL, weight_by = NULL, replace = FALSE) {
   check_dots_empty0(...)
 
   size <- get_slice_size(n = n, prop = prop, allow_outsize = replace)

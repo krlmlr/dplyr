@@ -67,7 +67,7 @@ arrange_ <- function(.data, ..., .dots = list()) {
   UseMethod("arrange_")
 }
 #' @export
-arrange_.data.frame <- function(.data, ..., .dots = list(), .by_group = FALSE) {
+arrange_.default <- function(.data, ..., .dots = list(), .by_group = FALSE) {
   dots <- compat_lazy_dots(.dots, caller_env(), ...)
   arrange(.data, !!!dots, .by_group = .by_group)
 }
@@ -97,7 +97,7 @@ distinct_ <- function(.data, ..., .dots, .keep_all = FALSE) {
   UseMethod("distinct_")
 }
 #' @export
-distinct_.data.frame <- function(.data, ..., .dots = list(), .keep_all = FALSE) {
+distinct_.default <- function(.data, ..., .dots = list(), .keep_all = FALSE) {
   dots <- compat_lazy_dots(.dots, caller_env(), ...)
   distinct(.data, !!!dots, .keep_all = .keep_all)
 }
@@ -124,7 +124,7 @@ do_.NULL <- function(.data, ..., .dots = list()) {
   NULL
 }
 #' @export
-do_.data.frame <- function(.data, ..., .dots = list()) {
+do_.default <- function(.data, ..., .dots = list()) {
   dots <- compat_lazy_dots(.dots, caller_env(), ...)
   do(.data, !!!dots)
 }
@@ -147,7 +147,7 @@ filter_ <- function(.data, ..., .dots = list()) {
   UseMethod("filter_")
 }
 #' @export
-filter_.data.frame <- function(.data, ..., .dots = list()) {
+filter_.default <- function(.data, ..., .dots = list()) {
   dots <- compat_lazy_dots(.dots, caller_env(), ...)
   filter(.data, !!!dots)
 }
@@ -175,7 +175,7 @@ group_by_ <- function(.data, ..., .dots = list(), add = FALSE) {
   UseMethod("group_by_")
 }
 #' @export
-group_by_.data.frame <- function(.data, ..., .dots = list(), add = FALSE, .drop = group_by_drop_default(.data)) {
+group_by_.default <- function(.data, ..., .dots = list(), add = FALSE, .drop = group_by_drop_default(.data)) {
   dots <- compat_lazy_dots(.dots, caller_env(), ...)
   group_by(.data, !!!dots, .add = add, .drop = .drop)
 }
@@ -193,7 +193,7 @@ group_indices_ <- function(.data, ..., .dots = list()) {
   UseMethod("group_indices_")
 }
 #' @export
-group_indices.data.frame <- function(.data, ..., .drop = TRUE) {
+group_indices.default <- function(.data, ..., .drop = TRUE) {
   dots <- enquos(...)
   if (length(dots) == 0L) {
     return(rep(1L, nrow(.data)))
@@ -201,7 +201,7 @@ group_indices.data.frame <- function(.data, ..., .drop = TRUE) {
   group_indices(group_by(.data, !!!dots, .drop = .drop))
 }
 #' @export
-group_indices_.data.frame <- function(.data, ..., .dots = list()) {
+group_indices_.default <- function(.data, ..., .dots = list()) {
   dots <- compat_lazy_dots(.dots, caller_env(), ...)
   group_indices(.data, !!!dots)
 }
@@ -223,7 +223,7 @@ mutate_ <- function(.data, ..., .dots = list()) {
   UseMethod("mutate_")
 }
 #' @export
-mutate_.data.frame <- function(.data, ..., .dots = list()) {
+mutate_.default <- function(.data, ..., .dots = list()) {
   dots <- compat_lazy_dots(.dots, caller_env(), ...)
   mutate(.data, !!!dots)
 }
@@ -251,7 +251,7 @@ transmute_ <- function(.data, ..., .dots = list()) {
   UseMethod("transmute_")
 }
 #' @export
-transmute_.data.frame <- function(.data, ..., .dots = list()) {
+transmute_.default <- function(.data, ..., .dots = list()) {
   dots <- compat_lazy_dots(.dots, caller_env(), ...)
   transmute(.data, !!!dots)
 }
@@ -263,7 +263,7 @@ rename_ <- function(.data, ..., .dots = list()) {
   UseMethod("rename_")
 }
 #' @export
-rename_.data.frame <- function(.data, ..., .dots = list()) {
+rename_.default <- function(.data, ..., .dots = list()) {
   dots <- compat_lazy_dots(.dots, caller_env(), ...)
   rename(.data, !!!dots)
 }
@@ -289,7 +289,7 @@ select_ <- function(.data, ..., .dots = list()) {
   UseMethod("select_")
 }
 #' @export
-select_.data.frame <- function(.data, ..., .dots = list()) {
+select_.default <- function(.data, ..., .dots = list()) {
   dots <- compat_lazy_dots(.dots, caller_env(), ...)
   select(.data, !!!dots)
 }
@@ -317,7 +317,7 @@ slice_ <- function(.data, ..., .dots = list()) {
   UseMethod("slice_")
 }
 #' @export
-slice_.data.frame <- function(.data, ..., .dots = list()) {
+slice_.default <- function(.data, ..., .dots = list()) {
   dots <- compat_lazy_dots(.dots, caller_env(), ...)
   slice(.data, !!!dots)
 }
@@ -334,7 +334,7 @@ summarise_ <- function(.data, ..., .dots = list()) {
   UseMethod("summarise_")
 }
 #' @export
-summarise_.data.frame <- function(.data, ..., .dots = list()) {
+summarise_.default <- function(.data, ..., .dots = list()) {
   dots <- compat_lazy_dots(.dots, caller_env(), ...)
   summarise(.data, !!!dots)
 }

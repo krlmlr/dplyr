@@ -67,7 +67,7 @@ count <- function(x, ..., wt = NULL, sort = FALSE, name = NULL) {
 }
 
 #' @export
-count.data.frame <- function(x, ..., wt = NULL, sort = FALSE, name = NULL, .drop = group_by_drop_default(x)) {
+count.default <- function(x, ..., wt = NULL, sort = FALSE, name = NULL, .drop = group_by_drop_default(x)) {
   dplyr_local_error_call()
 
   if (!missing(...)) {
@@ -91,7 +91,7 @@ tally <- function(x, wt = NULL, sort = FALSE, name = NULL) {
 }
 
 #' @export
-tally.data.frame <- function(x, wt = NULL, sort = FALSE, name = NULL) {
+tally.default <- function(x, wt = NULL, sort = FALSE, name = NULL) {
   name <- check_name(name, group_vars(x))
 
   dplyr_local_error_call()
@@ -128,7 +128,7 @@ add_count.default <- function(x, ..., wt = NULL, sort = FALSE, name = NULL, .dro
 
 
 #' @export
-add_count.data.frame <- function(x, ..., wt = NULL, sort = FALSE, name = NULL, .drop = deprecated()) {
+add_count.default <- function(x, ..., wt = NULL, sort = FALSE, name = NULL, .drop = deprecated()) {
   out <- add_count_impl(
     x,
     ...,

@@ -56,6 +56,6 @@ auto_copy <- function(x, y, copy = FALSE, ...) {
 }
 
 #' @export
-auto_copy.data.frame <- function(x, y, copy = FALSE, ...) {
+auto_copy.default <- function(x, y, copy = FALSE, ...) {
   as.data.frame(y)
 }

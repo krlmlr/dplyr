@@ -168,7 +168,7 @@ mutate <- function(.data, ...) {
 #'   should appear (the default is to add to the right hand side). See
 #'   [relocate()] for more details.
 #' @export
-mutate.data.frame <- function(.data,
+mutate.default <- function(.data,
                               ...,
                               .by = NULL,
                               .keep = c("all", "used", "unused", "none"),

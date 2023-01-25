@@ -50,7 +50,7 @@ group_data <- function(.data) {
 }
 
 #' @export
-group_data.data.frame <- function(.data) {
+group_data.default <- function(.data) {
   rows <- new_list_of(list(seq_len(nrow(.data))), ptype = integer())
   new_data_frame(list(.rows = rows), n = 1L)
 }
@@ -87,7 +87,7 @@ group_keys <- function(.tbl, ...) {
   UseMethod("group_keys")
 }
 #' @export
-group_keys.data.frame <- function(.tbl, ...) {
+group_keys.default <- function(.tbl, ...) {
   if (dots_n(...) > 0) {
     lifecycle::deprecate_warn(
       "1.0.0", "group_keys(... = )",
@@ -121,7 +121,7 @@ group_indices <- function(.data, ...) {
   UseMethod("group_indices")
 }
 #' @export
-group_indices.data.frame <- function(.data, ...) {
+group_indices.default <- function(.data, ...) {
   if (dots_n(...) > 0) {
     lifecycle::deprecate_warn(
       "1.0.0", "group_indices(... = )",
@@ -140,7 +140,7 @@ group_vars <- function(x) {
   UseMethod("group_vars")
 }
 #' @export
-group_vars.data.frame <- function(x) {
+group_vars.default <- function(x) {
   setdiff(names(group_data(x)), ".rows")
 }
 
@@ -150,7 +150,7 @@ groups <- function(x) {
   UseMethod("groups")
 }
 #' @export
-groups.data.frame <- function(x) {
+groups.default <- function(x) {
   syms(group_vars(x))
 }
 
@@ -158,7 +158,7 @@ groups.data.frame <- function(x) {
 #' @rdname group_data
 group_size <- function(x) UseMethod("group_size")
 #' @export
-group_size.data.frame <- function(x) {
+group_size.default <- function(x) {
   lengths(group_rows(x))
 }
 
@@ -166,6 +166,6 @@ group_size.data.frame <- function(x) {
 #' @rdname group_data
 n_groups <- function(x) UseMethod("n_groups")
 #' @export
-n_groups.data.frame <- function(x) {
+n_groups.default <- function(x) {
   nrow(group_data(x))
 }

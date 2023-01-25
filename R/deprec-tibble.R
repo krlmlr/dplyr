@@ -24,7 +24,7 @@ as.tbl <- function(x, ...) {
 as.tbl.tbl <- function(x, ...) x
 
 #' @export
-as.tbl.data.frame <- function(x, ...) {
+as.tbl.default <- function(x, ...) {
   as_tibble(x)
 }
 

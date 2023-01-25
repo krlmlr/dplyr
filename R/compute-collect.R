@@ -57,8 +57,8 @@ collapse <- function(x, ...) {
 }
 
 #' @export
-collect.data.frame <- function(x, ...) x
+collect.default <- function(x, ...) x
 #' @export
-compute.data.frame <- function(x, ...) x
+compute.default <- function(x, ...) x
 #' @export
-collapse.data.frame <- function(x, ...) x
+collapse.default <- function(x, ...) x

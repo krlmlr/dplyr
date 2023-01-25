@@ -124,7 +124,7 @@ distinct_prepare <- function(.data,
 }
 
 #' @export
-distinct.data.frame <- function(.data, ..., .keep_all = FALSE) {
+distinct.default <- function(.data, ..., .keep_all = FALSE) {
   prep <- distinct_prepare(
     .data,
     vars = enquos(...),

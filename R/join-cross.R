@@ -49,7 +49,7 @@ cross_join <- function(x,
 }
 
 #' @export
-cross_join.data.frame <- function(x,
+cross_join.default <- function(x,
                                   y,
                                   ...,
                                   copy = FALSE,

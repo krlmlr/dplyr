@@ -50,6 +50,6 @@ same_src <- function(x, y) {
 }
 
 #' @export
-same_src.data.frame <- function(x, y) {
+same_src.default <- function(x, y) {
   is.data.frame(y)
 }

@@ -131,7 +131,7 @@ rows_insert <- function(x,
 }
 
 #' @export
-rows_insert.data.frame <- function(x,
+rows_insert.default <- function(x,
                                    y,
                                    by = NULL,
                                    ...,
@@ -171,7 +171,7 @@ rows_append <- function(x,
 }
 
 #' @export
-rows_append.data.frame <- function(x,
+rows_append.default <- function(x,
                                    y,
                                    ...,
                                    copy = FALSE,
@@ -200,7 +200,7 @@ rows_update <- function(x,
 }
 
 #' @export
-rows_update.data.frame <- function(x,
+rows_update.default <- function(x,
                                    y,
                                    by = NULL,
                                    ...,
@@ -264,7 +264,7 @@ rows_patch <- function(x,
 }
 
 #' @export
-rows_patch.data.frame <- function(x,
+rows_patch.default <- function(x,
                                   y,
                                   by = NULL,
                                   ...,
@@ -334,7 +334,7 @@ rows_upsert <- function(x,
 }
 
 #' @export
-rows_upsert.data.frame <- function(x,
+rows_upsert.default <- function(x,
                                    y,
                                    by = NULL,
                                    ...,
@@ -399,7 +399,7 @@ rows_delete <- function(x,
 }
 
 #' @export
-rows_delete.data.frame <- function(x,
+rows_delete.default <- function(x,
                                    y,
                                    by = NULL,
                                    ...,

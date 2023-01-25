@@ -119,7 +119,7 @@ filter <- function(.data, ..., .by = NULL, .preserve = FALSE) {
 }
 
 #' @export
-filter.data.frame <- function(.data, ..., .by = NULL, .preserve = FALSE) {
+filter.default <- function(.data, ..., .by = NULL, .preserve = FALSE) {
   dots <- dplyr_quosures(...)
   check_filter(dots)
 

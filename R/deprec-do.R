@@ -118,7 +118,7 @@ do.grouped_df <- function(.data, ...) {
 }
 
 #' @export
-do.data.frame <- function(.data, ...) {
+do.default <- function(.data, ...) {
   args <- enquos(...)
   named <- named_args(args)
 

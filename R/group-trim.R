@@ -24,7 +24,7 @@ group_trim <- function(.tbl, .drop = group_by_drop_default(.tbl)) {
 }
 
 #' @export
-group_trim.data.frame <- function(.tbl, .drop = group_by_drop_default(.tbl)) {
+group_trim.default <- function(.tbl, .drop = group_by_drop_default(.tbl)) {
   .tbl
 }
 

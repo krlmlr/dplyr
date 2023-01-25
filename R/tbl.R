@@ -64,7 +64,7 @@ tbl_vars <- function(x) {
 }
 
 #' @export
-tbl_vars.data.frame <- function(x) {
+tbl_vars.default <- function(x) {
   names(x)
 }
 

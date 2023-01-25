@@ -136,7 +136,7 @@ group_by <- function(.data, ..., .add = FALSE, .drop = group_by_drop_default(.da
 }
 
 #' @export
-group_by.data.frame <- function(.data, ..., .add = FALSE, .drop = group_by_drop_default(.data)) {
+group_by.default <- function(.data, ..., .add = FALSE, .drop = group_by_drop_default(.data)) {
   groups <- group_by_prepare(
     .data,
     ...,
@@ -178,7 +178,7 @@ ungroup.rowwise_df <- function(x, ...) {
 }
 
 #' @export
-ungroup.data.frame <- function(x, ...) {
+ungroup.default <- function(x, ...) {
   check_dots_empty()
   x
 }
