@@ -104,7 +104,7 @@ distinct_.default <- function(.data, ..., .dots = list(), .keep_all = FALSE) {
 
 #' @export
 # Can't use NextMethod() in R 3.1, r-lib/rlang#486
-distinct_.tbl_df <- distinct_.data.frame
+distinct_.tbl_df <- distinct_.default
 
 #' @export
 distinct_.grouped_df <- function(.data, ..., .dots = list(), .keep_all = FALSE) {
