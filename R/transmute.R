@@ -35,7 +35,7 @@ transmute <- function(.data, ...) {
 }
 
 #' @export
-transmute.data.frame <- function(.data, ...) {
+transmute_data_frame <- function(.data, ...) {
   dots <- check_transmute_args(...)
   dots <- dplyr_quosures(!!!dots)
 

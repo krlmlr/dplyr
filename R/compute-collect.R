@@ -57,12 +57,12 @@ collapse <- function(x, ...) {
 }
 
 #' @export
-collect.data.frame <- function(x, ...) {
+collect_data_frame <- function(x, ...) {
   x
 }
 
 #' @export
-compute.data.frame <- function(x, ...) {
+compute_data_frame <- function(x, ...) {
   x
 }
 

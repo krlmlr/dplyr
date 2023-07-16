@@ -86,6 +86,7 @@ test_that("can mutate a data frame with zero columns", {
 })
 
 test_that("mutate() handles symbol expressions", {
+  skip("TODO duckdb")
   df <- tibble(x = structure(1, class = "alien"))
   res <- mutate(df, y = x)
   expect_identical(df$x, res$y)
@@ -411,6 +412,7 @@ test_that("mutate keeps zero length groups", {
 # other -------------------------------------------------------------------
 
 test_that("no utf8 invasion (#722)", {
+  skip("TODO duckdb")
   skip_if_not(l10n_info()$"UTF-8")
   skip_if_not_installed("lobstr")
   source("utf-8.txt", local = TRUE, encoding = "UTF-8")

@@ -86,7 +86,7 @@ count <- function(x, ..., wt = NULL, sort = FALSE, name = NULL) {
 
 #' @export
 #' @rdname count
-count.data.frame <- function(x, ..., wt = NULL, sort = FALSE, name = NULL, .drop = group_by_drop_default(x)) {
+count_data_frame <- function(x, ..., wt = NULL, sort = FALSE, name = NULL, .drop = group_by_drop_default(x)) {
   dplyr_local_error_call()
 
   if (!missing(...)) {
@@ -147,7 +147,7 @@ add_count.default <- function(x, ..., wt = NULL, sort = FALSE, name = NULL, .dro
 
 
 #' @export
-add_count.data.frame <- function(x, ..., wt = NULL, sort = FALSE, name = NULL, .drop = deprecated()) {
+add_count_data_frame <- function(x, ..., wt = NULL, sort = FALSE, name = NULL, .drop = deprecated()) {
   out <- add_count_impl(
     x,
     ...,

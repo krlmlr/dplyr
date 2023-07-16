@@ -178,7 +178,7 @@ ungroup.rowwise_df <- function(x, ...) {
 }
 
 #' @export
-ungroup.data.frame <- function(x, ...) {
+ungroup_data_frame <- function(x, ...) {
   check_dots_empty()
   x
 }

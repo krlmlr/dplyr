@@ -85,7 +85,7 @@ arrange <- function(.data, ..., .by_group = FALSE) {
 
 #' @rdname arrange
 #' @export
-arrange.data.frame <- function(.data,
+arrange_data_frame <- function(.data,
                                ...,
                                .by_group = FALSE,
                                .locale = NULL) {

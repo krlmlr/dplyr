@@ -146,7 +146,7 @@ group_vars <- function(x) {
   UseMethod("group_vars")
 }
 #' @export
-group_vars.data.frame <- function(x) {
+group_vars_data_frame <- function(x) {
   setdiff(names(group_data(x)), ".rows")
 }
 

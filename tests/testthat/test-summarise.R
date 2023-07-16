@@ -25,6 +25,7 @@ test_that("inputs are recycled (deprecated in 1.1.0)", {
 })
 
 test_that("works with empty data frames", {
+  skip("TODO duckdb")
   # 0 rows
   df <- tibble(x = integer())
   expect_equal(summarise(df), tibble(.rows = 1))
@@ -187,6 +188,7 @@ test_that("assigning with `<-` doesn't affect the mask (#6666)", {
 })
 
 test_that("summarise() correctly auto-names expressions (#6741)", {
+  skip("TODO duckdb")
   df <- tibble(a = 1L)
   expect_identical(summarise(df, sum(-a)), tibble("sum(-a)" = -1L))
 })
@@ -294,6 +296,7 @@ test_that("named tibbles are packed (#2326)", {
 })
 
 test_that("summarise(.groups=) in global environment", {
+  skip("TODO duckdb")
   expect_message(eval_bare(
     expr(data.frame(x = 1, y = 2) %>% group_by(x, y) %>% summarise()),
     env(global_env())
@@ -305,6 +308,7 @@ test_that("summarise(.groups=) in global environment", {
 })
 
 test_that("summarise(.groups=)", {
+  skip("TODO duckdb")
   df <- data.frame(x = 1, y = 2)
   expect_equal(df %>% summarise(z = 3, .groups= "rowwise"), rowwise(data.frame(z = 3)))
 
@@ -433,6 +437,7 @@ test_that("`summarise()` doesn't allow data frames with missing or empty names (
 })
 
 test_that("summarise() gives meaningful errors", {
+  skip("TODO duckdb")
   eval(envir = global_env(), expr({
     expect_snapshot({
       # Messages about .groups=

@@ -59,7 +59,7 @@ select.list <- function(.data, ...) {
 }
 
 #' @export
-select.data.frame <- function(.data, ...) {
+select_data_frame <- function(.data, ...) {
   error_call <- dplyr_error_call()
 
   loc <- tidyselect::eval_select(

@@ -65,7 +65,7 @@ rename <- function(.data, ...) {
 }
 
 #' @export
-rename.data.frame <- function(.data, ...) {
+rename_data_frame <- function(.data, ...) {
   loc <- tidyselect::eval_rename(expr(c(...)), .data)
   # eval_rename() only returns changes
   names <- names(.data)
@@ -86,7 +86,7 @@ rename_with <- function(.data, .fn, .cols = everything(), ...) {
 
 
 #' @export
-rename_with.data.frame <- function(.data, .fn, .cols = everything(), ...) {
+rename_with_data_frame <- function(.data, .fn, .cols = everything(), ...) {
   .fn <- as_function(.fn)
   cols <- tidyselect::eval_select(enquo(.cols), .data, allow_rename = FALSE)
 

@@ -260,7 +260,7 @@ inner_join <- function(x,
 
 #' @export
 #' @rdname mutate-joins
-inner_join.data.frame <- function(x,
+inner_join_data_frame <- function(x,
                                   y,
                                   by = NULL,
                                   copy = FALSE,
@@ -302,7 +302,7 @@ left_join <- function(x,
 
 #' @export
 #' @rdname mutate-joins
-left_join.data.frame <- function(x,
+left_join_data_frame <- function(x,
                                  y,
                                  by = NULL,
                                  copy = FALSE,
@@ -344,7 +344,7 @@ right_join <- function(x,
 
 #' @export
 #' @rdname mutate-joins
-right_join.data.frame <- function(x,
+right_join_data_frame <- function(x,
                                   y,
                                   by = NULL,
                                   copy = FALSE,
@@ -386,7 +386,7 @@ full_join <- function(x,
 
 #' @export
 #' @rdname mutate-joins
-full_join.data.frame <- function(x,
+full_join_data_frame <- function(x,
                                  y,
                                  by = NULL,
                                  copy = FALSE,
@@ -463,7 +463,7 @@ semi_join <- function(x, y, by = NULL, copy = FALSE, ...) {
 
 #' @export
 #' @rdname filter-joins
-semi_join.data.frame <- function(x, y, by = NULL, copy = FALSE, ..., na_matches = c("na", "never")) {
+semi_join_data_frame <- function(x, y, by = NULL, copy = FALSE, ..., na_matches = c("na", "never")) {
   check_dots_empty0(...)
   y <- auto_copy(x, y, copy = copy)
   join_filter(x, y, by = by, type = "semi", na_matches = na_matches, user_env = caller_env())
@@ -477,7 +477,7 @@ anti_join <- function(x, y, by = NULL, copy = FALSE, ...) {
 
 #' @export
 #' @rdname filter-joins
-anti_join.data.frame <- function(x, y, by = NULL, copy = FALSE, ..., na_matches = c("na", "never")) {
+anti_join_data_frame <- function(x, y, by = NULL, copy = FALSE, ..., na_matches = c("na", "never")) {
   check_dots_empty0(...)
   y <- auto_copy(x, y, copy = copy)
   join_filter(x, y, by = by, type = "anti", na_matches = na_matches, user_env = caller_env())
@@ -542,7 +542,7 @@ nest_join <- function(x,
 
 #' @export
 #' @rdname nest_join
-nest_join.data.frame <- function(x,
+nest_join_data_frame <- function(x,
                                  y,
                                  by = NULL,
                                  copy = FALSE,

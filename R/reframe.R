@@ -111,7 +111,7 @@ reframe <- function(.data, ..., .by = NULL) {
 }
 
 #' @export
-reframe.data.frame <- function(.data, ..., .by = NULL) {
+reframe_data_frame <- function(.data, ..., .by = NULL) {
   by <- compute_by({{ .by }}, .data, by_arg = ".by", data_arg = ".data")
 
   cols <- summarise_cols(.data, dplyr_quosures(...), by, "reframe")
