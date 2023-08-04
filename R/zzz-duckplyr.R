@@ -637,7 +637,7 @@ duckplyr_dplyr_reconstruct <- function(data, ...) {
   out
 }
 
-#' @importFrom dplyr explain
+# @importFrom dplyr explain
 #' @export
 explain.data.frame <- function(x, ...) {
   rel_try({
