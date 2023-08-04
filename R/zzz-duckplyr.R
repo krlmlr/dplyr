@@ -2132,12 +2132,6 @@ print.relational_relexpr <- function(x, ...) {
   writeLines(format(x, ...))
 }
 
-#' @export
-format.relational_relexpr <- function(x, ...) {
-  # FIXME: Use home-grown code
-  utils::capture.output(print(constructive::construct(x)))
-}
-
 rel_stats_env <- new.env(parent = emptyenv(), size = 937L)
 
 rel_stats_clean <- function() {
