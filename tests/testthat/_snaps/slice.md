@@ -24,7 +24,7 @@
       slice(tibble(), "a")
     Condition
       Error in `slice()`:
-      i In argument: `"a"`.
+      ! Can't process indices.
       Caused by error:
       ! Can't subset elements with `"a"`.
       x `"a"` must be numeric, not the string "a".
@@ -35,14 +35,14 @@
       slice(df, 1 + "")
     Condition
       Error in `slice()`:
-      i In argument: `1 + ""`.
+      ! Can't compute indices.
       Caused by error in `1 + ""`:
       ! non-numeric argument to binary operator
     Code
       slice(group_by(df, x), 1 + "")
     Condition
       Error in `slice()`:
-      i In argument: `1 + ""`.
+      ! Can't compute indices.
       i In group 1: `x = 1`.
       Caused by error in `1 + ""`:
       ! non-numeric argument to binary operator
@@ -281,27 +281,27 @@
     Code
       slice_head(gdf, n = 1, by = x)
     Condition
-      Error in `slice_head()`:
+      Error in `slice()`:
       ! Can't supply `by` when `.data` is a grouped data frame.
     Code
       slice_tail(gdf, n = 1, by = x)
     Condition
-      Error in `slice_tail()`:
+      Error in `slice()`:
       ! Can't supply `by` when `.data` is a grouped data frame.
     Code
       slice_min(gdf, order_by = x, by = x)
     Condition
-      Error in `slice_min()`:
+      Error in `slice()`:
       ! Can't supply `by` when `.data` is a grouped data frame.
     Code
       slice_max(gdf, order_by = x, by = x)
     Condition
-      Error in `slice_max()`:
+      Error in `slice()`:
       ! Can't supply `by` when `.data` is a grouped data frame.
     Code
       slice_sample(gdf, n = 1, by = x)
     Condition
-      Error in `slice_sample()`:
+      Error in `slice()`:
       ! Can't supply `by` when `.data` is a grouped data frame.
 
 # slice_helper catches `.by` typo (#6647)
@@ -342,14 +342,14 @@
     Code
       slice_min(data.frame(x = 1:10), 1:6)
     Condition
-      Error in `slice_min()`:
+      Error in `slice()`:
       ! Can't compute indices.
       Caused by error:
       ! `order_by` must have size 10, not size 6.
     Code
       slice_max(data.frame(x = 1:10), 1:6)
     Condition
-      Error in `slice_max()`:
+      Error in `slice()`:
       ! Can't compute indices.
       Caused by error:
       ! `order_by` must have size 10, not size 6.
@@ -392,7 +392,7 @@
     Code
       slice_sample(df, n = 2, weight_by = 1:6)
     Condition
-      Error in `slice_sample()`:
+      Error in `slice()`:
       ! Can't compute indices.
       Caused by error:
       ! `weight_by` must have size 10, not size 6.

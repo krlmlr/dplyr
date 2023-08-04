@@ -3,7 +3,7 @@
     Code
       count(df, x, name = 1)
     Condition
-      Error in `tally()`:
+      Error in `count()`:
       ! `name` must be a single string, not the number 1.
 
 ---
@@ -11,7 +11,7 @@
     Code
       count(df, x, name = letters)
     Condition
-      Error in `tally()`:
+      Error in `count()`:
       ! `name` must be a single string, not a character vector.
 
 # can only explicitly chain together multiple tallies
@@ -54,7 +54,7 @@
       (expect_error(count(mtcars, wt = 1 + "")))
     Output
       <error/rlang_error>
-      Error in `count()`:
+      Error in `summarise()`:
       i In argument: `n = sum(1 + "", na.rm = TRUE)`.
       Caused by error in `1 + ""`:
       ! non-numeric argument to binary operator
@@ -65,7 +65,7 @@
       (expect_error(tally(mtcars, wt = 1 + "")))
     Output
       <error/rlang_error>
-      Error in `tally()`:
+      Error in `summarise()`:
       i In argument: `n = sum(1 + "", na.rm = TRUE)`.
       Caused by error in `1 + ""`:
       ! non-numeric argument to binary operator
@@ -84,7 +84,7 @@
       (expect_error(add_count(mtcars, wt = 1 + "")))
     Output
       <error/dplyr:::mutate_error>
-      Error in `add_count()`:
+      Error in `mutate()`:
       i In argument: `n = sum(1 + "", na.rm = TRUE)`.
       Caused by error in `1 + ""`:
       ! non-numeric argument to binary operator
@@ -95,7 +95,7 @@
       (expect_error(add_tally(mtcars, wt = 1 + "")))
     Output
       <error/dplyr:::mutate_error>
-      Error in `add_tally()`:
+      Error in `mutate()`:
       i In argument: `n = sum(1 + "", na.rm = TRUE)`.
       Caused by error in `1 + ""`:
       ! non-numeric argument to binary operator

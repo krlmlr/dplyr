@@ -165,7 +165,7 @@
     Code
       arrange(df, pick(y))
     Condition
-      Error in `arrange()`:
+      Error in `mutate()`:
       i In argument: `..1 = pick(y)`.
       Caused by error in `pick()`:
       ! Can't subset columns that don't exist.
@@ -176,7 +176,7 @@
     Code
       arrange(df, foo(pick(x)))
     Condition
-      Error in `arrange()`:
+      Error in `mutate()`:
       i In argument: `..1 = foo(pick(x))`.
       Caused by error in `foo()`:
       ! could not find function "foo"

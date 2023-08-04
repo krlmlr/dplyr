@@ -3,21 +3,21 @@
     Code
       mutate(mtcars, 1 + "")
     Condition
-      Error in `foo()`:
+      Error in `mutate()`:
       i In argument: `1 + ""`.
       Caused by error in `1 + ""`:
       ! non-numeric argument to binary operator
     Code
       transmute(mtcars, 1 + "")
     Condition
-      Error in `foo()`:
+      Error in `transmute()`:
       i In argument: `1 + ""`.
       Caused by error in `1 + ""`:
       ! non-numeric argument to binary operator
     Code
       summarise(mtcars, 1 + "")
     Condition
-      Error in `foo()`:
+      Error in `summarise()`:
       i In argument: `1 + ""`.
       Caused by error in `1 + ""`:
       ! non-numeric argument to binary operator
@@ -32,14 +32,14 @@
     Code
       filter(mtcars, 1 + "")
     Condition
-      Error in `foo()`:
+      Error in `filter()`:
       i In argument: `1 + ""`.
       Caused by error in `1 + ""`:
       ! non-numeric argument to binary operator
     Code
       arrange(mtcars, 1 + "")
     Condition
-      Error in `foo()`:
+      Error in `mutate()`:
       i In argument: `..1 = 1 + ""`.
       Caused by error in `1 + ""`:
       ! non-numeric argument to binary operator
@@ -53,8 +53,8 @@
     Code
       slice(mtcars, 1 + "")
     Condition
-      Error in `foo()`:
-      i In argument: `1 + ""`.
+      Error in `slice()`:
+      ! Can't compute indices.
       Caused by error in `1 + ""`:
       ! non-numeric argument to binary operator
 
@@ -63,14 +63,14 @@
     Code
       my_verb(mtcars, 1 + "", am)
     Condition
-      Error in `my_verb()`:
+      Error in `transmute()`:
       i In argument: `.result = (1 + "") * am`.
       Caused by error in `1 + ""`:
       ! non-numeric argument to binary operator
     Code
       my_verb(mtcars, cyl, c(am, vs))
     Condition
-      Error in `my_verb()`:
+      Error in `transmute()`:
       i In argument: `.result = cyl * c(am, vs)`.
       Caused by error:
       ! `.result` must be size 32 or 1, not 64.
@@ -168,6 +168,7 @@
        1. +-df %>% mutate(x = f()) %>% invisible()
        2. +-dplyr::mutate(., x = f())
        3. \-dplyr:::mutate.data.frame(., x = f())
+       4.   \-dplyr::mutate(...)
       
 
 ---
@@ -200,6 +201,7 @@
        1. +-df %>% group_by(id) %>% mutate(x = f()) %>% invisible()
        2. +-dplyr::mutate(., x = f())
        3. \-dplyr:::mutate.data.frame(., x = f())
+       4.   \-dplyr::mutate(...)
       
       [[2]]
       <warning/rlang_warning>
@@ -214,6 +216,7 @@
        1. +-df %>% group_by(id) %>% mutate(x = f()) %>% invisible()
        2. +-dplyr::mutate(., x = f())
        3. \-dplyr:::mutate.data.frame(., x = f())
+       4.   \-dplyr::mutate(...)
       
 
 ---
@@ -246,6 +249,7 @@
        1. +-df %>% rowwise() %>% mutate(x = f()) %>% invisible()
        2. +-dplyr::mutate(., x = f())
        3. \-dplyr:::mutate.data.frame(., x = f())
+       4.   \-dplyr::mutate(...)
       
       [[2]]
       <warning/rlang_warning>
@@ -260,6 +264,7 @@
        1. +-df %>% rowwise() %>% mutate(x = f()) %>% invisible()
        2. +-dplyr::mutate(., x = f())
        3. \-dplyr:::mutate.data.frame(., x = f())
+       4.   \-dplyr::mutate(...)
       
 
 ---
@@ -325,6 +330,7 @@
        3. +-dplyr::group_by(., id)
        4. +-dplyr::mutate(., x = f())
        5. \-dplyr:::mutate.data.frame(., x = f())
+       6.   \-dplyr::mutate(...)
       
       [[3]]
       <warning/rlang_warning>
@@ -341,6 +347,7 @@
        3. +-dplyr::group_by(., id)
        4. +-dplyr::mutate(., x = f())
        5. \-dplyr:::mutate.data.frame(., x = f())
+       6.   \-dplyr::mutate(...)
       
       [[4]]
       <warning/rlang_warning>
@@ -355,6 +362,7 @@
        1. +-... %>% invisible()
        2. +-dplyr::mutate(., x = f())
        3. \-dplyr:::mutate.data.frame(., x = f())
+       4.   \-dplyr::mutate(...)
       
       [[5]]
       <warning/rlang_warning>
@@ -369,6 +377,7 @@
        1. +-... %>% invisible()
        2. +-dplyr::mutate(., x = f())
        3. \-dplyr:::mutate.data.frame(., x = f())
+       4.   \-dplyr::mutate(...)
       
 
 ---
@@ -408,6 +417,7 @@
        1. +-df %>% rowwise() %>% mutate(x = f())
        2. +-dplyr::mutate(., x = f())
        3. \-dplyr:::mutate.data.frame(., x = f())
+       4.   \-dplyr::mutate(...)
       
     Message
       ... with 1 more warning.
@@ -454,6 +464,7 @@
        1. +-df %>% rowwise() %>% mutate(x = f())
        2. +-dplyr::mutate(., x = f())
        3. \-dplyr:::mutate.data.frame(., x = f())
+       4.   \-dplyr::mutate(...)
       
     Message
       ... with 4 more warnings.
@@ -519,6 +530,7 @@
        3. |   \-df %>% group_by(x = f(1):n()) %>% mutate(x = f(1, base = FALSE))
        4. +-dplyr::mutate(., x = f(1, base = FALSE))
        5. \-dplyr:::mutate.data.frame(., x = f(1, base = FALSE))
+       6.   \-dplyr::mutate(...)
       
       [[3]]
       <warning/rlang_warning>
@@ -535,6 +547,7 @@
        3. |   \-df %>% group_by(x = f(1):n()) %>% mutate(x = f(1, base = FALSE))
        4. +-dplyr::mutate(., x = f(1, base = FALSE))
        5. \-dplyr:::mutate.data.frame(., x = f(1, base = FALSE))
+       6.   \-dplyr::mutate(...)
       
       [[4]]
       <warning/rlang_warning>
@@ -551,6 +564,7 @@
        3. |   \-df %>% group_by(x = f(1):n()) %>% mutate(x = f(1, base = FALSE))
        4. +-dplyr::mutate(., x = f(1, base = FALSE))
        5. \-dplyr:::mutate.data.frame(., x = f(1, base = FALSE))
+       6.   \-dplyr::mutate(...)
       
 
 # can collect warnings in main verbs
@@ -568,7 +582,7 @@
       ! foo
       i Run `dplyr::last_dplyr_warnings()` to see the 31 remaining warnings.
       Warning:
-      There was 1 warning in `arrange()`.
+      There was 1 warning in `mutate()`.
       i In argument: `..1 = f()`.
       Caused by warning in `f()`:
       ! foo
@@ -602,7 +616,7 @@
       warnings[[33]]
     Output
       <warning/rlang_warning>
-      Warning in `arrange()`:
+      Warning in `mutate()`:
       i In argument: `..1 = f()`.
       Caused by warning in `f()`:
       ! foo

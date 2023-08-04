@@ -74,6 +74,7 @@
       out <- semi_join(df1, df2)
     Message
       Joining with `by = join_by(x)`
+      Joining with `by = join_by(x)`
 
 # mutating joins reference original column in `y` when there are type errors (#6465)
 

@@ -4,13 +4,13 @@
       (expect_error(tibble(x = 1, x = 1, .name_repair = "minimal") %>% arrange(x)))
     Output
       <error/rlang_error>
-      Error in `arrange()`:
+      Error in `mutate()`:
       ! Can't transform a data frame with duplicate names.
     Code
       (expect_error(tibble(x = 1) %>% arrange(y)))
     Output
       <error/dplyr:::mutate_error>
-      Error in `arrange()`:
+      Error in `mutate()`:
       i In argument: `..1 = y`.
       Caused by error:
       ! object 'y' not found
@@ -18,7 +18,7 @@
       (expect_error(tibble(x = 1) %>% arrange(rep(x, 2))))
     Output
       <error/dplyr:::mutate_error>
-      Error in `arrange()`:
+      Error in `mutate()`:
       i In argument: `..1 = rep(x, 2)`.
       Caused by error:
       ! `..1` must be size 1, not 2.
