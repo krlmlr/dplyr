@@ -2,60 +2,17 @@
 
 We checked 50 reverse dependencies, comparing R CMD check results across CRAN and dev versions of this package.
 
- * We saw 0 new problems
- * We failed to check 50 packages
+ * We saw 2 new problems
+ * We failed to check 0 packages
 
 Issues with CRAN packages are summarised below.
 
-### Failed to check
+### New problems
+(This reports the first line of each new failure)
 
-* bayesplot       (NA)
-* broom           (NA)
-* broom.helpers   (NA)
-* dbplyr          (NA)
-* DiagrammeR      (NA)
-* dials           (NA)
-* dtplyr          (NA)
-* fable           (NA)
-* fabletools      (NA)
-* feasts          (NA)
-* GGally          (NA)
-* ggfortify       (NA)
-* ggmap           (NA)
-* ggpubr          (NA)
-* ggraph          (NA)
-* gt              (NA)
-* gtsummary       (NA)
-* infer           (NA)
-* janitor         (NA)
-* labelled        (NA)
-* mice            (NA)
-* modeldata       (NA)
-* padr            (NA)
-* parsnip         (NA)
-* pbkrtest        (NA)
-* plotly          (NA)
-* recipes         (NA)
-* rsample         (NA)
-* rstatix         (NA)
-* scatterpie      (NA)
-* sctransform     (NA)
-* sjmisc          (NA)
-* sjPlot          (NA)
-* sjstats         (NA)
-* skimr           (NA)
-* sparklyr        (NA)
-* sparklyr.nested (NA)
-* summarytools    (NA)
-* survminer       (NA)
-* tidygraph       (NA)
-* tidymodels      (NA)
-* tidyr           (NA)
-* tidytext        (NA)
-* tidytree        (NA)
-* tidyverse       (NA)
-* timetk          (NA)
-* tsibble         (NA)
-* tune            (NA)
-* workflowsets    (NA)
-* yardstick       (NA)
+* janitor
+  checking tests ... ERROR
+
+* recipes
+  checking tests ... ERROR
+
