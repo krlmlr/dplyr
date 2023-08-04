@@ -1670,14 +1670,14 @@ exprs_project <- function(rel, exprs, .data) {
 #' @export
 pull.data.frame <- function(.data, var = -1, name = NULL, ...) {
   # dplyr implementation
-  var <- tidyselect::vars_pull(names(.data), !!enquo(var))
-  name <- enquo(name)
-  if (!quo_is_null(name)) {
-    name <- tidyselect::vars_pull(names(.data), !!name)
-    var <- c(name, var)
+  my_var <- tidyselect::vars_pull(names(.data), !!enquo(var))
+  my_name <- enquo(name)
+  if (!quo_is_null(my_name)) {
+    my_name <- tidyselect::vars_pull(names(.data), !!my_name)
+    my_var <- c(my_name, my_var)
   }
 
-  loc <- set_names(match(var, names(.data)), var)
+  loc <- set_names(match(my_var, names(.data)), my_var)
 
   exprs <- exprs_from_loc(.data, loc)
 
