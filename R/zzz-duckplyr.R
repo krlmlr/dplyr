@@ -256,23 +256,42 @@ count.data.frame <- function(x, ..., wt = NULL, sort = FALSE, name = NULL, .drop
 
   dplyr_local_error_call()
 
-  quos <- enquos(...)
-  exprs <- unname(map(quos, quo_get_expr))
-  is_name <- map_lgl(exprs, is_symbol)
+  by <- dplyr_quosures(...)
+  by <- fix_auto_name(by)
 
-  # FIXME: Use rel_try() for accurate stats
-  if (!is_grouped_df(x) && all(is_name) && .drop && !sort) {
-    by_chr <- map_chr(exprs, as_string)
-    name <- check_n_name(name, by_chr)
+  by_exprs <- unname(map(by, quo_get_expr))
+  is_name <- map_lgl(by_exprs, is_symbol)
 
-    if (!(name %in% by_chr)) {
+  rel_try(
+    "count() needs all(is_name)" = !all(is_name),
+    "count() only implemented for .drop = TRUE" = !.drop,
+    "count() only implemented for sort = FALSE" = sort,
+    {
+      by_chr <- map_chr(by_exprs, as_string)
+      name <- check_n_name(name, by_chr)
+
+      if (name %in% by_chr) {
+        abort("Name clash in count()")
+      }
+
       n <- tally_n(x, {{ wt }})
 
-      out <- summarise(x, !!name := !!n, .by = c(!!!exprs))
+      rel <- duckdb_rel_from_df(x)
+
+      groups <- rel_translate_dots(by, x)
+      aggregates <- list(rel_translate(as_quosure(n, baseenv()), x, alias = name))
+
+      out_rel <- rel_aggregate(rel, groups, unname(aggregates))
+      if (length(groups) > 0) {
+        out_rel <- rel_order(out_rel, groups)
+      }
+
+      out <- rel_to_df(out_rel)
       out <- dplyr_reconstruct(out, x)
+
       return(out)
     }
-  }
+  )
 
   # FIXME: optimize, no need to forward dots
   # out <- count(x_df, !!!quos, wt = {{ wt }}, sort = sort, name = name, .drop = .drop)
@@ -2132,6 +2151,12 @@ print.relational_relexpr <- function(x, ...) {
   writeLines(format(x, ...))
 }
 
+#' @export
+format.relational_relexpr <- function(x, ...) {
+  # FIXME: Use home-grown code
+  utils::capture.output(print(constructive::construct(x)))
+}
+
 rel_stats_env <- new.env(parent = emptyenv(), size = 937L)
 
 rel_stats_clean <- function() {
@@ -3732,20 +3757,20 @@ summarise.data.frame <- function(.data, ..., .by = NULL, .groups = NULL) {
   rel_try(
     'summarize(.groups = "rowwise") not supported' = identical(.groups, "rowwise"),
     {
-      by <- eval_select_by(enquo(.by), .data)
-      oo <- (length(by) > 0) && oo_force()
-
       rel <- duckdb_rel_from_df(.data)
 
-      if (oo) {
-        rel <- oo_prep(rel, colname = "___row_number", force = TRUE)
-      }
+      by <- eval_select_by(enquo(.by), .data)
 
       dots <- dplyr_quosures(...)
       dots <- fix_auto_name(dots)
 
-      aggregates <- rel_translate_dots(dots, .data)
+      oo <- (length(by) > 0) && oo_force()
+      if (oo) {
+        rel <- oo_prep(rel, colname = "___row_number", force = TRUE)
+      }
+
       groups <- lapply(by, relexpr_reference)
+      aggregates <- rel_translate_dots(dots, .data)
 
       if (oo) {
         aggregates <- c(
