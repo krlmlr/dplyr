@@ -1841,15 +1841,27 @@ rel_join.duckdb_relation <- function(left, right, conds, join, join_ref_type, ..
     join <- "outer"
   }
 
-  out <- duckdb:::rel_join(left, right, duckdb_conds, join, join_ref_type)
+  if (join_ref_type == "regular") {
+    # Compatibility with older duckdb versions
+    out <- duckdb:::rel_join(left, right, duckdb_conds, join)
 
-  meta_rel_register(out, expr(duckdb:::rel_join(
-    !!meta_rel_get(left)$name,
-    !!meta_rel_get(right)$name,
-    list(!!!to_duckdb_exprs_meta(conds)),
-    !!join,
-    !!join_ref_type
-  )))
+    meta_rel_register(out, expr(duckdb:::rel_join(
+      !!meta_rel_get(left)$name,
+      !!meta_rel_get(right)$name,
+      list(!!!to_duckdb_exprs_meta(conds)),
+      !!join
+    )))
+  } else {
+    out <- duckdb:::rel_join(left, right, duckdb_conds, join, join_ref_type)
+
+    meta_rel_register(out, expr(duckdb:::rel_join(
+      !!meta_rel_get(left)$name,
+      !!meta_rel_get(right)$name,
+      list(!!!to_duckdb_exprs_meta(conds)),
+      !!join,
+      !!join_ref_type
+    )))
+  }
 
   out
 }
@@ -2059,7 +2071,7 @@ to_duckdb_expr_meta <- function(x) {
       out <- expr(
         # FIXME: always pass experimental flag once it's merged
         if ("experimental" %in% names(formals(duckdb:::expr_constant))) {
-          experimental <- (Sys.getenv("DUCKPLYR_EXPERIMENTAL") == "TRUE")
+          # experimental is set at the top
           duckdb:::expr_constant(!!x$val, experimental = experimental)
         } else {
           duckdb:::expr_constant(!!x$val)
