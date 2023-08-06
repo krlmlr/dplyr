@@ -279,11 +279,12 @@ count.data.frame <- function(x, ..., wt = NULL, sort = FALSE, name = NULL, .drop
       rel <- duckdb_rel_from_df(x)
 
       groups <- rel_translate_dots(by, x)
-      aggregates <- list(rel_translate(as_quosure(n, baseenv()), x, alias = name))
+      aggregates <- list(rel_translate(n, x, alias = name))
 
       out_rel <- rel_aggregate(rel, groups, unname(aggregates))
       if (length(groups) > 0) {
-        out_rel <- rel_order(out_rel, groups)
+        sort_cols <- nexprs(names(groups))
+        out_rel <- rel_order(out_rel, sort_cols)
       }
 
       out <- rel_to_df(out_rel)
@@ -1447,6 +1448,10 @@ nexprs_from_loc <- function(names, loc) {
   map2(names[loc], names(loc), ~ relexpr_reference(.x, alias = .y))
 }
 
+nexprs <- function(names) {
+  map(names, ~ relexpr_reference(.x, alias = .x))
+}
+
 exprs_project <- function(rel, exprs, .data) {
   out_rel <- rel_project(rel, exprs)
   out <- rel_to_df(out_rel)
@@ -2538,7 +2543,13 @@ rel_translate <- function(
     need_window = FALSE,
     names_data = names(data)
 ) {
-  env <- quo_get_env(quo)
+  if (is_expression(quo)) {
+    expr <- quo
+    env <- baseenv()
+  } else {
+    expr <- quo_get_expr(quo)
+    env <- quo_get_env(quo)
+  }
 
   used <- character()
 
@@ -2654,7 +2665,7 @@ rel_translate <- function(
     )
   }
 
-  out <- do_translate(quo_get_expr(quo))
+  out <- do_translate(expr)
 
   if (!is.null(alias) && !identical(alias, "")) {
     out <- relexpr_set_alias(out, alias)
