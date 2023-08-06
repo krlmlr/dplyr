@@ -1,9 +1,9 @@
 ## revdepcheck results
 
-We checked 200 reverse dependencies, comparing R CMD check results across CRAN and dev versions of this package.
+We checked 21 reverse dependencies, comparing R CMD check results across CRAN and dev versions of this package.
 
- * We saw 21 new problems
- * We failed to check 1 packages
+ * We saw 19 new problems
+ * We failed to check 0 packages
 
 Issues with CRAN packages are summarised below.
 
@@ -36,9 +36,6 @@ Issues with CRAN packages are summarised below.
 * lares
   checking examples ... ERROR
 
-* modeltime
-  checking tests ... ERROR
-
 * msigdbr
   checking tests ... ERROR
   checking re-building of vignette outputs ... WARNING
@@ -51,10 +48,6 @@ Issues with CRAN packages are summarised below.
   checking tests ... ERROR
 
 * prophet
-  checking tests ... ERROR
-
-* rstatix
-  checking examples ... ERROR
   checking tests ... ERROR
 
 * sjstats
@@ -80,6 +73,3 @@ Issues with CRAN packages are summarised below.
 * yardstick
   checking tests ... ERROR
 
-### Failed to check
-
-* MarketMatching (NA)

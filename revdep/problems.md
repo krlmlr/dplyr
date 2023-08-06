@@ -31,7 +31,7 @@ Run `revdepcheck::cloud_details(, "DiagrammeR")` for more info
       graph %>% get_selection() not equal to c(2, 10).
       Lengths differ: 1 is not 2
       
-      [ FAIL 10 | WARN 12 | SKIP 0 | PASS 2100 ]
+      [ FAIL 7 | WARN 12 | SKIP 0 | PASS 2119 ]
       Error: Test failures
       Execution halted
     ```
@@ -262,15 +262,15 @@ Run `revdepcheck::cloud_details(, "gtsummary")` for more info
     > 
     > # remove indentation from `tbl_summary()`
     ...
+     33. │   └─dplyr:::mutate_cols(.data, dplyr_quosures(...), by)
+     34. │     ├─base::withCallingHandlers(...)
+     35. │     └─dplyr:::mutate_col(dots[[i]], data, mask, new_columns)
      36. │       └─mask$eval_all_mutate(quo)
      37. │         └─dplyr (local) eval()
-     38. ├─forcats::fct_expand(.data$variable, as.character(dichotomous_value))
-     39. │ └─forcats:::check_factor(f)
-     40. ├─variable
-     41. ├─rlang:::`$.rlang_data_pronoun`(.data, variable)
-     42. │ └─rlang:::data_pronoun_get(...)
-     43. └─rlang:::abort_data_pronoun(x, call = y)
-     44.   └─rlang::abort(msg, "rlang_error_data_pronoun_not_found", call = call)
+     38. └─forcats::fct_expand(.data$variable, as.character(dichotomous_value))
+     39.   └─forcats:::check_factor(f)
+     40.     └─cli::cli_abort(...)
+     41.       └─rlang::abort(...)
     Execution halted
     ```
 
@@ -289,8 +289,8 @@ Run `revdepcheck::cloud_details(, "gtsummary")` for more info
       i In index: 1.
       Caused by error in `mutate()`:
       i In argument: `variable = forcats::fct_expand(.data$variable, as.character(dichotomous_value))`.
-      Caused by error in `.data$variable`:
-      ! Column `variable` not found in `.data`.
+      Caused by error in `forcats::fct_expand()`:
+      ! `f` must be a factor or character vector, not a logical vector.
       
       [ FAIL 4 | WARN 0 | SKIP 76 | PASS 9 ]
       Error: Test failures
@@ -384,53 +384,6 @@ Run `revdepcheck::cloud_details(, "lares")` for more info
      34.     └─vctrs:::stop_subscript(...)
      35.       └─rlang::abort(...)
     Execution halted
-    ```
-
-# modeltime
-
-<details>
-
-* Version: 1.2.7
-* GitHub: https://github.com/business-science/modeltime
-* Source code: https://github.com/cran/modeltime
-* Date/Publication: 2023-07-03 15:10:02 UTC
-* Number of recursive dependencies: 249
-
-Run `revdepcheck::cloud_details(, "modeltime")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking tests ... ERROR
-    ```
-      Running ‘testthat.R’
-    Running the tests in ‘tests/testthat.R’ failed.
-    Last 13 lines of output:
-          }
-      }, .after = {
-          {
-              .after
-          }
-      })`: ℹ In argument: `nested.col = purrr::map(...)`.
-      ℹ In group 3: `id = 1_8`.
-      Caused by error in `purrr::map()`:
-      ℹ In index: 1.
-      Caused by error in `h()`:
-      ! error in evaluating the argument 'x' in selecting a method for function 'as_date': 'from' must be a finite number
-      
-      [ FAIL 1 | WARN 7 | SKIP 25 | PASS 484 ]
-      Error: Test failures
-      Execution halted
-    ```
-
-## In both
-
-*   checking dependencies in R code ... NOTE
-    ```
-    Namespaces in Imports field not imported from:
-      ‘tidymodels’ ‘tidyverse’
-      All declared Imports should be used.
     ```
 
 # msigdbr
@@ -645,70 +598,6 @@ Run `revdepcheck::cloud_details(, "prophet")` for more info
 *   checking for GNU extensions in Makefiles ... NOTE
     ```
     GNU make is a SystemRequirements.
-    ```
-
-# rstatix
-
-<details>
-
-* Version: 0.7.2
-* GitHub: https://github.com/kassambara/rstatix
-* Source code: https://github.com/cran/rstatix
-* Date/Publication: 2023-02-01 21:20:02 UTC
-* Number of recursive dependencies: 113
-
-Run `revdepcheck::cloud_details(, "rstatix")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking examples ... ERROR
-    ```
-    Running examples in ‘rstatix-Ex.R’ failed
-    The error most likely occurred in:
-    
-    > ### Name: anova_test
-    > ### Title: Anova Test
-    > ### Aliases: anova_test get_anova_table print.anova_test plot.anova_test
-    > 
-    > ### ** Examples
-    > 
-    > # Load data
-    ...
-      Effect DFn DFd       F        p p<.05   ges
-    1   dose   1  58 105.065 1.23e-14     * 0.644
-    > 
-    > # Grouped One-way ANOVA test
-    > #:::::::::::::::::::::::::::::::::::::::::
-    > df %>%
-    +   group_by(supp) %>%
-    +   anova_test(len ~ dose)
-    # A tibble: 2 × 8
-      supp  Effect   DFn   DFd     F        p `p<.05`   ges
-    ```
-
-*   checking tests ... ERROR
-    ```
-      Running ‘spelling.R’
-      Running ‘testthat.R’
-    Running the tests in ‘tests/testthat.R’ failed.
-    Last 13 lines of output:
-      [ FAIL 1 | WARN 21 | SKIP 0 | PASS 126 ]
-      
-      ══ Failed tests ════════════════════════════════════════════════════════════════
-      ── Error ('test-anova_test.R:88:3'): Checking that get_anova_table performs auto sphericity correction ──
-      Error in ``[.data.frame`(corrections, rows.to.update, cols.to.update)`: undefined columns selected
-      Backtrace:
-          ▆
-       1. └─rstatix::get_anova_table(res.aov2, correction = "auto") at test-anova_test.R:88:2
-       2.   └─rstatix:::get_anova_table_from_simple_test(x, correction = correction)
-       3.     ├─corrections[rows.to.update, cols.to.update]
-       4.     └─base::`[.data.frame`(corrections, rows.to.update, cols.to.update)
-      
-      [ FAIL 1 | WARN 21 | SKIP 0 | PASS 126 ]
-      Error: Test failures
-      Execution halted
     ```
 
 # sjstats
