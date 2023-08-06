@@ -1,11 +1,10 @@
 # Revdeps
 
-## New problems (19)
+## New problems (18)
 
 |package     |version |error  |warning |note |
 |:-----------|:-------|:------|:-------|:----|
 |[DiagrammeR](problems.md#diagrammer)|1.0.10  |__+1__ |        |1    |
-|[dm](problems.md#dm)|1.0.6   |__+1__ |        |     |
 |[dotwhisker](problems.md#dotwhisker)|0.7.4   |       |__+1__  |1    |
 |[ENMeval](problems.md#enmeval)|2.0.4   |__+1__ |        |1    |
 |[groupdata2](problems.md#groupdata2)|2.0.3   |__+2__ |        |     |

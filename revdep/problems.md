@@ -43,44 +43,6 @@ Run `revdepcheck::cloud_details(, "DiagrammeR")` for more info
       Note: found 1 marked UTF-8 string
     ```
 
-# dm
-
-<details>
-
-* Version: 1.0.6
-* GitHub: https://github.com/cynkra/dm
-* Source code: https://github.com/cran/dm
-* Date/Publication: 2023-07-21 13:30:02 UTC
-* Number of recursive dependencies: 136
-
-Run `revdepcheck::cloud_details(, "dm")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking tests ... ERROR
-    ```
-      Running ‘testthat.R’
-    Running the tests in ‘tests/testthat.R’ failed.
-    Last 13 lines of output:
-      • draw-dm/nycflight-dm.svg
-      • draw-dm/single-empty-table-dm.svg
-      • draw-dm/table-desc-1-dm.svg
-      • draw-dm/table-desc-2-dm.svg
-      • draw-dm/table-desc-3-dm.svg
-      • draw-dm/table-desc-4-dm.svg
-      • draw-dm/table-uk-1-dm.svg
-      • draw-dm/table-uk-2-dm.svg
-      • duckdb/meta/columns.csv
-      • maria/meta/columns.csv
-      • mssql/meta/columns.csv
-      • postgres/meta/columns.csv
-      • sqlite/meta/columns.csv
-      Error: Test failures
-      Execution halted
-    ```
-
 # dotwhisker
 
 <details>

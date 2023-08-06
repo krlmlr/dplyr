@@ -1,8 +1,8 @@
 ## revdepcheck results
 
-We checked 21 reverse dependencies, comparing R CMD check results across CRAN and dev versions of this package.
+We checked 19 reverse dependencies, comparing R CMD check results across CRAN and dev versions of this package.
 
- * We saw 19 new problems
+ * We saw 18 new problems
  * We failed to check 0 packages
 
 Issues with CRAN packages are summarised below.
@@ -11,9 +11,6 @@ Issues with CRAN packages are summarised below.
 (This reports the first line of each new failure)
 
 * DiagrammeR
-  checking tests ... ERROR
-
-* dm
   checking tests ... ERROR
 
 * dotwhisker
