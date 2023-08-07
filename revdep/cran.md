@@ -1,8 +1,8 @@
 ## revdepcheck results
 
-We checked 19 reverse dependencies, comparing R CMD check results across CRAN and dev versions of this package.
+We checked 18 reverse dependencies, comparing R CMD check results across CRAN and dev versions of this package.
 
- * We saw 18 new problems
+ * We saw 12 new problems
  * We failed to check 0 packages
 
 Issues with CRAN packages are summarised below.
@@ -19,20 +19,6 @@ Issues with CRAN packages are summarised below.
 * ENMeval
   checking tests ... ERROR
 
-* groupdata2
-  checking examples ... ERROR
-  checking tests ... ERROR
-
-* gtsummary
-  checking examples ... ERROR
-  checking tests ... ERROR
-
-* highcharter
-  checking examples ... ERROR
-
-* lares
-  checking examples ... ERROR
-
 * msigdbr
   checking tests ... ERROR
   checking re-building of vignette outputs ... WARNING
@@ -40,15 +26,8 @@ Issues with CRAN packages are summarised below.
 * optmatch
   checking tests ... ERROR
 
-* padr
-  checking examples ... ERROR
-  checking tests ... ERROR
-
 * prophet
   checking tests ... ERROR
-
-* sjstats
-  checking examples ... ERROR
 
 * srvyr
   checking tests ... ERROR
