@@ -13,7 +13,7 @@
 |[srvyr](problems.md#srvyr)|1.2.0   |__+1__ |        |1    |
 |[tidylog](problems.md#tidylog)|1.0.2   |__+1__ |        |1    |
 |[tsibble](problems.md#tsibble)|1.1.3   |__+1__ |        |     |
-|[unpivotr](problems.md#unpivotr)|0.6.3   |__+2__ |        |     |
+|[unpivotr](problems.md#unpivotr)|0.6.3   |__+1__ |        |     |
 |[vcfR](problems.md#vcfr)|1.14.0  |__+2__ |        |1    |
 |[yardstick](problems.md#yardstick)|1.2.0   |__+1__ |        |     |
 

@@ -400,7 +400,7 @@ Run `revdepcheck::cloud_details(, "tsibble")` for more info
        4.     └─tsibble:::validate_tsibble(data = tbl, key = key_vars, key_data = key_data, index = index)
        5.       └─rlang::abort(...)
       
-      [ FAIL 2 | WARN 7 | SKIP 2 | PASS 645 ]
+      [ FAIL 1 | WARN 7 | SKIP 2 | PASS 646 ]
       Error: Test failures
       Execution halted
     ```
@@ -444,28 +444,6 @@ Run `revdepcheck::cloud_details(, "unpivotr")` for more info
      30.     └─vctrs:::stop_subscript(...)
      31.       └─rlang::abort(...)
     Execution halted
-    ```
-
-*   checking tests ... ERROR
-    ```
-      Running ‘testthat.R’
-    Running the tests in ‘tests/testthat.R’ failed.
-    Last 13 lines of output:
-      > 
-      > test_check("unpivotr")
-      [ FAIL 1 | WARN 2 | SKIP 0 | PASS 263 ]
-      
-      ══ Failed tests ════════════════════════════════════════════════════════════════
-      ── Failure ('test-rectify.R:158:3'): Blank columns amongst the data are retained ──
-      rectify(x) not equal to `rectify_correct`.
-      Component "3(C)": Modes: list, logical
-      Component "3(C)": Component 1: target is NULL, current is logical
-      Component "3(C)": Component 2: target is NULL, current is logical
-      Component "3(C)": Component 3: target is NULL, current is logical
-      
-      [ FAIL 1 | WARN 2 | SKIP 0 | PASS 263 ]
-      Error: Test failures
-      Execution halted
     ```
 
 # vcfR
