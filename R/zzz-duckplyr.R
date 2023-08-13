@@ -413,7 +413,7 @@ duckdb_from_file <- function(path, table_function, options=list()) {
     options
   )
 
-  meta_rel_register_csv(out, path)
+  meta_rel_register_file(out, path, table_function, options)
 
   duckdb:::rel_to_altrep(out)
 }
@@ -1676,6 +1676,8 @@ duckplyr_macros <- c(
   "desc" = '(x) AS (-x)',
   "n_distinct" = '(x) AS (COUNT(DISTINCT x))',
 
+  "wday" = "(x) AS CAST(weekday(CAST (x AS DATE)) + 1 AS int32)",
+
   "___eq_na_matches_na" = '(a, b) AS ((a IS NULL AND b IS NULL) OR (a = b))',
   "___coalesce" = '(a, b) AS COALESCE(a, b)',
 
@@ -1740,6 +1742,10 @@ duckdb_rel_from_df <- function(df) {
     }
     if (isS4(col)) {
       stop("Can't convert S4 columns to relational. Affected column: `", names(df)[[i]], "`.")
+    }
+    # https://github.com/duckdb/duckdb/issues/8561
+    if (is.factor(col)) {
+      stop("Can't convert factor columns to relational. Affected column: `", names(df)[[i]], "`.")
     }
   }
 
@@ -2510,7 +2516,7 @@ rel_try <- function(rel, ...) {
     if (isTRUE(dots[[i]])) {
       stats$fallback <- stats$fallback + 1L
       if (!dplyr_mode) {
-        if (!identical(Sys.getenv("TESTTHAT"), "true")) {
+        if (Sys.getenv("DUCKPLYR_FALLBACK_INFO") == "TRUE") {
           inform(message = c("Requested fallback for relational:", i = names(dots)[[i]]))
         }
         if (Sys.getenv("DUCKPLYR_FORCE") == "TRUE") {
@@ -2529,7 +2535,7 @@ rel_try <- function(rel, ...) {
   out <- rlang::try_fetch(rel, error = identity)
   if (inherits(out, "error")) {
     # FIXME: enable always
-    if (!dplyr_mode && !identical(Sys.getenv("TESTTHAT"), "true")) {
+    if (Sys.getenv("DUCKPLYR_FALLBACK_INFO") == "TRUE") {
       rlang::cnd_signal(rlang::message_cnd(message = "Error processing with relational.", parent = out))
     }
     stats$fallback <- stats$fallback + 1L
@@ -2597,6 +2603,27 @@ rel_translate <- function(
           "(" = {
             return(do_translate(expr[[2]], in_window = in_window))
           },
+          # Hack
+          "wday" = {
+            def <- lubridate::wday
+            call <- match.call(def, expr, envir = env)
+            args <- as.list(call[-1])
+            if (!is.null(args$label)) {
+              abort("wday(label = ) not supported")
+            }
+            if (!is.null(args$abbr)) {
+              abort("wday(abbr = ) not supported")
+            }
+            if (!is.null(args$locale)) {
+              abort("wday(locale = ) not supported")
+            }
+            if (!is.null(args$week_start)) {
+              abort("wday(week_start = ) not supported")
+            }
+            if (!is.null(getOption("lubridate.week.start"))) {
+              abort('wday() with option("lubridate.week.start") not supported')
+            }
+          },
           "%in%" = {
             tryCatch(
               {
@@ -2627,14 +2654,23 @@ rel_translate <- function(
           "cume_dist", "lead", "lag", "ntile",
 
           # Aggregates
-          "sum", "mean", "stddev", "min", "max",
+          "sum", "mean", "stddev", "min", "max", "median",
 
           NULL
         )
 
         known_ops <- c("+", "-", "*", "/")
 
-        known <- c(names(duckplyr_macros), names(aliases), known_window, known_ops)
+        known_funs <- c(
+          # FIXME: How to indicate these are from lubridate?
+          "hour",
+          "minute",
+          "second",
+
+          NULL
+        )
+
+        known <- c(names(duckplyr_macros), names(aliases), known_window, known_ops, known_funs)
 
         if (!(name %in% known)) {
           abort(paste0("Unknown function: ", name))
