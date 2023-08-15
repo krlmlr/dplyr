@@ -2,7 +2,7 @@
 
 We checked 12 reverse dependencies, comparing R CMD check results across CRAN and dev versions of this package.
 
- * We saw 12 new problems
+ * We saw 7 new problems
  * We failed to check 0 packages
 
 Issues with CRAN packages are summarised below.
@@ -13,26 +13,11 @@ Issues with CRAN packages are summarised below.
 * DiagrammeR
   checking tests ... ERROR
 
-* dotwhisker
-  checking re-building of vignette outputs ... WARNING
-
-* ENMeval
-  checking tests ... ERROR
-
 * msigdbr
   checking tests ... ERROR
-  checking re-building of vignette outputs ... WARNING
-
-* optmatch
-  checking tests ... ERROR
+  checking re-building of vignette outputs ... ERROR
 
 * prophet
-  checking tests ... ERROR
-
-* srvyr
-  checking tests ... ERROR
-
-* tidylog
   checking tests ... ERROR
 
 * tsibble

@@ -36,95 +36,6 @@ Run `revdepcheck::cloud_details(, "DiagrammeR")` for more info
       Note: found 1 marked UTF-8 string
     ```
 
-# dotwhisker
-
-<details>
-
-* Version: 0.7.4
-* GitHub: https://github.com/fsolt/dotwhisker
-* Source code: https://github.com/cran/dotwhisker
-* Date/Publication: 2021-09-02 14:50:35 UTC
-* Number of recursive dependencies: 74
-
-Run `revdepcheck::cloud_details(, "dotwhisker")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking re-building of vignette outputs ... WARNING
-    ```
-    Error(s) in re-building vignettes:
-      ...
-    --- re-building ‘dotwhisker-vignette.Rmd’ using rmarkdown
-    
-    Quitting from lines 308-343 [brackets] (dotwhisker-vignette.Rmd)
-    Error: processing vignette 'dotwhisker-vignette.Rmd' failed with diagnostics:
-    non-finite location and/or size for viewport
-    --- failed re-building ‘dotwhisker-vignette.Rmd’
-    
-    --- re-building ‘kl2007_examples.Rmd’ using rmarkdown
-    --- finished re-building ‘kl2007_examples.Rmd’
-    
-    SUMMARY: processing the following file failed:
-      ‘dotwhisker-vignette.Rmd’
-    
-    Error: Vignette re-building failed.
-    Execution halted
-    ```
-
-## In both
-
-*   checking Rd cross-references ... NOTE
-    ```
-    Unknown package ‘broomExtra’ in Rd xrefs
-    ```
-
-# ENMeval
-
-<details>
-
-* Version: 2.0.4
-* GitHub: NA
-* Source code: https://github.com/cran/ENMeval
-* Date/Publication: 2023-01-09 11:53:16 UTC
-* Number of recursive dependencies: 239
-
-Run `revdepcheck::cloud_details(, "ENMeval")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking tests ... ERROR
-    ```
-      Running ‘testthat.R’
-    Running the tests in ‘tests/testthat.R’ failed.
-    Last 13 lines of output:
-       4.   └─raster::stack(ras.sim)
-       5.     └─raster (local) .local(x, ...)
-      ── Error ('/tmp/workdir/ENMeval/new/ENMeval.Rcheck/tests/testthat/helper_funcs.R:290:9'): Outputs for evalplot.envSim.map have correct form ──
-      Error in `x[[1]]`: subscript out of bounds
-      Backtrace:
-          ▆
-       1. ├─base::inherits(i, "Raster") at tests/testthat/helper_funcs.R:290:8
-       2. └─ENMeval::evalplot.envSim.map(...)
-       3.   ├─raster::stack(ras.sim)
-       4.   └─raster::stack(ras.sim)
-       5.     └─raster (local) .local(x, ...)
-      
-      [ FAIL 38 | WARN 0 | SKIP 46 | PASS 837 ]
-      Error: Test failures
-      Execution halted
-    ```
-
-## In both
-
-*   checking data for non-ASCII characters ... NOTE
-    ```
-      Note: found 2 marked UTF-8 strings
-    ```
-
 # msigdbr
 
 <details>
@@ -153,7 +64,7 @@ Run `revdepcheck::cloud_details(, "msigdbr")` for more info
       Killed
     ```
 
-*   checking re-building of vignette outputs ... WARNING
+*   checking re-building of vignette outputs ... ERROR
     ```
     Error(s) in re-building vignettes:
       ...
@@ -168,53 +79,6 @@ Run `revdepcheck::cloud_details(, "msigdbr")` for more info
       installed size is  6.0Mb
       sub-directories of 1Mb or more:
         R   5.9Mb
-    ```
-
-# optmatch
-
-<details>
-
-* Version: 0.10.6
-* GitHub: https://github.com/markmfredrickson/optmatch
-* Source code: https://github.com/cran/optmatch
-* Date/Publication: 2023-02-07 08:22:29 UTC
-* Number of recursive dependencies: 100
-
-Run `revdepcheck::cloud_details(, "optmatch")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking tests ... ERROR
-    ```
-      Running ‘exporting-methods.R’
-      Running ‘testthat.R’
-    Running the tests in ‘tests/testthat.R’ failed.
-    Complete output:
-      > library(testthat)
-      > library(optmatch)
-      > 
-      > test_check("optmatch")
-      terminate called after throwing an instance of 'cpp11::unwind_exception'
-        what():  std::exception
-      Aborted (core dumped)
-    ```
-
-## In both
-
-*   checking package dependencies ... NOTE
-    ```
-    Packages which this enhances but not available for checking:
-      'CBPS', 'haven'
-    ```
-
-*   checking installed package size ... NOTE
-    ```
-      installed size is  5.1Mb
-      sub-directories of 1Mb or more:
-        doc    2.0Mb
-        libs   2.1Mb
     ```
 
 # prophet
@@ -274,96 +138,6 @@ Run `revdepcheck::cloud_details(, "prophet")` for more info
 *   checking for GNU extensions in Makefiles ... NOTE
     ```
     GNU make is a SystemRequirements.
-    ```
-
-# srvyr
-
-<details>
-
-* Version: 1.2.0
-* GitHub: https://github.com/gergness/srvyr
-* Source code: https://github.com/cran/srvyr
-* Date/Publication: 2023-02-21 04:10:02 UTC
-* Number of recursive dependencies: 100
-
-Run `revdepcheck::cloud_details(, "srvyr")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking tests ... ERROR
-    ```
-      Running ‘spelling.R’
-      Running ‘testthat.R’
-    Running the tests in ‘tests/testthat.R’ failed.
-    Last 13 lines of output:
-      > library(testthat)
-      > library(srvyr)
-      
-      Attaching package: 'srvyr'
-      
-      The following object is masked from 'package:stats':
-      
-          filter
-      
-      > 
-      > test_check("srvyr")
-      terminate called after throwing an instance of 'cpp11::unwind_exception'
-        what():  std::exception
-      Aborted (core dumped)
-    ```
-
-## In both
-
-*   checking package dependencies ... NOTE
-    ```
-    Package suggested but not available for checking: ‘convey’
-    ```
-
-# tidylog
-
-<details>
-
-* Version: 1.0.2
-* GitHub: https://github.com/elbersb/tidylog
-* Source code: https://github.com/cran/tidylog
-* Date/Publication: 2020-07-03 13:30:02 UTC
-* Number of recursive dependencies: 68
-
-Run `revdepcheck::cloud_details(, "tidylog")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking tests ... ERROR
-    ```
-      Running ‘testthat.R’
-    Running the tests in ‘tests/testthat.R’ failed.
-    Last 13 lines of output:
-      > 
-      > test_check("tidylog")
-      [ FAIL 1 | WARN 0 | SKIP 0 | PASS 302 ]
-      
-      ══ Failed tests ════════════════════════════════════════════════════════════════
-      ── Failure ('test_mutate.R:53:5'): mutate ──────────────────────────────────────
-      `f()` produced unexpected messages.
-      Expected match: from character to Date.*0 new NA
-      Actual values:
-      * mutate: converted 'date' from character to double (0 new NA)
-      
-      
-      [ FAIL 1 | WARN 0 | SKIP 0 | PASS 302 ]
-      Error: Test failures
-      Execution halted
-    ```
-
-## In both
-
-*   checking LazyData ... NOTE
-    ```
-      'LazyData' is specified without a 'data' directory
     ```
 
 # tsibble
