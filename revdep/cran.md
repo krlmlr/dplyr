@@ -1,29 +1,386 @@
 ## revdepcheck results
 
-We checked 7 reverse dependencies, comparing R CMD check results across CRAN and dev versions of this package.
+We checked 4501 reverse dependencies (3958 from CRAN + 543 from Bioconductor), comparing R CMD check results across CRAN and dev versions of this package.
 
- * We saw 5 new problems
- * We failed to check 0 packages
+ * We saw 113 new problems
+ * We failed to check 4 packages
 
 Issues with CRAN packages are summarised below.
 
 ### New problems
 (This reports the first line of each new failure)
 
+* activatr
+  checking tests ... ERROR
+
+* admiral
+  checking tests ... ERROR
+
+* admiralvaccine
+  checking re-building of vignette outputs ... ERROR
+
+* APCtools
+  checking tests ... ERROR
+
+* arrow
+  checking tests ... ERROR
+
+* auk
+  checking examples ... ERROR
+
+* BayesianReasoning
+  checking tests ... ERROR
+
+* biclustermd
+  checking tests ... ERROR
+
+* bpmnR
+  checking examples ... ERROR
+
+* causact
+  checking examples ... ERROR
+
+* CCWeights
+  checking examples ... ERROR
+
+* cmcR
+  checking tests ... ERROR
+
+* CNAIM
+  checking tests ... ERROR
+
+* CodelistGenerator
+  checking examples ... ERROR
+  checking tests ... ERROR
+
+* cogmapr
+  checking examples ... ERROR
+
+* consortr
+  checking examples ... ERROR
+
+* Covid19Wastewater
+  checking re-building of vignette outputs ... ERROR
+
+* critpath
+  checking re-building of vignette outputs ... ERROR
+
+* crosshap
+  checking tests ... ERROR
+
+* CSCNet
+  checking re-building of vignette outputs ... ERROR
+
+* cubelyr
+  checking tests ... ERROR
+
+* datacutr
+  checking tests ... ERROR
+
+* DescrTab2
+  checking examples ... ERROR
+  checking tests ... ERROR
+
 * DiagrammeR
+  checking tests ... ERROR
+
+* discAUC
+  checking tests ... ERROR
+
+* DSjobtracker
+  checking re-building of vignette outputs ... ERROR
+
+* echoice2
+  checking examples ... ERROR
+
+* edeaR
+  checking re-building of vignette outputs ... ERROR
+
+* egor
+  checking tests ... ERROR
+
+* escalation
+  checking re-building of vignette outputs ... ERROR
+
+* ezplot
+  checking tests ... ERROR
+
+* FFTrees
+  checking tests ... ERROR
+  checking re-building of vignette outputs ... ERROR
+
+* fgeo.analyze
+  checking tests ... ERROR
+
+* finnts
+  checking tests ... ERROR
+
+* forestmangr
+  checking examples ... ERROR
+  checking re-building of vignette outputs ... ERROR
+
+* frailtyEM
+  checking examples ... ERROR
+
+* funcharts
+  checking examples ... ERROR
+  checking tests ... ERROR
+
+* funneljoin
+  checking tests ... ERROR
+  checking re-building of vignette outputs ... ERROR
+
+* ggfortify
+  checking tests ... ERROR
+
+* ggmice
+  checking re-building of vignette outputs ... ERROR
+
+* ggmotif
+  checking examples ... ERROR
+  checking re-building of vignette outputs ... ERROR
+
+* ggseqplot
+  checking tests ... ERROR
+  checking re-building of vignette outputs ... ERROR
+
+* gibasa
+  checking tests ... ERROR
+
+* gtsummary
+  checking re-building of vignette outputs ... ERROR
+
+* healthyR
+  checking examples ... ERROR
+
+* healthyR.ai
+  checking examples ... ERROR
+  checking re-building of vignette outputs ... ERROR
+
+* healthyR.ts
+  checking examples ... ERROR
+
+* heuristicsmineR
+  checking examples ... ERROR
+
+* hlaR
+  checking examples ... ERROR
+  checking re-building of vignette outputs ... ERROR
+
+* IMP
+  checking examples ... ERROR
+
+* IPEDS
+  checking examples ... ERROR
+
+* ipfr
+  checking examples ... ERROR
+  checking tests ... ERROR
+  checking re-building of vignette outputs ... ERROR
+
+* itsdm
+  checking examples ... ERROR
+
+* lares
+  checking examples ... ERROR
+
+* LifeInsuranceContracts
+  checking re-building of vignette outputs ... ERROR
+
+* listcompr
+  checking tests ... ERROR
+
+* lsnstat
+  checking examples ... ERROR
+
+* MACP
+  checking re-building of vignette outputs ... ERROR
+
+* manynet
+  checking examples ... ERROR
+  checking tests ... ERROR
+
+* markets
+  checking tests ... ERROR
+  checking re-building of vignette outputs ... ERROR
+
+* matuR
+  checking examples ... ERROR
+
+* meshed
+  checking examples ... ERROR
+  checking re-building of vignette outputs ... ERROR
+
+* metacore
+  checking examples ... ERROR
+  checking tests ... ERROR
+  checking re-building of vignette outputs ... ERROR
+
+* metalite.ae
+  checking tests ... ERROR
+
+* metatools
+  checking examples ... ERROR
+  checking tests ... ERROR
+
+* mpathsenser
+  checking tests ... ERROR
+
+* mpwR
   checking tests ... ERROR
 
 * msigdbr
   checking tests ... ERROR
   checking re-building of vignette outputs ... ERROR
 
-* unpivotr
+* msSPChelpR
   checking examples ... ERROR
+
+* mtdesign
+  checking tests ... ERROR
+
+* multiverse
+  checking tests ... ERROR
+
+* NetworkExtinction
+  checking examples ... ERROR
+  checking tests ... ERROR
+  checking re-building of vignette outputs ... ERROR
+
+* ohenery
+  checking tests ... ERROR
+
+* OlinkAnalyze
+  checking tests ... ERROR
+  checking re-building of vignette outputs ... ERROR
+
+* omopr
+  checking re-building of vignette outputs ... ERROR
+
+* oncomsm
+  checking tests ... ERROR
+
+* OpenLand
+  checking tests ... ERROR
+
+* optimall
+  checking tests ... ERROR
+
+* OutliersO3
+  checking examples ... ERROR
+  checking re-building of vignette outputs ... ERROR
+
+* pestr
+  checking tests ... ERROR
+
+* portalr
+  checking tests ... ERROR
+
+* processanimateR
+  checking examples ... ERROR
+  checking re-building of vignette outputs ... ERROR
+
+* promotionImpact
+  checking examples ... ERROR
+
+* protti
+  checking tests ... ERROR
+
+* PupilPre
+  checking examples ... ERROR
+  checking re-building of vignette outputs ... ERROR
+
+* purgeR
+  checking tests ... ERROR
+
+* RavenR
+  checking examples ... ERROR
+
+* reappraised
+  checking re-building of vignette outputs ... ERROR
+
+* rock
+  checking examples ... ERROR
+  checking tests ... ERROR
+
+* rprev
+  checking re-building of vignette outputs ... ERROR
+
+* rwicc
+  checking re-building of vignette outputs ... ERROR
+
+* sf
+  checking re-building of vignette outputs ... ERROR
+
+* sfnetworks
+  checking tests ... ERROR
+  checking re-building of vignette outputs ... ERROR
+
+* sgsR
+  checking tests ... ERROR
+
+* ShinyItemAnalysis
+  checking examples ... ERROR
+
+* simmer.plot
+  checking tests ... ERROR
+
+* sovereign
+  checking tests ... ERROR
+
+* ssimparser
+  checking examples ... ERROR
+
+* stabiliser
+  checking re-building of vignette outputs ... ERROR
+
+* streamDepletr
+  checking re-building of vignette outputs ... ERROR
+
+* SWMPr
+  checking tests ... ERROR
+
+* text2sdg
+  checking re-building of vignette outputs ... ERROR
+
+* tfrmt
+  checking tests ... ERROR
+
+* tglkmeans
+  checking tests ... ERROR
+
+* ThermalSampleR
+  checking tests ... ERROR
+
+* tidyjson
+  checking examples ... ERROR
+  checking tests ... ERROR
+
+* tidyquery
+  checking tests ... ERROR
+
+* tidytransit
+  checking re-building of vignette outputs ... ERROR
+
+* toxEval
+  checking tests ... ERROR
 
 * vcfR
   checking examples ... ERROR
   checking tests ... ERROR
 
-* yardstick
+* vDiveR
   checking tests ... ERROR
 
+* vivaldi
+  checking re-building of vignette outputs ... ERROR
+
+* VWPre
+  checking re-building of vignette outputs ... ERROR
+
+### Failed to check
+
+* loon.ggplot (NA)
+* loon.shiny  (NA)
+* prqlr       (NA)
+* vivid       (NA)
