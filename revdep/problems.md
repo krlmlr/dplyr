@@ -81,65 +81,6 @@ Run `revdepcheck::cloud_details(, "msigdbr")` for more info
         R   5.9Mb
     ```
 
-# prophet
-
-<details>
-
-* Version: 1.0
-* GitHub: https://github.com/facebook/prophet
-* Source code: https://github.com/cran/prophet
-* Date/Publication: 2021-03-30 12:10:07 UTC
-* Number of recursive dependencies: 101
-
-Run `revdepcheck::cloud_details(, "prophet")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking tests ... ERROR
-    ```
-      Running ‘testthat.R’
-    Running the tests in ‘tests/testthat.R’ failed.
-    Last 13 lines of output:
-        1. ├─testthat::expect_warning(m <- fit.prophet(m, train2)) at test_prophet.R:433:2
-        2. │ └─testthat:::quasi_capture(...)
-        3. │   ├─testthat (local) .capture(...)
-        4. │   │ └─base::withCallingHandlers(...)
-        5. │   └─rlang::eval_bare(quo_get_expr(.quo), quo_get_env(.quo))
-        6. └─prophet::fit.prophet(m, train2)
-        7.   └─prophet:::make_all_seasonality_features(m, history)
-        8.     └─prophet:::construct_holiday_dataframe(m, df$ds)
-        9.       ├─base::unique(format(dates, "%Y"))
-       10.       ├─base::format(dates, "%Y")
-       11.       └─base::format.default(dates, "%Y")
-      
-      [ FAIL 14 | WARN 48 | SKIP 0 | PASS 354 ]
-      Error: Test failures
-      Execution halted
-    ```
-
-## In both
-
-*   checking installed package size ... NOTE
-    ```
-      installed size is 57.5Mb
-      sub-directories of 1Mb or more:
-        libs  56.8Mb
-    ```
-
-*   checking dependencies in R code ... NOTE
-    ```
-    Namespaces in Imports field not imported from:
-      ‘StanHeaders’ ‘methods’ ‘rstantools’
-      All declared Imports should be used.
-    ```
-
-*   checking for GNU extensions in Makefiles ... NOTE
-    ```
-    GNU make is a SystemRequirements.
-    ```
-
 # tsibble
 
 <details>
