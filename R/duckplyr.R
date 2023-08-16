@@ -3,7 +3,7 @@ dplyr_mode <- TRUE
 on_load({
   options(duckdb.materialize_message = FALSE)
   # tsibble
-  options(DUCKPLYR_CHECK_ROUNDTRIP = TRUE)
+  Sys.setenv(DUCKPLYR_CHECK_ROUNDTRIP = TRUE)
 })
 
 meta_rel_register <- function(...) {
