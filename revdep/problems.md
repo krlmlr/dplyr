@@ -81,45 +81,6 @@ Run `revdepcheck::cloud_details(, "msigdbr")` for more info
         R   5.9Mb
     ```
 
-# tsibble
-
-<details>
-
-* Version: 1.1.3
-* GitHub: https://github.com/tidyverts/tsibble
-* Source code: https://github.com/cran/tsibble
-* Date/Publication: 2022-10-09 03:20:02 UTC
-* Number of recursive dependencies: 97
-
-Run `revdepcheck::cloud_details(, "tsibble")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking tests ... ERROR
-    ```
-      Running ‘spelling.R’
-      Running ‘testthat.R’
-    Running the tests in ‘tests/testthat.R’ failed.
-    Last 13 lines of output:
-      ── Error ('test-tsibble.R:73:1'): (code run outside of `test_that()`) ──────────
-      Error in `validate_tsibble(data = tbl, key = key_vars, key_data = key_data, 
-          index = index)`: A valid tsibble must have distinct rows identified by key and index.
-      ℹ Please use `duplicates()` to check the duplicated rows.
-      Backtrace:
-          ▆
-       1. ├─tsibble::as_tsibble(df, index = time) at test-tsibble.R:73:0
-       2. └─tsibble:::as_tsibble.data.frame(df, index = time)
-       3.   └─tsibble::build_tsibble(...)
-       4.     └─tsibble:::validate_tsibble(data = tbl, key = key_vars, key_data = key_data, index = index)
-       5.       └─rlang::abort(...)
-      
-      [ FAIL 1 | WARN 7 | SKIP 2 | PASS 646 ]
-      Error: Test failures
-      Execution halted
-    ```
-
 # unpivotr
 
 <details>
