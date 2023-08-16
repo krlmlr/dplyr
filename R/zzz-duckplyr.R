@@ -1709,15 +1709,19 @@ duckdb_rel_from_df <- function(df) {
 
   tryCatch(
     {
-      # duckdb:::df_is_materialized() is broken and unneeded
       rel <- duckdb:::rel_from_altrep_df(df)
-      rel_names <- duckdb:::rapi_rel_names(rel)
-      if (!identical(rel_names, names(df))) {
-        # This can happen when column names change for an existing relational data frame
-        exprs <- nexprs_from_loc(rel_names, set_names(seq_along(df), names(df)))
-        rel <- rel_project.duckdb_relation(rel, exprs)
+      # Once we're here, we know it's an ALTREP data frame
+      # We don't do anything if it's already materialized
+
+      if (!duckdb:::df_is_materialized(df)) {
+        rel_names <- duckdb:::rapi_rel_names(rel)
+        if (!identical(rel_names, names(df))) {
+          # This can happen when column names change for an existing relational data frame
+          exprs <- nexprs_from_loc(rel_names, set_names(seq_along(df), names(df)))
+          rel <- rel_project.duckdb_relation(rel, exprs)
+        }
+        return(rel)
       }
-      return(rel)
     },
     error = function(e) {}
   )
@@ -1758,11 +1762,21 @@ duckdb_rel_from_df <- function(df) {
   out <- duckdb:::rel_from_df(con, df, experimental = experimental)
 
   roundtrip <- duckdb:::rapi_rel_to_altrep(out)
-  df_attribs <- lapply(df, attributes)
-  roundtrip_attribs <- lapply(roundtrip, attributes)
-  for (i in seq_along(df_attribs)) {
-    if (!identical(df_attribs[[i]], roundtrip_attribs[[i]])) {
-      stop("Attributes are lost during conversion. Affected column: `", names(df)[[i]], "`.")
+  if (Sys.getenv("DUCKPLYR_CHECK_ROUNDTRIP") == "TRUE") {
+    rlang::with_options(duckdb.materialize_message = FALSE, {
+      for (i in seq_along(df)) {
+        if (!identical(df[[i]], roundtrip[[i]])) {
+          stop("Imperfect roundtrip. Affected column: `", names(df)[[i]], "`.")
+        }
+      }
+    })
+  } else {
+    for (i in seq_along(df)) {
+      df_attrib <- attributes(df[[i]])
+      roundtrip_attrib <- attributes(roundtrip[[i]])
+      if (!identical(df_attrib, roundtrip_attrib)) {
+        stop("Attributes are lost during conversion. Affected column: `", names(df)[[i]], "`.")
+      }
     }
   }
 
@@ -2608,20 +2622,21 @@ rel_translate <- function(
             def <- lubridate::wday
             call <- match.call(def, expr, envir = env)
             args <- as.list(call[-1])
-            if (!is.null(args$label)) {
-              abort("wday(label = ) not supported")
-            }
-            if (!is.null(args$abbr)) {
-              abort("wday(abbr = ) not supported")
-            }
-            if (!is.null(args$locale)) {
-              abort("wday(locale = ) not supported")
-            }
-            if (!is.null(args$week_start)) {
-              abort("wday(week_start = ) not supported")
+            bad <- !(names(args) %in% c("x"))
+            if (any(bad)) {
+              abort(paste0(name, "(", names(args)[which(bad)[[1]]], " = ) not supported"))
             }
             if (!is.null(getOption("lubridate.week.start"))) {
               abort('wday() with option("lubridate.week.start") not supported')
+            }
+          },
+          "strftime" = {
+            def <- strftime
+            call <- match.call(def, expr, envir = env)
+            args <- as.list(call[-1])
+            bad <- !(names(args) %in% c("x", "format"))
+            if (any(bad)) {
+              abort(paste0(name, "(", names(args)[which(bad)[[1]]], " = ) not supported"))
             }
           },
           "%in%" = {
@@ -2666,6 +2681,10 @@ rel_translate <- function(
           "hour",
           "minute",
           "second",
+          "strftime",
+          "abs",
+          "%in%",
+          "substr",
 
           NULL
         )
