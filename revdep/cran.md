@@ -1,9 +1,9 @@
 ## revdepcheck results
 
-We checked 4501 reverse dependencies (3958 from CRAN + 543 from Bioconductor), comparing R CMD check results across CRAN and dev versions of this package.
+We checked 110 reverse dependencies, comparing R CMD check results across CRAN and dev versions of this package.
 
- * We saw 113 new problems
- * We failed to check 4 packages
+ * We saw 100 new problems
+ * We failed to check 0 packages
 
 Issues with CRAN packages are summarised below.
 
@@ -12,12 +12,6 @@ Issues with CRAN packages are summarised below.
 
 * activatr
   checking tests ... ERROR
-
-* admiral
-  checking tests ... ERROR
-
-* admiralvaccine
-  checking re-building of vignette outputs ... ERROR
 
 * APCtools
   checking tests ... ERROR
@@ -59,9 +53,6 @@ Issues with CRAN packages are summarised below.
 * consortr
   checking examples ... ERROR
 
-* Covid19Wastewater
-  checking re-building of vignette outputs ... ERROR
-
 * critpath
   checking re-building of vignette outputs ... ERROR
 
@@ -84,17 +75,11 @@ Issues with CRAN packages are summarised below.
 * DiagrammeR
   checking tests ... ERROR
 
-* discAUC
-  checking tests ... ERROR
-
 * DSjobtracker
   checking re-building of vignette outputs ... ERROR
 
 * echoice2
   checking examples ... ERROR
-
-* edeaR
-  checking re-building of vignette outputs ... ERROR
 
 * egor
   checking tests ... ERROR
@@ -114,6 +99,7 @@ Issues with CRAN packages are summarised below.
 
 * finnts
   checking tests ... ERROR
+  checking re-building of vignette outputs ... ERROR
 
 * forestmangr
   checking examples ... ERROR
@@ -144,21 +130,8 @@ Issues with CRAN packages are summarised below.
   checking tests ... ERROR
   checking re-building of vignette outputs ... ERROR
 
-* gibasa
-  checking tests ... ERROR
-
 * gtsummary
   checking re-building of vignette outputs ... ERROR
-
-* healthyR
-  checking examples ... ERROR
-
-* healthyR.ai
-  checking examples ... ERROR
-  checking re-building of vignette outputs ... ERROR
-
-* healthyR.ts
-  checking examples ... ERROR
 
 * heuristicsmineR
   checking examples ... ERROR
@@ -190,9 +163,6 @@ Issues with CRAN packages are summarised below.
 * listcompr
   checking tests ... ERROR
 
-* lsnstat
-  checking examples ... ERROR
-
 * MACP
   checking re-building of vignette outputs ... ERROR
 
@@ -203,9 +173,6 @@ Issues with CRAN packages are summarised below.
 * markets
   checking tests ... ERROR
   checking re-building of vignette outputs ... ERROR
-
-* matuR
-  checking examples ... ERROR
 
 * meshed
   checking examples ... ERROR
@@ -273,9 +240,6 @@ Issues with CRAN packages are summarised below.
 * pestr
   checking tests ... ERROR
 
-* portalr
-  checking tests ... ERROR
-
 * processanimateR
   checking examples ... ERROR
   checking re-building of vignette outputs ... ERROR
@@ -328,9 +292,6 @@ Issues with CRAN packages are summarised below.
 * sovereign
   checking tests ... ERROR
 
-* ssimparser
-  checking examples ... ERROR
-
 * stabiliser
   checking re-building of vignette outputs ... ERROR
 
@@ -378,9 +339,3 @@ Issues with CRAN packages are summarised below.
 * VWPre
   checking re-building of vignette outputs ... ERROR
 
-### Failed to check
-
-* loon.ggplot (NA)
-* loon.shiny  (NA)
-* prqlr       (NA)
-* vivid       (NA)

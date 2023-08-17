@@ -36,75 +36,6 @@ Run `revdepcheck::cloud_details(, "activatr")` for more info
       Execution halted
     ```
 
-# admiral
-
-<details>
-
-* Version: 0.11.1
-* GitHub: https://github.com/pharmaverse/admiral
-* Source code: https://github.com/cran/admiral
-* Date/Publication: 2023-07-06 18:50:05 UTC
-* Number of recursive dependencies: 122
-
-Run `revdepcheck::cloud_details(, "admiral")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking tests ... ERROR
-    ```
-      Running ‘testthat.R’
-    Running the tests in ‘tests/testthat.R’ failed.
-    Last 13 lines of output:
-      > # This file is part of the standard setup for testthat.
-      > # It is recommended that you do not modify it.
-      > #
-      > # Where should you do additional test configuration?
-      > # Learn more about the roles of various files in:
-      > # * https://r-pkgs.org/tests.html
-      > # * https://testthat.r-lib.org/reference/test_package.html#special-files
-      > 
-      > library(testthat) # nolint: undesirable_function_linter
-      > library(admiral) # nolint: undesirable_function_linter
-      > 
-      > test_check("admiral")
-      terminate called after throwing an instance of 'cpp11::unwind_exception'
-        what():  std::exception
-      Aborted (core dumped)
-    ```
-
-# admiralvaccine
-
-<details>
-
-* Version: 0.1.0
-* GitHub: https://github.com/pharmaverse/admiralvaccine
-* Source code: https://github.com/cran/admiralvaccine
-* Date/Publication: 2023-06-27 16:50:06 UTC
-* Number of recursive dependencies: 131
-
-Run `revdepcheck::cloud_details(, "admiralvaccine")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking re-building of vignette outputs ... ERROR
-    ```
-    Error(s) in re-building vignettes:
-      ...
-    --- re-building ‘adce.Rmd’ using rmarkdown
-    --- finished re-building ‘adce.Rmd’
-    
-    --- re-building ‘adface.Rmd’ using rmarkdown
-    
-    Quitting from lines 209-212 [unnamed-chunk-11] (adface.Rmd)
-    terminate called after throwing an instance of 'cpp11::unwind_exception'
-      what():  std::exception
-    Aborted (core dumped)
-    ```
-
 # APCtools
 
 <details>
@@ -529,10 +460,10 @@ Run `revdepcheck::cloud_details(, "CNAIM")` for more info
 
 <details>
 
-* Version: 1.6.0
+* Version: 1.7.0
 * GitHub: NA
 * Source code: https://github.com/cran/CodelistGenerator
-* Date/Publication: 2023-07-07 17:30:02 UTC
+* Date/Publication: 2023-08-16 08:42:32 UTC
 * Number of recursive dependencies: 114
 
 Run `revdepcheck::cloud_details(, "CodelistGenerator")` for more info
@@ -577,7 +508,7 @@ Run `revdepcheck::cloud_details(, "CodelistGenerator")` for more info
        10.       └─dplyr:::as_duckplyr_df(y)
        11.         └─rlang::abort("Must pass a plain data frame or a tibble to `as_duckplyr_df()`.")
       
-      [ FAIL 2 | WARN 0 | SKIP 3 | PASS 119 ]
+      [ FAIL 3 | WARN 0 | SKIP 3 | PASS 127 ]
       Error: Test failures
       In addition: Warning messages:
       1: Connection is garbage-collected, use dbDisconnect() to avoid this. 
@@ -668,101 +599,6 @@ Run `revdepcheck::cloud_details(, "consortr")` for more info
     terminate called after throwing an instance of 'cpp11::unwind_exception'
       what():  std::exception
     Aborted (core dumped)
-    ```
-
-# Covid19Wastewater
-
-<details>
-
-* Version: 1.0.0
-* GitHub: NA
-* Source code: https://github.com/cran/Covid19Wastewater
-* Date/Publication: 2023-08-15 09:50:02 UTC
-* Number of recursive dependencies: 107
-
-Run `revdepcheck::cloud_details(, "Covid19Wastewater")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking re-building of vignette outputs ... ERROR
-    ```
-    Error(s) in re-building vignettes:
-    --- re-building ‘Aux_info_data.Rmd’ using rmarkdown
-    A new version of TeX Live has been released. If you need to install or update any LaTeX packages, you have to upgrade TinyTeX with tinytex::reinstall_tinytex(repository = "illinois").
-    tlmgr: package repository https://ctan.math.illinois.edu/systems/texlive/tlnet (not verified: valid signature with expired key)
-    [1/1, ??:??/??:??] install: grffile [4k]
-    running mktexlsr ...
-    done running mktexlsr.
-    tlmgr: package log updated: /opt/TinyTeX/texmf-var/web2c/tlmgr.log
-    tlmgr: command log updated: /opt/TinyTeX/texmf-var/web2c/tlmgr-commands.log
-    --- finished re-building ‘Aux_info_data.Rmd’
-    ...
-    --- failed re-building ‘time_series_offset.Rmd’
-    
-    --- re-building ‘variant_data.Rmd’ using rmarkdown
-    --- finished re-building ‘variant_data.Rmd’
-    
-    SUMMARY: processing the following file failed:
-      ‘time_series_offset.Rmd’
-    
-    Error: Vignette re-building failed.
-    Execution halted
-    ```
-
-## Newly fixed
-
-*   checking re-building of vignette outputs ... WARNING
-    ```
-    Error(s) in re-building vignettes:
-    --- re-building ‘Aux_info_data.Rmd’ using rmarkdown
-    A new version of TeX Live has been released. If you need to install or update any LaTeX packages, you have to upgrade TinyTeX with tinytex::reinstall_tinytex(repository = "illinois").
-    
-    tlmgr: Local TeX Live (2022) is older than remote repository (2023).
-    Cross release updates are only supported with
-      update-tlmgr-latest(.sh/.exe) --update
-    See https://tug.org/texlive/upgrade.html for details.
-    Warning in system2("tlmgr", args, ...) :
-      running command ''tlmgr' search --file --global '/grffile.sty'' had status 1
-    ...
-    
-    SUMMARY: processing the following files failed:
-      ‘Aux_info_data.Rmd’ ‘HFG_data_case.Rmd’ ‘HFG_data_waste.Rmd’
-      ‘Intercepter_data_case.Rmd’ ‘calculated_info.Rmd’ ‘example_data.Rmd’
-      ‘linear_forest.Rmd’ ‘longitudinal_data_case.Rmd’
-      ‘longitudinal_data_waste.Rmd’ ‘outliers.Rmd’ ‘population_data.Rmd’
-      ‘smoothing.Rmd’ ‘time_series_offset.Rmd’ ‘variant_data.Rmd’
-    
-    Error: Vignette re-building failed.
-    Execution halted
-    ```
-
-## In both
-
-*   checking examples ... ERROR
-    ```
-    Running examples in ‘Covid19Wastewater-Ex.R’ failed
-    The error most likely occurred in:
-    
-    > ### Name: OffsetHeatmap
-    > ### Title: Outputs a heatmap of the offset for variant / time windows and
-    > ###   population size / region
-    > ### Aliases: OffsetHeatmap
-    > 
-    > ### ** Examples
-    > 
-    ...
-     17. │               └─rlang (local) FUN(X[[i]], ...)
-     18. ├─base::as.Date(start + firstday)
-     19. ├─base::as.Date.numeric(start + firstday)
-     20. │ └─base::stop("'origin' must be supplied")
-     21. └─base::.handleSimpleError(...)
-     22.   └─rlang (local) h(simpleError(msg, call))
-     23.     └─handlers[[1L]](cnd)
-     24.       └─cli::cli_abort(...)
-     25.         └─rlang::abort(...)
-    Execution halted
     ```
 
 # critpath
@@ -1067,36 +903,6 @@ Run `revdepcheck::cloud_details(, "DiagrammeR")` for more info
       Note: found 1 marked UTF-8 string
     ```
 
-# discAUC
-
-<details>
-
-* Version: 1.0.0
-* GitHub: NA
-* Source code: https://github.com/cran/discAUC
-* Date/Publication: 2023-03-17 15:40:12 UTC
-* Number of recursive dependencies: 53
-
-Run `revdepcheck::cloud_details(, "discAUC")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking tests ... ERROR
-    ```
-      Running ‘test-all.R’
-    Running the tests in ‘tests/test-all.R’ failed.
-    Complete output:
-      > library(testthat)
-      > library(discAUC)
-      > 
-      > test_check("discAUC")
-      terminate called after throwing an instance of 'cpp11::unwind_exception'
-        what():  std::exception
-      Aborted (core dumped)
-    ```
-
 # DSjobtracker
 
 <details>
@@ -1163,7 +969,7 @@ Run `revdepcheck::cloud_details(, "echoice2")` for more info
     > #fit model
     > icecream_est <- icecream_discrete %>% dd_est_hmnl_screen(R=10, keep=1, cores=2)
     Using 2 cores
-    Error: Invalid Error: Invalid input type, expected 'list' actual 'character'
+    Error: Invalid Error: Invalid input type, expected 'list' actual 'symbol'
     Error: std::exception
     Execution halted
     ```
@@ -1176,43 +982,6 @@ Run `revdepcheck::cloud_details(, "echoice2")` for more info
       sub-directories of 1Mb or more:
         doc    1.3Mb
         libs  16.4Mb
-    ```
-
-# edeaR
-
-<details>
-
-* Version: 0.9.4
-* GitHub: https://github.com/bupaverse/edeaR
-* Source code: https://github.com/cran/edeaR
-* Date/Publication: 2023-04-27 08:33:06 UTC
-* Number of recursive dependencies: 98
-
-Run `revdepcheck::cloud_details(, "edeaR")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking re-building of vignette outputs ... ERROR
-    ```
-    Error(s) in re-building vignettes:
-      ...
-    --- re-building ‘filters.Rmd’ using rmarkdown
-    --- finished re-building ‘filters.Rmd’
-    
-    --- re-building ‘metrics.Rmd’ using rmarkdown
-    --- finished re-building ‘metrics.Rmd’
-    
-    --- re-building ‘queue.Rmd’ using rmarkdown
-    --- finished re-building ‘queue.Rmd’
-    
-    --- re-building ‘work_schedules.Rmd’ using rmarkdown
-    
-    Quitting from lines 102-103 [unnamed-chunk-9] (work_schedules.Rmd)
-    terminate called after throwing an instance of 'cpp11::unwind_exception'
-      what():  std::exception
-    Aborted (core dumped)
     ```
 
 # egor
@@ -1455,7 +1224,7 @@ Run `revdepcheck::cloud_details(, "finnts")` for more info
       Running ‘testthat.R’
     Running the tests in ‘tests/testthat.R’ failed.
     Last 13 lines of output:
-      ✔ Training Individual Models [2.3s]
+      ✔ Training Individual Models [2.4s]
       
       ℹ Training Ensemble Models
       ℹ Ensemble models have been turned off.
@@ -1463,13 +1232,35 @@ Run `revdepcheck::cloud_details(, "finnts")` for more info
       ✔ Training Ensemble Models [25ms]
       
       ℹ Selecting Best Models
-      ✔ Selecting Best Models [669ms]
+      ✔ Selecting Best Models [687ms]
       
       ! return_data is deprecated, please use 'get_forecast_data()' to get finnts results
       [1] "First Dt Val 11000"
       terminate called after throwing an instance of 'cpp11::unwind_exception'
         what():  std::exception
       Aborted (core dumped)
+    ```
+
+*   checking re-building of vignette outputs ... ERROR
+    ```
+    Error(s) in re-building vignettes:
+      ...
+    --- re-building ‘back-testing-and-hyperparameter-tuning.Rmd’ using rmarkdown
+    --- finished re-building ‘back-testing-and-hyperparameter-tuning.Rmd’
+    
+    --- re-building ‘best-model-selection.Rmd’ using rmarkdown
+    --- finished re-building ‘best-model-selection.Rmd’
+    
+    --- re-building ‘external-regressors.Rmd’ using rmarkdown
+    --- finished re-building ‘external-regressors.Rmd’
+    
+    --- re-building ‘feature-engineering.Rmd’ using rmarkdown
+    --- finished re-building ‘feature-engineering.Rmd’
+    
+    --- re-building ‘finnts.Rmd’ using rmarkdown
+    terminate called after throwing an instance of 'cpp11::unwind_exception'
+      what():  std::exception
+    Aborted (core dumped)
     ```
 
 # forestmangr
@@ -1927,55 +1718,6 @@ Run `revdepcheck::cloud_details(, "ggseqplot")` for more info
     Segmentation fault (core dumped)
     ```
 
-# gibasa
-
-<details>
-
-* Version: 0.9.5
-* GitHub: https://github.com/paithiov909/gibasa
-* Source code: https://github.com/cran/gibasa
-* Date/Publication: 2023-07-09 09:00:07 UTC
-* Number of recursive dependencies: 59
-
-Run `revdepcheck::cloud_details(, "gibasa")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking tests ... ERROR
-    ```
-      Running ‘testthat.R’
-    Running the tests in ‘tests/testthat.R’ failed.
-    Complete output:
-      > library(testthat)
-      > library(gibasa)
-      > 
-      > test_check("gibasa")
-      terminate called after throwing an instance of 'cpp11::unwind_exception'
-        what():  std::exception
-      Aborted (core dumped)
-    ```
-
-## In both
-
-*   checking installed package size ... NOTE
-    ```
-      installed size is 13.2Mb
-      sub-directories of 1Mb or more:
-        libs  12.8Mb
-    ```
-
-*   checking data for non-ASCII characters ... NOTE
-    ```
-      Note: found 553 marked UTF-8 strings
-    ```
-
-*   checking for GNU extensions in Makefiles ... NOTE
-    ```
-    GNU make is a SystemRequirements.
-    ```
-
 # gtsummary
 
 <details>
@@ -2015,163 +1757,6 @@ Run `revdepcheck::cloud_details(, "gtsummary")` for more info
     terminate called after throwing an instance of 'cpp11::unwind_exception'
       what():  std::exception
     Aborted (core dumped)
-    ```
-
-# healthyR
-
-<details>
-
-* Version: 0.2.1
-* GitHub: https://github.com/spsanderson/healthyR
-* Source code: https://github.com/cran/healthyR
-* Date/Publication: 2023-04-06 22:20:03 UTC
-* Number of recursive dependencies: 154
-
-Run `revdepcheck::cloud_details(, "healthyR")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking examples ... ERROR
-    ```
-    Running examples in ‘healthyR-Ex.R’ failed
-    The error most likely occurred in:
-    
-    > ### Name: ts_census_los_daily_tbl
-    > ### Title: Time Series - Census and LOS by Day
-    > ### Aliases: ts_census_los_daily_tbl
-    > 
-    > ### ** Examples
-    > 
-    > library(healthyR)
-    ...
-    +    , .start_date_col  = visit_start_date_time
-    +    , .end_date_col    = visit_end_date_time
-    + )
-    Error: Invalid Input Error: Could not parse string "2020-01-01 06:10:00" according to format specifier "%Y-Inappropriate ioctl for device--2072592272"
-    2020-01-01 06:10:00
-               ^
-    Error: Full specifier did not match: trailing characters
-    terminate called after throwing an instance of 'cpp11::unwind_exception'
-      what():  std::exception
-    Aborted (core dumped)
-    ```
-
-## In both
-
-*   checking installed package size ... NOTE
-    ```
-      installed size is  5.5Mb
-      sub-directories of 1Mb or more:
-        data   1.5Mb
-        doc    3.8Mb
-    ```
-
-# healthyR.ai
-
-<details>
-
-* Version: 0.0.13
-* GitHub: https://github.com/spsanderson/healthyR.ai
-* Source code: https://github.com/cran/healthyR.ai
-* Date/Publication: 2023-04-03 00:20:02 UTC
-* Number of recursive dependencies: 222
-
-Run `revdepcheck::cloud_details(, "healthyR.ai")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking examples ... ERROR
-    ```
-    Running examples in ‘healthyR.ai-Ex.R’ failed
-    The error most likely occurred in:
-    
-    > ### Name: pca_your_recipe
-    > ### Title: Perform PCA
-    > ### Aliases: pca_your_recipe
-    > 
-    > ### ** Examples
-    > 
-    > suppressPackageStartupMessages(library(timetk))
-    ...
-    +   mutate(date_col = as.Date(date_col))
-    > 
-    > splits <- initial_split(data = data_tbl, prop = 0.8)
-    Error: Invalid Input Error: Could not parse string "2013-01-01 00:00:00" according to format specifier "%Y-Success-614840368"
-    2013-01-01 00:00:00
-               ^
-    Error: Full specifier did not match: trailing characters
-    terminate called after throwing an instance of 'cpp11::unwind_exception'
-      what():  std::exception
-    Aborted (core dumped)
-    ```
-
-*   checking re-building of vignette outputs ... ERROR
-    ```
-    Error(s) in re-building vignettes:
-      ...
-    --- re-building ‘auto-kmeans.Rmd’ using rmarkdown
-    --- finished re-building ‘auto-kmeans.Rmd’
-    
-    --- re-building ‘getting-started.Rmd’ using rmarkdown
-    
-    Quitting from lines 59-75 [data_set] (getting-started.Rmd)
-    terminate called after throwing an instance of 'cpp11::unwind_exception'
-      what():  std::exception
-    Aborted (core dumped)
-    ```
-
-# healthyR.ts
-
-<details>
-
-* Version: 0.2.9
-* GitHub: https://github.com/spsanderson/healthyR.ts
-* Source code: https://github.com/cran/healthyR.ts
-* Date/Publication: 2023-06-24 04:50:02 UTC
-* Number of recursive dependencies: 217
-
-Run `revdepcheck::cloud_details(, "healthyR.ts")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking examples ... ERROR
-    ```
-    Running examples in ‘healthyR.ts-Ex.R’ failed
-    The error most likely occurred in:
-    
-    > ### Name: ts_ma_plot
-    > ### Title: Time Series Moving Average Plot
-    > ### Aliases: ts_ma_plot
-    > 
-    > ### ** Examples
-    > 
-    > suppressPackageStartupMessages(library(dplyr))
-    ...
-    +   .data = data_tbl,
-    +   .date_col = date_col,
-    +   .value_col = value
-    + )
-    Warning: Non-numeric columns being dropped: date_col
-    Warning: Non-numeric columns being dropped: date_col
-    Warning: Non-numeric columns being dropped: date_col
-    Warning: Removed 11 rows containing missing values (`geom_line()`).
-    Error: Invalid input: date_trans works with objects of class Date only
-    Execution halted
-    ```
-
-## In both
-
-*   checking installed package size ... NOTE
-    ```
-      installed size is  6.1Mb
-      sub-directories of 1Mb or more:
-        doc   5.3Mb
     ```
 
 # heuristicsmineR
@@ -2626,47 +2211,6 @@ Run `revdepcheck::cloud_details(, "listcompr")` for more info
       Execution halted
     ```
 
-# lsnstat
-
-<details>
-
-* Version: 1.0.0
-* GitHub: https://github.com/La-Societe-Nouvelle/lsnstat
-* Source code: https://github.com/cran/lsnstat
-* Date/Publication: 2023-04-22 06:50:02 UTC
-* Number of recursive dependencies: 28
-
-Run `revdepcheck::cloud_details(, "lsnstat")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking examples ... ERROR
-    ```
-    Running examples in ‘lsnstat-Ex.R’ failed
-    The error most likely occurred in:
-    
-    > ### Name: lsnstat_macrodata
-    > ### Title: R companion of 'La Societe Nouvelle' macro_data API services
-    > ### Aliases: lsnstat_macrodata
-    > 
-    > ### ** Examples
-    > 
-    > 
-    ...
-    > # data for division "10" between 2023 and 2025.
-    > 
-    > lsnstat_macrodata(dataset = "na_cpeb", filters="classification=A88&activity=10&year=2023+2024+2025")
-    Error: Invalid Input Error: Could not parse string "2023-05-09T22:00:00.000Z" according to format specifier "%Y-Success--1672274320"
-    2023-05-09T22:00:00.000Z
-              ^
-    Error: Full specifier did not match: trailing characters
-    terminate called after throwing an instance of 'cpp11::unwind_exception'
-      what():  std::exception
-    Aborted (core dumped)
-    ```
-
 # MACP
 
 <details>
@@ -2851,43 +2395,6 @@ Run `revdepcheck::cloud_details(, "markets")` for more info
         libs   4.0Mb
     ```
 
-# matuR
-
-<details>
-
-* Version: 0.0.1.0
-* GitHub: https://github.com/josedv82/matuR
-* Source code: https://github.com/cran/matuR
-* Date/Publication: 2020-11-19 10:20:02 UTC
-* Number of recursive dependencies: 40
-
-Run `revdepcheck::cloud_details(, "matuR")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking examples ... ERROR
-    ```
-    Running examples in ‘matuR-Ex.R’ failed
-    The error most likely occurred in:
-    
-    > ### Name: maturation_cm
-    > ### Title: Maturation and Biobanding Metrics
-    > ### Aliases: maturation_cm
-    > 
-    > ### ** Examples
-    > 
-    > maturation_cm(data_sample)
-    Error: Invalid Input Error: Could not parse string "2020-07-01 00:00:00" according to format specifier "%Y-No such file or directory--1823598096"
-    2020-07-01 00:00:00
-               ^
-    Error: Full specifier did not match: trailing characters
-    terminate called after throwing an instance of 'cpp11::unwind_exception'
-      what():  std::exception
-    Aborted (core dumped)
-    ```
-
 # meshed
 
 <details>
@@ -2925,7 +2432,7 @@ Run `revdepcheck::cloud_details(, "meshed")` for more info
     +                     n_threads = 1)
     Error: Invalid Error: Invalid input type, expected 'list' actual 'integer'
     Error: std::exception
-    Timing stopped at: 0 0 0.001
+    Timing stopped at: 0.001 0 0.001
     Execution halted
     ```
 
@@ -3283,7 +2790,7 @@ Run `revdepcheck::cloud_details(, "msSPChelpR")` for more info
     Using person-years at risk [PYAR] from reference population as pyears for calculating incidence rates.
     Be careful, in this calculation it is assumed that all included regions have collected data for the full time period: 1990 to 2010
                            If you have included registries with differing times, please check this assumption by looking at groups with 0 incidence and specify option 'inclusion_restrictions' if needed.
-    Error: Invalid Error: Invalid input type, expected 'list' actual 'integer'
+    Error: Binder Error: Column "registry.1" referenced that exists in the SELECT clause - but this column cannot be referenced before it is defined
     terminate called after throwing an instance of 'cpp11::unwind_exception'
       what():  std::exception
     Aborted (core dumped)
@@ -3764,44 +3271,6 @@ Run `revdepcheck::cloud_details(, "pestr")` for more info
       'LazyData' is specified without a 'data' directory
     ```
 
-# portalr
-
-<details>
-
-* Version: 0.4.0
-* GitHub: https://github.com/weecology/portalr
-* Source code: https://github.com/cran/portalr
-* Date/Publication: 2023-04-22 00:32:30 UTC
-* Number of recursive dependencies: 107
-
-Run `revdepcheck::cloud_details(, "portalr")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking tests ... ERROR
-    ```
-      Running ‘testthat.R’
-    Running the tests in ‘tests/testthat.R’ failed.
-    Last 13 lines of output:
-      Backtrace:
-          ▆
-       1. ├─portalr::bait_presence_absence(path = portal_data_path, level = "plot") at test-10-summarize_ants.R:49:2
-       2. │ ├─compute_presence(bait, level) %>% as.data.frame()
-       3. │ └─portalr:::compute_presence(bait, level)
-       4. │   └─... %>% ...
-       5. ├─base::as.data.frame(.)
-       6. ├─tidyr::complete(., !!!grouping, fill = list(presence = 0))
-       7. ├─dplyr::mutate(., presence = 1)
-       8. ├─dplyr::distinct(.)
-       9. └─dplyr::select(., dplyr::all_of(vars_to_keep))
-      
-      [ FAIL 12 | WARN 43 | SKIP 43 | PASS 20 ]
-      Error: Test failures
-      Execution halted
-    ```
-
 # processanimateR
 
 <details>
@@ -4000,10 +3469,10 @@ Run `revdepcheck::cloud_details(, "PupilPre")` for more info
 
 <details>
 
-* Version: 1.7
+* Version: 1.8
 * GitHub: NA
 * Source code: https://github.com/cran/purgeR
-* Date/Publication: 2022-12-07 20:40:02 UTC
+* Date/Publication: 2023-08-16 08:20:02 UTC
 * Number of recursive dependencies: 131
 
 Run `revdepcheck::cloud_details(, "purgeR")` for more info
@@ -4038,7 +3507,7 @@ Run `revdepcheck::cloud_details(, "purgeR")` for more info
 
 *   checking installed package size ... NOTE
     ```
-      installed size is  9.8Mb
+      installed size is  9.9Mb
       sub-directories of 1Mb or more:
         libs   9.1Mb
     ```
@@ -4533,47 +4002,6 @@ Run `revdepcheck::cloud_details(, "sovereign")` for more info
       54: test_check("sovereign")
       An irrecoverable exception occurred. R is aborting now ...
       Segmentation fault (core dumped)
-    ```
-
-# ssimparser
-
-<details>
-
-* Version: 0.1.1
-* GitHub: NA
-* Source code: https://github.com/cran/ssimparser
-* Date/Publication: 2022-01-11 18:30:02 UTC
-* Number of recursive dependencies: 22
-
-Run `revdepcheck::cloud_details(, "ssimparser")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking examples ... ERROR
-    ```
-    Running examples in ‘ssimparser-Ex.R’ failed
-    The error most likely occurred in:
-    
-    > ### Name: load_ssim_flights
-    > ### Title: load_ssim_flights
-    > ### Aliases: load_ssim_flights
-    > 
-    > ### ** Examples
-    > 
-    > # Get 3 samples as a character vector
-    ...
-    + dplyr::arrange(desc(flight_date))
-    [1] "File to load has 17 rows"
-    [1] "data frame has 17 rows"
-    Error: Invalid Input Error: Could not parse string "2020-11-07 18:45:00" according to format specifier "%Y-Success--746982112"
-    2020-11-07 18:45:00
-               ^
-    Error: Full specifier did not match: trailing characters
-    terminate called after throwing an instance of 'cpp11::unwind_exception'
-      what():  std::exception
-    Aborted (core dumped)
     ```
 
 # stabiliser
