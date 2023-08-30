@@ -1657,10 +1657,9 @@ duckplyr_macros <- c(
   "<=" = '(x, y) AS x <= y',
   ">" = '(x, y) AS x > y',
   ">=" = '(x, y) AS x >= y',
-  "==" = '(x, y) AS x = y',
   "!=" = '(x, y) AS x <> y',
 
-  "/" = "(x, y) AS CASE WHEN x = 0 AND y = 0 THEN CAST('NaN' AS double) ELSE x / y END",
+  "___divide" = "(x, y) AS CASE WHEN x = 0 AND y = 0 THEN CAST('NaN' AS double) ELSE CAST(x AS double) / y END",
 
   "is.na" = '(x) AS (x IS NULL)',
   "n" = '() AS CAST(COUNT(*) AS int32)',
@@ -1669,7 +1668,7 @@ duckplyr_macros <- c(
   "log" = '(x) AS ln(x)',
   # TPCH
 
-  # FIXME: Find replacement for TPCH
+  # https://github.com/duckdb/duckdb/discussions/8599
   # "as.Date" = '(x) AS strptime(x, \'%Y-%m-%d\')',
 
   "grepl" = '(pattern, x) AS regexp_matches(x, pattern)',
@@ -1685,6 +1684,8 @@ duckplyr_macros <- c(
   "wday" = "(x) AS CAST(weekday(CAST (x AS DATE)) + 1 AS int32)",
 
   "___eq_na_matches_na" = '(x, y) AS ((x IS NULL AND y IS NULL) OR (x = y))',
+  # https://github.com/duckdb/duckdb/issues/8605
+  # "___eq_na_matches_na" = '(x, y) AS (x IS DISTINCT FROM y)',
   "___coalesce" = '(x, y) AS COALESCE(x, y)',
 
   NULL
@@ -1697,6 +1698,8 @@ create_default_duckdb_connection <- function() {
     sql <- paste0('CREATE MACRO "', names(duckplyr_macros)[[i]], '"', duckplyr_macros[[i]])
     DBI::dbExecute(con, sql)
   }
+
+  duckdb:::rapi_rel_register_functions(con@conn_ref)
 
   con
 }
@@ -2651,7 +2654,7 @@ rel_translate <- function(
                 values <- eval(expr[[3]], envir = baseenv())
                 consts <- map(values, do_translate, in_window = in_window)
                 ops <- map(consts, list, do_translate(expr[[2]]))
-                cmp <- map(ops, relexpr_function, name = "==")
+                cmp <- map(ops, relexpr_function, name = "___base_r_eq")
                 alt <- reduce(cmp, ~ relexpr_function("|", list(.x, .y)))
                 return(alt)
               },
@@ -2665,6 +2668,8 @@ rel_translate <- function(
           first = "first_value",
           last = "last_value",
           nth = "nth_value",
+          "/" = "___divide",
+          "==" = "___base_r_eq",
           NULL
         )
 
