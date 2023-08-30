@@ -1,8 +1,8 @@
 ## revdepcheck results
 
-We checked 110 reverse dependencies, comparing R CMD check results across CRAN and dev versions of this package.
+We checked 86 reverse dependencies (85 from CRAN + 1 from Bioconductor), comparing R CMD check results across CRAN and dev versions of this package.
 
- * We saw 100 new problems
+ * We saw 84 new problems
  * We failed to check 0 packages
 
 Issues with CRAN packages are summarised below.
@@ -28,12 +28,6 @@ Issues with CRAN packages are summarised below.
 * biclustermd
   checking tests ... ERROR
 
-* bpmnR
-  checking examples ... ERROR
-
-* causact
-  checking examples ... ERROR
-
 * CCWeights
   checking examples ... ERROR
 
@@ -49,12 +43,6 @@ Issues with CRAN packages are summarised below.
 
 * cogmapr
   checking examples ... ERROR
-
-* consortr
-  checking examples ... ERROR
-
-* critpath
-  checking re-building of vignette outputs ... ERROR
 
 * crosshap
   checking tests ... ERROR
@@ -72,9 +60,6 @@ Issues with CRAN packages are summarised below.
   checking examples ... ERROR
   checking tests ... ERROR
 
-* DiagrammeR
-  checking tests ... ERROR
-
 * DSjobtracker
   checking re-building of vignette outputs ... ERROR
 
@@ -83,9 +68,6 @@ Issues with CRAN packages are summarised below.
 
 * egor
   checking tests ... ERROR
-
-* escalation
-  checking re-building of vignette outputs ... ERROR
 
 * ezplot
   checking tests ... ERROR
@@ -99,7 +81,6 @@ Issues with CRAN packages are summarised below.
 
 * finnts
   checking tests ... ERROR
-  checking re-building of vignette outputs ... ERROR
 
 * forestmangr
   checking examples ... ERROR
@@ -132,9 +113,6 @@ Issues with CRAN packages are summarised below.
 
 * gtsummary
   checking re-building of vignette outputs ... ERROR
-
-* heuristicsmineR
-  checking examples ... ERROR
 
 * hlaR
   checking examples ... ERROR
@@ -178,16 +156,7 @@ Issues with CRAN packages are summarised below.
   checking examples ... ERROR
   checking re-building of vignette outputs ... ERROR
 
-* metacore
-  checking examples ... ERROR
-  checking tests ... ERROR
-  checking re-building of vignette outputs ... ERROR
-
 * metalite.ae
-  checking tests ... ERROR
-
-* metatools
-  checking examples ... ERROR
   checking tests ... ERROR
 
 * mpathsenser
@@ -209,19 +178,11 @@ Issues with CRAN packages are summarised below.
 * multiverse
   checking tests ... ERROR
 
-* NetworkExtinction
-  checking examples ... ERROR
-  checking tests ... ERROR
-  checking re-building of vignette outputs ... ERROR
-
 * ohenery
   checking tests ... ERROR
 
 * OlinkAnalyze
   checking tests ... ERROR
-  checking re-building of vignette outputs ... ERROR
-
-* omopr
   checking re-building of vignette outputs ... ERROR
 
 * oncomsm
@@ -240,10 +201,6 @@ Issues with CRAN packages are summarised below.
 * pestr
   checking tests ... ERROR
 
-* processanimateR
-  checking examples ... ERROR
-  checking re-building of vignette outputs ... ERROR
-
 * promotionImpact
   checking examples ... ERROR
 
@@ -257,15 +214,8 @@ Issues with CRAN packages are summarised below.
 * purgeR
   checking tests ... ERROR
 
-* RavenR
-  checking examples ... ERROR
-
 * reappraised
   checking re-building of vignette outputs ... ERROR
-
-* rock
-  checking examples ... ERROR
-  checking tests ... ERROR
 
 * rprev
   checking re-building of vignette outputs ... ERROR
@@ -280,14 +230,8 @@ Issues with CRAN packages are summarised below.
   checking tests ... ERROR
   checking re-building of vignette outputs ... ERROR
 
-* sgsR
-  checking tests ... ERROR
-
 * ShinyItemAnalysis
   checking examples ... ERROR
-
-* simmer.plot
-  checking tests ... ERROR
 
 * sovereign
   checking tests ... ERROR

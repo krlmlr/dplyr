@@ -2,10 +2,10 @@
 
 <details>
 
-* Version: 0.1.1
+* Version: 0.2.0
 * GitHub: https://github.com/dschafer/activatr
 * Source code: https://github.com/cran/activatr
-* Date/Publication: 2023-05-01 22:00:02 UTC
+* Date/Publication: 2023-08-22 07:30:12 UTC
 * Number of recursive dependencies: 108
 
 Run `revdepcheck::cloud_details(, "activatr")` for more info
@@ -56,16 +56,22 @@ Run `revdepcheck::cloud_details(, "APCtools")` for more info
     ```
       Running ‘testthat.R’
     Running the tests in ‘tests/testthat.R’ failed.
-    Complete output:
-      > library(testthat)
-      > library(APCtools)
-      > 
-      > test_check("APCtools")
-      Loading required package: nlme
-      This is mgcv 1.8-40. For overview type 'help("mgcv-package")'.
-      terminate called after throwing an instance of 'cpp11::unwind_exception'
-        what():  std::exception
-      Aborted (core dumped)
+    Last 13 lines of output:
+        5. │ └─plot_dat %>% filter(cohort %in% apc_range$cohort)
+        6. ├─dplyr::filter(., cohort %in% apc_range$cohort)
+        7. └─dplyr:::filter.data.frame(., cohort %in% apc_range$cohort)
+        8.   └─dplyr::filter(...)
+        9.     ├─dplyr::dplyr_row_slice(.data, loc, preserve = .preserve)
+       10.     └─dplyr:::dplyr_row_slice.data.frame(.data, loc, preserve = .preserve)
+       11.       ├─dplyr::dplyr_reconstruct(vec_slice(data, i), data)
+       12.       │ └─dplyr:::dplyr_new_data_frame(data)
+       13.       │   ├─row.names %||% .row_names_info(x, type = 0L)
+       14.       │   └─base::.row_names_info(x, type = 0L)
+       15.       └─vctrs::vec_slice(data, i)
+      
+      [ FAIL 1 | WARN 80 | SKIP 0 | PASS 86 ]
+      Error: Test failures
+      Execution halted
     ```
 
 # arrow
@@ -150,16 +156,16 @@ Run `revdepcheck::cloud_details(, "auk")` for more info
     > 
     > # read and zero-fill the ebd data
     ...
+    > 
+    > # this function can also be used for abundance modeling
     > abd <- ebd_zf %>% 
     +   # convert count to integer, drop records with no count
     +   dplyr::mutate(observation_count = as.integer(observation_count)) %>% 
     +   dplyr::filter(!is.na(observation_count)) %>% 
     +   # filter to repeated visits
     +   filter_repeat_visits(n_days = 30)
-    Error: Conversion Error: Could not convert string 'X' to INT32
-    terminate called after throwing an instance of 'cpp11::unwind_exception'
-      what():  std::exception
-    Aborted (core dumped)
+    Error: Error evaluating duckdb query: Conversion Error: Could not convert string 'X' to INT32
+    Execution halted
     ```
 
 ## In both
@@ -261,88 +267,6 @@ Run `revdepcheck::cloud_details(, "biclustermd")` for more info
       All declared Imports should be used.
     ```
 
-# bpmnR
-
-<details>
-
-* Version: 0.1.0
-* GitHub: NA
-* Source code: https://github.com/cran/bpmnR
-* Date/Publication: 2023-04-04 20:30:02 UTC
-* Number of recursive dependencies: 113
-
-Run `revdepcheck::cloud_details(, "bpmnR")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking examples ... ERROR
-    ```
-    Running examples in ‘bpmnR-Ex.R’ failed
-    The error most likely occurred in:
-    
-    > ### Name: calculate_CFC
-    > ### Title: Control Flow Complexity (CFC) ----------
-    > ### Aliases: calculate_CFC
-    > 
-    > ### ** Examples
-    > 
-    > library(dplyr)
-    ...
-    + objectType = c("startEvent","endEvent"))
-    > flows <- tibble(id = c("flow1","flow2"), name = c("flow1","flow2"),
-    + sourceRef = c("start","task"), targetRef = c("task","end"),
-    + objectType = c("sequenceFlow","sequenceFlow"))
-    > model <- create_bpmn(nodes, flows, events)
-    Error: This looks like it has been freed
-    Error: Invalid Error: std::exception
-    terminate called after throwing an instance of 'cpp11::unwind_exception'
-      what():  std::exception
-    Aborted (core dumped)
-    ```
-
-# causact
-
-<details>
-
-* Version: 0.4.2
-* GitHub: https://github.com/flyaflya/causact
-* Source code: https://github.com/cran/causact
-* Date/Publication: 2022-06-14 16:00:02 UTC
-* Number of recursive dependencies: 118
-
-Run `revdepcheck::cloud_details(, "causact")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking examples ... ERROR
-    ```
-    Running examples in ‘causact-Ex.R’ failed
-    The error most likely occurred in:
-    
-    > ### Name: dag_greta
-    > ### Title: Generate a representative sample of the posterior distribution
-    > ### Aliases: dag_greta
-    > 
-    > ### ** Examples
-    > 
-    > library(greta)
-    ...
-    +   dag_plate("Car Model","x",
-    +             data = carModelDF$carModel,
-    +             nodeLabels = "theta")
-    > 
-    > graph %>% dag_render()
-    Error: This looks like it has been freed
-    Error: Invalid Error: std::exception
-    terminate called after throwing an instance of 'cpp11::unwind_exception'
-      what():  std::exception
-    Aborted (core dumped)
-    ```
-
 # CCWeights
 
 <details>
@@ -401,21 +325,21 @@ Run `revdepcheck::cloud_details(, "cmcR")` for more info
       Running ‘testthat.R’
     Running the tests in ‘tests/testthat.R’ failed.
     Last 13 lines of output:
-      > library(cmcR)
-      > 
-      > test_check("cmcR",reporter = SummaryReporter)
-        adding: bindata/ (stored 0%)
-        adding: bindata/data.bin (deflated 58%)
-        adding: main.xml (deflated 62%)
-        adding: md5checksum.hex (stored 0%)
-        adding: bindata/ (stored 0%)
-        adding: bindata/data.bin (deflated 58%)
-        adding: main.xml (deflated 62%)
-        adding: md5checksum.hex (stored 0%)
-      comparison: ..
-      decision: 1terminate called after throwing an instance of 'cpp11::unwind_exception'
-        what():  std::exception
-      Aborted (core dumped)
+      ══ Failed ══════════════════════════════════════════════════════════════════════
+      ── 1. Error ('test-decision.R:213:3'): decision_ functions work as expected ────
+      Error: Error evaluating duckdb query: Binder Error: Column "n" referenced that exists in the SELECT clause - but this column cannot be referenced before it is defined
+      Backtrace:
+          ▆
+       1. └─testthat::expect_equal(originalMethod_cmcCounts, high_cmcCounts) at test-decision.R:213:2
+       2.   ├─testthat::compare(act$val, exp$val, ...)
+       3.   └─testthat:::compare.numeric(act$val, exp$val, ...)
+       4.     ├─base::all.equal(...)
+       5.     └─base::all.equal.numeric(...)
+       6.       └─base::attr.all.equal(...)
+      
+      ══ DONE ════════════════════════════════════════════════════════════════════════
+      Error: Test failures
+      Execution halted
     ```
 
 # CNAIM
@@ -464,7 +388,7 @@ Run `revdepcheck::cloud_details(, "CNAIM")` for more info
 * GitHub: NA
 * Source code: https://github.com/cran/CodelistGenerator
 * Date/Publication: 2023-08-16 08:42:32 UTC
-* Number of recursive dependencies: 114
+* Number of recursive dependencies: 115
 
 Run `revdepcheck::cloud_details(, "CodelistGenerator")` for more info
 
@@ -548,99 +472,16 @@ Run `revdepcheck::cloud_details(, "cogmapr")` for more info
     > 
     > project_name <- "a_new_project"
     ...
+    > my.project <- ProjectCMap(main_path, project_name)
+    > 
     > ## Here 0.6 is used only for producing an output. No signif. diff. is reported.
     > RelationshipTestSummary(my.project, units = c("Belgium", "Québec"), 0.6)
     Warning: `rename_()` was deprecated in dplyr 0.7.0.
     ℹ Please use `rename()` instead.
     ℹ The deprecated feature was likely used in the cogmapr package.
       Please report the issue at <https://gitlab.com/FrdVnW/cogmapr/-/issues>.
-    Error: Conversion Error: Could not convert string 'NR' to DOUBLE
-    terminate called after throwing an instance of 'cpp11::unwind_exception'
-      what():  std::exception
-    Aborted (core dumped)
-    ```
-
-# consortr
-
-<details>
-
-* Version: 0.9.1
-* GitHub: NA
-* Source code: https://github.com/cran/consortr
-* Date/Publication: 2021-09-14 16:30:08 UTC
-* Number of recursive dependencies: 86
-
-Run `revdepcheck::cloud_details(, "consortr")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking examples ... ERROR
-    ```
-    Running examples in ‘consortr-Ex.R’ failed
-    The error most likely occurred in:
-    
-    > ### Name: consort_from_metadata
-    > ### Title: Function to generate consort diagrams
-    > ### Aliases: consort_from_metadata
-    > 
-    > ### ** Examples
-    > 
-    > data <- data.frame(a = c('m', 'm', 'n', 'n'), 
-    ...
-    +                        parent = c(0, 1), 
-    +                        color = c("black", "black"), 
-    +                        hidden = c(FALSE, FALSE), 
-    +                        split_var = c('a', NA))
-    > consort_diagram <- consort_from_metadata(metadata, data)
-    Error: This looks like it has been freed
-    Error: Invalid Error: std::exception
-    terminate called after throwing an instance of 'cpp11::unwind_exception'
-      what():  std::exception
-    Aborted (core dumped)
-    ```
-
-# critpath
-
-<details>
-
-* Version: 0.2.1
-* GitHub: NA
-* Source code: https://github.com/cran/critpath
-* Date/Publication: 2023-06-06 12:20:02 UTC
-* Number of recursive dependencies: 79
-
-Run `revdepcheck::cloud_details(, "critpath")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking re-building of vignette outputs ... ERROR
-    ```
-    Error(s) in re-building vignettes:
-      ...
-    --- re-building ‘CPMandPERT.Rmd’ using rmarkdown
-    --- finished re-building ‘CPMandPERT.Rmd’
-    
-    --- re-building ‘Introduction.Rmd’ using rmarkdown
-    
-    Quitting from lines 166-167 [unnamed-chunk-6] (Introduction.Rmd)
-    
-    Quitting from lines 166-167 [unnamed-chunk-6] (Introduction.Rmd)
-    terminate called after throwing an instance of 'cpp11::unwind_exception'
-      what():  std::exception
-    Aborted (core dumped)
-    ```
-
-## In both
-
-*   checking installed package size ... NOTE
-    ```
-      installed size is  6.6Mb
-      sub-directories of 1Mb or more:
-        doc   6.4Mb
+    Error: Error evaluating duckdb query: Conversion Error: Could not convert string 'NR' to DOUBLE
+    Execution halted
     ```
 
 # crosshap
@@ -702,9 +543,17 @@ Run `revdepcheck::cloud_details(, "CSCNet")` for more info
     Error(s) in re-building vignettes:
       ...
     --- re-building ‘CSCNet.Rmd’ using rmarkdown
-    terminate called after throwing an instance of 'cpp11::unwind_exception'
-      what():  std::exception
-    Aborted (core dumped)
+    
+    Quitting from lines 109-169 [unnamed-chunk-7] (CSCNet.Rmd)
+    Error: processing vignette 'CSCNet.Rmd' failed with diagnostics:
+    Error evaluating duckdb query: Invalid Error: Invalid input type, expected 'list' actual 'character'
+    --- failed re-building ‘CSCNet.Rmd’
+    
+    SUMMARY: processing the following file failed:
+      ‘CSCNet.Rmd’
+    
+    Error: Vignette re-building failed.
+    Execution halted
     ```
 
 # cubelyr
@@ -865,44 +714,6 @@ Run `revdepcheck::cloud_details(, "DescrTab2")` for more info
     Execution halted
     ```
 
-# DiagrammeR
-
-<details>
-
-* Version: 1.0.10
-* GitHub: https://github.com/rich-iannone/DiagrammeR
-* Source code: https://github.com/cran/DiagrammeR
-* Date/Publication: 2023-05-18 14:30:07 UTC
-* Number of recursive dependencies: 99
-
-Run `revdepcheck::cloud_details(, "DiagrammeR")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking tests ... ERROR
-    ```
-      Running ‘testthat.R’
-    Running the tests in ‘tests/testthat.R’ failed.
-    Complete output:
-      > library(testthat)
-      > library(DiagrammeR)
-      > 
-      > suppressWarnings(RNGversion("3.5.0"))
-      > test_check("DiagrammeR")
-      terminate called after throwing an instance of 'cpp11::unwind_exception'
-        what():  std::exception
-      Aborted (core dumped)
-    ```
-
-## In both
-
-*   checking data for non-ASCII characters ... NOTE
-    ```
-      Note: found 1 marked UTF-8 string
-    ```
-
 # DSjobtracker
 
 <details>
@@ -926,9 +737,15 @@ Run `revdepcheck::cloud_details(, "DSjobtracker")` for more info
     --- re-building ‘DSjobtracker.Rmd’ using rmarkdown
     
     Quitting from lines 136-155 [unnamed-chunk-9] (DSjobtracker.Rmd)
-    terminate called after throwing an instance of 'cpp11::unwind_exception'
-      what():  std::exception
-    Aborted (core dumped)
+    Error: processing vignette 'DSjobtracker.Rmd' failed with diagnostics:
+    Error evaluating duckdb query: Out of Range Error: cannot take logarithm of zero
+    --- failed re-building ‘DSjobtracker.Rmd’
+    
+    SUMMARY: processing the following file failed:
+      ‘DSjobtracker.Rmd’
+    
+    Error: Vignette re-building failed.
+    Execution halted
     ```
 
 ## In both
@@ -969,8 +786,7 @@ Run `revdepcheck::cloud_details(, "echoice2")` for more info
     > #fit model
     > icecream_est <- icecream_discrete %>% dd_est_hmnl_screen(R=10, keep=1, cores=2)
     Using 2 cores
-    Error: Invalid Error: Invalid input type, expected 'list' actual 'symbol'
-    Error: std::exception
+    Error: Error evaluating duckdb query: Invalid Error: Invalid input type, expected 'list' actual 'character'
     Execution halted
     ```
 
@@ -1020,48 +836,6 @@ Run `revdepcheck::cloud_details(, "egor")` for more info
       [ FAIL 1 | WARN 8 | SKIP 15 | PASS 205 ]
       Error: Test failures
       Execution halted
-    ```
-
-# escalation
-
-<details>
-
-* Version: 0.1.5
-* GitHub: NA
-* Source code: https://github.com/cran/escalation
-* Date/Publication: 2023-05-29 18:10:02 UTC
-* Number of recursive dependencies: 126
-
-Run `revdepcheck::cloud_details(, "escalation")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking re-building of vignette outputs ... ERROR
-    ```
-    Error(s) in re-building vignettes:
-      ...
-    --- re-building ‘A100-DoseSelectors.Rmd’ using rmarkdown
-    --- finished re-building ‘A100-DoseSelectors.Rmd’
-    
-    --- re-building ‘A205-CRM.Rmd’ using rmarkdown
-    
-    Quitting from lines 326-334 [unnamed-chunk-21] (A205-CRM.Rmd)
-    
-    Quitting from lines 326-334 [unnamed-chunk-21] (A205-CRM.Rmd)
-    terminate called after throwing an instance of 'cpp11::unwind_exception'
-      what():  std::exception
-    Aborted (core dumped)
-    ```
-
-## In both
-
-*   checking installed package size ... NOTE
-    ```
-      installed size is 13.7Mb
-      sub-directories of 1Mb or more:
-        doc  13.1Mb
     ```
 
 # ezplot
@@ -1186,14 +960,22 @@ Run `revdepcheck::cloud_details(, "fgeo.analyze")` for more info
       Running ‘spelling.R’
       Running ‘testthat.R’
     Running the tests in ‘tests/testthat.R’ failed.
-    Complete output:
-      > library(testthat)
-      > library(fgeo.analyze)
-      > 
-      > test_check("fgeo.analyze")
-      terminate called after throwing an instance of 'cpp11::unwind_exception'
-        what():  std::exception
-      Aborted (core dumped)
+    Last 13 lines of output:
+       16. │ └─base::is.data.frame(dfm)
+       17. ├─fgeo.analyze:::mean_years(.)
+       18. │ └─... %>% rename_matches(data)
+       19. ├─fgeo.tool::rename_matches(., data)
+       20. │ └─fgeo.tool::extract_insensitive(names(x), names(y))
+       21. ├─dplyr::ungroup(.)
+       22. ├─dplyr::arrange(., .data$plotcensusnumber)
+       23. ├─base::unique(.)
+       24. ├─dplyr::summarize(...)
+       25. ├─dplyr::group_by(., .data$plotcensusnumber)
+       26. └─rlang::set_names(., tolower)
+      
+      [ FAIL 1 | WARN 3 | SKIP 14 | PASS 297 ]
+      Error: Test failures
+      Execution halted
     ```
 
 ## In both
@@ -1224,43 +1006,21 @@ Run `revdepcheck::cloud_details(, "finnts")` for more info
       Running ‘testthat.R’
     Running the tests in ‘tests/testthat.R’ failed.
     Last 13 lines of output:
-      ✔ Training Individual Models [2.4s]
+      ── Error ('test-forecast_time_series.R:100:3'): final forecast data rows are meaningful ──
+      Error: Error evaluating duckdb query: Conversion Error: Unimplemented type for cast (DATE -> DOUBLE)
+      Backtrace:
+          ▆
+       1. ├─testthat::expect_equal(nrow(future_frame), forecast_horizon) at test-forecast_time_series.R:100:2
+       2. │ └─testthat::quasi_label(enquo(object), label, arg = "object")
+       3. │   └─rlang::eval_bare(expr, quo_get_env(quo))
+       4. └─base::nrow(future_frame)
+       5.   ├─base::dim(x)
+       6.   └─base::dim.data.frame(x)
+       7.     └─base::.row_names_info(x, 2L)
       
-      ℹ Training Ensemble Models
-      ℹ Ensemble models have been turned off.
-      ℹ Training Ensemble Models
-      ✔ Training Ensemble Models [25ms]
-      
-      ℹ Selecting Best Models
-      ✔ Selecting Best Models [687ms]
-      
-      ! return_data is deprecated, please use 'get_forecast_data()' to get finnts results
-      [1] "First Dt Val 11000"
-      terminate called after throwing an instance of 'cpp11::unwind_exception'
-        what():  std::exception
-      Aborted (core dumped)
-    ```
-
-*   checking re-building of vignette outputs ... ERROR
-    ```
-    Error(s) in re-building vignettes:
-      ...
-    --- re-building ‘back-testing-and-hyperparameter-tuning.Rmd’ using rmarkdown
-    --- finished re-building ‘back-testing-and-hyperparameter-tuning.Rmd’
-    
-    --- re-building ‘best-model-selection.Rmd’ using rmarkdown
-    --- finished re-building ‘best-model-selection.Rmd’
-    
-    --- re-building ‘external-regressors.Rmd’ using rmarkdown
-    --- finished re-building ‘external-regressors.Rmd’
-    
-    --- re-building ‘feature-engineering.Rmd’ using rmarkdown
-    --- finished re-building ‘feature-engineering.Rmd’
-    
-    --- re-building ‘finnts.Rmd’ using rmarkdown
-    terminate called after throwing an instance of 'cpp11::unwind_exception'
-      what():  std::exception
-    Aborted (core dumped)
+      [ FAIL 1 | WARN 6 | SKIP 0 | PASS 79 ]
+      Error: Test failures
+      Execution halted
     ```
 
 # forestmangr
@@ -1486,20 +1246,21 @@ Run `revdepcheck::cloud_details(, "funneljoin")` for more info
       Running ‘testthat.R’
     Running the tests in ‘tests/testthat.R’ failed.
     Last 13 lines of output:
-      > library(testthat)
-      > library(funneljoin)
+        5. └─dplyr:::mutate.data.frame(...)
+        6.   └─dplyr::mutate(...)
+        7.     └─dplyr:::compute_by(...)
+        8.       ├─dplyr::group_data(data)
+        9.       ├─dplyr:::group_data.tbl_df(data)
+       10.       ├─base::NextMethod()
+       11.       └─dplyr:::group_data.data.frame(data)
+       12.         └─base::nrow(.data)
+       13.           ├─base::dim(x)
+       14.           └─base::dim.data.frame(x)
+       15.             └─base::.row_names_info(x, 2L)
       
-      Attaching package: 'funneljoin'
-      
-      The following object is masked from 'package:stats':
-      
-          filter
-      
-      > 
-      > test_check("funneljoin")
-      terminate called after throwing an instance of 'cpp11::unwind_exception'
-        what():  std::exception
-      Aborted (core dumped)
+      [ FAIL 17 | WARN 0 | SKIP 1 | PASS 384 ]
+      Error: Test failures
+      Execution halted
     ```
 
 *   checking re-building of vignette outputs ... ERROR
@@ -1509,9 +1270,15 @@ Run `revdepcheck::cloud_details(, "funneljoin")` for more info
     --- re-building ‘funneljoin.Rmd’ using rmarkdown
     
     Quitting from lines 75-82 [unnamed-chunk-5] (funneljoin.Rmd)
-    terminate called after throwing an instance of 'cpp11::unwind_exception'
-      what():  std::exception
-    Aborted (core dumped)
+    Error: processing vignette 'funneljoin.Rmd' failed with diagnostics:
+    Error evaluating duckdb query: Conversion Error: Unimplemented type for cast (TIME -> DOUBLE)
+    --- failed re-building ‘funneljoin.Rmd’
+    
+    SUMMARY: processing the following file failed:
+      ‘funneljoin.Rmd’
+    
+    Error: Vignette re-building failed.
+    Execution halted
     ```
 
 # ggfortify
@@ -1737,7 +1504,6 @@ Run `revdepcheck::cloud_details(, "gtsummary")` for more info
 *   checking re-building of vignette outputs ... ERROR
     ```
     Error(s) in re-building vignettes:
-      ...
     --- re-building ‘gallery.Rmd’ using rmarkdown
     --- finished re-building ‘gallery.Rmd’
     
@@ -1746,67 +1512,18 @@ Run `revdepcheck::cloud_details(, "gtsummary")` for more info
     
     --- re-building ‘inline_text.Rmd’ using rmarkdown
     --- finished re-building ‘inline_text.Rmd’
+    
     ...
-    
-    --- re-building ‘tbl_summary.Rmd’ using rmarkdown
-    --- finished re-building ‘tbl_summary.Rmd’
-    
-    --- re-building ‘themes.Rmd’ using rmarkdown
-    
     Quitting from lines 48-56 [unnamed-chunk-2] (themes.Rmd)
-    terminate called after throwing an instance of 'cpp11::unwind_exception'
-      what():  std::exception
-    Aborted (core dumped)
-    ```
-
-# heuristicsmineR
-
-<details>
-
-* Version: 0.3.0
-* GitHub: https://github.com/bupaverse/heuristicsmineR
-* Source code: https://github.com/cran/heuristicsmineR
-* Date/Publication: 2023-04-04 13:20:06 UTC
-* Number of recursive dependencies: 110
-
-Run `revdepcheck::cloud_details(, "heuristicsmineR")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking examples ... ERROR
-    ```
-    Running examples in ‘heuristicsmineR-Ex.R’ failed
-    The error most likely occurred in:
+    Error: processing vignette 'themes.Rmd' failed with diagnostics:
+    Error evaluating duckdb query: Invalid Error: Invalid input type, expected 'list' actual 'character'
+    --- failed re-building ‘themes.Rmd’
     
-    > ### Name: causal_custom
-    > ### Title: Custom map profile
-    > ### Aliases: causal_custom
-    > 
-    > ### ** Examples
-    > 
-    > causal_net(L_heur_1,
-    ...
-    5 a          d          0.929       3     6    13     1.29e9   1288900636. "128…
-    6 b          e          0.917       4     7    21     1.29e9   1288900724. "128…
-    7 c          e          0.917       5     7    21     1.29e9   1288900724. "128…
-    8 d          e          0.929       6     7    17     1.29e9   1288900713. "128…
-    # ℹ 1 more variable: penwidth <dbl>
-    Error: This looks like it has been freed
-    Error: Invalid Error: std::exception
-    terminate called after throwing an instance of 'cpp11::unwind_exception'
-      what():  std::exception
-    Aborted (core dumped)
-    ```
-
-## In both
-
-*   checking installed package size ... NOTE
-    ```
-      installed size is  5.3Mb
-      sub-directories of 1Mb or more:
-        libs   4.2Mb
+    SUMMARY: processing the following file failed:
+      ‘themes.Rmd’
+    
+    Error: Vignette re-building failed.
+    Execution halted
     ```
 
 # hlaR
@@ -1838,10 +1555,8 @@ Run `revdepcheck::cloud_details(, "hlaR")` for more info
     > 
     > dat<-read.csv(system.file("extdata/example","MHC_I_test.csv",package="hlaR"),sep=",",header=TRUE)
     > re <- CalEpletMHCI(dat_in = dat, ver = 3)
-    Error: Conversion Error: Could not convert string '56R' to BOOL
-    terminate called after throwing an instance of 'cpp11::unwind_exception'
-      what():  std::exception
-    Aborted (core dumped)
+    Error: Error evaluating duckdb query: Conversion Error: Could not convert string '56R' to BOOL
+    Execution halted
     ```
 
 *   checking re-building of vignette outputs ... ERROR
@@ -1854,9 +1569,15 @@ Run `revdepcheck::cloud_details(, "hlaR")` for more info
     --- re-building ‘eplet-mm.Rmd’ using rmarkdown
     
     Quitting from lines 48-53 [unnamed-chunk-3] (eplet-mm.Rmd)
-    terminate called after throwing an instance of 'cpp11::unwind_exception'
-      what():  std::exception
-    Aborted (core dumped)
+    Error: processing vignette 'eplet-mm.Rmd' failed with diagnostics:
+    Error evaluating duckdb query: Conversion Error: Could not convert string '17RS' to BOOL
+    --- failed re-building ‘eplet-mm.Rmd’
+    
+    SUMMARY: processing the following file failed:
+      ‘eplet-mm.Rmd’
+    
+    Error: Vignette re-building failed.
+    Execution halted
     ```
 
 # IMP
@@ -1936,16 +1657,16 @@ Run `revdepcheck::cloud_details(, "IPEDS")` for more info
     > 
     > school_preferences(size = 2, alt_credits = "Yes", diversity_students = 30, diversity_staff = 20)
     ...
+    417                       45
+    418                        .
     419                        .
     420                       50
     421                        .
     422                       75
     423                       30
     > school_preferences(size = 3, daycare_service = "Yes", app_fee = 50, region = "Southeast")
-    Error: Conversion Error: Could not convert string '.' to DOUBLE
-    terminate called after throwing an instance of 'cpp11::unwind_exception'
-      what():  std::exception
-    Aborted (core dumped)
+    Error: Error evaluating duckdb query: Conversion Error: Could not convert string '.' to DOUBLE
+    Execution halted
     ```
 
 ## In both
@@ -2424,15 +2145,15 @@ Run `revdepcheck::cloud_details(, "meshed")` for more info
     > 
     > 
     ...
+    +                     n_samples = mcmc_keep, 
     +                     n_burn = mcmc_burn, 
     +                     n_thin = mcmc_thin, 
     +                     settings = list(forced_grid=FALSE, cache=FALSE),
     +                     prior=list(phi=c(1,15)),
     +                     verbose = 0,
     +                     n_threads = 1)
-    Error: Invalid Error: Invalid input type, expected 'list' actual 'integer'
-    Error: std::exception
-    Timing stopped at: 0.001 0 0.001
+    Error: Error evaluating duckdb query: Invalid Error: Invalid input type, expected 'list' actual 'integer'
+    Timing stopped at: 0 0 0.001
     Execution halted
     ```
 
@@ -2442,15 +2163,15 @@ Run `revdepcheck::cloud_details(, "meshed")` for more info
     --- re-building ‘multivariate_irregular.Rmd’ using rmarkdown
     
     Quitting from lines 103-118 [unnamed-chunk-3] (multivariate_irregular.Rmd)
-    
-    Quitting from lines 103-118 [unnamed-chunk-3] (multivariate_irregular.Rmd)
     Error: processing vignette 'multivariate_irregular.Rmd' failed with diagnostics:
-    std::exception
+    Error evaluating duckdb query: Invalid Error: Invalid input type, expected 'list' actual 'char'
     --- failed re-building ‘multivariate_irregular.Rmd’
+    
+    --- re-building ‘univariate_gridded.Rmd’ using rmarkdown
     
     ...
     Error: processing vignette 'univariate_irregular_poisson.Rmd' failed with diagnostics:
-    std::exception
+    Error evaluating duckdb query: Invalid Error: Invalid input type, expected 'list' actual 'character'
     --- failed re-building ‘univariate_irregular_poisson.Rmd’
     
     SUMMARY: processing the following files failed:
@@ -2468,69 +2189,6 @@ Run `revdepcheck::cloud_details(, "meshed")` for more info
       installed size is 39.5Mb
       sub-directories of 1Mb or more:
         libs  38.3Mb
-    ```
-
-# metacore
-
-<details>
-
-* Version: 0.1.2
-* GitHub: https://github.com/atorus-research/metacore
-* Source code: https://github.com/cran/metacore
-* Date/Publication: 2023-03-02 17:10:03 UTC
-* Number of recursive dependencies: 71
-
-Run `revdepcheck::cloud_details(, "metacore")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking examples ... ERROR
-    ```
-    Running examples in ‘metacore-Ex.R’ failed
-    The error most likely occurred in:
-    
-    > ### Name: get_control_term
-    > ### Title: Get Control Term
-    > ### Aliases: get_control_term
-    > 
-    > ### ** Examples
-    > 
-    > meta_ex <- spec_to_metacore(metacore_example("p21_mock.xlsx"))
-    Error: This looks like it has been freed
-    Error: Invalid Error: std::exception
-    terminate called after throwing an instance of 'cpp11::unwind_exception'
-      what():  std::exception
-    Aborted (core dumped)
-    ```
-
-*   checking tests ... ERROR
-    ```
-      Running ‘testthat.R’
-    Running the tests in ‘tests/testthat.R’ failed.
-    Complete output:
-      > library(testthat)
-      > library(metacore)
-      > 
-      > test_check("metacore")
-      terminate called after throwing an instance of 'cpp11::unwind_exception'
-        what():  std::exception
-      Aborted (core dumped)
-    ```
-
-*   checking re-building of vignette outputs ... ERROR
-    ```
-    Error(s) in re-building vignettes:
-      ...
-    --- re-building ‘Building_Specification_Readers.Rmd’ using rmarkdown
-    
-    Quitting from lines 125-136 [unnamed-chunk-9] (Building_Specification_Readers.Rmd)
-    
-    Quitting from lines 125-136 [unnamed-chunk-9] (Building_Specification_Readers.Rmd)
-    terminate called after throwing an instance of 'cpp11::unwind_exception'
-      what():  std::exception
-    Aborted (core dumped)
     ```
 
 # metalite.ae
@@ -2569,69 +2227,6 @@ Run `revdepcheck::cloud_details(, "metalite.ae")` for more info
       [ FAIL 3 | WARN 0 | SKIP 8 | PASS 195 ]
       Error: Test failures
       Execution halted
-    ```
-
-# metatools
-
-<details>
-
-* Version: 0.1.5
-* GitHub: https://github.com/pharmaverse/metatools
-* Source code: https://github.com/cran/metatools
-* Date/Publication: 2023-03-13 10:00:05 UTC
-* Number of recursive dependencies: 67
-
-Run `revdepcheck::cloud_details(, "metatools")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking examples ... ERROR
-    ```
-    Running examples in ‘metatools-Ex.R’ failed
-    The error most likely occurred in:
-    
-    > ### Name: create_var_from_codelist
-    > ### Title: Create Variable from Codelist
-    > ### Aliases: create_var_from_codelist
-    > 
-    > ### ** Examples
-    > 
-    > library(metacore)
-    ...
-    +   3, "F", "Female",
-    +   4, "U", "Unknown",
-    +   5, "M", "Male",
-    + )
-    > spec <- spec_to_metacore(metacore_example("p21_mock.xlsx"), quiet = TRUE)
-    Error: This looks like it has been freed
-    Error: Invalid Error: std::exception
-    terminate called after throwing an instance of 'cpp11::unwind_exception'
-      what():  std::exception
-    Aborted (core dumped)
-    ```
-
-*   checking tests ... ERROR
-    ```
-      Running ‘testthat.R’
-    Running the tests in ‘tests/testthat.R’ failed.
-    Last 13 lines of output:
-      The following variable(s) were dropped:
-        foo
-        foo2
-      
-       Metadata successfully imported
-      
-       Metadata successfully imported
-      Loading in metacore object with suppressed warnings
-      No missing or extra variables
-      
-       Metadata successfully imported
-      Loading in metacore object with suppressed warnings
-      terminate called after throwing an instance of 'cpp11::unwind_exception'
-        what():  std::exception
-      Aborted (core dumped)
     ```
 
 # mpathsenser
@@ -2784,16 +2379,16 @@ Run `revdepcheck::cloud_details(, "msSPChelpR")` for more info
     > 
     > #load sample data
     ...
+    +       age_var = "fc_agegroup.1",
+    +       sex_var = "sex.1",
     +       year_var = "t_yeardiag.2", 
     +       site_var = "t_site_icd.2",
     +       pyar_var = "population_pyar")
     Using person-years at risk [PYAR] from reference population as pyears for calculating incidence rates.
     Be careful, in this calculation it is assumed that all included regions have collected data for the full time period: 1990 to 2010
                            If you have included registries with differing times, please check this assumption by looking at groups with 0 incidence and specify option 'inclusion_restrictions' if needed.
-    Error: Binder Error: Column "registry.1" referenced that exists in the SELECT clause - but this column cannot be referenced before it is defined
-    terminate called after throwing an instance of 'cpp11::unwind_exception'
-      what():  std::exception
-    Aborted (core dumped)
+    Error: Error evaluating duckdb query: Invalid Error: Invalid input type, expected 'list' actual 'integer'
+    Execution halted
     ```
 
 # mtdesign
@@ -2862,73 +2457,6 @@ Run `revdepcheck::cloud_details(, "multiverse")` for more info
       Execution halted
     ```
 
-# NetworkExtinction
-
-<details>
-
-* Version: 1.0.3
-* GitHub: NA
-* Source code: https://github.com/cran/NetworkExtinction
-* Date/Publication: 2023-03-31 11:40:02 UTC
-* Number of recursive dependencies: 100
-
-Run `revdepcheck::cloud_details(, "NetworkExtinction")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking examples ... ERROR
-    ```
-    Running examples in ‘NetworkExtinction-Ex.R’ failed
-    The error most likely occurred in:
-    
-    > ### Name: DegreeDistribution
-    > ### Title: Degree distribution of the network
-    > ### Aliases: DegreeDistribution
-    > 
-    > ### ** Examples
-    > 
-    > library(NetworkExtinction)
-    > data("chilean_intertidal")
-    > DegreeDistribution(chilean_intertidal)
-    terminate called after throwing an instance of 'cpp11::unwind_exception'
-      what():  std::exception
-    Aborted (core dumped)
-    ```
-
-*   checking tests ... ERROR
-    ```
-      Running ‘testthat.R’
-    Running the tests in ‘tests/testthat.R’ failed.
-    Last 13 lines of output:
-      > # This file is part of the standard setup for testthat.
-      > # It is recommended that you do not modify it.
-      > #
-      > # Where should you do additional test configuration?
-      > # Learn more about the roles of various files in:
-      > # * https://r-pkgs.org/tests.html
-      > # * https://testthat.r-lib.org/reference/test_package.html#special-files
-      > 
-      > library(testthat)
-      > library(NetworkExtinction)
-      > 
-      > test_check("NetworkExtinction")
-      terminate called after throwing an instance of 'cpp11::unwind_exception'
-        what():  std::exception
-      Aborted (core dumped)
-    ```
-
-*   checking re-building of vignette outputs ... ERROR
-    ```
-    Error(s) in re-building vignettes:
-      ...
-    --- re-building ‘NetworkExtinction.Rmd’ using rmarkdown
-    terminate called after throwing an instance of 'cpp11::unwind_exception'
-      what():  std::exception
-    Aborted (core dumped)
-    ```
-
 # ohenery
 
 <details>
@@ -2950,21 +2478,21 @@ Run `revdepcheck::cloud_details(, "ohenery")` for more info
       Running ‘testthat.R’
     Running the tests in ‘tests/testthat.R’ failed.
     Last 13 lines of output:
-      > # Created: 2018-09-17
-      > # Copyright: Steven E. Pav, 2018-2019
-      > # Author: Steven E. Pav <shabbychef@gmail.com>
-      > # Comments: Steven E. Pav
-      > 
-      > # because Hadley says it should be like this.
-      > # see https://github.com/hadley/devtools/wiki/Testing
-      > 
-      > library(testthat)
-      > library(ohenery)
-      > 
-      > test_check("ohenery")
-      terminate called after throwing an instance of 'cpp11::unwind_exception'
-        what():  std::exception
-      Aborted (core dumped)
+       4. │   │ └─base::withCallingHandlers(...)
+       5. │   └─rlang::eval_bare(quo_get_expr(.quo), quo_get_env(.quo))
+       6. └─ohenery::rsm(g = g, mu = mu)
+       7.   └─base::stopifnot(...)
+      ── Error ('test-basic.r:60:2'): rsm bits ───────────────────────────────────────
+      Error in `eval_bare(expr, quo_get_env(quo))`: object 'y3' not found
+      Backtrace:
+          ▆
+       1. └─testthat::expect_equal(y1, y3) at test-basic.r:60:8
+       2.   └─testthat::quasi_label(enquo(expected), expected.label, arg = "expected")
+       3.     └─rlang::eval_bare(expr, quo_get_env(quo))
+      
+      [ FAIL 2 | WARN 1 | SKIP 1 | PASS 146 ]
+      Error: Test failures
+      Execution halted
     ```
 
 # OlinkAnalyze
@@ -2988,21 +2516,21 @@ Run `revdepcheck::cloud_details(, "OlinkAnalyze")` for more info
       Running ‘testthat.R’
     Running the tests in ‘tests/testthat.R’ failed.
     Last 13 lines of output:
-      ANOVA model fit to each assay: NPX~treatment2
-      Variables and covariates converted from character to factors: treatment2
-      Means estimated for each assay from ANOVA model:  NPX~treatment2
-      Using Max LOD as filter criteria...
-      Using Plate LOD as filter criteria...
-      Using Plate_LOD as filter criteria...
-      Bridging normalization with overlapping samples will be performed.
-      Bridging normalization with subset normalization will be performed.
-      Bridging normalization with subset normalization will be performed.
-      Bridging normalization with overlapping samples will be performed.
-      Bridging normalization with overlapping samples will be performed.
-      Adding missing columns...
-      terminate called after throwing an instance of 'cpp11::unwind_exception'
-        what():  std::exception
-      Aborted (core dumped)
+      • pca_plot/pca-basic-plotting.svg
+      • pca_plot/pca-plot-color-by-treatment.svg
+      • pca_plot/pca-plot-drop-assays-and-drop-samples.svg
+      • pca_plot/pca-plot-internal-2.svg
+      • pca_plot/pca-plot-internal-3.svg
+      • pca_plot/pca-plot-internal-4.svg
+      • pca_plot/pca-plot-internal.svg
+      • pca_plot/pca-plot-label-outliers.svg
+      • pca_plot/pca-plot-not-label-outliers.svg
+      • pca_plot/pca-plot-panel-1.svg
+      • pca_plot/pca-plot-panel-2.svg
+      • pca_plot/pca-plot-with-loadings.svg
+      • pca_plot/pca-plot.svg
+      Error: Test failures
+      Execution halted
     ```
 
 *   checking re-building of vignette outputs ... ERROR
@@ -3014,40 +2542,6 @@ Run `revdepcheck::cloud_details(, "OlinkAnalyze")` for more info
     
     --- re-building ‘Vignett.Rmd’ using rmarkdown
     Killed
-    ```
-
-# omopr
-
-<details>
-
-* Version: 0.2
-* GitHub: NA
-* Source code: https://github.com/cran/omopr
-* Date/Publication: 2020-06-25 08:40:06 UTC
-* Number of recursive dependencies: 50
-
-Run `revdepcheck::cloud_details(, "omopr")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking re-building of vignette outputs ... ERROR
-    ```
-    Error(s) in re-building vignettes:
-      ...
-    --- re-building ‘omopr.Rmd’ using rmarkdown
-    
-    Quitting from lines 80-81 [unnamed-chunk-12] (omopr.Rmd)
-    Error: processing vignette 'omopr.Rmd' failed with diagnostics:
-    Must pass a plain data frame or a tibble to `as_duckplyr_df()`.
-    --- failed re-building ‘omopr.Rmd’
-    
-    SUMMARY: processing the following file failed:
-      ‘omopr.Rmd’
-    
-    Error: Vignette re-building failed.
-    Execution halted
     ```
 
 # oncomsm
@@ -3208,22 +2702,33 @@ Run `revdepcheck::cloud_details(, "OutliersO3")` for more info
     > 
     > c1 <- O3prep(stackloss, k1=2, method=c("HDo", "BAC"), tolHDo=0.025, tolBAC=0.01)
     > c2 <- O3plotM(c1)
-    Error: Conversion Error: Could not convert string 'A' to DOUBLE
-    terminate called after throwing an instance of 'cpp11::unwind_exception'
-      what():  std::exception
-    Aborted (core dumped)
+    Error: Error evaluating duckdb query: Conversion Error: Could not convert string 'A' to DOUBLE
+    Execution halted
     ```
 
 *   checking re-building of vignette outputs ... ERROR
     ```
     Error(s) in re-building vignettes:
-      ...
     --- re-building ‘DrawingO3plots.Rmd’ using rmarkdown
     
     Quitting from lines 25-32 [unnamed-chunk-1] (DrawingO3plots.Rmd)
-    terminate called after throwing an instance of 'cpp11::unwind_exception'
-      what():  std::exception
-    Aborted (core dumped)
+    Error: processing vignette 'DrawingO3plots.Rmd' failed with diagnostics:
+    Error evaluating duckdb query: Conversion Error: Could not convert string 'A' to DOUBLE
+    --- failed re-building ‘DrawingO3plots.Rmd’
+    
+    --- re-building ‘MultTolLevels.Rmd’ using rmarkdown
+    
+    ...
+    --- failed re-building ‘PCPsO3.Rmd’
+    
+    --- re-building ‘xtraO3methods.Rmd’ using rmarkdown
+    --- finished re-building ‘xtraO3methods.Rmd’
+    
+    SUMMARY: processing the following files failed:
+      ‘DrawingO3plots.Rmd’ ‘MultTolLevels.Rmd’ ‘PCPsO3.Rmd’
+    
+    Error: Vignette re-building failed.
+    Execution halted
     ```
 
 # pestr
@@ -3269,68 +2774,6 @@ Run `revdepcheck::cloud_details(, "pestr")` for more info
 *   checking LazyData ... NOTE
     ```
       'LazyData' is specified without a 'data' directory
-    ```
-
-# processanimateR
-
-<details>
-
-* Version: 1.0.5
-* GitHub: https://github.com/bupaverse/processanimateR
-* Source code: https://github.com/cran/processanimateR
-* Date/Publication: 2022-07-20 12:40:03 UTC
-* Number of recursive dependencies: 117
-
-Run `revdepcheck::cloud_details(, "processanimateR")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking examples ... ERROR
-    ```
-    Running examples in ‘processanimateR-Ex.R’ failed
-    The error most likely occurred in:
-    
-    > ### Name: animate_process
-    > ### Title: Animate cases on a process map
-    > ### Aliases: animate_process
-    > 
-    > ### ** Examples
-    > 
-    > data(example_log)
-    > 
-    > # Animate the process with default options (absolute time and 60s duration)
-    > animate_process(example_log)
-    Error: This looks like it has been freed
-    Error: Invalid Error: std::exception
-    terminate called after throwing an instance of 'cpp11::unwind_exception'
-      what():  std::exception
-    Aborted (core dumped)
-    ```
-
-*   checking re-building of vignette outputs ... ERROR
-    ```
-    Error(s) in re-building vignettes:
-      ...
-    --- re-building ‘use-external-data-to-change-tokens.Rmd’ using rmarkdown
-    
-    Quitting from lines 23-49 [unnamed-chunk-1] (use-external-data-to-change-tokens.Rmd)
-    
-    Quitting from lines 23-49 [unnamed-chunk-1] (use-external-data-to-change-tokens.Rmd)
-    terminate called after throwing an instance of 'cpp11::unwind_exception'
-      what():  std::exception
-    Aborted (core dumped)
-    ```
-
-## In both
-
-*   checking installed package size ... NOTE
-    ```
-      installed size is 11.6Mb
-      sub-directories of 1Mb or more:
-        doc           8.8Mb
-        htmlwidgets   2.6Mb
     ```
 
 # promotionImpact
@@ -3441,28 +2884,41 @@ Run `revdepcheck::cloud_details(, "PupilPre")` for more info
     > ### ** Examples
     > 
     ...
+    +                      EventColumns = c("Subject","TRIAL_INDEX"))
+    Checking required columns...
         All required columns are present in the data.
     Checking optional columns...
         All optional columns are present in the data.
     Working on required columns...
         RECORDING_SESSION_LABEL renamed to Subject. 
         item renamed to Item.
-    Error: Conversion Error: Could not convert string 'factor' to DOUBLE
-    terminate called after throwing an instance of 'cpp11::unwind_exception'
-      what():  std::exception
-    Aborted (core dumped)
+    Error: Error evaluating duckdb query: Conversion Error: Could not convert string 'factor' to DOUBLE
+    Execution halted
     ```
 
 *   checking re-building of vignette outputs ... ERROR
     ```
     Error(s) in re-building vignettes:
-      ...
     --- re-building ‘PupilPre_Basic_Preprocessing.Rmd’ using rmarkdown
     
     Quitting from lines 80-81 [unnamed-chunk-4] (PupilPre_Basic_Preprocessing.Rmd)
-    terminate called after throwing an instance of 'cpp11::unwind_exception'
-      what():  std::exception
-    Aborted (core dumped)
+    Error: processing vignette 'PupilPre_Basic_Preprocessing.Rmd' failed with diagnostics:
+    Error evaluating duckdb query: Conversion Error: Could not convert string 'factor' to DOUBLE
+    --- failed re-building ‘PupilPre_Basic_Preprocessing.Rmd’
+    
+    --- re-building ‘PupilPre_Cleanup.Rmd’ using rmarkdown
+    --- finished re-building ‘PupilPre_Cleanup.Rmd’
+    ...
+    --- failed re-building ‘PupilPre_Message_Alignment.Rmd’
+    
+    --- re-building ‘PupilPre_Plotting.Rmd’ using rmarkdown
+    --- finished re-building ‘PupilPre_Plotting.Rmd’
+    
+    SUMMARY: processing the following files failed:
+      ‘PupilPre_Basic_Preprocessing.Rmd’ ‘PupilPre_Message_Alignment.Rmd’
+    
+    Error: Vignette re-building failed.
+    Execution halted
     ```
 
 # purgeR
@@ -3512,47 +2968,6 @@ Run `revdepcheck::cloud_details(, "purgeR")` for more info
         libs   9.1Mb
     ```
 
-# RavenR
-
-<details>
-
-* Version: 2.2.0
-* GitHub: https://github.com/rchlumsk/RavenR
-* Source code: https://github.com/cran/RavenR
-* Date/Publication: 2022-10-28 21:02:50 UTC
-* Number of recursive dependencies: 141
-
-Run `revdepcheck::cloud_details(, "RavenR")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking examples ... ERROR
-    ```
-    Running examples in ‘RavenR-Ex.R’ failed
-    The error most likely occurred in:
-    
-    > ### Name: rvn_rvi_process_diagrammer
-    > ### Title: Plot Raven hydrologic process network using DiagrammeR
-    > ### Aliases: rvn_rvi_process_diagrammer
-    > 
-    > ### ** Examples
-    > 
-    > d1 <- rvn_rvi_read(system.file("extdata","Nith.rvi", package="RavenR")) %>%
-    ...
-    > # plot diagram using the DiagrammeR package
-    > library(DiagrammeR)
-    > 
-    > d1 %>%
-    +   render_graph()
-    Error: This looks like it has been freed
-    Error: Invalid Error: std::exception
-    terminate called after throwing an instance of 'cpp11::unwind_exception'
-      what():  std::exception
-    Aborted (core dumped)
-    ```
-
 # reappraised
 
 <details>
@@ -3592,86 +3007,6 @@ Run `revdepcheck::cloud_details(, "reappraised")` for more info
     48: tools:::buildVignettes(dir = "/tmp/workdir/reappraised/new/reappraised.Rcheck/vign_test/reappraised")
     An irrecoverable exception occurred. R is aborting now ...
     Segmentation fault (core dumped)
-    ```
-
-# rock
-
-<details>
-
-* Version: 0.6.7
-* GitHub: NA
-* Source code: https://github.com/cran/rock
-* Date/Publication: 2022-12-13 12:30:02 UTC
-* Number of recursive dependencies: 140
-
-Run `revdepcheck::cloud_details(, "rock")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking examples ... ERROR
-    ```
-    Running examples in ‘rock-Ex.R’ failed
-    The error most likely occurred in:
-    
-    > ### Name: show_fullyMergedCodeTrees
-    > ### Title: Show the fully merged code tree(s)
-    > ### Aliases: show_fullyMergedCodeTrees
-    > 
-    > ### ** Examples
-    > 
-    > ### Get path to example source
-    ...
-    > ### Load example source
-    > loadedExample <- rock::parse_source(exampleFile);
-    > 
-    > ### Show merged code tree
-    > show_fullyMergedCodeTrees(loadedExample);
-    Error: This looks like it has been freed
-    Error: Invalid Error: std::exception
-    terminate called after throwing an instance of 'cpp11::unwind_exception'
-      what():  std::exception
-    Aborted (core dumped)
-    ```
-
-*   checking tests ... ERROR
-    ```
-      Running ‘testthat.R’
-    Running the tests in ‘tests/testthat.R’ failed.
-    Complete output:
-      > testthat::test_check("rock");
-      Loading required package: rock
-      terminate called after throwing an instance of 'cpp11::unwind_exception'
-        what():  std::exception
-      Aborted (core dumped)
-    ```
-
-## In both
-
-*   checking re-building of vignette outputs ... WARNING
-    ```
-    Error(s) in re-building vignettes:
-      ...
-    --- re-building ‘introduction_to_rock.Rmd’ using rmarkdown
-    A new version of TeX Live has been released. If you need to install or update any LaTeX packages, you have to upgrade TinyTeX with tinytex::reinstall_tinytex(repository = "illinois").
-    
-    tlmgr: Local TeX Live (2022) is older than remote repository (2023).
-    Cross release updates are only supported with
-      update-tlmgr-latest(.sh/.exe) --update
-    See https://tug.org/texlive/upgrade.html for details.
-    Warning in system2("tlmgr", args, ...) :
-    ...
-    
-    Error: processing vignette 'introduction_to_rock.Rmd' failed with diagnostics:
-    LaTeX failed to compile /tmp/workdir/rock/new/rock.Rcheck/vign_test/rock/vignettes/introduction_to_rock.tex. See https://yihui.org/tinytex/r/#debugging for debugging tips. See introduction_to_rock.log for more info.
-    --- failed re-building ‘introduction_to_rock.Rmd’
-    
-    SUMMARY: processing the following file failed:
-      ‘introduction_to_rock.Rmd’
-    
-    Error: Vignette re-building failed.
-    Execution halted
     ```
 
 # rprev
@@ -3738,9 +3073,15 @@ Run `revdepcheck::cloud_details(, "rwicc")` for more info
     --- re-building ‘how-to-use-rwicc.Rmd’ using rmarkdown
     
     Quitting from lines 74-80 [unnamed-chunk-5] (how-to-use-rwicc.Rmd)
-    terminate called after throwing an instance of 'cpp11::unwind_exception'
-      what():  std::exception
-    Aborted (core dumped)
+    Error: processing vignette 'how-to-use-rwicc.Rmd' failed with diagnostics:
+    Error evaluating duckdb query: Invalid Error: Invalid input type, expected 'list' actual 'character'
+    --- failed re-building ‘how-to-use-rwicc.Rmd’
+    
+    SUMMARY: processing the following file failed:
+      ‘how-to-use-rwicc.Rmd’
+    
+    Error: Vignette re-building failed.
+    Execution halted
     ```
 
 # sf
@@ -3858,44 +3199,6 @@ Run `revdepcheck::cloud_details(, "sfnetworks")` for more info
     Segmentation fault (core dumped)
     ```
 
-# sgsR
-
-<details>
-
-* Version: 1.4.4
-* GitHub: https://github.com/tgoodbody/sgsR
-* Source code: https://github.com/cran/sgsR
-* Date/Publication: 2023-06-13 07:00:02 UTC
-* Number of recursive dependencies: 120
-
-Run `revdepcheck::cloud_details(, "sgsR")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking tests ... ERROR
-    ```
-      Running ‘testthat.R’
-    Running the tests in ‘tests/testthat.R’ failed.
-    Last 13 lines of output:
-      It may be desirable to make the sf package available;
-      package maintainers should consider adding sf to Suggests:.
-      The sp package is now running under evolution status 2
-           (status 2 uses the sf package in place of rgdal)
-      Column coordinates names for 'existing' are lowercase - converting to uppercase.
-      Sub-sampling based on ALL 'existing' metric distributions. Ensure only attributes of interest are included.
-      Implementing proportional allocation of samples.
-      Sub-sampling based on ALL 'existing' metric distributions. Ensure only attributes of interest are included.
-      Sub-sampling based on ALL 'existing' metric distributions. Ensure only attributes of interest are included.
-      Sub-sampling based on 'raster' distributions.
-      Using `zq90` as sampling constraint.
-      Implementing proportional allocation of samples.
-      terminate called after throwing an instance of 'cpp11::unwind_exception'
-        what():  std::exception
-      Aborted (core dumped)
-    ```
-
 # ShinyItemAnalysis
 
 <details>
@@ -3926,44 +3229,6 @@ Run `revdepcheck::cloud_details(, "ShinyItemAnalysis")` for more info
     > fitted_blis <- fit_blis(HCItest[, 1:20], HCIkey)
     Error: pars input does not contain the appropriate classes, which should match pars = 'values'
     Execution halted
-    ```
-
-# simmer.plot
-
-<details>
-
-* Version: 0.1.18
-* GitHub: https://github.com/r-simmer/simmer.plot
-* Source code: https://github.com/cran/simmer.plot
-* Date/Publication: 2023-07-17 21:30:02 UTC
-* Number of recursive dependencies: 91
-
-Run `revdepcheck::cloud_details(, "simmer.plot")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking tests ... ERROR
-    ```
-      Running ‘testthat.R’
-    Running the tests in ‘tests/testthat.R’ failed.
-    Last 13 lines of output:
-      > library(simmer.plot)
-      Loading required package: simmer
-      Loading required package: ggplot2
-      
-      Attaching package: 'simmer.plot'
-      
-      The following objects are masked from 'package:simmer':
-      
-          get_mon_arrivals, get_mon_attributes, get_mon_resources
-      
-      > 
-      > test_check("simmer.plot")
-      terminate called after throwing an instance of 'cpp11::unwind_exception'
-        what():  std::exception
-      Aborted (core dumped)
     ```
 
 # sovereign
@@ -4025,9 +3290,17 @@ Run `revdepcheck::cloud_details(, "stabiliser")` for more info
     Error(s) in re-building vignettes:
       ...
     --- re-building ‘stabiliser.Rmd’ using knitr
-    terminate called after throwing an instance of 'cpp11::unwind_exception'
-      what():  std::exception
-    Aborted (core dumped)
+    
+    Quitting from lines 63-64 [unnamed-chunk-6] (stabiliser.Rmd)
+    Error: processing vignette 'stabiliser.Rmd' failed with diagnostics:
+    $ operator is invalid for atomic vectors
+    --- failed re-building ‘stabiliser.Rmd’
+    
+    SUMMARY: processing the following file failed:
+      ‘stabiliser.Rmd’
+    
+    Error: Vignette re-building failed.
+    Execution halted
     ```
 
 ## In both
@@ -4193,10 +3466,10 @@ Run `revdepcheck::cloud_details(, "tfrmt")` for more info
 
 <details>
 
-* Version: 0.3.10
+* Version: 0.3.11
 * GitHub: https://github.com/tanaylab/tglkmeans
 * Source code: https://github.com/cran/tglkmeans
-* Date/Publication: 2023-06-26 08:30:02 UTC
+* Date/Publication: 2023-08-21 09:00:02 UTC
 * Number of recursive dependencies: 89
 
 Run `revdepcheck::cloud_details(, "tglkmeans")` for more info
@@ -4401,9 +3674,22 @@ Run `revdepcheck::cloud_details(, "tidytransit")` for more info
     --- re-building ‘frequency.Rmd’ using rmarkdown
     
     Quitting from lines 198-202 [unnamed-chunk-12] (frequency.Rmd)
-    terminate called after throwing an instance of 'cpp11::unwind_exception'
-      what():  std::exception
-    Aborted (core dumped)
+    Error: processing vignette 'frequency.Rmd' failed with diagnostics:
+    Error evaluating duckdb query: Conversion Error: Could not convert string 'GS' to DOUBLE
+    --- failed re-building ‘frequency.Rmd’
+    
+    --- re-building ‘introduction.Rmd’ using rmarkdown
+    ...
+    --- finished re-building ‘servicepatterns.Rmd’
+    
+    --- re-building ‘timetable.Rmd’ using rmarkdown
+    --- finished re-building ‘timetable.Rmd’
+    
+    SUMMARY: processing the following file failed:
+      ‘frequency.Rmd’
+    
+    Error: Vignette re-building failed.
+    Execution halted
     ```
 
 ## In both
@@ -4483,16 +3769,16 @@ Run `revdepcheck::cloud_details(, "vcfR")` for more info
     > ### ** Examples
     > 
     ...
+    > data("vcfR_test")
+    > vcf <- vcfR_test
     > 
     > 
     > # extract all the INFO and FORMAT fields into a list of tidy
     > # data frames: fix, gt, and meta. Here we don't coerce columns
     > # to integer or numeric types...
     > Z <- vcfR2tidy(vcf)
-    Error: Conversion Error: Could not convert string 'A' to DOUBLE
-    terminate called after throwing an instance of 'cpp11::unwind_exception'
-      what():  std::exception
-    Aborted (core dumped)
+    Error: Error evaluating duckdb query: Conversion Error: Could not convert string 'A' to DOUBLE
+    Execution halted
     ```
 
 *   checking tests ... ERROR
@@ -4500,21 +3786,21 @@ Run `revdepcheck::cloud_details(, "vcfR")` for more info
       Running ‘testthat.R’
     Running the tests in ‘tests/testthat.R’ failed.
     Last 13 lines of output:
-      > #library("vcfR")
-      > #
-      > #
-      > test_check("vcfR")
-      Loading required package: vcfR
+        7. └─dplyr:::mutate.data.frame(...)
+        8.   └─dplyr::mutate(...)
+        9.     └─dplyr:::compute_by(...)
+       10.       ├─dplyr::group_data(data)
+       11.       ├─dplyr:::group_data.tbl_df(data)
+       12.       ├─base::NextMethod()
+       13.       └─dplyr:::group_data.data.frame(data)
+       14.         └─base::nrow(.data)
+       15.           ├─base::dim(x)
+       16.           └─base::dim.data.frame(x)
+       17.             └─base::.row_names_info(x, 2L)
       
-         *****       ***   vcfR   ***       *****
-         This is vcfR 1.14.0 
-           browseVignettes('vcfR') # Documentation
-           citation('vcfR') # Citation
-         *****       *****      *****       *****
-      
-      terminate called after throwing an instance of 'cpp11::unwind_exception'
-        what():  std::exception
-      Aborted (core dumped)
+      [ FAIL 3 | WARN 0 | SKIP 0 | PASS 487 ]
+      Error: Test failures
+      Execution halted
     ```
 
 ## In both
@@ -4596,9 +3882,15 @@ Run `revdepcheck::cloud_details(, "vivaldi")` for more info
     --- re-building ‘vignette.Rmd’ using rmarkdown
     
     Quitting from lines 76-83 [unnamed-chunk-5] (vignette.Rmd)
-    terminate called after throwing an instance of 'cpp11::unwind_exception'
-      what():  std::exception
-    Aborted (core dumped)
+    Error: processing vignette 'vignette.Rmd' failed with diagnostics:
+    Error evaluating duckdb query: Conversion Error: Could not convert string 'A' to DOUBLE
+    --- failed re-building ‘vignette.Rmd’
+    
+    SUMMARY: processing the following file failed:
+      ‘vignette.Rmd’
+    
+    Error: Vignette re-building failed.
+    Execution halted
     ```
 
 ## In both
@@ -4634,8 +3926,21 @@ Run `revdepcheck::cloud_details(, "VWPre")` for more info
     --- re-building ‘VWPre_Basic_Preprocessing.Rmd’ using rmarkdown
     
     Quitting from lines 78-79 [unnamed-chunk-4] (VWPre_Basic_Preprocessing.Rmd)
-    terminate called after throwing an instance of 'cpp11::unwind_exception'
-      what():  std::exception
-    Aborted (core dumped)
+    Error: processing vignette 'VWPre_Basic_Preprocessing.Rmd' failed with diagnostics:
+    Error evaluating duckdb query: Conversion Error: Could not convert string 'factor' to DOUBLE
+    --- failed re-building ‘VWPre_Basic_Preprocessing.Rmd’
+    
+    --- re-building ‘VWPre_Interest_Areas.Rmd’ using rmarkdown
+    ...
+    --- finished re-building ‘VWPre_Message_Alignment.Rmd’
+    
+    --- re-building ‘VWPre_Plotting.Rmd’ using rmarkdown
+    --- finished re-building ‘VWPre_Plotting.Rmd’
+    
+    SUMMARY: processing the following file failed:
+      ‘VWPre_Basic_Preprocessing.Rmd’
+    
+    Error: Vignette re-building failed.
+    Execution halted
     ```
 
