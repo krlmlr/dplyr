@@ -1,8 +1,8 @@
 ## revdepcheck results
 
-We checked 84 reverse dependencies, comparing R CMD check results across CRAN and dev versions of this package.
+We checked 82 reverse dependencies, comparing R CMD check results across CRAN and dev versions of this package.
 
- * We saw 29 new problems
+ * We saw 81 new problems
  * We failed to check 0 packages
 
 Issues with CRAN packages are summarised below.
@@ -10,31 +10,81 @@ Issues with CRAN packages are summarised below.
 ### New problems
 (This reports the first line of each new failure)
 
+* activatr
+  checking tests ... ERROR
+
+* APCtools
+  checking tests ... ERROR
+
+* arrow
+  checking tests ... ERROR
+
+* auk
+  checking examples ... ERROR
+
+* BayesianReasoning
+  checking tests ... ERROR
+
+* biclustermd
+  checking tests ... ERROR
+
+* CCWeights
+  checking examples ... ERROR
+
+* cmcR
+  checking tests ... ERROR
+
+* CNAIM
+  checking tests ... ERROR
+
 * CodelistGenerator
   checking examples ... ERROR
   checking tests ... ERROR
 
+* cogmapr
+  checking examples ... ERROR
+
 * crosshap
   checking tests ... ERROR
 
+* CSCNet
+  checking re-building of vignette outputs ... ERROR
+
+* cubelyr
+  checking tests ... ERROR
+
+* datacutr
+  checking tests ... ERROR
+
+* DescrTab2
+  checking examples ... ERROR
+  checking tests ... ERROR
+
+* DSjobtracker
+  checking re-building of vignette outputs ... ERROR
+
+* echoice2
+  checking examples ... ERROR
+
 * egor
+  checking tests ... ERROR
+
+* ezplot
   checking tests ... ERROR
 
 * FFTrees
   checking tests ... ERROR
   checking re-building of vignette outputs ... ERROR
 
+* fgeo.analyze
+  checking tests ... ERROR
+
 * finnts
-  checking whether package ‘finnts’ can be installed ... WARNING
-  checking S3 generic/method consistency ... WARNING
-  checking replacement functions ... WARNING
-  checking for missing documentation entries ... WARNING
-  checking for code/documentation mismatches ... WARNING
-  checking whether the namespace can be loaded with stated dependencies ... NOTE
-  checking dependencies in R code ... NOTE
-  checking foreign function calls ... NOTE
-  checking R code for possible problems ... NOTE
-  checking Rd \usage sections ... NOTE
+  checking tests ... ERROR
+
+* forestmangr
+  checking examples ... ERROR
+  checking re-building of vignette outputs ... ERROR
 
 * frailtyEM
   checking examples ... ERROR
@@ -43,10 +93,18 @@ Issues with CRAN packages are summarised below.
   checking examples ... ERROR
   checking tests ... ERROR
 
+* funneljoin
+  checking tests ... ERROR
+  checking re-building of vignette outputs ... ERROR
+
 * ggfortify
   checking tests ... ERROR
 
 * ggmice
+  checking re-building of vignette outputs ... ERROR
+
+* ggmotif
+  checking examples ... ERROR
   checking re-building of vignette outputs ... ERROR
 
 * ggseqplot
@@ -54,9 +112,16 @@ Issues with CRAN packages are summarised below.
   checking re-building of vignette outputs ... ERROR
 
 * gtsummary
-  checking whether package ‘gtsummary’ can be installed ... WARNING
+  checking re-building of vignette outputs ... ERROR
+
+* hlaR
+  checking examples ... ERROR
+  checking re-building of vignette outputs ... ERROR
 
 * IMP
+  checking examples ... ERROR
+
+* IPEDS
   checking examples ... ERROR
 
 * ipfr
@@ -73,6 +138,12 @@ Issues with CRAN packages are summarised below.
 * LifeInsuranceContracts
   checking re-building of vignette outputs ... ERROR
 
+* listcompr
+  checking tests ... ERROR
+
+* MACP
+  checking re-building of vignette outputs ... ERROR
+
 * manynet
   checking examples ... ERROR
   checking tests ... ERROR
@@ -81,13 +152,67 @@ Issues with CRAN packages are summarised below.
   checking tests ... ERROR
   checking re-building of vignette outputs ... ERROR
 
+* metalite.ae
+  checking tests ... ERROR
+
+* mpathsenser
+  checking tests ... ERROR
+
+* mpwR
+  checking tests ... ERROR
+
+* msigdbr
+  checking tests ... ERROR
+  checking re-building of vignette outputs ... ERROR
+
+* msSPChelpR
+  checking examples ... ERROR
+
 * mtdesign
+  checking tests ... ERROR
+
+* multiverse
+  checking tests ... ERROR
+
+* ohenery
+  checking tests ... ERROR
+
+* oncomsm
+  checking tests ... ERROR
+
+* OpenLand
+  checking tests ... ERROR
+
+* optimall
+  checking tests ... ERROR
+
+* OutliersO3
+  checking examples ... ERROR
+  checking re-building of vignette outputs ... ERROR
+
+* pestr
+  checking tests ... ERROR
+
+* promotionImpact
+  checking examples ... ERROR
+
+* protti
+  checking tests ... ERROR
+
+* PupilPre
+  checking examples ... ERROR
+  checking re-building of vignette outputs ... ERROR
+
+* purgeR
   checking tests ... ERROR
 
 * reappraised
   checking re-building of vignette outputs ... ERROR
 
 * rprev
+  checking re-building of vignette outputs ... ERROR
+
+* rwicc
   checking re-building of vignette outputs ... ERROR
 
 * sf
@@ -97,9 +222,14 @@ Issues with CRAN packages are summarised below.
   checking tests ... ERROR
   checking re-building of vignette outputs ... ERROR
 
+* ShinyItemAnalysis
+  checking examples ... ERROR
+
+* sovereign
+  checking tests ... ERROR
+
 * stabiliser
-  checking S3 generic/method consistency ... WARNING
-  checking Rd \usage sections ... NOTE
+  checking re-building of vignette outputs ... ERROR
 
 * streamDepletr
   checking re-building of vignette outputs ... ERROR
@@ -110,10 +240,35 @@ Issues with CRAN packages are summarised below.
 * text2sdg
   checking re-building of vignette outputs ... ERROR
 
-* ThermalSampleR
+* tfrmt
+  checking tests ... ERROR
+
+* tglkmeans
   checking tests ... ERROR
 
 * tidyjson
   checking examples ... ERROR
   checking tests ... ERROR
+
+* tidyquery
+  checking tests ... ERROR
+
+* tidytransit
+  checking re-building of vignette outputs ... ERROR
+
+* toxEval
+  checking tests ... ERROR
+
+* vcfR
+  checking examples ... ERROR
+  checking tests ... ERROR
+
+* vDiveR
+  checking tests ... ERROR
+
+* vivaldi
+  checking re-building of vignette outputs ... ERROR
+
+* VWPre
+  checking re-building of vignette outputs ... ERROR
 
