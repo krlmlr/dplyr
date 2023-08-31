@@ -325,7 +325,6 @@ Run `revdepcheck::cloud_details(, "cmcR")` for more info
       Running ‘testthat.R’
     Running the tests in ‘tests/testthat.R’ failed.
     Last 13 lines of output:
-      ══ Failed ══════════════════════════════════════════════════════════════════════
       ── 1. Error ('test-decision.R:213:3'): decision_ functions work as expected ────
       Error: Error evaluating duckdb query: Binder Error: Column "n" referenced that exists in the SELECT clause - but this column cannot be referenced before it is defined
       Backtrace:
@@ -338,6 +337,7 @@ Run `revdepcheck::cloud_details(, "cmcR")` for more info
        6.       └─base::attr.all.equal(...)
       
       ══ DONE ════════════════════════════════════════════════════════════════════════
+      I believe in you!
       Error: Test failures
       Execution halted
     ```
@@ -796,7 +796,7 @@ Run `revdepcheck::cloud_details(, "echoice2")` for more info
     > #fit model
     > icecream_est <- icecream_discrete %>% dd_est_hmnl_screen(R=10, keep=1, cores=2)
     Using 2 cores
-    Error: Error evaluating duckdb query: Invalid Error: Invalid input type, expected 'list' actual 'NULL'
+    Error: Error evaluating duckdb query: Invalid Error: Invalid input type, expected 'list' actual 'pairlist'
     Execution halted
     ```
 
@@ -804,7 +804,7 @@ Run `revdepcheck::cloud_details(, "echoice2")` for more info
 
 *   checking installed package size ... NOTE
     ```
-      installed size is 18.5Mb
+      installed size is 18.4Mb
       sub-directories of 1Mb or more:
         doc    1.3Mb
         libs  16.4Mb
@@ -1002,44 +1002,6 @@ Run `revdepcheck::cloud_details(, "fgeo.analyze")` for more info
 *   checking LazyData ... NOTE
     ```
       'LazyData' is specified without a 'data' directory
-    ```
-
-# finnts
-
-<details>
-
-* Version: 0.3.0
-* GitHub: https://github.com/microsoft/finnts
-* Source code: https://github.com/cran/finnts
-* Date/Publication: 2023-08-09 22:30:10 UTC
-* Number of recursive dependencies: 239
-
-Run `revdepcheck::cloud_details(, "finnts")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking tests ... ERROR
-    ```
-      Running ‘testthat.R’
-    Running the tests in ‘tests/testthat.R’ failed.
-    Last 13 lines of output:
-          return()
-      }`: task 1 failed - "Error evaluating duckdb query: Invalid Error: Invalid input type, expected 'list' actual 'integer'"
-      Backtrace:
-          ▆
-       1. ├─finnts::forecast_time_series(...) at test-forecast_time_series.R:23:0
-       2. │ └─finnts::prep_data(...)
-       3. │   ├─... %>% base::suppressPackageStartupMessages()
-       4. │   └─... %op% ...
-       5. │     └─e$fun(obj, substitute(ex), parent.frame(), e$data)
-       6. └─base::suppressPackageStartupMessages(.)
-       7.   └─base::withCallingHandlers(expr, packageStartupMessage = function(c) tryInvokeRestart("muffleMessage"))
-      
-      [ FAIL 1 | WARN 2 | SKIP 0 | PASS 0 ]
-      Error: Test failures
-      Execution halted
     ```
 
 # forestmangr
@@ -1535,7 +1497,7 @@ Run `revdepcheck::cloud_details(, "gtsummary")` for more info
     ...
     Quitting from lines 48-56 [unnamed-chunk-2] (themes.Rmd)
     Error: processing vignette 'themes.Rmd' failed with diagnostics:
-    Error evaluating duckdb query: Invalid Error: Invalid input type, expected 'list' actual 'double'
+    Error evaluating duckdb query: Invalid Error: Invalid input type, expected 'list' actual 'character'
     --- failed re-building ‘themes.Rmd’
     
     SUMMARY: processing the following file failed:
@@ -1700,101 +1662,6 @@ Run `revdepcheck::cloud_details(, "IPEDS")` for more info
 *   checking data for non-ASCII characters ... NOTE
     ```
       Note: found 46 marked UTF-8 strings
-    ```
-
-# ipfr
-
-<details>
-
-* Version: 1.0.2
-* GitHub: https://github.com/dkyleward/ipfr
-* Source code: https://github.com/cran/ipfr
-* Date/Publication: 2020-04-01 20:20:02 UTC
-* Number of recursive dependencies: 89
-
-Run `revdepcheck::cloud_details(, "ipfr")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking examples ... ERROR
-    ```
-    Running examples in ‘ipfr-Ex.R’ failed
-    The error most likely occurred in:
-    
-    > ### Name: ipu_matrix
-    > ### Title: Balance a matrix given row and column targets
-    > ### Aliases: ipu_matrix
-    > 
-    > ### ** Examples
-    > 
-    > mtx <- matrix(data = runif(9), nrow = 3, ncol = 3)
-    ...
-    12: tryCatch(withCallingHandlers(expr, condition = function(cnd) {    {        .__handler_frame__. <- TRUE        .__setup_frame__. <- frame        if (inherits(cnd, "message")) {            except <- c("warning", "error")        }        else if (inherits(cnd, "warning")) {            except <- "error"        }        else {            except <- ""        }    }    while (!is_null(cnd)) {        if (inherits(cnd, "error")) {            out <- handlers[[1L]](cnd)            if (!inherits(out, "rlang_zap"))                 throw(out)        }        inherit <- .subset2(.subset2(cnd, "rlang"), "inherit")        if (is_false(inherit)) {            return()        }        cnd <- .subset2(cnd, "parent")    }}), stackOverflowError = handlers[[1L]])
-    13: rlang::try_fetch(rel, error = identity)
-    14: rel_try(`No implicit cross joins for left_join()` = is_cross_by(by),     `No relational implementation for left_join(copy = TRUE)` = copy,     {        out <- rel_join_impl(x, y, by, "left", na_matches, suffix,             keep, error_call)        return(out)    })
-    15: left_join.data.frame(., geo_equiv, by = primary_id)
-    16: dplyr::left_join(., geo_equiv, by = primary_id)
-    17: seed %>% dplyr::left_join(geo_equiv, by = primary_id)
-    18: ipu(seed, targets, ...)
-    19: ipu_matrix(mtx, row_targets, column_targets)
-    An irrecoverable exception occurred. R is aborting now ...
-    Segmentation fault (core dumped)
-    ```
-
-*   checking tests ... ERROR
-    ```
-      Running ‘testthat.R’
-    Running the tests in ‘tests/testthat.R’ failed.
-    Last 13 lines of output:
-      42: test_code(test = NULL, code = exprs, env = env, default_reporter = StopReporter$new())
-      43: source_file(path, env(env), wrap = wrap)
-      44: FUN(X[[i]], ...)
-      45: lapply(test_paths, test_one_file, env = env, wrap = wrap)
-      46: doTryCatch(return(expr), name, parentenv, handler)
-      47: tryCatchOne(expr, names, parentenv, handlers[[1L]])
-      48: tryCatchList(expr, classes, parentenv, handlers)
-      49: tryCatch(code, testthat_abort_reporter = function(cnd) {    cat(conditionMessage(cnd), "\n")    NULL})
-      50: with_reporter(reporters$multi, lapply(test_paths, test_one_file,     env = env, wrap = wrap))
-      51: test_files_serial(test_dir = test_dir, test_package = test_package,     test_paths = test_paths, load_helpers = load_helpers, reporter = reporter,     env = env, stop_on_failure = stop_on_failure, stop_on_warning = stop_on_warning,     wrap = wrap, load_package = load_package)
-      52: test_files(test_dir = path, test_paths = test_paths, test_package = package,     reporter = reporter, load_helpers = load_helpers, env = env,     stop_on_failure = stop_on_failure, stop_on_warning = stop_on_warning,     wrap = wrap, load_package = load_package, parallel = parallel)
-      53: test_dir("testthat", package = package, reporter = reporter,     ..., load_package = "installed")
-      54: test_check("ipfr")
-      An irrecoverable exception occurred. R is aborting now ...
-      Segmentation fault (core dumped)
-    ```
-
-*   checking re-building of vignette outputs ... ERROR
-    ```
-    Error(s) in re-building vignettes:
-    --- re-building ‘common_ipf_problems.Rmd’ using rmarkdown
-    --- finished re-building ‘common_ipf_problems.Rmd’
-    
-    --- re-building ‘using_ipfr.Rmd’ using rmarkdown
-    
-     *** caught segfault ***
-    address 0x3, cause 'memory not mapped'
-    
-    Traceback:
-    ...
-    41: rmarkdown::render(file, encoding = encoding, quiet = quiet, envir = globalenv(),     output_dir = getwd(), ...)
-    42: vweave_rmarkdown(...)
-    43: engine$weave(file, quiet = quiet, encoding = enc)
-    44: doTryCatch(return(expr), name, parentenv, handler)
-    45: tryCatchOne(expr, names, parentenv, handlers[[1L]])
-    46: tryCatchList(expr, classes, parentenv, handlers)
-    47: tryCatch({    engine$weave(file, quiet = quiet, encoding = enc)    setwd(startdir)    output <- find_vignette_product(name, by = "weave", engine = engine)    if (!have.makefile && vignette_is_tex(output)) {        texi2pdf(file = output, clean = FALSE, quiet = quiet)        output <- find_vignette_product(name, by = "texi2pdf",             engine = engine)    }    outputs <- c(outputs, output)}, error = function(e) {    thisOK <<- FALSE    fails <<- c(fails, file)    message(gettextf("Error: processing vignette '%s' failed with diagnostics:\n%s",         file, conditionMessage(e)))})
-    48: tools:::buildVignettes(dir = "/tmp/workdir/ipfr/new/ipfr.Rcheck/vign_test/ipfr")
-    An irrecoverable exception occurred. R is aborting now ...
-    Segmentation fault (core dumped)
-    ```
-
-## In both
-
-*   checking LazyData ... NOTE
-    ```
-      'LazyData' is specified without a 'data' directory
     ```
 
 # itsdm

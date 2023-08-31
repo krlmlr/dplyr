@@ -1,6 +1,6 @@
 # Revdeps
 
-## New problems (81)
+## New problems (79)
 
 |package                |version |error  |warning |note |
 |:----------------------|:-------|:------|:-------|:----|
@@ -26,7 +26,6 @@
 |[ezplot](problems.md#ezplot)|0.7.8   |__+1__ |        |     |
 |[FFTrees](problems.md#fftrees)|2.0.0   |__+2__ |        |1    |
 |[fgeo.analyze](problems.md#fgeoanalyze)|1.1.14  |__+1__ |        |1    |
-|[finnts](problems.md#finnts)|0.3.0   |__+1__ |        |     |
 |[forestmangr](problems.md#forestmangr)|0.9.5   |__+2__ |        |     |
 |[frailtyEM](problems.md#frailtyem)|1.0.1   |__+1__ |        |2    |
 |[funcharts](problems.md#funcharts)|1.3.1   |__+2__ |        |     |
@@ -39,7 +38,6 @@
 |[hlaR](problems.md#hlar)|1.0.0   |__+2__ |        |     |
 |[IMP](problems.md#imp) |1.1     |__+1__ |        |1    |
 |[IPEDS](problems.md#ipeds)|0.1.0   |__+1__ |        |2    |
-|[ipfr](problems.md#ipfr)|1.0.2   |__+3__ |        |1    |
 |[itsdm](problems.md#itsdm)|0.2.1   |__+1__ |        |     |
 |[lares](problems.md#lares)|5.2.2   |__+1__ |        |     |
 |[LifeInsuranceContracts](problems.md#lifeinsurancecontracts)|0.0.4   |__+1__ |        |     |

@@ -1,8 +1,8 @@
 ## revdepcheck results
 
-We checked 82 reverse dependencies, comparing R CMD check results across CRAN and dev versions of this package.
+We checked 79 reverse dependencies, comparing R CMD check results across CRAN and dev versions of this package.
 
- * We saw 81 new problems
+ * We saw 79 new problems
  * We failed to check 0 packages
 
 Issues with CRAN packages are summarised below.
@@ -79,9 +79,6 @@ Issues with CRAN packages are summarised below.
 * fgeo.analyze
   checking tests ... ERROR
 
-* finnts
-  checking tests ... ERROR
-
 * forestmangr
   checking examples ... ERROR
   checking re-building of vignette outputs ... ERROR
@@ -123,11 +120,6 @@ Issues with CRAN packages are summarised below.
 
 * IPEDS
   checking examples ... ERROR
-
-* ipfr
-  checking examples ... ERROR
-  checking tests ... ERROR
-  checking re-building of vignette outputs ... ERROR
 
 * itsdm
   checking examples ... ERROR
