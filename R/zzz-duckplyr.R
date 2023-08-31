@@ -1657,6 +1657,7 @@ duckplyr_macros <- c(
   "<=" = '(x, y) AS x <= y',
   ">" = '(x, y) AS x > y',
   ">=" = '(x, y) AS x >= y',
+  "==" = '(x, y) AS x = y',
   "!=" = '(x, y) AS x <> y',
 
   "___divide" = "(x, y) AS CASE WHEN x = 0 AND y = 0 THEN CAST('NaN' AS double) ELSE CAST(x AS double) / y END",
@@ -1698,8 +1699,6 @@ create_default_duckdb_connection <- function() {
     sql <- paste0('CREATE MACRO "', names(duckplyr_macros)[[i]], '"', duckplyr_macros[[i]])
     DBI::dbExecute(con, sql)
   }
-
-  duckdb:::rapi_rel_register_functions(con@conn_ref)
 
   con
 }
@@ -2654,7 +2653,7 @@ rel_translate <- function(
                 values <- eval(expr[[3]], envir = baseenv())
                 consts <- map(values, do_translate, in_window = in_window)
                 ops <- map(consts, list, do_translate(expr[[2]]))
-                cmp <- map(ops, relexpr_function, name = "___base_r_eq")
+                cmp <- map(ops, relexpr_function, name = "==")
                 alt <- reduce(cmp, ~ relexpr_function("|", list(.x, .y)))
                 return(alt)
               },
@@ -2669,7 +2668,6 @@ rel_translate <- function(
           last = "last_value",
           nth = "nth_value",
           "/" = "___divide",
-          "==" = "___base_r_eq",
           NULL
         )
 
