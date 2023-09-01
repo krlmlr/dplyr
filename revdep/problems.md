@@ -1,3 +1,41 @@
+# APCI
+
+<details>
+
+* Version: 1.0.6
+* GitHub: NA
+* Source code: https://github.com/cran/APCI
+* Date/Publication: 2022-11-11 08:00:02 UTC
+* Number of recursive dependencies: 86
+
+Run `revdepcheck::cloud_details(, "APCI")` for more info
+
+</details>
+
+## Newly broken
+
+*   checking tests ... ERROR
+    ```
+      Running ‘1_tests.R’
+    Running the tests in ‘tests/1_tests.R’ failed.
+    Last 13 lines of output:
+          acc2:pcc2     acc3:pcc2     acc4:pcc2     acc5:pcc2     acc6:pcc2 
+      -2.230638e-01 -2.866165e-02 -2.709330e-01  3.672768e-02  4.514428e-01 
+          acc7:pcc2     acc8:pcc2     acc9:pcc2     acc1:pcc3     acc2:pcc3 
+       9.314896e-02 -3.026307e-01  1.955077e-01  2.006266e-02  3.860762e-02 
+          acc3:pcc3     acc4:pcc3     acc5:pcc3     acc6:pcc3     acc7:pcc3 
+      -4.245597e-01  4.277360e-02  1.772910e-01 -3.068869e-01  2.480294e-01 
+          acc8:pcc3     acc9:pcc3     acc1:pcc4     acc2:pcc4     acc3:pcc4 
+      -1.388784e-01  1.462934e-01 -3.977027e-01 -2.937361e-03  3.309025e-01 
+          acc4:pcc4     acc5:pcc4     acc6:pcc4     acc7:pcc4     acc8:pcc4 
+       2.240888e-01  1.819380e-01 -2.214242e-01 -3.464689e-02 -2.096800e-01 
+          acc9:pcc4     acc1:pcc5     acc2:pcc5     acc3:pcc5     acc4:pcc5 
+       1.501560e-01  2.210945e-02  2.440501e-01 -3.433860e-02 -1.498732e-01 
+          acc5:pcc5     acc6:pcc5     acc7:pcc5     acc8:pcc5     acc9:pcc5 
+      -5.887129e-01 -3.100993e-01  2.884895e-01  6.637979e-01 -2.959911e-01 
+      Killed
+    ```
+
 # CodelistGenerator
 
 <details>
@@ -135,6 +173,97 @@ Run `revdepcheck::cloud_details(, "egor")` for more info
       [ FAIL 1 | WARN 8 | SKIP 15 | PASS 205 ]
       Error: Test failures
       Execution halted
+    ```
+
+# iNZightTools
+
+<details>
+
+* Version: 1.13.0
+* GitHub: https://github.com/iNZightVIT/iNZightTools
+* Source code: https://github.com/cran/iNZightTools
+* Date/Publication: 2023-01-26 22:10:02 UTC
+* Number of recursive dependencies: 116
+
+Run `revdepcheck::cloud_details(, "iNZightTools")` for more info
+
+</details>
+
+## Newly broken
+
+*   checking tests ... ERROR
+    ```
+      Running ‘testthat.R’
+    Running the tests in ‘tests/testthat.R’ failed.
+    Last 13 lines of output:
+       10.     └─base::sapply(allcode, tidy_code, width = width, indent = indent)
+       11.       └─base::lapply(X = X, FUN = FUN, ...)
+       12.         └─iNZightTools (local) FUN(X[[i]], ...)
+      ── Error ('test_tidy_code.R:66:5'): tidying from file works OK ─────────────────
+      Error in `FUN(X[[i]], ...)`: Please install suggested package: 'styler'
+      Backtrace:
+          ▆
+       1. └─iNZightTools::tidy_all_code("messy_gapminder.txt") at test_tidy_code.R:66:4
+       2.   └─base::sapply(allcode, tidy_code, width = width, indent = indent)
+       3.     └─base::lapply(X = X, FUN = FUN, ...)
+       4.       └─iNZightTools (local) FUN(X[[i]], ...)
+      
+      [ FAIL 5 | WARN 7 | SKIP 4 | PASS 383 ]
+      Error: Test failures
+      Execution halted
+    ```
+
+# madshapR
+
+<details>
+
+* Version: 1.0.0
+* GitHub: https://github.com/maelstrom-research/madshapR
+* Source code: https://github.com/cran/madshapR
+* Date/Publication: 2023-06-20 17:50:02 UTC
+* Number of recursive dependencies: 91
+
+Run `revdepcheck::cloud_details(, "madshapR")` for more info
+
+</details>
+
+## Newly broken
+
+*   checking examples ... ERROR
+    ```
+    Running examples in ‘madshapR-Ex.R’ failed
+    The error most likely occurred in:
+    
+    > ### Name: dataset_evaluate
+    > ### Title: Generate a quality assessment report of a dataset
+    > ### Aliases: dataset_evaluate
+    > 
+    > ### ** Examples
+    > 
+    > {
+    ...
+     21. ├─dplyr::group_by(., .data$row_duplicate)
+     22. ├─tidyr::unite(., -1, col = "row_duplicate", sep = "")
+     23. └─tidyr:::unite.data.frame(., -1, col = "row_duplicate", sep = "")
+     24.   └─tidyr:::df_append(after = after)
+     25.     └─tidyr:::check_number_whole(after, min = 0L, max = n, .internal = TRUE)
+     26.       └─tidyr:::.rlang_types_check_number(...)
+     27.         └─tidyr (local) .stop(x, what, ...)
+     28.           └─tidyr:::stop_input_type(...)
+     29.             └─rlang::abort(message, ..., call = call, arg = arg)
+    Execution halted
+    ```
+
+## In both
+
+*   checking Rd cross-references ... NOTE
+    ```
+    Package unavailable to check Rd xrefs: ‘haven’
+    ```
+
+*   checking data for non-ASCII characters ... NOTE
+    ```
+      Note: found 22 marked UTF-8 strings
     ```
 
 # manynet
