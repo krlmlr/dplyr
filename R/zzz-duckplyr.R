@@ -17,7 +17,7 @@ add_count.data.frame <- function(x, ..., wt = NULL, sort = FALSE, name = NULL, .
   )
 
   # dplyr forward
-  add_count <- dplyr$add_count.data.frame
+  add_count <- add_count_data_frame
   out <- add_count(x, ..., wt = {{ wt }}, sort = sort, name = name, .drop = .drop)
   return(out)
 
@@ -64,7 +64,7 @@ anti_join.data.frame <- function(x, y, by = NULL, copy = FALSE, ..., na_matches 
   )
 
   # dplyr forward
-  anti_join <- dplyr$anti_join.data.frame
+  anti_join <- anti_join_data_frame
   out <- anti_join(x, y, by, copy, ..., na_matches = na_matches)
   return(out)
 
@@ -119,7 +119,7 @@ arrange.data.frame <- function(.data, ..., .by_group = FALSE, .locale = NULL) {
   )
 
   # dplyr forward
-  arrange <- dplyr$arrange.data.frame
+  arrange <- arrange_data_frame
   out <- arrange(.data, ..., .by_group = .by_group, .locale = .locale)
   return(out)
 
@@ -254,7 +254,7 @@ compute.data.frame <- function(x, ...) {
   )
 
   # dplyr forward
-  compute <- dplyr$compute.data.frame
+  compute <- compute_data_frame
   out <- compute(x, ...)
   return(out)
 
@@ -404,7 +404,7 @@ count.data.frame <- function(x, ..., wt = NULL, sort = FALSE, name = NULL, .drop
   # out <- count(x_df, !!!quos, wt = {{ wt }}, sort = sort, name = name, .drop = .drop)
 
   # dplyr forward
-  count <- dplyr$count.data.frame
+  count <- count_data_frame
   out <- count(x, ..., wt = {{ wt }}, sort = sort, name = name, .drop = .drop)
   return(out)
 
@@ -449,7 +449,7 @@ cross_join.data.frame <- function(x, y, ..., copy = FALSE, suffix = c(".x", ".y"
   )
 
   # dplyr forward
-  cross_join <- dplyr$cross_join.data.frame
+  cross_join <- cross_join_data_frame
   out <- cross_join(x, y, ..., copy = copy, suffix = suffix)
   return(out)
 
@@ -652,7 +652,7 @@ distinct.data.frame <- function(.data, ..., .keep_all = FALSE) {
   )
 
   # dplyr forward
-  distinct <- dplyr$distinct.data.frame
+  distinct <- distinct_data_frame
   out <- distinct(.data, ..., .keep_all = .keep_all)
   return(out)
 
@@ -698,7 +698,7 @@ do.data.frame <- function(.data, ...) {
   )
 
   # dplyr forward
-  do <- dplyr$do.data.frame
+  do <- do_data_frame
   out <- do(.data, ...)
   return(out)
 
@@ -781,7 +781,7 @@ dplyr_reconstruct.data.frame <- function(data, template) {
   return(data)
 
   # dplyr forward
-  dplyr_reconstruct <- dplyr$dplyr_reconstruct.data.frame
+  dplyr_reconstruct <- dplyr_reconstruct_data_frame
   out <- dplyr_reconstruct(data, template)
   return(out)
 
@@ -844,7 +844,7 @@ filter.data.frame <- function(.data, ..., .by = NULL, .preserve = FALSE) {
   )
 
   # dplyr forward
-  filter <- dplyr$filter.data.frame
+  filter <- filter_data_frame
   out <- filter(.data, ..., .by = {{ .by }}, .preserve = .preserve)
   return(out)
 
@@ -892,7 +892,7 @@ full_join.data.frame <- function(x, y, by = NULL, copy = FALSE, suffix = c(".x",
   )
 
   # dplyr forward
-  full_join <- dplyr$full_join.data.frame
+  full_join <- full_join_data_frame
   out <- full_join(x, y, by, copy, suffix, ..., keep = keep, na_matches = na_matches, multiple = multiple, relationship = relationship)
   return(out)
 
@@ -1236,7 +1236,7 @@ utils::globalVariables(c(
 #' @export
 group_vars.data.frame <- function(x) {
   if (inherits(x, c("grouped_df", "rowwise_df"))) {
-    return(dplyr$group_vars.data.frame(x))
+    return(group_vars_data_frame(x))
   }
 
   # Avoid calling group_data()
@@ -1271,7 +1271,7 @@ inner_join.data.frame <- function(x, y, by = NULL, copy = FALSE, suffix = c(".x"
   )
 
   # dplyr forward
-  inner_join <- dplyr$inner_join.data.frame
+  inner_join <- inner_join_data_frame
   out <- inner_join(x, y, by, copy, suffix, ..., keep = keep, na_matches = na_matches, multiple = multiple, unmatched = unmatched, relationship = relationship)
   return(out)
 
@@ -1342,7 +1342,7 @@ intersect.data.frame <- function(x, y, ...) {
   )
 
   # dplyr forward
-  intersect <- dplyr$intersect.data.frame
+  intersect <- intersect_data_frame
   out <- intersect(x, y, ...)
   return(out)
 
@@ -1524,7 +1524,7 @@ left_join.data.frame <- function(x, y, by = NULL, copy = FALSE, suffix = c(".x",
   )
 
   # dplyr forward
-  left_join <- dplyr$left_join.data.frame
+  left_join <- left_join_data_frame
   out <- left_join(x, y, by, copy, suffix, ..., keep = keep, na_matches = na_matches, multiple = multiple, unmatched = unmatched, relationship = relationship)
   return(out)
 
@@ -1639,7 +1639,7 @@ mutate.data.frame <- function(.data, ..., .by = NULL, .keep = c("all", "used", "
   )
 
   # dplyr forward
-  mutate <- dplyr$mutate.data.frame
+  mutate <- mutate_data_frame
   out <- mutate(.data, ..., .by = {{ .by }}, .keep = .keep, .before = {{ .before }}, .after = {{ .after }})
   return(out)
 
@@ -1700,7 +1700,7 @@ nest_by.data.frame <- function(.data, ..., .key = "data", .keep = FALSE) {
   )
 
   # dplyr forward
-  nest_by <- dplyr$nest_by.data.frame
+  nest_by <- nest_by_data_frame
   out <- nest_by(.data, ..., .key = .key, .keep = .keep)
   return(out)
 
@@ -1747,7 +1747,7 @@ nest_join.data.frame <- function(x, y, by = NULL, copy = FALSE, keep = NULL, nam
   class(x_df) <- setdiff(class(x_df), "duckplyr_df")
   y_df <- y
   class(y_df) <- setdiff(class(y_df), "duckplyr_df")
-  nest_join <- dplyr$nest_join.data.frame
+  nest_join <- nest_join_data_frame
   out <- nest_join(x_df, y_df, by, copy, keep, name, ..., na_matches = na_matches, unmatched = unmatched)
   out <- dplyr_reconstruct(out, x)
   return(out)
@@ -1981,7 +1981,7 @@ pull.data.frame <- function(.data, var = -1, name = NULL, ...) {
   )
 
   # dplyr forward
-  pull <- dplyr$pull.data.frame
+  pull <- pull_data_frame
   out <- pull(.data, {{ var }}, {{ name }}, ...)
   return(out)
 
@@ -2018,7 +2018,7 @@ reframe.data.frame <- function(.data, ..., .by = NULL) {
   )
 
   # dplyr forward
-  reframe <- dplyr$reframe.data.frame
+  reframe <- reframe_data_frame
   out <- reframe(.data, ..., .by = {{ .by }})
   return(out)
 
@@ -3329,7 +3329,7 @@ relocate.data.frame <- function(.data, ..., .before = NULL, .after = NULL) {
   )
 
   # dplyr forward
-  relocate <- dplyr$relocate.data.frame
+  relocate <- relocate_data_frame
   out <- relocate(.data, ..., .before = {{ .before }}, .after = {{ .after }})
   return(out)
 
@@ -3384,7 +3384,7 @@ rename.data.frame <- function(.data, ...) {
   )
 
   # dplyr forward
-  rename <- dplyr$rename.data.frame
+  rename <- rename_data_frame
   out <- rename(.data, ...)
   return(out)
 
@@ -3421,7 +3421,7 @@ rename_with.data.frame <- function(.data, .fn, .cols = everything(), ...) {
   )
 
   # dplyr forward
-  rename_with <- dplyr$rename_with.data.frame
+  rename_with <- rename_with_data_frame
   out <- rename_with(.data, .fn, {{ .cols }}, ...)
   return(out)
 
@@ -3480,7 +3480,7 @@ right_join.data.frame <- function(x, y, by = NULL, copy = FALSE, suffix = c(".x"
   )
 
   # dplyr forward
-  right_join <- dplyr$right_join.data.frame
+  right_join <- right_join_data_frame
   out <- right_join(x, y, by, copy, suffix, ..., keep = keep, na_matches = na_matches, multiple = multiple, unmatched = unmatched, relationship = relationship)
   return(out)
 
@@ -3529,7 +3529,7 @@ rows_append.data.frame <- function(x, y, ..., copy = FALSE, in_place = FALSE) {
   )
 
   # dplyr forward
-  rows_append <- dplyr$rows_append.data.frame
+  rows_append <- rows_append_data_frame
   out <- rows_append(x, y, ..., copy = copy, in_place = in_place)
   return(out)
 
@@ -3572,7 +3572,7 @@ rows_delete.data.frame <- function(x, y, by = NULL, ..., unmatched = c("error", 
   )
 
   # dplyr forward
-  rows_delete <- dplyr$rows_delete.data.frame
+  rows_delete <- rows_delete_data_frame
   out <- rows_delete(x, y, by, ..., unmatched = unmatched, copy = copy, in_place = in_place)
   return(out)
 
@@ -3641,7 +3641,7 @@ rows_insert.data.frame <- function(x, y, by = NULL, ..., conflict = c("error", "
   )
 
   # dplyr forward
-  rows_insert <- dplyr$rows_insert.data.frame
+  rows_insert <- rows_insert_data_frame
   out <- rows_insert(x, y, by, ..., conflict = conflict, copy = copy, in_place = in_place)
   return(out)
 
@@ -3698,7 +3698,7 @@ rows_patch.data.frame <- function(x, y, by = NULL, ..., unmatched = c("error", "
   )
 
   # dplyr forward
-  rows_patch <- dplyr$rows_patch.data.frame
+  rows_patch <- rows_patch_data_frame
   out <- rows_patch(x, y, by, ..., unmatched = unmatched, copy = copy, in_place = in_place)
   return(out)
 
@@ -3786,7 +3786,7 @@ rows_update.data.frame <- function(x, y, by = NULL, ..., unmatched = c("error", 
   )
 
   # dplyr forward
-  rows_update <- dplyr$rows_update.data.frame
+  rows_update <- rows_update_data_frame
   out <- rows_update(x, y, by, ..., unmatched = unmatched, copy = copy, in_place = in_place)
   return(out)
 
@@ -3867,7 +3867,7 @@ rows_upsert.data.frame <- function(x, y, by = NULL, ..., copy = FALSE, in_place 
   )
 
   # dplyr forward
-  rows_upsert <- dplyr$rows_upsert.data.frame
+  rows_upsert <- rows_upsert_data_frame
   out <- rows_upsert(x, y, by, ..., copy = copy, in_place = in_place)
   return(out)
 
@@ -3950,7 +3950,7 @@ sample_frac.data.frame <- function(tbl, size = 1, replace = FALSE, weight = NULL
   )
 
   # dplyr forward
-  sample_frac <- dplyr$sample_frac.data.frame
+  sample_frac <- sample_frac_data_frame
   out <- sample_frac(tbl, {{ size }}, replace, {{ weight }}, .env, ...)
   return(out)
 
@@ -3993,7 +3993,7 @@ sample_n.data.frame <- function(tbl, size, replace = FALSE, weight = NULL, .env 
   )
 
   # dplyr forward
-  sample_n <- dplyr$sample_n.data.frame
+  sample_n <- sample_n_data_frame
   out <- sample_n(tbl, {{ size }}, replace, {{ weight }}, .env, ...)
   return(out)
 
@@ -4050,7 +4050,7 @@ select.data.frame <- function(.data, ...) {
 
 
   # dplyr forward
-  select <- dplyr$select.data.frame
+  select <- select_data_frame
   out <- select(.data, ...)
   return(out)
 
@@ -4101,7 +4101,7 @@ semi_join.data.frame <- function(x, y, by = NULL, copy = FALSE, ..., na_matches 
   )
 
   # dplyr forward
-  semi_join <- dplyr$semi_join.data.frame
+  semi_join <- semi_join_data_frame
   out <- semi_join(x, y, by, copy, ..., na_matches = na_matches)
   return(out)
 
@@ -4160,7 +4160,7 @@ setdiff.data.frame <- function(x, y, ...) {
   )
 
   # dplyr forward
-  setdiff <- dplyr$setdiff.data.frame
+  setdiff <- setdiff_data_frame
   out <- setdiff(x, y, ...)
   return(out)
 
@@ -4200,7 +4200,7 @@ setequal.data.frame <- function(x, y, ...) {
   )
 
   # dplyr forward
-  setequal <- dplyr$setequal.data.frame
+  setequal <- setequal_data_frame
   out <- setequal(x, y, ...)
   return(out)
 
@@ -4238,7 +4238,7 @@ slice.data.frame <- function(.data, ..., .by = NULL, .preserve = FALSE) {
   )
 
   # dplyr forward
-  slice <- dplyr$slice.data.frame
+  slice <- slice_data_frame
   out <- slice(.data, ..., .by = {{ .by }}, .preserve = .preserve)
   return(out)
 
@@ -4282,7 +4282,7 @@ slice_head.data.frame <- function(.data, ..., n, prop, by = NULL) {
   )
 
   # dplyr forward
-  slice_head <- dplyr$slice_head.data.frame
+  slice_head <- slice_head_data_frame
   out <- slice_head(.data, ..., n = n, prop = prop, by = {{ by }})
   return(out)
 
@@ -4363,7 +4363,7 @@ slice_tail.data.frame <- function(.data, ..., n, prop, by = NULL) {
   )
 
   # dplyr forward
-  slice_tail <- dplyr$slice_tail.data.frame
+  slice_tail <- slice_tail_data_frame
   out <- slice_tail(.data, ..., n = n, prop = prop, by = {{ by }})
   return(out)
 
@@ -4476,7 +4476,7 @@ summarise.data.frame <- function(.data, ..., .by = NULL, .groups = NULL) {
   )
 
   # dplyr forward
-  summarise <- dplyr$summarise.data.frame
+  summarise <- summarise_data_frame
   out <- summarise(.data, ..., .by = {{ .by }}, .groups = .groups)
   return(out)
 
@@ -4549,7 +4549,7 @@ symdiff.data.frame <- function(x, y, ...) {
   )
 
   # dplyr forward
-  symdiff <- dplyr$symdiff.data.frame
+  symdiff <- symdiff_data_frame
   out <- symdiff(x, y, ...)
   return(out)
 
@@ -4612,7 +4612,7 @@ transmute.data.frame <- function(.data, ...) {
   )
 
   # dplyr forward
-  transmute <- dplyr$transmute.data.frame
+  transmute <- transmute_data_frame
   out <- transmute(.data, ...)
   return(out)
 
@@ -4669,7 +4669,7 @@ ungroup.data.frame <- function(x, ...) {
   )
 
   # dplyr forward
-  ungroup <- dplyr$ungroup.data.frame
+  ungroup <- ungroup_data_frame
   out <- ungroup(x, ...)
   return(out)
 
@@ -4700,7 +4700,7 @@ union.data.frame <- function(x, y, ...) {
   return(distinct(union_all(x, y)))
 
   # dplyr forward
-  union <- dplyr$union.data.frame
+  union <- union_data_frame
   out <- union(x, y, ...)
   return(out)
 
@@ -4769,7 +4769,7 @@ union_all.data.frame <- function(x, y, ...) {
   )
 
   # dplyr forward
-  union_all <- dplyr$union_all.data.frame
+  union_all <- union_all_data_frame
   out <- union_all(x, y, ...)
   return(out)
 
