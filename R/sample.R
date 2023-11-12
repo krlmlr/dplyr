@@ -74,7 +74,7 @@ sample_n.default <- function(tbl, size, replace = FALSE, weight = NULL,
 }
 
 #' @export
-sample_n_data_frame <- function(tbl, size, replace = FALSE,
+sample_n.data.frame <- function(tbl, size, replace = FALSE,
                                 weight = NULL, .env = NULL, ...) {
   if (!is_null(.env)) {
     inform("`sample_n()` argument `.env` is deprecated and no longer has any effect.")
@@ -106,7 +106,7 @@ sample_frac.default <- function(tbl, size = 1, replace = FALSE, weight = NULL,
 }
 
 #' @export
-sample_frac_data_frame <- function(tbl, size = 1, replace = FALSE,
+sample_frac.data.frame <- function(tbl, size = 1, replace = FALSE,
                                    weight = NULL, .env = NULL, ...) {
   if (!is_null(.env)) {
     inform("`.env` is deprecated and no longer has any effect")
