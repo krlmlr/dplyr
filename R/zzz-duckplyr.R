@@ -631,6 +631,7 @@ distinct.data.frame <- function(.data, ..., .keep_all = FALSE) {
           relexpr_window(
             relexpr_function("row_number", list()),
             partitions = exprs,
+            order_bys = list(relexpr_reference("___row_number")),
             alias = "___row_number_by"
           )
         ))
@@ -2162,8 +2163,8 @@ duckplyr_macros <- c(
   "is.na" = "(x) AS (x IS NULL)",
   "n" = "() AS CAST(COUNT(*) AS int32)",
   #
-  "log10" = "(x) AS log(x)",
-  "log" = "(x) AS ln(x)",
+  "log10" = "(x) AS CASE WHEN x < 0 THEN CAST('NaN' AS double) WHEN x = 0 THEN CAST('-Inf' AS double) ELSE log(x) END",
+  "log" = "(x) AS CASE WHEN x < 0 THEN CAST('NaN' AS double) WHEN x = 0 THEN CAST('-Inf' AS double) ELSE ln(x) END",
   # TPCH
 
   # https://github.com/duckdb/duckdb/discussions/8599
@@ -2171,7 +2172,7 @@ duckplyr_macros <- c(
 
   "grepl" = "(pattern, x) AS regexp_matches(x, pattern)",
   "as.integer" = "(x) AS CAST(x AS int32)",
-  "ifelse" = "(test, yes, no) AS (CASE WHEN test THEN yes ELSE no END)",
+  "if_else" = "(test, yes, no) AS (CASE WHEN test THEN yes ELSE no END)",
   "|" = "(x, y) AS (x OR y)",
   "&" = "(x, y) AS (x AND y)",
   "!" = "(x) AS (NOT x)",
