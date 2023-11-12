@@ -150,7 +150,10 @@ duckplyr_arrange <- function(.data, ...) {
 #'
 #' For an object of class `duckplyr_df`,
 #' dplyr verbs such as [mutate()], [select()] or [filter()]  will attempt to use DuckDB.
-#' If this is not possible for whatever reason, the original dplyr implementation is used.
+#' If this is not possible, the original dplyr implementation is used.
+#'
+#' Set the `DUCKPLYR_FALLBACK_INFO` and `DUCKPLYR_FORCE` environment variables
+#' for more control over the behavior, see [config] for more details.
 #'
 #' @param .data data frame or tibble to transform
 #'
@@ -288,7 +291,7 @@ duckplyr_compute <- function(x, ...) {
 #' @section Environment variables:
 #'
 #' `DUCKPLYR_OUTPUT_ORDER`: If `TRUE`, row output order is preserved.
-#' If `FALSE`,
+#' The default may change the row order where dplyr would keep it stable.
 #'
 #' `DUCKPLYR_FORCE`: If `TRUE`, fail if duckdb cannot handle a request.
 #'
@@ -543,7 +546,12 @@ duckplyr_cross_join <- function(x, y, ...) {
 #' df$a
 #'
 #' # Return as tibble:
-#' df_from_file(path, "read_csv_auto", class = class(tibble()))
+#' df_from_file(
+#'   path,
+#'   "read_csv",
+#'   options = list(delim = ",", auto_detect = TRUE),
+#'   class = class(tibble())
+#' )
 #'
 #' unlink(path)
 df_from_file <- function(path,
@@ -1326,17 +1334,22 @@ intersect.data.frame <- function(x, y, ...) {
     "Tables of different width" = length(x_names) != length(y_names),
     "Name mismatch" = !identical(x_names, y_names) && !all(y_names %in% x_names),
     {
-      x_rel <- duckdb_rel_from_df(x)
-      y_rel <- duckdb_rel_from_df(y)
-      if (!identical(x_names, y_names)) {
-        # FIXME: Select by position
-        exprs <- nexprs_from_loc(x_names, set_names(seq_along(x_names), x_names))
-        y_rel <- rel_project(y_rel, exprs)
-      }
+      if (oo_force()) {
+        both <- semi_join(x, y, by = x_names)
+        out <- distinct(both)
+      } else {
+        x_rel <- duckdb_rel_from_df(x)
+        y_rel <- duckdb_rel_from_df(y)
+        if (!identical(x_names, y_names)) {
+          # FIXME: Select by position
+          exprs <- nexprs_from_loc(x_names, set_names(seq_along(x_names), x_names))
+          y_rel <- rel_project(y_rel, exprs)
+        }
 
-      rel <- rel_set_intersect(x_rel, y_rel)
-      out <- rel_to_df(rel)
-      out <- dplyr_reconstruct_dispatch(out, x)
+        rel <- rel_set_intersect(x_rel, y_rel)
+        out <- rel_to_df(rel)
+        out <- dplyr_reconstruct_dispatch(out, x)
+      }
       return(out)
     }
   )
@@ -2168,9 +2181,7 @@ duckplyr_macros <- c(
   #
   "wday" = "(x) AS CAST(weekday(CAST (x AS DATE)) + 1 AS int32)",
   #
-  "___eq_na_matches_na" = "(x, y) AS ((x IS NULL AND y IS NULL) OR (x = y))",
-  # https://github.com/duckdb/duckdb/issues/8605
-  # "___eq_na_matches_na" = '(x, y) AS (x IS DISTINCT FROM y)',
+  "___eq_na_matches_na" = '(x, y) AS (x IS NOT DISTINCT FROM y)',
   "___coalesce" = "(x, y) AS COALESCE(x, y)",
   #
   NULL
@@ -2209,6 +2220,18 @@ duckdb_rel_from_df <- function(df) {
     df <- as_duckplyr_df(df)
   }
 
+  out <- check_df_for_rel(df)
+
+  meta_rel_register_df(out, df)
+
+  out
+
+  # Causes protection errors
+  # duckdb$rel_from_df(get_default_duckdb_connection(), df)
+}
+
+# FIXME: This should be duckdb's responsibility
+check_df_for_rel <- function(df) {
   if (is.character(.row_names_info(df, 0L))) {
     stop("Need data frame without row names to convert to relational.")
   }
@@ -2257,12 +2280,7 @@ duckdb_rel_from_df <- function(df) {
     }
   }
 
-  meta_rel_register_df(out, df)
-
   out
-
-  # Causes protection errors
-  # duckdb$rel_from_df(get_default_duckdb_connection(), df)
 }
 
 #' @export
@@ -2494,6 +2512,8 @@ to_duckdb_expr <- function(x) {
       out
     },
     relational_relexpr_constant = {
+      check_df_for_rel(tibble(constant = x$val))
+
       if ("experimental" %in% names(formals(duckdb$expr_constant))) {
         experimental <- (Sys.getenv("DUCKPLYR_EXPERIMENTAL") == "TRUE")
         out <- duckdb$expr_constant(x$val, experimental = experimental)
@@ -3077,6 +3097,11 @@ rel_try <- function(rel, ...) {
   }
 
   stats$attempts <- stats$attempts + 1L
+
+  if (Sys.getenv("DUCKPLYR_FALLBACK_FORCE") == "TRUE") {
+    stats$fallback <- stats$fallback + 1L
+    return()
+  }
 
   dots <- list(...)
   for (i in seq_along(dots)) {
@@ -4144,17 +4169,22 @@ setdiff.data.frame <- function(x, y, ...) {
     "Tables of different width" = length(x_names) != length(y_names),
     "Name mismatch" = !identical(x_names, y_names) && !all(y_names %in% x_names),
     {
-      x_rel <- duckdb_rel_from_df(x)
-      y_rel <- duckdb_rel_from_df(y)
-      if (!identical(x_names, y_names)) {
-        # FIXME: Select by position
-        exprs <- nexprs_from_loc(x_names, set_names(seq_along(x_names), x_names))
-        y_rel <- rel_project(y_rel, exprs)
-      }
+      if (oo_force()) {
+        delta <- anti_join(x, y, by = x_names)
+        out <- distinct(delta)
+      } else {
+        x_rel <- duckdb_rel_from_df(x)
+        y_rel <- duckdb_rel_from_df(y)
+        if (!identical(x_names, y_names)) {
+          # FIXME: Select by position
+          exprs <- nexprs_from_loc(x_names, set_names(seq_along(x_names), x_names))
+          y_rel <- rel_project(y_rel, exprs)
+        }
 
-      rel <- rel_set_diff(x_rel, y_rel)
-      out <- rel_to_df(rel)
-      out <- dplyr_reconstruct_dispatch(out, x)
+        rel <- rel_set_diff(x_rel, y_rel)
+        out <- rel_to_df(rel)
+        out <- dplyr_reconstruct_dispatch(out, x)
+      }
       return(out)
     }
   )
@@ -4398,7 +4428,8 @@ stats <- new_environment(list(attempts = 0L, fallback = 0L, calls = character())
 #' Show stats
 #'
 #' Prints statistics on how many calls were handled by DuckDB.
-#'
+#' The output shows the total number of requests in the current session,
+#' split by fallbacks to dplyr and requests handled by duckdb.
 #'
 #' @return Called for its side effect.
 #'
@@ -4478,6 +4509,10 @@ summarise.data.frame <- function(.data, ..., .by = NULL, .groups = NULL) {
   # dplyr forward
   summarise <- summarise_data_frame
   out <- summarise(.data, ..., .by = {{ .by }}, .groups = .groups)
+  # dplyr_reconstruct() is not called here, restoring manually
+  if (!identical(.groups, "rowwise")) {
+    class(out) <- class(.data)
+  }
   return(out)
 
   # dplyr implementation
@@ -4533,17 +4568,24 @@ symdiff.data.frame <- function(x, y, ...) {
     "Tables of different width" = length(x_names) != length(y_names),
     "Name mismatch" = !identical(x_names, y_names) && !all(y_names %in% x_names),
     {
-      x_rel <- duckdb_rel_from_df(x)
-      y_rel <- duckdb_rel_from_df(y)
-      if (!identical(x_names, y_names)) {
-        # FIXME: Select by position
-        exprs <- nexprs_from_loc(x_names, set_names(seq_along(x_names), x_names))
-        y_rel <- rel_project(y_rel, exprs)
-      }
+      if (oo_force()) {
+        x_not_y <- anti_join(x, y, by = x_names)
+        y_not_x <- anti_join(y, x, by = x_names)
+        out <- union(x_not_y, y_not_x)
+      } else {
+        x_rel <- duckdb_rel_from_df(x)
+        y_rel <- duckdb_rel_from_df(y)
 
-      rel <- rel_set_symdiff(x_rel, y_rel)
-      out <- rel_to_df(rel)
-      out <- dplyr_reconstruct_dispatch(out, x)
+        if (!identical(x_names, y_names)) {
+          # FIXME: Select by position
+          exprs <- nexprs_from_loc(x_names, set_names(seq_along(x_names), x_names))
+          y_rel <- rel_project(y_rel, exprs)
+        }
+
+        rel <- rel_set_symdiff(x_rel, y_rel)
+        out <- rel_to_df(rel)
+        out <- dplyr_reconstruct_dispatch(out, x)
+      }
       return(out)
     }
   )

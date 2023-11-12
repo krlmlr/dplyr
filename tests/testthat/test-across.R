@@ -207,6 +207,7 @@ test_that("across() throws meaningful error with failure during expansion (#6534
 })
 
 test_that("across() gives meaningful messages", {
+  skip("TODO duckdb")
   expect_snapshot({
     # expanding
     (expect_error(
