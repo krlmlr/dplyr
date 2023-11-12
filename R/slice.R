@@ -302,7 +302,7 @@ slice_sample <- function(.data, ..., n, prop, by = NULL, weight_by = NULL, repla
 }
 
 #' @export
-slice_sample.data.frame <- function(.data, ..., n, prop, by = NULL, weight_by = NULL, replace = FALSE) {
+slice_sample_data_frame <- function(.data, ..., n, prop, by = NULL, weight_by = NULL, replace = FALSE) {
   check_dots_empty0(...)
 
   size <- get_slice_size(n = n, prop = prop, allow_outsize = replace)
