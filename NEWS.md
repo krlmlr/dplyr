@@ -1,5 +1,22 @@
 # dplyr (development version)
 
+* `left_join()` and friends now return a specialized error message if they
+  detect that your join would return more rows than dplyr can handle (#6912).
+
+* `slice_*()` now throw the correct error if you forget to name `n` while also
+  prefixing the call with `dplyr::` (#6946).
+
+* `join_by()` now allows its helper functions to be namespaced with `dplyr::`,
+  like `join_by(dplyr::between(x, lower, upper))` (#6838).
+
+* `dplyr_reconstruct()`'s default method has been rewritten to avoid
+  materializing duckplyr queries too early (#6947).
+
+* Updated the `storms` data to include 2022 data (#6937, @steveharoz).
+
+* Updated the `starwars` data to use a new API, because the old one is defunct.
+  There are very minor changes to the data itself (#6938, @steveharoz).
+
 # dplyr 1.1.3
 
 * `mutate_each()` and `summarise_each()` now throw correct deprecation messages
@@ -69,7 +86,7 @@
 
 * `pick()` now returns a 1 row, 0 column tibble when `...` evaluates to an
   empty selection. This makes it more compatible with [tidyverse recycling
-  rules](https://vctrs.r-lib.org/reference/vector_recycling_rules.html) in some
+  rules](https://vctrs.r-lib.org/reference/theory-faq-recycling.html) in some
   edge cases (#6685).
 
 * `if_else()` and `case_when()` again accept logical conditions that have
