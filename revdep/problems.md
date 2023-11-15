@@ -1,126 +1,12 @@
-# activatr
-
-<details>
-
-* Version: 0.2.0
-* GitHub: https://github.com/dschafer/activatr
-* Source code: https://github.com/cran/activatr
-* Date/Publication: 2023-08-22 07:30:12 UTC
-* Number of recursive dependencies: 108
-
-Run `revdepcheck::cloud_details(, "activatr")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking tests ... ERROR
-    ```
-      Running ‘testthat.R’
-    Running the tests in ‘tests/testthat.R’ failed.
-    Last 13 lines of output:
-      s$Time inherits from `'numeric'` not `'character'`.
-      ── Failure ('test_act_tbl.R:26:3'): summary works ──────────────────────────────
-      s$AvgPace inherits from `'numeric'` not `'character'`.
-      ── Failure ('test_act_tbl.R:28:3'): summary works ──────────────────────────────
-      s$MaxPace inherits from `'numeric'` not `'character'`.
-      ── Failure ('test_act_tbl.R:70:3'): summary allows for metric system ───────────
-      s$Time inherits from `'numeric'` not `'character'`.
-      ── Failure ('test_act_tbl.R:73:3'): summary allows for metric system ───────────
-      s$AvgPace inherits from `'numeric'` not `'character'`.
-      ── Failure ('test_act_tbl.R:75:3'): summary allows for metric system ───────────
-      s$MaxPace inherits from `'numeric'` not `'character'`.
-      
-      [ FAIL 6 | WARN 0 | SKIP 0 | PASS 98 ]
-      Error: Test failures
-      Execution halted
-    ```
-
-# APCI
-
-<details>
-
-* Version: 1.0.6
-* GitHub: NA
-* Source code: https://github.com/cran/APCI
-* Date/Publication: 2022-11-11 08:00:02 UTC
-* Number of recursive dependencies: 86
-
-Run `revdepcheck::cloud_details(, "APCI")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking tests ... ERROR
-    ```
-      Running ‘1_tests.R’
-    Running the tests in ‘tests/1_tests.R’ failed.
-    Last 13 lines of output:
-          acc2:pcc2     acc3:pcc2     acc4:pcc2     acc5:pcc2     acc6:pcc2 
-       -0.230615151  -0.014524201  -0.276240721   0.012607910   0.476839156 
-          acc7:pcc2     acc8:pcc2     acc9:pcc2     acc1:pcc3     acc2:pcc3 
-        0.111003728  -0.296227551   0.304570219   0.008181475   0.003055604 
-          acc3:pcc3     acc4:pcc3     acc5:pcc3     acc6:pcc3     acc7:pcc3 
-       -0.351655223   0.089076224   0.213414663  -0.319108009   0.174600807 
-          acc8:pcc3     acc9:pcc3     acc1:pcc4     acc2:pcc4     acc3:pcc4 
-       -0.089133079   0.104004588  -0.394424286   0.006189405   0.335628308 
-          acc4:pcc4     acc5:pcc4     acc6:pcc4     acc7:pcc4     acc8:pcc4 
-        0.270788168   0.196922074  -0.127954418  -0.073260766  -0.311902209 
-          acc9:pcc4     acc1:pcc5     acc2:pcc5     acc3:pcc5     acc4:pcc5 
-        0.040281017   0.023985760   0.232865825  -0.132857008  -0.078999637 
-          acc5:pcc5     acc6:pcc5     acc7:pcc5     acc8:pcc5     acc9:pcc5 
-       -0.487994557  -0.359116765   0.380874539   0.610149055  -0.279580507 
-      Killed
-    ```
-
-# APCtools
-
-<details>
-
-* Version: 1.0.4
-* GitHub: https://github.com/bauer-alex/APCtools
-* Source code: https://github.com/cran/APCtools
-* Date/Publication: 2023-01-13 23:30:02 UTC
-* Number of recursive dependencies: 107
-
-Run `revdepcheck::cloud_details(, "APCtools")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking tests ... ERROR
-    ```
-      Running ‘testthat.R’
-    Running the tests in ‘tests/testthat.R’ failed.
-    Last 13 lines of output:
-        5. │ └─plot_dat %>% filter(cohort %in% apc_range$cohort)
-        6. ├─dplyr::filter(., cohort %in% apc_range$cohort)
-        7. └─dplyr:::filter.data.frame(., cohort %in% apc_range$cohort)
-        8.   └─dplyr::filter(...)
-        9.     ├─dplyr::dplyr_row_slice(.data, loc, preserve = .preserve)
-       10.     └─dplyr:::dplyr_row_slice.data.frame(.data, loc, preserve = .preserve)
-       11.       ├─dplyr::dplyr_reconstruct(vec_slice(data, i), data)
-       12.       │ └─dplyr:::dplyr_new_data_frame(data)
-       13.       │   ├─row.names %||% .row_names_info(x, type = 0L)
-       14.       │   └─base::.row_names_info(x, type = 0L)
-       15.       └─vctrs::vec_slice(data, i)
-      
-      [ FAIL 1 | WARN 80 | SKIP 0 | PASS 86 ]
-      Error: Test failures
-      Execution halted
-    ```
-
 # arrow
 
 <details>
 
-* Version: 13.0.0
+* Version: 13.0.0.1
 * GitHub: https://github.com/apache/arrow
 * Source code: https://github.com/cran/arrow
-* Date/Publication: 2023-08-30 16:50:40 UTC
-* Number of recursive dependencies: 77
+* Date/Publication: 2023-09-22 10:20:05 UTC
+* Number of recursive dependencies: 79
 
 Run `revdepcheck::cloud_details(, "arrow")` for more info
 
@@ -132,18 +18,21 @@ Run `revdepcheck::cloud_details(, "arrow")` for more info
     ```
       Running ‘testthat.R’
     Running the tests in ‘tests/testthat.R’ failed.
-    Last 13 lines of output:
-      
-        `actual$min_int`: NA
-      `expected$min_int`:  1
-      
-        `actual$max_int`: NA
+    Complete output:
+      > # Licensed to the Apache Software Foundation (ASF) under one
+      > # or more contributor license agreements.  See the NOTICE file
+      > # distributed with this work for additional information
+      > # regarding copyright ownership.  The ASF licenses this file
+      > # to you under the Apache License, Version 2.0 (the
+      > # "License"); you may not use this file except in compliance
+      > # with the License.  You may obtain a copy of the License at
+    ...
       `expected$max_int`: 10
       Backtrace:
           ▆
-       1. └─arrow:::compare_dplyr_binding(...) at test-dplyr-summarize.R:548:2
-       2.   └─arrow:::expect_equal(via_table, expected, ...) at tests/testthat/helper-expectation.R:102:2
-       3.     └─testthat::expect_equal(...) at tests/testthat/helper-expectation.R:43:4
+       1. └─arrow:::compare_dplyr_binding(...) at test-dplyr-summarize.R:548:3
+       2.   └─arrow:::expect_equal(via_table, expected, ...) at tests/testthat/helper-expectation.R:102:3
+       3.     └─testthat::expect_equal(...) at tests/testthat/helper-expectation.R:43:5
       
       [ FAIL 1 | WARN 9 | SKIP 77 | PASS 6403 ]
       Error: Test failures
@@ -173,7 +62,7 @@ Run `revdepcheck::cloud_details(, "arrow")` for more info
 * GitHub: https://github.com/CornellLabofOrnithology/auk
 * Source code: https://github.com/cran/auk
 * Date/Publication: 2022-10-29 22:15:59 UTC
-* Number of recursive dependencies: 99
+* Number of recursive dependencies: 100
 
 Run `revdepcheck::cloud_details(, "auk")` for more info
 
@@ -221,7 +110,7 @@ Run `revdepcheck::cloud_details(, "auk")` for more info
 * GitHub: https://github.com/gorkang/BayesianReasoning
 * Source code: https://github.com/cran/BayesianReasoning
 * Date/Publication: 2022-01-07 13:53:16 UTC
-* Number of recursive dependencies: 85
+* Number of recursive dependencies: 87
 
 Run `revdepcheck::cloud_details(, "BayesianReasoning")` for more info
 
@@ -233,12 +122,15 @@ Run `revdepcheck::cloud_details(, "BayesianReasoning")` for more info
     ```
       Running ‘testthat.R’
     Running the tests in ‘tests/testthat.R’ failed.
-    Last 13 lines of output:
+    Complete output:
+      > library(testthat)
+      > library(BayesianReasoning)
+      > 
+      > test_check("BayesianReasoning")
+      [ FAIL 1 | WARN 1 | SKIP 0 | PASS 113 ]
       
       ══ Failed tests ════════════════════════════════════════════════════════════════
-      ── Error ('test-PPV_heatmap.R:173:3'): WARNINGS because of Wrong parameters ────
-      Error in `slice(.data, ..., .by = {
-          {
+    ...
               .by
           }
       }, .preserve = .preserve)`: Can't compute indices.
@@ -256,52 +148,6 @@ Run `revdepcheck::cloud_details(, "BayesianReasoning")` for more info
 *   checking dependencies in R code ... NOTE
     ```
     Namespace in Imports field not imported from: ‘utils’
-      All declared Imports should be used.
-    ```
-
-# biclustermd
-
-<details>
-
-* Version: 0.2.3
-* GitHub: https://github.com/jreisner/biclustermd
-* Source code: https://github.com/cran/biclustermd
-* Date/Publication: 2021-06-17 15:10:06 UTC
-* Number of recursive dependencies: 84
-
-Run `revdepcheck::cloud_details(, "biclustermd")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking tests ... ERROR
-    ```
-      Running ‘testthat.R’
-    Running the tests in ‘tests/testthat.R’ failed.
-    Last 13 lines of output:
-      
-          matches
-      
-      > 
-      > test_check("biclustermd")
-      [ FAIL 1 | WARN 0 | SKIP 0 | PASS 67 ]
-      
-      ══ Failed tests ════════════════════════════════════════════════════════════════
-      ── Failure ('test-row.names.R:19:5'): row.names() is a subset of gather() ──────
-      row.names(sbc) not equal to ... %>% select(row_cluster, row_name).
-      Component "row_name": 3 string mismatches
-      
-      [ FAIL 1 | WARN 0 | SKIP 0 | PASS 67 ]
-      Error: Test failures
-      Execution halted
-    ```
-
-## In both
-
-*   checking dependencies in R code ... NOTE
-    ```
-    Namespace in Imports field not imported from: ‘nycflights13’
       All declared Imports should be used.
     ```
 
@@ -342,53 +188,15 @@ Run `revdepcheck::cloud_details(, "CCWeights")` for more info
     Execution halted
     ```
 
-# CNAIM
-
-<details>
-
-* Version: 2.1.4
-* GitHub: https://github.com/Utiligize/CNAIM
-* Source code: https://github.com/cran/CNAIM
-* Date/Publication: 2022-08-31 08:40:22 UTC
-* Number of recursive dependencies: 82
-
-Run `revdepcheck::cloud_details(, "CNAIM")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking tests ... ERROR
-    ```
-      Running ‘testthat.R’
-    Running the tests in ‘tests/testthat.R’ failed.
-    Last 13 lines of output:
-      
-      ══ Failed tests ════════════════════════════════════════════════════════════════
-      ── Failure ('test-matrix_functions.R:58:3'): Default case ──────────────────────
-      `res` not equal to `expected_df`.
-      Component "x": Modes: character, numeric
-      Component "x": target is character, current is numeric
-      Component "y": Modes: character, numeric
-      Component "y": target is character, current is numeric
-      Component "point_x": 1 string mismatch
-      Component "point_y": 1 string mismatch
-      Component "dot_radius": 1 string mismatch
-      
-      [ FAIL 1 | WARN 1 | SKIP 0 | PASS 222 ]
-      Error: Test failures
-      Execution halted
-    ```
-
 # CodelistGenerator
 
 <details>
 
-* Version: 1.7.0
+* Version: 2.0.0
 * GitHub: NA
 * Source code: https://github.com/cran/CodelistGenerator
-* Date/Publication: 2023-08-16 08:42:32 UTC
-* Number of recursive dependencies: 116
+* Date/Publication: 2023-10-09 13:40:18 UTC
+* Number of recursive dependencies: 125
 
 Run `revdepcheck::cloud_details(, "CodelistGenerator")` for more info
 
@@ -425,14 +233,17 @@ Run `revdepcheck::cloud_details(, "CodelistGenerator")` for more info
     ```
       Running ‘testthat.R’
     Running the tests in ‘tests/testthat.R’ failed.
-    Last 13 lines of output:
-        7.   └─dplyr::inner_join(...)
-        8.     ├─dplyr::auto_copy(x, y, copy = copy)
-        9.     └─dplyr:::auto_copy.data.frame(x, y, copy = copy)
-       10.       └─dplyr:::as_duckplyr_df(y)
-       11.         └─rlang::abort("Must pass a plain data frame or a tibble to `as_duckplyr_df()`.")
+    Complete output:
+      > library(testthat)
+      > library(CodelistGenerator)
+      > 
+      > test_check("CodelistGenerator")
+      condition domain: Limiting to domains of interest
+      condition: Getting concepts to include
+      condition domain: Adding descendants
+    ...
       
-      [ FAIL 3 | WARN 0 | SKIP 3 | PASS 127 ]
+      [ FAIL 3 | WARN 0 | SKIP 5 | PASS 241 ]
       Error: Test failures
       In addition: Warning messages:
       1: Connection is garbage-collected, use dbDisconnect() to avoid this. 
@@ -451,7 +262,7 @@ Run `revdepcheck::cloud_details(, "CodelistGenerator")` for more info
 * GitHub: NA
 * Source code: https://github.com/cran/cogmapr
 * Date/Publication: 2022-01-04 15:40:07 UTC
-* Number of recursive dependencies: 75
+* Number of recursive dependencies: 77
 
 Run `revdepcheck::cloud_details(, "cogmapr")` for more info
 
@@ -492,7 +303,7 @@ Run `revdepcheck::cloud_details(, "cogmapr")` for more info
 * GitHub: NA
 * Source code: https://github.com/cran/crosshap
 * Date/Publication: 2023-05-02 07:50:08 UTC
-* Number of recursive dependencies: 117
+* Number of recursive dependencies: 119
 
 Run `revdepcheck::cloud_details(, "crosshap")` for more info
 
@@ -504,12 +315,15 @@ Run `revdepcheck::cloud_details(, "crosshap")` for more info
     ```
       Running ‘testthat.R’
     Running the tests in ‘tests/testthat.R’ failed.
-    Last 13 lines of output:
-      Backtrace:
-          ▆
-       1. ├─crosshap::prepare_hap_umap(...) at test-umap.R:4:0
-       2. │ └─... %>% ...
-       3. ├─dplyr::left_join(., HapObject_eps$Indfile, .data$hap, by = "Ind")
+    Complete output:
+      > # This file is part of the standard setup for testthat.
+      > # It is recommended that you do not modify it.
+      > #
+      > # Where should you do additional test configuration?
+      > # Learn more about the roles of various files in:
+      > # * https://r-pkgs.org/tests.html
+      > # * https://testthat.r-lib.org/reference/test_package.html#special-files
+    ...
        4. ├─dplyr:::left_join.data.frame(...)
        5. │ └─dplyr:::rel_try(...)
        6. ├─hap
@@ -530,7 +344,7 @@ Run `revdepcheck::cloud_details(, "crosshap")` for more info
 * GitHub: https://github.com/hadley/cubelyr
 * Source code: https://github.com/cran/cubelyr
 * Date/Publication: 2022-11-07 15:50:02 UTC
-* Number of recursive dependencies: 45
+* Number of recursive dependencies: 47
 
 Run `revdepcheck::cloud_details(, "cubelyr")` for more info
 
@@ -542,7 +356,8 @@ Run `revdepcheck::cloud_details(, "cubelyr")` for more info
     ```
       Running ‘testthat.R’
     Running the tests in ‘tests/testthat.R’ failed.
-    Last 13 lines of output:
+    Complete output:
+      > library(testthat)
       > library(cubelyr)
       > 
       > test_check("cubelyr")
@@ -580,7 +395,7 @@ Run `revdepcheck::cloud_details(, "datacutr")` for more info
     ```
       Running ‘testthat.R’
     Running the tests in ‘tests/testthat.R’ failed.
-    Last 13 lines of output:
+    Complete output:
       > library(testthat)
       > library(datacutr)
       > 
@@ -605,7 +420,7 @@ Run `revdepcheck::cloud_details(, "datacutr")` for more info
 * GitHub: https://github.com/imbi-heidelberg/DescrTab2
 * Source code: https://github.com/cran/DescrTab2
 * Date/Publication: 2022-09-06 08:50:02 UTC
-* Number of recursive dependencies: 168
+* Number of recursive dependencies: 169
 
 Run `revdepcheck::cloud_details(, "DescrTab2")` for more info
 
@@ -635,12 +450,15 @@ Run `revdepcheck::cloud_details(, "DescrTab2")` for more info
     ```
       Running ‘testthat.R’
     Running the tests in ‘tests/testthat.R’ failed.
-    Last 13 lines of output:
-      [ FAIL 1 | WARN 191 | SKIP 7 | PASS 201 ]
+    Complete output:
+      > library(testthat)
+      > library(DescrTab2)
+      > 
+      > 
+      > test_check("DescrTab2")
+      Error converted to warning: Error in t.test.default(x = numeric(0)): not enough 'x' observations
       
-      ══ Skipped tests (7) ═══════════════════════════════════════════════════════════
-      • On CRAN (6): 'test_console_output.R:17:1', 'test_html.R:5:5',
-        'test_numeric.R:44:1', 'test_tests.R:24:1', 'test_tex.R:4:3',
+    ...
         'test_word.R:6:5'
       • empty test (1): 'test_misc.R:50:1'
       
@@ -653,83 +471,15 @@ Run `revdepcheck::cloud_details(, "DescrTab2")` for more info
       Execution halted
     ```
 
-## In both
-
-*   checking re-building of vignette outputs ... WARNING
-    ```
-    Error(s) in re-building vignettes:
-    --- re-building ‘a_usage_guide.Rmd’ using rmarkdown
-    --- finished re-building ‘a_usage_guide.Rmd’
-    
-    --- re-building ‘b_test_choice_tree_pdf.Rmd’ using rmarkdown
-    A new version of TeX Live has been released. If you need to install or update any LaTeX packages, you have to upgrade TinyTeX with tinytex::reinstall_tinytex(repository = "illinois").
-    
-    tlmgr: Local TeX Live (2022) is older than remote repository (2023).
-    Cross release updates are only supported with
-      update-tlmgr-latest(.sh/.exe) --update
-    ...
-    --- finished re-building ‘d_validation_statement.Rmd’
-    
-    --- re-building ‘e_maintenance_guide.Rmd’ using rmarkdown
-    --- finished re-building ‘e_maintenance_guide.Rmd’
-    
-    SUMMARY: processing the following file failed:
-      ‘b_test_choice_tree_pdf.Rmd’
-    
-    Error: Vignette re-building failed.
-    Execution halted
-    ```
-
-# DSjobtracker
-
-<details>
-
-* Version: 0.1.1
-* GitHub: NA
-* Source code: https://github.com/cran/DSjobtracker
-* Date/Publication: 2020-12-14 10:00:02 UTC
-* Number of recursive dependencies: 76
-
-Run `revdepcheck::cloud_details(, "DSjobtracker")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking re-building of vignette outputs ... ERROR
-    ```
-    Error(s) in re-building vignettes:
-      ...
-    --- re-building ‘DSjobtracker.Rmd’ using rmarkdown
-    
-    Quitting from lines 136-155 [unnamed-chunk-9] (DSjobtracker.Rmd)
-    Error: processing vignette 'DSjobtracker.Rmd' failed with diagnostics:
-    Error evaluating duckdb query: Out of Range Error: cannot take logarithm of zero
-    --- failed re-building ‘DSjobtracker.Rmd’
-    
-    SUMMARY: processing the following file failed:
-      ‘DSjobtracker.Rmd’
-    
-    Error: Vignette re-building failed.
-    Execution halted
-    ```
-
-## In both
-
-*   checking data for non-ASCII characters ... NOTE
-    ```
-      Note: found 149 marked UTF-8 strings
-    ```
-
 # duckplyr
 
 <details>
 
-* Version: 0.2.0
+* Version: 0.2.3
 * GitHub: https://github.com/duckdblabs/duckplyr
 * Source code: https://github.com/cran/duckplyr
-* Date/Publication: 2023-09-10 21:10:02 UTC
-* Number of recursive dependencies: 90
+* Date/Publication: 2023-11-08 18:20:02 UTC
+* Number of recursive dependencies: 91
 
 Run `revdepcheck::cloud_details(, "duckplyr")` for more info
 
@@ -741,21 +491,24 @@ Run `revdepcheck::cloud_details(, "duckplyr")` for more info
     ```
       Running ‘testthat.R’
     Running the tests in ‘tests/testthat.R’ failed.
-    Last 13 lines of output:
-      In addition: Warning messages:
-      1: In normalizePath(tools::R_user_dir("R.cache", which = "cache")) :
-        path[1]="/root/.cache/R/R.cache": No such file or directory
-      2: In normalizePath(tools::R_user_dir("R.cache", which = "cache")) :
-        path[1]="/root/.cache/R/R.cache": No such file or directory
+    Complete output:
+      > # This file is part of the standard setup for testthat.
+      > # It is recommended that you do not modify it.
+      > #
+      > # Where should you do additional test configuration?
+      > # Learn more about the roles of various files in:
+      > # * https://r-pkgs.org/tests.html
+      > # * https://testthat.r-lib.org/reference/test_package.html#special-files
+    ...
       3: In normalizePath(tools::R_user_dir("R.cache", which = "cache")) :
         path[1]="/root/.cache/R/R.cache": No such file or directory
       
-      🛠: 871
-      🔨: 560
-      🦆: 311
-      add_count, anti_join, arrange, compute, count, cross_join, distinct, do, eval, filter, full_join, inner_join, intersect, left_join, mutate, nest_join, pull, reframe, relocate, rename, rename_with, right_join, rows_append, rows_delete, rows_insert, rows_patch, rows_update, rows_upsert, select, semi_join, setdiff, setequal, slice, slice_head, slice_tail, summarise, symdiff, transmute, ungroup, union_all
+      🛠: 943
+      🔨: 573
+      🦆: 370
+      add_count, anti_join, arrange, compute, count, cross_join, distinct, do, eval, filter, full_join, inner_join, intersect, left_join, mutate, mutate.data.frame, nest_join, pull, reframe, relocate, rename, rename_with, right_join, rows_append, rows_delete, rows_insert, rows_patch, rows_update, rows_upsert, select, semi_join, setdiff, setequal, slice, slice_head, slice_tail, summarise, symdiff, transmute, ungroup, union_all
       
-      00:00:45.851548
+      00:01:13.88305
       Execution halted
     ```
 
@@ -767,7 +520,7 @@ Run `revdepcheck::cloud_details(, "duckplyr")` for more info
 * GitHub: https://github.com/tilltnet/egor
 * Source code: https://github.com/cran/egor
 * Date/Publication: 2023-03-16 04:40:02 UTC
-* Number of recursive dependencies: 89
+* Number of recursive dependencies: 90
 
 Run `revdepcheck::cloud_details(, "egor")` for more info
 
@@ -779,12 +532,15 @@ Run `revdepcheck::cloud_details(, "egor")` for more info
     ```
       Running ‘testthat.R’
     Running the tests in ‘tests/testthat.R’ failed.
-    Last 13 lines of output:
-        4. │   │ └─base::withCallingHandlers(...)
-        5. │   └─rlang::eval_bare(quo_get_expr(.quo), quo_get_env(.quo))
-        6. ├─dplyr::left_join(x, res, copy = TRUE)
-        7. └─egor:::left_join.egor(x, res, copy = TRUE)
-        8.   ├─dplyr::left_join(...)
+    Complete output:
+      > library(testthat)
+      > library(egor)
+      Loading required package: dplyr
+      
+      Attaching package: 'dplyr'
+      
+      The following object is masked from 'package:testthat':
+    ...
         9.   └─dplyr:::left_join.data.frame(...)
        10.     └─dplyr::left_join(...)
        11.       ├─dplyr::auto_copy(x, y, copy = copy)
@@ -797,56 +553,15 @@ Run `revdepcheck::cloud_details(, "egor")` for more info
       Execution halted
     ```
 
-# eiCompare
-
-<details>
-
-* Version: 3.0.4
-* GitHub: https://github.com/RPVote/eiCompare
-* Source code: https://github.com/cran/eiCompare
-* Date/Publication: 2023-08-31 13:30:02 UTC
-* Number of recursive dependencies: 146
-
-Run `revdepcheck::cloud_details(, "eiCompare")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking re-building of vignette outputs ... ERROR
-    ```
-    Error(s) in re-building vignettes:
-    --- re-building ‘bisg.Rmd’ using rmarkdown
-    
-    Quitting from lines 164-175 [unnamed-chunk-16] (bisg.Rmd)
-    Error: processing vignette 'bisg.Rmd' failed with diagnostics:
-    no applicable method for 'tbl_vars' applied to an object of class "NULL"
-    --- failed re-building ‘bisg.Rmd’
-    
-    --- re-building ‘ei.Rmd’ using rmarkdown
-    --- finished re-building ‘ei.Rmd’
-    ...
-    Quitting from lines 235-263 [performance_analysis] (performance_analysis.Rmd)
-    Error: processing vignette 'performance_analysis.Rmd' failed with diagnostics:
-    No columns selected for aggregation.
-    --- failed re-building ‘performance_analysis.Rmd’
-    
-    SUMMARY: processing the following files failed:
-      ‘bisg.Rmd’ ‘performance_analysis.Rmd’
-    
-    Error: Vignette re-building failed.
-    Execution halted
-    ```
-
 # ezplot
 
 <details>
 
-* Version: 0.7.8
+* Version: 0.7.10
 * GitHub: NA
 * Source code: https://github.com/cran/ezplot
-* Date/Publication: 2023-06-17 07:30:02 UTC
-* Number of recursive dependencies: 107
+* Date/Publication: 2023-10-20 21:10:02 UTC
+* Number of recursive dependencies: 109
 
 Run `revdepcheck::cloud_details(, "ezplot")` for more info
 
@@ -858,7 +573,8 @@ Run `revdepcheck::cloud_details(, "ezplot")` for more info
     ```
       Running ‘testthat.R’
     Running the tests in ‘tests/testthat.R’ failed.
-    Last 13 lines of output:
+    Complete output:
+      > library(testthat)
       > library(ezplot)
       > suppressPackageStartupMessages(library(tsibble))
       > 
@@ -884,7 +600,7 @@ Run `revdepcheck::cloud_details(, "ezplot")` for more info
 * GitHub: https://github.com/forestgeo/fgeo.analyze
 * Source code: https://github.com/cran/fgeo.analyze
 * Date/Publication: 2020-12-05 05:40:12 UTC
-* Number of recursive dependencies: 100
+* Number of recursive dependencies: 101
 
 Run `revdepcheck::cloud_details(, "fgeo.analyze")` for more info
 
@@ -897,12 +613,14 @@ Run `revdepcheck::cloud_details(, "fgeo.analyze")` for more info
       Running ‘spelling.R’
       Running ‘testthat.R’
     Running the tests in ‘tests/testthat.R’ failed.
-    Last 13 lines of output:
-       16. │ └─base::is.data.frame(dfm)
-       17. ├─fgeo.analyze:::mean_years(.)
-       18. │ └─... %>% rename_matches(data)
-       19. ├─fgeo.tool::rename_matches(., data)
-       20. │ └─fgeo.tool::extract_insensitive(names(x), names(y))
+    Complete output:
+      > library(testthat)
+      > library(fgeo.analyze)
+      > 
+      > test_check("fgeo.analyze")
+      $N2
+      [1] 29
+    ...
        21. ├─dplyr::ungroup(.)
        22. ├─dplyr::arrange(., .data$plotcensusnumber)
        23. ├─base::unique(.)
@@ -942,12 +660,15 @@ Run `revdepcheck::cloud_details(, "finnts")` for more info
     ```
       Running ‘testthat.R’
     Running the tests in ‘tests/testthat.R’ failed.
-    Last 13 lines of output:
-      ── Error ('test-forecast_time_series.R:100:3'): final forecast data rows are meaningful ──
-      Error: Error evaluating duckdb query: Conversion Error: Unimplemented type for cast (DATE -> DOUBLE)
-      Backtrace:
-          ▆
-       1. ├─testthat::expect_equal(nrow(future_frame), forecast_horizon) at test-forecast_time_series.R:100:2
+    Complete output:
+      > library(testthat)
+      > library(finnts)
+      Loading required package: modeltime
+      > 
+      > test_check("finnts")
+      Finn Submission Info
+      • Experiment Name: finn_fcst
+    ...
        2. │ └─testthat::quasi_label(enquo(object), label, arg = "object")
        3. │   └─rlang::eval_bare(expr, quo_get_env(quo))
        4. └─base::nrow(future_frame)
@@ -968,7 +689,7 @@ Run `revdepcheck::cloud_details(, "finnts")` for more info
 * GitHub: https://github.com/sollano/forestmangr
 * Source code: https://github.com/cran/forestmangr
 * Date/Publication: 2023-02-15 22:20:02 UTC
-* Number of recursive dependencies: 126
+* Number of recursive dependencies: 128
 
 Run `revdepcheck::cloud_details(, "forestmangr")` for more info
 
@@ -1034,7 +755,7 @@ Run `revdepcheck::cloud_details(, "forestmangr")` for more info
 * GitHub: NA
 * Source code: https://github.com/cran/funneljoin
 * Date/Publication: 2023-03-21 20:00:02 UTC
-* Number of recursive dependencies: 59
+* Number of recursive dependencies: 61
 
 Run `revdepcheck::cloud_details(, "funneljoin")` for more info
 
@@ -1046,12 +767,15 @@ Run `revdepcheck::cloud_details(, "funneljoin")` for more info
     ```
       Running ‘testthat.R’
     Running the tests in ‘tests/testthat.R’ failed.
-    Last 13 lines of output:
-        5. └─dplyr:::mutate.data.frame(...)
-        6.   └─dplyr::mutate(...)
-        7.     └─dplyr:::compute_by(...)
-        8.       ├─dplyr::group_data(data)
-        9.       ├─dplyr:::group_data.tbl_df(data)
+    Complete output:
+      > library(testthat)
+      > library(funneljoin)
+      
+      Attaching package: 'funneljoin'
+      
+      The following object is masked from 'package:stats':
+      
+    ...
        10.       ├─base::NextMethod()
        11.       └─dplyr:::group_data.data.frame(data)
        12.         └─base::nrow(.data)
@@ -1090,7 +814,7 @@ Run `revdepcheck::cloud_details(, "funneljoin")` for more info
 * GitHub: https://github.com/ilundberg/gapclosing
 * Source code: https://github.com/cran/gapclosing
 * Date/Publication: 2021-10-11 07:40:22 UTC
-* Number of recursive dependencies: 86
+* Number of recursive dependencies: 88
 
 Run `revdepcheck::cloud_details(, "gapclosing")` for more info
 
@@ -1106,7 +830,7 @@ Run `revdepcheck::cloud_details(, "gapclosing")` for more info
     
     Quitting from lines 93-103 [unnamed-chunk-4] (gapclosing.Rmd)
     Error: processing vignette 'gapclosing.Rmd' failed with diagnostics:
-    task 352 failed - "task 2 failed - "This looks like it has been freed""
+    task 444 failed - "task 2 failed - "This looks like it has been freed""
     --- failed re-building ‘gapclosing.Rmd’
     
     SUMMARY: processing the following file failed:
@@ -1124,7 +848,7 @@ Run `revdepcheck::cloud_details(, "gapclosing")` for more info
 * GitHub: NA
 * Source code: https://github.com/cran/ggmotif
 * Date/Publication: 2022-08-11 10:30:05 UTC
-* Number of recursive dependencies: 160
+* Number of recursive dependencies: 161
 
 Run `revdepcheck::cloud_details(, "ggmotif")` for more info
 
@@ -1178,60 +902,6 @@ Run `revdepcheck::cloud_details(, "ggmotif")` for more info
       All declared Imports should be used.
     ```
 
-# hlaR
-
-<details>
-
-* Version: 1.0.0
-* GitHub: https://github.com/LarsenLab/hlaR
-* Source code: https://github.com/cran/hlaR
-* Date/Publication: 2023-01-31 17:10:02 UTC
-* Number of recursive dependencies: 152
-
-Run `revdepcheck::cloud_details(, "hlaR")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking examples ... ERROR
-    ```
-    Running examples in ‘hlaR-Ex.R’ failed
-    The error most likely occurred in:
-    
-    > ### Name: CalEpletMHCI
-    > ### Title: Calculate class I HLA eplet mismatch
-    > ### Aliases: CalEpletMHCI
-    > 
-    > ### ** Examples
-    > 
-    > dat<-read.csv(system.file("extdata/example","MHC_I_test.csv",package="hlaR"),sep=",",header=TRUE)
-    > re <- CalEpletMHCI(dat_in = dat, ver = 3)
-    Error: Error evaluating duckdb query: Conversion Error: Could not convert string '56R' to BOOL
-    Execution halted
-    ```
-
-*   checking re-building of vignette outputs ... ERROR
-    ```
-    Error(s) in re-building vignettes:
-      ...
-    --- re-building ‘allele-haplotype.Rmd’ using rmarkdown
-    --- finished re-building ‘allele-haplotype.Rmd’
-    
-    --- re-building ‘eplet-mm.Rmd’ using rmarkdown
-    
-    Quitting from lines 48-53 [unnamed-chunk-3] (eplet-mm.Rmd)
-    Error: processing vignette 'eplet-mm.Rmd' failed with diagnostics:
-    Error evaluating duckdb query: Conversion Error: Could not convert string '17RS' to BOOL
-    --- failed re-building ‘eplet-mm.Rmd’
-    
-    SUMMARY: processing the following file failed:
-      ‘eplet-mm.Rmd’
-    
-    Error: Vignette re-building failed.
-    Execution halted
-    ```
-
 # IPEDS
 
 <details>
@@ -1240,7 +910,7 @@ Run `revdepcheck::cloud_details(, "hlaR")` for more info
 * GitHub: NA
 * Source code: https://github.com/cran/IPEDS
 * Date/Publication: 2022-11-01 07:52:51 UTC
-* Number of recursive dependencies: 80
+* Number of recursive dependencies: 81
 
 Run `revdepcheck::cloud_details(, "IPEDS")` for more info
 
@@ -1295,7 +965,7 @@ Run `revdepcheck::cloud_details(, "IPEDS")` for more info
 * GitHub: https://github.com/patrickroocks/listcompr
 * Source code: https://github.com/cran/listcompr
 * Date/Publication: 2021-10-02 15:50:02 UTC
-* Number of recursive dependencies: 53
+* Number of recursive dependencies: 55
 
 Run `revdepcheck::cloud_details(, "listcompr")` for more info
 
@@ -1307,12 +977,15 @@ Run `revdepcheck::cloud_details(, "listcompr")` for more info
     ```
       Running ‘testthat.r’
     Running the tests in ‘tests/testthat.r’ failed.
-    Last 13 lines of output:
+    Complete output:
+      > library(testthat)
+      > library(listcompr)
       > 
       > test_check("listcompr")
       [ FAIL 1 | WARN 0 | SKIP 0 | PASS 125 ]
       
       ══ Failed tests ════════════════════════════════════════════════════════════════
+    ...
       ── Failure ('testbase.r:294:3'): tests with dplyr ──────────────────────────────
       dplyr::filter(...) not equal to data.frame(...).
       Component "a_1": Mean relative difference: 0.6666667
@@ -1325,57 +998,15 @@ Run `revdepcheck::cloud_details(, "listcompr")` for more info
       Execution halted
     ```
 
-# MACP
-
-<details>
-
-* Version: 0.1.0
-* GitHub: https://github.com/mrbakhsh/MACP
-* Source code: https://github.com/cran/MACP
-* Date/Publication: 2023-02-28 17:32:30 UTC
-* Number of recursive dependencies: 235
-
-Run `revdepcheck::cloud_details(, "MACP")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking re-building of vignette outputs ... ERROR
-    ```
-    Error(s) in re-building vignettes:
-      ...
-    --- re-building ‘MACP_tutorial.Rmd’ using rmarkdown
-    
-    Quitting from lines 329-341 [unnamed-chunk-13] (MACP_tutorial.Rmd)
-    Error: processing vignette 'MACP_tutorial.Rmd' failed with diagnostics:
-    argument is of length zero
-    --- failed re-building ‘MACP_tutorial.Rmd’
-    
-    SUMMARY: processing the following file failed:
-      ‘MACP_tutorial.Rmd’
-    
-    Error: Vignette re-building failed.
-    Execution halted
-    ```
-
-## In both
-
-*   checking dependencies in R code ... NOTE
-    ```
-    Namespace in Imports field not imported from: ‘fmsb’
-      All declared Imports should be used.
-    ```
-
 # manynet
 
 <details>
 
-* Version: 0.2.1
+* Version: 0.2.8
 * GitHub: https://github.com/snlab-ch/manynet
 * Source code: https://github.com/cran/manynet
-* Date/Publication: 2023-08-11 13:40:06 UTC
-* Number of recursive dependencies: 115
+* Date/Publication: 2023-11-02 10:10:08 UTC
+* Number of recursive dependencies: 138
 
 Run `revdepcheck::cloud_details(, "manynet")` for more info
 
@@ -1412,12 +1043,15 @@ Run `revdepcheck::cloud_details(, "manynet")` for more info
     ```
       Running ‘testthat.R’
     Running the tests in ‘tests/testthat.R’ failed.
-    Last 13 lines of output:
-        4. └─manynet::from_subgraphs(to_subgraphs(unicorn, "unicorn"))
-        5.   └─manynet::join_nodes(out, ann[[i]])
-        6.     ├─dplyr::full_join(out, object2, by = by, copy = TRUE)
-        7.     └─tidygraph:::full_join.tbl_graph(out, object2, by = by, copy = TRUE)
-        8.       ├─dplyr::full_join(...)
+    Complete output:
+      > library(testthat)
+      > library(manynet)
+      Registered S3 method overwritten by 'manynet':
+        method          from     
+        print.tbl_graph tidygraph
+      > 
+      > test_check("manynet")
+    ...
         9.       └─dplyr:::full_join.data.frame(...)
        10.         └─dplyr::full_join(...)
        11.           ├─dplyr::auto_copy(x, y, copy = copy)
@@ -1425,7 +1059,7 @@ Run `revdepcheck::cloud_details(, "manynet")` for more info
        13.             └─dplyr:::as_duckplyr_df(y)
        14.               └─rlang::abort("Must pass a plain data frame or a tibble to `as_duckplyr_df()`.")
       
-      [ FAIL 1 | WARN 0 | SKIP 7 | PASS 301 ]
+      [ FAIL 1 | WARN 0 | SKIP 10 | PASS 301 ]
       Error: Test failures
       Execution halted
     ```
@@ -1437,6 +1071,11 @@ Run `revdepcheck::cloud_details(, "manynet")` for more info
     Package which this enhances but not available for checking: ‘Rgraphviz’
     ```
 
+*   checking data for non-ASCII characters ... NOTE
+    ```
+      Note: found 7 marked UTF-8 strings
+    ```
+
 # metacore
 
 <details>
@@ -1445,7 +1084,7 @@ Run `revdepcheck::cloud_details(, "manynet")` for more info
 * GitHub: https://github.com/atorus-research/metacore
 * Source code: https://github.com/cran/metacore
 * Date/Publication: 2023-03-02 17:10:03 UTC
-* Number of recursive dependencies: 71
+* Number of recursive dependencies: 72
 
 Run `revdepcheck::cloud_details(, "metacore")` for more info
 
@@ -1457,7 +1096,8 @@ Run `revdepcheck::cloud_details(, "metacore")` for more info
     ```
       Running ‘testthat.R’
     Running the tests in ‘tests/testthat.R’ failed.
-    Last 13 lines of output:
+    Complete output:
+      > library(testthat)
       > library(metacore)
       > 
       > test_check("metacore")
@@ -1483,7 +1123,7 @@ Run `revdepcheck::cloud_details(, "metacore")` for more info
 * GitHub: https://github.com/Merck/metalite.ae
 * Source code: https://github.com/cran/metalite.ae
 * Date/Publication: 2023-02-24 19:50:02 UTC
-* Number of recursive dependencies: 104
+* Number of recursive dependencies: 105
 
 Run `revdepcheck::cloud_details(, "metalite.ae")` for more info
 
@@ -1495,12 +1135,15 @@ Run `revdepcheck::cloud_details(, "metalite.ae")` for more info
     ```
       Running ‘testthat.R’
     Running the tests in ‘tests/testthat.R’ failed.
-    Last 13 lines of output:
-      [65] 2.38095238    | 2.38095238      [65]            
-      [66] 1.19047619    | 1.19047619      [66]            
-      [67] 5.98006645    | 5.98006645      [67]            
-      [68] 0.00000000    - 0.02768549      [68]            
-      [69] 0.02768549    - -1.13510520     [69]            
+    Complete output:
+      > library(testthat)
+      > library(metalite)
+      > library(metalite.ae)
+      > library(r2rtf)
+      > test_check("metalite.ae")
+      
+      Attaching package: 'dplyr'
+    ...
       [70] 2.38095238    - 0.00000000      [70]            
       [71] 2.38095238    - 1.19047619      [71]            
       [72] 0.02768549    - 1.19047619      [72]            
@@ -1513,44 +1156,6 @@ Run `revdepcheck::cloud_details(, "metalite.ae")` for more info
       Execution halted
     ```
 
-# mpathsenser
-
-<details>
-
-* Version: 1.1.3
-* GitHub: NA
-* Source code: https://github.com/cran/mpathsenser
-* Date/Publication: 2023-02-07 14:12:31 UTC
-* Number of recursive dependencies: 108
-
-Run `revdepcheck::cloud_details(, "mpathsenser")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking tests ... ERROR
-    ```
-      Running ‘testthat.R’
-    Running the tests in ‘tests/testthat.R’ failed.
-    Last 13 lines of output:
-      [540] "12345_540"           | "12345_540"             [520]           
-      [541] "12345_541"           | "12345_541"             [521]           
-      [542] "12345_542"           | "12345_542"             [522]           
-      [543] "12345_543"           -                                         
-      [544] "12345_544"           -                                         
-      [545] "12345_545"           -                                         
-      [546] "12345_546"           -                                         
-      [547] "12345_547"           | "12345_547"             [523]           
-      [548] "12345_548"           -                                         
-      [549] "12345_549"           -                                         
-        ... ...                     ...                     and 547 more ...
-      
-      [ FAIL 1 | WARN 0 | SKIP 0 | PASS 474 ]
-      Error: Test failures
-      Execution halted
-    ```
-
 # mpwR
 
 <details>
@@ -1559,7 +1164,7 @@ Run `revdepcheck::cloud_details(, "mpathsenser")` for more info
 * GitHub: NA
 * Source code: https://github.com/cran/mpwR
 * Date/Publication: 2023-05-05 18:10:02 UTC
-* Number of recursive dependencies: 112
+* Number of recursive dependencies: 114
 
 Run `revdepcheck::cloud_details(, "mpwR")` for more info
 
@@ -1571,12 +1176,15 @@ Run `revdepcheck::cloud_details(, "mpwR")` for more info
     ```
       Running ‘testthat.R’
     Running the tests in ‘tests/testthat.R’ failed.
-    Last 13 lines of output:
-              - "LFQ Intensity 02" [2]
-              - "LFQ Intensity 03" [3]
-              - "LFQ Intensity 01" [4]
-              - "LFQ Intensity 02" [5]
-              - "LFQ Intensity 03" [6]
+    Complete output:
+      > library(testthat)
+      > library(mpwR)
+      > 
+      > test_check("mpwR")
+      For DIA-NN no quantitative LFQ data on peptide-level.
+      For PD no quantitative LFQ data on peptide-level.
+      For DIA-NN no quantitative LFQ data on peptide-level.
+    ...
               - "LFQ Intensity 03" [7]
       ── Failure ('test_utils_reports.R:332:4'): generate_summary_Report works ───────
       output$`Proteingroup.IDs [abs.] with a CV LFQ < 20 [%]` (`actual`) not equal to 3 (`expected`).
@@ -1597,7 +1205,7 @@ Run `revdepcheck::cloud_details(, "mpwR")` for more info
 * GitHub: https://github.com/igordot/msigdbr
 * Source code: https://github.com/cran/msigdbr
 * Date/Publication: 2022-03-30 07:00:16 UTC
-* Number of recursive dependencies: 54
+* Number of recursive dependencies: 56
 
 Run `revdepcheck::cloud_details(, "msigdbr")` for more info
 
@@ -1642,7 +1250,7 @@ Run `revdepcheck::cloud_details(, "msigdbr")` for more info
 * GitHub: https://github.com/openpharma/mtdesign
 * Source code: https://github.com/cran/mtdesign
 * Date/Publication: 2022-10-27 15:32:39 UTC
-* Number of recursive dependencies: 67
+* Number of recursive dependencies: 69
 
 Run `revdepcheck::cloud_details(, "mtdesign")` for more info
 
@@ -1670,7 +1278,7 @@ Run `revdepcheck::cloud_details(, "mtdesign")` for more info
 * GitHub: https://github.com/MUCollective/multiverse
 * Source code: https://github.com/cran/multiverse
 * Date/Publication: 2022-07-04 13:20:02 UTC
-* Number of recursive dependencies: 120
+* Number of recursive dependencies: 121
 
 Run `revdepcheck::cloud_details(, "multiverse")` for more info
 
@@ -1682,12 +1290,15 @@ Run `revdepcheck::cloud_details(, "multiverse")` for more info
     ```
       Running ‘testthat.R’
     Running the tests in ‘tests/testthat.R’ failed.
-    Last 13 lines of output:
-      
+    Complete output:
+      > library(testthat)
+      > library(multiverse)
+      Loading required package: knitr
+      > 
+      > test_check("multiverse")
       Error in FUN(X[[i]], ...) : error
        test_check -> test_dir -> test_files -> test_files_serial -> with_reporter -> lapply -> FUN -> source_file -> test_code -> tryCatchOne -> tryCatchList -> withCallingHandlers -> eval -> eval -> test_that -> test_code -> tryCatchOne -> tryCatchList -> withCallingHandlers -> eval -> eval -> expect_warning -> quasi_capture -> .capture -> withCallingHandlers -> eval_bare -> execute_multiverse -> mapply ->  -> app -> FUN -> tryStack -> lapply -> FUN -> FUN -> stop -> FUN(X[[i]], ...) 
-      
-      [ FAIL 1 | WARN 1 | SKIP 0 | PASS 207 ]
+    ...
       
       ══ Failed tests ════════════════════════════════════════════════════════════════
       ── Failure ('test-parse_multiverse.R:389:3'): `parse_multiverse` works when conditions are specified ──
@@ -1704,11 +1315,11 @@ Run `revdepcheck::cloud_details(, "multiverse")` for more info
 
 <details>
 
-* Version: 3.5.1
+* Version: 3.6.0
 * GitHub: NA
 * Source code: https://github.com/cran/OlinkAnalyze
-* Date/Publication: 2023-08-08 21:00:02 UTC
-* Number of recursive dependencies: 211
+* Date/Publication: 2023-11-03 20:00:03 UTC
+* Number of recursive dependencies: 230
 
 Run `revdepcheck::cloud_details(, "OlinkAnalyze")` for more info
 
@@ -1720,12 +1331,15 @@ Run `revdepcheck::cloud_details(, "OlinkAnalyze")` for more info
     ```
       Running ‘testthat.R’
     Running the tests in ‘tests/testthat.R’ failed.
-    Last 13 lines of output:
-      • pca_plot/pca-basic-plotting.svg
-      • pca_plot/pca-plot-color-by-treatment.svg
-      • pca_plot/pca-plot-drop-assays-and-drop-samples.svg
-      • pca_plot/pca-plot-internal-2.svg
-      • pca_plot/pca-plot-internal-3.svg
+    Complete output:
+      > library(testthat)
+      > library(OlinkAnalyze)
+      > 
+      > test_check("OlinkAnalyze")
+      Samples removed due to missing variable or covariate levels: CONTROL_SAMPLE_AS 1, CONTROL_SAMPLE_AS 2
+      Variables and covariates converted from character to factors: Site
+      ANOVA model fit to each assay: NPX~Site
+    ...
       • pca_plot/pca-plot-internal-4.svg
       • pca_plot/pca-plot-internal.svg
       • pca_plot/pca-plot-label-outliers.svg
@@ -1749,59 +1363,6 @@ Run `revdepcheck::cloud_details(, "OlinkAnalyze")` for more info
     Killed
     ```
 
-# oncomsm
-
-<details>
-
-* Version: 0.1.4
-* GitHub: https://github.com/Boehringer-Ingelheim/oncomsm
-* Source code: https://github.com/cran/oncomsm
-* Date/Publication: 2023-04-17 07:00:02 UTC
-* Number of recursive dependencies: 125
-
-Run `revdepcheck::cloud_details(, "oncomsm")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking tests ... ERROR
-    ```
-      Running ‘testthat.R’
-    Running the tests in ‘tests/testthat.R’ failed.
-    Last 13 lines of output:
-      
-      `actual`:   FALSE
-      `expected`: TRUE 
-      Backtrace:
-          ▆
-       1. └─oncomsm (local) test_calibration(scale_factor, shape) at test-sampling.R:221:6
-       2.   └─testthat::expect_true(...) at test-sampling.R:213:4
-      
-      [ FAIL 7 | WARN 0 | SKIP 3 | PASS 52 ]
-      Deleting unused snapshots:
-      • plots/plot-mstate-srp-model-2.svg
-      • plots/plot-mstate-srp-model-3.svg
-      • plots/plot-srp-model-2.svg
-      Error: Test failures
-      Execution halted
-    ```
-
-## In both
-
-*   checking installed package size ... NOTE
-    ```
-      installed size is 65.2Mb
-      sub-directories of 1Mb or more:
-        doc    1.1Mb
-        libs  62.8Mb
-    ```
-
-*   checking for GNU extensions in Makefiles ... NOTE
-    ```
-    GNU make is a SystemRequirements.
-    ```
-
 # OpenLand
 
 <details>
@@ -1810,7 +1371,7 @@ Run `revdepcheck::cloud_details(, "oncomsm")` for more info
 * GitHub: https://github.com/reginalexavier/OpenLand
 * Source code: https://github.com/cran/OpenLand
 * Date/Publication: 2021-11-02 07:20:02 UTC
-* Number of recursive dependencies: 120
+* Number of recursive dependencies: 122
 
 Run `revdepcheck::cloud_details(, "OpenLand")` for more info
 
@@ -1822,12 +1383,15 @@ Run `revdepcheck::cloud_details(, "OpenLand")` for more info
     ```
       Running ‘testthat.R’
     Running the tests in ‘tests/testthat.R’ failed.
-    Last 13 lines of output:
-      demo_int_pixel$category_lvlLoss$categoryData$GL_pixel[10] not equal to 1684.
-      1/1 mismatches
-      [1] 1611 - 1684 == -73
-      ── Failure ('test_intensityAnalysis.R:65:3'): Behavior of the intensityAnalysis ──
-      demo_int_pixel$transition_lvlGain_n$transitionData$T_i2n_pixel[18] not equal to 380.
+    Complete output:
+      > library(testthat)
+      > library(OpenLand)
+      > 
+      > test_check("OpenLand")
+      [ FAIL 3 | WARN 1 | SKIP 0 | PASS 109 ]
+      
+      ══ Failed tests ════════════════════════════════════════════════════════════════
+    ...
       1/1 mismatches
       [1] 379 - 380 == -1
       ── Failure ('test_intensityAnalysis.R:66:3'): Behavior of the intensityAnalysis ──
@@ -1848,7 +1412,7 @@ Run `revdepcheck::cloud_details(, "OpenLand")` for more info
 * GitHub: https://github.com/yangjasp/optimall
 * Source code: https://github.com/cran/optimall
 * Date/Publication: 2023-09-06 21:20:02 UTC
-* Number of recursive dependencies: 122
+* Number of recursive dependencies: 123
 
 Run `revdepcheck::cloud_details(, "optimall")` for more info
 
@@ -1860,12 +1424,15 @@ Run `revdepcheck::cloud_details(, "optimall")` for more info
     ```
       Running ‘testthat.R’
     Running the tests in ‘tests/testthat.R’ failed.
-    Last 13 lines of output:
+    Complete output:
+      > library(testthat)
+      > library(optimall)
       > 
       > test_check("optimall")
       [ FAIL 1 | WARN 0 | SKIP 1 | PASS 211 ]
       
       ══ Skipped tests (1) ═══════════════════════════════════════════════════════════
+    ...
       • On Linux (1): 'test-optimall_shiny.R:15:1'
       
       ══ Failed tests ════════════════════════════════════════════════════════════════
@@ -1878,64 +1445,6 @@ Run `revdepcheck::cloud_details(, "optimall")` for more info
       Execution halted
     ```
 
-# OutliersO3
-
-<details>
-
-* Version: 0.6.3
-* GitHub: NA
-* Source code: https://github.com/cran/OutliersO3
-* Date/Publication: 2020-04-25 00:10:02 UTC
-* Number of recursive dependencies: 135
-
-Run `revdepcheck::cloud_details(, "OutliersO3")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking examples ... ERROR
-    ```
-    Running examples in ‘OutliersO3-Ex.R’ failed
-    The error most likely occurred in:
-    
-    > ### Name: O3plotColours
-    > ### Title: Set colours for O3 plots
-    > ### Aliases: O3plotColours
-    > 
-    > ### ** Examples
-    > 
-    > c1 <- O3prep(stackloss, k1=2, method=c("HDo", "BAC"), tolHDo=0.025, tolBAC=0.01)
-    > c2 <- O3plotM(c1)
-    Error: Error evaluating duckdb query: Conversion Error: Could not convert string 'A' to DOUBLE
-    Execution halted
-    ```
-
-*   checking re-building of vignette outputs ... ERROR
-    ```
-    Error(s) in re-building vignettes:
-    --- re-building ‘DrawingO3plots.Rmd’ using rmarkdown
-    
-    Quitting from lines 25-32 [unnamed-chunk-1] (DrawingO3plots.Rmd)
-    Error: processing vignette 'DrawingO3plots.Rmd' failed with diagnostics:
-    Error evaluating duckdb query: Conversion Error: Could not convert string 'A' to DOUBLE
-    --- failed re-building ‘DrawingO3plots.Rmd’
-    
-    --- re-building ‘MultTolLevels.Rmd’ using rmarkdown
-    
-    ...
-    --- failed re-building ‘PCPsO3.Rmd’
-    
-    --- re-building ‘xtraO3methods.Rmd’ using rmarkdown
-    --- finished re-building ‘xtraO3methods.Rmd’
-    
-    SUMMARY: processing the following files failed:
-      ‘DrawingO3plots.Rmd’ ‘MultTolLevels.Rmd’ ‘PCPsO3.Rmd’
-    
-    Error: Vignette re-building failed.
-    Execution halted
-    ```
-
 # partition
 
 <details>
@@ -1944,7 +1453,7 @@ Run `revdepcheck::cloud_details(, "OutliersO3")` for more info
 * GitHub: https://github.com/USCbiostats/partition
 * Source code: https://github.com/cran/partition
 * Date/Publication: 2021-10-05 04:20:02 UTC
-* Number of recursive dependencies: 90
+* Number of recursive dependencies: 92
 
 Run `revdepcheck::cloud_details(, "partition")` for more info
 
@@ -1981,7 +1490,7 @@ Run `revdepcheck::cloud_details(, "partition")` for more info
 * GitHub: https://github.com/mczyzj/pestr
 * Source code: https://github.com/cran/pestr
 * Date/Publication: 2021-01-20 11:00:02 UTC
-* Number of recursive dependencies: 79
+* Number of recursive dependencies: 80
 
 Run `revdepcheck::cloud_details(, "pestr")` for more info
 
@@ -1993,12 +1502,15 @@ Run `revdepcheck::cloud_details(, "pestr")` for more info
     ```
       Running ‘testthat.R’
     Running the tests in ‘tests/testthat.R’ failed.
-    Last 13 lines of output:
-      ══ Failed tests ════════════════════════════════════════════════════════════════
-      ── Failure ('test_tabletools.R:384:3'): Test that distribution f returns correct values
-                from database ──
-      test_distri[[2]] not equal to `testing_distri_df`.
-      Attributes: < Component "row.names": Numeric: lengths (8, 6) differ >
+    Complete output:
+      > library("testthat")
+      > library("pestr")
+      > 
+      > test_check("pestr")
+      [ FAIL 1 | WARN 30 | SKIP 5 | PASS 78 ]
+      
+      ══ Skipped tests (5) ═══════════════════════════════════════════════════════════
+    ...
       Component "eppocode": Lengths (8, 6) differ (string compare on first 6)
       Component "eppocode": 2 string mismatches
       Component "distribution": Lengths (8, 6) differ (string compare on first 6)
@@ -2016,44 +1528,6 @@ Run `revdepcheck::cloud_details(, "pestr")` for more info
 *   checking LazyData ... NOTE
     ```
       'LazyData' is specified without a 'data' directory
-    ```
-
-# protti
-
-<details>
-
-* Version: 0.6.0
-* GitHub: https://github.com/jpquast/protti
-* Source code: https://github.com/cran/protti
-* Date/Publication: 2023-01-20 10:30:02 UTC
-* Number of recursive dependencies: 198
-
-Run `revdepcheck::cloud_details(, "protti")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking tests ... ERROR
-    ```
-      Running ‘testthat.R’
-    Running the tests in ‘tests/testthat.R’ failed.
-    Last 13 lines of output:
-      🔬 Have fun analysing your data! 💻
-      > 
-      > test_check("protti")
-      [ FAIL 1 | WARN 63 | SKIP 0 | PASS 106 ]
-      
-      ══ Failed tests ════════════════════════════════════════════════════════════════
-      ── Failure ('test-qc_functions.R:104:3'): qc_cvs works ─────────────────────────
-      round(cvs$median_cv, digits = 2) not equal to c(6.06, 6.07).
-      2/2 mismatches (average diff: 0.01)
-      [1] 6.07 - 6.06 ==  0.01
-      [2] 6.06 - 6.07 == -0.01
-      
-      [ FAIL 1 | WARN 63 | SKIP 0 | PASS 106 ]
-      Error: Test failures
-      Execution halted
     ```
 
 # PupilPre
@@ -2166,7 +1640,7 @@ Run `revdepcheck::cloud_details(, "rfars")` for more info
 * GitHub: https://github.com/patriciamar/ShinyItemAnalysis
 * Source code: https://github.com/cran/ShinyItemAnalysis
 * Date/Publication: 2023-05-08 10:00:06 UTC
-* Number of recursive dependencies: 136
+* Number of recursive dependencies: 138
 
 Run `revdepcheck::cloud_details(, "ShinyItemAnalysis")` for more info
 
@@ -2242,7 +1716,7 @@ Run `revdepcheck::cloud_details(, "streamDepletr")` for more info
 * GitHub: https://github.com/dwulff/text2sdg
 * Source code: https://github.com/cran/text2sdg
 * Date/Publication: 2023-03-17 20:50:02 UTC
-* Number of recursive dependencies: 94
+* Number of recursive dependencies: 96
 
 Run `revdepcheck::cloud_details(, "text2sdg")` for more info
 
@@ -2275,44 +1749,6 @@ Run `revdepcheck::cloud_details(, "text2sdg")` for more info
       Note: found 37 marked UTF-8 strings
     ```
 
-# tfrmt
-
-<details>
-
-* Version: 0.0.3
-* GitHub: https://github.com/GSK-Biostatistics/tfrmt
-* Source code: https://github.com/cran/tfrmt
-* Date/Publication: 2023-06-22 16:02:35 UTC
-* Number of recursive dependencies: 96
-
-Run `revdepcheck::cloud_details(, "tfrmt")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking tests ... ERROR
-    ```
-      Running ‘testthat.R’
-    Running the tests in ‘tests/testthat.R’ failed.
-    Last 13 lines of output:
-      [9] "GSK123456 100 mg"       - "Placebo"                [9]
-      
-          actual$visit | expected$visit    
-      [2] NA           | NA             [2]
-      [3] NA           | NA             [3]
-      [4] "Week 12"    | "Week 12"      [4]
-      [5] "Week 4"     - "Week 12"      [5]
-      [6] "Week 8"     - "Week 4"       [6]
-      [7] "Week 8"     - "Week 4"       [7]
-      [8] "Week 4"     - "Week 8"       [8]
-      [9] "Week 12"    - "Week 8"       [9]
-      
-      [ FAIL 1 | WARN 0 | SKIP 9 | PASS 490 ]
-      Error: Test failures
-      Execution halted
-    ```
-
 # ThermalSampleR
 
 <details>
@@ -2321,7 +1757,7 @@ Run `revdepcheck::cloud_details(, "tfrmt")` for more info
 * GitHub: NA
 * Source code: https://github.com/cran/ThermalSampleR
 * Date/Publication: 2023-06-13 08:20:18 UTC
-* Number of recursive dependencies: 86
+* Number of recursive dependencies: 88
 
 Run `revdepcheck::cloud_details(, "ThermalSampleR")` for more info
 
@@ -2335,12 +1771,12 @@ Run `revdepcheck::cloud_details(, "ThermalSampleR")` for more info
       Running ‘test_boot_two.R’
       Running ‘test_equiv_tost.R’
     Running the tests in ‘tests/test_equiv_tost.R’ failed.
-    Last 13 lines of output:
-      +   response = response,
-      +   # Define the skewness parameters
-      +   skews = c(1,10),
-      +   # Define the equivalence of subsets to full population CT estimate (unit = degree Celcius)
-      +   equiv_margin = 1,
+    Complete output:
+      > library(ThermalSampleR)
+      > library(testthat)
+      > coreid = ThermalSampleR::coreid_data
+      > 
+      > ############################################################################################
     ...
       +   # Size of the population to sample (will test subsamples of size pop_n - x against pop_n for equivalence). Defaults to population size = 30
       +   pop_n = 5
@@ -2371,7 +1807,7 @@ Run `revdepcheck::cloud_details(, "ThermalSampleR")` for more info
 * GitHub: https://github.com/ianmcook/tidyquery
 * Source code: https://github.com/cran/tidyquery
 * Date/Publication: 2023-01-14 16:30:02 UTC
-* Number of recursive dependencies: 67
+* Number of recursive dependencies: 69
 
 Run `revdepcheck::cloud_details(, "tidyquery")` for more info
 
@@ -2383,12 +1819,15 @@ Run `revdepcheck::cloud_details(, "tidyquery")` for more info
     ```
       Running ‘testthat.R’
     Running the tests in ‘tests/testthat.R’ failed.
-    Last 13 lines of output:
-      `actual$office_id`:   "a" "c" "d"
-      `expected$office_id`: "d" "a" "c"
-      
-      `actual$city`:   "Istanbul"  "Rosario"  "Singapore"
-      `expected$city`: "Singapore" "Istanbul" "Rosario"  
+    Complete output:
+      > library(testthat)
+      > library(tidyquery)
+      > 
+      > test_check("tidyquery")
+      Joining with `by = join_by(office_id)`
+      Joining with `by = join_by(office_id)`
+      Joining with `by = join_by(office_id)`
+    ...
       
       `actual$state_province`:   "Istanbul" "Santa Fe" NA        
       `expected$state_province`: NA         "Istanbul" "Santa Fe"
@@ -2409,7 +1848,7 @@ Run `revdepcheck::cloud_details(, "tidyquery")` for more info
 * GitHub: https://github.com/r-transit/tidytransit
 * Source code: https://github.com/cran/tidytransit
 * Date/Publication: 2023-06-23 12:30:02 UTC
-* Number of recursive dependencies: 100
+* Number of recursive dependencies: 102
 
 Run `revdepcheck::cloud_details(, "tidytransit")` for more info
 
@@ -2460,7 +1899,7 @@ Run `revdepcheck::cloud_details(, "tidytransit")` for more info
 * GitHub: https://github.com/DOI-USGS/toxEval
 * Source code: https://github.com/cran/toxEval
 * Date/Publication: 2023-04-14 17:20:02 UTC
-* Number of recursive dependencies: 128
+* Number of recursive dependencies: 129
 
 Run `revdepcheck::cloud_details(, "toxEval")` for more info
 
@@ -2472,12 +1911,15 @@ Run `revdepcheck::cloud_details(, "toxEval")` for more info
     ```
       Running ‘testthat.R’
     Running the tests in ‘tests/testthat.R’ failed.
-    Last 13 lines of output:
-      
-      x[5]: "Pyrene"
-      y[5]: "Pentachlorophenol"
-      ── Failure ('tests_summary.R:453:3'): Testing levels ───────────────────────────
-      tail(levels(plot_heat$data$chnm), 5) not equal to c("Bromacil", "Metolachlor", "Atrazine", "Prometon", "Pentachlorophenol").
+    Complete output:
+      > library(testthat)
+      > library(toxEval)
+      For more information:
+      https://rconnect.usgs.gov/toxEval_docs/
+      ToxCast database: version 3.5
+      > test_check("toxEval")
+      [ FAIL 4 | WARN 0 | SKIP 20 | PASS 19 ]
+    ...
       2/5 mismatches
       x[1]: "Metolachlor"
       y[1]: "Bromacil"
@@ -2507,7 +1949,7 @@ Run `revdepcheck::cloud_details(, "toxEval")` for more info
 * GitHub: https://github.com/knausb/vcfR
 * Source code: https://github.com/cran/vcfR
 * Date/Publication: 2023-02-10 15:00:05 UTC
-* Number of recursive dependencies: 100
+* Number of recursive dependencies: 102
 
 Run `revdepcheck::cloud_details(, "vcfR")` for more info
 
@@ -2544,12 +1986,15 @@ Run `revdepcheck::cloud_details(, "vcfR")` for more info
     ```
       Running ‘testthat.R’
     Running the tests in ‘tests/testthat.R’ failed.
-    Last 13 lines of output:
-        7. └─dplyr:::mutate.data.frame(...)
-        8.   └─dplyr::mutate(...)
-        9.     └─dplyr:::compute_by(...)
-       10.       ├─dplyr::group_data(data)
-       11.       ├─dplyr:::group_data.tbl_df(data)
+    Complete output:
+      > 
+      > library("testthat")
+      > #library("vcfR")
+      > #
+      > #
+      > test_check("vcfR")
+      Loading required package: vcfR
+    ...
        12.       ├─base::NextMethod()
        13.       └─dplyr:::group_data.data.frame(data)
        14.         └─base::nrow(.data)
@@ -2579,7 +2024,7 @@ Run `revdepcheck::cloud_details(, "vcfR")` for more info
 * GitHub: NA
 * Source code: https://github.com/cran/vDiveR
 * Date/Publication: 2023-09-12 05:10:02 UTC
-* Number of recursive dependencies: 131
+* Number of recursive dependencies: 132
 
 Run `revdepcheck::cloud_details(, "vDiveR")` for more info
 
@@ -2591,12 +2036,15 @@ Run `revdepcheck::cloud_details(, "vDiveR")` for more info
     ```
       Running ‘testthat.R’
     Running the tests in ‘tests/testthat.R’ failed.
-    Last 13 lines of output:
-      `names(expected)` is absent
-      ── Failure ('test-concat-seq.R:74:5'): Test Case 4: 9-mer CCS (single host), with FASTA output ──
-      CCS_1host[1, 1] (`actual`) not equal to ">CCS_A_1" (`expected`).
-      
-      `names(actual)` is a character vector ('CCS')
+    Complete output:
+      > # This file is part of the standard setup for testthat.
+      > # It is recommended that you do not modify it.
+      > #
+      > # Where should you do additional test configuration?
+      > # Learn more about the roles of various files in:
+      > # * https://r-pkgs.org/tests.html
+      > # * https://testthat.r-lib.org/reference/test_package.html#special-files
+    ...
       `names(expected)` is absent
       ── Failure ('test-concat-seq.R:75:5'): Test Case 4: 9-mer CCS (single host), with FASTA output ──
       CCS_1host[2, 1] (`actual`) not equal to "MSTNPKPQRKTKRNTNRR" (`expected`).
@@ -2626,7 +2074,7 @@ Run `revdepcheck::cloud_details(, "vDiveR")` for more info
 * GitHub: https://github.com/GreshamLab/vivaldi
 * Source code: https://github.com/cran/vivaldi
 * Date/Publication: 2023-03-21 20:10:02 UTC
-* Number of recursive dependencies: 105
+* Number of recursive dependencies: 107
 
 Run `revdepcheck::cloud_details(, "vivaldi")` for more info
 
