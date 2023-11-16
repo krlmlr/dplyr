@@ -189,31 +189,6 @@ Run `revdepcheck::cloud_details(, "CodelistGenerator")` for more info
 
 ## Newly broken
 
-*   checking examples ... ERROR
-    ```
-    Running examples in ‘CodelistGenerator-Ex.R’ failed
-    The error most likely occurred in:
-    
-    > ### Name: getICD10StandardCodes
-    > ### Title: Get corresponding standard codes for ICD-10 chapters and
-    > ###   sub-chapters
-    > ### Aliases: getICD10StandardCodes
-    > 
-    > ### ** Examples
-    > 
-    ...
-      5. ├─dplyr::inner_join(...)
-      6. └─dplyr:::inner_join.data.frame(...)
-      7.   └─dplyr::inner_join(...)
-      8.     ├─dplyr::auto_copy(x, y, copy = copy)
-      9.     └─dplyr:::auto_copy.data.frame(x, y, copy = copy)
-     10.       └─dplyr:::as_duckplyr_df(y)
-     11.         └─rlang::abort("Must pass a plain data frame or a tibble to `as_duckplyr_df()`.")
-    Execution halted
-    Warning: Connection is garbage-collected, use dbDisconnect() to avoid this.
-    Warning: Database is garbage-collected, use dbDisconnect(con, shutdown=TRUE) or duckdb::duckdb_shutdown(drv) to avoid this.
-    ```
-
 *   checking tests ... ERROR
     ```
       Running ‘testthat.R’
@@ -227,16 +202,16 @@ Run `revdepcheck::cloud_details(, "CodelistGenerator")` for more info
       condition: Getting concepts to include
       condition domain: Adding descendants
     ...
+      • Sys.getenv("darwinDbDatabaseServer") == "" is TRUE (1):
+        'test-synthea_sql_server.R:2:3'
       
-      [ FAIL 3 | WARN 0 | SKIP 5 | PASS 241 ]
+      ══ Failed tests ════════════════════════════════════════════════════════════════
+      ── Failure ('test-codesFrom.R:23:3'): test inputs - mock ───────────────────────
+      `codesFromConceptSet(...)` did not throw the expected error.
+      
+      [ FAIL 1 | WARN 0 | SKIP 5 | PASS 284 ]
       Error: Test failures
-      In addition: Warning messages:
-      1: Connection is garbage-collected, use dbDisconnect() to avoid this. 
-      2: Database is garbage-collected, use dbDisconnect(con, shutdown=TRUE) or duckdb::duckdb_shutdown(drv) to avoid this. 
-      3: Connection is garbage-collected, use dbDisconnect() to avoid this. 
       Execution halted
-      Warning message:
-      Database is garbage-collected, use dbDisconnect(con, shutdown=TRUE) or duckdb::duckdb_shutdown(drv) to avoid this. 
     ```
 
 # cogmapr
@@ -380,6 +355,33 @@ Run `revdepcheck::cloud_details(, "DescrTab2")` for more info
       Execution halted
     ```
 
+## In both
+
+*   checking re-building of vignette outputs ... WARNING
+    ```
+    Error(s) in re-building vignettes:
+    --- re-building ‘a_usage_guide.Rmd’ using rmarkdown
+    --- finished re-building ‘a_usage_guide.Rmd’
+    
+    --- re-building ‘b_test_choice_tree_pdf.Rmd’ using rmarkdown
+    
+    tlmgr: Remote database (rev 68849) seems to be older than local (rev 68851), please use different mirror or wait a bit.
+    tlmgr update --self
+    
+    tlmgr: Remote database (rev 68849) seems to be older than local (rev 68851), please use different mirror or wait a bit.
+    ...
+    --- finished re-building ‘d_validation_statement.Rmd’
+    
+    --- re-building ‘e_maintenance_guide.Rmd’ using rmarkdown
+    --- finished re-building ‘e_maintenance_guide.Rmd’
+    
+    SUMMARY: processing the following file failed:
+      ‘b_test_choice_tree_pdf.Rmd’
+    
+    Error: Vignette re-building failed.
+    Execution halted
+    ```
+
 # duckplyr
 
 <details>
@@ -417,48 +419,7 @@ Run `revdepcheck::cloud_details(, "duckplyr")` for more info
       🦆: 370
       add_count, anti_join, arrange, compute, count, cross_join, distinct, do, eval, filter, full_join, inner_join, intersect, left_join, mutate, mutate.data.frame, nest_join, pull, reframe, relocate, rename, rename_with, right_join, rows_append, rows_delete, rows_insert, rows_patch, rows_update, rows_upsert, select, semi_join, setdiff, setequal, slice, slice_head, slice_tail, summarise, symdiff, transmute, ungroup, union_all
       
-      00:00:45.734908
-      Execution halted
-    ```
-
-# egor
-
-<details>
-
-* Version: 1.23.3
-* GitHub: https://github.com/tilltnet/egor
-* Source code: https://github.com/cran/egor
-* Date/Publication: 2023-03-16 04:40:02 UTC
-* Number of recursive dependencies: 90
-
-Run `revdepcheck::cloud_details(, "egor")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking tests ... ERROR
-    ```
-      Running ‘testthat.R’
-    Running the tests in ‘tests/testthat.R’ failed.
-    Complete output:
-      > library(testthat)
-      > library(egor)
-      Loading required package: dplyr
-      
-      Attaching package: 'dplyr'
-      
-      The following object is masked from 'package:testthat':
-    ...
-        9.   └─dplyr:::left_join.data.frame(...)
-       10.     └─dplyr::left_join(...)
-       11.       ├─dplyr::auto_copy(x, y, copy = copy)
-       12.       └─dplyr:::auto_copy.data.frame(x, y, copy = copy)
-       13.         └─dplyr:::as_duckplyr_df(y)
-       14.           └─rlang::abort("Must pass a plain data frame or a tibble to `as_duckplyr_df()`.")
-      
-      [ FAIL 1 | WARN 8 | SKIP 15 | PASS 205 ]
-      Error: Test failures
+      00:00:37.834481
       Execution halted
     ```
 
@@ -590,72 +551,6 @@ Run `revdepcheck::cloud_details(, "finnts")` for more info
       Execution halted
     ```
 
-# forestmangr
-
-<details>
-
-* Version: 0.9.5
-* GitHub: https://github.com/sollano/forestmangr
-* Source code: https://github.com/cran/forestmangr
-* Date/Publication: 2023-02-15 22:20:02 UTC
-* Number of recursive dependencies: 128
-
-Run `revdepcheck::cloud_details(, "forestmangr")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking examples ... ERROR
-    ```
-    Running examples in ‘forestmangr-Ex.R’ failed
-    The error most likely occurred in:
-    
-    > ### Name: est_clutter
-    > ### Title: Estimate future and present basal area, volume, TCA, CMI and MMI
-    > ###   values of the Clutter Growth and Yield Model
-    > ### Aliases: est_clutter
-    > 
-    > ### ** Examples
-    > 
-    ...
-      3.   ├─ggplot2::ggplot_build(x)
-      4.   └─ggplot2:::ggplot_build.ggplot(x)
-      5.     └─layout$setup(data, plot$data, plot$plot_env)
-      6.       └─ggplot2 (local) setup(..., self = self)
-      7.         └─self$facet$compute_layout(data, self$facet_params)
-      8.           └─ggplot2 (local) compute_layout(..., self = self)
-      9.             └─ggplot2::combine_vars(data, params$plot_env, vars, drop = params$drop)
-     10.               └─cli::cli_abort("Faceting variables must have at least one value")
-     11.                 └─rlang::abort(...)
-    Execution halted
-    ```
-
-*   checking re-building of vignette outputs ... ERROR
-    ```
-    Error(s) in re-building vignettes:
-    --- re-building ‘eq_group_fit_en.Rmd’ using rmarkdown
-    --- finished re-building ‘eq_group_fit_en.Rmd’
-    
-    --- re-building ‘eq_group_fit_ptbr.Rmd’ using rmarkdown
-    --- finished re-building ‘eq_group_fit_ptbr.Rmd’
-    
-    --- re-building ‘invent_vol_plot_en.Rmd’ using rmarkdown
-    --- finished re-building ‘invent_vol_plot_en.Rmd’
-    
-    ...
-    Quitting from lines 87-88 [unnamed-chunk-7] (yield_growth_ptbr.Rmd)
-    Error: processing vignette 'yield_growth_ptbr.Rmd' failed with diagnostics:
-    Faceting variables must have at least one value
-    --- failed re-building ‘yield_growth_ptbr.Rmd’
-    
-    SUMMARY: processing the following files failed:
-      ‘yield_growth_en.Rmd’ ‘yield_growth_ptbr.Rmd’
-    
-    Error: Vignette re-building failed.
-    Execution halted
-    ```
-
 # funneljoin
 
 <details>
@@ -768,164 +663,6 @@ Run `revdepcheck::cloud_details(, "IPEDS")` for more info
 *   checking data for non-ASCII characters ... NOTE
     ```
       Note: found 46 marked UTF-8 strings
-    ```
-
-# manynet
-
-<details>
-
-* Version: 0.2.8
-* GitHub: https://github.com/snlab-ch/manynet
-* Source code: https://github.com/cran/manynet
-* Date/Publication: 2023-11-02 10:10:08 UTC
-* Number of recursive dependencies: 138
-
-Run `revdepcheck::cloud_details(, "manynet")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking examples ... ERROR
-    ```
-    Running examples in ‘manynet-Ex.R’ failed
-    The error most likely occurred in:
-    
-    > ### Name: from
-    > ### Title: Tools for joining lists of networks, graphs, and matrices
-    > ### Aliases: from from_subgraphs from_egos from_waves from_slices
-    > 
-    > ### ** Examples
-    > 
-    > ison_adolescents %>%
-    ...
-      4.     ├─dplyr::full_join(out, object2, by = by, copy = TRUE)
-      5.     └─tidygraph:::full_join.tbl_graph(out, object2, by = by, copy = TRUE)
-      6.       ├─dplyr::full_join(...)
-      7.       └─dplyr:::full_join.data.frame(...)
-      8.         └─dplyr::full_join(...)
-      9.           ├─dplyr::auto_copy(x, y, copy = copy)
-     10.           └─dplyr:::auto_copy.data.frame(x, y, copy = copy)
-     11.             └─dplyr:::as_duckplyr_df(y)
-     12.               └─rlang::abort("Must pass a plain data frame or a tibble to `as_duckplyr_df()`.")
-    Execution halted
-    ```
-
-*   checking tests ... ERROR
-    ```
-      Running ‘testthat.R’
-    Running the tests in ‘tests/testthat.R’ failed.
-    Complete output:
-      > library(testthat)
-      > library(manynet)
-      Registered S3 method overwritten by 'manynet':
-        method          from     
-        print.tbl_graph tidygraph
-      > 
-      > test_check("manynet")
-    ...
-        9.       └─dplyr:::full_join.data.frame(...)
-       10.         └─dplyr::full_join(...)
-       11.           ├─dplyr::auto_copy(x, y, copy = copy)
-       12.           └─dplyr:::auto_copy.data.frame(x, y, copy = copy)
-       13.             └─dplyr:::as_duckplyr_df(y)
-       14.               └─rlang::abort("Must pass a plain data frame or a tibble to `as_duckplyr_df()`.")
-      
-      [ FAIL 1 | WARN 0 | SKIP 10 | PASS 301 ]
-      Error: Test failures
-      Execution halted
-    ```
-
-## In both
-
-*   checking package dependencies ... NOTE
-    ```
-    Package which this enhances but not available for checking: ‘Rgraphviz’
-    ```
-
-*   checking data for non-ASCII characters ... NOTE
-    ```
-      Note: found 7 marked UTF-8 strings
-    ```
-
-# metacore
-
-<details>
-
-* Version: 0.1.2
-* GitHub: https://github.com/atorus-research/metacore
-* Source code: https://github.com/cran/metacore
-* Date/Publication: 2023-03-02 17:10:03 UTC
-* Number of recursive dependencies: 72
-
-Run `revdepcheck::cloud_details(, "metacore")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking tests ... ERROR
-    ```
-      Running ‘testthat.R’
-    Running the tests in ‘tests/testthat.R’ failed.
-    Complete output:
-      > library(testthat)
-      > library(metacore)
-      > 
-      > test_check("metacore")
-      
-      [ FAIL 1 | WARN 0 | SKIP 0 | PASS 70 ]
-      
-      ══ Failed tests ════════════════════════════════════════════════════════════════
-      ── Failure ('test-reader.R:403:4'): values_spec reader tests ───────────────────
-      `spec_value_spec` not equal to `ref_value_spec`.
-      Component "where": 5 string mismatches
-      Component "derivation_id": 5 string mismatches
-      
-      [ FAIL 1 | WARN 0 | SKIP 0 | PASS 70 ]
-      Error: Test failures
-      Execution halted
-    ```
-
-# metalite.ae
-
-<details>
-
-* Version: 0.1.1
-* GitHub: https://github.com/Merck/metalite.ae
-* Source code: https://github.com/cran/metalite.ae
-* Date/Publication: 2023-02-24 19:50:02 UTC
-* Number of recursive dependencies: 105
-
-Run `revdepcheck::cloud_details(, "metalite.ae")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking tests ... ERROR
-    ```
-      Running ‘testthat.R’
-    Running the tests in ‘tests/testthat.R’ failed.
-    Complete output:
-      > library(testthat)
-      > library(metalite)
-      > library(metalite.ae)
-      > library(r2rtf)
-      > test_check("metalite.ae")
-      
-      Attaching package: 'dplyr'
-    ...
-      [70] 2.38095238    - 0.00000000      [70]            
-      [71] 2.38095238    - 1.19047619      [71]            
-      [72] 0.02768549    - 1.19047619      [72]            
-      [73] 4.78959025    - 0.00000000      [73]            
-      [74] 1.19047619    - 2.38095238      [74]            
-       ... ...             ...             and 168 more ...
-      
-      [ FAIL 3 | WARN 0 | SKIP 8 | PASS 195 ]
-      Error: Test failures
-      Execution halted
     ```
 
 # mpwR
@@ -1058,31 +795,6 @@ Run `revdepcheck::cloud_details(, "OlinkAnalyze")` for more info
 
 ## Newly broken
 
-*   checking tests ... ERROR
-    ```
-      Running ‘testthat.R’
-    Running the tests in ‘tests/testthat.R’ failed.
-    Complete output:
-      > library(testthat)
-      > library(OlinkAnalyze)
-      > 
-      > test_check("OlinkAnalyze")
-      Samples removed due to missing variable or covariate levels: CONTROL_SAMPLE_AS 1, CONTROL_SAMPLE_AS 2
-      Variables and covariates converted from character to factors: Site
-      ANOVA model fit to each assay: NPX~Site
-    ...
-      • pca_plot/pca-plot-internal-4.svg
-      • pca_plot/pca-plot-internal.svg
-      • pca_plot/pca-plot-label-outliers.svg
-      • pca_plot/pca-plot-not-label-outliers.svg
-      • pca_plot/pca-plot-panel-1.svg
-      • pca_plot/pca-plot-panel-2.svg
-      • pca_plot/pca-plot-with-loadings.svg
-      • pca_plot/pca-plot.svg
-      Error: Test failures
-      Execution halted
-    ```
-
 *   checking re-building of vignette outputs ... ERROR
     ```
     Error(s) in re-building vignettes:
@@ -1092,88 +804,6 @@ Run `revdepcheck::cloud_details(, "OlinkAnalyze")` for more info
     
     --- re-building ‘Vignett.Rmd’ using rmarkdown
     Killed
-    ```
-
-# OpenLand
-
-<details>
-
-* Version: 1.0.2
-* GitHub: https://github.com/reginalexavier/OpenLand
-* Source code: https://github.com/cran/OpenLand
-* Date/Publication: 2021-11-02 07:20:02 UTC
-* Number of recursive dependencies: 122
-
-Run `revdepcheck::cloud_details(, "OpenLand")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking tests ... ERROR
-    ```
-      Running ‘testthat.R’
-    Running the tests in ‘tests/testthat.R’ failed.
-    Complete output:
-      > library(testthat)
-      > library(OpenLand)
-      > 
-      > test_check("OpenLand")
-      [ FAIL 3 | WARN 1 | SKIP 0 | PASS 109 ]
-      
-      ══ Failed tests ════════════════════════════════════════════════════════════════
-    ...
-      1/1 mismatches
-      [1] 379 - 380 == -1
-      ── Failure ('test_intensityAnalysis.R:66:3'): Behavior of the intensityAnalysis ──
-      demo_int_pixel$transition_lvlLoss_m$transitionData$T_m2j_pixel[15] not equal to 382.
-      1/1 mismatches
-      [1] 409 - 382 == 27
-      
-      [ FAIL 3 | WARN 1 | SKIP 0 | PASS 109 ]
-      Error: Test failures
-      Execution halted
-    ```
-
-# optimall
-
-<details>
-
-* Version: 0.1.3
-* GitHub: https://github.com/yangjasp/optimall
-* Source code: https://github.com/cran/optimall
-* Date/Publication: 2023-09-06 21:20:02 UTC
-* Number of recursive dependencies: 123
-
-Run `revdepcheck::cloud_details(, "optimall")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking tests ... ERROR
-    ```
-      Running ‘testthat.R’
-    Running the tests in ‘tests/testthat.R’ failed.
-    Complete output:
-      > library(testthat)
-      > library(optimall)
-      > 
-      > test_check("optimall")
-      [ FAIL 1 | WARN 0 | SKIP 1 | PASS 211 ]
-      
-      ══ Skipped tests (1) ═══════════════════════════════════════════════════════════
-    ...
-      • On Linux (1): 'test-optimall_shiny.R:15:1'
-      
-      ══ Failed tests ════════════════════════════════════════════════════════════════
-      ── Failure ('test-split_strata.R:383:3'): order is preserved in dataframe with ids provided ──
-      all(...) not equal to TRUE.
-      1 element mismatch
-      
-      [ FAIL 1 | WARN 0 | SKIP 1 | PASS 211 ]
-      Error: Test failures
-      Execution halted
     ```
 
 # partition

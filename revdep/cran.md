@@ -1,8 +1,8 @@
 ## revdepcheck results
 
-We checked 46 reverse dependencies, comparing R CMD check results across CRAN and dev versions of this package.
+We checked 39 reverse dependencies, comparing R CMD check results across CRAN and dev versions of this package.
 
- * We saw 39 new problems
+ * We saw 32 new problems
  * We failed to check 0 packages
 
 Issues with CRAN packages are summarised below.
@@ -23,7 +23,6 @@ Issues with CRAN packages are summarised below.
   checking examples ... ERROR
 
 * CodelistGenerator
-  checking examples ... ERROR
   checking tests ... ERROR
 
 * cogmapr
@@ -39,9 +38,6 @@ Issues with CRAN packages are summarised below.
 * duckplyr
   checking tests ... ERROR
 
-* egor
-  checking tests ... ERROR
-
 * ezplot
   checking tests ... ERROR
 
@@ -51,26 +47,12 @@ Issues with CRAN packages are summarised below.
 * finnts
   checking tests ... ERROR
 
-* forestmangr
-  checking examples ... ERROR
-  checking re-building of vignette outputs ... ERROR
-
 * funneljoin
   checking tests ... ERROR
   checking re-building of vignette outputs ... ERROR
 
 * IPEDS
   checking examples ... ERROR
-
-* manynet
-  checking examples ... ERROR
-  checking tests ... ERROR
-
-* metacore
-  checking tests ... ERROR
-
-* metalite.ae
-  checking tests ... ERROR
 
 * mpwR
   checking tests ... ERROR
@@ -83,14 +65,7 @@ Issues with CRAN packages are summarised below.
   checking tests ... ERROR
 
 * OlinkAnalyze
-  checking tests ... ERROR
   checking re-building of vignette outputs ... ERROR
-
-* OpenLand
-  checking tests ... ERROR
-
-* optimall
-  checking tests ... ERROR
 
 * partition
   checking re-building of vignette outputs ... ERROR
