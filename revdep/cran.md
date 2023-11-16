@@ -1,8 +1,8 @@
 ## revdepcheck results
 
-We checked 39 reverse dependencies, comparing R CMD check results across CRAN and dev versions of this package.
+We checked 32 reverse dependencies, comparing R CMD check results across CRAN and dev versions of this package.
 
- * We saw 32 new problems
+ * We saw 30 new problems
  * We failed to check 0 packages
 
 Issues with CRAN packages are summarised below.
@@ -70,9 +70,6 @@ Issues with CRAN packages are summarised below.
 * partition
   checking re-building of vignette outputs ... ERROR
 
-* pestr
-  checking tests ... ERROR
-
 * PupilPre
   checking examples ... ERROR
   checking re-building of vignette outputs ... ERROR
@@ -94,9 +91,6 @@ Issues with CRAN packages are summarised below.
 
 * tidytransit
   checking re-building of vignette outputs ... ERROR
-
-* toxEval
-  checking tests ... ERROR
 
 * vcfR
   checking examples ... ERROR

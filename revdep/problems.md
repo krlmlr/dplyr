@@ -2,10 +2,10 @@
 
 <details>
 
-* Version: 13.0.0.1
+* Version: 14.0.0
 * GitHub: https://github.com/apache/arrow
 * Source code: https://github.com/cran/arrow
-* Date/Publication: 2023-09-22 10:20:05 UTC
+* Date/Publication: 2023-11-16 15:23:56 UTC
 * Number of recursive dependencies: 79
 
 Run `revdepcheck::cloud_details(, "arrow")` for more info
@@ -27,15 +27,15 @@ Run `revdepcheck::cloud_details(, "arrow")` for more info
       > # "License"); you may not use this file except in compliance
       > # with the License.  You may obtain a copy of the License at
     ...
-      `expected$max_int`: 10
-      Backtrace:
-          ▆
-       1. └─arrow:::compare_dplyr_binding(...) at test-dplyr-summarize.R:548:3
-       2.   └─arrow:::expect_equal(via_table, expected, ...) at tests/testthat/helper-expectation.R:102:3
-       3.     └─testthat::expect_equal(...) at tests/testthat/helper-expectation.R:43:5
-      
-      [ FAIL 1 | WARN 9 | SKIP 77 | PASS 6403 ]
+      [ FAIL 1 | WARN 9 | SKIP 79 | PASS 6465 ]
       Error: Test failures
+      In addition: Warning messages:
+      1: In for (name in names(active)) { :
+        closing unused connection 6 (/tmp/RtmpSi5nmz/file124ee561ed4/part-0.tsv)
+      2: In for (name in names(active)) { :
+        closing unused connection 5 (/tmp/RtmpSi5nmz/file124e473c2ad9/part-0.csv)
+      3: In for (name in names(active)) { :
+        closing unused connection 4 (/tmp/RtmpSi5nmz/file124e44cf9b2a/part-0.csv)
       Execution halted
     ```
 
@@ -43,15 +43,15 @@ Run `revdepcheck::cloud_details(, "arrow")` for more info
 
 *   checking installed package size ... NOTE
     ```
-      installed size is 143.4Mb
+      installed size is 147.3Mb
       sub-directories of 1Mb or more:
         R       8.0Mb
-        libs  134.8Mb
+        libs  138.6Mb
     ```
 
 *   checking Rd cross-references ... NOTE
     ```
-    Unknown package ‘readr’ in Rd xrefs
+    Package unavailable to check Rd xrefs: ‘readr’
     ```
 
 # auk
@@ -355,33 +355,6 @@ Run `revdepcheck::cloud_details(, "DescrTab2")` for more info
       Execution halted
     ```
 
-## In both
-
-*   checking re-building of vignette outputs ... WARNING
-    ```
-    Error(s) in re-building vignettes:
-    --- re-building ‘a_usage_guide.Rmd’ using rmarkdown
-    --- finished re-building ‘a_usage_guide.Rmd’
-    
-    --- re-building ‘b_test_choice_tree_pdf.Rmd’ using rmarkdown
-    
-    tlmgr: Remote database (rev 68849) seems to be older than local (rev 68851), please use different mirror or wait a bit.
-    tlmgr update --self
-    
-    tlmgr: Remote database (rev 68849) seems to be older than local (rev 68851), please use different mirror or wait a bit.
-    ...
-    --- finished re-building ‘d_validation_statement.Rmd’
-    
-    --- re-building ‘e_maintenance_guide.Rmd’ using rmarkdown
-    --- finished re-building ‘e_maintenance_guide.Rmd’
-    
-    SUMMARY: processing the following file failed:
-      ‘b_test_choice_tree_pdf.Rmd’
-    
-    Error: Vignette re-building failed.
-    Execution halted
-    ```
-
 # duckplyr
 
 <details>
@@ -419,7 +392,7 @@ Run `revdepcheck::cloud_details(, "duckplyr")` for more info
       🦆: 370
       add_count, anti_join, arrange, compute, count, cross_join, distinct, do, eval, filter, full_join, inner_join, intersect, left_join, mutate, mutate.data.frame, nest_join, pull, reframe, relocate, rename, rename_with, right_join, rows_append, rows_delete, rows_insert, rows_patch, rows_update, rows_upsert, select, semi_join, setdiff, setequal, slice, slice_head, slice_tail, summarise, symdiff, transmute, ungroup, union_all
       
-      00:00:37.834481
+      00:01:22.910825
       Execution halted
     ```
 
@@ -843,54 +816,6 @@ Run `revdepcheck::cloud_details(, "partition")` for more info
         libs   8.5Mb
     ```
 
-# pestr
-
-<details>
-
-* Version: 0.8.2
-* GitHub: https://github.com/mczyzj/pestr
-* Source code: https://github.com/cran/pestr
-* Date/Publication: 2021-01-20 11:00:02 UTC
-* Number of recursive dependencies: 80
-
-Run `revdepcheck::cloud_details(, "pestr")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking tests ... ERROR
-    ```
-      Running ‘testthat.R’
-    Running the tests in ‘tests/testthat.R’ failed.
-    Complete output:
-      > library("testthat")
-      > library("pestr")
-      > 
-      > test_check("pestr")
-      [ FAIL 1 | WARN 30 | SKIP 5 | PASS 78 ]
-      
-      ══ Skipped tests (5) ═══════════════════════════════════════════════════════════
-    ...
-      Component "eppocode": Lengths (8, 6) differ (string compare on first 6)
-      Component "eppocode": 2 string mismatches
-      Component "distribution": Lengths (8, 6) differ (string compare on first 6)
-      Component "distribution": 2 string mismatches
-      
-      [ FAIL 1 | WARN 30 | SKIP 5 | PASS 78 ]
-      Error: Test failures
-      In addition: Warning message:
-      call dbDisconnect() when finished working with a connection 
-      Execution halted
-    ```
-
-## In both
-
-*   checking LazyData ... NOTE
-    ```
-      'LazyData' is specified without a 'data' directory
-    ```
-
 # PupilPre
 
 <details>
@@ -1209,56 +1134,6 @@ Run `revdepcheck::cloud_details(, "tidytransit")` for more info
       sub-directories of 1Mb or more:
         doc       1.9Mb
         extdata   4.5Mb
-    ```
-
-# toxEval
-
-<details>
-
-* Version: 1.3.0
-* GitHub: https://github.com/DOI-USGS/toxEval
-* Source code: https://github.com/cran/toxEval
-* Date/Publication: 2023-04-14 17:20:02 UTC
-* Number of recursive dependencies: 129
-
-Run `revdepcheck::cloud_details(, "toxEval")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking tests ... ERROR
-    ```
-      Running ‘testthat.R’
-    Running the tests in ‘tests/testthat.R’ failed.
-    Complete output:
-      > library(testthat)
-      > library(toxEval)
-      For more information:
-      https://rconnect.usgs.gov/toxEval_docs/
-      ToxCast database: version 3.5
-      > test_check("toxEval")
-      [ FAIL 4 | WARN 0 | SKIP 20 | PASS 19 ]
-    ...
-      2/5 mismatches
-      x[1]: "Metolachlor"
-      y[1]: "Bromacil"
-      
-      x[2]: "Metalaxyl"
-      y[2]: "Metolachlor"
-      
-      [ FAIL 4 | WARN 0 | SKIP 20 | PASS 19 ]
-      Error: Test failures
-      Execution halted
-    ```
-
-## In both
-
-*   checking installed package size ... NOTE
-    ```
-      installed size is  8.1Mb
-      sub-directories of 1Mb or more:
-        R   7.2Mb
     ```
 
 # vcfR
