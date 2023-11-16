@@ -51,17 +51,17 @@ Run `revdepcheck::cloud_details(, "arrow")` for more info
 
 *   checking Rd cross-references ... NOTE
     ```
-    Package unavailable to check Rd xrefs: ‘readr’
+    Unknown package ‘readr’ in Rd xrefs
     ```
 
 # auk
 
 <details>
 
-* Version: 0.6.0
+* Version: 0.7.0
 * GitHub: https://github.com/CornellLabofOrnithology/auk
 * Source code: https://github.com/cran/auk
-* Date/Publication: 2022-10-29 22:15:59 UTC
+* Date/Publication: 2023-11-14 09:43:22 UTC
 * Number of recursive dependencies: 100
 
 Run `revdepcheck::cloud_details(, "auk")` for more info
@@ -95,22 +95,15 @@ Run `revdepcheck::cloud_details(, "auk")` for more info
     Execution halted
     ```
 
-## In both
-
-*   checking data for non-ASCII characters ... NOTE
-    ```
-      Note: found 552 marked UTF-8 strings
-    ```
-
 # BayesianReasoning
 
 <details>
 
-* Version: 0.4.1
+* Version: 0.4.2
 * GitHub: https://github.com/gorkang/BayesianReasoning
 * Source code: https://github.com/cran/BayesianReasoning
-* Date/Publication: 2022-01-07 13:53:16 UTC
-* Number of recursive dependencies: 87
+* Date/Publication: 2023-11-14 11:33:20 UTC
+* Number of recursive dependencies: 109
 
 Run `revdepcheck::cloud_details(, "BayesianReasoning")` for more info
 
@@ -127,28 +120,20 @@ Run `revdepcheck::cloud_details(, "BayesianReasoning")` for more info
       > library(BayesianReasoning)
       > 
       > test_check("BayesianReasoning")
-      [ FAIL 1 | WARN 1 | SKIP 0 | PASS 113 ]
       
-      ══ Failed tests ════════════════════════════════════════════════════════════════
+       Plot created in: ./FP_10_sens_100_screening_1667_diagnostic_44.png
+      
     ...
               .by
           }
       }, .preserve = .preserve)`: Can't compute indices.
       Caused by error:
       ! `size` must be less than or equal to 0 (size of data).
-      ℹ set `replace = TRUE` to use sampling with replacement.
+      i set `replace = TRUE` to use sampling with replacement.
       
-      [ FAIL 1 | WARN 1 | SKIP 0 | PASS 113 ]
+      [ FAIL 1 | WARN 0 | SKIP 4 | PASS 114 ]
       Error: Test failures
       Execution halted
-    ```
-
-## In both
-
-*   checking dependencies in R code ... NOTE
-    ```
-    Namespace in Imports field not imported from: ‘utils’
-      All declared Imports should be used.
     ```
 
 # CCWeights
@@ -336,82 +321,6 @@ Run `revdepcheck::cloud_details(, "crosshap")` for more info
       Execution halted
     ```
 
-# cubelyr
-
-<details>
-
-* Version: 1.0.2
-* GitHub: https://github.com/hadley/cubelyr
-* Source code: https://github.com/cran/cubelyr
-* Date/Publication: 2022-11-07 15:50:02 UTC
-* Number of recursive dependencies: 47
-
-Run `revdepcheck::cloud_details(, "cubelyr")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking tests ... ERROR
-    ```
-      Running ‘testthat.R’
-    Running the tests in ‘tests/testthat.R’ failed.
-    Complete output:
-      > library(testthat)
-      > library(cubelyr)
-      > 
-      > test_check("cubelyr")
-      [ FAIL 1 | WARN 0 | SKIP 0 | PASS 29 ]
-      
-      ══ Failed tests ════════════════════════════════════════════════════════════════
-      ── Failure ('test-cube.R:54:3'): incomplete ────────────────────────────────────
-      filter(as_tibble(cube), s != 1 | j != 2) not equal to as_tibble(d).
-      Component "s": Mean relative difference: 0.6666667
-      Component "j": Mean relative difference: 0.6666667
-      Component "value": Mean relative difference: 0.6666667
-      
-      [ FAIL 1 | WARN 0 | SKIP 0 | PASS 29 ]
-      Error: Test failures
-      Execution halted
-    ```
-
-# datacutr
-
-<details>
-
-* Version: 0.1.0
-* GitHub: NA
-* Source code: https://github.com/cran/datacutr
-* Date/Publication: 2023-03-31 15:10:02 UTC
-* Number of recursive dependencies: 120
-
-Run `revdepcheck::cloud_details(, "datacutr")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking tests ... ERROR
-    ```
-      Running ‘testthat.R’
-    Running the tests in ‘tests/testthat.R’ failed.
-    Complete output:
-      > library(testthat)
-      > library(datacutr)
-      > 
-      > test_check("datacutr")
-      [ FAIL 1 | WARN 0 | SKIP 0 | PASS 40 ]
-      
-      ══ Failed tests ════════════════════════════════════════════════════════════════
-      ── Failure ('test-apply_cut.R:11:3'): Test whether records are correctly removed where DCUT_TEMP_REMOVE='Y' ──
-      apply_cut(dsin = input1, dcutvar = DCUT_TEMP_REMOVE, dthchangevar = NULL) not equal to `expected1`.
-      Component "USUBJID": 2 string mismatches
-      
-      [ FAIL 1 | WARN 0 | SKIP 0 | PASS 40 ]
-      Error: Test failures
-      Execution halted
-    ```
-
 # DescrTab2
 
 <details>
@@ -508,7 +417,7 @@ Run `revdepcheck::cloud_details(, "duckplyr")` for more info
       🦆: 370
       add_count, anti_join, arrange, compute, count, cross_join, distinct, do, eval, filter, full_join, inner_join, intersect, left_join, mutate, mutate.data.frame, nest_join, pull, reframe, relocate, rename, rename_with, right_join, rows_append, rows_delete, rows_insert, rows_patch, rows_update, rows_upsert, select, semi_join, setdiff, setequal, slice, slice_head, slice_tail, summarise, symdiff, transmute, ungroup, union_all
       
-      00:01:13.88305
+      00:00:45.734908
       Execution halted
     ```
 
@@ -806,102 +715,6 @@ Run `revdepcheck::cloud_details(, "funneljoin")` for more info
     Execution halted
     ```
 
-# gapclosing
-
-<details>
-
-* Version: 1.0.2
-* GitHub: https://github.com/ilundberg/gapclosing
-* Source code: https://github.com/cran/gapclosing
-* Date/Publication: 2021-10-11 07:40:22 UTC
-* Number of recursive dependencies: 88
-
-Run `revdepcheck::cloud_details(, "gapclosing")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking re-building of vignette outputs ... ERROR
-    ```
-    Error(s) in re-building vignettes:
-      ...
-    --- re-building ‘gapclosing.Rmd’ using rmarkdown
-    
-    Quitting from lines 93-103 [unnamed-chunk-4] (gapclosing.Rmd)
-    Error: processing vignette 'gapclosing.Rmd' failed with diagnostics:
-    task 444 failed - "task 2 failed - "This looks like it has been freed""
-    --- failed re-building ‘gapclosing.Rmd’
-    
-    SUMMARY: processing the following file failed:
-      ‘gapclosing.Rmd’
-    
-    Error: Vignette re-building failed.
-    Execution halted
-    ```
-
-# ggmotif
-
-<details>
-
-* Version: 0.2.1
-* GitHub: NA
-* Source code: https://github.com/cran/ggmotif
-* Date/Publication: 2022-08-11 10:30:05 UTC
-* Number of recursive dependencies: 161
-
-Run `revdepcheck::cloud_details(, "ggmotif")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking examples ... ERROR
-    ```
-    Running examples in ‘ggmotif-Ex.R’ failed
-    The error most likely occurred in:
-    
-    > ### Name: getMotifFromMEME
-    > ### Title: Extract and Visualize Motif Information from MEME Software
-    > ### Aliases: getMotifFromMEME
-    > 
-    > ### ** Examples
-    > 
-    > filepath <- system.file("examples", "meme.txt", package = "ggmotif")
-    > motif.info <- getMotifFromMEME(data = filepath, format = "txt")
-    Error in df.motif.temp$input.seq.motif[j] <- stringr::str_split(df.motif.temp$raw[j],  : 
-      replacement has length zero
-    Calls: getMotifFromMEME
-    Execution halted
-    ```
-
-*   checking re-building of vignette outputs ... ERROR
-    ```
-    Error(s) in re-building vignettes:
-      ...
-    --- re-building ‘ggmotif.Rmd’ using rmarkdown
-    
-    Quitting from lines 102-104 [unnamed-chunk-4] (ggmotif.Rmd)
-    Error: processing vignette 'ggmotif.Rmd' failed with diagnostics:
-    replacement has length zero
-    --- failed re-building ‘ggmotif.Rmd’
-    
-    SUMMARY: processing the following file failed:
-      ‘ggmotif.Rmd’
-    
-    Error: Vignette re-building failed.
-    Execution halted
-    ```
-
-## In both
-
-*   checking dependencies in R code ... NOTE
-    ```
-    Namespaces in Imports field not imported from:
-      ‘cowplot’ ‘ggsci’ ‘memes’ ‘universalmotif’
-      All declared Imports should be used.
-    ```
-
 # IPEDS
 
 <details>
@@ -955,47 +768,6 @@ Run `revdepcheck::cloud_details(, "IPEDS")` for more info
 *   checking data for non-ASCII characters ... NOTE
     ```
       Note: found 46 marked UTF-8 strings
-    ```
-
-# listcompr
-
-<details>
-
-* Version: 0.4.0
-* GitHub: https://github.com/patrickroocks/listcompr
-* Source code: https://github.com/cran/listcompr
-* Date/Publication: 2021-10-02 15:50:02 UTC
-* Number of recursive dependencies: 55
-
-Run `revdepcheck::cloud_details(, "listcompr")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking tests ... ERROR
-    ```
-      Running ‘testthat.r’
-    Running the tests in ‘tests/testthat.r’ failed.
-    Complete output:
-      > library(testthat)
-      > library(listcompr)
-      > 
-      > test_check("listcompr")
-      [ FAIL 1 | WARN 0 | SKIP 0 | PASS 125 ]
-      
-      ══ Failed tests ════════════════════════════════════════════════════════════════
-    ...
-      ── Failure ('testbase.r:294:3'): tests with dplyr ──────────────────────────────
-      dplyr::filter(...) not equal to data.frame(...).
-      Component "a_1": Mean relative difference: 0.6666667
-      Component "a_2": Mean relative difference: 0.6666667
-      Component "a_3": Mean relative difference: 0.6666667
-      Component "a_4": Mean relative difference: 0.6666667
-      
-      [ FAIL 1 | WARN 0 | SKIP 0 | PASS 125 ]
-      Error: Test failures
-      Execution halted
     ```
 
 # manynet
@@ -1160,10 +932,10 @@ Run `revdepcheck::cloud_details(, "metalite.ae")` for more info
 
 <details>
 
-* Version: 0.1.4
+* Version: 0.1.5
 * GitHub: NA
 * Source code: https://github.com/cran/mpwR
-* Date/Publication: 2023-05-05 18:10:02 UTC
+* Date/Publication: 2023-11-13 23:33:26 UTC
 * Number of recursive dependencies: 114
 
 Run `revdepcheck::cloud_details(, "mpwR")` for more info
@@ -1268,47 +1040,6 @@ Run `revdepcheck::cloud_details(, "mtdesign")` for more info
       > 
       > test_check("mtdesign")
       Killed
-    ```
-
-# multiverse
-
-<details>
-
-* Version: 0.6.1
-* GitHub: https://github.com/MUCollective/multiverse
-* Source code: https://github.com/cran/multiverse
-* Date/Publication: 2022-07-04 13:20:02 UTC
-* Number of recursive dependencies: 121
-
-Run `revdepcheck::cloud_details(, "multiverse")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking tests ... ERROR
-    ```
-      Running ‘testthat.R’
-    Running the tests in ‘tests/testthat.R’ failed.
-    Complete output:
-      > library(testthat)
-      > library(multiverse)
-      Loading required package: knitr
-      > 
-      > test_check("multiverse")
-      Error in FUN(X[[i]], ...) : error
-       test_check -> test_dir -> test_files -> test_files_serial -> with_reporter -> lapply -> FUN -> source_file -> test_code -> tryCatchOne -> tryCatchList -> withCallingHandlers -> eval -> eval -> test_that -> test_code -> tryCatchOne -> tryCatchList -> withCallingHandlers -> eval -> eval -> expect_warning -> quasi_capture -> .capture -> withCallingHandlers -> eval_bare -> execute_multiverse -> mapply ->  -> app -> FUN -> tryStack -> lapply -> FUN -> FUN -> stop -> FUN(X[[i]], ...) 
-    ...
-      
-      ══ Failed tests ════════════════════════════════════════════════════════════════
-      ── Failure ('test-parse_multiverse.R:389:3'): `parse_multiverse` works when conditions are specified ──
-      as.list(p_tbl_df) not equal to as.list(p_tbl_df.ref).
-      Component "values_y": 2 string mismatches
-      Component "values_z": 3 string mismatches
-      
-      [ FAIL 1 | WARN 1 | SKIP 0 | PASS 207 ]
-      Error: Test failures
-      Execution halted
     ```
 
 # OlinkAnalyze
@@ -1797,47 +1528,6 @@ Run `revdepcheck::cloud_details(, "ThermalSampleR")` for more info
     Namespaces in Imports field not imported from:
       ‘MASS’ ‘base’ ‘graphics’ ‘janitor’ ‘rlang’ ‘testthat’ ‘utils’
       All declared Imports should be used.
-    ```
-
-# tidyquery
-
-<details>
-
-* Version: 0.2.4
-* GitHub: https://github.com/ianmcook/tidyquery
-* Source code: https://github.com/cran/tidyquery
-* Date/Publication: 2023-01-14 16:30:02 UTC
-* Number of recursive dependencies: 69
-
-Run `revdepcheck::cloud_details(, "tidyquery")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking tests ... ERROR
-    ```
-      Running ‘testthat.R’
-    Running the tests in ‘tests/testthat.R’ failed.
-    Complete output:
-      > library(testthat)
-      > library(tidyquery)
-      > 
-      > test_check("tidyquery")
-      Joining with `by = join_by(office_id)`
-      Joining with `by = join_by(office_id)`
-      Joining with `by = join_by(office_id)`
-    ...
-      
-      `actual$state_province`:   "Istanbul" "Santa Fe" NA        
-      `expected$state_province`: NA         "Istanbul" "Santa Fe"
-      
-      `actual$country`:   "tr" "ar" "sg"
-      `expected$country`: "sg" "tr" "ar"
-      
-      [ FAIL 1 | WARN 0 | SKIP 4 | PASS 234 ]
-      Error: Test failures
-      Execution halted
     ```
 
 # tidytransit

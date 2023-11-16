@@ -1,8 +1,8 @@
 ## revdepcheck results
 
-We checked 60 reverse dependencies, comparing R CMD check results across CRAN and dev versions of this package.
+We checked 46 reverse dependencies, comparing R CMD check results across CRAN and dev versions of this package.
 
- * We saw 46 new problems
+ * We saw 39 new problems
  * We failed to check 0 packages
 
 Issues with CRAN packages are summarised below.
@@ -32,12 +32,6 @@ Issues with CRAN packages are summarised below.
 * crosshap
   checking tests ... ERROR
 
-* cubelyr
-  checking tests ... ERROR
-
-* datacutr
-  checking tests ... ERROR
-
 * DescrTab2
   checking examples ... ERROR
   checking tests ... ERROR
@@ -65,18 +59,8 @@ Issues with CRAN packages are summarised below.
   checking tests ... ERROR
   checking re-building of vignette outputs ... ERROR
 
-* gapclosing
-  checking re-building of vignette outputs ... ERROR
-
-* ggmotif
-  checking examples ... ERROR
-  checking re-building of vignette outputs ... ERROR
-
 * IPEDS
   checking examples ... ERROR
-
-* listcompr
-  checking tests ... ERROR
 
 * manynet
   checking examples ... ERROR
@@ -96,9 +80,6 @@ Issues with CRAN packages are summarised below.
   checking re-building of vignette outputs ... ERROR
 
 * mtdesign
-  checking tests ... ERROR
-
-* multiverse
   checking tests ... ERROR
 
 * OlinkAnalyze
@@ -134,9 +115,6 @@ Issues with CRAN packages are summarised below.
   checking re-building of vignette outputs ... ERROR
 
 * ThermalSampleR
-  checking tests ... ERROR
-
-* tidyquery
   checking tests ... ERROR
 
 * tidytransit

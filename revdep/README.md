@@ -1,18 +1,16 @@
 # Revdeps
 
-## New problems (46)
+## New problems (39)
 
 |package           |version  |error  |warning |note |
 |:-----------------|:--------|:------|:-------|:----|
 |[arrow](problems.md#arrow)|13.0.0.1 |__+1__ |        |2    |
-|[auk](problems.md#auk)|0.6.0    |__+1__ |        |1    |
-|[BayesianReasoning](problems.md#bayesianreasoning)|0.4.1    |__+1__ |        |1    |
+|[auk](problems.md#auk)|0.7.0    |__+1__ |        |     |
+|[BayesianReasoning](problems.md#bayesianreasoning)|0.4.2    |__+1__ |        |     |
 |[CCWeights](problems.md#ccweights)|0.1.6    |__+1__ |        |     |
 |[CodelistGenerator](problems.md#codelistgenerator)|2.0.0    |__+2__ |        |     |
 |[cogmapr](problems.md#cogmapr)|0.9.3    |__+1__ |        |     |
 |[crosshap](problems.md#crosshap)|1.2.2    |__+1__ |        |     |
-|[cubelyr](problems.md#cubelyr)|1.0.2    |__+1__ |        |     |
-|[datacutr](problems.md#datacutr)|0.1.0    |__+1__ |        |     |
 |[DescrTab2](problems.md#descrtab2)|2.1.16   |__+2__ |        |     |
 |[duckplyr](problems.md#duckplyr)|0.2.3    |__+1__ |        |     |
 |[egor](problems.md#egor)|1.23.3   |__+1__ |        |     |
@@ -21,17 +19,13 @@
 |[finnts](problems.md#finnts)|0.3.0    |__+1__ |        |     |
 |[forestmangr](problems.md#forestmangr)|0.9.5    |__+2__ |        |     |
 |[funneljoin](problems.md#funneljoin)|0.2.0    |__+2__ |        |     |
-|[gapclosing](problems.md#gapclosing)|1.0.2    |__+1__ |        |     |
-|[ggmotif](problems.md#ggmotif)|0.2.1    |__+2__ |        |1    |
 |[IPEDS](problems.md#ipeds)|0.1.0    |__+1__ |        |2    |
-|[listcompr](problems.md#listcompr)|0.4.0    |__+1__ |        |     |
 |[manynet](problems.md#manynet)|0.2.8    |__+2__ |        |2    |
 |[metacore](problems.md#metacore)|0.1.2    |__+1__ |        |     |
 |[metalite.ae](problems.md#metaliteae)|0.1.1    |__+1__ |        |     |
-|[mpwR](problems.md#mpwr)|0.1.4    |__+1__ |        |     |
+|[mpwR](problems.md#mpwr)|0.1.5    |__+1__ |        |     |
 |[msigdbr](problems.md#msigdbr)|7.5.1    |__+2__ |        |1    |
 |[mtdesign](problems.md#mtdesign)|0.1.0    |__+1__ |        |     |
-|[multiverse](problems.md#multiverse)|0.6.1    |__+1__ |        |     |
 |[OlinkAnalyze](problems.md#olinkanalyze)|3.6.0    |__+2__ |        |     |
 |[OpenLand](problems.md#openland)|1.0.2    |__+1__ |        |     |
 |[optimall](problems.md#optimall)|0.1.3    |__+1__ |        |     |
@@ -43,7 +37,6 @@
 |[streamDepletr](problems.md#streamdepletr)|0.2.0    |__+1__ |        |     |
 |[text2sdg](problems.md#text2sdg)|1.1.1    |__+1__ |        |1    |
 |[ThermalSampleR](problems.md#thermalsampler)|0.1.1    |__+1__ |        |1    |
-|[tidyquery](problems.md#tidyquery)|0.2.4    |__+1__ |        |     |
 |[tidytransit](problems.md#tidytransit)|1.6.0    |__+1__ |        |1    |
 |[toxEval](problems.md#toxeval)|1.3.0    |__+1__ |        |1    |
 |[vcfR](problems.md#vcfr)|1.14.0   |__+2__ |        |1    |
