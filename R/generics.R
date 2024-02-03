@@ -201,7 +201,7 @@ dplyr_reconstruct_dispatch <- function(data, template) {
 }
 
 #' @export
-dplyr_reconstruct_data_frame <- function(data, template) {
+dplyr_reconstruct.data.frame <- function(data, template) {
   attrs <- attributes(template)
   attrs$names <- names(data)
   attrs$row.names <- .row_names_info(data, type = 0L)
