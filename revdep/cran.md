@@ -1,8 +1,8 @@
 ## revdepcheck results
 
-We checked 32 reverse dependencies, comparing R CMD check results across CRAN and dev versions of this package.
+We checked 30 reverse dependencies (29 from CRAN + 1 from Bioconductor), comparing R CMD check results across CRAN and dev versions of this package.
 
- * We saw 30 new problems
+ * We saw 17 new problems
  * We failed to check 0 packages
 
 Issues with CRAN packages are summarised below.
@@ -13,9 +13,6 @@ Issues with CRAN packages are summarised below.
 * arrow
   checking tests ... ERROR
 
-* auk
-  checking examples ... ERROR
-
 * BayesianReasoning
   checking tests ... ERROR
 
@@ -24,9 +21,6 @@ Issues with CRAN packages are summarised below.
 
 * CodelistGenerator
   checking tests ... ERROR
-
-* cogmapr
-  checking examples ... ERROR
 
 * crosshap
   checking tests ... ERROR
@@ -40,19 +34,6 @@ Issues with CRAN packages are summarised below.
 
 * ezplot
   checking tests ... ERROR
-
-* fgeo.analyze
-  checking tests ... ERROR
-
-* finnts
-  checking tests ... ERROR
-
-* funneljoin
-  checking tests ... ERROR
-  checking re-building of vignette outputs ... ERROR
-
-* IPEDS
-  checking examples ... ERROR
 
 * mpwR
   checking tests ... ERROR
@@ -70,15 +51,8 @@ Issues with CRAN packages are summarised below.
 * partition
   checking re-building of vignette outputs ... ERROR
 
-* PupilPre
-  checking examples ... ERROR
-  checking re-building of vignette outputs ... ERROR
-
 * rfars
   checking re-building of vignette outputs ... ERROR
-
-* ShinyItemAnalysis
-  checking examples ... ERROR
 
 * streamDepletr
   checking re-building of vignette outputs ... ERROR
@@ -86,22 +60,6 @@ Issues with CRAN packages are summarised below.
 * text2sdg
   checking re-building of vignette outputs ... ERROR
 
-* ThermalSampleR
-  checking tests ... ERROR
-
-* tidytransit
-  checking re-building of vignette outputs ... ERROR
-
-* vcfR
-  checking examples ... ERROR
-  checking tests ... ERROR
-
 * vDiveR
   checking tests ... ERROR
-
-* vivaldi
-  checking re-building of vignette outputs ... ERROR
-
-* VWPre
-  checking re-building of vignette outputs ... ERROR
 
