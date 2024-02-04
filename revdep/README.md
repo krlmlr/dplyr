@@ -11,7 +11,7 @@
 |[CodelistGenerator](problems.md#codelistgenerator)|2.2.0    |__+1__ |        |     |
 |[concaveman](problems.md#concaveman)|1.1.0    |__+1__ |        |     |
 |[crosshap](problems.md#crosshap)|1.2.2    |__+1__ |        |     |
-|[DescrTab2](problems.md#descrtab2)|2.1.16   |__+2__ |1       |1    |
+|[DescrTab2](problems.md#descrtab2)|2.1.16   |__+2__ |        |1    |
 |[dials](problems.md#dials)|1.2.0    |__+1__ |        |     |
 |[duckplyr](problems.md#duckplyr)|0.3.0    |__+1__ |        |     |
 |[ern](problems.md#ern)|1.3.1    |__+1__ |        |     |

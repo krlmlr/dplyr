@@ -375,31 +375,6 @@ Run `revdepcheck::cloud_details(, "DescrTab2")` for more info
 
 ## In both
 
-*   checking re-building of vignette outputs ... WARNING
-    ```
-    Error(s) in re-building vignettes:
-    --- re-building ‘a_usage_guide.Rmd’ using rmarkdown
-    --- finished re-building ‘a_usage_guide.Rmd’
-    
-    --- re-building ‘b_test_choice_tree_pdf.Rmd’ using rmarkdown
-    
-    tlmgr: Remote database (revision 69669 of the texlive-scripts package)
-    seems to be older than the local installation (rev 69683 of
-    texlive-scripts); please use a different mirror and/or wait a day or two.
-    
-    ...
-    --- finished re-building ‘d_validation_statement.Rmd’
-    
-    --- re-building ‘e_maintenance_guide.Rmd’ using rmarkdown
-    --- finished re-building ‘e_maintenance_guide.Rmd’
-    
-    SUMMARY: processing the following file failed:
-      ‘b_test_choice_tree_pdf.Rmd’
-    
-    Error: Vignette re-building failed.
-    Execution halted
-    ```
-
 *   checking dependencies in R code ... NOTE
     ```
     There are ::: calls to the package's namespace in its code. A package
@@ -487,7 +462,7 @@ Run `revdepcheck::cloud_details(, "duckplyr")` for more info
       🦆:  634
       add_count, anti_join, arrange, compute, count, cross_join, distinct, do, eval, filter, full_join, inner_join, intersect, left_join, mutate, mutate.data.frame, nest_join, pull, reframe, relocate, rename, rename_with, right_join, rows_append, rows_delete, rows_insert, rows_patch, rows_update, rows_upsert, select, semi_join, setdiff, setequal, slice, slice_head, slice_sample, slice_tail, summarise, symdiff, transmute, ungroup, union_all
       
-      00:00:41.584425
+      00:00:52.737809
       Execution halted
     ```
 
@@ -917,13 +892,13 @@ Run `revdepcheck::cloud_details(, "rfars")` for more info
     --- re-building ‘Rural_roads.Rmd’ using rmarkdown
     trying URL 'https://static.nhtsa.gov/nhtsa/downloads/FARS/2019/National/FARS2019NationalSAS.zip'
     ...
+    Content type 'application/x-zip-compressed' length 43216670 bytes (41.2 MB)
     ==================================================
     downloaded 41.2 MB
     
-    --- finished re-building ‘Rural_roads.Rmd’
-    
-    SUMMARY: processing the following file failed:
-      ‘Crash_sequences.Rmd’
+    Killed
+    SUMMARY: processing the following files failed:
+      ‘Crash_sequences.Rmd’ ‘Rural_roads.Rmd’
     
     Error: Vignette re-building failed.
     Execution halted
