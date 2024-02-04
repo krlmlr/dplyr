@@ -95,6 +95,106 @@ Run `revdepcheck::cloud_details(, "BayesianReasoning")` for more info
       Execution halted
     ```
 
+# bioinactivation
+
+<details>
+
+* Version: 1.2.3
+* GitHub: NA
+* Source code: https://github.com/cran/bioinactivation
+* Date/Publication: 2019-08-01 16:40:15 UTC
+* Number of recursive dependencies: 78
+
+Run `revdepcheck::cloud_details(, "bioinactivation")` for more info
+
+</details>
+
+## Newly broken
+
+*   checking tests ... ERROR
+    ```
+      Running ‘testthat.R’
+    Running the tests in ‘tests/testthat.R’ failed.
+    Complete output:
+      > 
+      > library(testthat)
+      > library(bioinactivation)
+      > 
+      > #==============================================================================
+      > 
+      > #- TEST PREDICTIONS FOR ISOTHERMAL PROFILES (WITH KNOWN SOLUTIONS)
+    ...
+      
+      Error:
+      ! Test failed
+      Backtrace:
+          ▆
+       1. ├─testthat::test_that(...)
+       2. │ └─withr (local) `<fn>`()
+       3. └─reporter$stop_if_needed()
+       4.   └─rlang::abort("Test failed", call = NULL)
+      Execution halted
+    ```
+
+*   checking re-building of vignette outputs ... ERROR
+    ```
+    Error(s) in re-building vignettes:
+      ...
+    --- re-building ‘inactivation.Rmd’ using rmarkdown
+    
+    Quitting from lines 665-668 [unnamed-chunk-47] (inactivation.Rmd)
+    Error: processing vignette 'inactivation.Rmd' failed with diagnostics:
+    illegal input detected before taking any integration steps - see written message
+    --- failed re-building ‘inactivation.Rmd’
+    
+    SUMMARY: processing the following file failed:
+      ‘inactivation.Rmd’
+    
+    Error: Vignette re-building failed.
+    Execution halted
+    ```
+
+# causalBatch
+
+<details>
+
+* Version: 1.0
+* GitHub: https://github.com/neurodata/causal_batch
+* Source code: https://github.com/cran/causalBatch
+* Date/Publication: 2024-01-24 16:02:55 UTC
+* Number of recursive dependencies: 139
+
+Run `revdepcheck::cloud_details(, "causalBatch")` for more info
+
+</details>
+
+## Newly broken
+
+*   checking tests ... ERROR
+    ```
+      Running ‘testthat.R’
+    Running the tests in ‘tests/testthat.R’ failed.
+    Complete output:
+      > # This file is part of the standard setup for testthat.
+      > # It is recommended that you do not modify it.
+      > #
+      > # Where should you do additional test configuration?
+      > # Learn more about the roles of various files in:
+      > # * https://r-pkgs.org/testing-design.html#sec-tests-files-overview
+      > # * https://testthat.r-lib.org/articles/special-files.html
+    ...
+      ══ Failed tests ════════════════════════════════════════════════════════════════
+      ── Failure ('test-kway_match.R:74:3'): K-way matching increases covariate overlap ──
+      ov.before < ov.after is not TRUE
+      
+      `actual`:   FALSE
+      `expected`: TRUE 
+      
+      [ FAIL 1 | WARN 0 | SKIP 3 | PASS 37 ]
+      Error: Test failures
+      Execution halted
+    ```
+
 # CCWeights
 
 <details>
@@ -171,6 +271,47 @@ Run `revdepcheck::cloud_details(, "CodelistGenerator")` for more info
       [ FAIL 2 | WARN 0 | SKIP 8 | PASS 269 ]
       Error: Test failures
       Execution halted
+    ```
+
+# concaveman
+
+<details>
+
+* Version: 1.1.0
+* GitHub: NA
+* Source code: https://github.com/cran/concaveman
+* Date/Publication: 2020-05-11 10:50:07 UTC
+* Number of recursive dependencies: 48
+
+Run `revdepcheck::cloud_details(, "concaveman")` for more info
+
+</details>
+
+## Newly broken
+
+*   checking examples ... ERROR
+    ```
+    Running examples in ‘concaveman-Ex.R’ failed
+    The error most likely occurred in:
+    
+    > ### Name: concaveman
+    > ### Title: concaveman: A very fast 2D concave hull algorithm.
+    > ### Aliases: concaveman concaveman.matrix concaveman.sf
+    > 
+    > ### ** Examples
+    > 
+    > data(points)
+    ...
+      9.         ├─obj[[attr(obj, "sf_column")]]
+     10.         └─tibble:::`[[.tbl_df`(obj, attr(obj, "sf_column"))
+     11.           └─tibble:::tbl_subset2(x, j = i, j_arg = substitute(i))
+     12.             └─tibble:::vectbl_as_col_location2(...)
+     13.               ├─tibble:::subclass_col_index_errors(...)
+     14.               │ └─base::withCallingHandlers(...)
+     15.               └─vctrs::vec_as_location2(j, n, names, call = call)
+     16.                 └─vctrs:::result_get(...)
+     17.                   └─rlang::cnd_signal(x$err)
+    Execution halted
     ```
 
 # crosshap
@@ -284,6 +425,47 @@ Run `revdepcheck::cloud_details(, "DescrTab2")` for more info
       ‘.factorsd’ ‘.max’ ‘.mean’ ‘.median’ ‘.min’ ‘.sd’
     ```
 
+# dials
+
+<details>
+
+* Version: 1.2.0
+* GitHub: https://github.com/tidymodels/dials
+* Source code: https://github.com/cran/dials
+* Date/Publication: 2023-04-03 15:30:10 UTC
+* Number of recursive dependencies: 75
+
+Run `revdepcheck::cloud_details(, "dials")` for more info
+
+</details>
+
+## Newly broken
+
+*   checking tests ... ERROR
+    ```
+      Running ‘testthat.R’
+    Running the tests in ‘tests/testthat.R’ failed.
+    Complete output:
+      > library(testthat)
+      > library(dials)
+      Loading required package: scales
+      > 
+      > if (requireNamespace("xml2")) {
+      +   test_check("dials", reporter = MultiReporter$new(reporters = list(JunitReporter$new(file = "test-results.xml"), CheckReporter$new())))
+      + } else {
+    ...
+      ── Failure ('test-compat-dplyr-parameters.R:100:3'): summarise() always drops the parameters class ──
+      `x` has class 'parameters'/'tbl_df'/'tbl'/'data.frame', not 'tbl_df'/'tbl'/'data.frame'.
+      Backtrace:
+          ▆
+       1. └─dials:::expect_s3_class_bare_tibble(summarise(x, y = 1)) at test-compat-dplyr-parameters.R:100:3
+       2.   └─testthat::expect_s3_class(...) at tests/testthat/helper-s3.R:6:3
+      
+      [ FAIL 2 | WARN 0 | SKIP 33 | PASS 377 ]
+      Error: Test failures
+      Execution halted
+    ```
+
 # duckplyr
 
 <details>
@@ -321,7 +503,89 @@ Run `revdepcheck::cloud_details(, "duckplyr")` for more info
       🦆:  634
       add_count, anti_join, arrange, compute, count, cross_join, distinct, do, eval, filter, full_join, inner_join, intersect, left_join, mutate, mutate.data.frame, nest_join, pull, reframe, relocate, rename, rename_with, right_join, rows_append, rows_delete, rows_insert, rows_patch, rows_update, rows_upsert, select, semi_join, setdiff, setequal, slice, slice_head, slice_sample, slice_tail, summarise, symdiff, transmute, ungroup, union_all
       
-      00:00:42.530999
+      00:01:18.115224
+      Execution halted
+    ```
+
+# eiCompare
+
+<details>
+
+* Version: 3.0.4
+* GitHub: https://github.com/RPVote/eiCompare
+* Source code: https://github.com/cran/eiCompare
+* Date/Publication: 2023-08-31 13:30:02 UTC
+* Number of recursive dependencies: 147
+
+Run `revdepcheck::cloud_details(, "eiCompare")` for more info
+
+</details>
+
+## Newly broken
+
+*   checking re-building of vignette outputs ... ERROR
+    ```
+    Error(s) in re-building vignettes:
+      ...
+    --- re-building ‘bisg.Rmd’ using rmarkdown
+    
+    Quitting from lines 127-149 [unnamed-chunk-13] (bisg.Rmd)
+    Error: processing vignette 'bisg.Rmd' failed with diagnostics:
+    argument is of length zero
+    --- failed re-building ‘bisg.Rmd’
+    
+    --- re-building ‘ei.Rmd’ using rmarkdown
+    ...
+    --- finished re-building ‘parallel_processing.Rmd’
+    
+    --- re-building ‘performance_analysis.Rmd’ using rmarkdown
+    --- finished re-building ‘performance_analysis.Rmd’
+    
+    SUMMARY: processing the following file failed:
+      ‘bisg.Rmd’
+    
+    Error: Vignette re-building failed.
+    Execution halted
+    ```
+
+# ern
+
+<details>
+
+* Version: 1.3.1
+* GitHub: NA
+* Source code: https://github.com/cran/ern
+* Date/Publication: 2024-01-29 23:50:08 UTC
+* Number of recursive dependencies: 96
+
+Run `revdepcheck::cloud_details(, "ern")` for more info
+
+</details>
+
+## Newly broken
+
+*   checking tests ... ERROR
+    ```
+      Running ‘testthat.R’
+    Running the tests in ‘tests/testthat.R’ failed.
+    Complete output:
+      > # This file is part of the standard setup for testthat.
+      > # It is recommended that you do not modify it.
+      > #
+      > # Where should you do additional test configuration?
+      > # Learn more about the roles of various files in:
+      > # * https://r-pkgs.org/tests.html
+      > # * https://testthat.r-lib.org/reference/test_package.html#special-files
+    ...
+      ══ Failed tests ════════════════════════════════════════════════════════════════
+      ── Failure ('test-agg_to_daily.R:105:3'): internal time index is correctly specified ──
+      `check` is not TRUE
+      
+      `actual`:   FALSE
+      `expected`: TRUE 
+      
+      [ FAIL 1 | WARN 0 | SKIP 0 | PASS 175 ]
+      Error: Test failures
       Execution halted
     ```
 
@@ -360,6 +624,129 @@ Run `revdepcheck::cloud_details(, "ezplot")` for more info
       [1] 12 - 11 == 1
       
       [ FAIL 1 | WARN 0 | SKIP 0 | PASS 93 ]
+      Error: Test failures
+      Execution halted
+    ```
+
+# googledrive
+
+<details>
+
+* Version: 2.1.1
+* GitHub: https://github.com/tidyverse/googledrive
+* Source code: https://github.com/cran/googledrive
+* Date/Publication: 2023-06-11 19:30:08 UTC
+* Number of recursive dependencies: 68
+
+Run `revdepcheck::cloud_details(, "googledrive")` for more info
+
+</details>
+
+## Newly broken
+
+*   checking tests ... ERROR
+    ```
+      Running ‘spelling.R’
+      Running ‘testthat.R’
+    Running the tests in ‘tests/testthat.R’ failed.
+    Complete output:
+      > library(testthat)
+      > library(googledrive)
+      > 
+      > test_check("googledrive")
+      Test file naming scheme:
+      • foo-TEST-drive_something
+    ...
+      ── Failure ('test-compat-dplyr.R:131:3'): summarise() always drops the dribble class ──
+      `x` has class 'dribble'/'tbl_df'/'tbl'/'data.frame', not 'tbl_df'/'tbl'/'data.frame'.
+      Backtrace:
+          ▆
+       1. └─googledrive:::expect_bare_tibble(...) at test-compat-dplyr.R:131:3
+       2.   └─testthat::expect_s3_class(...) at tests/testthat/helper.R:53:3
+      
+      [ FAIL 2 | WARN 0 | SKIP 124 | PASS 255 ]
+      Error: Test failures
+      Execution halted
+    ```
+
+# hidecan
+
+<details>
+
+* Version: 1.1.0
+* GitHub: https://github.com/PlantandFoodResearch/hidecan
+* Source code: https://github.com/cran/hidecan
+* Date/Publication: 2023-02-10 09:40:02 UTC
+* Number of recursive dependencies: 91
+
+Run `revdepcheck::cloud_details(, "hidecan")` for more info
+
+</details>
+
+## Newly broken
+
+*   checking tests ... ERROR
+    ```
+      Running ‘testthat.R’
+    Running the tests in ‘tests/testthat.R’ failed.
+    Complete output:
+      > # This file is part of the standard setup for testthat.
+      > # It is recommended that you do not modify it.
+      > #
+      > # Where should you do additional test configuration?
+      > # Learn more about the roles of various files in:
+      > # * https://r-pkgs.org/tests.html
+      > # * https://testthat.r-lib.org/reference/test_package.html#special-files
+    ...
+      `expected`: -0.0 -0.3 -0.5 -0.6 -0.7
+      ── Failure ('test-input_data_constructors.R:92:3'): DE_data works ──────────────
+      ...[[]] (`actual`) not equal to -log10(1:5) (`expected`).
+      
+        `actual`: -0.0 -0.7 -1.1 -1.4 -1.6
+      `expected`: -0.0 -0.3 -0.5 -0.6 -0.7
+      
+      [ FAIL 2 | WARN 0 | SKIP 1 | PASS 115 ]
+      Error: Test failures
+      Execution halted
+    ```
+
+# iNZightTools
+
+<details>
+
+* Version: 2.0.1
+* GitHub: https://github.com/iNZightVIT/iNZightTools
+* Source code: https://github.com/cran/iNZightTools
+* Date/Publication: 2023-10-12 11:50:08 UTC
+* Number of recursive dependencies: 119
+
+Run `revdepcheck::cloud_details(, "iNZightTools")` for more info
+
+</details>
+
+## Newly broken
+
+*   checking tests ... ERROR
+    ```
+      Running ‘testthat.R’
+    Running the tests in ‘tests/testthat.R’ failed.
+    Complete output:
+      > library(testthat)
+      > library(iNZightTools)
+      
+      Attaching package: 'iNZightTools'
+      
+      The following object is masked from 'package:stats':
+      
+    ...
+      • On CRAN (4): 'test_smart_read.R:29:5', 'test_smart_read.R:259:5',
+        'test_survey_design.R:80:5', 'test_survey_design.R:120:5'
+      
+      ══ Failed tests ════════════════════════════════════════════════════════════════
+      ── Failure ('test_join_data.R:16:5'): Auto detection works ─────────────────────
+      `join_data(iris, iris)` did not throw the expected warning.
+      
+      [ FAIL 1 | WARN 0 | SKIP 4 | PASS 397 ]
       Error: Test failures
       Execution halted
     ```
@@ -606,6 +993,244 @@ Run `revdepcheck::cloud_details(, "rfars")` for more info
       Note: found 806 marked UTF-8 strings
     ```
 
+# rsample
+
+<details>
+
+* Version: 1.2.0
+* GitHub: https://github.com/tidymodels/rsample
+* Source code: https://github.com/cran/rsample
+* Date/Publication: 2023-08-23 15:00:02 UTC
+* Number of recursive dependencies: 117
+
+Run `revdepcheck::cloud_details(, "rsample")` for more info
+
+</details>
+
+## Newly broken
+
+*   checking tests ... ERROR
+    ```
+      Running ‘testthat.R’
+    Running the tests in ‘tests/testthat.R’ failed.
+    Complete output:
+      > library(testthat)
+      > library(rsample)
+      
+      Attaching package: 'rsample'
+      
+      The following object is masked from 'package:testthat':
+      
+    ...
+      ── Failure ('test-compat-dplyr.R:265:5'): summarise() always drops the rset class ──
+      `x` has class 'validation_set'/'rset'/'tbl_df'/'tbl'/'data.frame', not 'tbl_df'/'tbl'/'data.frame'.
+      Backtrace:
+          ▆
+       1. └─rsample:::expect_s3_class_bare_tibble(...) at test-compat-dplyr.R:265:5
+       2.   └─testthat::expect_s3_class(...) at tests/testthat/helpers-rsample.R:11:3
+      
+      [ FAIL 40 | WARN 3 | SKIP 49 | PASS 2997 ]
+      Error: Test failures
+      Execution halted
+    ```
+
+# RVA
+
+<details>
+
+* Version: 0.0.5
+* GitHub: https://github.com/THERMOSTATS/RVA
+* Source code: https://github.com/cran/RVA
+* Date/Publication: 2021-11-01 21:40:02 UTC
+* Number of recursive dependencies: 213
+
+Run `revdepcheck::cloud_details(, "RVA")` for more info
+
+</details>
+
+## Newly broken
+
+*   checking installed package size ... NOTE
+    ```
+      installed size is  8.6Mb
+      sub-directories of 1Mb or more:
+        data   7.2Mb
+    ```
+
+## In both
+
+*   checking dependencies in R code ... NOTE
+    ```
+    Namespace in Imports field not imported from: ‘XML’
+      All declared Imports should be used.
+    ```
+
+# scGOclust
+
+<details>
+
+* Version: 0.2.1
+* GitHub: https://github.com/Papatheodorou-Group/scGOclust
+* Source code: https://github.com/cran/scGOclust
+* Date/Publication: 2024-01-24 14:40:02 UTC
+* Number of recursive dependencies: 217
+
+Run `revdepcheck::cloud_details(, "scGOclust")` for more info
+
+</details>
+
+## Newly broken
+
+*   checking re-building of vignette outputs ... ERROR
+    ```
+    Error(s) in re-building vignettes:
+      ...
+    --- re-building ‘scGOclust_vignette.Rmd’ using rmarkdown
+    Killed
+    ```
+
+# scoringTools
+
+<details>
+
+* Version: 0.1.2
+* GitHub: https://github.com/adimajo/scoringTools
+* Source code: https://github.com/cran/scoringTools
+* Date/Publication: 2021-01-10 17:20:02 UTC
+* Number of recursive dependencies: 111
+
+Run `revdepcheck::cloud_details(, "scoringTools")` for more info
+
+</details>
+
+## Newly broken
+
+*   checking tests ... ERROR
+    ```
+      Running ‘testthat.R’
+    Running the tests in ‘tests/testthat.R’ failed.
+    Complete output:
+      > library(testthat)
+      > library(scoringTools)
+      > 
+      > test_check("scoringTools")
+      Generalized Linear Model of class 'speedglm':
+      
+      Call:  speedglm::speedglm(formula = labels ~ ., data = df_augmente[,      -which(names(df_augmente) %in% c("poidsfinal", "classe_SCORE"))][!df_augmente$poidsfinal ==      0, ], family = stats::binomial(link = "logit"), weights = df_augmente$poidsfinal[!df_augmente$poidsfinal ==      0]) 
+    ...
+       2.   └─scoringTools:::fit_disc(disc[[i]], data_train, type = "speedglm")
+       3.     └─speedglm::speedglm(...)
+       4.       └─speedglm::speedglm.wfit(...)
+       5.         ├─base::solve(XTX, XTz, tol = tol.solve)
+       6.         ├─base::solve(XTX, XTz, tol = tol.solve)
+       7.         └─base::solve.default(XTX, XTz, tol = tol.solve)
+      
+      [ FAIL 1 | WARN 30 | SKIP 0 | PASS 954 ]
+      Error: Test failures
+      Execution halted
+    ```
+
+## In both
+
+*   checking Rd \usage sections ... NOTE
+    ```
+    S3 methods shown with full name in documentation object 'plot':
+      ‘plot.discretization’
+    
+    S3 methods shown with full name in documentation object 'predict':
+      ‘predict.discretization’ ‘predict.reject_infered’
+    
+    S3 methods shown with full name in documentation object 'summary':
+      ‘summary.discretization’
+    
+    The \usage entries for S3 methods should use the \method markup and not
+    their full name.
+    See chapter ‘Writing R documentation files’ in the ‘Writing R
+    Extensions’ manual.
+    ```
+
+# spatialsample
+
+<details>
+
+* Version: 0.5.1
+* GitHub: https://github.com/tidymodels/spatialsample
+* Source code: https://github.com/cran/spatialsample
+* Date/Publication: 2023-11-08 00:20:02 UTC
+* Number of recursive dependencies: 108
+
+Run `revdepcheck::cloud_details(, "spatialsample")` for more info
+
+</details>
+
+## Newly broken
+
+*   checking tests ... ERROR
+    ```
+      Running ‘testthat.R’
+    Running the tests in ‘tests/testthat.R’ failed.
+    Complete output:
+      > library(testthat)
+      > library(spatialsample)
+      > 
+      > sf::sf_extSoftVersion()
+                GEOS           GDAL         proj.4 GDAL_with_GEOS     USE_PROJ_H 
+             "3.8.0"        "3.0.4"        "6.3.1"         "true"         "true" 
+                PROJ 
+    ...
+      • autoplot/buffered-rset-plot.svg
+      • autoplot/buffered-vfold-plot.svg
+      • autoplot/buffered-vfold-split.svg
+      • autoplot/cluster-split-plots.svg
+      • autoplot/repeated-block-cv.svg
+      • autoplot/repeated-llo.svg
+      • autoplot/repeated-vfold.svg
+      • autoplot/snake-flips-rows-the-right-way.svg
+      Error: Test failures
+      Execution halted
+    ```
+
+# stickyr
+
+<details>
+
+* Version: 0.1.2
+* GitHub: https://github.com/UchidaMizuki/stickyr
+* Source code: https://github.com/cran/stickyr
+* Date/Publication: 2023-03-26 17:20:06 UTC
+* Number of recursive dependencies: 46
+
+Run `revdepcheck::cloud_details(, "stickyr")` for more info
+
+</details>
+
+## Newly broken
+
+*   checking tests ... ERROR
+    ```
+      Running ‘testthat.R’
+    Running the tests in ‘tests/testthat.R’ failed.
+    Complete output:
+      > # This file is part of the standard setup for testthat.
+      > # It is recommended that you do not modify it.
+      > #
+      > # Where should you do additional test configuration?
+      > # Learn more about the roles of various files in:
+      > # * https://r-pkgs.org/tests.html
+      > # * https://testthat.r-lib.org/reference/test_package.html#special-files
+    ...
+        9. │           ├─x[0]
+       10. │           └─stickyr:::`[.sticky_tbl_df`(x, 0)
+       11. │             └─vctrs::vec_slice(sticky_cols, intersect(row.names(sticky_cols), names(out)))
+       12. └─vctrs:::stop_scalar_type(`<fn>`(NULL), "x", `<env>`)
+       13.   └─vctrs:::stop_vctrs(...)
+       14.     └─rlang::abort(message, class = c(class, "vctrs_error"), ..., call = call)
+      
+      [ FAIL 1 | WARN 0 | SKIP 0 | PASS 20 ]
+      Error: Test failures
+      Execution halted
+    ```
+
 # streamDepletr
 
 <details>
@@ -729,5 +1354,46 @@ Run `revdepcheck::cloud_details(, "vDiveR")` for more info
     Namespaces in Imports field not imported from:
       ‘DT’ ‘maps’ ‘readr’
       All declared Imports should be used.
+    ```
+
+# workflowsets
+
+<details>
+
+* Version: 1.0.1
+* GitHub: https://github.com/tidymodels/workflowsets
+* Source code: https://github.com/cran/workflowsets
+* Date/Publication: 2023-04-06 22:40:02 UTC
+* Number of recursive dependencies: 141
+
+Run `revdepcheck::cloud_details(, "workflowsets")` for more info
+
+</details>
+
+## Newly broken
+
+*   checking tests ... ERROR
+    ```
+      Running ‘spelling.R’
+      Running ‘testthat.R’
+    Running the tests in ‘tests/testthat.R’ failed.
+    Complete output:
+      > library(testthat)
+      > library(workflowsets)
+      > 
+      > test_check("workflowsets")
+      
+      Attaching package: 'dplyr'
+    ...
+      ── Failure ('test-compat-dplyr.R:103:5'): summarise() always drops the workflow_set class ──
+      `x` has class 'workflow_set'/'tbl_df'/'tbl'/'data.frame', not 'tbl_df'/'tbl'/'data.frame'.
+      Backtrace:
+          ▆
+       1. └─workflowsets:::expect_s3_class_bare_tibble(...) at test-compat-dplyr.R:103:5
+       2.   └─testthat::expect_s3_class(...) at tests/testthat/helper-compat.R:11:3
+      
+      [ FAIL 4 | WARN 0 | SKIP 14 | PASS 387 ]
+      Error: Test failures
+      Execution halted
     ```
 
