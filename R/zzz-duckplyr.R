@@ -1252,6 +1252,246 @@ duckplyr_group_vars <- function(x, ...) {
   out
 }
 
+# Standalone file: do not edit by hand
+# ----------------------------------------------------------------------
+#
+# ---
+# repo: r-lib/rlang
+# file: standalone-purrr.R
+# last-updated: 2023-02-23
+# license: https://unlicense.org
+# imports: rlang
+# ---
+#
+# This file provides a minimal shim to provide a purrr-like API on top of
+# base R functions. They are not drop-in replacements but allow a similar style
+# of programming.
+#
+# ## Changelog
+#
+# 2023-02-23:
+# * Added `list_c()`
+#
+# 2022-06-07:
+# * `transpose()` is now more consistent with purrr when inner names
+#   are not congruent (#1346).
+#
+# 2021-12-15:
+# * `transpose()` now supports empty lists.
+#
+# 2021-05-21:
+# * Fixed "object `x` not found" error in `imap()` (@mgirlich)
+#
+# 2020-04-14:
+# * Removed `pluck*()` functions
+# * Removed `*_cpl()` functions
+# * Used `as_function()` to allow use of `~`
+# * Used `.` prefix for helpers
+#
+# nocov start
+
+map <- function(.x, .f, ...) {
+  .f <- as_function(.f, env = global_env())
+  lapply(.x, .f, ...)
+}
+walk <- function(.x, .f, ...) {
+  map(.x, .f, ...)
+  invisible(.x)
+}
+
+map_lgl <- function(.x, .f, ...) {
+  .rlang_purrr_map_mold(.x, .f, logical(1), ...)
+}
+map_int <- function(.x, .f, ...) {
+  .rlang_purrr_map_mold(.x, .f, integer(1), ...)
+}
+map_dbl <- function(.x, .f, ...) {
+  .rlang_purrr_map_mold(.x, .f, double(1), ...)
+}
+map_chr <- function(.x, .f, ...) {
+  .rlang_purrr_map_mold(.x, .f, character(1), ...)
+}
+.rlang_purrr_map_mold <- function(.x, .f, .mold, ...) {
+  .f <- as_function(.f, env = global_env())
+  out <- vapply(.x, .f, .mold, ..., USE.NAMES = FALSE)
+  names(out) <- names(.x)
+  out
+}
+
+map2 <- function(.x, .y, .f, ...) {
+  .f <- as_function(.f, env = global_env())
+  out <- mapply(.f, .x, .y, MoreArgs = list(...), SIMPLIFY = FALSE)
+  if (length(out) == length(.x)) {
+    set_names(out, names(.x))
+  } else {
+    set_names(out, NULL)
+  }
+}
+map2_lgl <- function(.x, .y, .f, ...) {
+  as.vector(map2(.x, .y, .f, ...), "logical")
+}
+map2_int <- function(.x, .y, .f, ...) {
+  as.vector(map2(.x, .y, .f, ...), "integer")
+}
+map2_dbl <- function(.x, .y, .f, ...) {
+  as.vector(map2(.x, .y, .f, ...), "double")
+}
+map2_chr <- function(.x, .y, .f, ...) {
+  as.vector(map2(.x, .y, .f, ...), "character")
+}
+imap <- function(.x, .f, ...) {
+  map2(.x, names(.x) %||% seq_along(.x), .f, ...)
+}
+
+pmap <- function(.l, .f, ...) {
+  .f <- as.function(.f)
+  args <- .rlang_purrr_args_recycle(.l)
+  do.call("mapply", c(
+    FUN = list(quote(.f)),
+    args, MoreArgs = quote(list(...)),
+    SIMPLIFY = FALSE, USE.NAMES = FALSE
+  ))
+}
+.rlang_purrr_args_recycle <- function(args) {
+  lengths <- map_int(args, length)
+  n <- max(lengths)
+
+  stopifnot(all(lengths == 1L | lengths == n))
+  to_recycle <- lengths == 1L
+  args[to_recycle] <- map(args[to_recycle], function(x) rep.int(x, n))
+
+  args
+}
+
+keep <- function(.x, .f, ...) {
+  .x[.rlang_purrr_probe(.x, .f, ...)]
+}
+discard <- function(.x, .p, ...) {
+  sel <- .rlang_purrr_probe(.x, .p, ...)
+  .x[is.na(sel) | !sel]
+}
+map_if <- function(.x, .p, .f, ...) {
+  matches <- .rlang_purrr_probe(.x, .p)
+  .x[matches] <- map(.x[matches], .f, ...)
+  .x
+}
+.rlang_purrr_probe <- function(.x, .p, ...) {
+  if (is_logical(.p)) {
+    stopifnot(length(.p) == length(.x))
+    .p
+  } else {
+    .p <- as_function(.p, env = global_env())
+    map_lgl(.x, .p, ...)
+  }
+}
+
+compact <- function(.x) {
+  Filter(length, .x)
+}
+
+transpose <- function(.l) {
+  if (!length(.l)) {
+    return(.l)
+  }
+
+  inner_names <- names(.l[[1]])
+
+  if (is.null(inner_names)) {
+    fields <- seq_along(.l[[1]])
+  } else {
+    fields <- set_names(inner_names)
+    .l <- map(.l, function(x) {
+      if (is.null(names(x))) {
+        set_names(x, inner_names)
+      } else {
+        x
+      }
+    })
+  }
+
+  # This way missing fields are subsetted as `NULL` instead of causing
+  # an error
+  .l <- map(.l, as.list)
+
+  map(fields, function(i) {
+    map(.l, .subset2, i)
+  })
+}
+
+every <- function(.x, .p, ...) {
+  .p <- as_function(.p, env = global_env())
+
+  for (i in seq_along(.x)) {
+    if (!rlang::is_true(.p(.x[[i]], ...))) return(FALSE)
+  }
+  TRUE
+}
+some <- function(.x, .p, ...) {
+  .p <- as_function(.p, env = global_env())
+
+  for (i in seq_along(.x)) {
+    if (rlang::is_true(.p(.x[[i]], ...))) return(TRUE)
+  }
+  FALSE
+}
+negate <- function(.p) {
+  .p <- as_function(.p, env = global_env())
+  function(...) !.p(...)
+}
+
+reduce <- function(.x, .f, ..., .init) {
+  f <- function(x, y) .f(x, y, ...)
+  Reduce(f, .x, init = .init)
+}
+reduce_right <- function(.x, .f, ..., .init) {
+  f <- function(x, y) .f(y, x, ...)
+  Reduce(f, .x, init = .init, right = TRUE)
+}
+accumulate <- function(.x, .f, ..., .init) {
+  f <- function(x, y) .f(x, y, ...)
+  Reduce(f, .x, init = .init, accumulate = TRUE)
+}
+accumulate_right <- function(.x, .f, ..., .init) {
+  f <- function(x, y) .f(y, x, ...)
+  Reduce(f, .x, init = .init, right = TRUE, accumulate = TRUE)
+}
+
+detect <- function(.x, .f, ..., .right = FALSE, .p = is_true) {
+  .p <- as_function(.p, env = global_env())
+  .f <- as_function(.f, env = global_env())
+
+  for (i in .rlang_purrr_index(.x, .right)) {
+    if (.p(.f(.x[[i]], ...))) {
+      return(.x[[i]])
+    }
+  }
+  NULL
+}
+detect_index <- function(.x, .f, ..., .right = FALSE, .p = is_true) {
+  .p <- as_function(.p, env = global_env())
+  .f <- as_function(.f, env = global_env())
+
+  for (i in .rlang_purrr_index(.x, .right)) {
+    if (.p(.f(.x[[i]], ...))) {
+      return(i)
+    }
+  }
+  0L
+}
+.rlang_purrr_index <- function(x, right = FALSE) {
+  idx <- seq_along(x)
+  if (right) {
+    idx <- rev(idx)
+  }
+  idx
+}
+
+list_c <- function(x) {
+  inject(c(!!!x))
+}
+
+# nocov end
+
 # Generated by 02-duckplyr_df-methods.R
 #' @export
 inner_join.data.frame <- function(x, y, by = NULL, copy = FALSE, suffix = c(".x", ".y"), ..., keep = NULL, na_matches = c("na", "never"), multiple = "all", unmatched = "drop", relationship = NULL) {
@@ -1451,7 +1691,9 @@ rel_join_impl <- function(x, y, by, join, na_matches, suffix, keep, error_call =
     cond_by[cond_by == "=="] <- "___eq_na_matches_na"
   }
 
-  conds <- pmap(list(cond_by, x_by, y_by), ~ relexpr_function(..1, list(..2, ..3)))
+  conds <- pmap(list(cond_by, x_by, y_by), function(...) {
+    relexpr_function(..1, list(..2, ..3))
+  })
 
   if (any(by$filter != "none")) {
     join_ref_type <- "asof"
@@ -1494,7 +1736,9 @@ rel_join_impl <- function(x, y, by, join, na_matches, suffix, keep, error_call =
       } else {
         exprs[by_pos[eq_idx]] <- pmap(
           list(x_by[eq_idx], y_by[eq_idx], names(vars$x$key)[eq_idx]),
-          ~ relexpr_function("___coalesce", list(..1, ..2), alias = ..3)
+          function(...) {
+            relexpr_function("___coalesce", list(..1, ..2), alias = ..3)
+          }
         )
       }
     }
@@ -2243,9 +2487,9 @@ check_df_for_rel <- function(df) {
     # https://github.com/duckdb/duckdb/issues/8561
     col_class <- class(col)
     if (length(col_class) == 1) {
-      valid <- col_class %in% c("logical", "integer", "numeric", "character", "Date")
+      valid <- col_class %in% c("logical", "integer", "numeric", "character", "Date", "difftime")
     } else if (length(col_class) == 2) {
-      valid <- identical(col_class, c("POSIXct", "POSIXt"))
+      valid <- identical(col_class, c("POSIXct", "POSIXt")) || identical(col_class, c("hms", "difftime"))
     } else {
       valid <- FALSE
     }
@@ -3225,7 +3469,9 @@ rel_translate <- function(
                 consts <- map(values, do_translate, in_window = in_window)
                 ops <- map(consts, list, do_translate(expr[[2]]))
                 cmp <- map(ops, relexpr_function, name = "==")
-                alt <- reduce(cmp, ~ relexpr_function("|", list(.x, .y)))
+                alt <- reduce(cmp, function(.x, .y) {
+                  relexpr_function("|", list(.x, .y))
+                })
                 return(alt)
               },
               error = identity
