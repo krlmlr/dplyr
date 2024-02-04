@@ -1,9 +1,9 @@
 ## revdepcheck results
 
-We checked 4240 reverse dependencies, comparing R CMD check results across CRAN and dev versions of this package.
+We checked 33 reverse dependencies, comparing R CMD check results across CRAN and dev versions of this package.
 
- * We saw 33 new problems
- * We failed to check 7 packages
+ * We saw 29 new problems
+ * We failed to check 0 packages
 
 Issues with CRAN packages are summarised below.
 
@@ -19,9 +19,6 @@ Issues with CRAN packages are summarised below.
 * bioinactivation
   checking tests ... ERROR
   checking re-building of vignette outputs ... ERROR
-
-* causalBatch
-  checking tests ... ERROR
 
 * CCWeights
   checking examples ... ERROR
@@ -44,9 +41,6 @@ Issues with CRAN packages are summarised below.
 
 * duckplyr
   checking tests ... ERROR
-
-* eiCompare
-  checking re-building of vignette outputs ... ERROR
 
 * ern
   checking tests ... ERROR
@@ -85,14 +79,8 @@ Issues with CRAN packages are summarised below.
 * rsample
   checking tests ... ERROR
 
-* RVA
-  checking installed package size ... NOTE
-
 * scGOclust
   checking re-building of vignette outputs ... ERROR
-
-* scoringTools
-  checking tests ... ERROR
 
 * spatialsample
   checking tests ... ERROR
@@ -112,12 +100,3 @@ Issues with CRAN packages are summarised below.
 * workflowsets
   checking tests ... ERROR
 
-### Failed to check
-
-* bayesdfa         (NA)
-* BPrinStratTTE    (NA)
-* loon.shiny       (NA)
-* multinma         (NA)
-* rmdcev           (NA)
-* TriDimRegression (NA)
-* triptych         (NA)

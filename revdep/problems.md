@@ -154,47 +154,6 @@ Run `revdepcheck::cloud_details(, "bioinactivation")` for more info
     Execution halted
     ```
 
-# causalBatch
-
-<details>
-
-* Version: 1.0
-* GitHub: https://github.com/neurodata/causal_batch
-* Source code: https://github.com/cran/causalBatch
-* Date/Publication: 2024-01-24 16:02:55 UTC
-* Number of recursive dependencies: 139
-
-Run `revdepcheck::cloud_details(, "causalBatch")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking tests ... ERROR
-    ```
-      Running ‘testthat.R’
-    Running the tests in ‘tests/testthat.R’ failed.
-    Complete output:
-      > # This file is part of the standard setup for testthat.
-      > # It is recommended that you do not modify it.
-      > #
-      > # Where should you do additional test configuration?
-      > # Learn more about the roles of various files in:
-      > # * https://r-pkgs.org/testing-design.html#sec-tests-files-overview
-      > # * https://testthat.r-lib.org/articles/special-files.html
-    ...
-      ══ Failed tests ════════════════════════════════════════════════════════════════
-      ── Failure ('test-kway_match.R:74:3'): K-way matching increases covariate overlap ──
-      ov.before < ov.after is not TRUE
-      
-      `actual`:   FALSE
-      `expected`: TRUE 
-      
-      [ FAIL 1 | WARN 0 | SKIP 3 | PASS 37 ]
-      Error: Test failures
-      Execution halted
-    ```
-
 # CCWeights
 
 <details>
@@ -416,6 +375,31 @@ Run `revdepcheck::cloud_details(, "DescrTab2")` for more info
 
 ## In both
 
+*   checking re-building of vignette outputs ... WARNING
+    ```
+    Error(s) in re-building vignettes:
+    --- re-building ‘a_usage_guide.Rmd’ using rmarkdown
+    --- finished re-building ‘a_usage_guide.Rmd’
+    
+    --- re-building ‘b_test_choice_tree_pdf.Rmd’ using rmarkdown
+    
+    tlmgr: Remote database (revision 69669 of the texlive-scripts package)
+    seems to be older than the local installation (rev 69683 of
+    texlive-scripts); please use a different mirror and/or wait a day or two.
+    
+    ...
+    --- finished re-building ‘d_validation_statement.Rmd’
+    
+    --- re-building ‘e_maintenance_guide.Rmd’ using rmarkdown
+    --- finished re-building ‘e_maintenance_guide.Rmd’
+    
+    SUMMARY: processing the following file failed:
+      ‘b_test_choice_tree_pdf.Rmd’
+    
+    Error: Vignette re-building failed.
+    Execution halted
+    ```
+
 *   checking dependencies in R code ... NOTE
     ```
     There are ::: calls to the package's namespace in its code. A package
@@ -461,7 +445,7 @@ Run `revdepcheck::cloud_details(, "dials")` for more info
        1. └─dials:::expect_s3_class_bare_tibble(summarise(x, y = 1)) at test-compat-dplyr-parameters.R:100:3
        2.   └─testthat::expect_s3_class(...) at tests/testthat/helper-s3.R:6:3
       
-      [ FAIL 2 | WARN 0 | SKIP 33 | PASS 377 ]
+      [ FAIL 1 | WARN 0 | SKIP 33 | PASS 378 ]
       Error: Test failures
       Execution halted
     ```
@@ -503,49 +487,8 @@ Run `revdepcheck::cloud_details(, "duckplyr")` for more info
       🦆:  634
       add_count, anti_join, arrange, compute, count, cross_join, distinct, do, eval, filter, full_join, inner_join, intersect, left_join, mutate, mutate.data.frame, nest_join, pull, reframe, relocate, rename, rename_with, right_join, rows_append, rows_delete, rows_insert, rows_patch, rows_update, rows_upsert, select, semi_join, setdiff, setequal, slice, slice_head, slice_sample, slice_tail, summarise, symdiff, transmute, ungroup, union_all
       
-      00:01:18.115224
+      00:00:41.584425
       Execution halted
-    ```
-
-# eiCompare
-
-<details>
-
-* Version: 3.0.4
-* GitHub: https://github.com/RPVote/eiCompare
-* Source code: https://github.com/cran/eiCompare
-* Date/Publication: 2023-08-31 13:30:02 UTC
-* Number of recursive dependencies: 147
-
-Run `revdepcheck::cloud_details(, "eiCompare")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking re-building of vignette outputs ... ERROR
-    ```
-    Error(s) in re-building vignettes:
-      ...
-    --- re-building ‘bisg.Rmd’ using rmarkdown
-    
-    Quitting from lines 127-149 [unnamed-chunk-13] (bisg.Rmd)
-    Error: processing vignette 'bisg.Rmd' failed with diagnostics:
-    argument is of length zero
-    --- failed re-building ‘bisg.Rmd’
-    
-    --- re-building ‘ei.Rmd’ using rmarkdown
-    ...
-    --- finished re-building ‘parallel_processing.Rmd’
-    
-    --- re-building ‘performance_analysis.Rmd’ using rmarkdown
-    --- finished re-building ‘performance_analysis.Rmd’
-    
-    SUMMARY: processing the following file failed:
-      ‘bisg.Rmd’
-    
-    Error: Vignette re-building failed.
-    Execution halted
     ```
 
 # ern
@@ -974,13 +917,13 @@ Run `revdepcheck::cloud_details(, "rfars")` for more info
     --- re-building ‘Rural_roads.Rmd’ using rmarkdown
     trying URL 'https://static.nhtsa.gov/nhtsa/downloads/FARS/2019/National/FARS2019NationalSAS.zip'
     ...
-    Content type 'application/x-zip-compressed' length 43216670 bytes (41.2 MB)
     ==================================================
     downloaded 41.2 MB
     
-    Killed
-    SUMMARY: processing the following files failed:
-      ‘Crash_sequences.Rmd’ ‘Rural_roads.Rmd’
+    --- finished re-building ‘Rural_roads.Rmd’
+    
+    SUMMARY: processing the following file failed:
+      ‘Crash_sequences.Rmd’
     
     Error: Vignette re-building failed.
     Execution halted
@@ -1034,37 +977,6 @@ Run `revdepcheck::cloud_details(, "rsample")` for more info
       Execution halted
     ```
 
-# RVA
-
-<details>
-
-* Version: 0.0.5
-* GitHub: https://github.com/THERMOSTATS/RVA
-* Source code: https://github.com/cran/RVA
-* Date/Publication: 2021-11-01 21:40:02 UTC
-* Number of recursive dependencies: 213
-
-Run `revdepcheck::cloud_details(, "RVA")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking installed package size ... NOTE
-    ```
-      installed size is  8.6Mb
-      sub-directories of 1Mb or more:
-        data   7.2Mb
-    ```
-
-## In both
-
-*   checking dependencies in R code ... NOTE
-    ```
-    Namespace in Imports field not imported from: ‘XML’
-      All declared Imports should be used.
-    ```
-
 # scGOclust
 
 <details>
@@ -1087,66 +999,6 @@ Run `revdepcheck::cloud_details(, "scGOclust")` for more info
       ...
     --- re-building ‘scGOclust_vignette.Rmd’ using rmarkdown
     Killed
-    ```
-
-# scoringTools
-
-<details>
-
-* Version: 0.1.2
-* GitHub: https://github.com/adimajo/scoringTools
-* Source code: https://github.com/cran/scoringTools
-* Date/Publication: 2021-01-10 17:20:02 UTC
-* Number of recursive dependencies: 111
-
-Run `revdepcheck::cloud_details(, "scoringTools")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking tests ... ERROR
-    ```
-      Running ‘testthat.R’
-    Running the tests in ‘tests/testthat.R’ failed.
-    Complete output:
-      > library(testthat)
-      > library(scoringTools)
-      > 
-      > test_check("scoringTools")
-      Generalized Linear Model of class 'speedglm':
-      
-      Call:  speedglm::speedglm(formula = labels ~ ., data = df_augmente[,      -which(names(df_augmente) %in% c("poidsfinal", "classe_SCORE"))][!df_augmente$poidsfinal ==      0, ], family = stats::binomial(link = "logit"), weights = df_augmente$poidsfinal[!df_augmente$poidsfinal ==      0]) 
-    ...
-       2.   └─scoringTools:::fit_disc(disc[[i]], data_train, type = "speedglm")
-       3.     └─speedglm::speedglm(...)
-       4.       └─speedglm::speedglm.wfit(...)
-       5.         ├─base::solve(XTX, XTz, tol = tol.solve)
-       6.         ├─base::solve(XTX, XTz, tol = tol.solve)
-       7.         └─base::solve.default(XTX, XTz, tol = tol.solve)
-      
-      [ FAIL 1 | WARN 30 | SKIP 0 | PASS 954 ]
-      Error: Test failures
-      Execution halted
-    ```
-
-## In both
-
-*   checking Rd \usage sections ... NOTE
-    ```
-    S3 methods shown with full name in documentation object 'plot':
-      ‘plot.discretization’
-    
-    S3 methods shown with full name in documentation object 'predict':
-      ‘predict.discretization’ ‘predict.reject_infered’
-    
-    S3 methods shown with full name in documentation object 'summary':
-      ‘summary.discretization’
-    
-    The \usage entries for S3 methods should use the \method markup and not
-    their full name.
-    See chapter ‘Writing R documentation files’ in the ‘Writing R
-    Extensions’ manual.
     ```
 
 # spatialsample
