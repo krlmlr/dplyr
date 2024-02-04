@@ -2147,13 +2147,13 @@ duckplyr_macros <- c(
   "==" = "(x, y) AS x = y",
   "!=" = "(x, y) AS x <> y",
   #
-  "___divide" = "(x, y) AS CASE WHEN x = 0 AND y = 0 THEN CAST('NaN' AS double) ELSE CAST(x AS double) / y END",
+  "___divide" = "(x, y) AS CASE WHEN y = 0 THEN CASE WHEN x = 0 THEN CAST('NaN' AS double) WHEN x > 0 THEN CAST('+Infinity' AS double) ELSE CAST('-Infinity' AS double) END ELSE CAST(x AS double) / y END",
   #
   "is.na" = "(x) AS (x IS NULL)",
   "n" = "() AS CAST(COUNT(*) AS int32)",
   #
-  "log10" = "(x) AS CASE WHEN x < 0 THEN CAST('NaN' AS double) WHEN x = 0 THEN CAST('-Inf' AS double) ELSE log(x) END",
-  "log" = "(x) AS CASE WHEN x < 0 THEN CAST('NaN' AS double) WHEN x = 0 THEN CAST('-Inf' AS double) ELSE ln(x) END",
+  "___log10" = "(x) AS CASE WHEN x < 0 THEN CAST('NaN' AS double) WHEN x = 0 THEN CAST('-Inf' AS double) ELSE log10(x) END",
+  "___log" = "(x) AS CASE WHEN x < 0 THEN CAST('NaN' AS double) WHEN x = 0 THEN CAST('-Inf' AS double) ELSE ln(x) END",
   # TPCH
 
   # https://github.com/duckdb/duckdb/discussions/8599
@@ -2241,8 +2241,9 @@ check_df_for_rel <- function(df) {
       stop("Can't convert S4 columns to relational. Affected column: `", names(df)[[i]], "`.")
     }
     # https://github.com/duckdb/duckdb/issues/8561
-    if (is.factor(col)) {
-      stop("Can't convert factor columns to relational. Affected column: `", names(df)[[i]], "`.")
+    col_class <- class(col)
+    if (length(col_class) != 1 || !(col_class %in% c("logical", "integer", "numeric", "character", "Date"))) {
+      stop("Can't convert columns of class ", paste0(col_class, collapse = "/"), " to relational. Affected column: `", names(df)[[i]], "`.")
     }
   }
 
@@ -3231,6 +3232,8 @@ rel_translate <- function(
           last = "last_value",
           nth = "nth_value",
           "/" = "___divide",
+          "log10" = "___log10",
+          "log" = "___log",
           NULL
         )
 
@@ -4472,7 +4475,8 @@ summarise.data.frame <- function(.data, ..., .by = NULL, .groups = NULL) {
       }
 
       out <- rel_to_df(out_rel)
-      class(out) <- class(.data)
+      # https://github.com/tidyverse/dplyr/pull/6988
+      class(out) <- intersect(c("duckplyr_df", "tbl_df", "tbl", "data.frame"), class(.data))
 
       return(out)
     }
@@ -4483,7 +4487,8 @@ summarise.data.frame <- function(.data, ..., .by = NULL, .groups = NULL) {
   out <- summarise(.data, ..., .by = {{ .by }}, .groups = .groups)
   # dplyr_reconstruct() is not called here, restoring manually
   if (!identical(.groups, "rowwise")) {
-    class(out) <- class(.data)
+    # https://github.com/tidyverse/dplyr/pull/6988
+    class(out) <- intersect(c("duckplyr_df", "tbl_df", "tbl", "data.frame"), class(.data))
   }
   return(out)
 
