@@ -1,44 +1,3 @@
-# APCI
-
-<details>
-
-* Version: 1.0.7
-* GitHub: NA
-* Source code: https://github.com/cran/APCI
-* Date/Publication: 2024-01-30 06:40:03 UTC
-* Number of recursive dependencies: 87
-
-Run `revdepcheck::cloud_details(, "APCI")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking tests ... ERROR
-    ```
-      Running ‘1_tests.R’
-    Running the tests in ‘tests/1_tests.R’ failed.
-    Complete output:
-      > # install the package and use this script to test the package
-      > library("APCI")
-      > # or: remotes::install_github("jiahui1902/APCI")
-      > test_data <- APCI::women9017
-      > test_data$acc <- as.factor(test_data$acc)
-      > test_data$pcc <- as.factor(test_data$pcc)
-      > test_data$educc <- as.factor(test_data$educc)
-    ...
-      -3.690595e-01  1.016757e-01  1.563848e-01 -3.009393e-01  1.860861e-01 
-          acc8:pcc3     acc9:pcc3     acc1:pcc4     acc2:pcc4     acc3:pcc4 
-      -8.911804e-02  1.571405e-01 -4.086929e-01 -3.175904e-02  3.204613e-01 
-          acc4:pcc4     acc5:pcc4     acc6:pcc4     acc7:pcc4     acc8:pcc4 
-       2.365358e-01  2.981728e-01 -1.384686e-01 -1.324798e-02 -3.651563e-01 
-          acc9:pcc4     acc1:pcc5     acc2:pcc5     acc3:pcc5     acc4:pcc5 
-       4.980530e-02  4.837277e-02  3.308567e-01 -1.119875e-01 -5.056205e-02 
-          acc5:pcc5     acc6:pcc5     acc7:pcc5     acc8:pcc5     acc9:pcc5 
-      -5.204896e-01 -3.284161e-01  2.399165e-01  6.197606e-01 -3.238010e-01 
-      Killed
-    ```
-
 # arrow
 
 <details>
@@ -520,33 +479,6 @@ Run `revdepcheck::cloud_details(, "DescrTab2")` for more info
       Execution halted
     ```
 
-## Newly fixed
-
-*   checking re-building of vignette outputs ... WARNING
-    ```
-    Error(s) in re-building vignettes:
-    --- re-building ‘a_usage_guide.Rmd’ using rmarkdown
-    --- finished re-building ‘a_usage_guide.Rmd’
-    
-    --- re-building ‘b_test_choice_tree_pdf.Rmd’ using rmarkdown
-    tlmgr: package repository https://mirror.math.princeton.edu/pub/CTAN/systems/texlive/tlnet (verified)
-    [1/1, ??:??/??:??] install: grffile [4k]
-    running mktexlsr ...
-    done running mktexlsr.
-    tlmgr: package log updated: /opt/TinyTeX/texmf-var/web2c/tlmgr.log
-    ...
-    --- finished re-building ‘d_validation_statement.Rmd’
-    
-    --- re-building ‘e_maintenance_guide.Rmd’ using rmarkdown
-    --- finished re-building ‘e_maintenance_guide.Rmd’
-    
-    SUMMARY: processing the following file failed:
-      ‘b_test_choice_tree_pdf.Rmd’
-    
-    Error: Vignette re-building failed.
-    Execution halted
-    ```
-
 ## In both
 
 *   checking dependencies in R code ... NOTE
@@ -595,7 +527,7 @@ Run `revdepcheck::cloud_details(, "duckplyr")` for more info
       🦆:  635
       add_count, anti_join, arrange, compute, count, cross_join, distinct, do, eval, filter, full_join, inner_join, intersect, left_join, mutate, mutate.data.frame, nest_join, pull, reframe, relocate, rename, rename_with, right_join, rows_append, rows_delete, rows_insert, rows_patch, rows_update, rows_upsert, select, semi_join, setdiff, setequal, slice, slice_head, slice_sample, slice_tail, summarise, symdiff, transmute, ungroup, union_all
       
-      00:00:50.753685
+      00:00:42.729283
       Execution halted
     ```
 
@@ -1246,14 +1178,6 @@ Run `revdepcheck::cloud_details(, "msigdbr")` for more info
       > 
       > test_check("msigdbr")
       Killed
-    ```
-
-*   checking re-building of vignette outputs ... ERROR
-    ```
-    Error(s) in re-building vignettes:
-      ...
-    --- re-building ‘msigdbr-intro.Rmd’ using rmarkdown
-    Killed
     ```
 
 ## In both

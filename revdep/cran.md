@@ -1,17 +1,14 @@
 ## revdepcheck results
 
-We checked 4240 reverse dependencies, comparing R CMD check results across CRAN and dev versions of this package.
+We checked 45 reverse dependencies, comparing R CMD check results across CRAN and dev versions of this package.
 
- * We saw 45 new problems
- * We failed to check 7 packages
+ * We saw 44 new problems
+ * We failed to check 0 packages
 
 Issues with CRAN packages are summarised below.
 
 ### New problems
 (This reports the first line of each new failure)
-
-* APCI
-  checking tests ... ERROR
 
 * arrow
   checking tests ... ERROR
@@ -92,7 +89,6 @@ Issues with CRAN packages are summarised below.
 
 * msigdbr
   checking tests ... ERROR
-  checking re-building of vignette outputs ... ERROR
 
 * mtdesign
   checking tests ... ERROR
@@ -156,12 +152,3 @@ Issues with CRAN packages are summarised below.
 * yamlet
   checking tests ... ERROR
 
-### Failed to check
-
-* bayesdfa         (NA)
-* BPrinStratTTE    (NA)
-* loon.shiny       (NA)
-* multinma         (NA)
-* rmdcev           (NA)
-* TriDimRegression (NA)
-* triptych         (NA)
