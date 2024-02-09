@@ -1,8 +1,8 @@
 ## revdepcheck results
 
-We checked 45 reverse dependencies, comparing R CMD check results across CRAN and dev versions of this package.
+We checked 44 reverse dependencies, comparing R CMD check results across CRAN and dev versions of this package.
 
- * We saw 44 new problems
+ * We saw 37 new problems
  * We failed to check 0 packages
 
 Issues with CRAN packages are summarised below.
@@ -36,9 +36,6 @@ Issues with CRAN packages are summarised below.
   checking examples ... ERROR
   checking tests ... ERROR
 
-* dbGaPCheckup
-  checking examples ... ERROR
-
 * DescrTab2
   checking examples ... ERROR
   checking tests ... ERROR
@@ -56,9 +53,6 @@ Issues with CRAN packages are summarised below.
   checking tests ... ERROR
 
 * fgeo.analyze
-  checking tests ... ERROR
-
-* finnts
   checking tests ... ERROR
 
 * funneljoin
@@ -89,6 +83,7 @@ Issues with CRAN packages are summarised below.
 
 * msigdbr
   checking tests ... ERROR
+  checking re-building of vignette outputs ... ERROR
 
 * mtdesign
   checking tests ... ERROR
@@ -101,10 +96,6 @@ Issues with CRAN packages are summarised below.
 
 * portalr
   checking tests ... ERROR
-
-* PupilPre
-  checking examples ... ERROR
-  checking re-building of vignette outputs ... ERROR
 
 * rfars
   checking re-building of vignette outputs ... ERROR
@@ -130,24 +121,11 @@ Issues with CRAN packages are summarised below.
 * text2sdg
   checking re-building of vignette outputs ... ERROR
 
-* tidytransit
-  checking re-building of vignette outputs ... ERROR
-
 * TKCat
   checking re-building of vignette outputs ... ERROR
 
-* vcfR
-  checking examples ... ERROR
-  checking tests ... ERROR
-
 * vDiveR
   checking tests ... ERROR
-
-* vivaldi
-  checking re-building of vignette outputs ... ERROR
-
-* VWPre
-  checking re-building of vignette outputs ... ERROR
 
 * yamlet
   checking tests ... ERROR

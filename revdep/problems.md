@@ -202,11 +202,11 @@ Run `revdepcheck::cloud_details(, "CCWeights")` for more info
 
 <details>
 
-* Version: 2.2.0
+* Version: 2.2.1
 * GitHub: NA
 * Source code: https://github.com/cran/CodelistGenerator
-* Date/Publication: 2024-01-25 17:10:08 UTC
-* Number of recursive dependencies: 110
+* Date/Publication: 2024-02-07 11:50:10 UTC
+* Number of recursive dependencies: 111
 
 Run `revdepcheck::cloud_details(, "CodelistGenerator")` for more info
 
@@ -234,7 +234,7 @@ Run `revdepcheck::cloud_details(, "CodelistGenerator")` for more info
       ── Failure ('test-codesFrom.R:26:3'): test inputs - mock ───────────────────────
       `codesFromConceptSet(...)` did not throw the expected error.
       
-      [ FAIL 2 | WARN 0 | SKIP 8 | PASS 269 ]
+      [ FAIL 2 | WARN 0 | SKIP 8 | PASS 275 ]
       Error: Test failures
       Execution halted
     ```
@@ -379,47 +379,6 @@ Run `revdepcheck::cloud_details(, "crosshap")` for more info
       Execution halted
     ```
 
-# dbGaPCheckup
-
-<details>
-
-* Version: 1.1.0
-* GitHub: https://github.com/lwheinsberg/dbGaPCheckup
-* Source code: https://github.com/cran/dbGaPCheckup
-* Date/Publication: 2023-09-27 15:30:02 UTC
-* Number of recursive dependencies: 117
-
-Run `revdepcheck::cloud_details(, "dbGaPCheckup")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking examples ... ERROR
-    ```
-    Running examples in ‘dbGaPCheckup-Ex.R’ failed
-    The error most likely occurred in:
-    
-    > ### Name: missing_value_check
-    > ### Title: Missing Value Check
-    > ### Aliases: missing_value_check
-    > 
-    > ### ** Examples
-    > 
-    > data(ExampleB)
-    ...
-    
-    $Information
-        VARNAME VALUE MEANING  PASS
-    13 CUFFSIZE -9999    <NA> FALSE
-    
-    > 
-    > data(ExampleS)
-    > missing_value_check(DD.dict.S, DS.data.S, non.NA.missing.codes = c(-9999,-4444))
-    Error: Error evaluating duckdb query: Conversion Error: Could not convert string 'NA' to DOUBLE
-    Execution halted
-    ```
-
 # DescrTab2
 
 <details>
@@ -527,7 +486,7 @@ Run `revdepcheck::cloud_details(, "duckplyr")` for more info
       🦆:  635
       add_count, anti_join, arrange, compute, count, cross_join, distinct, do, eval, filter, full_join, inner_join, intersect, left_join, mutate, mutate.data.frame, nest_join, pull, reframe, relocate, rename, rename_with, right_join, rows_append, rows_delete, rows_insert, rows_patch, rows_update, rows_upsert, select, semi_join, setdiff, setequal, slice, slice_head, slice_sample, slice_tail, summarise, symdiff, transmute, ungroup, union_all
       
-      00:00:42.729283
+      00:01:15.45317
       Execution halted
     ```
 
@@ -702,47 +661,6 @@ Run `revdepcheck::cloud_details(, "fgeo.analyze")` for more info
 *   checking LazyData ... NOTE
     ```
       'LazyData' is specified without a 'data' directory
-    ```
-
-# finnts
-
-<details>
-
-* Version: 0.4.0
-* GitHub: https://github.com/microsoft/finnts
-* Source code: https://github.com/cran/finnts
-* Date/Publication: 2023-12-01 09:40:02 UTC
-* Number of recursive dependencies: 258
-
-Run `revdepcheck::cloud_details(, "finnts")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking tests ... ERROR
-    ```
-      Running ‘testthat.R’
-    Running the tests in ‘tests/testthat.R’ failed.
-    Complete output:
-      > library(testthat)
-      > library(finnts)
-      Loading required package: modeltime
-      > 
-      > test_check("finnts")
-      Finn Submission Info
-      • Experiment Name: finn_fcst
-    ...
-       2. │ └─testthat::quasi_label(enquo(object), label, arg = "object")
-       3. │   └─rlang::eval_bare(expr, quo_get_env(quo))
-       4. └─base::nrow(future_frame)
-       5.   ├─base::dim(x)
-       6.   └─base::dim.data.frame(x)
-       7.     └─base::.row_names_info(x, 2L)
-      
-      [ FAIL 1 | WARN 7 | SKIP 0 | PASS 79 ]
-      Error: Test failures
-      Execution halted
     ```
 
 # funneljoin
@@ -1180,6 +1098,14 @@ Run `revdepcheck::cloud_details(, "msigdbr")` for more info
       Killed
     ```
 
+*   checking re-building of vignette outputs ... ERROR
+    ```
+    Error(s) in re-building vignettes:
+      ...
+    --- re-building ‘msigdbr-intro.Rmd’ using rmarkdown
+    Killed
+    ```
+
 ## In both
 
 *   checking installed package size ... NOTE
@@ -1348,72 +1274,6 @@ Run `revdepcheck::cloud_details(, "portalr")` for more info
       Execution halted
     ```
 
-# PupilPre
-
-<details>
-
-* Version: 0.6.2
-* GitHub: NA
-* Source code: https://github.com/cran/PupilPre
-* Date/Publication: 2020-03-10 05:20:02 UTC
-* Number of recursive dependencies: 73
-
-Run `revdepcheck::cloud_details(, "PupilPre")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking examples ... ERROR
-    ```
-    Running examples in ‘PupilPre-Ex.R’ failed
-    The error most likely occurred in:
-    
-    > ### Name: ppl_prep_data
-    > ### Title: Check the classes of specific columns and re-assigns as
-    > ###   necessary.
-    > ### Aliases: ppl_prep_data
-    > 
-    > ### ** Examples
-    > 
-    ...
-    +                      EventColumns = c("Subject","TRIAL_INDEX"))
-    Checking required columns...
-        All required columns are present in the data.
-    Checking optional columns...
-        All optional columns are present in the data.
-    Working on required columns...
-        RECORDING_SESSION_LABEL renamed to Subject. 
-        item renamed to Item.
-    Error: Error evaluating duckdb query: Conversion Error: Could not convert string 'factor' to DOUBLE
-    Execution halted
-    ```
-
-*   checking re-building of vignette outputs ... ERROR
-    ```
-    Error(s) in re-building vignettes:
-    --- re-building ‘PupilPre_Basic_Preprocessing.Rmd’ using rmarkdown
-    
-    Quitting from lines 80-81 [unnamed-chunk-4] (PupilPre_Basic_Preprocessing.Rmd)
-    Error: processing vignette 'PupilPre_Basic_Preprocessing.Rmd' failed with diagnostics:
-    Error evaluating duckdb query: Conversion Error: Could not convert string 'factor' to DOUBLE
-    --- failed re-building ‘PupilPre_Basic_Preprocessing.Rmd’
-    
-    --- re-building ‘PupilPre_Cleanup.Rmd’ using rmarkdown
-    --- finished re-building ‘PupilPre_Cleanup.Rmd’
-    ...
-    --- failed re-building ‘PupilPre_Message_Alignment.Rmd’
-    
-    --- re-building ‘PupilPre_Plotting.Rmd’ using rmarkdown
-    --- finished re-building ‘PupilPre_Plotting.Rmd’
-    
-    SUMMARY: processing the following files failed:
-      ‘PupilPre_Basic_Preprocessing.Rmd’ ‘PupilPre_Message_Alignment.Rmd’
-    
-    Error: Vignette re-building failed.
-    Execution halted
-    ```
-
 # rfars
 
 <details>
@@ -1491,14 +1351,14 @@ Run `revdepcheck::cloud_details(, "rWCVP")` for more info
       -- Matching names to WCVP ------------------------------------------------------
       i Using the `scientificName` column
     ...
-       2. │ └─rWCVP::wcvp_match_fuzzy(...)
-       3. │   └─... %>% filter(!is.na(.data$wcvp_id))
-       4. ├─dplyr::filter(., !is.na(.data$wcvp_id))
-       5. └─rWCVP::phonetic_match(., wcvp_species, name_col = name_col)
-       6.   └─phonics::metaphone(wcvp_names$taxon_name, maxCodeLen = 20, clean = FALSE)
-       7.     └─base::toupper(word)
+       15.       ├─base::NextMethod()
+       16.       └─dplyr:::group_data.data.frame(data)
+       17.         └─base::nrow(.data)
+       18.           ├─base::dim(x)
+       19.           └─base::dim.data.frame(x)
+       20.             └─base::.row_names_info(x, 2L)
       
-      [ FAIL 9 | WARN 0 | SKIP 0 | PASS 33 ]
+      [ FAIL 12 | WARN 0 | SKIP 0 | PASS 19 ]
       Error: Test failures
       Execution halted
     ```
@@ -1764,57 +1624,6 @@ Run `revdepcheck::cloud_details(, "text2sdg")` for more info
       Note: found 37 marked UTF-8 strings
     ```
 
-# tidytransit
-
-<details>
-
-* Version: 1.6.1
-* GitHub: https://github.com/r-transit/tidytransit
-* Source code: https://github.com/cran/tidytransit
-* Date/Publication: 2023-12-07 13:40:02 UTC
-* Number of recursive dependencies: 101
-
-Run `revdepcheck::cloud_details(, "tidytransit")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking re-building of vignette outputs ... ERROR
-    ```
-    Error(s) in re-building vignettes:
-      ...
-    --- re-building ‘frequency.Rmd’ using rmarkdown
-    
-    Quitting from lines 198-202 [unnamed-chunk-12] (frequency.Rmd)
-    Error: processing vignette 'frequency.Rmd' failed with diagnostics:
-    Error evaluating duckdb query: Conversion Error: Could not convert string 'GS' to DOUBLE
-    --- failed re-building ‘frequency.Rmd’
-    
-    --- re-building ‘introduction.Rmd’ using rmarkdown
-    ...
-    --- finished re-building ‘servicepatterns.Rmd’
-    
-    --- re-building ‘timetable.Rmd’ using rmarkdown
-    --- finished re-building ‘timetable.Rmd’
-    
-    SUMMARY: processing the following file failed:
-      ‘frequency.Rmd’
-    
-    Error: Vignette re-building failed.
-    Execution halted
-    ```
-
-## In both
-
-*   checking installed package size ... NOTE
-    ```
-      installed size is  7.1Mb
-      sub-directories of 1Mb or more:
-        doc       2.0Mb
-        extdata   4.5Mb
-    ```
-
 # TKCat
 
 <details>
@@ -1847,81 +1656,6 @@ Run `revdepcheck::cloud_details(, "TKCat")` for more info
     
     Error: Vignette re-building failed.
     Execution halted
-    ```
-
-# vcfR
-
-<details>
-
-* Version: 1.15.0
-* GitHub: https://github.com/knausb/vcfR
-* Source code: https://github.com/cran/vcfR
-* Date/Publication: 2023-12-08 00:30:03 UTC
-* Number of recursive dependencies: 101
-
-Run `revdepcheck::cloud_details(, "vcfR")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking examples ... ERROR
-    ```
-    Running examples in ‘vcfR-Ex.R’ failed
-    The error most likely occurred in:
-    
-    > ### Name: Convert to tidy data frames
-    > ### Title: Convert vcfR objects to tidy data frames
-    > ### Aliases: 'Convert to tidy data frames' vcfR2tidy extract_info_tidy
-    > ###   extract_gt_tidy vcf_field_names
-    > 
-    > ### ** Examples
-    > 
-    ...
-    > data("vcfR_test")
-    > vcf <- vcfR_test
-    > 
-    > 
-    > # extract all the INFO and FORMAT fields into a list of tidy
-    > # data frames: fix, gt, and meta. Here we don't coerce columns
-    > # to integer or numeric types...
-    > Z <- vcfR2tidy(vcf)
-    Error: Error evaluating duckdb query: Conversion Error: Could not convert string 'A' to DOUBLE
-    Execution halted
-    ```
-
-*   checking tests ... ERROR
-    ```
-      Running ‘testthat.R’
-    Running the tests in ‘tests/testthat.R’ failed.
-    Complete output:
-      > 
-      > library("testthat")
-      > #library("vcfR")
-      > #
-      > #
-      > test_check("vcfR")
-      Loading required package: vcfR
-    ...
-       12.       ├─base::NextMethod()
-       13.       └─dplyr:::group_data.data.frame(data)
-       14.         └─base::nrow(.data)
-       15.           ├─base::dim(x)
-       16.           └─base::dim.data.frame(x)
-       17.             └─base::.row_names_info(x, 2L)
-      
-      [ FAIL 3 | WARN 0 | SKIP 0 | PASS 487 ]
-      Error: Test failures
-      Execution halted
-    ```
-
-## In both
-
-*   checking installed package size ... NOTE
-    ```
-      installed size is 15.8Mb
-      sub-directories of 1Mb or more:
-        libs  13.4Mb
     ```
 
 # vDiveR
@@ -1972,91 +1706,6 @@ Run `revdepcheck::cloud_details(, "vDiveR")` for more info
     Namespaces in Imports field not imported from:
       ‘DT’ ‘maps’ ‘readr’
       All declared Imports should be used.
-    ```
-
-# vivaldi
-
-<details>
-
-* Version: 1.0.1
-* GitHub: https://github.com/GreshamLab/vivaldi
-* Source code: https://github.com/cran/vivaldi
-* Date/Publication: 2023-03-21 20:10:02 UTC
-* Number of recursive dependencies: 103
-
-Run `revdepcheck::cloud_details(, "vivaldi")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking re-building of vignette outputs ... ERROR
-    ```
-    Error(s) in re-building vignettes:
-      ...
-    --- re-building ‘vignette.Rmd’ using rmarkdown
-    
-    Quitting from lines 76-83 [unnamed-chunk-5] (vignette.Rmd)
-    Error: processing vignette 'vignette.Rmd' failed with diagnostics:
-    Error evaluating duckdb query: Conversion Error: Could not convert string 'A' to DOUBLE
-    --- failed re-building ‘vignette.Rmd’
-    
-    SUMMARY: processing the following file failed:
-      ‘vignette.Rmd’
-    
-    Error: Vignette re-building failed.
-    Execution halted
-    ```
-
-## In both
-
-*   checking installed package size ... NOTE
-    ```
-      installed size is  6.8Mb
-      sub-directories of 1Mb or more:
-        doc       5.4Mb
-        extdata   1.1Mb
-    ```
-
-# VWPre
-
-<details>
-
-* Version: 1.2.4
-* GitHub: NA
-* Source code: https://github.com/cran/VWPre
-* Date/Publication: 2020-11-29 17:10:02 UTC
-* Number of recursive dependencies: 70
-
-Run `revdepcheck::cloud_details(, "VWPre")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking re-building of vignette outputs ... ERROR
-    ```
-    Error(s) in re-building vignettes:
-      ...
-    --- re-building ‘VWPre_Basic_Preprocessing.Rmd’ using rmarkdown
-    
-    Quitting from lines 78-79 [unnamed-chunk-4] (VWPre_Basic_Preprocessing.Rmd)
-    Error: processing vignette 'VWPre_Basic_Preprocessing.Rmd' failed with diagnostics:
-    Error evaluating duckdb query: Conversion Error: Could not convert string 'factor' to DOUBLE
-    --- failed re-building ‘VWPre_Basic_Preprocessing.Rmd’
-    
-    --- re-building ‘VWPre_Interest_Areas.Rmd’ using rmarkdown
-    ...
-    --- finished re-building ‘VWPre_Message_Alignment.Rmd’
-    
-    --- re-building ‘VWPre_Plotting.Rmd’ using rmarkdown
-    --- finished re-building ‘VWPre_Plotting.Rmd’
-    
-    SUMMARY: processing the following file failed:
-      ‘VWPre_Basic_Preprocessing.Rmd’
-    
-    Error: Vignette re-building failed.
-    Execution halted
     ```
 
 # yamlet
