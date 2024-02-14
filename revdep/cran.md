@@ -1,8 +1,8 @@
 ## revdepcheck results
 
-We checked 44 reverse dependencies, comparing R CMD check results across CRAN and dev versions of this package.
+We checked 37 reverse dependencies, comparing R CMD check results across CRAN and dev versions of this package.
 
- * We saw 37 new problems
+ * We saw 30 new problems
  * We failed to check 0 packages
 
 Issues with CRAN packages are summarised below.
@@ -20,24 +20,13 @@ Issues with CRAN packages are summarised below.
   checking examples ... ERROR
   checking tests ... ERROR
 
-* CCWeights
-  checking examples ... ERROR
-
 * CodelistGenerator
   checking tests ... ERROR
-
-* cogmapr
-  checking examples ... ERROR
 
 * comperes
   checking tests ... ERROR
 
 * crosshap
-  checking examples ... ERROR
-  checking tests ... ERROR
-
-* DescrTab2
-  checking examples ... ERROR
   checking tests ... ERROR
 
 * duckplyr
@@ -52,12 +41,8 @@ Issues with CRAN packages are summarised below.
 * ezplot
   checking tests ... ERROR
 
-* fgeo.analyze
-  checking tests ... ERROR
-
 * funneljoin
   checking tests ... ERROR
-  checking re-building of vignette outputs ... ERROR
 
 * heemod
   checking tests ... ERROR
@@ -69,27 +54,16 @@ Issues with CRAN packages are summarised below.
 * iNZightTools
   checking tests ... ERROR
 
-* IPEDS
-  checking examples ... ERROR
-
 * MassWateR
   checking examples ... ERROR
   checking tests ... ERROR
   checking tests ... ERROR
 
-* mpwR
-  checking tests ... ERROR
-  checking re-building of vignette outputs ... ERROR
-
 * msigdbr
   checking tests ... ERROR
-  checking re-building of vignette outputs ... ERROR
 
 * mtdesign
   checking tests ... ERROR
-
-* myClim
-  checking examples ... ERROR
 
 * partition
   checking re-building of vignette outputs ... ERROR

@@ -161,43 +161,6 @@ Run `revdepcheck::cloud_details(, "autoCovariateSelection")` for more info
       Execution halted
     ```
 
-# CCWeights
-
-<details>
-
-* Version: 0.1.6
-* GitHub: NA
-* Source code: https://github.com/cran/CCWeights
-* Date/Publication: 2021-11-09 21:40:02 UTC
-* Number of recursive dependencies: 94
-
-Run `revdepcheck::cloud_details(, "CCWeights")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking examples ... ERROR
-    ```
-    Running examples in ‘CCWeights-Ex.R’ failed
-    The error most likely occurred in:
-    
-    > ### Name: doEvaluation
-    > ### Title: Evaluate Different Weighting Factors
-    > ### Aliases: doEvaluation
-    > 
-    > ### ** Examples
-    > 
-    > Concentration <- rep(c(10, 50, 100, 500), each = 3)
-    > Response <- c(133, 156, 177, 1300, 1450, 1600, 4000, 3881, 3700, 140000, 139000, 140000)
-    > DF <- cbind.data.frame(Concentration = Concentration, Response = Response)
-    > result <- doEvaluation(DF)
-    Error in lm.fit(x, y, offset = offset, singular.ok = singular.ok, ...) : 
-      0 (non-NA) cases
-    Calls: doEvaluation -> doWlm -> lm -> lm.fit
-    Execution halted
-    ```
-
 # CodelistGenerator
 
 <details>
@@ -206,7 +169,7 @@ Run `revdepcheck::cloud_details(, "CCWeights")` for more info
 * GitHub: NA
 * Source code: https://github.com/cran/CodelistGenerator
 * Date/Publication: 2024-02-07 11:50:10 UTC
-* Number of recursive dependencies: 111
+* Number of recursive dependencies: 135
 
 Run `revdepcheck::cloud_details(, "CodelistGenerator")` for more info
 
@@ -237,47 +200,6 @@ Run `revdepcheck::cloud_details(, "CodelistGenerator")` for more info
       [ FAIL 2 | WARN 0 | SKIP 8 | PASS 275 ]
       Error: Test failures
       Execution halted
-    ```
-
-# cogmapr
-
-<details>
-
-* Version: 0.9.3
-* GitHub: NA
-* Source code: https://github.com/cran/cogmapr
-* Date/Publication: 2022-01-04 15:40:07 UTC
-* Number of recursive dependencies: 76
-
-Run `revdepcheck::cloud_details(, "cogmapr")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking examples ... ERROR
-    ```
-    Running examples in ‘cogmapr-Ex.R’ failed
-    The error most likely occurred in:
-    
-    > ### Name: RelationshipTestSummary
-    > ### Title: Summary table on relationship comparisons
-    > ### Aliases: RelationshipTestSummary
-    > 
-    > ### ** Examples
-    > 
-    > project_name <- "a_new_project"
-    ...
-    > my.project <- ProjectCMap(main_path, project_name)
-    > 
-    > ## Here 0.6 is used only for producing an output. No signif. diff. is reported.
-    > RelationshipTestSummary(my.project, units = c("Belgium", "Québec"), 0.6)
-    Warning: `rename_()` was deprecated in dplyr 0.7.0.
-    ℹ Please use `rename()` instead.
-    ℹ The deprecated feature was likely used in the cogmapr package.
-      Please report the issue at <https://gitlab.com/FrdVnW/cogmapr/-/issues>.
-    Error: Error evaluating duckdb query: Conversion Error: Could not convert string 'NR' to DOUBLE
-    Execution halted
     ```
 
 # comperes
@@ -337,23 +259,6 @@ Run `revdepcheck::cloud_details(, "crosshap")` for more info
 
 ## Newly broken
 
-*   checking examples ... ERROR
-    ```
-    Running examples in ‘crosshap-Ex.R’ failed
-    The error most likely occurred in:
-    
-    > ### Name: build_bot_halfeyeplot
-    > ### Title: Bot hap-pheno raincloud plot
-    > ### Aliases: build_bot_halfeyeplot
-    > 
-    > ### ** Examples
-    > 
-    > 
-    > build_bot_halfeyeplot(HapObject, epsilon = 0.6, hide_labels = FALSE)
-    Error: Error evaluating duckdb query: Conversion Error: Could not convert string 'D' to DOUBLE
-    Execution halted
-    ```
-
 *   checking tests ... ERROR
     ```
       Running ‘testthat.R’
@@ -367,86 +272,16 @@ Run `revdepcheck::cloud_details(, "crosshap")` for more info
       > # * https://r-pkgs.org/tests.html
       > # * https://testthat.r-lib.org/reference/test_package.html#special-files
     ...
+       4. ├─dplyr:::left_join.data.frame(...)
+       5. │ └─dplyr:::rel_try(...)
+       6. ├─hap
+       7. └─rlang:::`$.rlang_fake_data_pronoun`(.data, hap)
+       8.   └─rlang:::stop_fake_data_subset(call)
        9.     └─rlang::abort(...)
       
-      [ FAIL 5 | WARN 0 | SKIP 2 | PASS 4 ]
-      Deleting unused snapshots:
-      • hapviz/haplotype-viz-alt2.svg
-      • hapviz/haplotype-viz-isolatewt.svg
-      • hapviz/haplotype-viz-nolabs.svg
-      • hapviz/haplotype-viz2.svg
+      [ FAIL 1 | WARN 0 | SKIP 6 | PASS 4 ]
       Error: Test failures
       Execution halted
-    ```
-
-# DescrTab2
-
-<details>
-
-* Version: 2.1.16
-* GitHub: https://github.com/imbi-heidelberg/DescrTab2
-* Source code: https://github.com/cran/DescrTab2
-* Date/Publication: 2022-09-06 08:50:02 UTC
-* Number of recursive dependencies: 167
-
-Run `revdepcheck::cloud_details(, "DescrTab2")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking examples ... ERROR
-    ```
-    Running examples in ‘DescrTab2-Ex.R’ failed
-    The error most likely occurred in:
-    
-    > ### Name: sig_test
-    > ### Title: Calculates a statistical significance test
-    > ### Aliases: sig_test
-    > 
-    > ### ** Examples
-    > 
-    > cont_var <- c(1, 2, 3)
-    > sig_test(cont_var)
-    Error in t.test.default(x = numeric(0)) : not enough 'x' observations
-    Calls: sig_test ... ignore_unused_args -> do.call -> <Anonymous> -> t.test.default
-    Execution halted
-    ```
-
-*   checking tests ... ERROR
-    ```
-      Running ‘testthat.R’
-    Running the tests in ‘tests/testthat.R’ failed.
-    Complete output:
-      > library(testthat)
-      > library(DescrTab2)
-      > 
-      > 
-      > test_check("DescrTab2")
-      Error converted to warning: Error in t.test.default(x = numeric(0)): not enough 'x' observations
-      
-    ...
-        'test_word.R:6:5'
-      • empty test (1): 'test_misc.R:50:1'
-      
-      ══ Failed tests ════════════════════════════════════════════════════════════════
-      ── Failure ('test_summary_stats.R:92:5'): numeric printing fails if some summary stat does not return numeric ──
-      `expect_error(...)` did not throw the expected warning.
-      
-      [ FAIL 1 | WARN 191 | SKIP 7 | PASS 201 ]
-      Error: Test failures
-      Execution halted
-    ```
-
-## In both
-
-*   checking dependencies in R code ... NOTE
-    ```
-    There are ::: calls to the package's namespace in its code. A package
-      almost never needs to use ::: for its own objects:
-      ‘.N’ ‘.Nmiss’ ‘.Q1’ ‘.Q3’ ‘.factorN’ ‘.factorNmiss’ ‘.factorQ1’
-      ‘.factorQ3’ ‘.factormax’ ‘.factormean’ ‘.factormedian’ ‘.factormin’
-      ‘.factorsd’ ‘.max’ ‘.mean’ ‘.median’ ‘.min’ ‘.sd’
     ```
 
 # duckplyr
@@ -486,7 +321,7 @@ Run `revdepcheck::cloud_details(, "duckplyr")` for more info
       🦆:  635
       add_count, anti_join, arrange, compute, count, cross_join, distinct, do, eval, filter, full_join, inner_join, intersect, left_join, mutate, mutate.data.frame, nest_join, pull, reframe, relocate, rename, rename_with, right_join, rows_append, rows_delete, rows_insert, rows_patch, rows_update, rows_upsert, select, semi_join, setdiff, setequal, slice, slice_head, slice_sample, slice_tail, summarise, symdiff, transmute, ungroup, union_all
       
-      00:01:15.45317
+      00:00:36.384345
       Execution halted
     ```
 
@@ -615,54 +450,6 @@ Run `revdepcheck::cloud_details(, "ezplot")` for more info
       Execution halted
     ```
 
-# fgeo.analyze
-
-<details>
-
-* Version: 1.1.14
-* GitHub: https://github.com/forestgeo/fgeo.analyze
-* Source code: https://github.com/cran/fgeo.analyze
-* Date/Publication: 2020-12-05 05:40:12 UTC
-* Number of recursive dependencies: 101
-
-Run `revdepcheck::cloud_details(, "fgeo.analyze")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking tests ... ERROR
-    ```
-      Running ‘spelling.R’
-      Running ‘testthat.R’
-    Running the tests in ‘tests/testthat.R’ failed.
-    Complete output:
-      > library(testthat)
-      > library(fgeo.analyze)
-      > 
-      > test_check("fgeo.analyze")
-      $N2
-      [1] 29
-    ...
-       21. ├─dplyr::ungroup(.)
-       22. ├─dplyr::arrange(., .data$plotcensusnumber)
-       23. ├─base::unique(.)
-       24. ├─dplyr::summarize(...)
-       25. ├─dplyr::group_by(., .data$plotcensusnumber)
-       26. └─rlang::set_names(., tolower)
-      
-      [ FAIL 1 | WARN 3 | SKIP 14 | PASS 297 ]
-      Error: Test failures
-      Execution halted
-    ```
-
-## In both
-
-*   checking LazyData ... NOTE
-    ```
-      'LazyData' is specified without a 'data' directory
-    ```
-
 # funneljoin
 
 <details>
@@ -692,34 +479,16 @@ Run `revdepcheck::cloud_details(, "funneljoin")` for more info
       The following object is masked from 'package:stats':
       
     ...
-       10.       ├─base::NextMethod()
-       11.       └─dplyr:::group_data.data.frame(data)
-       12.         └─base::nrow(.data)
-       13.           ├─base::dim(x)
-       14.           └─base::dim.data.frame(x)
-       15.             └─base::.row_names_info(x, 2L)
+      1/1 mismatches
+      [1] 4 - 3 == 1
+      ── Failure ('test_max_gap.R:213:3'): after_join works with mode = left, type = any-any, max_gap = numeric, and gap_col is TRUE ──
+      sum(res$.gap, na.rm = TRUE) not equal to 604800.
+      1/1 mismatches
+      [1] 432000 - 604800 == -172800
       
-      [ FAIL 17 | WARN 0 | SKIP 1 | PASS 408 ]
+      [ FAIL 7 | WARN 0 | SKIP 1 | PASS 509 ]
       Error: Test failures
       Execution halted
-    ```
-
-*   checking re-building of vignette outputs ... ERROR
-    ```
-    Error(s) in re-building vignettes:
-      ...
-    --- re-building ‘funneljoin.Rmd’ using rmarkdown
-    
-    Quitting from lines 75-82 [unnamed-chunk-5] (funneljoin.Rmd)
-    Error: processing vignette 'funneljoin.Rmd' failed with diagnostics:
-    Error evaluating duckdb query: Conversion Error: Unimplemented type for cast (TIME -> DOUBLE)
-    --- failed re-building ‘funneljoin.Rmd’
-    
-    SUMMARY: processing the following file failed:
-      ‘funneljoin.Rmd’
-    
-    Error: Vignette re-building failed.
-    Execution halted
     ```
 
 # heemod
@@ -858,61 +627,6 @@ Run `revdepcheck::cloud_details(, "iNZightTools")` for more info
       Execution halted
     ```
 
-# IPEDS
-
-<details>
-
-* Version: 0.1.0
-* GitHub: NA
-* Source code: https://github.com/cran/IPEDS
-* Date/Publication: 2022-11-01 07:52:51 UTC
-* Number of recursive dependencies: 81
-
-Run `revdepcheck::cloud_details(, "IPEDS")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking examples ... ERROR
-    ```
-    Running examples in ‘IPEDS-Ex.R’ failed
-    The error most likely occurred in:
-    
-    > ### Name: school_preferences
-    > ### Title: Function for Selecting Institution by Preferences
-    > ### Aliases: school_preferences
-    > 
-    > ### ** Examples
-    > 
-    > school_preferences(size = 2, alt_credits = "Yes", diversity_students = 30, diversity_staff = 20)
-    ...
-    417                       45
-    418                        .
-    419                        .
-    420                       50
-    421                        .
-    422                       75
-    423                       30
-    > school_preferences(size = 3, daycare_service = "Yes", app_fee = 50, region = "Southeast")
-    Error: Error evaluating duckdb query: Conversion Error: Could not convert string '.' to DOUBLE
-    Execution halted
-    ```
-
-## In both
-
-*   checking installed package size ... NOTE
-    ```
-      installed size is  6.8Mb
-      sub-directories of 1Mb or more:
-        data   6.2Mb
-    ```
-
-*   checking data for non-ASCII characters ... NOTE
-    ```
-      Note: found 46 marked UTF-8 strings
-    ```
-
 # MassWateR
 
 <details>
@@ -1004,72 +718,6 @@ Run `revdepcheck::cloud_details(, "MassWateR")` for more info
       Execution halted
     ```
 
-# mpwR
-
-<details>
-
-* Version: 0.1.5
-* GitHub: NA
-* Source code: https://github.com/cran/mpwR
-* Date/Publication: 2023-11-13 23:33:26 UTC
-* Number of recursive dependencies: 113
-
-Run `revdepcheck::cloud_details(, "mpwR")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking tests ... ERROR
-    ```
-      Running ‘testthat.R’
-    Running the tests in ‘tests/testthat.R’ failed.
-    Complete output:
-      > library(testthat)
-      > library(mpwR)
-      > 
-      > test_check("mpwR")
-      For DIA-NN no quantitative LFQ data on peptide-level.
-      For PD no quantitative LFQ data on peptide-level.
-      For DIA-NN no quantitative LFQ data on peptide-level.
-    ...
-       2. │ └─mpwR:::generate_ID_Report(...)
-       3. │   ├─cbind(MQ_pg[, -1], ID_Report) %>% reorder_ID_Report(.)
-       4. │   └─base::cbind(MQ_pg[, -1], ID_Report)
-       5. │     └─base::cbind(deparse.level, ...)
-       6. │       └─base::data.frame(..., check.names = FALSE)
-       7. └─mpwR:::reorder_ID_Report(.)
-      
-      [ FAIL 12 | WARN 83 | SKIP 0 | PASS 574 ]
-      Error: Test failures
-      Execution halted
-    ```
-
-*   checking re-building of vignette outputs ... ERROR
-    ```
-    Error(s) in re-building vignettes:
-      ...
-    --- re-building ‘Import.Rmd’ using rmarkdown
-    --- finished re-building ‘Import.Rmd’
-    
-    --- re-building ‘Output_Explanations.Rmd’ using rmarkdown
-    --- finished re-building ‘Output_Explanations.Rmd’
-    
-    --- re-building ‘Requirements.Rmd’ using rmarkdown
-    --- finished re-building ‘Requirements.Rmd’
-    ...
-    Quitting from lines 56-57 [ID-Report] (Workflow.Rmd)
-    Error: processing vignette 'Workflow.Rmd' failed with diagnostics:
-    arguments imply differing number of rows: 0, 2
-    --- failed re-building ‘Workflow.Rmd’
-    
-    SUMMARY: processing the following file failed:
-      ‘Workflow.Rmd’
-    
-    Error: Vignette re-building failed.
-    Execution halted
-    ```
-
 # msigdbr
 
 <details>
@@ -1096,14 +744,6 @@ Run `revdepcheck::cloud_details(, "msigdbr")` for more info
       > 
       > test_check("msigdbr")
       Killed
-    ```
-
-*   checking re-building of vignette outputs ... ERROR
-    ```
-    Error(s) in re-building vignettes:
-      ...
-    --- re-building ‘msigdbr-intro.Rmd’ using rmarkdown
-    Killed
     ```
 
 ## In both
@@ -1141,54 +781,6 @@ Run `revdepcheck::cloud_details(, "mtdesign")` for more info
       > 
       > test_check("mtdesign")
       Killed
-    ```
-
-# myClim
-
-<details>
-
-* Version: 1.0.12
-* GitHub: https://github.com/ibot-geoecology/myClim
-* Source code: https://github.com/cran/myClim
-* Date/Publication: 2023-11-16 22:00:02 UTC
-* Number of recursive dependencies: 107
-
-Run `revdepcheck::cloud_details(, "myClim")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking examples ... ERROR
-    ```
-    Running examples in ‘myClim-Ex.R’ failed
-    The error most likely occurred in:
-    
-    > ### Name: mc_calc_vwc
-    > ### Title: Conversion of raw TMS soil moisture values to volumetric water
-    > ###   content (VWC)
-    > ### Aliases: mc_calc_vwc
-    > 
-    > ### ** Examples
-    > 
-    ...
-     12. │               ├─purrr:::with_indexed_errors(...)
-     13. │               │ └─base::withCallingHandlers(...)
-     14. │               ├─purrr:::call_with_cleanup(...)
-     15. │               └─myClim (local) .f(...)
-     16. │                 └─myClim:::.calc_get_vwc_values(...)
-     17. └─base::.handleSimpleError(...)
-     18.   └─purrr (local) h(simpleError(msg, call))
-     19.     └─cli::cli_abort(...)
-     20.       └─rlang::abort(...)
-    Execution halted
-    ```
-
-## In both
-
-*   checking data for non-ASCII characters ... NOTE
-    ```
-      Note: found 4 marked UTF-8 strings
     ```
 
 # partition
