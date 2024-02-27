@@ -822,7 +822,7 @@ explain.data.frame <- function(x, ...) {
 #'   ext_install(force = TRUE)
 #' }
 ext_install <- function(force = FALSE) {
-  con <- DBI::dbConnect(duckdb::duckdb(config = list("allow_unsigned_extensions" = "true")))
+  con <- DBI::dbConnect(duckdb::duckdb())
   on.exit(DBI::dbDisconnect(con))
 
   do_ext_install(con, force)
@@ -2412,10 +2412,10 @@ get_default_duckdb_connection <- function() {
 }
 
 duckplyr_macros <- c(
-  "<" = '(x, y) AS "r_base::<"(x, y)',
-  "<=" = '(x, y) AS "r_base::<="(x, y)',
-  ">" = '(x, y) AS "r_base::>"(x, y)',
-  ">=" = '(x, y) AS "r_base::>="(x, y)',
+  "<" = "(x, y) AS x < y",
+  "<=" = "(x, y) AS x <= y",
+  ">" = "(x, y) AS x > y",
+  ">=" = "(x, y) AS x >= y",
   "==" = '(x, y) AS "r_base::=="(x, y)',
   "!=" = '(x, y) AS "r_base::!="(x, y)',
   #
@@ -2450,7 +2450,7 @@ duckplyr_macros <- c(
 )
 
 create_default_duckdb_connection <- function() {
-  con <- DBI::dbConnect(duckdb::duckdb(config = list("allow_unsigned_extensions" = "true")))
+  con <- DBI::dbConnect(duckdb::duckdb())
 
   DBI::dbExecute(con, "set memory_limit='2GB'")
   DBI::dbExecute(con, paste0("pragma temp_directory='", tempdir(), "'"))
