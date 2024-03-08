@@ -193,7 +193,7 @@ group_indices_ <- function(.data, ..., .dots = list()) {
   UseMethod("group_indices_")
 }
 #' @export
-group_indices.data.frame <- function(.data, ..., .drop = TRUE) {
+group_indices_data_frame <- function(.data, ..., .drop = TRUE) {
   dots <- enquos(...)
   if (length(dots) == 0L) {
     return(rep(1L, nrow(.data)))

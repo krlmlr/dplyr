@@ -58,7 +58,7 @@ group_nest <- function(.tbl, ..., .key = "data", keep = FALSE){
 }
 
 #' @export
-group_nest.data.frame <- function(.tbl, ..., .key = "data", keep = FALSE) {
+group_nest_data_frame <- function(.tbl, ..., .key = "data", keep = FALSE) {
   if (dots_n(...)) {
     group_nest_impl(group_by(.tbl, ...), .key = .key, keep = keep)
   } else {
