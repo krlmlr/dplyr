@@ -186,11 +186,11 @@ as_duckplyr_df <- function(.data) {
   }
 
   if (!identical(class(.data), "data.frame") && !identical(class(.data), c("tbl_df", "tbl", "data.frame"))) {
-    cli_abort("Must pass a plain data frame or a tibble to `as_duckplyr_df()`.")
+    cli::cli_abort("Must pass a plain data frame or a tibble to `as_duckplyr_df()`.")
   }
 
   if (anyNA(names(.data)) || any(names(.data) == "")) {
-    cli_abort("Missing or empty names not allowed.")
+    cli::cli_abort("Missing or empty names not allowed.")
   }
 
   class(.data) <- c("duckplyr_df", class(.data))
@@ -377,7 +377,7 @@ count.data.frame <- function(x, ..., wt = NULL, sort = FALSE, name = NULL, .drop
       name <- check_n_name(name, by_chr)
 
       if (name %in% by_chr) {
-        cli_abort("Name clash in `count()`")
+        cli::cli_abort("Name clash in `count()`")
       }
 
       n <- tally_n(x, {{ wt }})
@@ -982,7 +982,7 @@ fallback_sitrep <- function() {
     NULL
   )
 
-  cli_inform(msg)
+  cli::cli_inform(msg)
 }
 
 fallback_txt_header <- function() {
@@ -1017,7 +1017,7 @@ fallback_txt_help <- function() {
 }
 
 fallback_nudge <- function(call_data) {
-  cli_inform(c(
+  cli::cli_inform(c(
     fallback_txt_header(),
     "i" = "A fallback situation just occurred. The following information would have been recorded:",
     " " = "{call_data}",
@@ -1025,7 +1025,7 @@ fallback_nudge <- function(call_data) {
     ">" = "Run {.run Sys.setenv(DUCKPLYR_FALLBACK_COLLECT = 1)} to enable fallback logging, and {.run Sys.setenv(DUCKPLYR_FALLBACK_VERBOSE = 1)} in addition to enable printing of fallback situations to the console.",
     ">" = "Run {.run duckplyr::fallback_review()} to review the available reports, and {.run duckplyr::fallback_upload()} to upload them.",
     "i" = "See {.help duckplyr::fallback} for details.",
-    "i" = col_silver("This message will be displayed once every eight hours.")
+    "i" = cli::col_silver("This message will be displayed once every eight hours.")
   ))
 }
 
@@ -1042,14 +1042,14 @@ fallback_nudge <- function(call_data) {
 fallback_review <- function(oldest = NULL, newest = NULL, detail = TRUE) {
   fallback_logs <- tel_fallback_logs(oldest, newest, detail)
   if (length(fallback_logs) == 0) {
-    cli_inform("No reports ready for upload.")
+    cli::cli_inform("No reports ready for upload.")
     return(invisible())
   }
 
   for (i in seq_along(fallback_logs)) {
     file <- names(fallback_logs)[[i]]
 
-    cli_inform(c(
+    cli::cli_inform(c(
       "*" = "{.file {file}}",
       " " = if (detail) "{fallback_logs[[i]]}"
     ))
@@ -1076,17 +1076,17 @@ fallback_upload <- function(oldest = NULL, newest = NULL, strict = TRUE) {
       reason = "to upload duckplyr fallback reports."
     )
   } else if (!is_installed("curl")) {
-    cli_inform("Skipping upload of duckplyr fallback reports because the {.pkg curl} package is not installed.")
+    cli::cli_inform("Skipping upload of duckplyr fallback reports because the {.pkg curl} package is not installed.")
     return(invisible())
   }
 
   fallback_logs <- tel_fallback_logs(oldest, newest, detail = TRUE)
   if (length(fallback_logs) == 0) {
-    cli_inform("No {.pkg duckplyr} fallback reports ready for upload.")
+    cli::cli_inform("No {.pkg duckplyr} fallback reports ready for upload.")
     return(invisible())
   }
 
-  cli_inform("Uploading {.strong {length(fallback_logs)}} {.pkg duckplyr} fallback report{?s}.")
+  cli::cli_inform("Uploading {.strong {length(fallback_logs)}} {.pkg duckplyr} fallback report{?s}.")
 
   failures <- character()
 
@@ -1116,12 +1116,12 @@ fallback_upload <- function(oldest = NULL, newest = NULL, strict = TRUE) {
     )
 
     if (strict) {
-      cli_abort(msg)
+      cli::cli_abort(msg)
     } else {
-      cli_inform(msg)
+      cli::cli_inform(msg)
     }
   } else {
-    cli_inform("All {.pkg duckplyr} fallback reports uploaded successfully.")
+    cli::cli_inform("All {.pkg duckplyr} fallback reports uploaded successfully.")
   }
 
   invisible()
@@ -1148,7 +1148,7 @@ on_load({
         fallback_txt_header(),
         fallback_txt_uploading(fallback_uploading),
         fallback_txt_sitrep_logs(fallback_logs),
-        "i" = col_silver("This message can be disabled by setting {.envvar DUCKPLYR_FALLBACK_AUTOUPLOAD}.")
+        "i" = cli::col_silver("This message can be disabled by setting {.envvar DUCKPLYR_FALLBACK_AUTOUPLOAD}.")
       )
       packageStartupMessage(format_message(msg))
     }
@@ -1164,12 +1164,12 @@ on_load({
 fallback_purge <- function(oldest = NULL, newest = NULL) {
   fallback_logs <- tel_fallback_logs(oldest, newest, detail = FALSE)
   if (length(fallback_logs) == 0) {
-    cli_inform("No {.pkg duckplyr} fallback reports ready to delete.")
+    cli::cli_inform("No {.pkg duckplyr} fallback reports ready to delete.")
     return(invisible())
   }
 
   unlink(names(fallback_logs))
-  cli_inform("Deleted {.strong {length(fallback_logs)}} {.pkg duckplyr} fallback report{?s}.")
+  cli::cli_inform("Deleted {.strong {length(fallback_logs)}} {.pkg duckplyr} fallback report{?s}.")
   invisible()
 }
 
@@ -2955,7 +2955,7 @@ oo_prep <- function(
   names <- rel_names(rel)
 
   if (colname %in% names) {
-    cli_abort("Can't use column {.var {colname}} already present in rel for order preservation")
+    cli::cli_abort("Can't use column {.var {colname}} already present in rel for order preservation")
   }
 
   proj_exprs <- imap(set_names(names), relexpr_reference, rel = NULL)
@@ -3296,19 +3296,19 @@ duckdb_rel_from_df <- function(df) {
 # FIXME: This should be duckdb's responsibility
 check_df_for_rel <- function(df) {
   if (is.character(.row_names_info(df, 0L))) {
-    cli_abort("Need data frame without row names to convert to relational.")
+    cli::cli_abort("Need data frame without row names to convert to relational.")
   }
 
   for (i in seq_along(df)) {
     col <- .subset2(df, i)
     if (!is.null(names(col))) {
-      cli_abort("Can't convert named vectors to relational. Affected column: {.var {names(df)[[i]]}}.")
+      cli::cli_abort("Can't convert named vectors to relational. Affected column: {.var {names(df)[[i]]}}.")
     }
     if (!is.null(dim(col))) {
-      cli_abort("Can't convert arrays or matrices to relational. Affected column: {.var {names(df)[[i]]}}.")
+      cli::cli_abort("Can't convert arrays or matrices to relational. Affected column: {.var {names(df)[[i]]}}.")
     }
     if (isS4(col)) {
-      cli_abort("Can't convert S4 columns to relational. Affected column: {.var {names(df)[[i]]}}.")
+      cli::cli_abort("Can't convert S4 columns to relational. Affected column: {.var {names(df)[[i]]}}.")
     }
     # https://github.com/duckdb/duckdb/issues/8561
     col_class <- class(col)
@@ -3320,7 +3320,7 @@ check_df_for_rel <- function(df) {
       valid <- FALSE
     }
     if (!valid) {
-      cli_abort("Can't convert columns of class {.cls {col_class}} to relational. Affected column: {.var {names(df)[[i]]}}.")
+      cli::cli_abort("Can't convert columns of class {.cls {col_class}} to relational. Affected column: {.var {names(df)[[i]]}}.")
     }
   }
 
@@ -3337,7 +3337,7 @@ check_df_for_rel <- function(df) {
     rlang::with_options(duckdb.materialize_message = FALSE, {
       for (i in seq_along(df)) {
         if (!identical(df[[i]], roundtrip[[i]])) {
-          cli_abort("Imperfect roundtrip. Affected column: {.var {names(df)[[i]]}}.")
+          cli::cli_abort("Imperfect roundtrip. Affected column: {.var {names(df)[[i]]}}.")
         }
       }
     })
@@ -3346,7 +3346,7 @@ check_df_for_rel <- function(df) {
       df_attrib <- attributes(df[[i]])
       roundtrip_attrib <- attributes(roundtrip[[i]])
       if (!identical(df_attrib, roundtrip_attrib)) {
-        cli_abort("Attributes are lost during conversion. Affected column: {.var {names(df)[[i]]}}.")
+        cli::cli_abort("Attributes are lost during conversion. Affected column: {.var {names(df)[[i]]}}.")
       }
     }
   }
@@ -3598,7 +3598,7 @@ to_duckdb_expr <- function(x) {
       out
     },
     NULL = NULL,
-    cli_abort("Unknown expr class: {.cls {class(x))}}")
+    cli::cli_abort("Unknown expr class: {.cls {class(x))}}")
   )
 }
 
@@ -3674,7 +3674,7 @@ to_duckdb_expr_meta <- function(x) {
       out
     },
     NULL = expr(NULL),
-    cli_abort("Unknown expr class: {.cls {class(x))}}")
+    cli::cli_abort("Unknown expr class: {.cls {class(x))}}")
   )
 }
 
@@ -4176,7 +4176,7 @@ rel_try <- function(rel, ..., call = NULL) {
       error_cnd(message = paste0("Error in ", call$name)),
       call
     )
-    cli_abort("{call$name}: {json}")
+    cli::cli_abort("{call$name}: {json}")
   }
 
   if (Sys.getenv("DUCKPLYR_FALLBACK_FORCE") == "TRUE") {
@@ -4193,7 +4193,7 @@ rel_try <- function(rel, ..., call = NULL) {
           inform(message = c("Requested fallback for relational:", i = names(dots)[[i]]))
         }
         if (Sys.getenv("DUCKPLYR_FORCE") == "TRUE") {
-          cli_abort("Fallback not available with {.envvar DUCKPLYR_FORCE}.")
+          cli::cli_abort("Fallback not available with {.envvar DUCKPLYR_FORCE}.")
         }
       }
 
@@ -4218,7 +4218,7 @@ rel_try <- function(rel, ..., call = NULL) {
   }
 
   # Never reached due to return() in code
-  cli_abort("Must use a return() in rel_try().")
+  cli::cli_abort("Must use a return() in rel_try().")
 }
 
 rel_translate_dots <- function(dots, data, forbid_new = FALSE) {
@@ -4270,7 +4270,7 @@ rel_translate <- function(
       #
       symbol = {
         if (as.character(expr) %in% names_forbidden) {
-          cli_abort("Can't reuse summary variable {.var {as.character(expr)}}.")
+          cli::cli_abort("Can't reuse summary variable {.var {as.character(expr)}}.")
         }
         if (as.character(expr) %in% names_data) {
           ref <- as.character(expr)
@@ -4301,17 +4301,17 @@ rel_translate <- function(
           # Hack
           "wday" = {
             if (!is.null(pkg) && pkg != "lubridate") {
-              cli_abort("Don't know how to translate {.code {pkg}::{name}}.")
+              cli::cli_abort("Don't know how to translate {.code {pkg}::{name}}.")
             }
             def <- lubridate::wday
             call <- match.call(def, expr, envir = env)
             args <- as.list(call[-1])
             bad <- !(names(args) %in% c("x"))
             if (any(bad)) {
-              cli_abort("{name}({names(args)[which(bad)[[1]]]} = ) not supported")
+              cli::cli_abort("{name}({names(args)[which(bad)[[1]]]} = ) not supported")
             }
             if (!is.null(getOption("lubridate.week.start"))) {
-              cli_abort('{.code wday()} with {.code option("lubridate.week.start")} not supported')
+              cli::cli_abort('{.code wday()} with {.code option("lubridate.week.start")} not supported')
             }
           },
           "strftime" = {
@@ -4320,7 +4320,7 @@ rel_translate <- function(
             args <- as.list(call[-1])
             bad <- !(names(args) %in% c("x", "format"))
             if (any(bad)) {
-              cli_abort("{name}({names(args)[which(bad)[[1]]]} = ) not supported")
+              cli::cli_abort("{name}({names(args)[which(bad)[[1]]]} = ) not supported")
             }
           },
           "%in%" = {
@@ -4346,7 +4346,7 @@ rel_translate <- function(
               if (exists(var_name, envir = env)) {
                 return(do_translate(get(var_name, env), in_window = in_window))
               } else {
-                cli_abort("internal: object not found, should also be triggered by the dplyr fallback")
+                cli::cli_abort("internal: object not found, should also be triggered by the dplyr fallback")
               }
             }
           }
@@ -4393,7 +4393,7 @@ rel_translate <- function(
         known <- c(names(duckplyr_macros), names(aliases), known_window, known_ops, known_funs)
 
         if (!(name %in% known)) {
-          cli_abort("Unknown function: {.code {name}()}")
+          cli::cli_abort("Unknown function: {.code {name}()}")
         }
 
         if (name %in% names(aliases)) {
@@ -4439,7 +4439,7 @@ rel_translate <- function(
         fun
       },
       #
-      cli_abort("Internal: Unknown type {.val {typeof(expr)}}")
+      cli::cli_abort("Internal: Unknown type {.val {typeof(expr)}}")
     )
   }
 
@@ -5750,7 +5750,7 @@ tel_fallback_log_dir <- function() {
 
 tel_fallback_logs <- function(oldest = NULL, newest = NULL, detail = FALSE, envir = parent.frame()) {
   if (!is.null(oldest) && !is.null(newest)) {
-    cli_abort("Specify either {.arg oldest} or {.arg newest}, not both.", .envir = envir)
+    cli::cli_abort("Specify either {.arg oldest} or {.arg newest}, not both.", .envir = envir)
   }
 
   # For mocking
@@ -5813,7 +5813,7 @@ tel_record <- function(call_json) {
   cat(call_json, "\n", sep = "", file = telemetry_file, append = TRUE)
 
   if (tel_fallback_verbose()) {
-    cli_inform(c(
+    cli::cli_inform(c(
       "i" = "dplyr fallback recorded",
       " " = "{call_json}"
     ))
