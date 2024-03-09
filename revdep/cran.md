@@ -1,8 +1,8 @@
 ## revdepcheck results
 
-We checked 4321 reverse dependencies, comparing R CMD check results across CRAN and dev versions of this package.
+We checked 4322 reverse dependencies, comparing R CMD check results across CRAN and dev versions of this package.
 
- * We saw 2379 new problems
+ * We saw 2378 new problems
  * We failed to check 43 packages
 
 Issues with CRAN packages are summarised below.
@@ -2083,6 +2083,9 @@ Issues with CRAN packages are summarised below.
   checking examples ... ERROR
   checking re-building of vignette outputs ... ERROR
 
+* em
+  checking tests ... ERROR
+
 * emayili
   checking examples ... ERROR
 
@@ -2500,6 +2503,10 @@ Issues with CRAN packages are summarised below.
 * flametree
   checking examples ... ERROR
   checking tests ... ERROR
+
+* flashier
+  checking examples ... ERROR
+  checking re-building of vignette outputs ... ERROR
 
 * flashlight
   checking examples ... ERROR
@@ -3108,6 +3115,8 @@ Issues with CRAN packages are summarised below.
 
 * glmmfields
   checking re-building of vignette outputs ... ERROR
+  checking installed package size ... NOTE
+  checking for GNU extensions in Makefiles ... NOTE
 
 * glmtree
   checking examples ... ERROR
@@ -4747,10 +4756,6 @@ Issues with CRAN packages are summarised below.
   checking examples ... ERROR
   checking re-building of vignette outputs ... ERROR
 
-* neotoma2
-  checking examples ... ERROR
-  checking re-building of vignette outputs ... ERROR
-
 * nestedLogit
   checking examples ... ERROR
   checking re-building of vignette outputs ... ERROR
@@ -5601,9 +5606,6 @@ Issues with CRAN packages are summarised below.
 * pTITAN2
   checking re-building of vignette outputs ... ERROR
 
-* PubChemR
-  checking examples ... ERROR
-
 * pubh
   checking examples ... ERROR
   checking re-building of vignette outputs ... ERROR
@@ -6401,10 +6403,6 @@ Issues with CRAN packages are summarised below.
   checking re-building of vignette outputs ... ERROR
 
 * scGOclust
-  checking re-building of vignette outputs ... ERROR
-
-* scholar
-  checking examples ... ERROR
   checking re-building of vignette outputs ... ERROR
 
 * schrute
@@ -7925,6 +7923,7 @@ Issues with CRAN packages are summarised below.
 
 * usedthese
   checking examples ... ERROR
+  checking re-building of vignette outputs ... ERROR
 
 * useful
   checking examples ... ERROR

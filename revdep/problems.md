@@ -4027,7 +4027,7 @@ Run `revdepcheck::cloud_details(, "APCI")` for more info
     Execution halted
     ```
 
-## Newly fixed
+## In both
 
 *   checking tests ... ERROR
     ```
@@ -4042,15 +4042,15 @@ Run `revdepcheck::cloud_details(, "APCI")` for more info
       > test_data$pcc <- as.factor(test_data$pcc)
       > test_data$educc <- as.factor(test_data$educc)
     ...
-       -0.373103694   0.081210897   0.172953148  -0.311519310   0.171656684 
+       -0.303919866   0.137679889   0.173148654  -0.307084821   0.081495827 
           acc8:pcc3     acc9:pcc3     acc1:pcc4     acc2:pcc4     acc3:pcc4 
-       -0.082003765   0.206265569  -0.442747359   0.001600825   0.298229372 
+       -0.026449893   0.068172417  -0.421152517  -0.015368363   0.320208063 
           acc4:pcc4     acc5:pcc4     acc6:pcc4     acc7:pcc4     acc8:pcc4 
-        0.259099698   0.255103250  -0.185665701   0.027729926  -0.309597231 
+        0.206341468   0.249435858  -0.220679325  -0.089059296  -0.301066230 
           acc9:pcc4     acc1:pcc5     acc2:pcc5     acc3:pcc5     acc4:pcc5 
-        0.036083949   0.026385676   0.260561202  -0.079061138  -0.110339798 
+        0.147362266   0.061394554   0.342178557  -0.116639717  -0.072738635 
           acc5:pcc5     acc6:pcc5     acc7:pcc5     acc8:pcc5     acc9:pcc5 
-       -0.580982754  -0.286671893   0.328702132   0.637928596  -0.302058501 
+       -0.688420502  -0.301088336   0.336675687   0.674323894  -0.279297443 
       Killed
     ```
 
@@ -6830,9 +6830,9 @@ Run `revdepcheck::cloud_details(, "bangladesh")` for more info
 
 *   checking installed package size ... NOTE
     ```
-      installed size is  5.7Mb
+      installed size is  6.6Mb
       sub-directories of 1Mb or more:
-        data   4.9Mb
+        data   5.8Mb
     ```
 
 # banter
@@ -7978,7 +7978,7 @@ Run `revdepcheck::cloud_details(, "bayesplot")` for more info
        14.     │   └─base::isTRUE(.keep)
        15.     └─base::isTRUE(.keep)
       
-      [ FAIL 2 | WARN 3 | SKIP 73 | PASS 1019 ]
+      [ FAIL 2 | WARN 5 | SKIP 73 | PASS 1019 ]
       Error: Test failures
       Execution halted
     ```
@@ -9106,14 +9106,14 @@ Run `revdepcheck::cloud_details(, "BGPhazard")` for more info
     ```
     Error(s) in re-building vignettes:
     --- re-building ‘BGPHhazard.Rmd’ using rmarkdown
+    tlmgr: package repository https://us.mirrors.cicku.me/ctan/systems/texlive/tlnet (verified)
+    [1/1, ??:??/??:??] install: bookmark [8k]
+    running mktexlsr ...
+    done running mktexlsr.
+    tlmgr: package log updated: /opt/TinyTeX/texmf-var/web2c/tlmgr.log
+    tlmgr: command log updated: /opt/TinyTeX/texmf-var/web2c/tlmgr-commands.log
     Warning: LaTeX Warning: Float too large for page by 5.0168pt on input line 453.
     Warning: LaTeX Warning: Float too large for page by 5.0168pt on input line 487.
-    Warning: LaTeX Warning: Float too large for page by 5.0168pt on input line 543.
-    Warning: LaTeX Warning: Float too large for page by 5.0168pt on input line 573.
-    Warning: LaTeX Warning: Float too large for page by 5.0168pt on input line 606.
-    Warning: LaTeX Warning: Float too large for page by 5.0168pt on input line 635.
-    Warning: LaTeX Warning: Float too large for page by 5.0168pt on input line 664.
-    Warning: LaTeX Warning: Float too large for page by 5.0168pt on input line 710.
     ...
     ! Could not evaluate cli `{}` expression: `call_data`.
     Caused by error in `loadNamespace(name)`:
@@ -9122,6 +9122,33 @@ Run `revdepcheck::cloud_details(, "BGPhazard")` for more info
     
     SUMMARY: processing the following file failed:
       ‘bivariate-model-example.Rmd’
+    
+    Error: Vignette re-building failed.
+    Execution halted
+    ```
+
+## Newly fixed
+
+*   checking re-building of vignette outputs ... WARNING
+    ```
+    Error(s) in re-building vignettes:
+    --- re-building ‘BGPHhazard.Rmd’ using rmarkdown
+    tlmgr: package repository https://ctan.math.washington.edu/tex-archive/systems/texlive/tlnet (verified)
+    [1/1, ??:??/??:??] install: caption [61k]
+    running mktexlsr ...
+    done running mktexlsr.
+    tlmgr: package log updated: /opt/TinyTeX/texmf-var/web2c/tlmgr.log
+    tlmgr: command log updated: /opt/TinyTeX/texmf-var/web2c/tlmgr-commands.log
+    
+    tlmgr: Remote database (revision 70436 of the texlive-scripts package)
+    ...
+    --- failed re-building ‘BGPHhazard.Rmd’
+    
+    --- re-building ‘bivariate-model-example.Rmd’ using rmarkdown
+    --- finished re-building ‘bivariate-model-example.Rmd’
+    
+    SUMMARY: processing the following file failed:
+      ‘BGPHhazard.Rmd’
     
     Error: Vignette re-building failed.
     Execution halted
@@ -9448,6 +9475,33 @@ Run `revdepcheck::cloud_details(, "bigergm")` for more info
     
     Error: Vignette re-building failed.
     Execution halted
+    ```
+
+## Newly fixed
+
+*   checking tests ... ERROR
+    ```
+      Running ‘testthat.R’
+    Running the tests in ‘tests/testthat.R’ failed.
+    Complete output:
+      > library(testthat)
+      > library(bigergm)
+      Loading required package: ergm
+      Loading required package: network
+      
+      'network' 1.18.2 (2023-12-04), part of the Statnet Project
+      * 'news(package="network")' for changes since last version
+    ...
+      `expected`: FALSE
+      ── Failure ('test-simulate_hergm.R:475:3'): Yielding the same between-block network using the cpp function when the seed is fixed works ──
+      all(adj2 == adj3) is not FALSE
+      
+      `actual`:   TRUE 
+      `expected`: FALSE
+      
+      [ FAIL 3 | WARN 4 | SKIP 2 | PASS 166 ]
+      Error: Test failures
+      Execution halted
     ```
 
 ## In both
@@ -22362,7 +22416,7 @@ Run `revdepcheck::cloud_details(, "crosstable")` for more info
       Caused by error in `as_string(x)`:
       ! Can't convert an internal string to a string.
       
-      [ FAIL 4 | WARN 0 | SKIP 38 | PASS 322 ]
+      [ FAIL 4 | WARN 1 | SKIP 38 | PASS 322 ]
       Error: Test failures
       Execution halted
     ```
@@ -26797,46 +26851,14 @@ Run `revdepcheck::cloud_details(, "derivmkts")` for more info
 *   checking re-building of vignette outputs ... ERROR
     ```
     Error(s) in re-building vignettes:
+      ...
     --- re-building ‘derivmkts-vignette.Rmd’ using rmarkdown
-    tlmgr: package repository https://mirror.math.princeton.edu/pub/CTAN/systems/texlive/tlnet (verified)
-    [1/3, ??:??/??:??] install: fp [19k]
-    [2/3, 00:00/00:00] install: ms [3k]
-    [3/3, 00:00/00:00] install: pgf [701k]
-    running mktexlsr ...
-    done running mktexlsr.
-    tlmgr: package log updated: /opt/TinyTeX/texmf-var/web2c/tlmgr.log
-    tlmgr: command log updated: /opt/TinyTeX/texmf-var/web2c/tlmgr-commands.log
-    ...
+    
+    Quitting from lines 661-685 [unnamed-chunk-21] (derivmkts-vignette.Rmd)
+    Error: processing vignette 'derivmkts-vignette.Rmd' failed with diagnostics:
     ! Could not evaluate cli `{}` expression: `call_data`.
     Caused by error in `loadNamespace(name)`:
     ! there is no package called 'duckplyr'
-    --- failed re-building ‘derivmkts-vignette.Rmd’
-    
-    SUMMARY: processing the following file failed:
-      ‘derivmkts-vignette.Rmd’
-    
-    Error: Vignette re-building failed.
-    Execution halted
-    ```
-
-## Newly fixed
-
-*   checking re-building of vignette outputs ... WARNING
-    ```
-    Error(s) in re-building vignettes:
-    --- re-building ‘derivmkts-vignette.Rmd’ using rmarkdown
-    tlmgr: package repository https://mirror.mwt.me/ctan/systems/texlive/tlnet (verified)
-    [1/6, ??:??/??:??] install: adjustbox [14k]
-    [2/6, 00:00/00:00] install: collectbox [3k]
-    [3/6, 00:00/00:00] install: currfile [4k]
-    [4/6, 00:00/00:00] install: filemod [4k]
-    [5/6, 00:00/00:00] install: gincltex [2k]
-    [6/6, 00:01/00:01] install: standalone [12k]
-    running mktexlsr ...
-    ...
-    Quitting from lines 420-448 [compoundopt] (derivmkts-vignette.Rmd)
-    Error: processing vignette 'derivmkts-vignette.Rmd' failed with diagnostics:
-    LaTeX failed to compile tikzafc4330d2d3.tex. See https://yihui.org/tinytex/r/#debugging for debugging tips. See tikzafc4330d2d3.log for more info.
     --- failed re-building ‘derivmkts-vignette.Rmd’
     
     SUMMARY: processing the following file failed:
@@ -30980,14 +31002,14 @@ Run `revdepcheck::cloud_details(, "drugprepr")` for more info
     ```
     Error(s) in re-building vignettes:
     --- re-building ‘introduction.Rmd’ using rmarkdown
-    tlmgr: package repository https://mirror.mwt.me/ctan/systems/texlive/tlnet (verified)
+    
+    tlmgr: Remote database (revision 70436 of the texlive-scripts package)
+    seems to be older than the local installation (rev 70461 of
+    texlive-scripts); please use a different mirror and/or wait a day or two.
+    
+    tlmgr update --self
+    tlmgr: package repository https://ctan.math.washington.edu/tex-archive/systems/texlive/tlnet (verified)
     [1/1, ??:??/??:??] install: multirow [3k]
-    running mktexlsr ...
-    done running mktexlsr.
-    tlmgr: package log updated: /opt/TinyTeX/texmf-var/web2c/tlmgr.log
-    tlmgr: command log updated: /opt/TinyTeX/texmf-var/web2c/tlmgr-commands.log
-    tlmgr: package repository https://mirror.math.princeton.edu/pub/CTAN/systems/texlive/tlnet (verified)
-    [1/1, ??:??/??:??] install: wrapfig [10k]
     ...
     
     Error: processing vignette 'introduction.Rmd' failed with diagnostics:
@@ -31720,7 +31742,7 @@ Run `revdepcheck::cloud_details(, "duckplyr")` for more info
       🦆:  634
       add_count, anti_join, arrange, compute, count, cross_join, distinct, do, eval, filter, full_join, inner_join, intersect, left_join, mutate, mutate.data.frame, nest_join, pull, reframe, relocate, rename, rename_with, right_join, rows_append, rows_delete, rows_insert, rows_patch, rows_update, rows_upsert, select, semi_join, setdiff, setequal, slice, slice_head, slice_sample, slice_tail, summarise, symdiff, transmute, ungroup, union_all
       
-      00:01:36.124286
+      00:02:29.020239
       Execution halted
     ```
 
@@ -33777,14 +33799,14 @@ Run `revdepcheck::cloud_details(, "eHDPrep")` for more info
     ```
     Error(s) in re-building vignettes:
     --- re-building ‘Introduction_to_eHDPrep.Rmd’ using rmarkdown
-    tlmgr: package repository https://ctan.math.illinois.edu/systems/texlive/tlnet (verified)
+    tlmgr: package repository https://us.mirrors.cicku.me/ctan/systems/texlive/tlnet (verified)
     [1/1, ??:??/??:??] install: caption [61k]
     running mktexlsr ...
     done running mktexlsr.
     tlmgr: package log updated: /opt/TinyTeX/texmf-var/web2c/tlmgr.log
     tlmgr: command log updated: /opt/TinyTeX/texmf-var/web2c/tlmgr-commands.log
-    tlmgr: package repository https://ctan.math.washington.edu/tex-archive/systems/texlive/tlnet (verified)
-    [1/1, ??:??/??:??] install: tocloft [7k]
+    
+    tlmgr: Remote database (revision 70436 of the texlive-scripts package)
     ...
     
     Error: processing vignette 'Introduction_to_eHDPrep.Rmd' failed with diagnostics:
@@ -34089,6 +34111,86 @@ Run `revdepcheck::cloud_details(, "Elja")` for more info
     
     SUMMARY: processing the following file failed:
       ‘Elja.Rmd’
+    
+    Error: Vignette re-building failed.
+    Execution halted
+    ```
+
+# em
+
+<details>
+
+* Version: 1.0.0
+* GitHub: https://github.com/wudongjie/em
+* Source code: https://github.com/cran/em
+* Date/Publication: 2023-01-11 06:20:02 UTC
+* Number of recursive dependencies: 59
+
+Run `revdepcheck::cloud_details(, "em")` for more info
+
+</details>
+
+## Newly broken
+
+*   checking tests ... ERROR
+    ```
+      Running ‘testthat.R’
+    Running the tests in ‘tests/testthat.R’ failed.
+    Complete output:
+      > library(testthat)
+      > library(em)
+      > 
+      > test_check("em")
+      'log Lik.' -4027.404 (df=3)
+      [1] -4027.404
+      Iteration 0: (EM) log likelihood = -4027.3046
+    ...
+      Backtrace:
+          ▆
+       1. ├─base::print(summary(results3)) at test-em.R:61:3
+       2. ├─base::summary(results3)
+       3. └─em:::summary.em(results3)
+       4.   └─base::`rownames<-`(`*tmp*`, value = names_coef)
+      
+      [ FAIL 1 | WARN 0 | SKIP 6 | PASS 5 ]
+      Error: Test failures
+      Execution halted
+    ```
+
+## In both
+
+*   checking C++ specification ... NOTE
+    ```
+      Specified C++11: please drop specification unless essential
+    ```
+
+*   checking installed package size ... NOTE
+    ```
+      installed size is  6.3Mb
+      sub-directories of 1Mb or more:
+        libs   5.6Mb
+    ```
+
+*   checking re-building of vignette outputs ... NOTE
+    ```
+    Error(s) in re-building vignettes:
+      ...
+    --- re-building ‘em_intro.Rnw’ using Sweave
+    Error: processing vignette 'em_intro.Rnw' failed with diagnostics:
+    Running 'texi2dvi' on 'em_intro.tex' failed.
+    LaTeX errors:
+    ! LaTeX Error: File `listings.sty' not found.
+    
+    Type X to quit or <RETURN> to proceed,
+    or enter new name. (Default extension: sty)
+    ...
+    l.22 \newcommand
+                    {\R}{\proglang{R}}^^M
+    !  ==> Fatal error occurred, no output PDF file produced!
+    --- failed re-building 'em_intro.Rnw'
+    
+    SUMMARY: processing the following file failed:
+      'em_intro.Rnw'
     
     Error: Vignette re-building failed.
     Execution halted
@@ -36804,13 +36906,13 @@ Run `revdepcheck::cloud_details(, "EvoPhylo")` for more info
     ```
     Error(s) in re-building vignettes:
     --- re-building ‘char-part.Rmd’ using rmarkdown
-    Warning: ggrepel: 15 unlabeled data points (too many overlaps). Consider increasing max.overlaps
-    Warning: ggrepel: 143 unlabeled data points (too many overlaps). Consider increasing max.overlaps
-    Warning: ggrepel: 149 unlabeled data points (too many overlaps). Consider increasing max.overlaps
-    Warning: ggrepel: 141 unlabeled data points (too many overlaps). Consider increasing max.overlaps
-    Warning: ggrepel: 197 unlabeled data points (too many overlaps). Consider increasing max.overlaps
-    Warning: ggrepel: 195 unlabeled data points (too many overlaps). Consider increasing max.overlaps
-    Warning: ggrepel: 192 unlabeled data points (too many overlaps). Consider increasing max.overlaps
+    Warning: ggrepel: 1 unlabeled data points (too many overlaps). Consider increasing max.overlaps
+    Warning: ggrepel: 158 unlabeled data points (too many overlaps). Consider increasing max.overlaps
+    Warning: ggrepel: 156 unlabeled data points (too many overlaps). Consider increasing max.overlaps
+    Warning: ggrepel: 146 unlabeled data points (too many overlaps). Consider increasing max.overlaps
+    Warning: ggrepel: 182 unlabeled data points (too many overlaps). Consider increasing max.overlaps
+    Warning: ggrepel: 177 unlabeled data points (too many overlaps). Consider increasing max.overlaps
+    Warning: ggrepel: 194 unlabeled data points (too many overlaps). Consider increasing max.overlaps
     --- finished re-building ‘char-part.Rmd’
     ...
     Caused by error in `loadNamespace(name)`:
@@ -37431,7 +37533,7 @@ Run `revdepcheck::cloud_details(, "expertsurv")` for more info
 
 *   checking installed package size ... NOTE
     ```
-      installed size is 230.6Mb
+      installed size is 230.9Mb
       sub-directories of 1Mb or more:
         doc     1.7Mb
         libs  227.3Mb
@@ -40027,14 +40129,14 @@ Run `revdepcheck::cloud_details(, "fgeo.analyze")` for more info
       $N2
       [1] 29
     ...
-      Component "rate": 'is.NA' value mismatch: 1 in current 1 in target
-      Component "lower": 'is.NA' value mismatch: 1 in current 1 in target
-      Component "upper": 'is.NA' value mismatch: 1 in current 1 in target
-      Component "time": 'is.NA' value mismatch: 1 in current 1 in target
-      Component "date1": 'is.NA' value mismatch: 1 in current 1 in target
-      Component "date2": 'is.NA' value mismatch: 1 in current 1 in target
+       25. ├─dplyr::group_by(., .data$plotcensusnumber)
+       26. └─rlang::set_names(., tolower)
+      ── Failure ('test-byyr.R:157:5'): abundance_byyr: lowercases dbh and only dbh from the expression passed to ... ──
+      `out <- abundance_byyr(vft, dbh >= min(vft$DBH, na.rm = TRUE))` produced messages.
+      ── Failure ('test-byyr.R:213:5'): abundance_byyr: warns if parsed dates are not from 1980 to present ──
+      `abundance_byyr(good, dbh > 0)` produced messages.
       
-      [ FAIL 5 | WARN 3 | SKIP 14 | PASS 293 ]
+      [ FAIL 4 | WARN 3 | SKIP 14 | PASS 294 ]
       Error: Test failures
       Execution halted
     ```
@@ -41153,6 +41255,72 @@ Run `revdepcheck::cloud_details(, "flametree")` for more info
       [ FAIL 8 | WARN 5 | SKIP 1 | PASS 234 ]
       Error: Test failures
       Execution halted
+    ```
+
+# flashier
+
+<details>
+
+* Version: 1.0.7
+* GitHub: https://github.com/willwerscheid/flashier
+* Source code: https://github.com/cran/flashier
+* Date/Publication: 2023-10-17 09:40:02 UTC
+* Number of recursive dependencies: 90
+
+Run `revdepcheck::cloud_details(, "flashier")` for more info
+
+</details>
+
+## Newly broken
+
+*   checking examples ... ERROR
+    ```
+    Running examples in ‘flashier-Ex.R’ failed
+    The error most likely occurred in:
+    
+    > ### Name: flash
+    > ### Title: Empirical Bayes matrix factorization
+    > ### Aliases: flash
+    > 
+    > ### ** Examples
+    > 
+    > data(gtex)
+    ...
+    > # Fit a unimodal distribution with mean zero to each set of loadings
+    > #   and a scale mixture of normals with mean zero to each factor.
+    > fl <- flash(gtex,
+    +             ebnm_fn = c(ebnm_unimodal,
+    +                         ebnm_normal_scale_mixture),
+    +             greedy_Kmax = 3)
+    Error in value[[3L]](cond) : 
+      Argument to ebnm.fn is incorrectly specified. See ?flash_ebnm for details.
+    Calls: flash ... tryCatch -> tryCatchList -> tryCatchOne -> <Anonymous>
+    Execution halted
+    ```
+
+*   checking re-building of vignette outputs ... ERROR
+    ```
+    Error(s) in re-building vignettes:
+      ...
+    --- re-building ‘advanced.Rmd’ using rmarkdown
+    
+    Quitting from lines 119-139 [intercept] (advanced.Rmd)
+    Error: processing vignette 'advanced.Rmd' failed with diagnostics:
+    ! Could not evaluate cli `{}` expression: `call_data`.
+    Caused by error in `loadNamespace(name)`:
+    ! there is no package called 'duckplyr'
+    --- failed re-building ‘advanced.Rmd’
+    ...
+    ! Could not evaluate cli `{}` expression: `call_data`.
+    Caused by error in `loadNamespace(name)`:
+    ! there is no package called 'duckplyr'
+    --- failed re-building ‘intro.Rmd’
+    
+    SUMMARY: processing the following files failed:
+      ‘advanced.Rmd’ ‘intro.Rmd’
+    
+    Error: Vignette re-building failed.
+    Execution halted
     ```
 
 # flashlight
@@ -43298,7 +43466,7 @@ Run `revdepcheck::cloud_details(, "FRK")` for more info
     56. base::stop(cond)
     57. | (function (e) …
     58. | cli:::throw_error(err, parent = e)
-    Timing stopped at: 1.309 0.008 1.318
+    Timing stopped at: 1.183 0 1.182
     Execution halted
     ```
 
@@ -51145,8 +51313,6 @@ Run `revdepcheck::cloud_details(, "glmmfields")` for more info
     Execution halted
     ```
 
-## In both
-
 *   checking installed package size ... NOTE
     ```
       installed size is 127.1Mb
@@ -51157,6 +51323,14 @@ Run `revdepcheck::cloud_details(, "glmmfields")` for more info
 *   checking for GNU extensions in Makefiles ... NOTE
     ```
     GNU make is a SystemRequirements.
+    ```
+
+## Newly fixed
+
+*   checking whether package ‘glmmfields’ can be installed ... ERROR
+    ```
+    Installation failed.
+    See ‘/tmp/workdir/glmmfields/old/glmmfields.Rcheck/00install.out’ for details.
     ```
 
 # glmtree
@@ -51824,9 +51998,9 @@ Run `revdepcheck::cloud_details(, "GOxploreR")` for more info
 
 *   checking installed package size ... NOTE
     ```
-      installed size is 11.7Mb
+      installed size is 10.1Mb
       sub-directories of 1Mb or more:
-        R  11.1Mb
+        R   9.4Mb
     ```
 
 # gprofiler2
@@ -56887,6 +57061,33 @@ Run `revdepcheck::cloud_details(, "huxtable")` for more info
     Execution halted
     ```
 
+## Newly fixed
+
+*   checking re-building of vignette outputs ... WARNING
+    ```
+    Error(s) in re-building vignettes:
+    --- re-building ‘design-principles.Rmd’ using rmarkdown
+    --- finished re-building ‘design-principles.Rmd’
+    
+    --- re-building ‘huxreg.Rmd’ using rmarkdown
+    --- finished re-building ‘huxreg.Rmd’
+    
+    --- re-building ‘huxtable.Rmd’ using rmarkdown
+    tlmgr: package repository https://mirror.las.iastate.edu/tex-archive/systems/texlive/tlnet (verified)
+    [1/1, ??:??/??:??] install: placeins [3k]
+    ...
+    --- failed re-building ‘huxtable.Rmd’
+    
+    --- re-building ‘themes.Rhtml’ using knitr
+    --- finished re-building ‘themes.Rhtml’
+    
+    SUMMARY: processing the following file failed:
+      ‘huxtable.Rmd’
+    
+    Error: Vignette re-building failed.
+    Execution halted
+    ```
+
 ## In both
 
 *   checking dependencies in R code ... NOTE
@@ -58113,33 +58314,6 @@ Run `revdepcheck::cloud_details(, "iemiscdata")` for more info
     
     SUMMARY: processing the following file failed:
       ‘TN_ExceptionalMap.Rmd’
-    
-    Error: Vignette re-building failed.
-    Execution halted
-    ```
-
-## Newly fixed
-
-*   checking re-building of vignette outputs ... WARNING
-    ```
-    Error(s) in re-building vignettes:
-    --- re-building ‘East-Palestine-Ohio_Norfolk-Southern-Train-32N-Cargo_Chemical-Databases.Rmd’ using rmarkdown
-    Warning in eng_r(options) :
-      Failed to tidy R code in chunk 'unnamed-chunk-1'. Reason:
-    Error : The formatR package is required by the chunk option tidy = TRUE but not installed; tidy = TRUE will be ignored.
-    
-    
-    tlmgr: Remote database (revision 70436 of the texlive-scripts package)
-    seems to be older than the local installation (rev 70461 of
-    texlive-scripts); please use a different mirror and/or wait a day or two.
-    ...
-      Failed to tidy R code in chunk 'unnamed-chunk-4'. Reason:
-    Error : The formatR package is required by the chunk option tidy = TRUE but not installed; tidy = TRUE will be ignored.
-    
-    --- finished re-building ‘Weighted_CN-and-Composite_CN_Examples.Rmd’
-    
-    SUMMARY: processing the following file failed:
-      ‘East-Palestine-Ohio_Norfolk-Southern-Train-32N-Cargo_Chemical-Databases.Rmd’
     
     Error: Vignette re-building failed.
     Execution halted
@@ -64443,8 +64617,8 @@ Run `revdepcheck::cloud_details(, "linelist")` for more info
       Starting 2 test processes
       [ FAIL 0 | WARN 2 | SKIP 9 | PASS 133 ]
     ...
-        'test-validate_types.R:26:3', 'test-compat-dplyr.R:58:3',
-        'test-compat-dplyr.R:70:3', 'test-compat-dplyr.R:139:3'
+        'test-compat-dplyr.R:58:3', 'test-compat-dplyr.R:70:3',
+        'test-compat-dplyr.R:139:3', 'test-validate_types.R:26:3'
       
       [ FAIL 0 | WARN 2 | SKIP 9 | PASS 133 ]
       > 
@@ -72727,33 +72901,6 @@ Run `revdepcheck::cloud_details(, "Mmcsd")` for more info
     Execution halted
     ```
 
-## Newly fixed
-
-*   checking re-building of vignette outputs ... WARNING
-    ```
-    Error(s) in re-building vignettes:
-    --- re-building ‘my-vignette.Rmd’ using rmarkdown
-    tlmgr: package repository https://mirror.math.princeton.edu/pub/CTAN/systems/texlive/tlnet (verified)
-    [1/1, ??:??/??:??] install: multirow [3k]
-    running mktexlsr ...
-    done running mktexlsr.
-    tlmgr: package log updated: /opt/TinyTeX/texmf-var/web2c/tlmgr.log
-    tlmgr: command log updated: /opt/TinyTeX/texmf-var/web2c/tlmgr-commands.log
-    tlmgr: package repository https://ctan.mirrors.hoobly.com/systems/texlive/tlnet (verified)
-    [1/1, ??:??/??:??] install: wrapfig [10k]
-    ...
-    
-    Error: processing vignette 'my-vignette.Rmd' failed with diagnostics:
-    LaTeX failed to compile /tmp/workdir/Mmcsd/old/Mmcsd.Rcheck/vign_test/Mmcsd/vignettes/my-vignette.tex. See https://yihui.org/tinytex/r/#debugging for debugging tips. See my-vignette.log for more info.
-    --- failed re-building ‘my-vignette.Rmd’
-    
-    SUMMARY: processing the following file failed:
-      ‘my-vignette.Rmd’
-    
-    Error: Vignette re-building failed.
-    Execution halted
-    ```
-
 # mmrm
 
 <details>
@@ -78202,67 +78349,6 @@ Run `revdepcheck::cloud_details(, "neonPlantEcology")` for more info
       Note: found 1008 marked UTF-8 strings
     ```
 
-# neotoma2
-
-<details>
-
-* Version: 1.0.3
-* GitHub: https://github.com/NeotomaDB/neotoma2
-* Source code: https://github.com/cran/neotoma2
-* Date/Publication: 2024-02-28 07:50:07 UTC
-* Number of recursive dependencies: 131
-
-Run `revdepcheck::cloud_details(, "neotoma2")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking examples ... ERROR
-    ```
-    Running examples in ‘neotoma2-Ex.R’ failed
-    The error most likely occurred in:
-    
-    > ### Name: cite_data,sites-method
-    > ### Title: Obtain data citations from multiple records.
-    > ### Aliases: cite_data,sites-method
-    > 
-    > ### ** Examples
-    > 
-    > {
-    ...
-    38. base::asNamespace(ns, base.OK = FALSE)
-    39. base::getNamespace(ns)
-    40. base::loadNamespace(name)
-    41. base::withRestarts(stop(cond), retry_loadNamespace = function() NULL)
-    42. base::withOneRestart(expr, restarts[[1L]])
-    43. base::doWithOneRestart(return(expr), restart)
-    44. base::stop(cond)
-    45. | (function (e) …
-    46. | cli:::throw_error(err, parent = e)
-    Execution halted
-    ```
-
-*   checking re-building of vignette outputs ... ERROR
-    ```
-    Error(s) in re-building vignettes:
-      ...
-    --- re-building ‘neotoma2-package.Rmd’ using rmarkdown
-    
-    Quitting from lines 237-252 [boundingBox] (neotoma2-package.Rmd)
-    Error: processing vignette 'neotoma2-package.Rmd' failed with diagnostics:
-    ! Could not evaluate cli `{}` expression: `call_data`.
-    Caused by error in `loadNamespace(name)`:
-    ! there is no package called 'duckplyr'
-    --- failed re-building ‘neotoma2-package.Rmd’
-    
-    SUMMARY: processing the following file failed:
-      ‘neotoma2-package.Rmd’
-    
-    Error: Vignette re-building failed.
-    Execution halted
-    ```
-
 # nestedLogit
 
 <details>
@@ -80196,6 +80282,33 @@ Run `revdepcheck::cloud_details(, "npcs")` for more info
     Execution halted
     ```
 
+## Newly fixed
+
+*   checking re-building of vignette outputs ... WARNING
+    ```
+    Error(s) in re-building vignettes:
+      ...
+    --- re-building ‘npcs-demo.Rmd’ using rmarkdown
+    
+    tlmgr: Remote database (revision 70436 of the texlive-scripts package)
+    seems to be older than the local installation (rev 70461 of
+    texlive-scripts); please use a different mirror and/or wait a day or two.
+    
+    Warning in system2("tlmgr", args, ...) :
+      running command ''tlmgr' search --file --global '/dsfont.sty'' had status 1
+    ...
+    
+    Error: processing vignette 'npcs-demo.Rmd' failed with diagnostics:
+    LaTeX failed to compile /tmp/workdir/npcs/old/npcs.Rcheck/vign_test/npcs/vignettes/npcs-demo.tex. See https://yihui.org/tinytex/r/#debugging for debugging tips. See npcs-demo.log for more info.
+    --- failed re-building ‘npcs-demo.Rmd’
+    
+    SUMMARY: processing the following file failed:
+      ‘npcs-demo.Rmd’
+    
+    Error: Vignette re-building failed.
+    Execution halted
+    ```
+
 # nphRCT
 
 <details>
@@ -80448,9 +80561,9 @@ Run `revdepcheck::cloud_details(, "ntdr")` for more info
                                      Dload  Upload   Total   Spent    Left  Speed
     
       0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
-    100 13.0M  100 13.0M    0     0   136M      0 --:--:-- --:--:-- --:--:--  136M
+      9 13.0M    9 1255k    0     0  13.1M      0 --:--:-- --:--:-- --:--:-- 13.0M
+    100 13.0M  100 13.0M    0     0  41.5M      0 --:--:-- --:--:-- --:--:-- 41.4M
     
-    Quitting from lines 34-37 [bare-get-ntd-call] (ntdr.Rmd)
     ...
     ! Could not evaluate cli `{}` expression: `call_data`.
     Caused by error in `loadNamespace(name)`:
@@ -82254,7 +82367,7 @@ Run `revdepcheck::cloud_details(, "OOS")` for more info
       > library(OOS)
       > 
       > test_check("OOS")
-      [ FAIL 2 | WARN 1009 | SKIP 0 | PASS 23 ]
+      [ FAIL 2 | WARN 1019 | SKIP 0 | PASS 23 ]
       
       ══ Failed tests ════════════════════════════════════════════════════════════════
     ...
@@ -82265,7 +82378,7 @@ Run `revdepcheck::cloud_details(, "OOS")` for more info
        10.     └─dplyr:::group_split_impl(data, .keep = .keep)
        11.       └─base::isTRUE(.keep)
       
-      [ FAIL 2 | WARN 1009 | SKIP 0 | PASS 23 ]
+      [ FAIL 2 | WARN 1019 | SKIP 0 | PASS 23 ]
       Error: Test failures
       Execution halted
     ```
@@ -82526,7 +82639,7 @@ Run `revdepcheck::cloud_details(, "OpenLand")` for more info
       
       ══ Failed tests ════════════════════════════════════════════════════════════════
     ...
-      Actual value: "List of 11\\n \$ data       : tibble \[200 × 5\] \(S3: tbl_df/tbl/data\.frame\)\\n  \.\.\$ Period    : chr \[1:200\] "2000-2001" "2000-2001" "2000-2001" "2000-2001" \.\.\.\\n  \.\.\$ area_gross: num \[1:200\] 0\.000388 0\.000379 0\.00038 0\.000411 0\.000403 0\.000416 0\.000368 0\.000445 0\.000387 0\.000399 \.\.\.\\n  \.\.\$ From      : Factor w/ 5 levels "GUP","OZS","PSN",\.\.: 3 3 3 3 4 4 4 4 2 2 \.\.\.\\n  \.\.\$ To        : Factor w/ 5 levels "GUP","OZS","PSN",\.\.: 4 2 1 5 3 2 1 5 3 4 \.\.\.\\n  \.\.\$ changes   : chr \[1:200\] "Gain" "Gain" "Gain" "Gain" \.\.\.\\n \$ layers     :List of 4\\n  \.\.\$ :Classes 'LayerInstance', 'Layer', 'ggproto', 'gg' <ggproto object: Class LayerInstance, Layer, gg>\\n    aes_params: list\\n    compute_aesthetics: function\\n    compute_geom_1: function\\n    compute_geom_2: function\\n    compute_position: function\\n    compute_statistic: function\\n    computed_geom_params: NULL\\n    computed_mapping: NULL\\n    computed_stat_params: NULL\\n    constructor: call\\n    data: waiver\\n    draw_geom: function\\n    finish_statistics: function\\n    geom: <ggproto object: Class GeomBar, GeomRect, Geom, gg>\\n        aesthetics: function\\n        default_aes: uneval\\n        draw_group: function\\n        draw_key: function\\n        draw_layer: function\\n        draw_panel: function\\n        extra_params: just na\.rm orientation\\n        handle_na: function\\n        non_missing_aes: xmin xmax ymin ymax\\n        optional_aes: \\n        parameters: function\\n        rename_size: TRUE\\n        required_aes: x y\\n        setup_data: function\\n        setup_params: function\\n        use_defaults: function\\n        super:  <ggproto object: Class GeomRect, Geom, gg>\\n    geom_params: list\\n    inherit\.aes: TRUE\\n    layer_data: function\\n    map_statistic: function\\n    mapping: uneval\\n    position: <ggproto object: Class PositionStack, Position, gg>\\n        compute_layer: function\\n        compute_panel: function\\n        fill: FALSE\\n        required_aes: \\n        reverse: FALSE\\n        setup_data: function\\n        setup_params: function\\n        type: NULL\\n        vjust: 1\\n        super:  <ggproto object: Class Position, gg>\\n    print: function\\n    setup_layer: function\\n    show\.legend: NA\\n    stat: <ggproto object: Class StatIdentity, Stat, gg>\\n        aesthetics: function\\n        compute_group: function\\n        compute_layer: function\\n        compute_panel: function\\n        default_aes: uneval\\n        dropped_aes: \\n        extra_params: na\.rm\\n        finish_layer: function\\n        non_missing_aes: \\n        optional_aes: \\n        parameters: function\\n        required_aes: \\n        retransform: TRUE\\n        setup_data: function\\n        setup_params: function\\n        super:  <ggproto object: Class Stat, gg>\\n    stat_params: list\\n    super:  <ggproto object: Class Layer, gg> \\n  \.\.\$ :Classes 'LayerInstance', 'Layer', 'ggproto', 'gg' <ggproto object: Class LayerInstance, Layer, gg>\\n    aes_params: list\\n    compute_aesthetics: function\\n    compute_geom_1: function\\n    compute_geom_2: function\\n    compute_position: function\\n    compute_statistic: function\\n    computed_geom_params: NULL\\n    computed_mapping: NULL\\n    computed_stat_params: NULL\\n    constructor: call\\n    data: tbl_df, tbl, data\.frame\\n    draw_geom: function\\n    finish_statistics: function\\n    geom: <ggproto object: Class GeomBar, GeomRect, Geom, gg>\\n        aesthetics: function\\n        default_aes: uneval\\n        draw_group: function\\n        draw_key: function\\n        draw_layer: function\\n        draw_panel: function\\n        extra_params: just na\.rm orientation\\n        handle_na: function\\n        non_missing_aes: xmin xmax ymin ymax\\n        optional_aes: \\n        parameters: function\\n        rename_size: TRUE\\n        required_aes: x y\\n        setup_data: function\\n        setup_params: function\\n        use_defaults: function\\n        super:  <ggproto object: Class GeomRect, Geom, gg>\\n    geom_params: list\\n    inherit\.aes: FALSE\\n    layer_data: function\\n    map_statistic: function\\n    mapping: uneval\\n    position: <ggproto object: Class PositionStack, Position, gg>\\n        compute_layer: function\\n        compute_panel: function\\n        fill: FALSE\\n        required_aes: \\n        reverse: FALSE\\n        setup_data: function\\n        setup_params: function\\n        type: NULL\\n        vjust: 1\\n        super:  <ggproto object: Class Position, gg>\\n    print: function\\n    setup_layer: function\\n    show\.legend: NA\\n    stat: <ggproto object: Class StatIdentity, Stat, gg>\\n        aesthetics: function\\n        compute_group: function\\n        compute_layer: function\\n        compute_panel: function\\n        default_aes: uneval\\n        dropped_aes: \\n        extra_params: na\.rm\\n        finish_layer: function\\n        non_missing_aes: \\n        optional_aes: \\n        parameters: function\\n        required_aes: \\n        retransform: TRUE\\n        setup_data: function\\n        setup_params: function\\n        super:  <ggproto object: Class Stat, gg>\\n    stat_params: list\\n    super:  <ggproto object: Class Layer, gg> \\n  \.\.\$ :Classes 'LayerInstance', 'Layer', 'ggproto', 'gg' <ggproto object: Class LayerInstance, Layer, gg>\\n    aes_params: list\\n    compute_aesthetics: function\\n    compute_geom_1: function\\n    compute_geom_2: function\\n    compute_position: function\\n    compute_statistic: function\\n    computed_geom_params: NULL\\n    computed_mapping: NULL\\n    computed_stat_params: NULL\\n    constructor: call\\n    data: tbl_df, tbl, data\.frame\\n    draw_geom: function\\n    finish_statistics: function\\n    geom: <ggproto object: Class GeomSegment, Geom, gg>\\n        aesthetics: function\\n        default_aes: uneval\\n        draw_group: function\\n        draw_key: function\\n        draw_layer: function\\n        draw_panel: function\\n        extra_params: na\.rm\\n        handle_na: function\\n        non_missing_aes: linetype linewidth\\n        optional_aes: \\n        parameters: function\\n        rename_size: TRUE\\n        required_aes: x y xend\|yend\\n        setup_data: function\\n        setup_params: function\\n        use_defaults: function\\n        super:  <ggproto object: Class Geom, gg>\\n    geom_params: list\\n    inherit\.aes: TRUE\\n    layer_data: function\\n    map_statistic: function\\n    mapping: uneval\\n    position: <ggproto object: Class PositionIdentity, Position, gg>\\n        compute_layer: function\\n        compute_panel: function\\n        required_aes: \\n        setup_data: function\\n        setup_params: function\\n        super:  <ggproto object: Class Position, gg>\\n    print: function\\n    setup_layer: function\\n    show\.legend: NA\\n    stat: <ggproto object: Class StatIdentity, Stat, gg>\\n        aesthetics: function\\n        compute_group: function\\n        compute_layer: function\\n        compute_panel: function\\n        default_aes: uneval\\n        dropped_aes: \\n        extra_params: na\.rm\\n        finish_layer: function\\n        non_missing_aes: \\n        optional_aes: \\n        parameters: function\\n        required_aes: \\n        retransform: TRUE\\n        setup_data: function\\n        setup_params: function\\n        super:  <ggproto object: Class Stat, gg>\\n    stat_params: list\\n    super:  <ggproto object: Class Layer, gg> \\n  \.\.\$ :Classes 'LayerInstance', 'Layer', 'ggproto', 'gg' <ggproto object: Class LayerInstance, Layer, gg>\\n    aes_params: list\\n    compute_aesthetics: function\\n    compute_geom_1: function\\n    compute_geom_2: function\\n    compute_position: function\\n    compute_statistic: function\\n    computed_geom_params: NULL\\n    computed_mapping: NULL\\n    computed_stat_params: NULL\\n    constructor: call\\n    data: data\.frame\\n    draw_geom: function\\n    finish_statistics: function\\n    geom: <ggproto object: Class GeomHline, Geom, gg>\\n        aesthetics: function\\n        check_constant_aes: FALSE\\n        default_aes: uneval\\n        draw_group: function\\n        draw_key: function\\n        draw_layer: function\\n        draw_panel: function\\n        extra_params: na\.rm\\n        handle_na: function\\n        non_missing_aes: \\n        optional_aes: \\n        parameters: function\\n        rename_size: TRUE\\n        required_aes: yintercept\\n        setup_data: function\\n        setup_params: function\\n        use_defaults: function\\n        super:  <ggproto object: Class Geom, gg>\\n    geom_params: list\\n    inherit\.aes: FALSE\\n    layer_data: function\\n    map_statistic: function\\n    mapping: uneval\\n    position: <ggproto object: Class PositionIdentity, Position, gg>\\n        compute_layer: function\\n        compute_panel: function\\n        required_aes: \\n        setup_data: function\\n        setup_params: function\\n        super:  <ggproto object: Class Position, gg>\\n    print: function\\n    setup_layer: function\\n    show\.legend: FALSE\\n    stat: <ggproto object: Class StatIdentity, Stat, gg>\\n        aesthetics: function\\n        compute_group: function\\n        compute_layer: function\\n        compute_panel: function\\n        default_aes: uneval\\n        dropped_aes: \\n        extra_params: na\.rm\\n        finish_layer: function\\n        non_missing_aes: \\n        optional_aes: \\n        parameters: function\\n        required_aes: \\n        retransform: TRUE\\n        setup_data: function\\n        setup_params: function\\n        super:  <ggproto object: Class Stat, gg>\\n    stat_params: list\\n    super:  <ggproto object: Class Layer, gg> \\n \$ scales     :Classes 'ScalesList', 'ggproto', 'gg' <ggproto object: Class ScalesList, gg>\\n    add: function\\n    add_defaults: function\\n    add_missing: function\\n    backtransform_df: function\\n    clone: function\\n    find: function\\n    get_scales: function\\n    has_scale: function\\n    input: function\\n    map_df: function\\n    n: function\\n    non_position_scales: function\\n    scales: list\\n    train_df: function\\n    transform_df: function\\n    super:  <ggproto object: Class ScalesList, gg> \\n \$ guides     :Classes 'Guides', 'ggproto', 'gg' <ggproto object: Class Guides, gg>\\n    add: function\\n    assemble: function\\n    build: function\\n    draw: function\\n    get_custom: function\\n    get_guide: function\\n    get_params: function\\n    get_position: function\\n    guides: NULL\\n    merge: function\\n    missing: <ggproto object: Class GuideNone, Guide, gg>\\n        add_title: function\\n        arrange_layout: function\\n        assemble_drawing: function\\n        available_aes: any\\n        build_decor: function\\n        build_labels: function\\n        build_ticks: function\\n        build_title: function\\n        draw: function\\n        draw_early_exit: function\\n        elements: list\\n        extract_decor: function\\n        extract_key: function\\n        extract_params: function\\n        get_layer_key: function\\n        hashables: list\\n        measure_grobs: function\\n        merge: function\\n        override_elements: function\\n        params: list\\n        process_layers: function\\n        setup_elements: function\\n        setup_params: function\\n        train: function\\n        transform: function\\n        super:  <ggproto object: Class GuideNone, Guide, gg>\\n    package_box: function\\n    print: function\\n    process_layers: function\\n    setup: function\\n    subset_guides: function\\n    train: function\\n    update_params: function\\n    super:  <ggproto object: Class Guides, gg> \\n \$ mapping    :List of 2\\n  \.\.\$ x: language ~To\\n  \.\. \.\.- attr\(\*, "\.Environment"\)=<environment: 0x5555a5f25388> \\n  \.\.\$ y: language ~area_gross\\n  \.\. \.\.- attr\(\*, "\.Environment"\)=<environment: 0x5555a5f25388> \\n  \.\.- attr\(\*, "class"\)= chr "uneval"\\n \$ theme      :List of 1\\n  \.\.\$ plot\.title:List of 11\\n  \.\. \.\.\$ family       : NULL\\n  \.\. \.\.\$ face         : NULL\\n  \.\. \.\.\$ colour       : NULL\\n  \.\. \.\.\$ size         : NULL\\n  \.\. \.\.\$ hjust        : num 0\.5\\n  \.\. \.\.\$ vjust        : NULL\\n  \.\. \.\.\$ angle        : NULL\\n  \.\. \.\.\$ lineheight   : NULL\\n  \.\. \.\.\$ margin       : NULL\\n  \.\. \.\.\$ debug        : NULL\\n  \.\. \.\.\$ inherit\.blank: logi FALSE\\n  \.\. \.\.- attr\(\*, "class"\)= chr \[1:2\] "element_text" "element"\\n  \.\.- attr\(\*, "complete"\)= logi FALSE\\n  \.\.- attr\(\*, "validate"\)= logi TRUE\\n \$ coordinates:Classes 'CoordCartesian', 'Coord', 'ggproto', 'gg' <ggproto object: Class CoordCartesian, Coord, gg>\\n    aspect: function\\n    backtransform_range: function\\n    clip: on\\n    default: TRUE\\n    distance: function\\n    expand: TRUE\\n    is_free: function\\n    is_linear: function\\n    labels: function\\n    limits: list\\n    modify_scales: function\\n    range: function\\n    render_axis_h: function\\n    render_axis_v: function\\n    render_bg: function\\n    render_fg: function\\n    setup_data: function\\n    setup_layout: function\\n    setup_panel_guides: function\\n    setup_panel_params: function\\n    setup_params: function\\n    train_panel_guides: function\\n    transform: function\\n    super:  <ggproto object: Class CoordCartesian, Coord, gg> \\n \$ facet      :Classes 'FacetNull', 'Facet', 'ggproto', 'gg' <ggproto object: Class FacetNull, Facet, gg>\\n    compute_layout: function\\n    draw_back: function\\n    draw_front: function\\n    draw_labels: function\\n    draw_panels: function\\n    finish_data: function\\n    init_scales: function\\n    map_data: function\\n    params: list\\n    setup_data: function\\n    setup_params: function\\n    shrink: TRUE\\n    train_scales: function\\n    vars: function\\n    super:  <ggproto object: Class FacetNull, Facet, gg> \\n \$ plot_env   :<environment: 0x5555a5f25388> \\n \$ layout     :Classes 'Layout', 'ggproto', 'gg' <ggproto object: Class Layout, gg>\\n    coord: NULL\\n    coord_params: list\\n    facet: NULL\\n    facet_params: list\\n    finish_data: function\\n    get_scales: function\\n    layout: NULL\\n    map_position: function\\n    panel_params: NULL\\n    panel_scales_x: NULL\\n    panel_scales_y: NULL\\n    render: function\\n    render_labels: function\\n    reset_scales: function\\n    resolve_label: function\\n    setup: function\\n    setup_panel_guides: function\\n    setup_panel_params: function\\n    train_position: function\\n    super:  <ggproto object: Class Layout, gg> \\n \$ labels     :List of 7\\n  \.\.\$ title     : NULL\\n  \.\.\$ y         : chr "Area \(Km2\)"\\n  \.\.\$ x         : chr "LUC category"\\n  \.\.\$ fill      : chr "Changes"\\n  \.\.\$ xend      : chr "as\.numeric\(To\) \+ 0\.3"\\n  \.\.\$ yend      : chr "area"\\n  \.\.\$ yintercept: chr "yintercept"\\n - attr\(\*, "class"\)= chr \[1:2\] "gg" "ggplot""
+      Actual value: "List of 11\\n \$ data       : tibble \[200 × 5\] \(S3: tbl_df/tbl/data\.frame\)\\n  \.\.\$ Period    : chr \[1:200\] "2000-2001" "2000-2001" "2000-2001" "2000-2001" \.\.\.\\n  \.\.\$ area_gross: num \[1:200\] 0\.000388 0\.000379 0\.00038 0\.000411 0\.000403 0\.000416 0\.000368 0\.000445 0\.000387 0\.000399 \.\.\.\\n  \.\.\$ From      : Factor w/ 5 levels "GUP","OZS","PSN",\.\.: 3 3 3 3 4 4 4 4 2 2 \.\.\.\\n  \.\.\$ To        : Factor w/ 5 levels "GUP","OZS","PSN",\.\.: 4 2 1 5 3 2 1 5 3 4 \.\.\.\\n  \.\.\$ changes   : chr \[1:200\] "Gain" "Gain" "Gain" "Gain" \.\.\.\\n \$ layers     :List of 4\\n  \.\.\$ :Classes 'LayerInstance', 'Layer', 'ggproto', 'gg' <ggproto object: Class LayerInstance, Layer, gg>\\n    aes_params: list\\n    compute_aesthetics: function\\n    compute_geom_1: function\\n    compute_geom_2: function\\n    compute_position: function\\n    compute_statistic: function\\n    computed_geom_params: NULL\\n    computed_mapping: NULL\\n    computed_stat_params: NULL\\n    constructor: call\\n    data: waiver\\n    draw_geom: function\\n    finish_statistics: function\\n    geom: <ggproto object: Class GeomBar, GeomRect, Geom, gg>\\n        aesthetics: function\\n        default_aes: uneval\\n        draw_group: function\\n        draw_key: function\\n        draw_layer: function\\n        draw_panel: function\\n        extra_params: just na\.rm orientation\\n        handle_na: function\\n        non_missing_aes: xmin xmax ymin ymax\\n        optional_aes: \\n        parameters: function\\n        rename_size: TRUE\\n        required_aes: x y\\n        setup_data: function\\n        setup_params: function\\n        use_defaults: function\\n        super:  <ggproto object: Class GeomRect, Geom, gg>\\n    geom_params: list\\n    inherit\.aes: TRUE\\n    layer_data: function\\n    map_statistic: function\\n    mapping: uneval\\n    position: <ggproto object: Class PositionStack, Position, gg>\\n        compute_layer: function\\n        compute_panel: function\\n        fill: FALSE\\n        required_aes: \\n        reverse: FALSE\\n        setup_data: function\\n        setup_params: function\\n        type: NULL\\n        vjust: 1\\n        super:  <ggproto object: Class Position, gg>\\n    print: function\\n    setup_layer: function\\n    show\.legend: NA\\n    stat: <ggproto object: Class StatIdentity, Stat, gg>\\n        aesthetics: function\\n        compute_group: function\\n        compute_layer: function\\n        compute_panel: function\\n        default_aes: uneval\\n        dropped_aes: \\n        extra_params: na\.rm\\n        finish_layer: function\\n        non_missing_aes: \\n        optional_aes: \\n        parameters: function\\n        required_aes: \\n        retransform: TRUE\\n        setup_data: function\\n        setup_params: function\\n        super:  <ggproto object: Class Stat, gg>\\n    stat_params: list\\n    super:  <ggproto object: Class Layer, gg> \\n  \.\.\$ :Classes 'LayerInstance', 'Layer', 'ggproto', 'gg' <ggproto object: Class LayerInstance, Layer, gg>\\n    aes_params: list\\n    compute_aesthetics: function\\n    compute_geom_1: function\\n    compute_geom_2: function\\n    compute_position: function\\n    compute_statistic: function\\n    computed_geom_params: NULL\\n    computed_mapping: NULL\\n    computed_stat_params: NULL\\n    constructor: call\\n    data: tbl_df, tbl, data\.frame\\n    draw_geom: function\\n    finish_statistics: function\\n    geom: <ggproto object: Class GeomBar, GeomRect, Geom, gg>\\n        aesthetics: function\\n        default_aes: uneval\\n        draw_group: function\\n        draw_key: function\\n        draw_layer: function\\n        draw_panel: function\\n        extra_params: just na\.rm orientation\\n        handle_na: function\\n        non_missing_aes: xmin xmax ymin ymax\\n        optional_aes: \\n        parameters: function\\n        rename_size: TRUE\\n        required_aes: x y\\n        setup_data: function\\n        setup_params: function\\n        use_defaults: function\\n        super:  <ggproto object: Class GeomRect, Geom, gg>\\n    geom_params: list\\n    inherit\.aes: FALSE\\n    layer_data: function\\n    map_statistic: function\\n    mapping: uneval\\n    position: <ggproto object: Class PositionStack, Position, gg>\\n        compute_layer: function\\n        compute_panel: function\\n        fill: FALSE\\n        required_aes: \\n        reverse: FALSE\\n        setup_data: function\\n        setup_params: function\\n        type: NULL\\n        vjust: 1\\n        super:  <ggproto object: Class Position, gg>\\n    print: function\\n    setup_layer: function\\n    show\.legend: NA\\n    stat: <ggproto object: Class StatIdentity, Stat, gg>\\n        aesthetics: function\\n        compute_group: function\\n        compute_layer: function\\n        compute_panel: function\\n        default_aes: uneval\\n        dropped_aes: \\n        extra_params: na\.rm\\n        finish_layer: function\\n        non_missing_aes: \\n        optional_aes: \\n        parameters: function\\n        required_aes: \\n        retransform: TRUE\\n        setup_data: function\\n        setup_params: function\\n        super:  <ggproto object: Class Stat, gg>\\n    stat_params: list\\n    super:  <ggproto object: Class Layer, gg> \\n  \.\.\$ :Classes 'LayerInstance', 'Layer', 'ggproto', 'gg' <ggproto object: Class LayerInstance, Layer, gg>\\n    aes_params: list\\n    compute_aesthetics: function\\n    compute_geom_1: function\\n    compute_geom_2: function\\n    compute_position: function\\n    compute_statistic: function\\n    computed_geom_params: NULL\\n    computed_mapping: NULL\\n    computed_stat_params: NULL\\n    constructor: call\\n    data: tbl_df, tbl, data\.frame\\n    draw_geom: function\\n    finish_statistics: function\\n    geom: <ggproto object: Class GeomSegment, Geom, gg>\\n        aesthetics: function\\n        default_aes: uneval\\n        draw_group: function\\n        draw_key: function\\n        draw_layer: function\\n        draw_panel: function\\n        extra_params: na\.rm\\n        handle_na: function\\n        non_missing_aes: linetype linewidth\\n        optional_aes: \\n        parameters: function\\n        rename_size: TRUE\\n        required_aes: x y xend\|yend\\n        setup_data: function\\n        setup_params: function\\n        use_defaults: function\\n        super:  <ggproto object: Class Geom, gg>\\n    geom_params: list\\n    inherit\.aes: TRUE\\n    layer_data: function\\n    map_statistic: function\\n    mapping: uneval\\n    position: <ggproto object: Class PositionIdentity, Position, gg>\\n        compute_layer: function\\n        compute_panel: function\\n        required_aes: \\n        setup_data: function\\n        setup_params: function\\n        super:  <ggproto object: Class Position, gg>\\n    print: function\\n    setup_layer: function\\n    show\.legend: NA\\n    stat: <ggproto object: Class StatIdentity, Stat, gg>\\n        aesthetics: function\\n        compute_group: function\\n        compute_layer: function\\n        compute_panel: function\\n        default_aes: uneval\\n        dropped_aes: \\n        extra_params: na\.rm\\n        finish_layer: function\\n        non_missing_aes: \\n        optional_aes: \\n        parameters: function\\n        required_aes: \\n        retransform: TRUE\\n        setup_data: function\\n        setup_params: function\\n        super:  <ggproto object: Class Stat, gg>\\n    stat_params: list\\n    super:  <ggproto object: Class Layer, gg> \\n  \.\.\$ :Classes 'LayerInstance', 'Layer', 'ggproto', 'gg' <ggproto object: Class LayerInstance, Layer, gg>\\n    aes_params: list\\n    compute_aesthetics: function\\n    compute_geom_1: function\\n    compute_geom_2: function\\n    compute_position: function\\n    compute_statistic: function\\n    computed_geom_params: NULL\\n    computed_mapping: NULL\\n    computed_stat_params: NULL\\n    constructor: call\\n    data: data\.frame\\n    draw_geom: function\\n    finish_statistics: function\\n    geom: <ggproto object: Class GeomHline, Geom, gg>\\n        aesthetics: function\\n        check_constant_aes: FALSE\\n        default_aes: uneval\\n        draw_group: function\\n        draw_key: function\\n        draw_layer: function\\n        draw_panel: function\\n        extra_params: na\.rm\\n        handle_na: function\\n        non_missing_aes: \\n        optional_aes: \\n        parameters: function\\n        rename_size: TRUE\\n        required_aes: yintercept\\n        setup_data: function\\n        setup_params: function\\n        use_defaults: function\\n        super:  <ggproto object: Class Geom, gg>\\n    geom_params: list\\n    inherit\.aes: FALSE\\n    layer_data: function\\n    map_statistic: function\\n    mapping: uneval\\n    position: <ggproto object: Class PositionIdentity, Position, gg>\\n        compute_layer: function\\n        compute_panel: function\\n        required_aes: \\n        setup_data: function\\n        setup_params: function\\n        super:  <ggproto object: Class Position, gg>\\n    print: function\\n    setup_layer: function\\n    show\.legend: FALSE\\n    stat: <ggproto object: Class StatIdentity, Stat, gg>\\n        aesthetics: function\\n        compute_group: function\\n        compute_layer: function\\n        compute_panel: function\\n        default_aes: uneval\\n        dropped_aes: \\n        extra_params: na\.rm\\n        finish_layer: function\\n        non_missing_aes: \\n        optional_aes: \\n        parameters: function\\n        required_aes: \\n        retransform: TRUE\\n        setup_data: function\\n        setup_params: function\\n        super:  <ggproto object: Class Stat, gg>\\n    stat_params: list\\n    super:  <ggproto object: Class Layer, gg> \\n \$ scales     :Classes 'ScalesList', 'ggproto', 'gg' <ggproto object: Class ScalesList, gg>\\n    add: function\\n    add_defaults: function\\n    add_missing: function\\n    backtransform_df: function\\n    clone: function\\n    find: function\\n    get_scales: function\\n    has_scale: function\\n    input: function\\n    map_df: function\\n    n: function\\n    non_position_scales: function\\n    scales: list\\n    train_df: function\\n    transform_df: function\\n    super:  <ggproto object: Class ScalesList, gg> \\n \$ guides     :Classes 'Guides', 'ggproto', 'gg' <ggproto object: Class Guides, gg>\\n    add: function\\n    assemble: function\\n    build: function\\n    draw: function\\n    get_custom: function\\n    get_guide: function\\n    get_params: function\\n    get_position: function\\n    guides: NULL\\n    merge: function\\n    missing: <ggproto object: Class GuideNone, Guide, gg>\\n        add_title: function\\n        arrange_layout: function\\n        assemble_drawing: function\\n        available_aes: any\\n        build_decor: function\\n        build_labels: function\\n        build_ticks: function\\n        build_title: function\\n        draw: function\\n        draw_early_exit: function\\n        elements: list\\n        extract_decor: function\\n        extract_key: function\\n        extract_params: function\\n        get_layer_key: function\\n        hashables: list\\n        measure_grobs: function\\n        merge: function\\n        override_elements: function\\n        params: list\\n        process_layers: function\\n        setup_elements: function\\n        setup_params: function\\n        train: function\\n        transform: function\\n        super:  <ggproto object: Class GuideNone, Guide, gg>\\n    package_box: function\\n    print: function\\n    process_layers: function\\n    setup: function\\n    subset_guides: function\\n    train: function\\n    update_params: function\\n    super:  <ggproto object: Class Guides, gg> \\n \$ mapping    :List of 2\\n  \.\.\$ x: language ~To\\n  \.\. \.\.- attr\(\*, "\.Environment"\)=<environment: 0x55c6c3c83790> \\n  \.\.\$ y: language ~area_gross\\n  \.\. \.\.- attr\(\*, "\.Environment"\)=<environment: 0x55c6c3c83790> \\n  \.\.- attr\(\*, "class"\)= chr "uneval"\\n \$ theme      :List of 1\\n  \.\.\$ plot\.title:List of 11\\n  \.\. \.\.\$ family       : NULL\\n  \.\. \.\.\$ face         : NULL\\n  \.\. \.\.\$ colour       : NULL\\n  \.\. \.\.\$ size         : NULL\\n  \.\. \.\.\$ hjust        : num 0\.5\\n  \.\. \.\.\$ vjust        : NULL\\n  \.\. \.\.\$ angle        : NULL\\n  \.\. \.\.\$ lineheight   : NULL\\n  \.\. \.\.\$ margin       : NULL\\n  \.\. \.\.\$ debug        : NULL\\n  \.\. \.\.\$ inherit\.blank: logi FALSE\\n  \.\. \.\.- attr\(\*, "class"\)= chr \[1:2\] "element_text" "element"\\n  \.\.- attr\(\*, "complete"\)= logi FALSE\\n  \.\.- attr\(\*, "validate"\)= logi TRUE\\n \$ coordinates:Classes 'CoordCartesian', 'Coord', 'ggproto', 'gg' <ggproto object: Class CoordCartesian, Coord, gg>\\n    aspect: function\\n    backtransform_range: function\\n    clip: on\\n    default: TRUE\\n    distance: function\\n    expand: TRUE\\n    is_free: function\\n    is_linear: function\\n    labels: function\\n    limits: list\\n    modify_scales: function\\n    range: function\\n    render_axis_h: function\\n    render_axis_v: function\\n    render_bg: function\\n    render_fg: function\\n    setup_data: function\\n    setup_layout: function\\n    setup_panel_guides: function\\n    setup_panel_params: function\\n    setup_params: function\\n    train_panel_guides: function\\n    transform: function\\n    super:  <ggproto object: Class CoordCartesian, Coord, gg> \\n \$ facet      :Classes 'FacetNull', 'Facet', 'ggproto', 'gg' <ggproto object: Class FacetNull, Facet, gg>\\n    compute_layout: function\\n    draw_back: function\\n    draw_front: function\\n    draw_labels: function\\n    draw_panels: function\\n    finish_data: function\\n    init_scales: function\\n    map_data: function\\n    params: list\\n    setup_data: function\\n    setup_params: function\\n    shrink: TRUE\\n    train_scales: function\\n    vars: function\\n    super:  <ggproto object: Class FacetNull, Facet, gg> \\n \$ plot_env   :<environment: 0x55c6c3c83790> \\n \$ layout     :Classes 'Layout', 'ggproto', 'gg' <ggproto object: Class Layout, gg>\\n    coord: NULL\\n    coord_params: list\\n    facet: NULL\\n    facet_params: list\\n    finish_data: function\\n    get_scales: function\\n    layout: NULL\\n    map_position: function\\n    panel_params: NULL\\n    panel_scales_x: NULL\\n    panel_scales_y: NULL\\n    render: function\\n    render_labels: function\\n    reset_scales: function\\n    resolve_label: function\\n    setup: function\\n    setup_panel_guides: function\\n    setup_panel_params: function\\n    train_position: function\\n    super:  <ggproto object: Class Layout, gg> \\n \$ labels     :List of 7\\n  \.\.\$ title     : NULL\\n  \.\.\$ y         : chr "Area \(Km2\)"\\n  \.\.\$ x         : chr "LUC category"\\n  \.\.\$ fill      : chr "Changes"\\n  \.\.\$ xend      : chr "as\.numeric\(To\) \+ 0\.3"\\n  \.\.\$ yend      : chr "area"\\n  \.\.\$ yintercept: chr "yintercept"\\n - attr\(\*, "class"\)= chr \[1:2\] "gg" "ggplot""
       Backtrace:
           ▆
        1. └─testthat::expect_output(...) at test_plots.R:59:3
@@ -89036,7 +89149,6 @@ Run `revdepcheck::cloud_details(, "portvine")` for more info
       S4accessors: ...............12
       default_garch_spec: ........
     ...
-      
       ── 5. Error ('test-estimate_risk_roll.R:449:3'): basic functionality (conditiona
       <rlib_error_3_0/rlib_error/error/condition>
       Error in `"lapply(text, glue_cmd, .envir = .envir)"`: ! Could not evaluate cli `{}` expression: `call_data`.
@@ -89044,6 +89156,7 @@ Run `revdepcheck::cloud_details(, "portvine")` for more info
       ! Can't convert an internal string to a string.
       
       ══ DONE ════════════════════════════════════════════════════════════════════════
+      Don't worry, you'll get it.
       Error: Test failures
       Execution halted
     ```
@@ -91999,47 +92112,6 @@ Run `revdepcheck::cloud_details(, "pTITAN2")` for more info
     Execution halted
     ```
 
-# PubChemR
-
-<details>
-
-* Version: 1.2
-* GitHub: NA
-* Source code: https://github.com/cran/PubChemR
-* Date/Publication: 2024-01-16 11:40:06 UTC
-* Number of recursive dependencies: 37
-
-Run `revdepcheck::cloud_details(, "PubChemR")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking examples ... ERROR
-    ```
-    Running examples in ‘PubChemR-Ex.R’ failed
-    The error most likely occurred in:
-    
-    > ### Name: get_cids
-    > ### Title: Retrieve Compound IDs (CIDs) from PubChem
-    > ### Aliases: get_cids
-    > 
-    > ### ** Examples
-    > 
-    > get_cids(
-    ...
-    40. base::asNamespace(ns, base.OK = FALSE)
-    41. base::getNamespace(ns)
-    42. base::loadNamespace(name)
-    43. base::withRestarts(stop(cond), retry_loadNamespace = function() NULL)
-    44. base::withOneRestart(expr, restarts[[1L]])
-    45. base::doWithOneRestart(return(expr), restart)
-    46. base::stop(cond)
-    47. | (function (e) …
-    48. | cli:::throw_error(err, parent = e)
-    Execution halted
-    ```
-
 # pubh
 
 <details>
@@ -93244,6 +93316,33 @@ Run `revdepcheck::cloud_details(, "qpNCA")` for more info
     
     SUMMARY: processing the following files failed:
       ‘Example-full-nca-analysis.rmd’ ‘Example-stepwise-nca-analysis.rmd’
+    
+    Error: Vignette re-building failed.
+    Execution halted
+    ```
+
+## Newly fixed
+
+*   checking re-building of vignette outputs ... WARNING
+    ```
+    Error(s) in re-building vignettes:
+    --- re-building ‘Parameter_Guidelines.rmd’ using rmarkdown
+    
+    tlmgr: Remote database (revision 70436 of the texlive-scripts package)
+    seems to be older than the local installation (rev 70461 of
+    texlive-scripts); please use a different mirror and/or wait a day or two.
+    
+    Warning in system2("tlmgr", args, ...) :
+      running command ''tlmgr' search --file --global '/pdfpages.sty'' had status 1
+    ! LaTeX Error: File `pdfpages.sty' not found.
+    ...
+    --- finished re-building ‘Example-full-nca-analysis.rmd’
+    
+    --- re-building ‘Example-stepwise-nca-analysis.rmd’ using knitr
+    --- finished re-building ‘Example-stepwise-nca-analysis.rmd’
+    
+    SUMMARY: processing the following file failed:
+      ‘Parameter_Guidelines.rmd’
     
     Error: Vignette re-building failed.
     Execution halted
@@ -97610,6 +97709,33 @@ Run `revdepcheck::cloud_details(, "redist")` for more info
     Execution halted
     ```
 
+## Newly fixed
+
+*   checking tests ... ERROR
+    ```
+      Running ‘spelling.R’
+      Running ‘testthat.R’
+    Running the tests in ‘tests/testthat.R’ failed.
+    Complete output:
+      > library(testthat)
+      > library(redist)
+      Loading required package: redistmetrics
+      
+      Attaching package: 'redist'
+      
+    ...
+      ══ Failed tests ════════════════════════════════════════════════════════════════
+      ── Failure ('test_burst.R:55:5'): short bursts work with multiple scorers ──────
+      1 (`actual`) not equal to cor(attr(plans, "pareto_score"), method = "spearman")[1, 2] (`expected`).
+      
+        `actual`:  1
+      `expected`: NA
+      
+      [ FAIL 1 | WARN 0 | SKIP 3 | PASS 94 ]
+      Error: Test failures
+      Execution halted
+    ```
+
 ## In both
 
 *   checking installed package size ... NOTE
@@ -100606,9 +100732,9 @@ Run `revdepcheck::cloud_details(, "robCompositions")` for more info
 
 *   checking installed package size ... NOTE
     ```
-      installed size is 31.5Mb
+      installed size is 32.1Mb
       sub-directories of 1Mb or more:
-        data   1.4Mb
+        data   2.1Mb
         libs  28.8Mb
     ```
 
@@ -101387,7 +101513,7 @@ Run `revdepcheck::cloud_details(, "rpredictit")` for more info
       ...
     --- re-building ‘rpredictit-vignette.Rmd’ using rmarkdown
     
-    Quitting from lines 47-48 [unnamed-chunk-3] (rpredictit-vignette.Rmd)
+    Quitting from lines 62-66 [unnamed-chunk-5] (rpredictit-vignette.Rmd)
     Error: processing vignette 'rpredictit-vignette.Rmd' failed with diagnostics:
     ! Could not evaluate cli `{}` expression: `call_data`.
     Caused by error in `loadNamespace(name)`:
@@ -104877,6 +105003,33 @@ Run `revdepcheck::cloud_details(, "scaper")` for more info
     Execution halted
     ```
 
+## Newly fixed
+
+*   checking re-building of vignette outputs ... WARNING
+    ```
+    Error(s) in re-building vignettes:
+    --- re-building ‘scaper-vignette-CytoSig.Rmd’ using rmarkdown
+    Performing log-normalization
+    0%   10   20   30   40   50   60   70   80   90   100%
+    [----|----|----|----|----|----|----|----|----|----|
+    **************************************************|
+    Performing log-normalization
+    0%   10   20   30   40   50   60   70   80   90   100%
+    [----|----|----|----|----|----|----|----|----|----|
+    **************************************************|
+    ...
+    done running mktexlsr.
+    tlmgr: package log updated: /opt/TinyTeX/texmf-var/web2c/tlmgr.log
+    tlmgr: command log updated: /opt/TinyTeX/texmf-var/web2c/tlmgr-commands.log
+    --- finished re-building ‘scaper-vignette-Reactome.Rmd’
+    
+    SUMMARY: processing the following file failed:
+      ‘scaper-vignette-CytoSig.Rmd’
+    
+    Error: Vignette re-building failed.
+    Execution halted
+    ```
+
 # sccore
 
 <details>
@@ -105065,67 +105218,6 @@ Run `revdepcheck::cloud_details(, "scGOclust")` for more info
     
     SUMMARY: processing the following file failed:
       ‘scGOclust_vignette.Rmd’
-    
-    Error: Vignette re-building failed.
-    Execution halted
-    ```
-
-# scholar
-
-<details>
-
-* Version: 0.2.4
-* GitHub: https://github.com/YuLab-SMU/scholar
-* Source code: https://github.com/cran/scholar
-* Date/Publication: 2022-08-09 08:20:02 UTC
-* Number of recursive dependencies: 104
-
-Run `revdepcheck::cloud_details(, "scholar")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking examples ... ERROR
-    ```
-    Running examples in ‘scholar-Ex.R’ failed
-    The error most likely occurred in:
-    
-    > ### Name: author_position
-    > ### Title: Get author order.
-    > ### Aliases: author_position
-    > 
-    > ### ** Examples
-    > 
-    > library(scholar)
-    ...
-    33. base::asNamespace(ns, base.OK = FALSE)
-    34. base::getNamespace(ns)
-    35. base::loadNamespace(name)
-    36. base::withRestarts(stop(cond), retry_loadNamespace = function() NULL)
-    37. base::withOneRestart(expr, restarts[[1L]])
-    38. base::doWithOneRestart(return(expr), restart)
-    39. base::stop(cond)
-    40. | (function (e) …
-    41. | cli:::throw_error(err, parent = e)
-    Execution halted
-    ```
-
-*   checking re-building of vignette outputs ... ERROR
-    ```
-    Error(s) in re-building vignettes:
-      ...
-    --- re-building ‘scholar.Rmd’ using rmarkdown
-    
-    Quitting from lines 61-64 [unnamed-chunk-3] (scholar.Rmd)
-    Error: processing vignette 'scholar.Rmd' failed with diagnostics:
-    ! Could not evaluate cli `{}` expression: `call_data`.
-    Caused by error in `loadNamespace(name)`:
-    ! there is no package called 'duckplyr'
-    --- failed re-building ‘scholar.Rmd’
-    
-    SUMMARY: processing the following file failed:
-      ‘scholar.Rmd’
     
     Error: Vignette re-building failed.
     Execution halted
@@ -110105,7 +110197,7 @@ Run `revdepcheck::cloud_details(, "SISIR")` for more info
     46. base::stop(cond)
     47. | (function (e) …
     48. | cli:::throw_error(err, parent = e)
-    Timing stopped at: 1.233 0.044 1.277
+    Timing stopped at: 2.293 0.056 2.349
     Execution halted
     ```
 
@@ -111723,7 +111815,7 @@ Run `revdepcheck::cloud_details(, "soiltestcorr")` for more info
       > library(soiltestcorr)
       > 
       > test_check("soiltestcorr")
-      [ FAIL 6 | WARN 27 | SKIP 0 | PASS 55 ]
+      [ FAIL 6 | WARN 28 | SKIP 0 | PASS 55 ]
       
       ══ Failed tests ════════════════════════════════════════════════════════════════
     ...
@@ -111734,7 +111826,7 @@ Run `revdepcheck::cloud_details(, "soiltestcorr")` for more info
       `actual`:   TRUE 
       `expected`: FALSE
       
-      [ FAIL 6 | WARN 27 | SKIP 0 | PASS 55 ]
+      [ FAIL 6 | WARN 28 | SKIP 0 | PASS 55 ]
       Error: Test failures
       Execution halted
     ```
@@ -112771,7 +112863,7 @@ Run `revdepcheck::cloud_details(, "spectralR")` for more info
       +   tinytest::test_package("spectralR")
       + }
       
-      test_get.pixel.data.R.........    1 tests [0;31m1 fails[0m [0;34m0.3s[0m
+      test_get.pixel.data.R.........    1 tests [0;31m1 fails[0m [0;34m0.2s[0m
       
       test_prepare.vector.data.R....    1 tests [0;31m1 fails[0m Error in eval(expr, envir = e) : object 'sf_df' not found
       Calls: <Anonymous> ... lapply -> FUN -> eval -> eval -> expect_inherits -> fun
@@ -114015,7 +114107,7 @@ Run `revdepcheck::cloud_details(, "SSLR")` for more info
     49. base::stop(cond)
     50. | (function (e) …
     51. | cli:::throw_error(err, parent = e)
-    Timing stopped at: 0.996 0 0.995
+    Timing stopped at: 1.312 0.011 1.324
     Execution halted
     ```
 
@@ -115741,7 +115833,7 @@ Run `revdepcheck::cloud_details(, "stochLAB")` for more info
 
 *   checking installed package size ... NOTE
     ```
-      installed size is 14.9Mb
+      installed size is 14.8Mb
       sub-directories of 1Mb or more:
         data  14.2Mb
     ```
@@ -119170,6 +119262,33 @@ Run `revdepcheck::cloud_details(, "tablet")` for more info
     
     SUMMARY: processing the following files failed:
       ‘tablet-introduction-html.Rmd’ ‘tablet-introduction-pdf.Rmd’
+    
+    Error: Vignette re-building failed.
+    Execution halted
+    ```
+
+## Newly fixed
+
+*   checking re-building of vignette outputs ... WARNING
+    ```
+    Error(s) in re-building vignettes:
+    --- re-building ‘tablet-introduction-html.Rmd’ using rmarkdown
+    --- finished re-building ‘tablet-introduction-html.Rmd’
+    
+    --- re-building ‘tablet-introduction-pdf.Rmd’ using rmarkdown
+    tlmgr: package repository https://mirror.las.iastate.edu/tex-archive/systems/texlive/tlnet (verified)
+    [1/1, ??:??/??:??] install: multirow [3k]
+    running mktexlsr ...
+    done running mktexlsr.
+    tlmgr: package log updated: /opt/TinyTeX/texmf-var/web2c/tlmgr.log
+    ...
+    
+    Error: processing vignette 'tablet-introduction-pdf.Rmd' failed with diagnostics:
+    LaTeX failed to compile /tmp/workdir/tablet/old/tablet.Rcheck/vign_test/tablet/vignettes/tablet-introduction-pdf.tex. See https://yihui.org/tinytex/r/#debugging for debugging tips. See tablet-introduction-pdf.log for more info.
+    --- failed re-building ‘tablet-introduction-pdf.Rmd’
+    
+    SUMMARY: processing the following file failed:
+      ‘tablet-introduction-pdf.Rmd’
     
     Error: Vignette re-building failed.
     Execution halted
@@ -124552,7 +124671,7 @@ Run `revdepcheck::cloud_details(, "tidyMC")` for more info
       > test_check("tidyMC")
       Running single test-iteration for each parameter combination...
       
-       Progress: ────────────────────────────────────────────────                 100%
+       Progress: ────────────────────────────────                                 100%
     ...
         7.   └─dplyr::group_map(.data, .f, ..., .keep = .keep, keep = keep)
         8.     ├─dplyr::group_split(.data, .keep = isTRUE(.keep))
@@ -124571,13 +124690,13 @@ Run `revdepcheck::cloud_details(, "tidyMC")` for more info
     Error(s) in re-building vignettes:
     --- re-building ‘tidyMC.Rmd’ using rmarkdown
     
-     Progress: ──────────────────────────────────────────                       100%
-     Progress: ──────────────────────────────────────────                       100%
-     Progress: ──────────────────────────────────────────                       100%
-     Progress: ──────────────────────────────────────────                       100%
-     Progress: ──────────────────────────────────────────                       100%
-     Progress: ──────────────────────────────────────────                       100%
-     Progress: ──────────────────────────────────────────                       100%
+     Progress: ────────────────────────────────                                 100%
+     Progress: ────────────────────────────────                                 100%
+     Progress: ────────────────────────────────                                 100%
+     Progress: ────────────────────────────────                                 100%
+     Progress: ────────────────────────────────                                 100%
+     Progress: ────────────────────────────────                                 100%
+     Progress: ────────────────────────────────                                 100%
     ...
     Quitting from lines 178-182 [unnamed-chunk-11] (tidyMC.Rmd)
     Error: processing vignette 'tidyMC.Rmd' failed with diagnostics:
@@ -127307,33 +127426,6 @@ Run `revdepcheck::cloud_details(, "toolStability")` for more info
     Execution halted
     ```
 
-## Newly fixed
-
-*   checking re-building of vignette outputs ... WARNING
-    ```
-    Error(s) in re-building vignettes:
-    --- re-building ‘toolStability.Rmd’ using rmarkdown
-    tlmgr: package repository https://mirrors.rit.edu/CTAN/systems/texlive/tlnet (verified)
-    [1/1, ??:??/??:??] install: fancyhdr [6k]
-    running mktexlsr ...
-    done running mktexlsr.
-    tlmgr: package log updated: /opt/TinyTeX/texmf-var/web2c/tlmgr.log
-    tlmgr: command log updated: /opt/TinyTeX/texmf-var/web2c/tlmgr-commands.log
-    tlmgr: package repository https://us.mirrors.cicku.me/ctan/systems/texlive/tlnet (verified)
-    [1/1, ??:??/??:??] install: wrapfig [10k]
-    ...
-    
-    Error: processing vignette 'toolStability.Rmd' failed with diagnostics:
-    LaTeX failed to compile /tmp/workdir/toolStability/old/toolStability.Rcheck/vign_test/toolStability/vignettes/toolStability.tex. See https://yihui.org/tinytex/r/#debugging for debugging tips. See toolStability.log for more info.
-    --- failed re-building ‘toolStability.Rmd’
-    
-    SUMMARY: processing the following file failed:
-      ‘toolStability.Rmd’
-    
-    Error: Vignette re-building failed.
-    Execution halted
-    ```
-
 # topChef
 
 <details>
@@ -128252,7 +128344,7 @@ Run `revdepcheck::cloud_details(, "trialr")` for more info
 
 *   checking installed package size ... NOTE
     ```
-      installed size is 301.5Mb
+      installed size is 301.6Mb
       sub-directories of 1Mb or more:
         doc     3.9Mb
         libs  296.5Mb
@@ -130021,8 +130113,6 @@ Run `revdepcheck::cloud_details(, "usedthese")` for more info
     47. | cli:::throw_error(err, parent = e)
     Execution halted
     ```
-
-## In both
 
 *   checking re-building of vignette outputs ... ERROR
     ```
@@ -133180,7 +133270,7 @@ Run `revdepcheck::cloud_details(, "Wats")` for more info
     40. base::stop(cond)
     41. | (function (e) …
     42. | cli:::throw_error(err, parent = e)
-    Timing stopped at: 2.055 0.026 2.081
+    Timing stopped at: 2.259 0.035 2.294
     Execution halted
     ```
 
@@ -136066,11 +136156,11 @@ Run `revdepcheck::cloud_details(, "yamlet")` for more info
     --- finished re-building ‘scripted_html.Rmd’
     
     --- re-building ‘scripted_pdf.Rmd’ using rmarkdown
-    tlmgr: package repository https://mirror.math.princeton.edu/pub/CTAN/systems/texlive/tlnet (verified)
-    [1/1, ??:??/??:??] install: multirow [3k]
-    running mktexlsr ...
-    done running mktexlsr.
-    tlmgr: package log updated: /opt/TinyTeX/texmf-var/web2c/tlmgr.log
+    
+    tlmgr: Remote database (revision 70436 of the texlive-scripts package)
+    seems to be older than the local installation (rev 70461 of
+    texlive-scripts); please use a different mirror and/or wait a day or two.
+    
     ...
     --- failed re-building ‘scripted_pdf.Rmd’
     
