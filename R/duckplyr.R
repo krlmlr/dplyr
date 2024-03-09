@@ -15,3 +15,6 @@ meta_rel_register_csv <- function(...) {
 
 meta_macro_register <- function(...) {
 }
+
+tel_collect <- function(...) {
+}
