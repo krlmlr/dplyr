@@ -125,7 +125,7 @@ group_map <- function(.data, .f, ..., .keep = FALSE) {
 }
 
 #' @export
-group_map_data_frame <- function(.data, .f, ..., .keep = FALSE, keep = deprecated()) {
+group_map.data.frame <- function(.data, .f, ..., .keep = FALSE, keep = deprecated()) {
   if (!missing(keep)) {
     lifecycle::deprecate_warn("1.0.0", "group_map(keep = )", "group_map(.keep = )", always = TRUE)
     .keep <- keep
@@ -157,7 +157,7 @@ group_modify <- function(.data, .f, ..., .keep = FALSE) {
 }
 
 #' @export
-group_modify_data_frame <- function(.data, .f, ..., .keep = FALSE, keep = deprecated()) {
+group_modify.data.frame <- function(.data, .f, ..., .keep = FALSE, keep = deprecated()) {
   if (!missing(keep)) {
     lifecycle::deprecate_warn("1.0.0", "group_modify(keep = )", "group_modify(.keep = )", always = TRUE)
     .keep <- keep

@@ -314,7 +314,6 @@
        5. +-dplyr::rowwise(.)
        6. +-dplyr::group_by(., g = f():n())
        7. \-dplyr:::group_by.data.frame(., g = f():n())
-       8.   \-dplyr::group_by(.data, ..., .add = .add, .drop = .drop)
       
       [[2]]
       <warning/rlang_warning>
@@ -515,7 +514,6 @@
        4. +-dplyr::mutate(., x = f(1, base = FALSE))
        5. +-dplyr::group_by(., x = f(1):n())
        6. \-dplyr:::group_by.data.frame(., x = f(1):n())
-       7.   \-dplyr::group_by(.data, ..., .add = .add, .drop = .drop)
       
       [[2]]
       <warning/rlang_warning>

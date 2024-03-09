@@ -136,7 +136,7 @@ group_by <- function(.data, ..., .add = FALSE, .drop = group_by_drop_default(.da
 }
 
 #' @export
-group_by_data_frame <- function(.data, ..., .add = FALSE, .drop = group_by_drop_default(.data)) {
+group_by.data.frame <- function(.data, ..., .add = FALSE, .drop = group_by_drop_default(.data)) {
   groups <- group_by_prepare(
     .data,
     ...,

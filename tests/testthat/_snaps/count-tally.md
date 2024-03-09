@@ -46,7 +46,7 @@
       (expect_error(count(mtcars, new = 1 + "")))
     Output
       <error/dplyr:::mutate_error>
-      Error in `group_by()`:
+      Error in `count()`:
       i In argument: `new = 1 + ""`.
       Caused by error in `1 + ""`:
       ! non-numeric argument to binary operator
@@ -76,7 +76,7 @@
       (expect_error(add_count(mtcars, new = 1 + "")))
     Output
       <error/dplyr:::mutate_error>
-      Error in `group_by()`:
+      Error in `add_count()`:
       i In argument: `new = 1 + ""`.
       Caused by error in `1 + ""`:
       ! non-numeric argument to binary operator
