@@ -3,7 +3,7 @@
     Code
       count(df, x, name = 1)
     Condition
-      Error in `count()`:
+      Error in `tally()`:
       ! `name` must be a single string, not the number 1.
 
 ---
@@ -11,7 +11,7 @@
     Code
       count(df, x, name = letters)
     Condition
-      Error in `count()`:
+      Error in `tally()`:
       ! `name` must be a single string, not a character vector.
 
 # can only explicitly chain together multiple tallies
@@ -46,7 +46,7 @@
       (expect_error(count(mtcars, new = 1 + "")))
     Output
       <error/dplyr:::mutate_error>
-      Error in `count()`:
+      Error in `group_by()`:
       i In argument: `new = 1 + ""`.
       Caused by error in `1 + ""`:
       ! non-numeric argument to binary operator
@@ -76,7 +76,7 @@
       (expect_error(add_count(mtcars, new = 1 + "")))
     Output
       <error/dplyr:::mutate_error>
-      Error in `add_count()`:
+      Error in `group_by()`:
       i In argument: `new = 1 + ""`.
       Caused by error in `1 + ""`:
       ! non-numeric argument to binary operator
