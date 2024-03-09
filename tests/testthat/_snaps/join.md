@@ -50,53 +50,12 @@
       Error:
       ! `na_matches` must be one of "na" or "never", not "foo".
 
-# mutating joins trigger many-to-many warning
-
-    Code
-      out <- left_join(df, df, join_by(x))
-    Condition
-      Warning in `left_join()`:
-      Detected an unexpected many-to-many relationship between `x` and `y`.
-      i Row 1 of `x` matches multiple rows in `y`.
-      i Row 1 of `y` matches multiple rows in `x`.
-      i If a many-to-many relationship is expected, set `relationship = "many-to-many"` to silence this warning.
-
-# mutating joins compute common columns
-
-    Code
-      out <- left_join(df1, df2)
-    Message
-      Joining with `by = join_by(x)`
-
 # filtering joins compute common columns
 
     Code
       out <- semi_join(df1, df2)
     Message
       Joining with `by = join_by(x)`
-      Joining with `by = join_by(x)`
-
-# mutating joins reference original column in `y` when there are type errors (#6465)
-
-    Code
-      (expect_error(left_join(x, y, by = join_by(a == b))))
-    Output
-      <error/dplyr_error_join_incompatible_type>
-      Error in `left_join()`:
-      ! Can't join `x$a` with `y$b` due to incompatible types.
-      i `x$a` is a <double>.
-      i `y$b` is a <character>.
-
-# filtering joins reference original column in `y` when there are type errors (#6465)
-
-    Code
-      (expect_error(semi_join(x, y, by = join_by(a == b))))
-    Output
-      <error/dplyr_error_join_incompatible_type>
-      Error in `semi_join()`:
-      ! Can't join `x$a` with `y$b` due to incompatible types.
-      i `x$a` is a <double>.
-      i `y$b` is a <character>.
 
 # error if passed additional arguments
 
