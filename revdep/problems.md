@@ -349,79 +349,6 @@ Run `revdepcheck::cloud_details(, "autoCovariateSelection")` for more info
       Execution halted
     ```
 
-# causalBatch
-
-<details>
-
-* Version: 1.2.0
-* GitHub: https://github.com/neurodata/causal_batch
-* Source code: https://github.com/cran/causalBatch
-* Date/Publication: 2024-03-01 10:32:37 UTC
-* Number of recursive dependencies: 137
-
-Run `revdepcheck::cloud_details(, "causalBatch")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking tests ... ERROR
-    ```
-      Running ‘testthat.R’
-    Running the tests in ‘tests/testthat.R’ failed.
-    Complete output:
-      > # This file is part of the standard setup for testthat.
-      > # It is recommended that you do not modify it.
-      > #
-      > # Where should you do additional test configuration?
-      > # Learn more about the roles of various files in:
-      > # * https://r-pkgs.org/testing-design.html#sec-tests-files-overview
-      > # * https://testthat.r-lib.org/articles/special-files.html
-      > 
-      > library(testthat)
-      > library(causalBatch)
-      > 
-      > test_check("causalBatch")
-      Found2batches
-      Adjusting for1covariate(s) or covariate level(s)
-      Standardizing Data across genes
-      Fitting L/S model and finding priors
-      Finding parametric adjustments
-      Adjusting the Data
-      
-      Found2batches
-      Adjusting for1covariate(s) or covariate level(s)
-      Standardizing Data across genes
-      Fitting L/S model and finding priors
-      Finding parametric adjustments
-      Adjusting the Data
-      
-      Loading required package: ks
-      
-      Attaching package: 'ks'
-      
-      The following object is masked from 'package:testthat':
-      
-          compare
-      
-      [ FAIL 1 | WARN 0 | SKIP 3 | PASS 37 ]
-      
-      ══ Skipped tests (3) ═══════════════════════════════════════════════════════════
-      • On CRAN (3): 'test-causal_cdcorr.R:31:3', 'test-causal_cdcorr.R:46:3',
-        'test-causal_cdcorr.R:89:3'
-      
-      ══ Failed tests ════════════════════════════════════════════════════════════════
-      ── Failure ('test-kway_match.R:79:3'): K-way matching increases covariate overlap ──
-      ov.before < ov.after is not TRUE
-      
-      `actual`:   FALSE
-      `expected`: TRUE 
-      
-      [ FAIL 1 | WARN 0 | SKIP 3 | PASS 37 ]
-      Error: Test failures
-      Execution halted
-    ```
-
 # CCWeights
 
 <details>
@@ -683,12 +610,15 @@ Run `revdepcheck::cloud_details(, "crosshap")` for more info
       > library(crosshap)
       > 
       > test_check("crosshap")
-      ■■■■■                             14% | ETA: 14s
-      ■■■■■■■■■■                        29% | ETA:  9s
-      ■■■■■■■■■■■■■■                    43% | ETA: 10s
-      ■■■■■■■■■■■■■■■■■■                57% | ETA:  7s
-      ■■■■■■■■■■■■■■■■■■■■■■            71% | ETA:  5s
-      ■■■■■■■■■■■■■■■■■■■■■■■■■■■       86% | ETA:  2s
+      ■■■■■                             14% | ETA: 49s
+      ■■■■■■■■■■                        29% | ETA: 26s
+      ■■■■■■■■■■■■                      36% | ETA: 24s
+      ■■■■■■■■■■■■■■                    43% | ETA: 23s
+      ■■■■■■■■■■■■■■■■■■                57% | ETA: 15s
+      ■■■■■■■■■■■■■■■■■■■■              64% | ETA: 13s
+      ■■■■■■■■■■■■■■■■■■■■■■            71% | ETA: 11s
+      ■■■■■■■■■■■■■■■■■■■■■■■■■■■       86% | ETA:  5s
+      ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■     93% | ETA:  3s
       ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■  100% | ETA:  0s
       ✔ Haplotyping complete!
       Info saved in Haplotypes_30_E objects
@@ -708,13 +638,14 @@ Run `revdepcheck::cloud_details(, "crosshap")` for more info
       # i 18 more rows
       # i 3 more variables: .ggraph.orig_index <int>, circular <lgl>,
       #   .ggraph.index <int>
-      ■■■■■■■■■■■                       33% | ETA:  4s
-      ■■■■■■■■■■■■■■■■■■■■■             67% | ETA:  2s
+      ■■■■■■■■■■■                       33% | ETA: 14s
+      ■■■■■■■■■■■■■■■■■■■■■■■■■■        83% | ETA:  3s
       ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■  100% | ETA:  0s
       ✔ Haplotyping complete!
       Info saved in Haplotypes_30_E objects
-      ■■■■■■■■■■■                       33% | ETA:  4s
-      ■■■■■■■■■■■■■■■■■■■■■■■■■■        83% | ETA:  1s
+      ■■■■■■■■■■■                       33% | ETA: 14s
+      ■■■■■■■■■■■■■■■■■■■■■             67% | ETA:  5s
+      ■■■■■■■■■■■■■■■■■■■■■■■■■■        83% | ETA:  3s
       ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■  100% | ETA:  0s
       ✔ Haplotyping complete!
       Info saved in Haplotypes_30_E objects
@@ -1196,7 +1127,7 @@ Run `revdepcheck::cloud_details(, "dtrackr")` for more info
       /usr/bin/xdg-open: 869: links: not found
       /usr/bin/xdg-open: 869: lynx: not found
       /usr/bin/xdg-open: 869: w3m: not found
-      xdg-open: no method available for opening '/tmp/Rtmp4CeDuC/viewhtml1dfc210e670d/index.html'
+      xdg-open: no method available for opening '/tmp/Rtmp7V8j7r/viewhtml1dfa75341994/index.html'
       Couldn't find a suitable web browser!
       Set the BROWSER environment variable to your desired browser.
       Warning: program returned non-zero exit code #256
@@ -1216,7 +1147,7 @@ Run `revdepcheck::cloud_details(, "dtrackr")` for more info
       /usr/bin/xdg-open: 869: links: not found
       /usr/bin/xdg-open: 869: lynx: not found
       /usr/bin/xdg-open: 869: w3m: not found
-      xdg-open: no method available for opening '/tmp/Rtmp4CeDuC/viewhtml1dfc246cc872/index.html'
+      xdg-open: no method available for opening '/tmp/Rtmp7V8j7r/viewhtml1dfa3e3b1c79/index.html'
       [ FAIL 1 | WARN 0 | SKIP 0 | PASS 51 ]
       
       ══ Failed tests ════════════════════════════════════════════════════════════════
@@ -1512,11 +1443,11 @@ Run `revdepcheck::cloud_details(, "duckplyr")` for more info
       `environment(actual$create_default_duckdb_connection)` is <env:namespace:duckplyr>
       `environment(expected$create_default_duckdb_connection)` is <env:namespace:dplyr>
       
-      `actual$default_duckdb_connection$con@conn_ref` is <pointer: 0x55f7abd06b80>
-      `expected$default_duckdb_connection$con@conn_ref` is <pointer: 0x55f7ace7b8a0>
+      `actual$default_duckdb_connection$con@conn_ref` is <pointer: 0x55d37b8db0a0>
+      `expected$default_duckdb_connection$con@conn_ref` is <pointer: 0x55d379911c10>
       
-      `actual$default_duckdb_connection$con@driver@database_ref` is <pointer: 0x55f7a93969d0>
-      `expected$default_duckdb_connection$con@driver@database_ref` is <pointer: 0x55f7ad0f0dc0>
+      `actual$default_duckdb_connection$con@driver@database_ref` is <pointer: 0x55d37838cf90>
+      `expected$default_duckdb_connection$con@driver@database_ref` is <pointer: 0x55d378556140>
       
       `environment(actual$df_from_file)` is <env:namespace:duckplyr>
       `environment(expected$df_from_file)` is <env:namespace:dplyr>
@@ -2099,27 +2030,22 @@ Run `revdepcheck::cloud_details(, "duckplyr")` for more info
       + `            call$name)), call)`
       and 5 more ...
       
-      body(actual$rel_try)[18:24] vs body(expected$rel_try)[24:30]
-        `                    i = names(dots)[[i]]))`
-        `                }`
-        `                if (Sys.getenv("DUCKPLYR_FORCE") == "TRUE") {`
-      - `                  abort("Fallback not available with DUCKPLYR_FORCE")`
-      + `                  cli::cli_abort("Fallback not available with {.envvar DUCKPLYR_FORCE}.")`
-        `                }`
-        `            }`
-        `            return()`
+      body(actual$rel_try)[13:34] vs body(expected$rel_try)[19:49]
+        `    for (i in seq_along(dots)) {`
+        `        if (isTRUE(dots[[i]])) {`
+        `            stats$fallback <- stats$fallback + 1L`
+        `            if (!dplyr_mode) {`
+      + `                message <- names(dots)[[i]]`
+      + `                if (message != "-") {`
+      + `                  tel_collect(message, call)`
+      + `                }`
+        `                if (Sys.getenv("DUCKPLYR_FALLBACK_INFO") == "TRUE") {`
+        `                  inform(message = c("Requested fallback for relational:", `
+      - `                    i = names(dots)[[i]]))`
+      + `                    i = message))`
+      and 21 more ...
       
-      body(actual$rel_try)[29:34] vs body(expected$rel_try)[35:41]
-        `        return(rel)`
-        `    }`
-        `    out <- rlang::try_fetch(rel, error = identity)`
-        `    if (inherits(out, "error")) {`
-      + `        tel_collect(out, call)`
-        `        if (Sys.getenv("DUCKPLYR_FALLBACK_INFO") == "TRUE") {`
-        `            rlang::cnd_signal(rlang::message_cnd(message = "Error processing with relational.", `
-        `                parent = out))`
-      
-      body(actual$rel_try)[36:40] vs body(expected$rel_try)[43:47]
+      body(actual$rel_try)[36:40] vs body(expected$rel_try)[51:55]
         `        stats$fallback <- stats$fallback + 1L`
         `        return()`
         `    }`
@@ -2228,7 +2154,7 @@ Run `revdepcheck::cloud_details(, "duckplyr")` for more info
       🦆:  635
       add_count, anti_join, arrange, compute, count, cross_join, distinct, do, eval, filter, full_join, inner_join, intersect, left_join, mutate, mutate.data.frame, nest_join, pull, reframe, relocate, rename, rename_with, right_join, rows_append, rows_delete, rows_insert, rows_patch, rows_update, rows_upsert, select, semi_join, setdiff, setequal, slice, slice_head, slice_sample, slice_tail, summarise, symdiff, transmute, ungroup, union_all
       
-      00:00:43.73335
+      00:00:49.718494
       Execution halted
     ```
 
@@ -2324,40 +2250,40 @@ Run `revdepcheck::cloud_details(, "ern")` for more info
       Deconvolution incubation period...
       iterations Richardson-Lucy deconvolution:  10
       Deconvolution reporting delays...
-      iterations Richardson-Lucy deconvolution:  10
+      iterations Richardson-Lucy deconvolution:  5
       Deconvolution incubation period...
       iterations Richardson-Lucy deconvolution:  10
       Using default config in `EpiEstim::estimate_R()`.
       Deconvolution reporting delays...
-      iterations Richardson-Lucy deconvolution:  6
+      iterations Richardson-Lucy deconvolution:  10
       Deconvolution incubation period...
       iterations Richardson-Lucy deconvolution:  10
       Deconvolution reporting delays...
-      iterations Richardson-Lucy deconvolution:  10
-      Deconvolution incubation period...
-      iterations Richardson-Lucy deconvolution:  10
-      iterations Richardson-Lucy deconvolution:  9
-      Deconvolution incubation period...
-      iterations Richardson-Lucy deconvolution:  9
-      Wastewater data smoothed using loess method
-      Wastewater data smoothed using loess method
-      iterations Richardson-Lucy deconvolution:  9
-      iterations Richardson-Lucy deconvolution:  9
-      iterations Richardson-Lucy deconvolution:  9
-      iterations Richardson-Lucy deconvolution:  9
-      iterations Richardson-Lucy deconvolution:  9
-      iterations Richardson-Lucy deconvolution:  9
-      iterations Richardson-Lucy deconvolution:  9
-      iterations Richardson-Lucy deconvolution:  9
-      iterations Richardson-Lucy deconvolution:  9
-      iterations Richardson-Lucy deconvolution:  9
-      iterations Richardson-Lucy deconvolution:  9
-      iterations Richardson-Lucy deconvolution:  6
-      iterations Richardson-Lucy deconvolution:  9
-      iterations Richardson-Lucy deconvolution:  9
-      iterations Richardson-Lucy deconvolution:  9
-      iterations Richardson-Lucy deconvolution:  9
       iterations Richardson-Lucy deconvolution:  8
+      Deconvolution incubation period...
+      iterations Richardson-Lucy deconvolution:  10
+      iterations Richardson-Lucy deconvolution:  9
+      Deconvolution incubation period...
+      iterations Richardson-Lucy deconvolution:  9
+      Wastewater data smoothed using loess method
+      Wastewater data smoothed using loess method
+      iterations Richardson-Lucy deconvolution:  9
+      iterations Richardson-Lucy deconvolution:  9
+      iterations Richardson-Lucy deconvolution:  9
+      iterations Richardson-Lucy deconvolution:  9
+      iterations Richardson-Lucy deconvolution:  9
+      iterations Richardson-Lucy deconvolution:  9
+      iterations Richardson-Lucy deconvolution:  9
+      iterations Richardson-Lucy deconvolution:  9
+      iterations Richardson-Lucy deconvolution:  9
+      iterations Richardson-Lucy deconvolution:  9
+      iterations Richardson-Lucy deconvolution:  9
+      iterations Richardson-Lucy deconvolution:  9
+      iterations Richardson-Lucy deconvolution:  9
+      iterations Richardson-Lucy deconvolution:  9
+      iterations Richardson-Lucy deconvolution:  9
+      iterations Richardson-Lucy deconvolution:  9
+      iterations Richardson-Lucy deconvolution:  9
       iterations Richardson-Lucy deconvolution:  9
       iterations Richardson-Lucy deconvolution:  9
       iterations Richardson-Lucy deconvolution:  9
@@ -2612,19 +2538,19 @@ Run `revdepcheck::cloud_details(, "finnts")` for more info
       > test_check("finnts")
       Finn Submission Info
       • Experiment Name: finn_fcst
-      • Run Name: finn_fcst-20240309T052722Z
+      • Run Name: finn_fcst-20240310T174711Z
       
       ℹ Prepping Data
-      ✔ Prepping Data [11s]
+      ✔ Prepping Data [11.8s]
       
       ℹ Creating Model Workflows
-      ✔ Creating Model Workflows [393ms]
+      ✔ Creating Model Workflows [394ms]
       
       ℹ Creating Model Hyperparameters
-      ✔ Creating Model Hyperparameters [373ms]
+      ✔ Creating Model Hyperparameters [365ms]
       
       ℹ Creating Train Test Splits
-      ✔ Creating Train Test Splits [4s]
+      ✔ Creating Train Test Splits [4.3s]
       
       ℹ Training Individual Models
       ! 1: internal:
@@ -2636,33 +2562,33 @@ Run `revdepcheck::cloud_details(, "finnts")` for more info
       ! 5: internal:
         A correlation computation is required, but the inputs are size zero or...
         the standard deviation cannot be computed. `NA` will be returned.
-      ✔ Training Individual Models [4.2s]
+      ✔ Training Individual Models [4.5s]
       
       ℹ Training Ensemble Models
       ℹ Ensemble models have been turned off.
       ℹ Training Ensemble Models
-      ✔ Training Ensemble Models [20ms]
+      ✔ Training Ensemble Models [18ms]
       
       ℹ Selecting Best Models
-      ✔ Selecting Best Models [711ms]
+      ✔ Selecting Best Models [774ms]
       
       ! return_data is deprecated, please use 'get_forecast_data()' to get finnts results
       [1] "First Dt Val 11000"
       Finn Submission Info
       • Experiment Name: finn_fcst
-      • Run Name: finn_fcst-20240309T052743Z
+      • Run Name: finn_fcst-20240310T174734Z
       
       ℹ Prepping Data
-      ✔ Prepping Data [10.3s]
+      ✔ Prepping Data [11.8s]
       
       ℹ Creating Model Workflows
-      ✔ Creating Model Workflows [326ms]
+      ✔ Creating Model Workflows [344ms]
       
       ℹ Creating Model Hyperparameters
-      ✔ Creating Model Hyperparameters [377ms]
+      ✔ Creating Model Hyperparameters [412ms]
       
       ℹ Creating Train Test Splits
-      ✔ Creating Train Test Splits [1.4s]
+      ✔ Creating Train Test Splits [1.5s]
       
       ℹ Training Individual Models
       ! 1: internal:
@@ -2905,18 +2831,18 @@ Run `revdepcheck::cloud_details(, "finnts")` for more info
       ! 5: internal:
         A correlation computation is required, but the inputs are size zero or...
         the standard deviation cannot be computed. `NA` will be returned.
-      ✔ Training Individual Models [59.3s]
+      ✔ Training Individual Models [1m 2.2s]
       
       ℹ Training Ensemble Models
       ℹ Ensemble models have been turned off.
       ℹ Training Ensemble Models
-      ✔ Training Ensemble Models [19ms]
+      ✔ Training Ensemble Models [17ms]
       
       ℹ Selecting Best Models
-      ✔ Selecting Best Models [3.9s]
+      ✔ Selecting Best Models [4.2s]
       
       ℹ Reconciling Hierarchical Forecasts
-      ✔ Reconciling Hierarchical Forecasts [1.7s]
+      ✔ Reconciling Hierarchical Forecasts [1.9s]
       
       ! return_data is deprecated, please use 'get_forecast_data()' to get finnts results
       [1] "First Dt Val 9.15263561424672" "First Dt Val 10.0227830082431"
@@ -2924,16 +2850,16 @@ Run `revdepcheck::cloud_details(, "finnts")` for more info
       [5] "First Dt Val 12.537166248181" 
       Finn Submission Info
       • Experiment Name: finn_fcst
-      • Run Name: finn_fcst-20240309T052901Z
+      • Run Name: finn_fcst-20240310T174857Z
       
       ℹ Prepping Data
-      ✔ Prepping Data [11.9s]
+      ✔ Prepping Data [13s]
       
       ℹ Creating Model Workflows
       ✔ Creating Model Workflows [327ms]
       
       ℹ Creating Model Hyperparameters
-      ✔ Creating Model Hyperparameters [386ms]
+      ✔ Creating Model Hyperparameters [401ms]
       
       ℹ Creating Train Test Splits
       ✔ Creating Train Test Splits [2.6s]
@@ -3209,18 +3135,18 @@ Run `revdepcheck::cloud_details(, "finnts")` for more info
       ! 5: internal:
         A correlation computation is required, but the inputs are size zero or...
         the standard deviation cannot be computed. `NA` will be returned.
-      ✔ Training Individual Models [1m 7.9s]
+      ✔ Training Individual Models [1m 10s]
       
       ℹ Training Ensemble Models
       ℹ Ensemble models have been turned off.
       ℹ Training Ensemble Models
-      ✔ Training Ensemble Models [19ms]
+      ✔ Training Ensemble Models [16ms]
       
       ℹ Selecting Best Models
-      ✔ Selecting Best Models [4.4s]
+      ✔ Selecting Best Models [4.5s]
       
       ℹ Reconciling Hierarchical Forecasts
-      ✔ Reconciling Hierarchical Forecasts [1.6s]
+      ✔ Reconciling Hierarchical Forecasts [1.7s]
       
       ! return_data is deprecated, please use 'get_forecast_data()' to get finnts results
       [1] "First Dt Val 185" "First Dt Val 213" "First Dt Val 122" "First Dt Val 187"
@@ -3500,42 +3426,6 @@ Run `revdepcheck::cloud_details(, "funneljoin")` for more info
     
     Error: Vignette re-building failed.
     Execution halted
-    ```
-
-# glmmfields
-
-<details>
-
-* Version: 0.1.8
-* GitHub: https://github.com/seananderson/glmmfields
-* Source code: https://github.com/cran/glmmfields
-* Date/Publication: 2023-10-20 17:50:02 UTC
-* Number of recursive dependencies: 109
-
-Run `revdepcheck::cloud_details(, "glmmfields")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking installed package size ... NOTE
-    ```
-      installed size is 127.1Mb
-      sub-directories of 1Mb or more:
-        libs  126.3Mb
-    ```
-
-*   checking for GNU extensions in Makefiles ... NOTE
-    ```
-    GNU make is a SystemRequirements.
-    ```
-
-## Newly fixed
-
-*   checking whether package ‘glmmfields’ can be installed ... ERROR
-    ```
-    Installation failed.
-    See ‘/tmp/workdir/glmmfields/old/glmmfields.Rcheck/00install.out’ for details.
     ```
 
 # heemod
@@ -9772,10 +9662,10 @@ Run `revdepcheck::cloud_details(, "myClim")` for more info
 
 <details>
 
-* Version: 0.0.3
+* Version: 0.1.2
 * GitHub: NA
 * Source code: https://github.com/cran/omopgenerics
-* Date/Publication: 2024-02-23 09:50:02 UTC
+* Date/Publication: 2024-03-09 23:30:10 UTC
 * Number of recursive dependencies: 61
 
 Run `revdepcheck::cloud_details(, "omopgenerics")` for more info
@@ -9809,16 +9699,16 @@ Run `revdepcheck::cloud_details(, "omopgenerics")` for more info
       > 
       > test_check("omopgenerics")
       Starting 2 test processes
-      [ FAIL 1 | WARN 0 | SKIP 0 | PASS 525 ]
+      [ FAIL 1 | WARN 0 | SKIP 0 | PASS 561 ]
       
       ══ Failed tests ════════════════════════════════════════════════════════════════
-      ── Failure ('test-methodBind.R:53:3'): bind a cohort_set ───────────────────────
+      ── Failure ('test-methodBind.R:53:3'): bind a cohort_table ─────────────────────
       data.frame(settings(newcdm$new_cohort)) (`actual`) not identical to data.frame(dplyr::bind_rows(settings(newcdm$cohort1), settings(newcdm$cohort2))) (`expected`).
       
       `actual$cohort_definition_id` is a double vector (1, 2, 3)
       `expected$cohort_definition_id` is an integer vector (1, 2, 3)
       
-      [ FAIL 1 | WARN 0 | SKIP 0 | PASS 525 ]
+      [ FAIL 1 | WARN 0 | SKIP 0 | PASS 561 ]
       Error: Test failures
       Execution halted
     ```
@@ -10052,7 +9942,7 @@ Run `revdepcheck::cloud_details(, "rfars")` for more info
     
     Quitting from lines 43-46 [unnamed-chunk-2] (Crash_sequence_of_events.Rmd)
     Error: processing vignette 'Crash_sequence_of_events.Rmd' failed with diagnostics:
-    Error evaluating duckdb query: Out of Memory Error: could not allocate block of size 102.6MB (1.9GB/2.0GB used)
+    Error evaluating duckdb query: Out of Memory Error: could not allocate block of size 48.6MB (1.9GB/2.0GB used)
     --- failed re-building ‘Crash_sequence_of_events.Rmd’
     
     --- re-building ‘Searchable_Codebooks.Rmd’ using rmarkdown
@@ -10468,59 +10358,59 @@ Run `revdepcheck::cloud_details(, "sfc")` for more info
     Joining with `by = join_by(SAMPLE)`
     Joining with `by = join_by(SAMPLE)`
     $result
-        TIME START END       MEAN     MEDIAN        SD        CV         Q05
-    1  Y2000     R  Ch  9.1269626  9.2517683 1.2429956 0.1361894  7.66793260
-    2  Y2000     R   W  1.1514136  1.1881802 0.7254646 0.6300643  0.11353623
-    3  Y2000    Ch  Cr  5.8741947  6.0106524 0.7252518 0.1234640  4.70829274
-    4  Y2000    Ch   H  1.5093658  1.3927675 0.5943490 0.3937740  0.75941612
-    5  Y2000    Ch   W  3.6823505  3.2043698 2.5496099 0.6923865  0.70029593
-    6  Y2000    Cr   H  2.2936131  2.2455357 0.4684950 0.2042607  1.64366752
-    7  Y2000    Cr   A  2.0387672  1.9960318 0.4164400 0.2042607  1.46103780
-    8  Y2000    Cr   W  1.5418144  1.2537048 1.1618201 0.7535408  0.06372729
-    9  Y2000     H   W  5.0187561  5.1526629 0.8465251 0.1686723  3.53567788
-    10 Y2000     A   H  1.2157772  1.1577926 0.4021988 0.3308162  0.60041041
-    11 Y2000     A   W  0.8229899  0.8034518 0.4084649 0.4963183  0.17524948
-    12 Y2000     W  Ch  1.9389484  1.6212669 1.4644213 0.7552658  0.38876502
-    13 Y2005     R  Ch 18.7094646 18.8733333 2.7725754 0.1481911 15.02082203
-    14 Y2005     R   W  2.0800820  1.7118459 1.8159740 0.8730300  0.38348073
-    15 Y2005    Ch  Cr 12.5471519 12.0523163 1.9808909 0.1578757  9.63917845
-    16 Y2005    Ch   H  3.4098412  3.2380631 0.9968182 0.2923357  2.12379343
-    17 Y2005    Ch   W  6.2753096  4.1279184 6.2608737 0.9976996  0.62792470
-    18 Y2005    Cr   H  4.8791345  4.7629587 0.7767956 0.1592077  3.78574028
-    19 Y2005    Cr   A  4.3370085  4.2337410 0.6904850 0.1592077  3.36510247
-    20 Y2005    Cr   W  3.3310089  3.3154182 1.6408173 0.4925887  1.05670968
-    21 Y2005     H   W 10.7780980 10.6997997 1.5527338 0.1440638  8.80351905
-    22 Y2005     A   H  2.4891223  2.3441945 0.6369350 0.2558874  1.55974670
-    23 Y2005     A   W  1.8478862  1.7468969 0.8755287 0.4738001  0.60618505
-    24 Y2005     W  Ch  3.5228381  1.9185925 4.2273265 1.1999775  0.30141239
+        TIME START END       MEAN     MEDIAN        SD        CV        Q05
+    1  Y2000     R  Ch  9.2484594  9.1125226 1.2064304 0.1304466  7.2870892
+    2  Y2000     R   W  1.0759552  0.7520497 0.9212188 0.8561869  0.1129034
+    3  Y2000    Ch  Cr  6.2226292  6.3365394 0.9562614 0.1536748  4.7828478
+    4  Y2000    Ch   H  1.3758465  1.2639645 0.4617693 0.3356256  0.7862412
+    5  Y2000    Ch   W  3.3606290  2.6531057 2.3619138 0.7028190  0.6407817
+    6  Y2000    Cr   H  2.3530953  2.3064335 0.4843526 0.2058364  1.7502264
+    7  Y2000    Cr   A  2.0916403  2.0501631 0.4305356 0.2058364  1.5557568
+    8  Y2000    Cr   W  1.7778935  1.5669412 1.0205102 0.5739996  0.5128235
+    9  Y2000     H   W  4.9053816  4.7882205 0.5950402 0.1213036  4.0774930
+    10 Y2000     A   H  1.1764397  1.1489060 0.3129565 0.2660200  0.6745281
+    11 Y2000     A   W  0.9152006  0.9811556 0.5356230 0.5852521  0.1358286
+    12 Y2000     W  Ch  1.7106453  1.7429496 1.2558848 0.7341585  0.4036590
+    13 Y2005     R  Ch 18.0532538 17.7577658 1.9138159 0.1060095 15.7757371
+    14 Y2005     R   W  2.7541627  2.6655045 1.9074025 0.6925526  0.2311572
+    15 Y2005    Ch  Cr 11.2493821 10.7697754 2.1156853 0.1880712  8.9237484
+    16 Y2005    Ch   H  3.1847970  3.1013110 0.8489570 0.2665655  1.9443911
+    17 Y2005    Ch   W  7.4457462  6.6841558 4.8858174 0.6561891  1.0826706
+    18 Y2005    Cr   H  4.3358106  4.3496989 0.7211307 0.1663197  3.2559897
+    19 Y2005    Cr   A  3.8540539  3.8663990 0.6410050 0.1663197  2.8942131
+    20 Y2005    Cr   W  3.0595176  2.6978073 2.4791450 0.8103058  0.3654175
+    21 Y2005     H   W  9.7759813  9.2996413 1.7217866 0.1761242  7.5906560
+    22 Y2005     A   H  2.2553736  2.1318942 0.7131394 0.3161957  1.4495447
+    23 Y2005     A   W  1.5986803  1.4226200 0.8022342 0.5018103  0.6067486
+    24 Y2005     W  Ch  3.8266715  3.0222228 2.9369693 0.7674997  0.4740013
               Q25       Q75       Q95
-    1   8.1874697  9.567497 11.085344
-    2   0.7363854  1.534323  2.196282
-    3   5.4193253  6.189076  6.998384
-    4   0.9878119  2.016307  2.482153
-    5   1.4454481  5.151217  8.358092
-    6   1.9380896  2.661231  3.003930
-    7   1.7227463  2.365539  2.670160
-    8   0.6872777  2.240829  3.407917
-    9   4.7044875  5.567078  6.196421
-    10  0.9460668  1.578352  1.778003
-    11  0.6545345  1.087186  1.394128
-    12  0.8854977  2.711305  4.497706
-    13 16.3421102 20.544892 22.149100
-    14  0.6312908  2.786509  5.384330
-    15 11.1536712 14.585427 15.124270
-    16  2.8817942  3.909479  5.390115
-    17  1.8675023  7.866039 19.136737
-    18  4.4507047  5.498670  5.905683
-    19  3.9561820  4.887707  5.249496
-    20  2.3120082  4.183474  5.393350
-    21  9.5730370 11.523755 13.636808
-    22  2.0897204  2.808258  3.490168
-    23  1.3488574  2.440691  3.093050
-    24  0.9510200  3.717618 12.013758
+    1   8.6855086 10.127050 11.051288
+    2   0.4657907  1.351081  2.873015
+    3   5.4882125  7.182074  7.600160
+    4   1.1303094  1.552045  2.153731
+    5   1.3308781  5.343323  6.208191
+    6   2.1455364  2.558564  3.072691
+    7   1.9071435  2.274279  2.731281
+    8   1.1244909  2.459128  3.528063
+    9   4.6134008  5.244322  5.855006
+    10  1.0112753  1.397053  1.624612
+    11  0.5022383  1.226917  1.512293
+    12  0.6985550  2.691305  3.773079
+    13 16.8197214 19.047180 21.213584
+    14  1.5038329  3.948767  6.432658
+    15  9.5533251 12.826493 14.663180
+    16  2.5405991  3.650362  4.585913
+    17  3.6738073  9.408496 15.153323
+    18  3.9226748  4.882609  5.383322
+    19  3.4868221  4.340097  4.785175
+    20  1.3461102  3.994815  8.196365
+    21  8.5604740 11.221860 12.408347
+    22  1.8194888  2.555921  3.246427
+    23  1.1254074  1.846373  3.071477
+    24  1.6119197  5.514600 10.108212
     
     $sample.size
-    [1] 18
+    [1] 25
     
     > 
     > ## model as csv
@@ -11600,7 +11490,7 @@ Run `revdepcheck::cloud_details(, "yamlet")` for more info
       Execution halted
     ```
 
-## In both
+## Newly fixed
 
 *   checking re-building of vignette outputs ... WARNING
     ```
@@ -11609,20 +11499,57 @@ Run `revdepcheck::cloud_details(, "yamlet")` for more info
     --- finished re-building ‘scripted_html.Rmd’
     
     --- re-building ‘scripted_pdf.Rmd’ using rmarkdown
+    tlmgr: package repository https://ctan.math.utah.edu/ctan/tex-archive/systems/texlive/tlnet (verified)
+    [1/1, ??:??/??:??] install: multirow [3k]
+    running mktexlsr ...
+    done running mktexlsr.
+    tlmgr: package log updated: /opt/TinyTeX/texmf-var/web2c/tlmgr.log
+    tlmgr: command log updated: /opt/TinyTeX/texmf-var/web2c/tlmgr-commands.log
+    tlmgr: package repository https://ctan.mirrors.hoobly.com/systems/texlive/tlnet (verified)
+    [1/1, ??:??/??:??] install: wrapfig [10k]
+    running mktexlsr ...
+    done running mktexlsr.
+    tlmgr: package log updated: /opt/TinyTeX/texmf-var/web2c/tlmgr.log
+    tlmgr: command log updated: /opt/TinyTeX/texmf-var/web2c/tlmgr-commands.log
+    tlmgr: package repository https://ctan.math.utah.edu/ctan/tex-archive/systems/texlive/tlnet (verified)
+    [1/1, ??:??/??:??] install: colortbl [4k]
+    running mktexlsr ...
+    done running mktexlsr.
+    tlmgr: package log updated: /opt/TinyTeX/texmf-var/web2c/tlmgr.log
+    tlmgr: command log updated: /opt/TinyTeX/texmf-var/web2c/tlmgr-commands.log
+    tlmgr: package repository https://ctan.mirrors.hoobly.com/systems/texlive/tlnet (verified)
+    [1/1, ??:??/??:??] install: pdflscape [3k]
+    running mktexlsr ...
+    done running mktexlsr.
+    tlmgr: package log updated: /opt/TinyTeX/texmf-var/web2c/tlmgr.log
+    tlmgr: command log updated: /opt/TinyTeX/texmf-var/web2c/tlmgr-commands.log
+    tlmgr: package repository https://mirror.las.iastate.edu/tex-archive/systems/texlive/tlnet (verified)
+    [1/2, ??:??/??:??] install: tabu [24k]
+    [2/2, 00:00/00:00] install: varwidth [5k]
+    running mktexlsr ...
+    done running mktexlsr.
+    tlmgr: package log updated: /opt/TinyTeX/texmf-var/web2c/tlmgr.log
+    tlmgr: command log updated: /opt/TinyTeX/texmf-var/web2c/tlmgr-commands.log
+    tlmgr: package repository https://mirror.mwt.me/ctan/systems/texlive/tlnet (verified)
+    [1/1, ??:??/??:??] install: threeparttable [6k]
+    running mktexlsr ...
+    done running mktexlsr.
+    tlmgr: package log updated: /opt/TinyTeX/texmf-var/web2c/tlmgr.log
+    tlmgr: command log updated: /opt/TinyTeX/texmf-var/web2c/tlmgr-commands.log
     
-    tlmgr: Remote database (revision 70461 of the texlive-scripts package)
-    seems to be older than the local installation (rev 70498 of
+    tlmgr: Remote database (revision 70498 of the texlive-scripts package)
+    seems to be older than the local installation (rev 70524 of
     texlive-scripts); please use a different mirror and/or wait a day or two.
     
     Warning in system2("tlmgr", args, ...) :
-      running command ''tlmgr' search --file --global '/wrapfig.sty'' had status 1
-    ! LaTeX Error: File `wrapfig.sty' not found.
+      running command ''tlmgr' search --file --global '/threeparttablex.sty'' had status 1
+    ! LaTeX Error: File `threeparttablex.sty' not found.
     
     ! Emergency stop.
     <read *> 
     
     Error: processing vignette 'scripted_pdf.Rmd' failed with diagnostics:
-    LaTeX failed to compile /tmp/workdir/yamlet/new/yamlet.Rcheck/vign_test/yamlet/vignettes/scripted_pdf.tex. See https://yihui.org/tinytex/r/#debugging for debugging tips. See scripted_pdf.log for more info.
+    LaTeX failed to compile /tmp/workdir/yamlet/old/yamlet.Rcheck/vign_test/yamlet/vignettes/scripted_pdf.tex. See https://yihui.org/tinytex/r/#debugging for debugging tips. See scripted_pdf.log for more info.
     --- failed re-building ‘scripted_pdf.Rmd’
     
     --- re-building ‘yamlet-introduction.Rmd’ using rmarkdown

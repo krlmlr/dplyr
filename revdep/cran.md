@@ -1,9 +1,9 @@
 ## revdepcheck results
 
-We checked 4322 reverse dependencies, comparing R CMD check results across CRAN and dev versions of this package.
+We checked 52 reverse dependencies, comparing R CMD check results across CRAN and dev versions of this package.
 
- * We saw 52 new problems
- * We failed to check 7 packages
+ * We saw 50 new problems
+ * We failed to check 1 packages
 
 Issues with CRAN packages are summarised below.
 
@@ -18,9 +18,6 @@ Issues with CRAN packages are summarised below.
 
 * autoCovariateSelection
   checking examples ... ERROR
-  checking tests ... ERROR
-
-* causalBatch
   checking tests ... ERROR
 
 * CCWeights
@@ -70,10 +67,6 @@ Issues with CRAN packages are summarised below.
 * funneljoin
   checking tests ... ERROR
   checking re-building of vignette outputs ... ERROR
-
-* glmmfields
-  checking installed package size ... NOTE
-  checking for GNU extensions in Makefiles ... NOTE
 
 * heemod
   checking tests ... ERROR
@@ -181,10 +174,4 @@ Issues with CRAN packages are summarised below.
 
 ### Failed to check
 
-* bayesdfa         (NA)
-* BPrinStratTTE    (NA)
-* EcoEnsemble      (NA)
-* loon.shiny       (NA)
-* multinma         (NA)
-* TriDimRegression (NA)
-* triptych         (NA)
+* glmmfields (NA)
