@@ -302,6 +302,9 @@ duckplyr_compute <- function(x, ...) {
 #' to certain duckdb functions.
 #' Currently unused.
 #'
+#' `DUCKPLYR_METHODS_OVERWRITE`: If `TRUE`, call `methods_overwrite()`
+#' when the package is loaded.
+#'
 #' See [fallback] for more options related to logging and uploading of fallback events.
 #'
 # Not available in the CRAN package:
@@ -784,7 +787,7 @@ dplyr_col_modify.data.frame <- function(data, cols) {
   # Our implementation
   rel_try(
     # Always fall back to dplyr
-    "No relational implementation for dplyr_col_modify()" = TRUE,
+    "-" = TRUE,
     {
       return(out)
     }
@@ -838,7 +841,7 @@ dplyr_row_slice.data.frame <- function(data, i, ...) {
   # Our implementation
   rel_try(
     # Always fall back to dplyr
-    "No relational implementation for dplyr_row_slice()" = TRUE,
+    "-" = TRUE,
     {
       return(out)
     }
@@ -1345,7 +1348,7 @@ group_data.data.frame <- function(.data) {
   # Our implementation
   rel_try(
     # Always fall back to dplyr
-    "No relational implementation for group_data()" = TRUE,
+    "-" = TRUE,
     {
       return(out)
     }
@@ -3910,8 +3913,13 @@ rel_try <- function(rel, ..., call = NULL) {
     if (isTRUE(dots[[i]])) {
       stats$fallback <- stats$fallback + 1L
       if (!dplyr_mode) {
+        message <- names(dots)[[i]]
+        if (message != "-") {
+          tel_collect(message, call)
+        }
+
         if (Sys.getenv("DUCKPLYR_FALLBACK_INFO") == "TRUE") {
-          inform(message = c("Requested fallback for relational:", i = names(dots)[[i]]))
+          inform(message = c("Requested fallback for relational:", i = message))
         }
         if (Sys.getenv("DUCKPLYR_FORCE") == "TRUE") {
           cli::cli_abort("Fallback not available with {.envvar DUCKPLYR_FORCE}.")
@@ -3921,6 +3929,12 @@ rel_try <- function(rel, ..., call = NULL) {
       return()
     }
   }
+
+  # https://github.com/duckdb/duckdb-r/issues/101
+  DBI::dbExecute(get_default_duckdb_connection(), "SET max_expression_depth TO 990")
+  withr::defer({
+    DBI::dbExecute(get_default_duckdb_connection(), "SET max_expression_depth TO 1000")
+  })
 
   if (Sys.getenv("DUCKPLYR_FORCE") == "TRUE") {
     return(rel)
