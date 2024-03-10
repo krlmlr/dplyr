@@ -104,7 +104,7 @@ dplyr_row_slice <- function(data, i, ...) {
 }
 
 #' @export
-dplyr_row_slice_data_frame <- function(data, i, ...) {
+dplyr_row_slice.data.frame <- function(data, i, ...) {
   dplyr_reconstruct(vec_slice(data, i), data)
 }
 
@@ -143,7 +143,7 @@ dplyr_col_modify <- function(data, cols) {
 }
 
 #' @export
-dplyr_col_modify_data_frame <- function(data, cols) {
+dplyr_col_modify.data.frame <- function(data, cols) {
   # Must be implemented from first principles to avoiding edge cases in
   # [.data.frame and [.tibble (2.1.3 and earlier).
 
