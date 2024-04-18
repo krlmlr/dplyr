@@ -1,9 +1,9 @@
 ## revdepcheck results
 
-We checked 52 reverse dependencies, comparing R CMD check results across CRAN and dev versions of this package.
+We checked 51 reverse dependencies (50 from CRAN + 1 from Bioconductor), comparing R CMD check results across CRAN and dev versions of this package.
 
- * We saw 50 new problems
- * We failed to check 1 packages
+ * We saw 46 new problems
+ * We failed to check 0 packages
 
 Issues with CRAN packages are summarised below.
 
@@ -15,10 +15,6 @@ Issues with CRAN packages are summarised below.
 
 * auk
   checking examples ... ERROR
-
-* autoCovariateSelection
-  checking examples ... ERROR
-  checking tests ... ERROR
 
 * CCWeights
   checking examples ... ERROR
@@ -71,10 +67,6 @@ Issues with CRAN packages are summarised below.
 * heemod
   checking tests ... ERROR
 
-* hlaR
-  checking examples ... ERROR
-  checking re-building of vignette outputs ... ERROR
-
 * iNZightTools
   checking tests ... ERROR
 
@@ -115,14 +107,8 @@ Issues with CRAN packages are summarised below.
   checking examples ... ERROR
   checking re-building of vignette outputs ... ERROR
 
-* rfars
-  checking re-building of vignette outputs ... ERROR
-
 * rWCVP
   checking tests ... ERROR
-
-* rwicc
-  checking re-building of vignette outputs ... ERROR
 
 * sapfluxnetr
   checking tests ... ERROR
@@ -172,6 +158,3 @@ Issues with CRAN packages are summarised below.
   checking examples ... ERROR
   checking tests ... ERROR
 
-### Failed to check
-
-* glmmfields (NA)

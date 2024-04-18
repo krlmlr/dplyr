@@ -6,7 +6,7 @@
 * GitHub: https://github.com/apache/arrow
 * Source code: https://github.com/cran/arrow
 * Date/Publication: 2024-02-23 17:00:11 UTC
-* Number of recursive dependencies: 79
+* Number of recursive dependencies: 78
 
 Run `revdepcheck::cloud_details(, "arrow")` for more info
 
@@ -166,7 +166,7 @@ Run `revdepcheck::cloud_details(, "arrow")` for more info
 * GitHub: https://github.com/CornellLabofOrnithology/auk
 * Source code: https://github.com/cran/auk
 * Date/Publication: 2023-11-14 09:43:22 UTC
-* Number of recursive dependencies: 99
+* Number of recursive dependencies: 98
 
 Run `revdepcheck::cloud_details(, "auk")` for more info
 
@@ -246,109 +246,6 @@ Run `revdepcheck::cloud_details(, "auk")` for more info
     Execution halted
     ```
 
-# autoCovariateSelection
-
-<details>
-
-* Version: 1.0.0
-* GitHub: https://github.com/technOslerphile/autoCovariateSelection
-* Source code: https://github.com/cran/autoCovariateSelection
-* Date/Publication: 2020-12-14 09:50:11 UTC
-* Number of recursive dependencies: 36
-
-Run `revdepcheck::cloud_details(, "autoCovariateSelection")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking examples ... ERROR
-    ```
-    Running examples in ‘autoCovariateSelection-Ex.R’ failed
-    The error most likely occurred in:
-    
-    > ### Name: get_prioritised_covariates
-    > ### Title: Generate the prioritised covariates from the global list of
-    > ###   binary recurrence covariates using multiplicative bias ranking
-    > ### Aliases: get_prioritised_covariates
-    > 
-    > ### ** Examples
-    > 
-    > library("autoCovariateSelection")
-    > data(rwd)
-    > head(rwd, 3)
-      person_id index_date event_date event_code event_concept_id domain treatment
-    1     21047 2010-06-10 2010-02-21      78650         44825809     dx         1
-    2     21047 2010-06-10 2010-03-01       2449         44828786     dx         1
-    3     21047 2010-06-10 2010-01-19      25002         44836915     dx         1
-      outcome_date last_enrollment_date
-    1         <NA>           2011-01-01
-    2         <NA>           2011-01-01
-    3         <NA>           2011-01-01
-    > basetable <- rwd %>% select(person_id, treatment, outcome_date) %>% distinct()
-    > head(basetable, 3)
-      person_id treatment outcome_date
-    1     21047         1         <NA>
-    2    378287         1         <NA>
-    3    320862         1         <NA>
-    > patientIds <- basetable$person_id
-    > step1 <- get_candidate_covariates(df = rwd,  domainVarname = "domain",
-    + eventCodeVarname = "event_code" , patientIdVarname = "person_id",
-    + patientIdVector = patientIds,n = 100, min_num_patients = 10)
-    Joining with `by = join_by(eventCodeVarname, domainVarname)`
-    Joining with `by = join_by(eventCodeVarname, domainVarname)`
-    > out1 <- step1$covars_data
-    > all.equal(patientIds, step1$patientIds) #should be TRUE
-    [1] TRUE
-    > step2 <- get_recurrence_covariates(df = out1,
-    + patientIdVarname = "person_id", eventCodeVarname = "event_code",
-    + patientIdVector = patientIds)
-    Error: Error evaluating duckdb query: Parser Error: Maximum tree depth of 1000 exceeded in logical planner
-    Execution halted
-    ```
-
-*   checking tests ... ERROR
-    ```
-      Running ‘testthat.R’
-    Running the tests in ‘tests/testthat.R’ failed.
-    Complete output:
-      > library("testthat")
-      > library("autoCovariateSelection")
-      Loading required package: dplyr
-      
-      Attaching package: 'dplyr'
-      
-      The following object is masked from 'package:testthat':
-      
-          matches
-      
-      The following objects are masked from 'package:stats':
-      
-          filter, lag
-      
-      The following objects are masked from 'package:base':
-      
-          intersect, setdiff, setequal, union
-      
-      > test_check("autoCovariateSelection")
-      [ FAIL 1 | WARN 0 | SKIP 0 | PASS 3 ]
-      
-      ══ Failed tests ════════════════════════════════════════════════════════════════
-      ── Error ('test-run.R:19:3'): testing end-to-end run of automated covariate selection... ──
-      Error: Error evaluating duckdb query: Parser Error: Maximum tree depth of 1000 exceeded in logical planner
-      Backtrace:
-          ▆
-       1. └─autoCovariateSelection::get_recurrence_covariates(...) at test-run.R:19:3
-       2.   └─base::nrow(recurrences)
-       3.     ├─base::dim(x)
-       4.     └─base::dim.data.frame(x)
-       5.       └─base::.row_names_info(x, 2L)
-      
-      [ FAIL 1 | WARN 0 | SKIP 0 | PASS 3 ]
-      Error: Test failures
-      Execution halted
-    ```
-
 # CCWeights
 
 <details>
@@ -357,7 +254,7 @@ Run `revdepcheck::cloud_details(, "autoCovariateSelection")` for more info
 * GitHub: NA
 * Source code: https://github.com/cran/CCWeights
 * Date/Publication: 2021-11-09 21:40:02 UTC
-* Number of recursive dependencies: 94
+* Number of recursive dependencies: 93
 
 Run `revdepcheck::cloud_details(, "CCWeights")` for more info
 
@@ -394,7 +291,7 @@ Run `revdepcheck::cloud_details(, "CCWeights")` for more info
 * GitHub: NA
 * Source code: https://github.com/cran/CodelistGenerator
 * Date/Publication: 2024-03-08 22:20:02 UTC
-* Number of recursive dependencies: 135
+* Number of recursive dependencies: 95
 
 Run `revdepcheck::cloud_details(, "CodelistGenerator")` for more info
 
@@ -492,7 +389,7 @@ Run `revdepcheck::cloud_details(, "cogmapr")` for more info
 * GitHub: https://github.com/echasnovski/comperes
 * Source code: https://github.com/cran/comperes
 * Date/Publication: 2023-02-28 19:42:30 UTC
-* Number of recursive dependencies: 65
+* Number of recursive dependencies: 64
 
 Run `revdepcheck::cloud_details(, "comperes")` for more info
 
@@ -568,7 +465,7 @@ Run `revdepcheck::cloud_details(, "comperes")` for more info
 * GitHub: NA
 * Source code: https://github.com/cran/crosshap
 * Date/Publication: 2023-05-02 07:50:08 UTC
-* Number of recursive dependencies: 118
+* Number of recursive dependencies: 117
 
 Run `revdepcheck::cloud_details(, "crosshap")` for more info
 
@@ -610,15 +507,13 @@ Run `revdepcheck::cloud_details(, "crosshap")` for more info
       > library(crosshap)
       > 
       > test_check("crosshap")
-      ■■■■■                             14% | ETA: 49s
-      ■■■■■■■■■■                        29% | ETA: 26s
-      ■■■■■■■■■■■■                      36% | ETA: 24s
-      ■■■■■■■■■■■■■■                    43% | ETA: 23s
-      ■■■■■■■■■■■■■■■■■■                57% | ETA: 15s
-      ■■■■■■■■■■■■■■■■■■■■              64% | ETA: 13s
-      ■■■■■■■■■■■■■■■■■■■■■■            71% | ETA: 11s
-      ■■■■■■■■■■■■■■■■■■■■■■■■■■■       86% | ETA:  5s
-      ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■     93% | ETA:  3s
+      ■■■■■                             14% | ETA: 15s
+      ■■■■■■■■■■                        29% | ETA: 10s
+      ■■■■■■■■■■■■                      36% | ETA: 11s
+      ■■■■■■■■■■■■■■■■■■                57% | ETA:  8s
+      ■■■■■■■■■■■■■■■■■■■■              64% | ETA:  7s
+      ■■■■■■■■■■■■■■■■■■■■■■■■■■■       86% | ETA:  3s
+      ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■     93% | ETA:  1s
       ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■  100% | ETA:  0s
       ✔ Haplotyping complete!
       Info saved in Haplotypes_30_E objects
@@ -638,14 +533,13 @@ Run `revdepcheck::cloud_details(, "crosshap")` for more info
       # i 18 more rows
       # i 3 more variables: .ggraph.orig_index <int>, circular <lgl>,
       #   .ggraph.index <int>
-      ■■■■■■■■■■■                       33% | ETA: 14s
-      ■■■■■■■■■■■■■■■■■■■■■■■■■■        83% | ETA:  3s
+      ■■■■■■■■■■■                       33% | ETA:  4s
+      ■■■■■■■■■■■■■■■■■■■■■■■■■■        83% | ETA:  1s
       ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■  100% | ETA:  0s
       ✔ Haplotyping complete!
       Info saved in Haplotypes_30_E objects
-      ■■■■■■■■■■■                       33% | ETA: 14s
-      ■■■■■■■■■■■■■■■■■■■■■             67% | ETA:  5s
-      ■■■■■■■■■■■■■■■■■■■■■■■■■■        83% | ETA:  3s
+      ■■■■■■■■■■■                       33% | ETA:  4s
+      ■■■■■■■■■■■■■■■■■■■■■■■■■■        83% | ETA:  1s
       ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■  100% | ETA:  0s
       ✔ Haplotyping complete!
       Info saved in Haplotypes_30_E objects
@@ -700,11 +594,10 @@ Run `revdepcheck::cloud_details(, "crosshap")` for more info
         9.       ├─dplyr:::group_data.tbl_df(data)
        10.       ├─base::NextMethod()
        11.       └─dplyr:::group_data.data.frame(data)
-       12.         └─dplyr::group_data(.data)
-       13.           └─base::nrow(.data)
-       14.             ├─base::dim(x)
-       15.             └─base::dim.data.frame(x)
-       16.               └─base::.row_names_info(x, 2L)
+       12.         └─base::nrow(.data)
+       13.           ├─base::dim(x)
+       14.           └─base::dim.data.frame(x)
+       15.             └─base::.row_names_info(x, 2L)
       ── Error ('test-umap.R:4:1'): (code run outside of `test_that()`) ──────────────
       Error: Can't subset `.data` outside of a data mask context.
       Backtrace:
@@ -737,7 +630,7 @@ Run `revdepcheck::cloud_details(, "crosshap")` for more info
 * GitHub: https://github.com/lwheinsberg/dbGaPCheckup
 * Source code: https://github.com/cran/dbGaPCheckup
 * Date/Publication: 2023-09-27 15:30:02 UTC
-* Number of recursive dependencies: 117
+* Number of recursive dependencies: 116
 
 Run `revdepcheck::cloud_details(, "dbGaPCheckup")` for more info
 
@@ -1127,7 +1020,7 @@ Run `revdepcheck::cloud_details(, "dtrackr")` for more info
       /usr/bin/xdg-open: 869: links: not found
       /usr/bin/xdg-open: 869: lynx: not found
       /usr/bin/xdg-open: 869: w3m: not found
-      xdg-open: no method available for opening '/tmp/Rtmp7V8j7r/viewhtml1dfa75341994/index.html'
+      xdg-open: no method available for opening '/tmp/RtmpVDUbPP/viewhtml1dff7bf6918c/index.html'
       Couldn't find a suitable web browser!
       Set the BROWSER environment variable to your desired browser.
       Warning: program returned non-zero exit code #256
@@ -1147,7 +1040,7 @@ Run `revdepcheck::cloud_details(, "dtrackr")` for more info
       /usr/bin/xdg-open: 869: links: not found
       /usr/bin/xdg-open: 869: lynx: not found
       /usr/bin/xdg-open: 869: w3m: not found
-      xdg-open: no method available for opening '/tmp/Rtmp7V8j7r/viewhtml1dfa3e3b1c79/index.html'
+      xdg-open: no method available for opening '/tmp/RtmpVDUbPP/viewhtml1dff49104584/index.html'
       [ FAIL 1 | WARN 0 | SKIP 0 | PASS 51 ]
       
       ══ Failed tests ════════════════════════════════════════════════════════════════
@@ -1173,7 +1066,7 @@ Run `revdepcheck::cloud_details(, "dtrackr")` for more info
 * GitHub: https://github.com/duckdblabs/duckplyr
 * Source code: https://github.com/cran/duckplyr
 * Date/Publication: 2023-12-11 07:40:10 UTC
-* Number of recursive dependencies: 87
+* Number of recursive dependencies: 100
 
 Run `revdepcheck::cloud_details(, "duckplyr")` for more info
 
@@ -1443,11 +1336,11 @@ Run `revdepcheck::cloud_details(, "duckplyr")` for more info
       `environment(actual$create_default_duckdb_connection)` is <env:namespace:duckplyr>
       `environment(expected$create_default_duckdb_connection)` is <env:namespace:dplyr>
       
-      `actual$default_duckdb_connection$con@conn_ref` is <pointer: 0x55d37b8db0a0>
-      `expected$default_duckdb_connection$con@conn_ref` is <pointer: 0x55d379911c10>
+      `actual$default_duckdb_connection$con@conn_ref` is <pointer: 0x55f4bb158e30>
+      `expected$default_duckdb_connection$con@conn_ref` is <pointer: 0x55f4bb317790>
       
-      `actual$default_duckdb_connection$con@driver@database_ref` is <pointer: 0x55d37838cf90>
-      `expected$default_duckdb_connection$con@driver@database_ref` is <pointer: 0x55d378556140>
+      `actual$default_duckdb_connection$con@driver@database_ref` is <pointer: 0x55f4b83ac8c0>
+      `expected$default_duckdb_connection$con@driver@database_ref` is <pointer: 0x55f4b8108670>
       
       `environment(actual$df_from_file)` is <env:namespace:duckplyr>
       `environment(expected$df_from_file)` is <env:namespace:dplyr>
@@ -2089,24 +1982,24 @@ Run `revdepcheck::cloud_details(, "duckplyr")` for more info
       `environment(actual$relexpr_window)` is <env:namespace:duckplyr>
       `environment(expected$relexpr_window)` is <env:namespace:dplyr>
       
-        `actual$stats$attempts`:  608
-      `expected$stats$attempts`: 1657
+        `actual$stats$attempts`: 608
+      `expected$stats$attempts`: 854
       
-           actual$stats$calls       | expected$stats$calls                         
-       [1] "add_count.duckplyr_df"  - "add_count"                   [1]            
-       [2] "mutate.duckplyr_df"     - "mutate"                      [2]            
-       [3] "anti_join.duckplyr_df"  - "group_data.data.frame"       [3]            
-       [4] "arrange.duckplyr_df"    - "dplyr_col_modify.data.frame" [4]            
-       [5] "compute.duckplyr_df"    - "add_count.data.frame"        [5]            
-       [6] "count.duckplyr_df"      - "mutate.data.frame"           [6]            
-       [7] "summarise.duckplyr_df"  - "anti_join"                   [7]            
-       [8] "cross_join.duckplyr_df" - "dplyr_row_slice.data.frame"  [8]            
-       [9] "distinct.duckplyr_df"   - "anti_join.data.frame"        [9]            
-      [10] "union_all.duckplyr_df"  - "arrange"                     [10]           
-       ... ...                        ...                           and 69 more ...
+           actual$stats$calls       | expected$stats$calls                  
+       [1] "add_count.duckplyr_df"  - "add_count"            [1]            
+       [2] "mutate.duckplyr_df"     - "mutate"               [2]            
+       [3] "anti_join.duckplyr_df"  - "add_count.data.frame" [3]            
+       [4] "arrange.duckplyr_df"    - "mutate.data.frame"    [4]            
+       [5] "compute.duckplyr_df"    - "anti_join"            [5]            
+       [6] "count.duckplyr_df"      - "anti_join.data.frame" [6]            
+       [7] "summarise.duckplyr_df"  - "arrange"              [7]            
+       [8] "cross_join.duckplyr_df" - "arrange.data.frame"   [8]            
+       [9] "distinct.duckplyr_df"   - "compute"              [9]            
+      [10] "union_all.duckplyr_df"  - "compute.data.frame"   [10]           
+       ... ...                        ...                    and 66 more ...
       
-        `actual$stats$fallback`:  382
-      `expected$stats$fallback`: 1507
+        `actual$stats$fallback`: 382
+      `expected$stats$fallback`: 704
       
       `environment(actual$stats_show)` is <env:namespace:duckplyr>
       `environment(expected$stats_show)` is <env:namespace:dplyr>
@@ -2154,7 +2047,7 @@ Run `revdepcheck::cloud_details(, "duckplyr")` for more info
       🦆:  635
       add_count, anti_join, arrange, compute, count, cross_join, distinct, do, eval, filter, full_join, inner_join, intersect, left_join, mutate, mutate.data.frame, nest_join, pull, reframe, relocate, rename, rename_with, right_join, rows_append, rows_delete, rows_insert, rows_patch, rows_update, rows_upsert, select, semi_join, setdiff, setequal, slice, slice_head, slice_sample, slice_tail, summarise, symdiff, transmute, ungroup, union_all
       
-      00:00:49.718494
+      00:01:16.705439
       Execution halted
     ```
 
@@ -2166,7 +2059,7 @@ Run `revdepcheck::cloud_details(, "duckplyr")` for more info
 * GitHub: NA
 * Source code: https://github.com/cran/ern
 * Date/Publication: 2024-01-29 23:50:08 UTC
-* Number of recursive dependencies: 96
+* Number of recursive dependencies: 95
 
 Run `revdepcheck::cloud_details(, "ern")` for more info
 
@@ -2250,16 +2143,16 @@ Run `revdepcheck::cloud_details(, "ern")` for more info
       Deconvolution incubation period...
       iterations Richardson-Lucy deconvolution:  10
       Deconvolution reporting delays...
-      iterations Richardson-Lucy deconvolution:  5
+      iterations Richardson-Lucy deconvolution:  10
       Deconvolution incubation period...
       iterations Richardson-Lucy deconvolution:  10
       Using default config in `EpiEstim::estimate_R()`.
       Deconvolution reporting delays...
-      iterations Richardson-Lucy deconvolution:  10
+      iterations Richardson-Lucy deconvolution:  9
       Deconvolution incubation period...
       iterations Richardson-Lucy deconvolution:  10
       Deconvolution reporting delays...
-      iterations Richardson-Lucy deconvolution:  8
+      iterations Richardson-Lucy deconvolution:  10
       Deconvolution incubation period...
       iterations Richardson-Lucy deconvolution:  10
       iterations Richardson-Lucy deconvolution:  9
@@ -2270,7 +2163,7 @@ Run `revdepcheck::cloud_details(, "ern")` for more info
       iterations Richardson-Lucy deconvolution:  9
       iterations Richardson-Lucy deconvolution:  9
       iterations Richardson-Lucy deconvolution:  9
-      iterations Richardson-Lucy deconvolution:  9
+      iterations Richardson-Lucy deconvolution:  8
       iterations Richardson-Lucy deconvolution:  9
       iterations Richardson-Lucy deconvolution:  9
       iterations Richardson-Lucy deconvolution:  9
@@ -2323,7 +2216,7 @@ Run `revdepcheck::cloud_details(, "ern")` for more info
 * GitHub: https://github.com/smwoodman/eSDM
 * Source code: https://github.com/cran/eSDM
 * Date/Publication: 2024-02-14 23:30:02 UTC
-* Number of recursive dependencies: 126
+* Number of recursive dependencies: 125
 
 Run `revdepcheck::cloud_details(, "eSDM")` for more info
 
@@ -2407,7 +2300,7 @@ Run `revdepcheck::cloud_details(, "ezplot")` for more info
 * GitHub: https://github.com/forestgeo/fgeo.analyze
 * Source code: https://github.com/cran/fgeo.analyze
 * Date/Publication: 2020-12-05 05:40:12 UTC
-* Number of recursive dependencies: 101
+* Number of recursive dependencies: 100
 
 Run `revdepcheck::cloud_details(, "fgeo.analyze")` for more info
 
@@ -2518,7 +2411,7 @@ Run `revdepcheck::cloud_details(, "fgeo.analyze")` for more info
 * GitHub: https://github.com/microsoft/finnts
 * Source code: https://github.com/cran/finnts
 * Date/Publication: 2023-12-01 09:40:02 UTC
-* Number of recursive dependencies: 261
+* Number of recursive dependencies: 262
 
 Run `revdepcheck::cloud_details(, "finnts")` for more info
 
@@ -2538,19 +2431,19 @@ Run `revdepcheck::cloud_details(, "finnts")` for more info
       > test_check("finnts")
       Finn Submission Info
       • Experiment Name: finn_fcst
-      • Run Name: finn_fcst-20240310T174711Z
+      • Run Name: finn_fcst-20240310T201110Z
       
       ℹ Prepping Data
-      ✔ Prepping Data [11.8s]
+      ✔ Prepping Data [13s]
       
       ℹ Creating Model Workflows
-      ✔ Creating Model Workflows [394ms]
+      ✔ Creating Model Workflows [433ms]
       
       ℹ Creating Model Hyperparameters
-      ✔ Creating Model Hyperparameters [365ms]
+      ✔ Creating Model Hyperparameters [430ms]
       
       ℹ Creating Train Test Splits
-      ✔ Creating Train Test Splits [4.3s]
+      ✔ Creating Train Test Splits [5s]
       
       ℹ Training Individual Models
       ! 1: internal:
@@ -2562,33 +2455,33 @@ Run `revdepcheck::cloud_details(, "finnts")` for more info
       ! 5: internal:
         A correlation computation is required, but the inputs are size zero or...
         the standard deviation cannot be computed. `NA` will be returned.
-      ✔ Training Individual Models [4.5s]
+      ✔ Training Individual Models [5.2s]
       
       ℹ Training Ensemble Models
       ℹ Ensemble models have been turned off.
       ℹ Training Ensemble Models
-      ✔ Training Ensemble Models [18ms]
+      ✔ Training Ensemble Models [20ms]
       
       ℹ Selecting Best Models
-      ✔ Selecting Best Models [774ms]
+      ✔ Selecting Best Models [802ms]
       
       ! return_data is deprecated, please use 'get_forecast_data()' to get finnts results
       [1] "First Dt Val 11000"
       Finn Submission Info
       • Experiment Name: finn_fcst
-      • Run Name: finn_fcst-20240310T174734Z
+      • Run Name: finn_fcst-20240310T201136Z
       
       ℹ Prepping Data
-      ✔ Prepping Data [11.8s]
+      ✔ Prepping Data [12.6s]
       
       ℹ Creating Model Workflows
-      ✔ Creating Model Workflows [344ms]
+      ✔ Creating Model Workflows [366ms]
       
       ℹ Creating Model Hyperparameters
-      ✔ Creating Model Hyperparameters [412ms]
+      ✔ Creating Model Hyperparameters [428ms]
       
       ℹ Creating Train Test Splits
-      ✔ Creating Train Test Splits [1.5s]
+      ✔ Creating Train Test Splits [1.6s]
       
       ℹ Training Individual Models
       ! 1: internal:
@@ -2831,18 +2724,18 @@ Run `revdepcheck::cloud_details(, "finnts")` for more info
       ! 5: internal:
         A correlation computation is required, but the inputs are size zero or...
         the standard deviation cannot be computed. `NA` will be returned.
-      ✔ Training Individual Models [1m 2.2s]
+      ✔ Training Individual Models [1m 6.5s]
       
       ℹ Training Ensemble Models
       ℹ Ensemble models have been turned off.
       ℹ Training Ensemble Models
-      ✔ Training Ensemble Models [17ms]
+      ✔ Training Ensemble Models [19ms]
       
       ℹ Selecting Best Models
-      ✔ Selecting Best Models [4.2s]
+      ✔ Selecting Best Models [4.6s]
       
       ℹ Reconciling Hierarchical Forecasts
-      ✔ Reconciling Hierarchical Forecasts [1.9s]
+      ✔ Reconciling Hierarchical Forecasts [2s]
       
       ! return_data is deprecated, please use 'get_forecast_data()' to get finnts results
       [1] "First Dt Val 9.15263561424672" "First Dt Val 10.0227830082431"
@@ -2850,19 +2743,19 @@ Run `revdepcheck::cloud_details(, "finnts")` for more info
       [5] "First Dt Val 12.537166248181" 
       Finn Submission Info
       • Experiment Name: finn_fcst
-      • Run Name: finn_fcst-20240310T174857Z
+      • Run Name: finn_fcst-20240310T201305Z
       
       ℹ Prepping Data
-      ✔ Prepping Data [13s]
+      ✔ Prepping Data [14.3s]
       
       ℹ Creating Model Workflows
-      ✔ Creating Model Workflows [327ms]
+      ✔ Creating Model Workflows [350ms]
       
       ℹ Creating Model Hyperparameters
-      ✔ Creating Model Hyperparameters [401ms]
+      ✔ Creating Model Hyperparameters [460ms]
       
       ℹ Creating Train Test Splits
-      ✔ Creating Train Test Splits [2.6s]
+      ✔ Creating Train Test Splits [3.2s]
       
       ℹ Training Individual Models
       ! 1: internal:
@@ -3135,18 +3028,18 @@ Run `revdepcheck::cloud_details(, "finnts")` for more info
       ! 5: internal:
         A correlation computation is required, but the inputs are size zero or...
         the standard deviation cannot be computed. `NA` will be returned.
-      ✔ Training Individual Models [1m 10s]
+      ✔ Training Individual Models [1m 16.5s]
       
       ℹ Training Ensemble Models
       ℹ Ensemble models have been turned off.
       ℹ Training Ensemble Models
-      ✔ Training Ensemble Models [16ms]
+      ✔ Training Ensemble Models [19ms]
       
       ℹ Selecting Best Models
-      ✔ Selecting Best Models [4.5s]
+      ✔ Selecting Best Models [5.5s]
       
       ℹ Reconciling Hierarchical Forecasts
-      ✔ Reconciling Hierarchical Forecasts [1.7s]
+      ✔ Reconciling Hierarchical Forecasts [2s]
       
       ! return_data is deprecated, please use 'get_forecast_data()' to get finnts results
       [1] "First Dt Val 185" "First Dt Val 213" "First Dt Val 122" "First Dt Val 187"
@@ -3247,11 +3140,10 @@ Run `revdepcheck::cloud_details(, "funneljoin")` for more info
        11.       ├─dplyr:::group_data.tbl_df(data)
        12.       ├─base::NextMethod()
        13.       └─dplyr:::group_data.data.frame(data)
-       14.         └─dplyr::group_data(.data)
-       15.           └─base::nrow(.data)
-       16.             ├─base::dim(x)
-       17.             └─base::dim.data.frame(x)
-       18.               └─base::.row_names_info(x, 2L)
+       14.         └─base::nrow(.data)
+       15.           ├─base::dim(x)
+       16.           └─base::dim.data.frame(x)
+       17.             └─base::.row_names_info(x, 2L)
       ── Error ('test_max_gap.R:12:3'): after_join works with mode = left and type = any-any and max_gap = difftime ──
       Error: Error evaluating duckdb query: Conversion Error: Unimplemented type for cast (TIME -> DOUBLE)
       Backtrace:
@@ -3379,11 +3271,10 @@ Run `revdepcheck::cloud_details(, "funneljoin")` for more info
         9.       ├─dplyr:::group_data.tbl_df(data)
        10.       ├─base::NextMethod()
        11.       └─dplyr:::group_data.data.frame(data)
-       12.         └─dplyr::group_data(.data)
-       13.           └─base::nrow(.data)
-       14.             ├─base::dim(x)
-       15.             └─base::dim.data.frame(x)
-       16.               └─base::.row_names_info(x, 2L)
+       12.         └─base::nrow(.data)
+       13.           ├─base::dim(x)
+       14.           └─base::dim.data.frame(x)
+       15.             └─base::.row_names_info(x, 2L)
       ── Error ('test_max_gap.R:202:3'): after_join works with mode = left, type = any-any, max_gap = numeric, and gap_col is TRUE ──
       Error: Error evaluating duckdb query: Conversion Error: Unimplemented type for cast (TIME -> DOUBLE)
       Backtrace:
@@ -3399,11 +3290,10 @@ Run `revdepcheck::cloud_details(, "funneljoin")` for more info
         9.       ├─dplyr:::group_data.tbl_df(data)
        10.       ├─base::NextMethod()
        11.       └─dplyr:::group_data.data.frame(data)
-       12.         └─dplyr::group_data(.data)
-       13.           └─base::nrow(.data)
-       14.             ├─base::dim(x)
-       15.             └─base::dim.data.frame(x)
-       16.               └─base::.row_names_info(x, 2L)
+       12.         └─base::nrow(.data)
+       13.           ├─base::dim(x)
+       14.           └─base::dim.data.frame(x)
+       15.             └─base::.row_names_info(x, 2L)
       
       [ FAIL 17 | WARN 0 | SKIP 1 | PASS 408 ]
       Error: Test failures
@@ -3436,7 +3326,7 @@ Run `revdepcheck::cloud_details(, "funneljoin")` for more info
 * GitHub: https://github.com/aphp/heemod
 * Source code: https://github.com/cran/heemod
 * Date/Publication: 2024-01-31 12:30:02 UTC
-* Number of recursive dependencies: 135
+* Number of recursive dependencies: 134
 
 Run `revdepcheck::cloud_details(, "heemod")` for more info
 
@@ -3597,60 +3487,6 @@ Run `revdepcheck::cloud_details(, "heemod")` for more info
       Execution halted
     ```
 
-# hlaR
-
-<details>
-
-* Version: 1.0.0
-* GitHub: https://github.com/LarsenLab/hlaR
-* Source code: https://github.com/cran/hlaR
-* Date/Publication: 2023-01-31 17:10:02 UTC
-* Number of recursive dependencies: 152
-
-Run `revdepcheck::cloud_details(, "hlaR")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking examples ... ERROR
-    ```
-    Running examples in ‘hlaR-Ex.R’ failed
-    The error most likely occurred in:
-    
-    > ### Name: CalEpletMHCI
-    > ### Title: Calculate class I HLA eplet mismatch
-    > ### Aliases: CalEpletMHCI
-    > 
-    > ### ** Examples
-    > 
-    > dat<-read.csv(system.file("extdata/example","MHC_I_test.csv",package="hlaR"),sep=",",header=TRUE)
-    > re <- CalEpletMHCI(dat_in = dat, ver = 3)
-    Error: Error evaluating duckdb query: Parser Error: Maximum tree depth of 1000 exceeded in logical planner
-    Execution halted
-    ```
-
-*   checking re-building of vignette outputs ... ERROR
-    ```
-    Error(s) in re-building vignettes:
-      ...
-    --- re-building ‘allele-haplotype.Rmd’ using rmarkdown
-    --- finished re-building ‘allele-haplotype.Rmd’
-    
-    --- re-building ‘eplet-mm.Rmd’ using rmarkdown
-    
-    Quitting from lines 48-53 [unnamed-chunk-3] (eplet-mm.Rmd)
-    Error: processing vignette 'eplet-mm.Rmd' failed with diagnostics:
-    Error evaluating duckdb query: Parser Error: Maximum tree depth of 1000 exceeded in logical planner
-    --- failed re-building ‘eplet-mm.Rmd’
-    
-    SUMMARY: processing the following file failed:
-      ‘eplet-mm.Rmd’
-    
-    Error: Vignette re-building failed.
-    Execution halted
-    ```
-
 # iNZightTools
 
 <details>
@@ -3659,7 +3495,7 @@ Run `revdepcheck::cloud_details(, "hlaR")` for more info
 * GitHub: https://github.com/iNZightVIT/iNZightTools
 * Source code: https://github.com/cran/iNZightTools
 * Date/Publication: 2023-10-12 11:50:08 UTC
-* Number of recursive dependencies: 119
+* Number of recursive dependencies: 120
 
 Run `revdepcheck::cloud_details(, "iNZightTools")` for more info
 
@@ -3724,7 +3560,7 @@ Run `revdepcheck::cloud_details(, "iNZightTools")` for more info
 * GitHub: NA
 * Source code: https://github.com/cran/IPEDS
 * Date/Publication: 2022-11-01 07:52:51 UTC
-* Number of recursive dependencies: 81
+* Number of recursive dependencies: 80
 
 Run `revdepcheck::cloud_details(, "IPEDS")` for more info
 
@@ -8011,7 +7847,7 @@ Run `revdepcheck::cloud_details(, "IPEDS")` for more info
 * GitHub: https://github.com/epiverse-trace/linelist
 * Source code: https://github.com/cran/linelist
 * Date/Publication: 2024-02-28 17:30:02 UTC
-* Number of recursive dependencies: 60
+* Number of recursive dependencies: 59
 
 Run `revdepcheck::cloud_details(, "linelist")` for more info
 
@@ -8055,7 +7891,7 @@ Run `revdepcheck::cloud_details(, "linelist")` for more info
 * GitHub: https://github.com/massbays-tech/MassWateR
 * Source code: https://github.com/cran/MassWateR
 * Date/Publication: 2023-11-19 15:20:07 UTC
-* Number of recursive dependencies: 138
+* Number of recursive dependencies: 137
 
 Run `revdepcheck::cloud_details(, "MassWateR")` for more info
 
@@ -9260,7 +9096,7 @@ Run `revdepcheck::cloud_details(, "MassWateR")` for more info
 * GitHub: NA
 * Source code: https://github.com/cran/mpwR
 * Date/Publication: 2023-11-13 23:33:26 UTC
-* Number of recursive dependencies: 113
+* Number of recursive dependencies: 112
 
 Run `revdepcheck::cloud_details(, "mpwR")` for more info
 
@@ -9533,7 +9369,7 @@ Run `revdepcheck::cloud_details(, "mpwR")` for more info
 * GitHub: https://github.com/igordot/msigdbr
 * Source code: https://github.com/cran/msigdbr
 * Date/Publication: 2022-03-30 07:00:16 UTC
-* Number of recursive dependencies: 53
+* Number of recursive dependencies: 52
 
 Run `revdepcheck::cloud_details(, "msigdbr")` for more info
 
@@ -9598,7 +9434,7 @@ Run `revdepcheck::cloud_details(, "mtdesign")` for more info
 * GitHub: https://github.com/ibot-geoecology/myClim
 * Source code: https://github.com/cran/myClim
 * Date/Publication: 2024-02-16 11:20:02 UTC
-* Number of recursive dependencies: 107
+* Number of recursive dependencies: 106
 
 Run `revdepcheck::cloud_details(, "myClim")` for more info
 
@@ -9666,7 +9502,7 @@ Run `revdepcheck::cloud_details(, "myClim")` for more info
 * GitHub: NA
 * Source code: https://github.com/cran/omopgenerics
 * Date/Publication: 2024-03-09 23:30:10 UTC
-* Number of recursive dependencies: 61
+* Number of recursive dependencies: 68
 
 Run `revdepcheck::cloud_details(, "omopgenerics")` for more info
 
@@ -9721,7 +9557,7 @@ Run `revdepcheck::cloud_details(, "omopgenerics")` for more info
 * GitHub: https://github.com/USCbiostats/partition
 * Source code: https://github.com/cran/partition
 * Date/Publication: 2024-01-24 19:20:02 UTC
-* Number of recursive dependencies: 96
+* Number of recursive dependencies: 95
 
 Run `revdepcheck::cloud_details(, "partition")` for more info
 
@@ -9763,7 +9599,7 @@ Run `revdepcheck::cloud_details(, "partition")` for more info
 * GitHub: https://github.com/weecology/portalr
 * Source code: https://github.com/cran/portalr
 * Date/Publication: 2023-08-23 16:50:02 UTC
-* Number of recursive dependencies: 108
+* Number of recursive dependencies: 107
 
 Run `revdepcheck::cloud_details(, "portalr")` for more info
 
@@ -9832,7 +9668,7 @@ Run `revdepcheck::cloud_details(, "portalr")` for more info
 * GitHub: NA
 * Source code: https://github.com/cran/PupilPre
 * Date/Publication: 2020-03-10 05:20:02 UTC
-* Number of recursive dependencies: 73
+* Number of recursive dependencies: 72
 
 Run `revdepcheck::cloud_details(, "PupilPre")` for more info
 
@@ -9902,59 +9738,6 @@ Run `revdepcheck::cloud_details(, "PupilPre")` for more info
     Execution halted
     ```
 
-# rfars
-
-<details>
-
-* Version: 1.1.0
-* GitHub: https://github.com/s87jackson/rfars
-* Source code: https://github.com/cran/rfars
-* Date/Publication: 2024-02-15 20:40:02 UTC
-* Number of recursive dependencies: 147
-
-Run `revdepcheck::cloud_details(, "rfars")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking re-building of vignette outputs ... ERROR
-    ```
-    Error(s) in re-building vignettes:
-    --- re-building ‘Counts.Rmd’ using rmarkdown
-    trying URL 'https://static.nhtsa.gov/nhtsa/downloads/FARS/2021/National/FARS2021NationalSAS.zip'
-    Content type 'application/x-zip-compressed' length 43216670 bytes (41.2 MB)
-    ==================================================
-    downloaded 41.2 MB
-    
-    
-    Quitting from lines 36-37 [unnamed-chunk-2] (Counts.Rmd)
-    Error: processing vignette 'Counts.Rmd' failed with diagnostics:
-    Error evaluating duckdb query: Parser Error: Maximum tree depth of 1000 exceeded in logical planner
-    --- failed re-building ‘Counts.Rmd’
-    
-    --- re-building ‘Crash_sequence_of_events.Rmd’ using rmarkdown
-    trying URL 'https://static.nhtsa.gov/nhtsa/downloads/CRSS/2021/CRSS2021SAS.zip'
-    Content type 'application/x-zip-compressed' length 62354127 bytes (59.5 MB)
-    ==================================================
-    downloaded 59.5 MB
-    
-    
-    Quitting from lines 43-46 [unnamed-chunk-2] (Crash_sequence_of_events.Rmd)
-    Error: processing vignette 'Crash_sequence_of_events.Rmd' failed with diagnostics:
-    Error evaluating duckdb query: Out of Memory Error: could not allocate block of size 48.6MB (1.9GB/2.0GB used)
-    --- failed re-building ‘Crash_sequence_of_events.Rmd’
-    
-    --- re-building ‘Searchable_Codebooks.Rmd’ using rmarkdown
-    --- finished re-building ‘Searchable_Codebooks.Rmd’
-    
-    SUMMARY: processing the following files failed:
-      ‘Counts.Rmd’ ‘Crash_sequence_of_events.Rmd’
-    
-    Error: Vignette re-building failed.
-    Execution halted
-    ```
-
 # rWCVP
 
 <details>
@@ -9963,7 +9746,7 @@ Run `revdepcheck::cloud_details(, "rfars")` for more info
 * GitHub: https://github.com/matildabrown/rWCVP
 * Source code: https://github.com/cran/rWCVP
 * Date/Publication: 2023-02-16 15:20:02 UTC
-* Number of recursive dependencies: 131
+* Number of recursive dependencies: 130
 
 Run `revdepcheck::cloud_details(, "rWCVP")` for more info
 
@@ -10187,40 +9970,6 @@ Run `revdepcheck::cloud_details(, "rWCVP")` for more info
       Note: found 16 marked UTF-8 strings
     ```
 
-# rwicc
-
-<details>
-
-* Version: 0.1.3
-* GitHub: https://github.com/d-morrison/rwicc
-* Source code: https://github.com/cran/rwicc
-* Date/Publication: 2022-03-09 21:40:06 UTC
-* Number of recursive dependencies: 93
-
-Run `revdepcheck::cloud_details(, "rwicc")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking re-building of vignette outputs ... ERROR
-    ```
-    Error(s) in re-building vignettes:
-      ...
-    --- re-building ‘how-to-use-rwicc.Rmd’ using rmarkdown
-    
-    Quitting from lines 74-80 [unnamed-chunk-5] (how-to-use-rwicc.Rmd)
-    Error: processing vignette 'how-to-use-rwicc.Rmd' failed with diagnostics:
-    Error evaluating duckdb query: Parser Error: Maximum tree depth of 1000 exceeded in logical planner
-    --- failed re-building ‘how-to-use-rwicc.Rmd’
-    
-    SUMMARY: processing the following file failed:
-      ‘how-to-use-rwicc.Rmd’
-    
-    Error: Vignette re-building failed.
-    Execution halted
-    ```
-
 # sapfluxnetr
 
 <details>
@@ -10229,7 +9978,7 @@ Run `revdepcheck::cloud_details(, "rwicc")` for more info
 * GitHub: https://github.com/sapfluxnet/sapfluxnetr
 * Source code: https://github.com/cran/sapfluxnetr
 * Date/Publication: 2023-01-25 15:30:02 UTC
-* Number of recursive dependencies: 83
+* Number of recursive dependencies: 82
 
 Run `revdepcheck::cloud_details(, "sapfluxnetr")` for more info
 
@@ -10359,58 +10108,58 @@ Run `revdepcheck::cloud_details(, "sfc")` for more info
     Joining with `by = join_by(SAMPLE)`
     $result
         TIME START END       MEAN     MEDIAN        SD        CV        Q05
-    1  Y2000     R  Ch  9.2484594  9.1125226 1.2064304 0.1304466  7.2870892
-    2  Y2000     R   W  1.0759552  0.7520497 0.9212188 0.8561869  0.1129034
-    3  Y2000    Ch  Cr  6.2226292  6.3365394 0.9562614 0.1536748  4.7828478
-    4  Y2000    Ch   H  1.3758465  1.2639645 0.4617693 0.3356256  0.7862412
-    5  Y2000    Ch   W  3.3606290  2.6531057 2.3619138 0.7028190  0.6407817
-    6  Y2000    Cr   H  2.3530953  2.3064335 0.4843526 0.2058364  1.7502264
-    7  Y2000    Cr   A  2.0916403  2.0501631 0.4305356 0.2058364  1.5557568
-    8  Y2000    Cr   W  1.7778935  1.5669412 1.0205102 0.5739996  0.5128235
-    9  Y2000     H   W  4.9053816  4.7882205 0.5950402 0.1213036  4.0774930
-    10 Y2000     A   H  1.1764397  1.1489060 0.3129565 0.2660200  0.6745281
-    11 Y2000     A   W  0.9152006  0.9811556 0.5356230 0.5852521  0.1358286
-    12 Y2000     W  Ch  1.7106453  1.7429496 1.2558848 0.7341585  0.4036590
-    13 Y2005     R  Ch 18.0532538 17.7577658 1.9138159 0.1060095 15.7757371
-    14 Y2005     R   W  2.7541627  2.6655045 1.9074025 0.6925526  0.2311572
-    15 Y2005    Ch  Cr 11.2493821 10.7697754 2.1156853 0.1880712  8.9237484
-    16 Y2005    Ch   H  3.1847970  3.1013110 0.8489570 0.2665655  1.9443911
-    17 Y2005    Ch   W  7.4457462  6.6841558 4.8858174 0.6561891  1.0826706
-    18 Y2005    Cr   H  4.3358106  4.3496989 0.7211307 0.1663197  3.2559897
-    19 Y2005    Cr   A  3.8540539  3.8663990 0.6410050 0.1663197  2.8942131
-    20 Y2005    Cr   W  3.0595176  2.6978073 2.4791450 0.8103058  0.3654175
-    21 Y2005     H   W  9.7759813  9.2996413 1.7217866 0.1761242  7.5906560
-    22 Y2005     A   H  2.2553736  2.1318942 0.7131394 0.3161957  1.4495447
-    23 Y2005     A   W  1.5986803  1.4226200 0.8022342 0.5018103  0.6067486
-    24 Y2005     W  Ch  3.8266715  3.0222228 2.9369693 0.7674997  0.4740013
-              Q25       Q75       Q95
-    1   8.6855086 10.127050 11.051288
-    2   0.4657907  1.351081  2.873015
-    3   5.4882125  7.182074  7.600160
-    4   1.1303094  1.552045  2.153731
-    5   1.3308781  5.343323  6.208191
-    6   2.1455364  2.558564  3.072691
-    7   1.9071435  2.274279  2.731281
-    8   1.1244909  2.459128  3.528063
-    9   4.6134008  5.244322  5.855006
-    10  1.0112753  1.397053  1.624612
-    11  0.5022383  1.226917  1.512293
-    12  0.6985550  2.691305  3.773079
-    13 16.8197214 19.047180 21.213584
-    14  1.5038329  3.948767  6.432658
-    15  9.5533251 12.826493 14.663180
-    16  2.5405991  3.650362  4.585913
-    17  3.6738073  9.408496 15.153323
-    18  3.9226748  4.882609  5.383322
-    19  3.4868221  4.340097  4.785175
-    20  1.3461102  3.994815  8.196365
-    21  8.5604740 11.221860 12.408347
-    22  1.8194888  2.555921  3.246427
-    23  1.1254074  1.846373  3.071477
-    24  1.6119197  5.514600 10.108212
+    1  Y2000     R  Ch  9.4073270  9.7460508 1.2904783 0.1371780  7.2326681
+    2  Y2000     R   W  1.5394596  1.5324838 0.9795115 0.6362697  0.3604714
+    3  Y2000    Ch  Cr  6.0353617  6.1918021 1.0060245 0.1666883  4.4786762
+    4  Y2000    Ch   H  1.5650956  1.4974552 0.5704781 0.3645005  0.9481377
+    5  Y2000    Ch   W  3.6891917  3.9337668 2.3806983 0.6453171  0.3755584
+    6  Y2000    Cr   H  2.1420562  2.0775726 0.2749277 0.1283476  1.7887502
+    7  Y2000    Cr   A  1.9040499  1.8467312 0.2443801 0.1283476  1.5900002
+    8  Y2000    Cr   W  1.9892556  1.9548127 1.0025944 0.5040048  0.6020191
+    9  Y2000     H   W  4.8966839  5.2726343 0.5950973 0.1215307  4.0777644
+    10 Y2000     A   H  1.1895321  1.1196763 0.3476985 0.2922986  0.7336558
+    11 Y2000     A   W  0.7145178  0.6960376 0.3429872 0.4800260  0.2186958
+    12 Y2000     W  Ch  1.8823220  2.0683707 1.3587282 0.7218362  0.1928542
+    13 Y2005     R  Ch 16.9660767 17.0432631 2.4530027 0.1445828 13.6082727
+    14 Y2005     R   W  3.7527561  2.4500120 2.9931995 0.7976003  0.8859488
+    15 Y2005    Ch  Cr 10.7571766 11.1455797 1.3656929 0.1269564  8.8294153
+    16 Y2005    Ch   H  3.0042462  3.2894901 1.2630845 0.4204331  1.3578150
+    17 Y2005    Ch   W  6.6072562  6.5995682 4.2404081 0.6417805  0.4664748
+    18 Y2005    Cr   H  4.6500867  4.4397481 1.0433997 0.2243828  3.3905897
+    19 Y2005    Cr   A  4.1334104  3.9464427 0.9274664 0.2243828  3.0138575
+    20 Y2005    Cr   W  1.9736795  1.1945377 1.7933846 0.9086504  0.1261801
+    21 Y2005     H   W  9.9206597 10.2508782 1.6271818 0.1640195  7.4143651
+    22 Y2005     A   H  2.2663268  2.3268326 0.3637105 0.1604846  1.7717498
+    23 Y2005     A   W  1.8670836  1.6773775 1.1128158 0.5960182  0.3731602
+    24 Y2005     W  Ch  3.4026024  2.7334734 2.6961879 0.7923900  0.3006180
+              Q25        Q75       Q95
+    1   8.9540164 10.1305961 10.977982
+    2   0.9494330  1.8819537  3.080348
+    3   5.6848034  6.4150275  7.312182
+    4   1.0981344  1.9063567  2.469066
+    5   2.0804204  5.2996131  7.003619
+    6   1.9175718  2.3608948  2.504544
+    7   1.7045083  2.0985731  2.226261
+    8   1.1803986  2.7436710  3.298791
+    9   4.3787934  5.2871870  5.538748
+    10  1.0064503  1.3858075  1.675680
+    11  0.6002167  0.8042635  1.250301
+    12  0.7720283  2.8947515  3.797955
+    13 15.1662703 18.8948422 20.242390
+    14  2.2441927  4.1911981  9.002778
+    15  9.6366607 11.4844283 12.589994
+    16  1.8366008  3.7674110  4.704167
+    17  4.1719236  9.5956124 12.108446
+    18  3.7747797  5.6867494  6.028537
+    19  3.3553597  5.0548884  5.358699
+    20  0.6591704  3.5168578  4.646736
+    21  8.9581868 11.2728374 11.623618
+    22  2.0091813  2.3963462  2.832450
+    23  1.0580411  2.7754922  3.349518
+    24  1.8685224  4.2885403  7.910647
     
     $sample.size
-    [1] 25
+    [1] 11
     
     > 
     > ## model as csv
@@ -10519,7 +10268,7 @@ Run `revdepcheck::cloud_details(, "simaerep")` for more info
 * GitHub: https://github.com/josesamos/starschemar
 * Source code: https://github.com/cran/starschemar
 * Date/Publication: 2024-01-08 15:30:02 UTC
-* Number of recursive dependencies: 60
+* Number of recursive dependencies: 59
 
 Run `revdepcheck::cloud_details(, "starschemar")` for more info
 
@@ -10763,7 +10512,7 @@ Run `revdepcheck::cloud_details(, "starschemar")` for more info
 * GitHub: https://github.com/FoundrySpatial/streamDepletr
 * Source code: https://github.com/cran/streamDepletr
 * Date/Publication: 2023-07-19 21:30:02 UTC
-* Number of recursive dependencies: 71
+* Number of recursive dependencies: 70
 
 Run `revdepcheck::cloud_details(, "streamDepletr")` for more info
 
@@ -10797,7 +10546,7 @@ Run `revdepcheck::cloud_details(, "streamDepletr")` for more info
 * GitHub: https://github.com/asardaes/table.express
 * Source code: https://github.com/cran/table.express
 * Date/Publication: 2023-04-02 22:30:02 UTC
-* Number of recursive dependencies: 55
+* Number of recursive dependencies: 54
 
 Run `revdepcheck::cloud_details(, "table.express")` for more info
 
@@ -10922,7 +10671,7 @@ Run `revdepcheck::cloud_details(, "table.express")` for more info
 * GitHub: https://github.com/dwulff/text2sdg
 * Source code: https://github.com/cran/text2sdg
 * Date/Publication: 2023-03-17 20:50:02 UTC
-* Number of recursive dependencies: 95
+* Number of recursive dependencies: 93
 
 Run `revdepcheck::cloud_details(, "text2sdg")` for more info
 
@@ -10963,7 +10712,7 @@ Run `revdepcheck::cloud_details(, "text2sdg")` for more info
 * GitHub: https://github.com/r-transit/tidytransit
 * Source code: https://github.com/cran/tidytransit
 * Date/Publication: 2023-12-07 13:40:02 UTC
-* Number of recursive dependencies: 99
+* Number of recursive dependencies: 96
 
 Run `revdepcheck::cloud_details(, "tidytransit")` for more info
 
@@ -11016,7 +10765,7 @@ Run `revdepcheck::cloud_details(, "tidytransit")` for more info
 * GitHub: https://github.com/patzaw/TKCat
 * Source code: https://github.com/cran/TKCat
 * Date/Publication: 2023-02-16 14:50:03 UTC
-* Number of recursive dependencies: 115
+* Number of recursive dependencies: 114
 
 Run `revdepcheck::cloud_details(, "TKCat")` for more info
 
@@ -11050,7 +10799,7 @@ Run `revdepcheck::cloud_details(, "TKCat")` for more info
 * GitHub: https://github.com/luisDVA/unheadr
 * Source code: https://github.com/cran/unheadr
 * Date/Publication: 2022-08-15 05:40:02 UTC
-* Number of recursive dependencies: 75
+* Number of recursive dependencies: 74
 
 Run `revdepcheck::cloud_details(, "unheadr")` for more info
 
@@ -11086,7 +10835,7 @@ Run `revdepcheck::cloud_details(, "unheadr")` for more info
 * GitHub: https://github.com/knausb/vcfR
 * Source code: https://github.com/cran/vcfR
 * Date/Publication: 2023-12-08 00:30:03 UTC
-* Number of recursive dependencies: 101
+* Number of recursive dependencies: 100
 
 Run `revdepcheck::cloud_details(, "vcfR")` for more info
 
@@ -11286,7 +11035,7 @@ Run `revdepcheck::cloud_details(, "vDiveR")` for more info
 * GitHub: https://github.com/GreshamLab/vivaldi
 * Source code: https://github.com/cran/vivaldi
 * Date/Publication: 2023-03-21 20:10:02 UTC
-* Number of recursive dependencies: 103
+* Number of recursive dependencies: 102
 
 Run `revdepcheck::cloud_details(, "vivaldi")` for more info
 
@@ -11330,7 +11079,7 @@ Run `revdepcheck::cloud_details(, "vivaldi")` for more info
 * GitHub: NA
 * Source code: https://github.com/cran/VWPre
 * Date/Publication: 2020-11-29 17:10:02 UTC
-* Number of recursive dependencies: 70
+* Number of recursive dependencies: 69
 
 Run `revdepcheck::cloud_details(, "VWPre")` for more info
 
@@ -11373,7 +11122,7 @@ Run `revdepcheck::cloud_details(, "VWPre")` for more info
 * GitHub: https://github.com/bergsmat/yamlet
 * Source code: https://github.com/cran/yamlet
 * Date/Publication: 2024-02-16 14:00:02 UTC
-* Number of recursive dependencies: 104
+* Number of recursive dependencies: 103
 
 Run `revdepcheck::cloud_details(, "yamlet")` for more info
 
@@ -11490,7 +11239,7 @@ Run `revdepcheck::cloud_details(, "yamlet")` for more info
       Execution halted
     ```
 
-## Newly fixed
+## In both
 
 *   checking re-building of vignette outputs ... WARNING
     ```
@@ -11499,19 +11248,7 @@ Run `revdepcheck::cloud_details(, "yamlet")` for more info
     --- finished re-building ‘scripted_html.Rmd’
     
     --- re-building ‘scripted_pdf.Rmd’ using rmarkdown
-    tlmgr: package repository https://ctan.math.utah.edu/ctan/tex-archive/systems/texlive/tlnet (verified)
-    [1/1, ??:??/??:??] install: multirow [3k]
-    running mktexlsr ...
-    done running mktexlsr.
-    tlmgr: package log updated: /opt/TinyTeX/texmf-var/web2c/tlmgr.log
-    tlmgr: command log updated: /opt/TinyTeX/texmf-var/web2c/tlmgr-commands.log
-    tlmgr: package repository https://ctan.mirrors.hoobly.com/systems/texlive/tlnet (verified)
-    [1/1, ??:??/??:??] install: wrapfig [10k]
-    running mktexlsr ...
-    done running mktexlsr.
-    tlmgr: package log updated: /opt/TinyTeX/texmf-var/web2c/tlmgr.log
-    tlmgr: command log updated: /opt/TinyTeX/texmf-var/web2c/tlmgr-commands.log
-    tlmgr: package repository https://ctan.math.utah.edu/ctan/tex-archive/systems/texlive/tlnet (verified)
+    tlmgr: package repository https://mirror.mwt.me/ctan/systems/texlive/tlnet (verified)
     [1/1, ??:??/??:??] install: colortbl [4k]
     running mktexlsr ...
     done running mktexlsr.
@@ -11523,15 +11260,28 @@ Run `revdepcheck::cloud_details(, "yamlet")` for more info
     done running mktexlsr.
     tlmgr: package log updated: /opt/TinyTeX/texmf-var/web2c/tlmgr.log
     tlmgr: command log updated: /opt/TinyTeX/texmf-var/web2c/tlmgr-commands.log
-    tlmgr: package repository https://mirror.las.iastate.edu/tex-archive/systems/texlive/tlnet (verified)
+    tlmgr: package repository https://mirrors.rit.edu/CTAN/systems/texlive/tlnet (verified)
     [1/2, ??:??/??:??] install: tabu [24k]
     [2/2, 00:00/00:00] install: varwidth [5k]
     running mktexlsr ...
     done running mktexlsr.
     tlmgr: package log updated: /opt/TinyTeX/texmf-var/web2c/tlmgr.log
     tlmgr: command log updated: /opt/TinyTeX/texmf-var/web2c/tlmgr-commands.log
-    tlmgr: package repository https://mirror.mwt.me/ctan/systems/texlive/tlnet (verified)
+    tlmgr: package repository https://ctan.math.utah.edu/ctan/tex-archive/systems/texlive/tlnet (verified)
     [1/1, ??:??/??:??] install: threeparttable [6k]
+    running mktexlsr ...
+    done running mktexlsr.
+    tlmgr: package log updated: /opt/TinyTeX/texmf-var/web2c/tlmgr.log
+    tlmgr: command log updated: /opt/TinyTeX/texmf-var/web2c/tlmgr-commands.log
+    tlmgr: package repository https://ctan.math.utah.edu/ctan/tex-archive/systems/texlive/tlnet (verified)
+    [1/1, ??:??/??:??] install: threeparttablex [3k]
+    running mktexlsr ...
+    done running mktexlsr.
+    tlmgr: package log updated: /opt/TinyTeX/texmf-var/web2c/tlmgr.log
+    tlmgr: command log updated: /opt/TinyTeX/texmf-var/web2c/tlmgr-commands.log
+    tlmgr: package repository https://ctan.mirrors.hoobly.com/systems/texlive/tlnet (verified)
+    [1/2, ??:??/??:??] install: environ [2k]
+    [2/2, 00:00/00:00] install: trimspaces [1k]
     running mktexlsr ...
     done running mktexlsr.
     tlmgr: package log updated: /opt/TinyTeX/texmf-var/web2c/tlmgr.log
@@ -11542,14 +11292,14 @@ Run `revdepcheck::cloud_details(, "yamlet")` for more info
     texlive-scripts); please use a different mirror and/or wait a day or two.
     
     Warning in system2("tlmgr", args, ...) :
-      running command ''tlmgr' search --file --global '/threeparttablex.sty'' had status 1
-    ! LaTeX Error: File `threeparttablex.sty' not found.
+      running command ''tlmgr' search --file --global '/makecell.sty'' had status 1
+    ! LaTeX Error: File `makecell.sty' not found.
     
     ! Emergency stop.
     <read *> 
     
     Error: processing vignette 'scripted_pdf.Rmd' failed with diagnostics:
-    LaTeX failed to compile /tmp/workdir/yamlet/old/yamlet.Rcheck/vign_test/yamlet/vignettes/scripted_pdf.tex. See https://yihui.org/tinytex/r/#debugging for debugging tips. See scripted_pdf.log for more info.
+    LaTeX failed to compile /tmp/workdir/yamlet/new/yamlet.Rcheck/vign_test/yamlet/vignettes/scripted_pdf.tex. See https://yihui.org/tinytex/r/#debugging for debugging tips. See scripted_pdf.log for more info.
     --- failed re-building ‘scripted_pdf.Rmd’
     
     --- re-building ‘yamlet-introduction.Rmd’ using rmarkdown
