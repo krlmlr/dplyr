@@ -1,19 +1,36 @@
 ## revdepcheck results
 
-We checked 51 reverse dependencies (50 from CRAN + 1 from Bioconductor), comparing R CMD check results across CRAN and dev versions of this package.
+We checked 4356 reverse dependencies (4355 from CRAN + 1 from Bioconductor), comparing R CMD check results across CRAN and dev versions of this package.
 
- * We saw 46 new problems
- * We failed to check 0 packages
+ * We saw 52 new problems
+ * We failed to check 7 packages
 
 Issues with CRAN packages are summarised below.
 
 ### New problems
 (This reports the first line of each new failure)
 
+* activAnalyzer
+  checking tests ... ERROR
+  checking running R code from vignettes ... ERROR
+  checking re-building of vignette outputs ... NOTE
+
 * arrow
   checking tests ... ERROR
 
 * auk
+  checking examples ... ERROR
+
+* CARBayes
+  checking installed package size ... NOTE
+
+* cards
+  checking tests ... ERROR
+
+* causalBatch
+  checking tests ... ERROR
+
+* CausalQueries
   checking examples ... ERROR
 
 * CCWeights
@@ -22,11 +39,11 @@ Issues with CRAN packages are summarised below.
 * CodelistGenerator
   checking tests ... ERROR
 
-* cogmapr
-  checking examples ... ERROR
-
 * comperes
   checking tests ... ERROR
+
+* covidcast
+  checking re-building of vignette outputs ... NOTE
 
 * crosshap
   checking examples ... ERROR
@@ -49,20 +66,20 @@ Issues with CRAN packages are summarised below.
   checking tests ... ERROR
 
 * eSDM
-  checking re-building of vignette outputs ... ERROR
+  checking running R code from vignettes ... ERROR
+  checking re-building of vignette outputs ... NOTE
 
 * ezplot
   checking tests ... ERROR
 
-* fgeo.analyze
+* fqar
   checking tests ... ERROR
 
-* finnts
+* gtreg
   checking tests ... ERROR
 
-* funneljoin
-  checking tests ... ERROR
-  checking re-building of vignette outputs ... ERROR
+* gtsummary
+  checking running R code from vignettes ... ERROR
 
 * heemod
   checking tests ... ERROR
@@ -70,11 +87,11 @@ Issues with CRAN packages are summarised below.
 * iNZightTools
   checking tests ... ERROR
 
-* IPEDS
-  checking examples ... ERROR
-
 * linelist
   checking tests ... ERROR
+
+* margaret
+  checking installed package size ... NOTE
 
 * MassWateR
   checking examples ... ERROR
@@ -83,32 +100,53 @@ Issues with CRAN packages are summarised below.
 
 * mpwR
   checking tests ... ERROR
-  checking re-building of vignette outputs ... ERROR
+  checking running R code from vignettes ... ERROR
+  checking re-building of vignette outputs ... NOTE
 
 * msigdbr
   checking tests ... ERROR
+  checking running R code from vignettes ... ERROR
+  checking re-building of vignette outputs ... NOTE
 
 * mtdesign
   checking tests ... ERROR
 
-* myClim
+* multiverse
+  checking tests ... ERROR
+
+* NeuroDecodeR
   checking examples ... ERROR
+  checking tests ... ERROR
+  checking running R code from vignettes ... ERROR
+  checking re-building of vignette outputs ... NOTE
+
+* npi
+  checking running R code from vignettes ... ERROR
 
 * omopgenerics
   checking tests ... ERROR
 
 * partition
-  checking re-building of vignette outputs ... ERROR
+  checking running R code from vignettes ... ERROR
+  checking re-building of vignette outputs ... NOTE
 
 * portalr
   checking tests ... ERROR
 
 * PupilPre
   checking examples ... ERROR
-  checking re-building of vignette outputs ... ERROR
+  checking running R code from vignettes ... ERROR
+  checking re-building of vignette outputs ... NOTE
+
+* rfars
+  checking running R code from vignettes ... ERROR
+  checking re-building of vignette outputs ... NOTE
 
 * rWCVP
   checking tests ... ERROR
+
+* sampler
+  checking examples ... ERROR
 
 * sapfluxnetr
   checking tests ... ERROR
@@ -116,27 +154,21 @@ Issues with CRAN packages are summarised below.
 * sfc
   checking examples ... ERROR
 
-* simaerep
-  checking tests ... ERROR
-
 * starschemar
   checking examples ... ERROR
   checking tests ... ERROR
 
 * streamDepletr
-  checking re-building of vignette outputs ... ERROR
-
-* table.express
-  checking tests ... ERROR
+  checking running R code from vignettes ... ERROR
+  checking re-building of vignette outputs ... NOTE
 
 * text2sdg
-  checking re-building of vignette outputs ... ERROR
+  checking running R code from vignettes ... ERROR
+  checking re-building of vignette outputs ... NOTE
 
 * tidytransit
-  checking re-building of vignette outputs ... ERROR
-
-* TKCat
-  checking re-building of vignette outputs ... ERROR
+  checking running R code from vignettes ... ERROR
+  checking re-building of vignette outputs ... NOTE
 
 * unheadr
   checking tests ... ERROR
@@ -149,12 +181,24 @@ Issues with CRAN packages are summarised below.
   checking tests ... ERROR
 
 * vivaldi
-  checking re-building of vignette outputs ... ERROR
+  checking running R code from vignettes ... ERROR
+  checking re-building of vignette outputs ... NOTE
 
 * VWPre
-  checking re-building of vignette outputs ... ERROR
+  checking running R code from vignettes ... ERROR
+  checking re-building of vignette outputs ... NOTE
 
-* yamlet
+* zipcodeR
   checking examples ... ERROR
-  checking tests ... ERROR
+  checking running R code from vignettes ... ERROR
+  checking re-building of vignette outputs ... NOTE
 
+### Failed to check
+
+* bayesdfa         (NA)
+* EcoEnsemble      (NA)
+* loon.shiny       (NA)
+* multinma         (NA)
+* TestAnaAPP       (NA)
+* TriDimRegression (NA)
+* triptych         (NA)
