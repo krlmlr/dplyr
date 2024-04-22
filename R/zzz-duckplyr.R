@@ -240,6 +240,179 @@ duckplyr_collect <- function(x, ...) {
   out
 }
 
+get_collector_root_path <- function() {
+  normalizePath("collector", mustWork = TRUE)
+}
+
+collect_dplyr_calls <- function(pkg, force = FALSE) {
+  check_collector_dplyr()
+  collector_path <- get_collector_root_path()
+
+  if (force) {
+    unlink(file.path(collector_path, paste0(pkg, "_collect")), recursive = TRUE, force = TRUE)
+  } else if (dir.exists(file.path(collector_path, paste0(pkg, "_collect")))) {
+    stop("Already collected ", pkg, ", use force = TRUE to re-collect")
+  }
+
+  download_pkg <- utils::download.packages
+  download_pkg_env <- new_environment(parent = fn_env(download_pkg))
+  download_pkg_env$download.file <- function(url, destfile, method, ...) {
+    0L
+  }
+  fn_env(download_pkg) <- download_pkg_env
+
+  pkg_path <- download_pkg(pkg, collector_path)[,2]
+
+  if (!file.exists(pkg_path)) {
+    pkg_path <- utils::download.packages(pkg, collector_path)[,2]
+  }
+
+  stopifnot(file.exists(pkg_path))
+
+  utils::untar(pkg_path, files = file.path(pkg, "DESCRIPTION"), exdir = collector_path)
+
+  print(fs::path(collector_path, pkg))
+  pak::pak(paste0("deps::", fs::path(collector_path, pkg)), dependencies = TRUE, ask = FALSE)
+
+  my_do_collect <- do_collect
+  fn_env(my_do_collect) <- base_env()
+
+  out <- callr::r_bg(my_do_collect, list(pkg, collector_path, pkg_path))
+
+  later::later(delay = 10, function() {
+    if (!out$is_alive()) {
+      message("Collector process ", out$get_pid(), " died after less than 10 seconds with exit code ", out$get_exit_status())
+    }
+  })
+
+  out
+}
+
+check_collector_dplyr <- function() {
+  requireNamespace("dplyr", quietly = TRUE)
+
+  # Check for if (Sys.getenv(...) != ...)
+  body <- body(dplyr:::.onLoad)
+  stopifnot(body[[2]][[1]] == "if")
+  stopifnot(body[[2]][[2]][[2]][[1]] == "Sys.getenv")
+}
+
+do_collect <- function(pkg, collector_path, pkg_path) {
+  setwd(collector_path)
+  ps_root <- "_ps"
+  dir.create(ps_root, showWarnings = FALSE)
+  ps_path <- file.path(ps_root, paste0(Sys.getpid(), ".log"))
+
+  collector_root <- paste0(pkg, "_collect")
+  unlink(collector_root, recursive = TRUE, force = TRUE)
+  dir.create(collector_root)
+  collector_path <- normalizePath(collector_root, mustWork = TRUE)
+
+  can_run <- function() {
+    pids <- as.integer(gsub("[.]log$", "", dir(ps_root)))
+    handles <- purrr::compact(purrr::map(pids, ~ tryCatch(ps::ps_handle(.x), error = function(e) NULL)))
+    running <- purrr::map_lgl(handles, ps::ps_is_running)
+    sum(running) < 4
+  }
+
+  while (!can_run()) {
+    # Avoid buffer overflow
+    # message("Waiting for a collector process to finish: ", Sys.getpid())
+    Sys.sleep(10)
+  }
+
+  Sys.setenv(COLLECTOR_PATH = collector_path)
+  out <- callr::rcmd("check", pkg_path, stdout = ps_path)
+  if (out$status == 0) {
+    unlink(ps_path)
+  }
+}
+
+collect_duckplyr_results <- function() {
+  collector_path <- get_collector_root_path()
+  collect_dirs <- fs::dir_ls(fs::path(collector_path), type = "directory", glob = "*_collect")
+  files <- unlist(purrr::map(collect_dirs, ~ fs::dir_ls(
+    .x,
+    regexp = "(?!(^.*-dplyr[.]qs$|^.*-duckplyr[.]qs$))^.*[.]qs$",
+    perl = TRUE
+  )))
+
+  withr::local_envvar(DUCKPLYR_OUTPUT_ORDER = TRUE)
+
+  methods_overwrite()
+  on.exit(methods_restore())
+
+  walk(.progress = TRUE, files, ~ {
+    duckplyr_path <- paste0(fs::path_ext_remove(.x), "-duckplyr.qs")
+    message(duckplyr_path)
+    if (fs::file_exists(duckplyr_path)) {
+      return()
+    }
+    data <- qs::qread(.x)
+    attr(data$call, "srcref") <- NULL
+    duckplyr <- try({ out <- eval(data$call, data$env); NROW(out); out })
+    qs::qsave(tibble(value = list(data$value), duckplyr = list(duckplyr)), file = duckplyr_path)
+  })
+}
+
+find_bad_duckplyr_results <- function() {
+  collector_path <- get_collector_root_path()
+  collect_dirs <- fs::dir_ls(fs::path(collector_path), type = "directory", glob = "*_collect")
+  files <- unlist(purrr::map(collect_dirs, ~ fs::dir_ls(
+    .x,
+    regexp = "^.*-duckplyr[.]qs$"
+  )))
+
+  purrr::walk(.progress = TRUE, files, ~ {
+    good <- paste0(.x, ".good")
+    bad <- paste0(.x, ".bad")
+    if (file.exists(good) || file.exists(bad)) {
+      return()
+    }
+    message(.x)
+    res <- qs::qread(.x)
+    if (identical(res$value[[1]], res$duckplyr[[1]])) {
+      writeLines(character(), good)
+    } else {
+      writeLines(character(), bad)
+    }
+  })
+}
+
+get_bad_duckplyr_results <- function(pkg = NULL) {
+  collector_path <- get_collector_root_path()
+  if (is.null(pkg)) {
+    collect_dirs <- fs::dir_ls(fs::path(collector_path), type = "directory", glob = "*_collect")
+  } else {
+    collect_dirs <- fs::path(collector_path, paste0(pkg, "_collect"))
+  }
+
+  files <- unlist(purrr::map(collect_dirs, ~ fs::dir_ls(
+    .x,
+    regexp = "^.*-duckplyr[.]qs$"
+  )))
+
+  purrr::map_dfr(.progress = TRUE, files, ~ {
+    bad <- paste0(.x, ".bad")
+    if (!file.exists(bad)) {
+      return()
+    }
+    message(.x)
+    res <- qs::qread(.x)
+
+    path <- stringr::str_replace(.x, "-duckplyr", "")
+    orig <- qs::qread(path)
+
+    tibble(
+      call = list(orig$call),
+      env = list(orig$env),
+      dplyr = res$value,
+      duckplyr = res$duckplyr,
+      bad = inherits(res$duckplyr[[1]], "try-error"),
+    )
+  })
+}
+
 # Generated by 02-duckplyr_df-methods.R
 #' @export
 compute.data.frame <- function(x, ...) {
@@ -4042,7 +4215,7 @@ rel_translate <- function(
                 values <- eval(expr[[3]], envir = baseenv())
                 consts <- map(values, do_translate, in_window = in_window)
                 ops <- map(consts, list, do_translate(expr[[2]]))
-                cmp <- map(ops, relexpr_function, name = "==")
+                cmp <- map(ops, relexpr_function, name = "___eq_na_matches_na")
                 alt <- reduce(cmp, function(.x, .y) {
                   relexpr_function("|", list(.x, .y))
                 })
