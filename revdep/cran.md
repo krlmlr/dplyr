@@ -1,9 +1,9 @@
 ## revdepcheck results
 
-We checked 4356 reverse dependencies (4355 from CRAN + 1 from Bioconductor), comparing R CMD check results across CRAN and dev versions of this package.
+We checked 52 reverse dependencies, comparing R CMD check results across CRAN and dev versions of this package.
 
- * We saw 52 new problems
- * We failed to check 7 packages
+ * We saw 44 new problems
+ * We failed to check 0 packages
 
 Issues with CRAN packages are summarised below.
 
@@ -21,9 +21,6 @@ Issues with CRAN packages are summarised below.
 * auk
   checking examples ... ERROR
 
-* CARBayes
-  checking installed package size ... NOTE
-
 * cards
   checking tests ... ERROR
 
@@ -38,12 +35,6 @@ Issues with CRAN packages are summarised below.
 
 * CodelistGenerator
   checking tests ... ERROR
-
-* comperes
-  checking tests ... ERROR
-
-* covidcast
-  checking re-building of vignette outputs ... NOTE
 
 * crosshap
   checking examples ... ERROR
@@ -90,14 +81,6 @@ Issues with CRAN packages are summarised below.
 * linelist
   checking tests ... ERROR
 
-* margaret
-  checking installed package size ... NOTE
-
-* MassWateR
-  checking examples ... ERROR
-  checking tests ... ERROR
-  checking tests ... ERROR
-
 * mpwR
   checking tests ... ERROR
   checking running R code from vignettes ... ERROR
@@ -105,8 +88,6 @@ Issues with CRAN packages are summarised below.
 
 * msigdbr
   checking tests ... ERROR
-  checking running R code from vignettes ... ERROR
-  checking re-building of vignette outputs ... NOTE
 
 * mtdesign
   checking tests ... ERROR
@@ -120,9 +101,6 @@ Issues with CRAN packages are summarised below.
   checking running R code from vignettes ... ERROR
   checking re-building of vignette outputs ... NOTE
 
-* npi
-  checking running R code from vignettes ... ERROR
-
 * omopgenerics
   checking tests ... ERROR
 
@@ -130,16 +108,12 @@ Issues with CRAN packages are summarised below.
   checking running R code from vignettes ... ERROR
   checking re-building of vignette outputs ... NOTE
 
-* portalr
-  checking tests ... ERROR
-
 * PupilPre
   checking examples ... ERROR
   checking running R code from vignettes ... ERROR
   checking re-building of vignette outputs ... NOTE
 
 * rfars
-  checking running R code from vignettes ... ERROR
   checking re-building of vignette outputs ... NOTE
 
 * rWCVP
@@ -150,9 +124,6 @@ Issues with CRAN packages are summarised below.
 
 * sapfluxnetr
   checking tests ... ERROR
-
-* sfc
-  checking examples ... ERROR
 
 * starschemar
   checking examples ... ERROR
@@ -193,12 +164,3 @@ Issues with CRAN packages are summarised below.
   checking running R code from vignettes ... ERROR
   checking re-building of vignette outputs ... NOTE
 
-### Failed to check
-
-* bayesdfa         (NA)
-* EcoEnsemble      (NA)
-* loon.shiny       (NA)
-* multinma         (NA)
-* TestAnaAPP       (NA)
-* TriDimRegression (NA)
-* triptych         (NA)

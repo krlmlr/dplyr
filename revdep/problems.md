@@ -803,84 +803,6 @@ Run `revdepcheck::cloud_details(, "auk")` for more info
       ‘development.Rmd’ using ‘UTF-8’... OK
     ```
 
-# CARBayes
-
-<details>
-
-* Version: 6.1.1
-* GitHub: https://github.com/duncanplee/CARBayes
-* Source code: https://github.com/cran/CARBayes
-* Date/Publication: 2024-03-08 13:20:02 UTC
-* Number of recursive dependencies: 137
-
-Run `revdepcheck::cloud_details(, "CARBayes")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking installed package size ... NOTE
-    ```
-      installed size is  5.1Mb
-      sub-directories of 1Mb or more:
-        libs   3.6Mb
-    ```
-
-## In both
-
-*   checking re-building of vignette outputs ... NOTE
-    ```
-    Error(s) in re-building vignettes:
-    --- re-building ‘CARBayes.Rnw’ using Sweave
-    Linking to GEOS 3.8.0, GDAL 3.0.4, PROJ 6.3.1; sf_use_s2() is TRUE
-    
-    Attaching package: ‘dplyr’
-    
-    The following objects are masked from ‘package:stats’:
-    
-        filter, lag
-    
-    The following objects are masked from ‘package:base’:
-    
-        intersect, setdiff, setequal, union
-    
-    Loading required package: ggplot2
-    `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
-    `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
-    `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
-    `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
-    `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
-    Warning: Found less unique colors (9) than unique zcol values (190)! 
-    Interpolating color vector to match number of zcol values.
-    Loading required package: spData
-    To access larger datasets in this package, install the spDataLarge
-    package with: `install.packages('spDataLarge',
-    repos='https://nowosad.github.io/drat/', type='source')`
-    Warning: Found less unique colors (9) than unique zcol values (134)! 
-    Interpolating color vector to match number of zcol values.
-    Error: processing vignette 'CARBayes.Rnw' failed with diagnostics:
-    Running 'texi2dvi' on 'CARBayes.tex' failed.
-    LaTeX errors:
-    ! LaTeX Error: File `grfext.sty' not found.
-    
-    Type X to quit or <RETURN> to proceed,
-    or enter new name. (Default extension: sty)
-    
-    ! Emergency stop.
-    <read *> 
-             
-    l.179   \RequirePackage{grfext}\relax
-                                         ^^M
-    !  ==> Fatal error occurred, no output PDF file produced!
-    --- failed re-building ‘CARBayes.Rnw’
-    
-    SUMMARY: processing the following file failed:
-      ‘CARBayes.Rnw’
-    
-    Error: Vignette re-building failed.
-    Execution halted
-    ```
-
 # cards
 
 <details>
@@ -1439,114 +1361,6 @@ Run `revdepcheck::cloud_details(, "CodelistGenerator")` for more info
       Execution halted
     ```
 
-# comperes
-
-<details>
-
-* Version: 0.2.7
-* GitHub: https://github.com/echasnovski/comperes
-* Source code: https://github.com/cran/comperes
-* Date/Publication: 2023-02-28 19:42:30 UTC
-* Number of recursive dependencies: 64
-
-Run `revdepcheck::cloud_details(, "comperes")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking tests ... ERROR
-    ```
-      Running ‘testthat.R’
-    Running the tests in ‘tests/testthat.R’ failed.
-    Complete output:
-      > library(testthat)
-      > library(comperes)
-      > 
-      > test_check("comperes")
-      [ FAIL 10 | WARN 0 | SKIP 5 | PASS 247 ]
-      
-      ══ Skipped tests (5) ═══════════════════════════════════════════════════════════
-      • On CRAN (5): 'test-outer-methods.R:188:3', 'test-outer-methods.R:335:3',
-        'test-outer-methods.R:482:3', 'test-outer-methods.R:513:3',
-        'test-outer-methods.R:524:3'
-      
-      ══ Failed tests ════════════════════════════════════════════════════════════════
-      ── Failure ('test-results-longcr.R:214:3'): as_longcr.widecr does simple converting ──
-      `output` not identical to `output_ref`.
-      Length mismatch: comparison on first 3 components
-      ── Failure ('test-results-longcr.R:236:3'): as_longcr.widecr orders by game and pair id during repair ──
-      `output` not equal to `output_ref`.
-      Length mismatch: comparison on first 3 components
-      ── Failure ('test-results-longcr.R:253:3'): as_longcr.widecr preserves column types ──
-      as_longcr(input_types1, repair = TRUE) not identical to `output_ref_types1`.
-      Length mismatch: comparison on first 3 components
-      Factor 'game'
-      ── Failure ('test-results-longcr.R:268:3'): as_longcr.widecr preserves column types ──
-      as_longcr(input_types2, repair = TRUE) not identical to `output_ref_types2`.
-      Length mismatch: comparison on first 3 components
-      Character 'game'
-      ── Failure ('test-results-longcr.R:279:3'): as_longcr.widecr preserves column types ──
-      as_longcr(input_types3, repair = TRUE) not identical to `output_ref_types3`.
-      Length mismatch: comparison on first 3 components
-      Factor 'player'
-      ── Failure ('test-results-longcr.R:290:3'): as_longcr.widecr preserves column types ──
-      as_longcr(input_types4, repair = TRUE) not identical to `output_ref_types4`.
-      Length mismatch: comparison on first 3 components
-      Character 'player'
-      ── Failure ('test-results-longcr.R:301:3'): as_longcr.widecr preserves column types ──
-      as_longcr(input_types5, repair = TRUE) not identical to `output_ref_types5`.
-      Length mismatch: comparison on first 3 components
-      Character 'score'
-      ── Failure ('test-results-longcr.R:318:3'): as_longcr.widecr preserves column types ──
-      as_longcr(input_types6, repair = TRUE) not identical to `output_ref_types6`.
-      Length mismatch: comparison on first 3 components
-      List-column 'score'
-      ── Failure ('test-results-longcr.R:339:3'): as_longcr.widecr removes duplicated 'game'-'player'
-                if repair is TRUE ──
-      as_longcr(input_dupl, repair = TRUE) not identical to `output_ref_dupl`.
-      Length mismatch: comparison on first 3 components
-      ── Failure ('test-results-longcr.R:360:3'): as_longcr.widecr works without column 'game' ──
-      as_longcr(input_widecr_nogame) not identical to `output_ref_longcr_from_widecr_nogame`.
-      Length mismatch: comparison on first 3 components
-      
-      [ FAIL 10 | WARN 0 | SKIP 5 | PASS 247 ]
-      Error: Test failures
-      Execution halted
-    ```
-
-# covidcast
-
-<details>
-
-* Version: 0.5.2
-* GitHub: https://github.com/cmu-delphi/covidcast
-* Source code: https://github.com/cran/covidcast
-* Date/Publication: 2023-07-12 23:40:06 UTC
-* Number of recursive dependencies: 93
-
-Run `revdepcheck::cloud_details(, "covidcast")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking re-building of vignette outputs ... NOTE
-    ```
-    Error(s) in re-building vignettes:
-    --- re-building ‘correlation-utils.Rmd’ using rmarkdown
-    --- finished re-building ‘correlation-utils.Rmd’
-    
-    --- re-building ‘covidcast.Rmd’ using rmarkdown
-    ```
-
-## In both
-
-*   checking data for non-ASCII characters ... NOTE
-    ```
-      Note: found 20 marked UTF-8 strings
-    ```
-
 # crosshap
 
 <details>
@@ -1597,13 +1411,15 @@ Run `revdepcheck::cloud_details(, "crosshap")` for more info
       > library(crosshap)
       > 
       > test_check("crosshap")
-      ■■■■■                             14% | ETA: 15s
-      ■■■■■■■■■■                        29% | ETA: 10s
-      ■■■■■■■■■■■■                      36% | ETA: 10s
-      ■■■■■■■■■■■■■■■■■■                57% | ETA:  8s
-      ■■■■■■■■■■■■■■■■■■■■              64% | ETA:  7s
-      ■■■■■■■■■■■■■■■■■■■■■■■■■■■       86% | ETA:  3s
-      ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■     93% | ETA:  1s
+      ■■■■■                             14% | ETA:  1m
+      ■■■■■■■■■■                        29% | ETA: 29s
+      ■■■■■■■■■■■■                      36% | ETA: 27s
+      ■■■■■■■■■■■■■■                    43% | ETA: 26s
+      ■■■■■■■■■■■■■■■■■■                57% | ETA: 17s
+      ■■■■■■■■■■■■■■■■■■■■              64% | ETA: 15s
+      ■■■■■■■■■■■■■■■■■■■■■■            71% | ETA: 12s
+      ■■■■■■■■■■■■■■■■■■■■■■■■■■■       86% | ETA:  6s
+      ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■     93% | ETA:  3s
       ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■  100% | ETA:  0s
       WARNING: Phenotype association scores (phenodiff) not calculated for 252 of 2041 sites
       NOTE: 432 sites have more heterozygous individuals (1/0) than one of the homozygous states (1/1 or 0/0).
@@ -1652,9 +1468,9 @@ Run `revdepcheck::cloud_details(, "crosshap")` for more info
       20  7.75     0 hap_eps0.99~ 0.99    F          21             48.8         0.667
       # i 3 more variables: .ggraph.orig_index <int>, circular <lgl>,
       #   .ggraph.index <int>
-      ■■■■■■■■■■■                       33% | ETA:  4s
-      ■■■■■■■■■■■■■■■■■■■■■             67% | ETA:  2s
-      ■■■■■■■■■■■■■■■■■■■■■■■■■■        83% | ETA:  1s
+      ■■■■■■■■■■■                       33% | ETA: 15s
+      ■■■■■■■■■■■■■■■■■■■■■             67% | ETA:  5s
+      ■■■■■■■■■■■■■■■■■■■■■■■■■■        83% | ETA:  3s
       ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■  100% | ETA:  0s
       WARNING: Phenotype association scores (phenodiff) not calculated for 252 of 2041 sites
       NOTE: 432 sites have more heterozygous individuals (1/0) than one of the homozygous states (1/1 or 0/0).
@@ -1662,9 +1478,8 @@ Run `revdepcheck::cloud_details(, "crosshap")` for more info
       Haplotyping was performed with hetphenos = F, meaning phenotype association scores for heterozygous sites was ignored.
       ✔ Haplotyping complete!
       Info saved in Haplotypes_30_E objects
-      ■■■■■■■■■■■                       33% | ETA:  4s
-      ■■■■■■■■■■■■■■■■■■■■■             67% | ETA:  2s
-      ■■■■■■■■■■■■■■■■■■■■■■■■■■        83% | ETA:  1s
+      ■■■■■■■■■■■                       33% | ETA: 16s
+      ■■■■■■■■■■■■■■■■■■■■■■■■■■        83% | ETA:  3s
       ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■  100% | ETA:  0s
       WARNING: Phenotype association scores (phenodiff) not calculated for 252 of 2041 sites
       NOTE: 432 sites have more heterozygous individuals (1/0) than one of the homozygous states (1/1 or 0/0).
@@ -2188,7 +2003,7 @@ Run `revdepcheck::cloud_details(, "dtrackr")` for more info
       /usr/bin/xdg-open: 869: links: not found
       /usr/bin/xdg-open: 869: lynx: not found
       /usr/bin/xdg-open: 869: w3m: not found
-      xdg-open: no method available for opening '/tmp/RtmppsQQgC/viewhtml3126d18ee40/index.html'
+      xdg-open: no method available for opening '/tmp/RtmpO3nZbh/viewhtml2d5c669232f7/index.html'
       Couldn't find a suitable web browser!
       Set the BROWSER environment variable to your desired browser.
       Warning: program returned non-zero exit code #256
@@ -2208,7 +2023,7 @@ Run `revdepcheck::cloud_details(, "dtrackr")` for more info
       /usr/bin/xdg-open: 869: links: not found
       /usr/bin/xdg-open: 869: lynx: not found
       /usr/bin/xdg-open: 869: w3m: not found
-      xdg-open: no method available for opening '/tmp/RtmppsQQgC/viewhtml31262b7ec454/index.html'
+      xdg-open: no method available for opening '/tmp/RtmpO3nZbh/viewhtml2d5c1e52400a/index.html'
       [ FAIL 1 | WARN 0 | SKIP 0 | PASS 51 ]
       
       ══ Failed tests ════════════════════════════════════════════════════════════════
@@ -2461,11 +2276,11 @@ Run `revdepcheck::cloud_details(, "duckplyr")` for more info
       `environment(actual$create_default_duckdb_connection)` is <env:namespace:duckplyr>
       `environment(expected$create_default_duckdb_connection)` is <env:namespace:dplyr>
       
-      `actual$default_duckdb_connection$con@conn_ref` is <pointer: 0x5604b9618910>
-      `expected$default_duckdb_connection$con@conn_ref` is <pointer: 0x5604bc701970>
+      `actual$default_duckdb_connection$con@conn_ref` is <pointer: 0x56368d7a3750>
+      `expected$default_duckdb_connection$con@conn_ref` is <pointer: 0x56368eadd480>
       
-      `actual$default_duckdb_connection$con@driver@database_ref` is <pointer: 0x5604b4b4f410>
-      `expected$default_duckdb_connection$con@driver@database_ref` is <pointer: 0x5604bc6d9a40>
+      `actual$default_duckdb_connection$con@driver@database_ref` is <pointer: 0x56368ecfba20>
+      `expected$default_duckdb_connection$con@driver@database_ref` is <pointer: 0x56368d0f77e0>
       
       `environment(actual$df_from_csv)` is <env:namespace:duckplyr>
       `environment(expected$df_from_csv)` is <env:namespace:dplyr>
@@ -2920,6 +2735,16 @@ Run `revdepcheck::cloud_details(, "duckplyr")` for more info
       `environment(actual$rel_to_df.relational_df)` is <env:namespace:duckplyr>
       `environment(expected$rel_to_df.relational_df)` is <env:namespace:dplyr>
       
+      body(actual$rel_translate)[64:70] vs body(expected$rel_translate)[64:70]
+        `                    values <- eval(expr[[3]], envir = baseenv())`
+        `                    consts <- map(values, do_translate, in_window = in_window)`
+        `                    ops <- map(consts, list, do_translate(expr[[2]]))`
+      - `                    cmp <- map(ops, relexpr_function, name = "==")`
+      + `                    cmp <- map(ops, relexpr_function, name = "___eq_na_matches_na")`
+        `                    alt <- reduce(cmp, function(.x, .y) {`
+        `                      relexpr_function("|", list(.x, .y))`
+        `                    })`
+      
       `environment(actual$rel_translate)` is <env:namespace:duckplyr>
       `environment(expected$rel_translate)` is <env:namespace:dplyr>
       
@@ -3026,7 +2851,7 @@ Run `revdepcheck::cloud_details(, "duckplyr")` for more info
       🦆:  661
       add_count, anti_join, arrange, compute, count, cross_join, distinct, do, eval, filter, full_join, group_by, inner_join, intersect, left_join, mutate, mutate.data.frame, nest_join, pull, reframe, relocate, rename, rename_with, right_join, rows_append, rows_delete, rows_insert, rows_patch, rows_update, rows_upsert, rowwise, select, semi_join, setdiff, setequal, slice, slice_head, slice_sample, slice_tail, summarise, symdiff, transmute, ungroup, union_all
       
-      00:01:34.266296
+      00:00:56.694851
       Execution halted
     ```
 
@@ -3034,10 +2859,10 @@ Run `revdepcheck::cloud_details(, "duckplyr")` for more info
 
 <details>
 
-* Version: 1.3.1
+* Version: 2.0.0
 * GitHub: NA
 * Source code: https://github.com/cran/ern
-* Date/Publication: 2024-01-29 23:50:08 UTC
+* Date/Publication: 2024-04-22 13:22:33 UTC
 * Number of recursive dependencies: 95
 
 Run `revdepcheck::cloud_details(, "ern")` for more info
@@ -3062,7 +2887,7 @@ Run `revdepcheck::cloud_details(, "ern")` for more info
       > library(testthat)
       > library(ern)
       
-      ern version: 1.3.1 
+      ern version: 2.0.0 
       
       If not already installed, software JAGS is recommended. 
       (https://sourceforge.net/projects/mcmc-jags/files/)
@@ -3079,10 +2904,18 @@ Run `revdepcheck::cloud_details(, "ern")` for more info
       
       Initializing model
       
+      MCMC paramters:
+        Number of chains   : 1
+        Burn-in iterations : 5
+        MCMC iterations    : 5
       Wastewater data smoothed using loess method
       iterations Richardson-Lucy deconvolution:  20
       -----
-      The clinical testing data you input is not daily. `ern` requires daily data to compute Rt. `ern` will infer daily reports from your inputs. See `prm.daily` and `prm.daily.check` arguments of `estimate_R_cl()` for daily inference options.
+      The clinical testing data you input is not daily.
+      `ern` requires daily data to compute Rt, so it will infer daily reports from your inputs.
+      Inference method for daily incidence: `renewal`
+      See `prm.daily` and `prm.daily.check` arguments of `estimate_R_cl()` for daily inference options.
+      -----
       -----
       Assuming the first observed report (from 2020-03-14)
       is aggregated over 7 previous days
@@ -3103,14 +2936,56 @@ Run `revdepcheck::cloud_details(, "ern")` for more info
       
       Initializing model
       
-      - Filtering out any daily inferred reports associated
-      with inferred aggregates outside of the specified tolerance of 10%...
-      Before filtering: 56 daily reports
-      After filtering:  42 daily reports
-      To reduce the number of observations dropped in filtering, either:
-        - adjust MCMC parameters in prm.daily (burn, iter, chains) to
-            improve chances of MCMC convergence,
-        - increase tolerance for this check (prm.daily.check$agg.reldiff.tol)
+      MCMC paramters:
+        Number of chains   : 1
+        Burn-in iterations : 5
+        MCMC iterations    : 5
+      Aggregating inferred daily reports back using the original reporting schedule, and calculating relative difference with original reports...
+      Filtering out any daily inferred reports associated with inferred aggregates outside of the specified tolerance of 10%...
+        Before filtering : 56 daily reports
+        After filtering  :  42 daily reports
+      Using default config in `EpiEstim::estimate_R()`.
+      Deconvolution reporting delays...
+      iterations Richardson-Lucy deconvolution:  10
+      Deconvolution incubation period...
+      iterations Richardson-Lucy deconvolution:  10
+      -----
+      The clinical testing data you input is not daily.
+      `ern` requires daily data to compute Rt, so it will infer daily reports from your inputs.
+      Inference method for daily incidence: `renewal`
+      See `prm.daily` and `prm.daily.check` arguments of `estimate_R_cl()` for daily inference options.
+      -----
+      -----
+      Assuming the first observed report (from 2020-03-14)
+      is aggregated over 7 previous days
+      (second observation's aggregation period).
+      This can be changed in `estimate_R_cl()`, using the
+      `prm.daily` argument (set a value for `first.agg.period`
+      in this parameter list).
+      -----
+      Running MCMC model to infer daily reports from aggregated reports...
+      
+      Compiling model graph
+         Resolving undeclared variables
+         Allocating nodes
+      Graph information:
+         Observed stochastic nodes: 8
+         Unobserved stochastic nodes: 58
+         Total graph size: 790
+      
+      Initializing model
+      
+      MCMC paramters:
+        Number of chains   : 2
+        Burn-in iterations : 55
+        MCMC iterations    : 55
+      Aggregating inferred daily reports back using the original reporting schedule, and calculating relative difference with original reports...
+      Filtering out any daily inferred reports associated with inferred aggregates outside of the specified tolerance of 10%...
+        Before filtering : 56 daily reports
+        After filtering  :  42 daily reports
+      To reduce the number of observations dropped in filtering,either:
+      - adjust MCMC parameters in prm.daily (burn, iter, chains) to improve chances of MCMC convergence,
+      - increase tolerance for this check (prm.daily.check$agg.reldiff.tol)
       Using default config in `EpiEstim::estimate_R()`.
       Deconvolution reporting delays...
       iterations Richardson-Lucy deconvolution:  10
@@ -3150,7 +3025,7 @@ Run `revdepcheck::cloud_details(, "ern")` for more info
       iterations Richardson-Lucy deconvolution:  9
       iterations Richardson-Lucy deconvolution:  9
       iterations Richardson-Lucy deconvolution:  9
-      iterations Richardson-Lucy deconvolution:  7
+      iterations Richardson-Lucy deconvolution:  9
       iterations Richardson-Lucy deconvolution:  9
       iterations Richardson-Lucy deconvolution:  9
       iterations Richardson-Lucy deconvolution:  9
@@ -3173,16 +3048,16 @@ Run `revdepcheck::cloud_details(, "ern")` for more info
       ERROR: `si_distr` must be specified in `config.EpiEstim`. ABORTING!
       Wastewater data smoothed using loess method
       Wastewater data smoothed using rollmean method
-      [ FAIL 1 | WARN 0 | SKIP 0 | PASS 175 ]
+      [ FAIL 1 | WARN 0 | SKIP 0 | PASS 167 ]
       
       ══ Failed tests ════════════════════════════════════════════════════════════════
-      ── Failure ('test-agg_to_daily.R:105:3'): internal time index is correctly specified ──
+      ── Failure ('test-agg_to_daily.R:100:3'): internal time index is correctly specified ──
       `check` is not TRUE
       
       `actual`:   FALSE
       `expected`: TRUE 
       
-      [ FAIL 1 | WARN 0 | SKIP 0 | PASS 175 ]
+      [ FAIL 1 | WARN 0 | SKIP 0 | PASS 167 ]
       Error: Test failures
       Execution halted
     ```
@@ -3768,1241 +3643,6 @@ Run `revdepcheck::cloud_details(, "linelist")` for more info
       ‘software-permissions.Rmd’ using ‘UTF-8’... OK
     ```
 
-# margaret
-
-<details>
-
-* Version: 0.1.4
-* GitHub: https://github.com/coreofscience/margaret
-* Source code: https://github.com/cran/margaret
-* Date/Publication: 2022-10-03 21:50:02 UTC
-* Number of recursive dependencies: 179
-
-Run `revdepcheck::cloud_details(, "margaret")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking installed package size ... NOTE
-    ```
-      installed size is  5.6Mb
-      sub-directories of 1Mb or more:
-        data   5.3Mb
-    ```
-
-## In both
-
-*   checking data for non-ASCII characters ... NOTE
-    ```
-      Note: found 5210 marked UTF-8 strings
-    ```
-
-# MassWateR
-
-<details>
-
-* Version: 2.1.4
-* GitHub: https://github.com/massbays-tech/MassWateR
-* Source code: https://github.com/cran/MassWateR
-* Date/Publication: 2023-11-19 15:20:07 UTC
-* Number of recursive dependencies: 137
-
-Run `revdepcheck::cloud_details(, "MassWateR")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking examples ... ERROR
-    ```
-    Running examples in ‘MassWateR-Ex.R’ failed
-    The error most likely occurred in:
-    
-    > ### Name: anlzMWRdate
-    > ### Title: Analyze trends by date in results file
-    > ### Aliases: anlzMWRdate
-    > 
-    > ### ** Examples
-    > 
-    > # results data path
-    > respth <- system.file('extdata/ExampleResults.xlsx', package = 'MassWateR')
-    > 
-    > # results data
-    > resdat <- readMWRresults(respth)
-    Running checks on results data...
-    
-    	Checking column names... OK
-    	Checking all required columns are present... OK
-    	Checking valid Activity Types... OK
-    	Checking Activity Start Date formats... OK
-    	Checking depth data present... OK
-    	Checking for non-numeric values in Activity Depth/Height Measure... OK
-    	Checking Activity Depth/Height Unit... OK
-    	Checking Activity Relative Depth Name formats... OK
-    	Checking values in Activity Depth/Height Measure > 1 m / 3.3 ft... OK
-    	Checking Characteristic Name formats... OK
-    	Checking Result Values... OK
-    	Checking QC Reference Values... OK
-    	Checking for missing entries for Result Unit... OK
-    	Checking if more than one unit per Characteristic Name... OK
-    	Checking acceptable units for each entry in Characteristic Name... OK
-    
-    All checks passed!
-    > 
-    > # accuracy path
-    > accpth <- system.file('extdata/ExampleDQOAccuracy.xlsx', 
-    +      package = 'MassWateR')
-    > 
-    > # accuracy data
-    > accdat <- readMWRacc(accpth)
-    Running checks on data quality objectives for accuracy...
-    
-    	Checking column names... OK
-    	Checking all required columns are present... OK
-    	Checking column types... OK
-    	Checking no "na" in Value Range... OK
-    	Checking for text other than <=, ≤, <, >=, ≥, >, ±, %, AQL, BQL, log, or all... OK
-    	Checking overlaps in Value Range... OK
-    	Checking gaps in Value Range... OK
-    	Checking Parameter formats... OK
-    	Checking for missing entries for unit (uom)... OK
-    	Checking if more than one unit (uom) per Parameter... OK
-    	Checking acceptable units (uom) for each entry in Parameter... OK
-    	Checking empty columns... OK
-    
-    All checks passed!
-    > 
-    > # site data path
-    > sitpth <- system.file('extdata/ExampleSites.xlsx', package = 'MassWateR')
-    > 
-    > # site data
-    > sitdat <- readMWRsites(sitpth)
-    Running checks on site metadata...
-    
-    	Checking column names... OK
-    	Checking all required columns are present... OK
-    	Checking for missing latitude or longitude values... OK
-    	Checking for non-numeric values in latitude... OK
-    	Checking for non-numeric values in longitude... OK
-    	Checking for positive values in longitude... OK
-    	Checking for missing entries for Monitoring Location ID... OK
-    
-    All checks passed!
-    > 
-    > # select sites
-    > anlzMWRdate(res = resdat, param = 'DO', acc = accdat, group = 'site', thresh = 'fresh',
-    +      site = c("ABT-026", "ABT-077"))
-    Error: Sites not found in Monitoring Location ID in results file for DO: ABT-026, ABT-077, should be any of ABT-144, ABT-237, ABT-301, ABT-312
-    Execution halted
-    ```
-
-*   checking tests ... ERROR
-    ```
-      Running ‘testthat.R’
-    Running the tests in ‘tests/testthat.R’ failed.
-    Complete output:
-      > library(testthat)
-      > library(MassWateR)
-      > 
-      > test_check("MassWateR")
-      
-      Attaching package: 'lubridate'
-      
-      The following objects are masked from 'package:base':
-      
-          date, intersect, setdiff, union
-      
-      
-      Attaching package: 'dplyr'
-      
-      The following object is masked from 'package:testthat':
-      
-          matches
-      
-      The following objects are masked from 'package:stats':
-      
-          filter, lag
-      
-      The following objects are masked from 'package:base':
-      
-          intersect, setdiff, setequal, union
-      
-      Running checks on data quality objectives for accuracy...
-      
-      Running checks on data quality objectives for accuracy...
-      
-      	Checking column names... OK
-      Running checks on data quality objectives for accuracy...
-      
-      	Checking column names... OK
-      	Checking all required columns are present... OK
-      Running checks on data quality objectives for accuracy...
-      
-      	Checking column names... OK
-      	Checking all required columns are present... OK
-      	Checking column types... OK
-      	Checking no "na" in Value Range... OK
-      	Checking for text other than <=, ≤, <, >=, ≥, >, ±, %, AQL, BQL, log, or all... OK
-      	Checking overlaps in Value Range... OK
-      	Checking gaps in Value Range... OK
-      	Checking Parameter formats... OK
-      	Checking for missing entries for unit (uom)... OK
-      	Checking if more than one unit (uom) per Parameter... OK
-      	Checking acceptable units (uom) for each entry in Parameter... OK
-      	Checking empty columns... WARNING
-      
-      All checks passed (1 WARNING(s))!
-      Running checks on data quality objectives for accuracy...
-      
-      	Checking column names... OK
-      	Checking all required columns are present... OK
-      	Checking column types... OK
-      	Checking no "na" in Value Range... OK
-      Running checks on data quality objectives for accuracy...
-      
-      	Checking column names... OK
-      	Checking all required columns are present... OK
-      	Checking column types... OK
-      	Checking no "na" in Value Range... OK
-      	Checking for text other than <=, ≤, <, >=, ≥, >, ±, %, AQL, BQL, log, or all... OK
-      Running checks on data quality objectives for accuracy...
-      
-      	Checking column names... OK
-      	Checking all required columns are present... OK
-      	Checking column types... OK
-      	Checking no "na" in Value Range... OK
-      	Checking for text other than <=, ≤, <, >=, ≥, >, ±, %, AQL, BQL, log, or all... OK
-      	Checking overlaps in Value Range... OK
-      	Checking gaps in Value Range... WARNING
-      	Checking Parameter formats... OK
-      	Checking for missing entries for unit (uom)... OK
-      	Checking if more than one unit (uom) per Parameter... OK
-      	Checking acceptable units (uom) for each entry in Parameter... OK
-      	Checking empty columns... OK
-      
-      All checks passed (1 WARNING(s))!
-      Running checks on data quality objectives for accuracy...
-      
-      	Checking column names... OK
-      	Checking all required columns are present... OK
-      	Checking column types... OK
-      	Checking no "na" in Value Range... OK
-      	Checking for text other than <=, ≤, <, >=, ≥, >, ±, %, AQL, BQL, log, or all... OK
-      	Checking overlaps in Value Range... OK
-      	Checking gaps in Value Range... OK
-      	Checking Parameter formats... OK
-      Running checks on data quality objectives for accuracy...
-      
-      	Checking column names... OK
-      	Checking all required columns are present... OK
-      	Checking column types... OK
-      	Checking no "na" in Value Range... OK
-      	Checking for text other than <=, ≤, <, >=, ≥, >, ±, %, AQL, BQL, log, or all... OK
-      	Checking overlaps in Value Range... OK
-      	Checking gaps in Value Range... OK
-      	Checking Parameter formats... OK
-      	Checking for missing entries for unit (uom)... OK
-      Running checks on data quality objectives for accuracy...
-      
-      	Checking column names... OK
-      	Checking all required columns are present... OK
-      	Checking column types... OK
-      	Checking no "na" in Value Range... OK
-      	Checking for text other than <=, ≤, <, >=, ≥, >, ±, %, AQL, BQL, log, or all... OK
-      	Checking overlaps in Value Range... OK
-      	Checking gaps in Value Range... WARNING
-      Running checks on data quality objectives for accuracy...
-      
-      	Checking column names... OK
-      	Checking all required columns are present... OK
-      	Checking column types... OK
-      	Checking no "na" in Value Range... OK
-      	Checking for text other than <=, ≤, <, >=, ≥, >, ±, %, AQL, BQL, log, or all... OK
-      	Checking overlaps in Value Range... OK
-      	Checking gaps in Value Range... OK
-      	Checking Parameter formats... OK
-      	Checking for missing entries for unit (uom)... OK
-      	Checking if more than one unit (uom) per Parameter... OK
-      Running checks on data quality objectives for accuracy...
-      
-      	Checking column names... OK
-      	Checking all required columns are present... OK
-      	Checking column types... OK
-      	Checking no "na" in Value Range... OK
-      	Checking for text other than <=, ≤, <, >=, ≥, >, ±, %, AQL, BQL, log, or all... OK
-      	Checking overlaps in Value Range... OK
-      	Checking gaps in Value Range... OK
-      	Checking Parameter formats... OK
-      	Checking for missing entries for unit (uom)... OK
-      	Checking if more than one unit (uom) per Parameter... OK
-      	Checking acceptable units (uom) for each entry in Parameter... OK
-      	Checking empty columns... WARNING
-      
-      All checks passed (1 WARNING(s))!
-      Running checks on data quality objectives for accuracy...
-      
-      	Checking column names... OK
-      	Checking all required columns are present... OK
-      	Checking column types... OK
-      Running checks on data quality objectives for frequency and completeness...
-      
-      Running checks on data quality objectives for frequency and completeness...
-      
-      	Checking column names... OK
-      Running checks on data quality objectives for frequency and completeness...
-      
-      	Checking column names... OK
-      	Checking all required columns are present... OK
-      Running checks on data quality objectives for frequency and completeness...
-      
-      	Checking column names... OK
-      	Checking all required columns are present... OK
-      	Checking for non-numeric values... OK
-      Running checks on data quality objectives for frequency and completeness...
-      
-      	Checking column names... OK
-      	Checking all required columns are present... OK
-      	Checking for non-numeric values... OK
-      	Checking for values outside of 0 and 100... OK
-      Running checks on data quality objectives for frequency and completeness...
-      
-      	Checking column names... OK
-      	Checking all required columns are present... OK
-      	Checking for non-numeric values... OK
-      	Checking for values outside of 0 and 100... OK
-      	Checking Parameter formats... OK
-      	Checking empty columns... WARNING
-      
-      All checks passed (1 WARNING(s))!
-      Running checks on results data...
-      
-      Running checks on results data...
-      
-      	Checking column names... OK
-      Running checks on results data...
-      
-      	Checking column names... OK
-      	Checking all required columns are present... OK
-      Running checks on results data...
-      
-      	Checking column names... OK
-      	Checking all required columns are present... OK
-      	Checking valid Activity Types... OK
-      Running checks on results data...
-      
-      	Checking column names... OK
-      	Checking all required columns are present... OK
-      	Checking valid Activity Types... OK
-      	Checking Activity Start Date formats... OK
-      Running checks on results data...
-      
-      	Checking column names... OK
-      	Checking all required columns are present... OK
-      	Checking valid Activity Types... OK
-      	Checking Activity Start Date formats... OK
-      	Checking depth data present... OK
-      Running checks on results data...
-      
-      	Checking column names... OK
-      	Checking all required columns are present... OK
-      	Checking valid Activity Types... OK
-      	Checking Activity Start Date formats... OK
-      	Checking depth data present... OK
-      	Checking for non-numeric values in Activity Depth/Height Measure... OK
-      Running checks on results data...
-      
-      	Checking column names... OK
-      	Checking all required columns are present... OK
-      	Checking valid Activity Types... OK
-      	Checking Activity Start Date formats... OK
-      	Checking depth data present... OK
-      	Checking for non-numeric values in Activity Depth/Height Measure... OK
-      	Checking Activity Depth/Height Unit... OK
-      	Checking Activity Relative Depth Name formats... OK
-      	Checking values in Activity Depth/Height Measure > 1 m / 3.3 ft... WARNING
-      	Checking Characteristic Name formats... OK
-      	Checking Result Values... OK
-      	Checking QC Reference Values... OK
-      	Checking for missing entries for Result Unit... OK
-      	Checking if more than one unit per Characteristic Name... OK
-      	Checking acceptable units for each entry in Characteristic Name... OK
-      
-      All checks passed (1 WARNING(s))!
-      Running checks on results data...
-      
-      	Checking column names... OK
-      	Checking all required columns are present... OK
-      	Checking valid Activity Types... OK
-      	Checking Activity Start Date formats... OK
-      	Checking depth data present... OK
-      	Checking for non-numeric values in Activity Depth/Height Measure... OK
-      	Checking Activity Depth/Height Unit... OK
-      	Checking Activity Relative Depth Name formats... WARNING
-      	Checking values in Activity Depth/Height Measure > 1 m / 3.3 ft... OK
-      	Checking Characteristic Name formats... OK
-      	Checking Result Values... OK
-      	Checking QC Reference Values... OK
-      	Checking for missing entries for Result Unit... OK
-      	Checking if more than one unit per Characteristic Name... OK
-      	Checking acceptable units for each entry in Characteristic Name... OK
-      
-      All checks passed (1 WARNING(s))!
-      Running checks on results data...
-      
-      	Checking column names... OK
-      	Checking all required columns are present... OK
-      	Checking valid Activity Types... OK
-      	Checking Activity Start Date formats... OK
-      	Checking depth data present... OK
-      	Checking for non-numeric values in Activity Depth/Height Measure... OK
-      	Checking Activity Depth/Height Unit... OK
-      	Checking Activity Relative Depth Name formats... OK
-      	Checking values in Activity Depth/Height Measure > 1 m / 3.3 ft... OK
-      	Checking Characteristic Name formats... WARNING
-      	Checking Result Values... OK
-      	Checking QC Reference Values... OK
-      	Checking for missing entries for Result Unit... OK
-      	Checking if more than one unit per Characteristic Name... OK
-      	Checking acceptable units for each entry in Characteristic Name... OK
-      
-      All checks passed (1 WARNING(s))!
-      Running checks on results data...
-      
-      	Checking column names... OK
-      	Checking all required columns are present... OK
-      	Checking valid Activity Types... OK
-      	Checking Activity Start Date formats... OK
-      	Checking depth data present... OK
-      	Checking for non-numeric values in Activity Depth/Height Measure... OK
-      	Checking Activity Depth/Height Unit... OK
-      	Checking Activity Relative Depth Name formats... OK
-      	Checking values in Activity Depth/Height Measure > 1 m / 3.3 ft... OK
-      	Checking Characteristic Name formats... OK
-      Running checks on results data...
-      
-      	Checking column names... OK
-      	Checking all required columns are present... OK
-      	Checking valid Activity Types... OK
-      	Checking Activity Start Date formats... OK
-      	Checking depth data present... OK
-      	Checking for non-numeric values in Activity Depth/Height Measure... OK
-      	Checking Activity Depth/Height Unit... OK
-      	Checking Activity Relative Depth Name formats... OK
-      	Checking values in Activity Depth/Height Measure > 1 m / 3.3 ft... OK
-      	Checking Characteristic Name formats... OK
-      	Checking Result Values... OK
-      Running checks on results data...
-      
-      	Checking column names... OK
-      	Checking all required columns are present... OK
-      	Checking valid Activity Types... OK
-      	Checking Activity Start Date formats... OK
-      	Checking depth data present... OK
-      	Checking for non-numeric values in Activity Depth/Height Measure... OK
-      	Checking Activity Depth/Height Unit... OK
-      	Checking Activity Relative Depth Name formats... OK
-      	Checking values in Activity Depth/Height Measure > 1 m / 3.3 ft... OK
-      	Checking Characteristic Name formats... OK
-      	Checking Result Values... OK
-      	Checking QC Reference Values... OK
-      Running checks on results data...
-      
-      	Checking column names... OK
-      	Checking all required columns are present... OK
-      	Checking valid Activity Types... OK
-      	Checking Activity Start Date formats... OK
-      	Checking depth data present... OK
-      	Checking for non-numeric values in Activity Depth/Height Measure... OK
-      	Checking Activity Depth/Height Unit... OK
-      	Checking Activity Relative Depth Name formats... OK
-      	Checking values in Activity Depth/Height Measure > 1 m / 3.3 ft... OK
-      	Checking Characteristic Name formats... OK
-      	Checking Result Values... OK
-      	Checking QC Reference Values... OK
-      	Checking for missing entries for Result Unit... OK
-      Running checks on results data...
-      
-      	Checking column names... OK
-      	Checking all required columns are present... OK
-      	Checking valid Activity Types... OK
-      	Checking Activity Start Date formats... OK
-      	Checking depth data present... OK
-      	Checking for non-numeric values in Activity Depth/Height Measure... OK
-      	Checking Activity Depth/Height Unit... OK
-      	Checking Activity Relative Depth Name formats... OK
-      	Checking values in Activity Depth/Height Measure > 1 m / 3.3 ft... OK
-      	Checking Characteristic Name formats... OK
-      	Checking Result Values... OK
-      	Checking QC Reference Values... OK
-      	Checking for missing entries for Result Unit... OK
-      	Checking if more than one unit per Characteristic Name... OK
-      Running checks on results data...
-      
-      	Checking column names... OK
-      	Checking all required columns are present... OK
-      	Checking valid Activity Types... OK
-      	Checking Activity Start Date formats... OK
-      	Checking depth data present... OK
-      	Checking for non-numeric values in Activity Depth/Height Measure... OK
-      	Checking Activity Depth/Height Unit... OK
-      	Checking Activity Relative Depth Name formats... OK
-      	Checking values in Activity Depth/Height Measure > 1 m / 3.3 ft... OK
-      	Checking Characteristic Name formats... OK
-      	Checking Result Values... OK
-      	Checking QC Reference Values... OK
-      	Checking for missing entries for Result Unit... OK
-      	Checking if more than one unit per Characteristic Name... OK
-      	Checking acceptable units for each entry in Characteristic Name... OK
-      Running checks on site metadata...
-      
-      Running checks on site metadata...
-      
-      	Checking column names... OK
-      Running checks on site metadata...
-      
-      	Checking column names... OK
-      	Checking all required columns are present... OK
-      Running checks on site metadata...
-      
-      	Checking column names... OK
-      	Checking all required columns are present... OK
-      	Checking for missing latitude or longitude values... OK
-      Running checks on site metadata...
-      
-      	Checking column names... OK
-      	Checking all required columns are present... OK
-      	Checking for missing latitude or longitude values... OK
-      	Checking for non-numeric values in latitude... OK
-      Running checks on site metadata...
-      
-      	Checking column names... OK
-      	Checking all required columns are present... OK
-      	Checking for missing latitude or longitude values... OK
-      	Checking for non-numeric values in latitude... OK
-      	Checking for non-numeric values in longitude... OK
-      Running checks on site metadata...
-      
-      	Checking column names... OK
-      	Checking all required columns are present... OK
-      	Checking for missing latitude or longitude values... OK
-      	Checking for non-numeric values in latitude... OK
-      	Checking for non-numeric values in longitude... OK
-      	Checking for positive values in longitude... OK
-      Running checks on WQX metadata...
-      
-      Running checks on WQX metadata...
-      
-      	Checking column names... OK
-      Running checks on WQX metadata...
-      
-      	Checking column names... OK
-      	Checking all required columns are present... OK
-      Running checks on WQX metadata...
-      
-      	Checking column names... OK
-      	Checking all required columns are present... OK
-      	Checking unique parameters... OK
-      	Checking Parameter formats... WARNING
-      
-      All checks passed (1 WARNING(s))!
-      Running checks on data quality objectives for frequency and completeness...
-      
-      	Checking column names... OK
-      	Checking all required columns are present... OK
-      	Checking for non-numeric values... OK
-      	Checking for values outside of 0 and 100... OK
-      	Checking Parameter formats... OK
-      	Checking empty columns... OK
-      
-      All checks passed!
-      Running checks on data quality objectives for accuracy...
-      
-      	Checking column names... OK
-      	Checking all required columns are present... OK
-      	Checking column types... OK
-      	Checking no "na" in Value Range... OK
-      	Checking for text other than <=, ≤, <, >=, ≥, >, ±, %, AQL, BQL, log, or all... OK
-      	Checking overlaps in Value Range... OK
-      	Checking gaps in Value Range... OK
-      	Checking Parameter formats... OK
-      	Checking for missing entries for unit (uom)... OK
-      	Checking if more than one unit (uom) per Parameter... OK
-      	Checking acceptable units (uom) for each entry in Parameter... OK
-      	Checking empty columns... OK
-      
-      All checks passed!
-      Running checks on data quality objectives for frequency and completeness...
-      
-      	Checking column names... OK
-      	Checking all required columns are present... OK
-      	Checking for non-numeric values... OK
-      	Checking for values outside of 0 and 100... OK
-      	Checking Parameter formats... OK
-      	Checking empty columns... OK
-      
-      All checks passed!
-      Running checks on results data...
-      
-      	Checking column names... OK
-      	Checking all required columns are present... OK
-      	Checking valid Activity Types... OK
-      	Checking Activity Start Date formats... OK
-      	Checking depth data present... OK
-      	Checking for non-numeric values in Activity Depth/Height Measure... OK
-      	Checking Activity Depth/Height Unit... OK
-      	Checking Activity Relative Depth Name formats... OK
-      	Checking values in Activity Depth/Height Measure > 1 m / 3.3 ft... OK
-      	Checking Characteristic Name formats... OK
-      	Checking Result Values... OK
-      	Checking QC Reference Values... OK
-      	Checking for missing entries for Result Unit... OK
-      	Checking if more than one unit per Characteristic Name... OK
-      	Checking acceptable units for each entry in Characteristic Name... OK
-      
-      All checks passed!
-      Running checks on results data...
-      
-      	Checking column names... OK
-      	Checking all required columns are present... OK
-      	Checking valid Activity Types... OK
-      	Checking Activity Start Date formats... OK
-      	Checking depth data present... OK
-      	Checking for non-numeric values in Activity Depth/Height Measure... OK
-      	Checking Activity Depth/Height Unit... OK
-      	Checking Activity Relative Depth Name formats... OK
-      	Checking values in Activity Depth/Height Measure > 1 m / 3.3 ft... OK
-      	Checking Characteristic Name formats... OK
-      	Checking Result Values... OK
-      	Checking QC Reference Values... OK
-      	Checking for missing entries for Result Unit... OK
-      	Checking if more than one unit per Characteristic Name... OK
-      	Checking acceptable units for each entry in Characteristic Name... OK
-      
-      All checks passed!
-      Running checks on site metadata...
-      
-      	Checking column names... OK
-      	Checking all required columns are present... OK
-      	Checking for missing latitude or longitude values... OK
-      	Checking for non-numeric values in latitude... OK
-      	Checking for non-numeric values in longitude... OK
-      	Checking for positive values in longitude... OK
-      	Checking for missing entries for Monitoring Location ID... OK
-      
-      All checks passed!
-      Running checks on WQX metadata...
-      
-      	Checking column names... OK
-      	Checking all required columns are present... OK
-      	Checking unique parameters... OK
-      	Checking Parameter formats... OK
-      
-      All checks passed!
-      Running checks on WQX metadata...
-      
-      	Checking column names... OK
-      	Checking all required columns are present... OK
-      	Checking unique parameters... OK
-      	Checking Parameter formats... OK
-      
-      All checks passed!
-      [ FAIL 5 | WARN 17 | SKIP 5 | PASS 183 ]
-      
-      ══ Skipped tests (5) ═══════════════════════════════════════════════════════════
-      • On CRAN (5): 'test-anlzMWRmap.R:2:3', 'test-anlzMWRmap.R:8:3',
-        'test-anlzMWRmap.R:14:3', 'test-anlzMWRmap.R:24:3', 'test-anlzMWRmap.R:30:3'
-      
-      ══ Failed tests ════════════════════════════════════════════════════════════════
-      ── Error ('test-anlzMWRdate.R:22:3'): Checking output format group as location ──
-      Error: Location group not found in site metadata file for DO: Tributaries, should be any of Assabet
-      Backtrace:
-          ▆
-       1. └─MassWateR::anlzMWRdate(...) at test-anlzMWRdate.R:22:3
-       2.   └─MassWateR::utilMWRfilter(...)
-      ── Error ('test-anlzMWRdate.R:34:3'): Checking output format group as location, repel = FALSE ──
-      Error: Location group not found in site metadata file for DO: Tributaries, should be any of Assabet
-      Backtrace:
-          ▆
-       1. └─MassWateR::anlzMWRdate(...) at test-anlzMWRdate.R:34:3
-       2.   └─MassWateR::utilMWRfilter(...)
-      ── Error ('test-anlzMWRoutlier.R:22:3'): Checking output format log-scale ──────
-      Error: E.coli not found or no surface data in results file, should be one of DO
-      Backtrace:
-          ▆
-       1. └─MassWateR::anlzMWRoutlier(...) at test-anlzMWRoutlier.R:22:3
-       2.   └─MassWateR::utilMWRfilter(resdat = resdat, param = param, dtrng = dtrng)
-      ── Error ('test-anlzMWRsite.R:17:3'): Checking output format jittered boxplot, byresultatt ──
-      Error: Ammonia not found or no surface data in results file, should be one of DO
-      Backtrace:
-          ▆
-       1. └─MassWateR::anlzMWRsite(...) at test-anlzMWRsite.R:17:3
-       2.   └─MassWateR::utilMWRfilter(...)
-      ── Error ('test-anlzMWRsite.R:23:3'): Checking output format jittered barplot, byresultatt ──
-      Error: Ammonia not found or no surface data in results file, should be one of DO
-      Backtrace:
-          ▆
-       1. └─MassWateR::anlzMWRsite(...) at test-anlzMWRsite.R:23:3
-       2.   └─MassWateR::utilMWRfilter(...)
-      
-      [ FAIL 5 | WARN 17 | SKIP 5 | PASS 183 ]
-      Error: Test failures
-      Execution halted
-    ```
-
-*   checking tests ... ERROR
-    ```
-      Running ‘testthat.R’
-    Running the tests in ‘tests/testthat.R’ failed.
-    Complete output:
-      > library(testthat)
-      > library(MassWateR)
-      > 
-      > test_check("MassWateR")
-      
-      Attaching package: 'lubridate'
-      
-      The following objects are masked from 'package:base':
-      
-          date, intersect, setdiff, union
-      
-      
-      Attaching package: 'dplyr'
-      
-      The following object is masked from 'package:testthat':
-      
-          matches
-      
-      The following objects are masked from 'package:stats':
-      
-          filter, lag
-      
-      The following objects are masked from 'package:base':
-      
-          intersect, setdiff, setequal, union
-      
-      Running checks on data quality objectives for accuracy...
-      
-      Running checks on data quality objectives for accuracy...
-      
-      	Checking column names... OK
-      Running checks on data quality objectives for accuracy...
-      
-      	Checking column names... OK
-      	Checking all required columns are present... OK
-      Running checks on data quality objectives for accuracy...
-      
-      	Checking column names... OK
-      	Checking all required columns are present... OK
-      	Checking column types... OK
-      	Checking no "na" in Value Range... OK
-      	Checking for text other than <=, ≤, <, >=, ≥, >, ±, %, AQL, BQL, log, or all... OK
-      	Checking overlaps in Value Range... OK
-      	Checking gaps in Value Range... OK
-      	Checking Parameter formats... OK
-      	Checking for missing entries for unit (uom)... OK
-      	Checking if more than one unit (uom) per Parameter... OK
-      	Checking acceptable units (uom) for each entry in Parameter... OK
-      	Checking empty columns... WARNING
-      
-      All checks passed (1 WARNING(s))!
-      Running checks on data quality objectives for accuracy...
-      
-      	Checking column names... OK
-      	Checking all required columns are present... OK
-      	Checking column types... OK
-      	Checking no "na" in Value Range... OK
-      Running checks on data quality objectives for accuracy...
-      
-      	Checking column names... OK
-      	Checking all required columns are present... OK
-      	Checking column types... OK
-      	Checking no "na" in Value Range... OK
-      	Checking for text other than <=, ≤, <, >=, ≥, >, ±, %, AQL, BQL, log, or all... OK
-      Running checks on data quality objectives for accuracy...
-      
-      	Checking column names... OK
-      	Checking all required columns are present... OK
-      	Checking column types... OK
-      	Checking no "na" in Value Range... OK
-      	Checking for text other than <=, ≤, <, >=, ≥, >, ±, %, AQL, BQL, log, or all... OK
-      	Checking overlaps in Value Range... OK
-      	Checking gaps in Value Range... WARNING
-      	Checking Parameter formats... OK
-      	Checking for missing entries for unit (uom)... OK
-      	Checking if more than one unit (uom) per Parameter... OK
-      	Checking acceptable units (uom) for each entry in Parameter... OK
-      	Checking empty columns... OK
-      
-      All checks passed (1 WARNING(s))!
-      Running checks on data quality objectives for accuracy...
-      
-      	Checking column names... OK
-      	Checking all required columns are present... OK
-      	Checking column types... OK
-      	Checking no "na" in Value Range... OK
-      	Checking for text other than <=, ≤, <, >=, ≥, >, ±, %, AQL, BQL, log, or all... OK
-      	Checking overlaps in Value Range... OK
-      	Checking gaps in Value Range... OK
-      	Checking Parameter formats... OK
-      Running checks on data quality objectives for accuracy...
-      
-      	Checking column names... OK
-      	Checking all required columns are present... OK
-      	Checking column types... OK
-      	Checking no "na" in Value Range... OK
-      	Checking for text other than <=, ≤, <, >=, ≥, >, ±, %, AQL, BQL, log, or all... OK
-      	Checking overlaps in Value Range... OK
-      	Checking gaps in Value Range... OK
-      	Checking Parameter formats... OK
-      	Checking for missing entries for unit (uom)... OK
-      Running checks on data quality objectives for accuracy...
-      
-      	Checking column names... OK
-      	Checking all required columns are present... OK
-      	Checking column types... OK
-      	Checking no "na" in Value Range... OK
-      	Checking for text other than <=, ≤, <, >=, ≥, >, ±, %, AQL, BQL, log, or all... OK
-      	Checking overlaps in Value Range... OK
-      	Checking gaps in Value Range... WARNING
-      Running checks on data quality objectives for accuracy...
-      
-      	Checking column names... OK
-      	Checking all required columns are present... OK
-      	Checking column types... OK
-      	Checking no "na" in Value Range... OK
-      	Checking for text other than <=, ≤, <, >=, ≥, >, ±, %, AQL, BQL, log, or all... OK
-      	Checking overlaps in Value Range... OK
-      	Checking gaps in Value Range... OK
-      	Checking Parameter formats... OK
-      	Checking for missing entries for unit (uom)... OK
-      	Checking if more than one unit (uom) per Parameter... OK
-      Running checks on data quality objectives for accuracy...
-      
-      	Checking column names... OK
-      	Checking all required columns are present... OK
-      	Checking column types... OK
-      	Checking no "na" in Value Range... OK
-      	Checking for text other than <=, ≤, <, >=, ≥, >, ±, %, AQL, BQL, log, or all... OK
-      	Checking overlaps in Value Range... OK
-      	Checking gaps in Value Range... OK
-      	Checking Parameter formats... OK
-      	Checking for missing entries for unit (uom)... OK
-      	Checking if more than one unit (uom) per Parameter... OK
-      	Checking acceptable units (uom) for each entry in Parameter... OK
-      	Checking empty columns... WARNING
-      
-      All checks passed (1 WARNING(s))!
-      Running checks on data quality objectives for accuracy...
-      
-      	Checking column names... OK
-      	Checking all required columns are present... OK
-      	Checking column types... OK
-      Running checks on data quality objectives for frequency and completeness...
-      
-      Running checks on data quality objectives for frequency and completeness...
-      
-      	Checking column names... OK
-      Running checks on data quality objectives for frequency and completeness...
-      
-      	Checking column names... OK
-      	Checking all required columns are present... OK
-      Running checks on data quality objectives for frequency and completeness...
-      
-      	Checking column names... OK
-      	Checking all required columns are present... OK
-      	Checking for non-numeric values... OK
-      Running checks on data quality objectives for frequency and completeness...
-      
-      	Checking column names... OK
-      	Checking all required columns are present... OK
-      	Checking for non-numeric values... OK
-      	Checking for values outside of 0 and 100... OK
-      Running checks on data quality objectives for frequency and completeness...
-      
-      	Checking column names... OK
-      	Checking all required columns are present... OK
-      	Checking for non-numeric values... OK
-      	Checking for values outside of 0 and 100... OK
-      	Checking Parameter formats... OK
-      	Checking empty columns... WARNING
-      
-      All checks passed (1 WARNING(s))!
-      Running checks on results data...
-      
-      Running checks on results data...
-      
-      	Checking column names... OK
-      Running checks on results data...
-      
-      	Checking column names... OK
-      	Checking all required columns are present... OK
-      Running checks on results data...
-      
-      	Checking column names... OK
-      	Checking all required columns are present... OK
-      	Checking valid Activity Types... OK
-      Running checks on results data...
-      
-      	Checking column names... OK
-      	Checking all required columns are present... OK
-      	Checking valid Activity Types... OK
-      	Checking Activity Start Date formats... OK
-      Running checks on results data...
-      
-      	Checking column names... OK
-      	Checking all required columns are present... OK
-      	Checking valid Activity Types... OK
-      	Checking Activity Start Date formats... OK
-      	Checking depth data present... OK
-      Running checks on results data...
-      
-      	Checking column names... OK
-      	Checking all required columns are present... OK
-      	Checking valid Activity Types... OK
-      	Checking Activity Start Date formats... OK
-      	Checking depth data present... OK
-      	Checking for non-numeric values in Activity Depth/Height Measure... OK
-      Running checks on results data...
-      
-      	Checking column names... OK
-      	Checking all required columns are present... OK
-      	Checking valid Activity Types... OK
-      	Checking Activity Start Date formats... OK
-      	Checking depth data present... OK
-      	Checking for non-numeric values in Activity Depth/Height Measure... OK
-      	Checking Activity Depth/Height Unit... OK
-      	Checking Activity Relative Depth Name formats... OK
-      	Checking values in Activity Depth/Height Measure > 1 m / 3.3 ft... WARNING
-      	Checking Characteristic Name formats... OK
-      	Checking Result Values... OK
-      	Checking QC Reference Values... OK
-      	Checking for missing entries for Result Unit... OK
-      	Checking if more than one unit per Characteristic Name... OK
-      	Checking acceptable units for each entry in Characteristic Name... OK
-      
-      All checks passed (1 WARNING(s))!
-      Running checks on results data...
-      
-      	Checking column names... OK
-      	Checking all required columns are present... OK
-      	Checking valid Activity Types... OK
-      	Checking Activity Start Date formats... OK
-      	Checking depth data present... OK
-      	Checking for non-numeric values in Activity Depth/Height Measure... OK
-      	Checking Activity Depth/Height Unit... OK
-      	Checking Activity Relative Depth Name formats... WARNING
-      	Checking values in Activity Depth/Height Measure > 1 m / 3.3 ft... OK
-      	Checking Characteristic Name formats... OK
-      	Checking Result Values... OK
-      	Checking QC Reference Values... OK
-      	Checking for missing entries for Result Unit... OK
-      	Checking if more than one unit per Characteristic Name... OK
-      	Checking acceptable units for each entry in Characteristic Name... OK
-      
-      All checks passed (1 WARNING(s))!
-      Running checks on results data...
-      
-      	Checking column names... OK
-      	Checking all required columns are present... OK
-      	Checking valid Activity Types... OK
-      	Checking Activity Start Date formats... OK
-      	Checking depth data present... OK
-      	Checking for non-numeric values in Activity Depth/Height Measure... OK
-      	Checking Activity Depth/Height Unit... OK
-      	Checking Activity Relative Depth Name formats... OK
-      	Checking values in Activity Depth/Height Measure > 1 m / 3.3 ft... OK
-      	Checking Characteristic Name formats... WARNING
-      	Checking Result Values... OK
-      	Checking QC Reference Values... OK
-      	Checking for missing entries for Result Unit... OK
-      	Checking if more than one unit per Characteristic Name... OK
-      	Checking acceptable units for each entry in Characteristic Name... OK
-      
-      All checks passed (1 WARNING(s))!
-      Running checks on results data...
-      
-      	Checking column names... OK
-      	Checking all required columns are present... OK
-      	Checking valid Activity Types... OK
-      	Checking Activity Start Date formats... OK
-      	Checking depth data present... OK
-      	Checking for non-numeric values in Activity Depth/Height Measure... OK
-      	Checking Activity Depth/Height Unit... OK
-      	Checking Activity Relative Depth Name formats... OK
-      	Checking values in Activity Depth/Height Measure > 1 m / 3.3 ft... OK
-      	Checking Characteristic Name formats... OK
-      Running checks on results data...
-      
-      	Checking column names... OK
-      	Checking all required columns are present... OK
-      	Checking valid Activity Types... OK
-      	Checking Activity Start Date formats... OK
-      	Checking depth data present... OK
-      	Checking for non-numeric values in Activity Depth/Height Measure... OK
-      	Checking Activity Depth/Height Unit... OK
-      	Checking Activity Relative Depth Name formats... OK
-      	Checking values in Activity Depth/Height Measure > 1 m / 3.3 ft... OK
-      	Checking Characteristic Name formats... OK
-      	Checking Result Values... OK
-      Running checks on results data...
-      
-      	Checking column names... OK
-      	Checking all required columns are present... OK
-      	Checking valid Activity Types... OK
-      	Checking Activity Start Date formats... OK
-      	Checking depth data present... OK
-      	Checking for non-numeric values in Activity Depth/Height Measure... OK
-      	Checking Activity Depth/Height Unit... OK
-      	Checking Activity Relative Depth Name formats... OK
-      	Checking values in Activity Depth/Height Measure > 1 m / 3.3 ft... OK
-      	Checking Characteristic Name formats... OK
-      	Checking Result Values... OK
-      	Checking QC Reference Values... OK
-      Running checks on results data...
-      
-      	Checking column names... OK
-      	Checking all required columns are present... OK
-      	Checking valid Activity Types... OK
-      	Checking Activity Start Date formats... OK
-      	Checking depth data present... OK
-      	Checking for non-numeric values in Activity Depth/Height Measure... OK
-      	Checking Activity Depth/Height Unit... OK
-      	Checking Activity Relative Depth Name formats... OK
-      	Checking values in Activity Depth/Height Measure > 1 m / 3.3 ft... OK
-      	Checking Characteristic Name formats... OK
-      	Checking Result Values... OK
-      	Checking QC Reference Values... OK
-      	Checking for missing entries for Result Unit... OK
-      Running checks on results data...
-      
-      	Checking column names... OK
-      	Checking all required columns are present... OK
-      	Checking valid Activity Types... OK
-      	Checking Activity Start Date formats... OK
-      	Checking depth data present... OK
-      	Checking for non-numeric values in Activity Depth/Height Measure... OK
-      	Checking Activity Depth/Height Unit... OK
-      	Checking Activity Relative Depth Name formats... OK
-      	Checking values in Activity Depth/Height Measure > 1 m / 3.3 ft... OK
-      	Checking Characteristic Name formats... OK
-      	Checking Result Values... OK
-      	Checking QC Reference Values... OK
-      	Checking for missing entries for Result Unit... OK
-      	Checking if more than one unit per Characteristic Name... OK
-      Running checks on results data...
-      
-      	Checking column names... OK
-      	Checking all required columns are present... OK
-      	Checking valid Activity Types... OK
-      	Checking Activity Start Date formats... OK
-      	Checking depth data present... OK
-      	Checking for non-numeric values in Activity Depth/Height Measure... OK
-      	Checking Activity Depth/Height Unit... OK
-      	Checking Activity Relative Depth Name formats... OK
-      	Checking values in Activity Depth/Height Measure > 1 m / 3.3 ft... OK
-      	Checking Characteristic Name formats... OK
-      	Checking Result Values... OK
-      	Checking QC Reference Values... OK
-      	Checking for missing entries for Result Unit... OK
-      	Checking if more than one unit per Characteristic Name... OK
-      	Checking acceptable units for each entry in Characteristic Name... OK
-      Running checks on site metadata...
-      
-      Running checks on site metadata...
-      
-      	Checking column names... OK
-      Running checks on site metadata...
-      
-      	Checking column names... OK
-      	Checking all required columns are present... OK
-      Running checks on site metadata...
-      
-      	Checking column names... OK
-      	Checking all required columns are present... OK
-      	Checking for missing latitude or longitude values... OK
-      Running checks on site metadata...
-      
-      	Checking column names... OK
-      	Checking all required columns are present... OK
-      	Checking for missing latitude or longitude values... OK
-      	Checking for non-numeric values in latitude... OK
-      Running checks on site metadata...
-      
-      	Checking column names... OK
-      	Checking all required columns are present... OK
-      	Checking for missing latitude or longitude values... OK
-      	Checking for non-numeric values in latitude... OK
-      	Checking for non-numeric values in longitude... OK
-      Running checks on site metadata...
-      
-      	Checking column names... OK
-      	Checking all required columns are present... OK
-      	Checking for missing latitude or longitude values... OK
-      	Checking for non-numeric values in latitude... OK
-      	Checking for non-numeric values in longitude... OK
-      	Checking for positive values in longitude... OK
-      Running checks on WQX metadata...
-      
-      Running checks on WQX metadata...
-      
-      	Checking column names... OK
-      Running checks on WQX metadata...
-      
-      	Checking column names... OK
-      	Checking all required columns are present... OK
-      Running checks on WQX metadata...
-      
-      	Checking column names... OK
-      	Checking all required columns are present... OK
-      	Checking unique parameters... OK
-      	Checking Parameter formats... WARNING
-      
-      All checks passed (1 WARNING(s))!
-      Running checks on data quality objectives for frequency and completeness...
-      
-      	Checking column names... OK
-      	Checking all required columns are present... OK
-      	Checking for non-numeric values... OK
-      	Checking for values outside of 0 and 100... OK
-      	Checking Parameter formats... OK
-      	Checking empty columns... OK
-      
-      All checks passed!
-      Running checks on data quality objectives for accuracy...
-      
-      	Checking column names... OK
-      	Checking all required columns are present... OK
-      	Checking column types... OK
-      	Checking no "na" in Value Range... OK
-      	Checking for text other than <=, ≤, <, >=, ≥, >, ±, %, AQL, BQL, log, or all... OK
-      	Checking overlaps in Value Range... OK
-      	Checking gaps in Value Range... OK
-      	Checking Parameter formats... OK
-      	Checking for missing entries for unit (uom)... OK
-      	Checking if more than one unit (uom) per Parameter... OK
-      	Checking acceptable units (uom) for each entry in Parameter... OK
-      	Checking empty columns... OK
-      
-      All checks passed!
-      Running checks on data quality objectives for frequency and completeness...
-      
-      	Checking column names... OK
-      	Checking all required columns are present... OK
-      	Checking for non-numeric values... OK
-      	Checking for values outside of 0 and 100... OK
-      	Checking Parameter formats... OK
-      	Checking empty columns... OK
-      
-      All checks passed!
-      Running checks on results data...
-      
-      	Checking column names... OK
-      	Checking all required columns are present... OK
-      	Checking valid Activity Types... OK
-      	Checking Activity Start Date formats... OK
-      	Checking depth data present... OK
-      	Checking for non-numeric values in Activity Depth/Height Measure... OK
-      	Checking Activity Depth/Height Unit... OK
-      	Checking Activity Relative Depth Name formats... OK
-      	Checking values in Activity Depth/Height Measure > 1 m / 3.3 ft... OK
-      	Checking Characteristic Name formats... OK
-      	Checking Result Values... OK
-      	Checking QC Reference Values... OK
-      	Checking for missing entries for Result Unit... OK
-      	Checking if more than one unit per Characteristic Name... OK
-      	Checking acceptable units for each entry in Characteristic Name... OK
-      
-      All checks passed!
-      Running checks on results data...
-      
-      	Checking column names... OK
-      	Checking all required columns are present... OK
-      	Checking valid Activity Types... OK
-      	Checking Activity Start Date formats... OK
-      	Checking depth data present... OK
-      	Checking for non-numeric values in Activity Depth/Height Measure... OK
-      	Checking Activity Depth/Height Unit... OK
-      	Checking Activity Relative Depth Name formats... OK
-      	Checking values in Activity Depth/Height Measure > 1 m / 3.3 ft... OK
-      	Checking Characteristic Name formats... OK
-      	Checking Result Values... OK
-      	Checking QC Reference Values... OK
-      	Checking for missing entries for Result Unit... OK
-      	Checking if more than one unit per Characteristic Name... OK
-      	Checking acceptable units for each entry in Characteristic Name... OK
-      
-      All checks passed!
-      Running checks on site metadata...
-      
-      	Checking column names... OK
-      	Checking all required columns are present... OK
-      	Checking for missing latitude or longitude values... OK
-      	Checking for non-numeric values in latitude... OK
-      	Checking for non-numeric values in longitude... OK
-      	Checking for positive values in longitude... OK
-      	Checking for missing entries for Monitoring Location ID... OK
-      
-      All checks passed!
-      Running checks on WQX metadata...
-      
-      	Checking column names... OK
-      	Checking all required columns are present... OK
-      	Checking unique parameters... OK
-      	Checking Parameter formats... OK
-      
-      All checks passed!
-      Running checks on WQX metadata...
-      
-      	Checking column names... OK
-      	Checking all required columns are present... OK
-      	Checking unique parameters... OK
-      	Checking Parameter formats... OK
-      
-      All checks passed!
-      [ FAIL 5 | WARN 17 | SKIP 5 | PASS 183 ]
-      
-      ══ Skipped tests (5) ═══════════════════════════════════════════════════════════
-      • On CRAN (5): 'test-anlzMWRmap.R:2:3', 'test-anlzMWRmap.R:8:3',
-        'test-anlzMWRmap.R:14:3', 'test-anlzMWRmap.R:24:3', 'test-anlzMWRmap.R:30:3'
-      
-      ══ Failed tests ════════════════════════════════════════════════════════════════
-      ── Error ('test-anlzMWRdate.R:22:3'): Checking output format group as location ──
-      Error: Location group not found in site metadata file for DO: Tributaries, should be any of Assabet
-      Backtrace:
-          ▆
-       1. └─MassWateR::anlzMWRdate(...) at test-anlzMWRdate.R:22:3
-       2.   └─MassWateR::utilMWRfilter(...)
-      ── Error ('test-anlzMWRdate.R:34:3'): Checking output format group as location, repel = FALSE ──
-      Error: Location group not found in site metadata file for DO: Tributaries, should be any of Assabet
-      Backtrace:
-          ▆
-       1. └─MassWateR::anlzMWRdate(...) at test-anlzMWRdate.R:34:3
-       2.   └─MassWateR::utilMWRfilter(...)
-      ── Error ('test-anlzMWRoutlier.R:22:3'): Checking output format log-scale ──────
-      Error: E.coli not found or no surface data in results file, should be one of DO
-      Backtrace:
-          ▆
-       1. └─MassWateR::anlzMWRoutlier(...) at test-anlzMWRoutlier.R:22:3
-       2.   └─MassWateR::utilMWRfilter(resdat = resdat, param = param, dtrng = dtrng)
-      ── Error ('test-anlzMWRsite.R:17:3'): Checking output format jittered boxplot, byresultatt ──
-      Error: Ammonia not found or no surface data in results file, should be one of DO
-      Backtrace:
-          ▆
-       1. └─MassWateR::anlzMWRsite(...) at test-anlzMWRsite.R:17:3
-       2.   └─MassWateR::utilMWRfilter(...)
-      ── Error ('test-anlzMWRsite.R:23:3'): Checking output format jittered barplot, byresultatt ──
-      Error: Ammonia not found or no surface data in results file, should be one of DO
-      Backtrace:
-          ▆
-       1. └─MassWateR::anlzMWRsite(...) at test-anlzMWRsite.R:23:3
-       2.   └─MassWateR::utilMWRfilter(...)
-      
-      [ FAIL 5 | WARN 17 | SKIP 5 | PASS 183 ]
-      Error: Test failures
-      Execution halted
-    ```
-
 # mpwR
 
 <details>
@@ -5461,33 +4101,6 @@ Run `revdepcheck::cloud_details(, "msigdbr")` for more info
       Killed
     ```
 
-*   checking running R code from vignettes ... ERROR
-    ```
-    Errors in running code in vignettes:
-    when running code in ‘msigdbr-intro.Rmd’
-      ...
-    #   gs_geoid <chr>, gs_exact_source <chr>, gs_url <chr>, gs_description <chr>,
-    #   taxon_id <int>, ortholog_sources <chr>, num_ortholog_sources <dbl>
-    
-    > cgp_gene_sets = msigdbr(species = "mouse", category = "C2", 
-    +     subcategory = "CGP")
-    
-    > head(cgp_gene_sets)
-    Killed
-    
-    ... incomplete output.  Crash?
-    
-      ‘msigdbr-intro.Rmd’ using ‘UTF-8’... failed to complete the test
-    ```
-
-*   checking re-building of vignette outputs ... NOTE
-    ```
-    Error(s) in re-building vignettes:
-      ...
-    --- re-building ‘msigdbr-intro.Rmd’ using rmarkdown
-    Killed
-    ```
-
 ## In both
 
 *   checking installed package size ... NOTE
@@ -5678,10 +4291,10 @@ Run `revdepcheck::cloud_details(, "NeuroDecodeR")` for more info
         |                                                                            
         |===================================                                   |  50%
         |                                                                            
-        |======================================================================| 100%[1] "2024-04-22 06:26:27 UTC"
-       [1] 0.1111111 0.1388889 0.1190476 0.1349206 0.1230159 0.1388889 0.1388889
-       [8] 0.1746032 0.2063492 0.1349206 0.3333333 0.8373016 0.8412698 0.7857143
-      [15] 0.7539683 0.6547619 0.5992063 0.6825397
+        |======================================================================| 100%[1] "2024-04-22 16:42:12 UTC"
+       [1] 0.13888889 0.12301587 0.09126984 0.11507937 0.11111111 0.11904762
+       [7] 0.13888889 0.16666667 0.17063492 0.18650794 0.36904762 0.82936508
+      [13] 0.82936508 0.77777778 0.71428571 0.66666667 0.58333333 0.73809524
       1 Mb
       
         |                                                                            
@@ -5749,42 +4362,6 @@ Run `revdepcheck::cloud_details(, "NeuroDecodeR")` for more info
     --- finished re-building ‘datasets.Rmd’
     
     --- re-building ‘generalization_tutorial.Rmd’ using rmarkdown
-    ```
-
-# npi
-
-<details>
-
-* Version: 0.2.0
-* GitHub: https://github.com/ropensci/npi
-* Source code: https://github.com/cran/npi
-* Date/Publication: 2022-11-14 11:30:02 UTC
-* Number of recursive dependencies: 74
-
-Run `revdepcheck::cloud_details(, "npi")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking running R code from vignettes ... ERROR
-    ```
-    Errors in running code in vignettes:
-    when running code in ‘advanced-use.Rmd’
-      ...
-    +     dplyr::bind_rows()
-    10 records requested
-    Requesting records 0-10...
-    
-      When sourcing ‘advanced-use.R’:
-    Error: ℹ In index: 1.
-    Caused by error in `npi_handle_response()`:
-    ! NPPES API request failed [504]
-    <https://npiregistry.cms.hhs.gov/api/?version=2.1&number=1992708929&limit=10&skip=0>
-    Execution halted
-    
-      ‘advanced-use.Rmd’ using ‘UTF-8’... failed
-      ‘npi.Rmd’ using ‘UTF-8’... OK
     ```
 
 # omopgenerics
@@ -5922,75 +4499,6 @@ Run `revdepcheck::cloud_details(, "partition")` for more info
         libs  12.0Mb
     ```
 
-# portalr
-
-<details>
-
-* Version: 0.4.1
-* GitHub: https://github.com/weecology/portalr
-* Source code: https://github.com/cran/portalr
-* Date/Publication: 2023-08-23 16:50:02 UTC
-* Number of recursive dependencies: 107
-
-Run `revdepcheck::cloud_details(, "portalr")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking tests ... ERROR
-    ```
-      Running ‘testthat.R’
-    Running the tests in ‘tests/testthat.R’ failed.
-    Complete output:
-      > library(testthat)
-      > library(portalr)
-      > 
-      > test_check("portalr")
-      [ FAIL 3 | WARN 2 | SKIP 42 | PASS 148 ]
-      
-      ══ Skipped tests (42) ══════════════════════════════════════════════════════════
-      • On CRAN (42): 'test-01-data-retrieval.R:6:5',
-        'test-01-data-retrieval.R:39:5', 'test-01-data-retrieval.R:46:5',
-        'test-01-data-retrieval.R:61:5', 'test-01-data-retrieval.R:76:5',
-        'test-03-summarize-rodents.R:6:3', 'test-03-summarize-rodents.R:32:3',
-        'test-03-summarize-rodents.R:38:3', 'test-03-summarize-rodents.R:60:3',
-        'test-03-summarize-rodents.R:85:3', 'test-03-summarize-rodents.R:110:3',
-        'test-03-summarize-rodents.R:129:3', 'test-03-summarize-rodents.R:195:3',
-        'test-99-regression.R:6:3', 'test-99-regression.R:16:3',
-        'test-99-regression.R:24:3', 'test-99-regression.R:42:3',
-        'test-99-regression.R:66:3', 'test-99-regression.R:76:3',
-        'test-99-regression.R:85:3', 'test-99-regression.R:98:3',
-        'test-99-regression.R:107:3', 'test-99-regression.R:116:3',
-        'test-99-regression.R:128:3', 'test-99-regression.R:139:3',
-        'test-99-regression.R:151:3', 'test-99-regression.R:160:3',
-        'test-99-regression.R:169:3', 'test-99-regression.R:179:3',
-        'test-99-regression.R:193:3', 'test-99-regression.R:205:3',
-        'test-99-regression.R:213:3', 'test-99-regression.R:225:3',
-        'test-99-regression.R:233:3', 'test-99-regression.R:245:3',
-        'test-99-regression.R:253:3', 'test-99-regression.R:265:3',
-        'test-99-regression.R:278:3', 'test-99-regression.R:288:3',
-        'test-99-regression.R:298:3', 'test-99-regression.R:316:3',
-        'test-99-regression.R:328:3'
-      
-      ══ Failed tests ════════════════════════════════════════════════════════════════
-      ── Failure ('test-10-summarize_ants.R:10:3'): colony_presence_absence returns expected results ──
-      sum(test.colony$presence, na.rm = T) not equal to 4930.
-      1/1 mismatches
-      [1] 763 - 4930 == -4167
-      ── Failure ('test-10-summarize_ants.R:12:3'): colony_presence_absence returns expected results ──
-      nrow(test.colony) not equal to 190512.
-      1/1 mismatches
-      [1] 155232 - 190512 == -35280
-      ── Failure ('test-10-summarize_ants.R:16:3'): colony_presence_absence returns expected results ──
-      unique(colonypresabs.site$species) not equal to unique(colonypresabs.stake$species).
-      Lengths differ: 27 is not 22
-      
-      [ FAIL 3 | WARN 2 | SKIP 42 | PASS 148 ]
-      Error: Test failures
-      Execution halted
-    ```
-
 # PupilPre
 
 <details>
@@ -6100,6 +4608,36 @@ Run `revdepcheck::cloud_details(, "rfars")` for more info
 
 ## Newly broken
 
+*   checking re-building of vignette outputs ... NOTE
+    ```
+    Error(s) in re-building vignettes:
+      ...
+    --- re-building ‘Counts.Rmd’ using rmarkdown
+    trying URL 'https://static.nhtsa.gov/nhtsa/downloads/FARS/2021/National/FARS2021NationalSAS.zip'
+    Content type 'application/x-zip-compressed' length 49942611 bytes (47.6 MB)
+    ==================================================
+    downloaded 47.6 MB
+    
+    Killed
+    --- re-building ‘Crash_sequence_of_events.Rmd’ using rmarkdown
+    trying URL 'https://static.nhtsa.gov/nhtsa/downloads/CRSS/2021/CRSS2021SAS.zip'
+    Content type 'application/x-zip-compressed' length 66718214 bytes (63.6 MB)
+    ==================================================
+    downloaded 63.6 MB
+    
+    Killed
+    --- re-building ‘Searchable_Codebooks.Rmd’ using rmarkdown
+    --- finished re-building ‘Searchable_Codebooks.Rmd’
+    
+    SUMMARY: processing the following files failed:
+      ‘Counts.Rmd’ ‘Crash_sequence_of_events.Rmd’
+    
+    Error: Vignette re-building failed.
+    Execution halted
+    ```
+
+## In both
+
 *   checking running R code from vignettes ... ERROR
     ```
     Errors in running code in vignettes:
@@ -6131,34 +4669,6 @@ Run `revdepcheck::cloud_details(, "rfars")` for more info
       ‘Counts.Rmd’ using ‘UTF-8’... failed to complete the test
       ‘Crash_sequence_of_events.Rmd’ using ‘UTF-8’... failed to complete the test
       ‘Searchable_Codebooks.Rmd’ using ‘UTF-8’... OK
-    ```
-
-*   checking re-building of vignette outputs ... NOTE
-    ```
-    Error(s) in re-building vignettes:
-      ...
-    --- re-building ‘Counts.Rmd’ using rmarkdown
-    trying URL 'https://static.nhtsa.gov/nhtsa/downloads/FARS/2021/National/FARS2021NationalSAS.zip'
-    Content type 'application/x-zip-compressed' length 49942611 bytes (47.6 MB)
-    ==================================================
-    downloaded 47.6 MB
-    
-    Killed
-    --- re-building ‘Crash_sequence_of_events.Rmd’ using rmarkdown
-    trying URL 'https://static.nhtsa.gov/nhtsa/downloads/CRSS/2021/CRSS2021SAS.zip'
-    Content type 'application/x-zip-compressed' length 66718214 bytes (63.6 MB)
-    ==================================================
-    downloaded 63.6 MB
-    
-    Killed
-    --- re-building ‘Searchable_Codebooks.Rmd’ using rmarkdown
-    --- finished re-building ‘Searchable_Codebooks.Rmd’
-    
-    SUMMARY: processing the following files failed:
-      ‘Counts.Rmd’ ‘Crash_sequence_of_events.Rmd’
-    
-    Error: Vignette re-building failed.
-    Execution halted
     ```
 
 # rWCVP
@@ -6492,150 +5002,6 @@ Run `revdepcheck::cloud_details(, "sapfluxnetr")` for more info
 *   checking data for non-ASCII characters ... NOTE
     ```
       Note: found 4 marked UTF-8 strings
-    ```
-
-# sfc
-
-<details>
-
-* Version: 0.1.0
-* GitHub: https://github.com/ctfysh/sfc
-* Source code: https://github.com/cran/sfc
-* Date/Publication: 2016-08-25 10:01:01
-* Number of recursive dependencies: 29
-
-Run `revdepcheck::cloud_details(, "sfc")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking examples ... ERROR
-    ```
-    Running examples in ‘sfc-Ex.R’ failed
-    The error most likely occurred in:
-    
-    > ### Name: sfc
-    > ### Title: Substance Flow Computation
-    > ### Aliases: sfc
-    > 
-    > ### ** Examples
-    > 
-    > library(sfc)
-    > 
-    > ## model as txt
-    > data <- system.file("extdata", "data_utf8.csv", package = "sfc")
-    > model <- system.file("extdata", "model_utf8.txt", package = "sfc")
-    > sfc(data, model, sample.size = 100, fileEncoding = "UTF-8")
-    Read 12 items
-    Warning: `funs()` was deprecated in dplyr 0.8.0.
-    ℹ Please use a list of either functions or lambdas:
-    
-    # Simple named list: list(mean = mean, median = median)
-    
-    # Auto named with `tibble::lst()`: tibble::lst(mean, median)
-    
-    # Using lambdas list(~ mean(., trim = .2), ~ median(., na.rm = TRUE))
-    ℹ The deprecated feature was likely used in the sfc package.
-      Please report the issue at <https://github.com/ctfysh/sfc/issues>.
-    Warning: `mutate_each()` was deprecated in dplyr 0.7.0.
-    ℹ Please use `across()` instead.
-    ℹ The deprecated feature was likely used in the sfc package.
-      Please report the issue at <https://github.com/ctfysh/sfc/issues>.
-    Warning: `arrange_()` was deprecated in dplyr 0.7.0.
-    ℹ Please use `arrange()` instead.
-    ℹ See vignette('programming') for more help
-    ℹ The deprecated feature was likely used in the sfc package.
-      Please report the issue at <https://github.com/ctfysh/sfc/issues>.
-    Warning: `group_by_()` was deprecated in dplyr 0.7.0.
-    ℹ Please use `group_by()` instead.
-    ℹ See vignette('programming') for more help
-    ℹ The deprecated feature was likely used in the sfc package.
-      Please report the issue at <https://github.com/ctfysh/sfc/issues>.
-    Joining with `by = join_by(NAME, TIME)`
-    Joining with `by = join_by(NAME, TIME.1)`
-    Joining with `by = join_by(NAME, TIME.1)`
-    Warning: `gather_()` was deprecated in tidyr 1.2.0.
-    ℹ Please use `gather()` instead.
-    ℹ The deprecated feature was likely used in the sfc package.
-      Please report the issue at <https://github.com/ctfysh/sfc/issues>.
-    Joining with `by = join_by(TIME, START, END)`
-    Joining with `by = join_by(TIME, START, END)`
-    Joining with `by = join_by(SAMPLE)`
-    Joining with `by = join_by(SAMPLE)`
-    $result
-        TIME START END       MEAN     MEDIAN        SD        CV         Q05
-    1  Y2000     R  Ch  9.0679824  9.4584184 1.4626821 0.1613018  6.86788646
-    2  Y2000     R   W  1.3351560  1.2442144 1.2309028 0.9219169  0.08474069
-    3  Y2000    Ch  Cr  5.9314183  5.5918239 0.9480079 0.1598282  4.77250555
-    4  Y2000    Ch   H  1.3507011  1.2642576 0.4234872 0.3135314  0.89038325
-    5  Y2000    Ch   W  3.6682076  3.0997954 2.7036788 0.7370572  0.43921481
-    6  Y2000    Cr   H  2.0396615  2.0065303 0.4009789 0.1965909  1.42816757
-    7  Y2000    Cr   A  1.8130324  1.7835825 0.3564257 0.1965909  1.26948228
-    8  Y2000    Cr   W  2.0787244  2.1228426 1.0373913 0.4990519  0.91927271
-    9  Y2000     H   W  4.5836176  4.5225374 0.5528470 0.1206137  3.81984480
-    10 Y2000     A   H  1.1932550  1.1779097 0.1929756 0.1617220  0.87982350
-    11 Y2000     A   W  0.6197774  0.5197922 0.3674327 0.5928462  0.21248803
-    12 Y2000     W  Ch  1.8823447  1.0428960 1.7120373 0.9095238  0.25570396
-    13 Y2005     R  Ch 17.9298030 18.0040932 2.2864183 0.1275205 14.55500307
-    14 Y2005     R   W  2.7122118  2.2498123 1.8272863 0.6737255  0.77892099
-    15 Y2005    Ch  Cr 11.5540040 10.6165212 2.5386776 0.2197228  9.09743165
-    16 Y2005    Ch   H  2.7806066  2.8991314 1.1611302 0.4175816  1.09069165
-    17 Y2005    Ch   W  6.8603579  7.6692706 4.0421082 0.5891979  1.07987163
-    18 Y2005    Cr   H  4.4613915  4.5966399 0.7539393 0.1689920  3.26161750
-    19 Y2005    Cr   A  3.9656814  4.0859021 0.6701683 0.1689920  2.89921556
-    20 Y2005    Cr   W  3.1269311  2.6336730 2.8406220 0.9084377  0.22303326
-    21 Y2005     H   W  9.3117148  9.0981815 1.6628450 0.1785756  7.22959796
-    22 Y2005     A   H  2.0697166  1.9925941 0.7382240 0.3566788  1.20226656
-    23 Y2005     A   W  1.8959648  1.6971399 1.0332402 0.5449680  0.72628986
-    24 Y2005     W  Ch  3.2651655  3.7354635 2.0361686 0.6236035  0.47707164
-              Q25        Q75       Q95
-    1   8.1742454  9.8430628 10.878344
-    2   0.4573498  1.6971202  3.731054
-    3   5.3911117  6.6041520  7.439789
-    4   0.9811702  1.6229342  2.023472
-    5   1.6643825  6.6183365  7.558149
-    6   1.7696454  2.4163463  2.559182
-    7   1.5730181  2.1478633  2.274829
-    8   1.1680812  2.5772656  3.809251
-    9   4.2207060  5.0056604  5.354978
-    10  1.1641420  1.3411602  1.440692
-    11  0.3468877  0.9487023  1.160737
-    12  0.5909986  3.5131827  4.599116
-    13 17.0438561 18.6195731 21.411357
-    14  1.3392101  3.4845487  5.606262
-    15 10.1317175 12.1823217 16.089092
-    16  2.2561158  3.5270261  4.268679
-    17  3.3864069 10.6953125 11.724114
-    18  4.2262138  4.7314197  5.401606
-    19  3.7566345  4.2057064  4.801428
-    20  1.6568941  3.7011813  7.748893
-    21  8.4240824  9.8604456 11.897043
-    22  1.4336702  2.5085665  3.252364
-    23  1.0353715  2.4116928  3.482157
-    24  1.6878630  5.0608549  5.662908
-    
-    $sample.size
-    [1] 13
-    
-    > 
-    > ## model as csv
-    > data <- system.file("extdata", "data_utf8.csv", package = "sfc")
-    > model <- system.file("extdata", "model_utf8.csv", package = "sfc")
-    > sfc(data, model, fileEncoding = "UTF-8")
-    Joining with `by = join_by(NAME, TIME)`
-    Joining with `by = join_by(NAME, TIME.1)`
-    Joining with `by = join_by(NAME, TIME.1)`
-    Error in if (dim(flow)[2] == 2) { : argument is of length zero
-    Calls: sfc -> order -> flow_order -> adj_matrix
-    Execution halted
-    ```
-
-## In both
-
-*   checking LazyData ... NOTE
-    ```
-      'LazyData' is specified without a 'data' directory
     ```
 
 # starschemar

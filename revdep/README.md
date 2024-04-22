@@ -1,39 +1,23 @@
 # Revdeps
 
-## Failed to check (8)
-
-|package          |version |error |warning |note |
-|:----------------|:-------|:-----|:-------|:----|
-|bayesdfa         |1.3.3   |1     |        |     |
-|EcoEnsemble      |1.0.5   |1     |        |     |
-|loon.shiny       |?       |      |        |     |
-|multinma         |0.6.1   |1     |        |     |
-|TestAnaAPP       |0.1.8   |1     |        |     |
-|TriDimRegression |1.0.2   |1     |        |     |
-|triptych         |0.1.2   |1     |        |     |
-|viruslearner     |?       |      |        |     |
-
-## New problems (52)
+## New problems (44)
 
 |package           |version |error    |warning |note     |
 |:-----------------|:-------|:--------|:-------|:--------|
 |[activAnalyzer](problems.md#activanalyzer)|2.0.2   |__+2__   |        |1 __+1__ |
 |[arrow](problems.md#arrow)|15.0.1  |__+1__   |        |2        |
 |[auk](problems.md#auk)|0.7.0   |1 __+1__ |        |         |
-|[CARBayes](problems.md#carbayes)|6.1.1   |         |        |1 __+1__ |
 |[cards](problems.md#cards)|0.1.0   |__+1__   |        |         |
 |[causalBatch](problems.md#causalbatch)|1.2.0   |__+1__   |        |         |
 |[CausalQueries](problems.md#causalqueries)|1.1.0   |__+1__   |        |2        |
 |[CCWeights](problems.md#ccweights)|0.1.6   |__+1__   |        |         |
 |[CodelistGenerator](problems.md#codelistgenerator)|2.2.3   |__+1__   |        |         |
-|[comperes](problems.md#comperes)|0.2.7   |__+1__   |        |         |
-|[covidcast](problems.md#covidcast)|0.5.2   |         |        |1 __+1__ |
 |[crosshap](problems.md#crosshap)|1.4.0   |__+2__   |        |         |
 |[dbGaPCheckup](problems.md#dbgapcheckup)|1.1.0   |__+1__   |        |         |
 |[DescrTab2](problems.md#descrtab2)|2.1.16  |__+2__   |        |2        |
 |[dtrackr](problems.md#dtrackr)|0.4.4   |__+1__   |        |         |
 |[duckplyr](problems.md#duckplyr)|0.3.2   |__+1__   |        |         |
-|[ern](problems.md#ern)|1.3.1   |__+1__   |        |         |
+|[ern](problems.md#ern)|2.0.0   |__+1__   |        |         |
 |[eSDM](problems.md#esdm)|0.4.1   |__+1__   |        |1 __+1__ |
 |[ezplot](problems.md#ezplot)|0.7.13  |__+1__   |        |         |
 |[fqar](problems.md#fqar)|0.5.3   |__+1__   |        |         |
@@ -42,23 +26,18 @@
 |[heemod](problems.md#heemod)|1.0.1   |__+1__   |        |         |
 |[iNZightTools](problems.md#inzighttools)|2.0.1   |__+1__   |        |         |
 |[linelist](problems.md#linelist)|1.1.3   |1 __+1__ |        |         |
-|[margaret](problems.md#margaret)|0.1.4   |         |        |1 __+1__ |
-|[MassWateR](problems.md#masswater)|2.1.4   |__+2__   |__+1__  |         |
 |[mpwR](problems.md#mpwr)|0.1.5   |__+2__   |        |__+1__   |
-|[msigdbr](problems.md#msigdbr)|7.5.1   |__+2__   |        |1 __+1__ |
+|[msigdbr](problems.md#msigdbr)|7.5.1   |__+1__   |        |1        |
 |[mtdesign](problems.md#mtdesign)|0.1.0   |__+1__   |        |         |
 |[multiverse](problems.md#multiverse)|0.6.1   |1 __+1__ |        |         |
 |[NeuroDecodeR](problems.md#neurodecoder)|0.2.0   |__+3__   |        |__+1__   |
-|[npi](problems.md#npi)|0.2.0   |__+1__   |        |         |
 |[omopgenerics](problems.md#omopgenerics)|0.1.2   |1 __+1__ |        |         |
 |[partition](problems.md#partition)|0.2.0   |__+1__   |        |1 __+1__ |
-|[portalr](problems.md#portalr)|0.4.1   |__+1__   |        |         |
 |[PupilPre](problems.md#pupilpre)|0.6.2   |__+2__   |        |__+1__   |
-|[rfars](problems.md#rfars)|1.2.0   |__+1__   |        |__+1__   |
+|[rfars](problems.md#rfars)|1.2.0   |1        |        |__+1__   |
 |[rWCVP](problems.md#rwcvp)|1.2.4   |__+1__   |        |2        |
 |[sampler](problems.md#sampler)|0.2.4   |__+1__   |        |         |
 |[sapfluxnetr](problems.md#sapfluxnetr)|0.1.4   |__+1__   |        |1        |
-|[sfc](problems.md#sfc)|0.1.0   |__+1__   |        |1        |
 |[starschemar](problems.md#starschemar)|1.2.4   |__+2__   |        |         |
 |[streamDepletr](problems.md#streamdepletr)|0.2.0   |__+1__   |        |__+1__   |
 |[text2sdg](problems.md#text2sdg)|1.1.1   |__+1__   |        |1 __+1__ |
