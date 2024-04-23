@@ -1,6 +1,6 @@
 # Revdeps
 
-## New problems (44)
+## New problems (40)
 
 |package           |version |error    |warning |note     |
 |:-----------------|:-------|:--------|:-------|:--------|
@@ -15,15 +15,11 @@
 |[crosshap](problems.md#crosshap)|1.4.0   |__+2__   |        |         |
 |[dbGaPCheckup](problems.md#dbgapcheckup)|1.1.0   |__+1__   |        |         |
 |[DescrTab2](problems.md#descrtab2)|2.1.16  |__+2__   |        |2        |
-|[dtrackr](problems.md#dtrackr)|0.4.4   |__+1__   |        |         |
 |[duckplyr](problems.md#duckplyr)|0.3.2   |__+1__   |        |         |
 |[ern](problems.md#ern)|2.0.0   |__+1__   |        |         |
-|[eSDM](problems.md#esdm)|0.4.1   |__+1__   |        |1 __+1__ |
-|[ezplot](problems.md#ezplot)|0.7.13  |__+1__   |        |         |
 |[fqar](problems.md#fqar)|0.5.3   |__+1__   |        |         |
 |[gtreg](problems.md#gtreg)|0.3.0   |__+1__   |        |         |
 |[gtsummary](problems.md#gtsummary)|1.7.2   |__+1__   |        |         |
-|[heemod](problems.md#heemod)|1.0.1   |__+1__   |        |         |
 |[iNZightTools](problems.md#inzighttools)|2.0.1   |__+1__   |        |         |
 |[linelist](problems.md#linelist)|1.1.3   |1 __+1__ |        |         |
 |[mpwR](problems.md#mpwr)|0.1.5   |__+2__   |        |__+1__   |
@@ -34,7 +30,7 @@
 |[omopgenerics](problems.md#omopgenerics)|0.1.2   |1 __+1__ |        |         |
 |[partition](problems.md#partition)|0.2.0   |__+1__   |        |1 __+1__ |
 |[PupilPre](problems.md#pupilpre)|0.6.2   |__+2__   |        |__+1__   |
-|[rfars](problems.md#rfars)|1.2.0   |1        |        |__+1__   |
+|[rfars](problems.md#rfars)|1.2.0   |__+1__   |        |__+1__   |
 |[rWCVP](problems.md#rwcvp)|1.2.4   |__+1__   |        |2        |
 |[sampler](problems.md#sampler)|0.2.4   |__+1__   |        |         |
 |[sapfluxnetr](problems.md#sapfluxnetr)|0.1.4   |__+1__   |        |1        |

@@ -1,8 +1,8 @@
 ## revdepcheck results
 
-We checked 52 reverse dependencies, comparing R CMD check results across CRAN and dev versions of this package.
+We checked 44 reverse dependencies, comparing R CMD check results across CRAN and dev versions of this package.
 
- * We saw 44 new problems
+ * We saw 40 new problems
  * We failed to check 0 packages
 
 Issues with CRAN packages are summarised below.
@@ -47,20 +47,10 @@ Issues with CRAN packages are summarised below.
   checking examples ... ERROR
   checking tests ... ERROR
 
-* dtrackr
-  checking tests ... ERROR
-
 * duckplyr
   checking tests ... ERROR
 
 * ern
-  checking tests ... ERROR
-
-* eSDM
-  checking running R code from vignettes ... ERROR
-  checking re-building of vignette outputs ... NOTE
-
-* ezplot
   checking tests ... ERROR
 
 * fqar
@@ -71,9 +61,6 @@ Issues with CRAN packages are summarised below.
 
 * gtsummary
   checking running R code from vignettes ... ERROR
-
-* heemod
-  checking tests ... ERROR
 
 * iNZightTools
   checking tests ... ERROR
@@ -114,6 +101,7 @@ Issues with CRAN packages are summarised below.
   checking re-building of vignette outputs ... NOTE
 
 * rfars
+  checking running R code from vignettes ... ERROR
   checking re-building of vignette outputs ... NOTE
 
 * rWCVP

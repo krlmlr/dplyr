@@ -1411,15 +1411,14 @@ Run `revdepcheck::cloud_details(, "crosshap")` for more info
       > library(crosshap)
       > 
       > test_check("crosshap")
-      ■■■■■                             14% | ETA:  1m
-      ■■■■■■■■■■                        29% | ETA: 29s
-      ■■■■■■■■■■■■                      36% | ETA: 27s
-      ■■■■■■■■■■■■■■                    43% | ETA: 26s
-      ■■■■■■■■■■■■■■■■■■                57% | ETA: 17s
-      ■■■■■■■■■■■■■■■■■■■■              64% | ETA: 15s
-      ■■■■■■■■■■■■■■■■■■■■■■            71% | ETA: 12s
-      ■■■■■■■■■■■■■■■■■■■■■■■■■■■       86% | ETA:  6s
-      ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■     93% | ETA:  3s
+      ■■■■■                             14% | ETA: 20s
+      ■■■■■■■■■■■■                      36% | ETA: 14s
+      ■■■■■■■■■■■■■■                    43% | ETA: 15s
+      ■■■■■■■■■■■■■■■■■■                57% | ETA: 10s
+      ■■■■■■■■■■■■■■■■■■■■              64% | ETA:  9s
+      ■■■■■■■■■■■■■■■■■■■■■■            71% | ETA:  8s
+      ■■■■■■■■■■■■■■■■■■■■■■■■■■■       86% | ETA:  4s
+      ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■     93% | ETA:  2s
       ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■  100% | ETA:  0s
       WARNING: Phenotype association scores (phenodiff) not calculated for 252 of 2041 sites
       NOTE: 432 sites have more heterozygous individuals (1/0) than one of the homozygous states (1/1 or 0/0).
@@ -1468,9 +1467,9 @@ Run `revdepcheck::cloud_details(, "crosshap")` for more info
       20  7.75     0 hap_eps0.99~ 0.99    F          21             48.8         0.667
       # i 3 more variables: .ggraph.orig_index <int>, circular <lgl>,
       #   .ggraph.index <int>
-      ■■■■■■■■■■■                       33% | ETA: 15s
-      ■■■■■■■■■■■■■■■■■■■■■             67% | ETA:  5s
-      ■■■■■■■■■■■■■■■■■■■■■■■■■■        83% | ETA:  3s
+      ■■■■■■■■■■■                       33% | ETA:  5s
+      ■■■■■■■■■■■■■■■■■■■■■             67% | ETA:  2s
+      ■■■■■■■■■■■■■■■■■■■■■■■■■■        83% | ETA:  1s
       ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■  100% | ETA:  0s
       WARNING: Phenotype association scores (phenodiff) not calculated for 252 of 2041 sites
       NOTE: 432 sites have more heterozygous individuals (1/0) than one of the homozygous states (1/1 or 0/0).
@@ -1478,8 +1477,9 @@ Run `revdepcheck::cloud_details(, "crosshap")` for more info
       Haplotyping was performed with hetphenos = F, meaning phenotype association scores for heterozygous sites was ignored.
       ✔ Haplotyping complete!
       Info saved in Haplotypes_30_E objects
-      ■■■■■■■■■■■                       33% | ETA: 16s
-      ■■■■■■■■■■■■■■■■■■■■■■■■■■        83% | ETA:  3s
+      ■■■■■■■■■■■                       33% | ETA:  6s
+      ■■■■■■■■■■■■■■■■■■■■■             67% | ETA:  2s
+      ■■■■■■■■■■■■■■■■■■■■■■■■■■        83% | ETA:  1s
       ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■  100% | ETA:  0s
       WARNING: Phenotype association scores (phenodiff) not calculated for 252 of 2041 sites
       NOTE: 432 sites have more heterozygous individuals (1/0) than one of the homozygous states (1/1 or 0/0).
@@ -1924,123 +1924,6 @@ Run `revdepcheck::cloud_details(, "DescrTab2")` for more info
     Execution halted
     ```
 
-# dtrackr
-
-<details>
-
-* Version: 0.4.4
-* GitHub: https://github.com/terminological/dtrackr
-* Source code: https://github.com/cran/dtrackr
-* Date/Publication: 2023-09-04 12:10:02 UTC
-* Number of recursive dependencies: 125
-
-Run `revdepcheck::cloud_details(, "dtrackr")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking tests ... ERROR
-    ```
-      Running ‘testthat.R’
-    Running the tests in ‘tests/testthat.R’ failed.
-    Complete output:
-      > library(testthat)
-      > library(dplyr)
-      
-      Attaching package: 'dplyr'
-      
-      The following object is masked from 'package:testthat':
-      
-          matches
-      
-      The following objects are masked from 'package:stats':
-      
-          filter, lag
-      
-      The following objects are masked from 'package:base':
-      
-          intersect, setdiff, setequal, union
-      
-      > library(dtrackr)
-      
-      Attaching package: 'dtrackr'
-      
-      The following objects are masked from 'package:dplyr':
-      
-          add_tally, bind_cols, bind_rows
-      
-      The following object is masked from 'package:stats':
-      
-          filter
-      
-      The following object is masked from 'package:utils':
-      
-          history
-      
-      The following object is masked from 'package:base':
-      
-          comment
-      
-      > 
-      > test_check("dtrackr")
-      Couldn't find a suitable web browser!
-      Set the BROWSER environment variable to your desired browser.
-      Warning: program returned non-zero exit code #256
-      /usr/bin/xdg-open: 869: x-www-browser: not found
-      /usr/bin/xdg-open: 869: firefox: not found
-      /usr/bin/xdg-open: 869: iceweasel: not found
-      /usr/bin/xdg-open: 869: seamonkey: not found
-      /usr/bin/xdg-open: 869: mozilla: not found
-      /usr/bin/xdg-open: 869: epiphany: not found
-      /usr/bin/xdg-open: 869: konqueror: not found
-      /usr/bin/xdg-open: 869: chromium: not found
-      /usr/bin/xdg-open: 869: chromium-browser: not found
-      /usr/bin/xdg-open: 869: google-chrome: not found
-      /usr/bin/xdg-open: 869: www-browser: not found
-      /usr/bin/xdg-open: 869: links2: not found
-      /usr/bin/xdg-open: 869: elinks: not found
-      /usr/bin/xdg-open: 869: links: not found
-      /usr/bin/xdg-open: 869: lynx: not found
-      /usr/bin/xdg-open: 869: w3m: not found
-      xdg-open: no method available for opening '/tmp/RtmpO3nZbh/viewhtml2d5c669232f7/index.html'
-      Couldn't find a suitable web browser!
-      Set the BROWSER environment variable to your desired browser.
-      Warning: program returned non-zero exit code #256
-      /usr/bin/xdg-open: 869: x-www-browser: not found
-      /usr/bin/xdg-open: 869: firefox: not found
-      /usr/bin/xdg-open: 869: iceweasel: not found
-      /usr/bin/xdg-open: 869: seamonkey: not found
-      /usr/bin/xdg-open: 869: mozilla: not found
-      /usr/bin/xdg-open: 869: epiphany: not found
-      /usr/bin/xdg-open: 869: konqueror: not found
-      /usr/bin/xdg-open: 869: chromium: not found
-      /usr/bin/xdg-open: 869: chromium-browser: not found
-      /usr/bin/xdg-open: 869: google-chrome: not found
-      /usr/bin/xdg-open: 869: www-browser: not found
-      /usr/bin/xdg-open: 869: links2: not found
-      /usr/bin/xdg-open: 869: elinks: not found
-      /usr/bin/xdg-open: 869: links: not found
-      /usr/bin/xdg-open: 869: lynx: not found
-      /usr/bin/xdg-open: 869: w3m: not found
-      xdg-open: no method available for opening '/tmp/RtmpO3nZbh/viewhtml2d5c1e52400a/index.html'
-      [ FAIL 1 | WARN 0 | SKIP 0 | PASS 51 ]
-      
-      ══ Failed tests ════════════════════════════════════════════════════════════════
-      ── Error ('test-p_others.R:11:3'): ungrouping works ────────────────────────────
-      <tibble_error_column_names_must_be_unique/tibble_error/rlang_error/error/condition>
-      Error in `as_tibble(data)`: Column name `.count` must not be duplicated.
-      Use `.name_repair` to specify repair.
-      Caused by error in `repaired_names()`:
-      ! Names must be unique.
-      ✖ These names are duplicated:
-        * ".count" at locations 1 and 2.
-      
-      [ FAIL 1 | WARN 0 | SKIP 0 | PASS 51 ]
-      Error: Test failures
-      Execution halted
-    ```
-
 # duckplyr
 
 <details>
@@ -2276,11 +2159,11 @@ Run `revdepcheck::cloud_details(, "duckplyr")` for more info
       `environment(actual$create_default_duckdb_connection)` is <env:namespace:duckplyr>
       `environment(expected$create_default_duckdb_connection)` is <env:namespace:dplyr>
       
-      `actual$default_duckdb_connection$con@conn_ref` is <pointer: 0x56368d7a3750>
-      `expected$default_duckdb_connection$con@conn_ref` is <pointer: 0x56368eadd480>
+      `actual$default_duckdb_connection$con@conn_ref` is <pointer: 0x55658a147c50>
+      `expected$default_duckdb_connection$con@conn_ref` is <pointer: 0x55658d3c1fd0>
       
-      `actual$default_duckdb_connection$con@driver@database_ref` is <pointer: 0x56368ecfba20>
-      `expected$default_duckdb_connection$con@driver@database_ref` is <pointer: 0x56368d0f77e0>
+      `actual$default_duckdb_connection$con@driver@database_ref` is <pointer: 0x7f3b68000a80>
+      `expected$default_duckdb_connection$con@driver@database_ref` is <pointer: 0x55658a0e5f20>
       
       `environment(actual$df_from_csv)` is <env:namespace:duckplyr>
       `environment(expected$df_from_csv)` is <env:namespace:dplyr>
@@ -2386,6 +2269,16 @@ Run `revdepcheck::cloud_details(, "duckplyr")` for more info
       
       `environment(actual$duckplyr_left_join)` is <env:namespace:duckplyr>
       `environment(expected$duckplyr_left_join)` is <env:namespace:dplyr>
+      
+      actual$duckplyr_macros[5:11] vs expected$duckplyr_macros[5:11]
+        =="(x, y) AS x = y"
+        !="(x, y) AS x <> y"
+        ___divide"(x, y) AS CASE WHEN y = 0 THEN CASE WHEN x = 0 THEN CAST('NaN' AS double) WHEN x > 0 THEN CAST('+Infinity' AS double) ELSE CAST('-Infinity' AS double) END ELSE CAST(x AS double) / y END"
+      - is.na"(x) AS (x IS NULL)"
+      + is.na"(x) AS (x IS NULL OR isnan(x))"
+        n"() AS CAST(COUNT(*) AS int32)"
+        ___log10"(x) AS CASE WHEN x < 0 THEN CAST('NaN' AS double) WHEN x = 0 THEN CAST('-Inf' AS double) ELSE log10(x) END"
+        ___log"(x) AS CASE WHEN x < 0 THEN CAST('NaN' AS double) WHEN x = 0 THEN CAST('-Inf' AS double) ELSE ln(x) END"
       
       `environment(actual$duckplyr_mutate)` is <env:namespace:duckplyr>
       `environment(expected$duckplyr_mutate)` is <env:namespace:dplyr>
@@ -2851,7 +2744,7 @@ Run `revdepcheck::cloud_details(, "duckplyr")` for more info
       🦆:  661
       add_count, anti_join, arrange, compute, count, cross_join, distinct, do, eval, filter, full_join, group_by, inner_join, intersect, left_join, mutate, mutate.data.frame, nest_join, pull, reframe, relocate, rename, rename_with, right_join, rows_append, rows_delete, rows_insert, rows_patch, rows_update, rows_upsert, rowwise, select, semi_join, setdiff, setequal, slice, slice_head, slice_sample, slice_tail, summarise, symdiff, transmute, ungroup, union_all
       
-      00:00:56.694851
+      00:00:53.595203
       Execution halted
     ```
 
@@ -3062,97 +2955,6 @@ Run `revdepcheck::cloud_details(, "ern")` for more info
       Execution halted
     ```
 
-# eSDM
-
-<details>
-
-* Version: 0.4.1
-* GitHub: https://github.com/smwoodman/eSDM
-* Source code: https://github.com/cran/eSDM
-* Date/Publication: 2024-02-14 23:30:02 UTC
-* Number of recursive dependencies: 125
-
-Run `revdepcheck::cloud_details(, "eSDM")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking running R code from vignettes ... ERROR
-    ```
-    Errors in running code in vignettes:
-    when running code in ‘example-analysis.Rmd’
-      ...
-     NA's   :41        NA's   :41                             
-    
-    > e.weights <- list(eSDM::evaluation_metrics(over1.sf, 
-    +     1, valid.data, "pres_abs"), eSDM::evaluation_metrics(over2.sf, 
-    +     1, valid.data, "pr ..." ... [TRUNCATED] 
-    There were 83 validation points that did not overlap with a non-NA prediction polygon
-    
-      When sourcing ‘example-analysis.R’:
-    Error: 'predictions' contains NA.
-    Execution halted
-    
-      ‘example-analysis.Rmd’ using ‘UTF-8’... failed
-    ```
-
-*   checking re-building of vignette outputs ... NOTE
-    ```
-    Error(s) in re-building vignettes:
-    --- re-building ‘example-analysis.Rmd’ using rmarkdown
-    ```
-
-## In both
-
-*   checking installed package size ... NOTE
-    ```
-      installed size is  5.5Mb
-      sub-directories of 1Mb or more:
-        data      1.5Mb
-        extdata   1.5Mb
-        shiny     2.1Mb
-    ```
-
-# ezplot
-
-<details>
-
-* Version: 0.7.13
-* GitHub: NA
-* Source code: https://github.com/cran/ezplot
-* Date/Publication: 2024-01-28 11:30:05 UTC
-* Number of recursive dependencies: 109
-
-Run `revdepcheck::cloud_details(, "ezplot")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking tests ... ERROR
-    ```
-      Running ‘testthat.R’
-    Running the tests in ‘tests/testthat.R’ failed.
-    Complete output:
-      > library(testthat)
-      > library(ezplot)
-      > suppressPackageStartupMessages(library(tsibble))
-      > 
-      > test_check("ezplot")
-      [ FAIL 1 | WARN 0 | SKIP 0 | PASS 93 ]
-      
-      ══ Failed tests ════════════════════════════════════════════════════════════════
-      ── Failure ('test-classification_plot.R:9:3'): pr_plot ─────────────────────────
-      nrow(g$data) not equal to 11.
-      1/1 mismatches
-      [1] 12 - 11 == 1
-      
-      [ FAIL 1 | WARN 0 | SKIP 0 | PASS 93 ]
-      Error: Test failures
-      Execution halted
-    ```
-
 # fqar
 
 <details>
@@ -3338,175 +3140,6 @@ Run `revdepcheck::cloud_details(, "gtsummary")` for more info
       ‘tbl_regression.Rmd’ using ‘UTF-8’... OK
       ‘tbl_summary.Rmd’ using ‘UTF-8’... failed
       ‘themes.Rmd’ using ‘UTF-8’... OK
-    ```
-
-# heemod
-
-<details>
-
-* Version: 1.0.1
-* GitHub: https://github.com/aphp/heemod
-* Source code: https://github.com/cran/heemod
-* Date/Publication: 2024-01-31 12:30:02 UTC
-* Number of recursive dependencies: 134
-
-Run `revdepcheck::cloud_details(, "heemod")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking tests ... ERROR
-    ```
-      Running ‘testthat.R’
-    Running the tests in ‘tests/testthat.R’ failed.
-    Complete output:
-      > library(testthat)
-      > library(heemod)
-      > 
-      > test_check("heemod")
-      I: detected use of 'state_time', expanding states: A, B.
-      I: detected use of 'state_time', expanding states: A, B.
-      I: detected use of 'state_time', expanding states: A, B.
-      I: detected use of 'state_time', expanding states: A, B.
-      I: detected use of 'state_time', expanding states: A, B.
-      I: detected use of 'state_time', expanding state: A.
-      I: detected use of 'state_time', expanding state: B.
-      I: detected use of 'state_time', expanding state: C.
-      Updating strategy 'I'...
-      Updating strategy 'II'...
-      Updating strategy 'I'...
-      Updating strategy 'II'...
-      No weights specified in update, using equal weights.
-      Updating strategy 'I'...
-      Updating strategy 'II'...
-      Loading required namespace: diagram
-      I: detected use of 'state_time', expanding state: A.
-      I: detected use of 'state_time', expanding state: A.
-      Updating strategy 'standard'...
-      Updating strategy 'new'...
-      Updating strategy 'standard'...
-      Updating strategy 'new'...
-      Cluster closed.
-      Loading required package: survival
-      Resampling strategy 'I'...
-      Resampling strategy 'II'...
-      Resampling strategy 'I'...
-      Resampling strategy 'II'...
-      Resampling strategy 'I'...
-      Resampling strategy 'II'...
-      Loading required namespace: logitnorm
-      I: detected use of 'state_time', expanding state: X2.
-      II: detected use of 'state_time', expanding state: X2.
-      Resampling strategy 'I'...
-      Resampling strategy 'II'...
-      `dplyr::filter(bc, group == "Good")` is a complex expression. If you need to
-      perform PSA, please make sure the data.frame does not include the package
-      environment, i.e. is not preceded by `::`.
-      No covariates provided, returning aggregate survival across all subjects.
-      No covariates provided, returning aggregate survival across all subjects.
-      No covariates provided, returning aggregate survival across all subjects.
-      No covariates provided, returning aggregate survival across all subjects.
-      Resampling strategy 'I'...
-      Resampling strategy 'I'...
-      Resampling strategy 'I'...
-      Resampling strategy 'II'...
-      Resampling strategy 'I'...
-      Resampling strategy 'I'...
-      No covariates provided, returning aggregate survival across all subjects.
-      Resampling strategy 'I'...
-      Resampling strategy 'I'...
-      `km_2` must be a <surv_fit>
-      No covariates provided, returning aggregate survival across all subjects.
-      No covariates provided, returning aggregate survival across all subjects.
-      Resampling strategy 'I'...
-      Resampling strategy 'II'...
-      No covariates provided, returning aggregate survival across all subjects.
-      No covariates provided, returning aggregate survival across all subjects.
-      No covariates provided, returning aggregate survival across all subjects.
-      No covariates provided, returning aggregate survival across all subjects.
-      No covariates provided, returning aggregate survival across all subjects.
-      No covariates provided, returning aggregate survival across all subjects.
-      No covariates provided, returning aggregate survival across all subjects.
-      No covariates provided, returning aggregate survival across all subjects.
-      No covariates provided, returning aggregate survival across all subjects.
-      No covariates provided, returning aggregate survival across all subjects.
-      No covariates provided, returning aggregate survival across all subjects.
-      No covariates provided, returning aggregate survival across all subjects.
-      No covariates provided, returning aggregate survival across all subjects.
-      No covariates provided, returning aggregate survival across all subjects.
-      No covariates provided, returning aggregate survival across all subjects.
-      No covariates provided, returning aggregate survival across all subjects.
-      No covariates provided, returning aggregate survival across all subjects.
-      No covariates provided, returning aggregate survival across all subjects.
-      No covariates provided, returning aggregate survival across all subjects.
-      No covariates provided, returning aggregate survival across all subjects.
-      No covariates provided, returning aggregate survival across all subjects.
-      Resampling strategy 'I'...
-      Resampling strategy 'standard'...
-      Resampling strategy 'new'...
-      Updating strategy 'standard'...
-      Updating strategy 'new'...
-      [ FAIL 10 | WARN 0 | SKIP 1 | PASS 504 ]
-      
-      ══ Skipped tests (1) ═══════════════════════════════════════════════════════════
-      • empty test (1): 'test_starting_values.R:200:1'
-      
-      ══ Failed tests ════════════════════════════════════════════════════════════════
-      ── Failure ('test_efficiency_frontier.R:15:5'): Identify Frontier Scenarios ────
-      `result1` (`actual`) not equal to c("Scenario 1", "Scenario 5", "Scenario 8") (`expected`).
-      
-      `actual`:   "Scenario 8"                          
-      `expected`: "Scenario 1" "Scenario 5" "Scenario 8"
-      ── Failure ('test_efficiency_frontier.R:32:5'): Identify Frontier Scenarios ────
-      `result2` (`actual`) not equal to c("Scenario 2", "Scenario 5") (`expected`).
-      
-      `actual`:   "Scenario 5"             
-      `expected`: "Scenario 2" "Scenario 5"
-      ── Failure ('test_efficiency_frontier.R:47:5'): Identify Frontier Scenarios ────
-      `result3` (`actual`) not equal to c("Scenario 1", "Scenario 2", "Scenario 4", "Scenario 6") (`expected`).
-      
-      `actual`:   "Scenario 6"                                       
-      `expected`: "Scenario 1" "Scenario 2" "Scenario 4" "Scenario 6"
-      ── Failure ('test_efficiency_frontier.R:63:5'): Identify Frontier Scenarios ────
-      `result4` (`actual`) not equal to c("Scenario 1", "Scenario 6") (`expected`).
-      
-      `actual`:   "Scenario 6"             
-      `expected`: "Scenario 1" "Scenario 6"
-      ── Failure ('test_efficiency_frontier.R:78:5'): Identify Frontier Scenarios ────
-      `result5` (`actual`) not equal to c("Scenario 1", "Scenario 2", "Scenario 3", "Scenario 4", "Scenario 5") (`expected`).
-      
-      `actual`:   "Scenario 5"                                                    
-      `expected`: "Scenario 1" "Scenario 2" "Scenario 3" "Scenario 4" "Scenario 5"
-      ── Failure ('test_efficiency_frontier.R:95:5'): Identify Frontier Scenarios ────
-      `result6` (`actual`) not equal to c("Scenario 1", "Scenario 4", "Scenario 7") (`expected`).
-      
-      `actual`:   "Scenario 7"                          
-      `expected`: "Scenario 1" "Scenario 4" "Scenario 7"
-      ── Failure ('test_efficiency_frontier.R:113:5'): Identify Frontier Scenarios ───
-      `result7` (`actual`) not equal to c("Scenario 2", "Scenario 4", "Scenario 5", "Scenario 7") (`expected`).
-      
-      `actual`:   "Scenario 7"                                       
-      `expected`: "Scenario 2" "Scenario 4" "Scenario 5" "Scenario 7"
-      ── Failure ('test_efficiency_frontier.R:128:5'): Identify Frontier Scenarios ───
-      `result8` (`actual`) not equal to c("Scenario 1", "Scenario 2") (`expected`).
-      
-      `actual`:   "Scenario 2"             
-      `expected`: "Scenario 1" "Scenario 2"
-      ── Failure ('test_efficiency_frontier.R:206:5'): Identify Frontier Scenarios ───
-      `result13` (`actual`) not equal to c("Scenario 2", "Scenario 3") (`expected`).
-      
-      `actual`:   "Scenario 3"             
-      `expected`: "Scenario 2" "Scenario 3"
-      ── Failure ('test_run_model.R:234:5'): run_model behaves as expected ───────────
-      s_mod$frontier (`actual`) not equal to c("I", "II") (`expected`).
-      
-      `actual`:   "II"     
-      `expected`: "I"  "II"
-      
-      [ FAIL 10 | WARN 0 | SKIP 1 | PASS 504 ]
-      Error: Test failures
-      Execution halted
     ```
 
 # iNZightTools
@@ -4291,10 +3924,10 @@ Run `revdepcheck::cloud_details(, "NeuroDecodeR")` for more info
         |                                                                            
         |===================================                                   |  50%
         |                                                                            
-        |======================================================================| 100%[1] "2024-04-22 16:42:12 UTC"
-       [1] 0.13888889 0.12301587 0.09126984 0.11507937 0.11111111 0.11904762
-       [7] 0.13888889 0.16666667 0.17063492 0.18650794 0.36904762 0.82936508
-      [13] 0.82936508 0.77777778 0.71428571 0.66666667 0.58333333 0.73809524
+        |======================================================================| 100%[1] "2024-04-23 07:20:31 UTC"
+       [1] 0.13888889 0.11507937 0.09126984 0.09920635 0.13888889 0.11111111
+       [7] 0.11904762 0.11904762 0.10714286 0.16666667 0.36507937 0.80555556
+      [13] 0.82936508 0.76190476 0.73412698 0.65873016 0.59126984 0.66666667
       1 Mb
       
         |                                                                            
@@ -4608,36 +4241,6 @@ Run `revdepcheck::cloud_details(, "rfars")` for more info
 
 ## Newly broken
 
-*   checking re-building of vignette outputs ... NOTE
-    ```
-    Error(s) in re-building vignettes:
-      ...
-    --- re-building ‘Counts.Rmd’ using rmarkdown
-    trying URL 'https://static.nhtsa.gov/nhtsa/downloads/FARS/2021/National/FARS2021NationalSAS.zip'
-    Content type 'application/x-zip-compressed' length 49942611 bytes (47.6 MB)
-    ==================================================
-    downloaded 47.6 MB
-    
-    Killed
-    --- re-building ‘Crash_sequence_of_events.Rmd’ using rmarkdown
-    trying URL 'https://static.nhtsa.gov/nhtsa/downloads/CRSS/2021/CRSS2021SAS.zip'
-    Content type 'application/x-zip-compressed' length 66718214 bytes (63.6 MB)
-    ==================================================
-    downloaded 63.6 MB
-    
-    Killed
-    --- re-building ‘Searchable_Codebooks.Rmd’ using rmarkdown
-    --- finished re-building ‘Searchable_Codebooks.Rmd’
-    
-    SUMMARY: processing the following files failed:
-      ‘Counts.Rmd’ ‘Crash_sequence_of_events.Rmd’
-    
-    Error: Vignette re-building failed.
-    Execution halted
-    ```
-
-## In both
-
 *   checking running R code from vignettes ... ERROR
     ```
     Errors in running code in vignettes:
@@ -4669,6 +4272,34 @@ Run `revdepcheck::cloud_details(, "rfars")` for more info
       ‘Counts.Rmd’ using ‘UTF-8’... failed to complete the test
       ‘Crash_sequence_of_events.Rmd’ using ‘UTF-8’... failed to complete the test
       ‘Searchable_Codebooks.Rmd’ using ‘UTF-8’... OK
+    ```
+
+*   checking re-building of vignette outputs ... NOTE
+    ```
+    Error(s) in re-building vignettes:
+      ...
+    --- re-building ‘Counts.Rmd’ using rmarkdown
+    trying URL 'https://static.nhtsa.gov/nhtsa/downloads/FARS/2021/National/FARS2021NationalSAS.zip'
+    Content type 'application/x-zip-compressed' length 49942611 bytes (47.6 MB)
+    ==================================================
+    downloaded 47.6 MB
+    
+    Killed
+    --- re-building ‘Crash_sequence_of_events.Rmd’ using rmarkdown
+    trying URL 'https://static.nhtsa.gov/nhtsa/downloads/CRSS/2021/CRSS2021SAS.zip'
+    Content type 'application/x-zip-compressed' length 66718214 bytes (63.6 MB)
+    ==================================================
+    downloaded 63.6 MB
+    
+    Killed
+    --- re-building ‘Searchable_Codebooks.Rmd’ using rmarkdown
+    --- finished re-building ‘Searchable_Codebooks.Rmd’
+    
+    SUMMARY: processing the following files failed:
+      ‘Counts.Rmd’ ‘Crash_sequence_of_events.Rmd’
+    
+    Error: Vignette re-building failed.
+    Execution halted
     ```
 
 # rWCVP
