@@ -891,419 +891,6 @@ Run `revdepcheck::cloud_details(, "cards")` for more info
       Execution halted
     ```
 
-# causalBatch
-
-<details>
-
-* Version: 1.2.0
-* GitHub: https://github.com/neurodata/causal_batch
-* Source code: https://github.com/cran/causalBatch
-* Date/Publication: 2024-03-01 10:32:37 UTC
-* Number of recursive dependencies: 138
-
-Run `revdepcheck::cloud_details(, "causalBatch")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking tests ... ERROR
-    ```
-      Running ‘testthat.R’
-    Running the tests in ‘tests/testthat.R’ failed.
-    Complete output:
-      > # This file is part of the standard setup for testthat.
-      > # It is recommended that you do not modify it.
-      > #
-      > # Where should you do additional test configuration?
-      > # Learn more about the roles of various files in:
-      > # * https://r-pkgs.org/testing-design.html#sec-tests-files-overview
-      > # * https://testthat.r-lib.org/articles/special-files.html
-      > 
-      > library(testthat)
-      > library(causalBatch)
-      > 
-      > test_check("causalBatch")
-      Found2batches
-      Adjusting for1covariate(s) or covariate level(s)
-      Standardizing Data across genes
-      Fitting L/S model and finding priors
-      Finding parametric adjustments
-      Adjusting the Data
-      
-      Found2batches
-      Adjusting for1covariate(s) or covariate level(s)
-      Standardizing Data across genes
-      Fitting L/S model and finding priors
-      Finding parametric adjustments
-      Adjusting the Data
-      
-      Loading required package: ks
-      
-      Attaching package: 'ks'
-      
-      The following object is masked from 'package:testthat':
-      
-          compare
-      
-      [ FAIL 1 | WARN 0 | SKIP 3 | PASS 37 ]
-      
-      ══ Skipped tests (3) ═══════════════════════════════════════════════════════════
-      • On CRAN (3): 'test-causal_cdcorr.R:31:3', 'test-causal_cdcorr.R:46:3',
-        'test-causal_cdcorr.R:89:3'
-      
-      ══ Failed tests ════════════════════════════════════════════════════════════════
-      ── Failure ('test-kway_match.R:79:3'): K-way matching increases covariate overlap ──
-      ov.before < ov.after is not TRUE
-      
-      `actual`:   FALSE
-      `expected`: TRUE 
-      
-      [ FAIL 1 | WARN 0 | SKIP 3 | PASS 37 ]
-      Error: Test failures
-      Execution halted
-    ```
-
-# CausalQueries
-
-<details>
-
-* Version: 1.1.0
-* GitHub: https://github.com/integrated-inferences/CausalQueries
-* Source code: https://github.com/cran/CausalQueries
-* Date/Publication: 2024-04-10 13:50:02 UTC
-* Number of recursive dependencies: 125
-
-Run `revdepcheck::cloud_details(, "CausalQueries")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking examples ... ERROR
-    ```
-    Running examples in ‘CausalQueries-Ex.R’ failed
-    The error most likely occurred in:
-    
-    > ### Name: make_model
-    > ### Title: Make a model
-    > ### Aliases: make_model
-    > 
-    > ### ** Examples
-    > 
-    > make_model(statement = "X -> Y")
-    
-    Statement: 
-    X -> Y
-    
-    Number of types by node:
-    X Y 
-    2 4 
-    
-    Number of unit types: 8
-    
-    > modelXKY <- make_model("X -> K -> Y; X -> Y")
-    > 
-    > # Example where cyclicaly dag attempted
-    > ## Not run: 
-    > ##D  modelXKX <- make_model("X -> K -> X")
-    > ## End(Not run)
-    > 
-    > # Examples with confounding
-    > model <- make_model("X->Y; X <-> Y")
-    > model$P
-    
-    Rows are parameters, grouped in parameter sets
-    
-    Columns are causal types
-    
-    Cell entries indicate whether a parameter probability isused
-    in the calculation of causal type probability
-    
-             X0.Y00 X1.Y00 X0.Y10 X1.Y10 X0.Y01 X1.Y01 X0.Y11 X1.Y11
-    X.0           1      0      1      0      1      0      1      0
-    X.1           0      1      0      1      0      1      0      1
-    Y.00_X.0      1      0      0      0      0      0      0      0
-    Y.10_X.0      0      0      1      0      0      0      0      0
-    Y.01_X.0      0      0      0      0      1      0      0      0
-    Y.11_X.0      0      0      0      0      0      0      1      0
-    Y.00_X.1      0      1      0      0      0      0      0      0
-    Y.10_X.1      0      0      0      1      0      0      0      0
-    Y.01_X.1      0      0      0      0      0      1      0      0
-    Y.11_X.1      0      0      0      0      0      0      0      1
-    
-     
-     param_set  (P)
-     X  Y.X.0  Y.X.1> model <- make_model("Y2 <- X -> Y1; X <-> Y1; X <-> Y2")
-    > dim(model$P)
-    [1] 18 32
-    > model$P
-    
-    Rows are parameters, grouped in parameter sets
-    
-    Columns are causal types
-    
-    Cell entries indicate whether a parameter probability isused
-    in the calculation of causal type probability
-    
-              X0.Y100.Y200 X1.Y100.Y200 X0.Y110.Y200 X1.Y110.Y200 X0.Y101.Y200
-    X.0                  1            0            1            0            1
-    X.1                  0            1            0            1            0
-    Y1.00_X.0            1            0            0            0            0
-    Y1.10_X.0            0            0            1            0            0
-    Y1.01_X.0            0            0            0            0            1
-    Y1.11_X.0            0            0            0            0            0
-    Y1.00_X.1            0            1            0            0            0
-    Y1.10_X.1            0            0            0            1            0
-    Y1.01_X.1            0            0            0            0            0
-    Y1.11_X.1            0            0            0            0            0
-    Y2.00_X.0            1            0            1            0            1
-    Y2.10_X.0            0            0            0            0            0
-    Y2.01_X.0            0            0            0            0            0
-    Y2.11_X.0            0            0            0            0            0
-    Y2.00_X.1            0            1            0            1            0
-    Y2.10_X.1            0            0            0            0            0
-    Y2.01_X.1            0            0            0            0            0
-    Y2.11_X.1            0            0            0            0            0
-              X1.Y101.Y200 X0.Y111.Y200 X1.Y111.Y200 X0.Y100.Y210 X1.Y100.Y210
-    X.0                  0            1            0            1            0
-    X.1                  1            0            1            0            1
-    Y1.00_X.0            0            0            0            1            0
-    Y1.10_X.0            0            0            0            0            0
-    Y1.01_X.0            0            0            0            0            0
-    Y1.11_X.0            0            1            0            0            0
-    Y1.00_X.1            0            0            0            0            1
-    Y1.10_X.1            0            0            0            0            0
-    Y1.01_X.1            1            0            0            0            0
-    Y1.11_X.1            0            0            1            0            0
-    Y2.00_X.0            0            1            0            0            0
-    Y2.10_X.0            0            0            0            1            0
-    Y2.01_X.0            0            0            0            0            0
-    Y2.11_X.0            0            0            0            0            0
-    Y2.00_X.1            1            0            1            0            0
-    Y2.10_X.1            0            0            0            0            1
-    Y2.01_X.1            0            0            0            0            0
-    Y2.11_X.1            0            0            0            0            0
-              X0.Y110.Y210 X1.Y110.Y210 X0.Y101.Y210 X1.Y101.Y210 X0.Y111.Y210
-    X.0                  1            0            1            0            1
-    X.1                  0            1            0            1            0
-    Y1.00_X.0            0            0            0            0            0
-    Y1.10_X.0            1            0            0            0            0
-    Y1.01_X.0            0            0            1            0            0
-    Y1.11_X.0            0            0            0            0            1
-    Y1.00_X.1            0            0            0            0            0
-    Y1.10_X.1            0            1            0            0            0
-    Y1.01_X.1            0            0            0            1            0
-    Y1.11_X.1            0            0            0            0            0
-    Y2.00_X.0            0            0            0            0            0
-    Y2.10_X.0            1            0            1            0            1
-    Y2.01_X.0            0            0            0            0            0
-    Y2.11_X.0            0            0            0            0            0
-    Y2.00_X.1            0            0            0            0            0
-    Y2.10_X.1            0            1            0            1            0
-    Y2.01_X.1            0            0            0            0            0
-    Y2.11_X.1            0            0            0            0            0
-              X1.Y111.Y210 X0.Y100.Y201 X1.Y100.Y201 X0.Y110.Y201 X1.Y110.Y201
-    X.0                  0            1            0            1            0
-    X.1                  1            0            1            0            1
-    Y1.00_X.0            0            1            0            0            0
-    Y1.10_X.0            0            0            0            1            0
-    Y1.01_X.0            0            0            0            0            0
-    Y1.11_X.0            0            0            0            0            0
-    Y1.00_X.1            0            0            1            0            0
-    Y1.10_X.1            0            0            0            0            1
-    Y1.01_X.1            0            0            0            0            0
-    Y1.11_X.1            1            0            0            0            0
-    Y2.00_X.0            0            0            0            0            0
-    Y2.10_X.0            0            0            0            0            0
-    Y2.01_X.0            0            1            0            1            0
-    Y2.11_X.0            0            0            0            0            0
-    Y2.00_X.1            0            0            0            0            0
-    Y2.10_X.1            1            0            0            0            0
-    Y2.01_X.1            0            0            1            0            1
-    Y2.11_X.1            0            0            0            0            0
-              X0.Y101.Y201 X1.Y101.Y201 X0.Y111.Y201 X1.Y111.Y201 X0.Y100.Y211
-    X.0                  1            0            1            0            1
-    X.1                  0            1            0            1            0
-    Y1.00_X.0            0            0            0            0            1
-    Y1.10_X.0            0            0            0            0            0
-    Y1.01_X.0            1            0            0            0            0
-    Y1.11_X.0            0            0            1            0            0
-    Y1.00_X.1            0            0            0            0            0
-    Y1.10_X.1            0            0            0            0            0
-    Y1.01_X.1            0            1            0            0            0
-    Y1.11_X.1            0            0            0            1            0
-    Y2.00_X.0            0            0            0            0            0
-    Y2.10_X.0            0            0            0            0            0
-    Y2.01_X.0            1            0            1            0            0
-    Y2.11_X.0            0            0            0            0            1
-    Y2.00_X.1            0            0            0            0            0
-    Y2.10_X.1            0            0            0            0            0
-    Y2.01_X.1            0            1            0            1            0
-    Y2.11_X.1            0            0            0            0            0
-              X1.Y100.Y211 X0.Y110.Y211 X1.Y110.Y211 X0.Y101.Y211 X1.Y101.Y211
-    X.0                  0            1            0            1            0
-    X.1                  1            0            1            0            1
-    Y1.00_X.0            0            0            0            0            0
-    Y1.10_X.0            0            1            0            0            0
-    Y1.01_X.0            0            0            0            1            0
-    Y1.11_X.0            0            0            0            0            0
-    Y1.00_X.1            1            0            0            0            0
-    Y1.10_X.1            0            0            1            0            0
-    Y1.01_X.1            0            0            0            0            1
-    Y1.11_X.1            0            0            0            0            0
-    Y2.00_X.0            0            0            0            0            0
-    Y2.10_X.0            0            0            0            0            0
-    Y2.01_X.0            0            0            0            0            0
-    Y2.11_X.0            0            1            0            1            0
-    Y2.00_X.1            0            0            0            0            0
-    Y2.10_X.1            0            0            0            0            0
-    Y2.01_X.1            0            0            0            0            0
-    Y2.11_X.1            1            0            1            0            1
-              X0.Y111.Y211 X1.Y111.Y211
-    X.0                  1            0
-    X.1                  0            1
-    Y1.00_X.0            0            0
-    Y1.10_X.0            0            0
-    Y1.01_X.0            0            0
-    Y1.11_X.0            1            0
-    Y1.00_X.1            0            0
-    Y1.10_X.1            0            0
-    Y1.01_X.1            0            0
-    Y1.11_X.1            0            1
-    Y2.00_X.0            0            0
-    Y2.10_X.0            0            0
-    Y2.01_X.0            0            0
-    Y2.11_X.0            1            0
-    Y2.00_X.1            0            0
-    Y2.10_X.1            0            0
-    Y2.01_X.1            0            0
-    Y2.11_X.1            0            1
-    
-     
-     param_set  (P)
-     X  Y1.X.0  Y1.X.1  Y2.X.0  Y2.X.1> model <- make_model("X1 -> Y <- X2; X1 <-> Y; X2 <-> Y")
-    > dim(model$P)
-    [1] 68 64
-    > model$parameters_df
-    Mapping of model parameters to nodal types: 
-    
-    ----------------------------------------------------------------
-    
-     param_names: name of parameter
-     node: name of endogeneous node associated with the parameter
-     gen: partial causal ordering of the parameter's node
-     param_set: parameter groupings forming a simplex
-     given: if model has confounding gives conditioning nodal type
-     param_value: parameter values
-     priors: hyperparameters of the prior Dirichlet distribution 
-    
-    ----------------------------------------------------------------
-    
-    
-     first 10 rows: 
-            param_names node gen   param_set nodal_type      given param_value
-    1              X1.0   X1   1          X1          0                 0.5000
-    2              X1.1   X1   1          X1          1                 0.5000
-    3              X2.0   X2   2          X2          0                 0.5000
-    4              X2.1   X2   2          X2          1                 0.5000
-    5  Y.0000_X1.0_X2.0    Y   3 Y.X1.0.X2.0       0000 X1.0, X2.0      0.0625
-    6  Y.1000_X1.0_X2.0    Y   3 Y.X1.0.X2.0       1000 X1.0, X2.0      0.0625
-    7  Y.0100_X1.0_X2.0    Y   3 Y.X1.0.X2.0       0100 X1.0, X2.0      0.0625
-    8  Y.1100_X1.0_X2.0    Y   3 Y.X1.0.X2.0       1100 X1.0, X2.0      0.0625
-    9  Y.0010_X1.0_X2.0    Y   3 Y.X1.0.X2.0       0010 X1.0, X2.0      0.0625
-    10 Y.1010_X1.0_X2.0    Y   3 Y.X1.0.X2.0       1010 X1.0, X2.0      0.0625
-       priors
-    1       1
-    2       1
-    3       1
-    4       1
-    5       1
-    6       1
-    7       1
-    8       1
-    9       1
-    10      1
-    > 
-    > # A single node graph is also possible
-    > model <- make_model("X")
-    Error in `mutate()`:
-    ℹ In argument: `parents = vapply(...)`.
-    Caused by error:
-    ! Error evaluating duckdb query: Conversion Error: Could not convert string 'X' to BOOL
-    Backtrace:
-         ▆
-      1. ├─CausalQueries::make_model("X")
-      2. │ ├─dplyr::mutate(...)
-      3. │ ├─dplyr::mutate(...)
-      4. │ └─dplyr:::mutate.data.frame(...)
-      5. │   └─dplyr::mutate(...)
-      6. │     └─dplyr:::mutate_cols(.data, dplyr_quosures(...), by)
-      7. │       ├─base::withCallingHandlers(...)
-      8. │       └─dplyr:::mutate_col(dots[[i]], data, mask, new_columns)
-      9. │         └─mask$eval_all_mutate(quo)
-     10. │           └─dplyr (local) eval()
-     11. ├─base::vapply(...)
-     12. │ └─CausalQueries (local) FUN(X[[i]], ...)
-     13. │   └─base::nrow(dplyr::filter(dag, children == n))
-     14. │     ├─base::dim(x)
-     15. │     └─base::dim.data.frame(x)
-     16. │       └─base::.row_names_info(x, 2L)
-     17. └─base::.handleSimpleError(...)
-     18.   └─dplyr (local) h(simpleError(msg, call))
-     19.     └─rlang::abort(message, class = error_class, parent = parent, call = error_call)
-    Execution halted
-    ```
-
-## In both
-
-*   checking installed package size ... NOTE
-    ```
-      installed size is 81.7Mb
-      sub-directories of 1Mb or more:
-        libs  80.5Mb
-    ```
-
-*   checking for GNU extensions in Makefiles ... NOTE
-    ```
-    GNU make is a SystemRequirements.
-    ```
-
-# CCWeights
-
-<details>
-
-* Version: 0.1.6
-* GitHub: NA
-* Source code: https://github.com/cran/CCWeights
-* Date/Publication: 2021-11-09 21:40:02 UTC
-* Number of recursive dependencies: 93
-
-Run `revdepcheck::cloud_details(, "CCWeights")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking examples ... ERROR
-    ```
-    Running examples in ‘CCWeights-Ex.R’ failed
-    The error most likely occurred in:
-    
-    > ### Name: doEvaluation
-    > ### Title: Evaluate Different Weighting Factors
-    > ### Aliases: doEvaluation
-    > 
-    > ### ** Examples
-    > 
-    > Concentration <- rep(c(10, 50, 100, 500), each = 3)
-    > Response <- c(133, 156, 177, 1300, 1450, 1600, 4000, 3881, 3700, 140000, 139000, 140000)
-    > DF <- cbind.data.frame(Concentration = Concentration, Response = Response)
-    > result <- doEvaluation(DF)
-    Error: Error evaluating duckdb query: Conversion Error: Could not convert string 'unknown' to DOUBLE
-    Execution halted
-    ```
-
 # CodelistGenerator
 
 <details>
@@ -1377,23 +964,6 @@ Run `revdepcheck::cloud_details(, "crosshap")` for more info
 
 ## Newly broken
 
-*   checking examples ... ERROR
-    ```
-    Running examples in ‘crosshap-Ex.R’ failed
-    The error most likely occurred in:
-    
-    > ### Name: build_bot_halfeyeplot
-    > ### Title: Bot hap-pheno raincloud plot
-    > ### Aliases: build_bot_halfeyeplot
-    > 
-    > ### ** Examples
-    > 
-    > 
-    > build_bot_halfeyeplot(HapObject, epsilon = 0.6, hide_labels = FALSE)
-    Error: Error evaluating duckdb query: Conversion Error: Could not convert string 'D' to DOUBLE
-    Execution halted
-    ```
-
 *   checking tests ... ERROR
     ```
       Running ‘testthat.R’
@@ -1411,13 +981,12 @@ Run `revdepcheck::cloud_details(, "crosshap")` for more info
       > library(crosshap)
       > 
       > test_check("crosshap")
-      ■■■■■                             14% | ETA: 15s
-      ■■■■■■■■■■                        29% | ETA: 10s
-      ■■■■■■■■■■■■                      36% | ETA: 11s
-      ■■■■■■■■■■■■■■                    43% | ETA: 12s
-      ■■■■■■■■■■■■■■■■■■■■              64% | ETA:  7s
-      ■■■■■■■■■■■■■■■■■■■■■■            71% | ETA:  6s
-      ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■     93% | ETA:  1s
+      ■■■■■                             14% | ETA: 18s
+      ■■■■■■■■■■■■                      36% | ETA: 12s
+      ■■■■■■■■■■■■■■                    43% | ETA: 13s
+      ■■■■■■■■■■■■■■■■■■■■              64% | ETA:  8s
+      ■■■■■■■■■■■■■■■■■■■■■■            71% | ETA:  7s
+      ■■■■■■■■■■■■■■■■■■■■■■■■■■■       86% | ETA:  3s
       ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■  100% | ETA:  0s
       WARNING: Phenotype association scores (phenodiff) not calculated for 252 of 2041 sites
       NOTE: 432 sites have more heterozygous individuals (1/0) than one of the homozygous states (1/1 or 0/0).
@@ -1466,7 +1035,7 @@ Run `revdepcheck::cloud_details(, "crosshap")` for more info
       20  7.75     0 hap_eps0.99~ 0.99    F          21             48.8         0.667
       # i 3 more variables: .ggraph.orig_index <int>, circular <lgl>,
       #   .ggraph.index <int>
-      ■■■■■■■■■■■                       33% | ETA:  4s
+      ■■■■■■■■■■■                       33% | ETA:  5s
       ■■■■■■■■■■■■■■■■■■■■■■■■■■        83% | ETA:  1s
       ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■  100% | ETA:  0s
       WARNING: Phenotype association scores (phenodiff) not calculated for 252 of 2041 sites
@@ -1475,7 +1044,23 @@ Run `revdepcheck::cloud_details(, "crosshap")` for more info
       Haplotyping was performed with hetphenos = F, meaning phenotype association scores for heterozygous sites was ignored.
       ✔ Haplotyping complete!
       Info saved in Haplotypes_30_E objects
-      ■■■■■■■■■■■                       33% | ETA:  4s
+      list()
+      attr(,"class")
+      [1] "waiver"
+      list()
+      attr(,"class")
+      [1] "waiver"
+      list()
+      attr(,"class")
+      [1] "waiver"
+      Haplotype phenotype averages of wt individuals only:
+               A    B    C    D    E
+      Pheno 44.9 47.4 42.3 45.9 48.4
+      list()
+      attr(,"class")
+      [1] "waiver"
+      ■■■■■■■■■■■                       33% | ETA:  5s
+      ■■■■■■■■■■■■■■■■■■■■■             67% | ETA:  2s
       ■■■■■■■■■■■■■■■■■■■■■■■■■■        83% | ETA:  1s
       ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■  100% | ETA:  0s
       WARNING: Phenotype association scores (phenodiff) not calculated for 252 of 2041 sites
@@ -1484,61 +1069,14 @@ Run `revdepcheck::cloud_details(, "crosshap")` for more info
       Haplotyping was performed with hetphenos = F, meaning phenotype association scores for heterozygous sites was ignored.
       ✔ Haplotyping complete!
       Info saved in Haplotypes_30_E objects
-      [ FAIL 5 | WARN 0 | SKIP 2 | PASS 5 ]
+      [ FAIL 1 | WARN 0 | SKIP 6 | PASS 5 ]
       
-      ══ Skipped tests (2) ═══════════════════════════════════════════════════════════
-      • On CRAN (2): 'test-clustree.R:14:1', 'test-clustree.R:19:1'
+      ══ Skipped tests (6) ═══════════════════════════════════════════════════════════
+      • On CRAN (6): 'test-clustree.R:14:1', 'test-clustree.R:19:1',
+        'test-crosshapviz.R:13:3', 'test-crosshapviz.R:18:3',
+        'test-crosshapviz.R:23:3', 'test-crosshapviz.R:28:3'
       
       ══ Failed tests ════════════════════════════════════════════════════════════════
-      ── Error ('test-crosshapviz.R:12:3'): test crosshap viz ────────────────────────
-      Error: Error evaluating duckdb query: Conversion Error: Could not convert string 'A' to DOUBLE
-      Backtrace:
-          ▆
-       1. └─crosshap::crosshap_viz(HapObject = testHapObject, epsilon = 0.62) at test-crosshapviz.R:12:3
-       2.   └─crosshap::build_bot_halfeyeplot(...)
-       3.     ├─base::setdiff(...)
-       4.     │ └─base::as.vector(y)
-       5.     ├─base::unique(halfeyedat$hap)
-       6.     └─base::unique.default(halfeyedat$hap)
-      ── Error ('test-crosshapviz.R:17:3'): test alt crosshap viz ────────────────────
-      Error: Error evaluating duckdb query: Conversion Error: Could not convert string 'A' to DOUBLE
-      Backtrace:
-          ▆
-       1. └─crosshap::crosshap_viz(...) at test-crosshapviz.R:17:3
-       2.   └─crosshap::build_bot_halfeyeplot(...)
-       3.     ├─base::setdiff(...)
-       4.     │ └─base::as.vector(y)
-       5.     ├─base::unique(halfeyedat$hap)
-       6.     └─base::unique.default(halfeyedat$hap)
-      ── Error ('test-crosshapviz.R:22:3'): test no labels crosshap viz ──────────────
-      Error: Error evaluating duckdb query: Conversion Error: Could not convert string 'A' to DOUBLE
-      Backtrace:
-          ▆
-       1. └─crosshap::crosshap_viz(...) at test-crosshapviz.R:22:3
-       2.   └─crosshap::build_bot_halfeyeplot(...)
-       3.     ├─base::setdiff(...)
-       4.     │ └─base::as.vector(y)
-       5.     ├─base::unique(halfeyedat$hap)
-       6.     └─base::unique.default(halfeyedat$hap)
-      ── Error ('test-crosshapviz.R:27:3'): test isolate_groups ──────────────────────
-      Error: Error evaluating duckdb query: Conversion Error: Could not convert string 'A' to DOUBLE
-      Backtrace:
-           ▆
-        1. ├─crosshap::crosshap_viz(...) at test-crosshapviz.R:27:3
-        2. │ └─crosshap::build_bot_halfeyeplot(...)
-        3. │   └─no0data %>% ...
-        4. ├─dplyr::mutate(...)
-        5. └─dplyr:::mutate.data.frame(...)
-        6.   └─dplyr::mutate(...)
-        7.     └─dplyr:::compute_by(...)
-        8.       ├─dplyr::group_data(data)
-        9.       ├─dplyr:::group_data.tbl_df(data)
-       10.       ├─base::NextMethod()
-       11.       └─dplyr:::group_data.data.frame(data)
-       12.         └─base::nrow(.data)
-       13.           ├─base::dim(x)
-       14.           └─base::dim.data.frame(x)
-       15.             └─base::.row_names_info(x, 2L)
       ── Error ('test-umap.R:4:1'): (code run outside of `test_that()`) ──────────────
       Error: Can't subset `.data` outside of a data mask context.
       Backtrace:
@@ -1553,372 +1091,9 @@ Run `revdepcheck::cloud_details(, "crosshap")` for more info
        8.   └─rlang:::stop_fake_data_subset(call)
        9.     └─rlang::abort(...)
       
-      [ FAIL 5 | WARN 0 | SKIP 2 | PASS 5 ]
-      Deleting unused snapshots:
-      • crosshapviz/haplotype-viz-alt4data.svg
-      • crosshapviz/haplotype-viz-isolatewt3-data.svg
-      • crosshapviz/haplotype-viz-nolabs3data.svg
-      • crosshapviz/haplotype-viz4data.svg
+      [ FAIL 1 | WARN 0 | SKIP 6 | PASS 5 ]
       Error: Test failures
       Execution halted
-    ```
-
-# dbGaPCheckup
-
-<details>
-
-* Version: 1.1.0
-* GitHub: https://github.com/lwheinsberg/dbGaPCheckup
-* Source code: https://github.com/cran/dbGaPCheckup
-* Date/Publication: 2023-09-27 15:30:02 UTC
-* Number of recursive dependencies: 116
-
-Run `revdepcheck::cloud_details(, "dbGaPCheckup")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking examples ... ERROR
-    ```
-    Running examples in ‘dbGaPCheckup-Ex.R’ failed
-    The error most likely occurred in:
-    
-    > ### Name: missing_value_check
-    > ### Title: Missing Value Check
-    > ### Aliases: missing_value_check
-    > 
-    > ### ** Examples
-    > 
-    > data(ExampleB)
-    > missing_value_check(DD.dict.B, DS.data.B, non.NA.missing.codes = c(-9999,-4444))
-    $Message
-    [1] "ERROR: some variables have non-encoded missing value codes."
-    
-    $Information
-        VARNAME VALUE MEANING  PASS
-    13 CUFFSIZE -9999    <NA> FALSE
-    
-    > 
-    > data(ExampleS)
-    > missing_value_check(DD.dict.S, DS.data.S, non.NA.missing.codes = c(-9999,-4444))
-    Error: Error evaluating duckdb query: Conversion Error: Could not convert string 'NA' to DOUBLE
-    Execution halted
-    ```
-
-# DescrTab2
-
-<details>
-
-* Version: 2.1.16
-* GitHub: https://github.com/imbi-heidelberg/DescrTab2
-* Source code: https://github.com/cran/DescrTab2
-* Date/Publication: 2022-09-06 08:50:02 UTC
-* Number of recursive dependencies: 167
-
-Run `revdepcheck::cloud_details(, "DescrTab2")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking examples ... ERROR
-    ```
-    Running examples in ‘DescrTab2-Ex.R’ failed
-    The error most likely occurred in:
-    
-    > ### Name: sig_test
-    > ### Title: Calculates a statistical significance test
-    > ### Aliases: sig_test
-    > 
-    > ### ** Examples
-    > 
-    > cont_var <- c(1, 2, 3)
-    > sig_test(cont_var)
-    Error: Error evaluating duckdb query: Conversion Error: Could not convert string '(Missing)' to DOUBLE
-    Execution halted
-    ```
-
-*   checking tests ... ERROR
-    ```
-      Running ‘testthat.R’
-    Running the tests in ‘tests/testthat.R’ failed.
-    Complete output:
-      > library(testthat)
-      > library(DescrTab2)
-      > 
-      > 
-      > test_check("DescrTab2")
-      Error converted to warning: Error: Error evaluating duckdb query: Conversion Error: Could not convert string '(Missing)' to DOUBLE
-      
-      Error converted to warning: Error: Error evaluating duckdb query: Conversion Error: Could not convert string '(Missing)' to DOUBLE
-      
-      Error converted to warning: Error: Error evaluating duckdb query: Conversion Error: Could not convert string '(Missing)' to DOUBLE
-      
-      Error converted to warning: Error: Error evaluating duckdb query: Conversion Error: Could not convert string '(Missing)' to DOUBLE
-      
-      Error converted to warning: Error: Error evaluating duckdb query: Conversion Error: Could not convert string '(Missing)' to DOUBLE
-      
-      Error converted to warning: Error: Error evaluating duckdb query: Conversion Error: Could not convert string '(Missing)' to DOUBLE
-      
-      Error converted to warning: Error: Error evaluating duckdb query: Conversion Error: Could not convert string '(Missing)' to DOUBLE
-      
-      Error converted to warning: Error: Error evaluating duckdb query: Conversion Error: Could not convert string '(Missing)' to DOUBLE
-      
-      Error converted to warning: Error: Error evaluating duckdb query: Conversion Error: Could not convert string '(Missing)' to DOUBLE
-      
-      Error converted to warning: Error: Error evaluating duckdb query: Conversion Error: Could not convert string '(Missing)' to DOUBLE
-      
-      Error converted to warning: Error: Error evaluating duckdb query: Conversion Error: Could not convert string '(Missing)' to DOUBLE
-      
-      Error converted to warning: Error: Error evaluating duckdb query: Conversion Error: Could not convert string '(Missing)' to DOUBLE
-      
-      Error converted to warning: Error: Error evaluating duckdb query: Conversion Error: Could not convert string '(Missing)' to DOUBLE
-      
-      Error converted to warning: Error: Error evaluating duckdb query: Conversion Error: Could not convert string '(Missing)' to DOUBLE
-      
-      Error converted to warning: Error: Error evaluating duckdb query: Conversion Error: Could not convert string '(Missing)' to DOUBLE
-      
-      Error converted to warning: Error: Error evaluating duckdb query: Conversion Error: Could not convert string '(Missing)' to DOUBLE
-      
-      Error converted to warning: Error: Error evaluating duckdb query: Conversion Error: Could not convert string '(Missing)' to DOUBLE
-      
-      Error converted to warning: Error: Error evaluating duckdb query: Conversion Error: Could not convert string '(Missing)' to DOUBLE
-      
-      Error converted to warning: Error: Error evaluating duckdb query: Conversion Error: Could not convert string '(Missing)' to DOUBLE
-      
-      Error converted to warning: Error: Error evaluating duckdb query: Conversion Error: Could not convert string '(Missing)' to DOUBLE
-      
-      Error converted to warning: Error: Error evaluating duckdb query: Conversion Error: Could not convert string '(Missing)' to DOUBLE
-      
-      Error converted to warning: Error: Error evaluating duckdb query: Conversion Error: Could not convert string '(Missing)' to DOUBLE
-      
-      Error converted to warning: Error: Error evaluating duckdb query: Conversion Error: Could not convert string '(Missing)' to DOUBLE
-      
-      Error converted to warning: Error: Error evaluating duckdb query: Conversion Error: Could not convert string '(Missing)' to DOUBLE
-      
-      Error converted to warning: Error: Error evaluating duckdb query: Conversion Error: Could not convert string '(Missing)' to DOUBLE
-      
-      Error converted to warning: Error: Error evaluating duckdb query: Conversion Error: Could not convert string '(Missing)' to DOUBLE
-      
-      Error converted to warning: Error: Error evaluating duckdb query: Conversion Error: Could not convert string '(Missing)' to DOUBLE
-      
-      Error converted to warning: Error: Error evaluating duckdb query: Conversion Error: Could not convert string '(Missing)' to DOUBLE
-      
-      Error converted to warning: Error: Error evaluating duckdb query: Conversion Error: Could not convert string '(Missing)' to DOUBLE
-      
-      Error converted to warning: Error: Error evaluating duckdb query: Conversion Error: Could not convert string '(Missing)' to DOUBLE
-      
-      Error converted to warning: Error: Error evaluating duckdb query: Conversion Error: Could not convert string '(Missing)' to DOUBLE
-      
-      Error converted to warning: Error: Error evaluating duckdb query: Conversion Error: Could not convert string '(Missing)' to DOUBLE
-      
-      Error converted to warning: Error: Error evaluating duckdb query: Conversion Error: Could not convert string '(Missing)' to DOUBLE
-      
-      Error converted to warning: Error: Error evaluating duckdb query: Conversion Error: Could not convert string '(Missing)' to DOUBLE
-      
-      Error converted to warning: Error: Error evaluating duckdb query: Conversion Error: Could not convert string '(Missing)' to DOUBLE
-      
-      Error converted to warning: Error: Error evaluating duckdb query: Conversion Error: Could not convert string '(Missing)' to DOUBLE
-      
-      Error converted to warning: Error: Error evaluating duckdb query: Conversion Error: Could not convert string '(Missing)' to DOUBLE
-      
-      Error converted to warning: Error: Error evaluating duckdb query: Conversion Error: Could not convert string '(Missing)' to DOUBLE
-      
-      Error converted to warning: Error: Error evaluating duckdb query: Conversion Error: Could not convert string '(Missing)' to DOUBLE
-      
-      Error converted to warning: Error in if (any(x < 0) || anyNA(x)) stop("all entries of 'x' must be nonnegative and finite"): missing value where TRUE/FALSE needed
-      
-      Error converted to warning: Error: Error evaluating duckdb query: Conversion Error: Could not convert string '(Missing)' to DOUBLE
-      
-      Error converted to warning: Error: Error evaluating duckdb query: Conversion Error: Could not convert string '(Missing)' to DOUBLE
-      
-      Error converted to warning: Error: Error evaluating duckdb query: Conversion Error: Could not convert string '(Missing)' to DOUBLE
-      
-      Error converted to warning: Error: Error evaluating duckdb query: Conversion Error: Could not convert string '(Missing)' to DOUBLE
-      
-      Error converted to warning: Error: Error evaluating duckdb query: Conversion Error: Could not convert string '(Missing)' to DOUBLE
-      
-      Error converted to warning: Error: Error evaluating duckdb query: Conversion Error: Could not convert string '(Missing)' to DOUBLE
-      
-      Error converted to warning: Error: Error evaluating duckdb query: Conversion Error: Could not convert string '(Missing)' to DOUBLE
-      
-      Error converted to warning: Error: Error evaluating duckdb query: Conversion Error: Could not convert string '(Missing)' to DOUBLE
-      
-      Error converted to warning: Error: Error evaluating duckdb query: Conversion Error: Could not convert string '(Missing)' to DOUBLE
-      
-      Error converted to warning: Error: Error evaluating duckdb query: Conversion Error: Could not convert string '(Missing)' to DOUBLE
-      
-      Error converted to warning: Error: Error evaluating duckdb query: Conversion Error: Could not convert string '(Missing)' to DOUBLE
-      
-      Error converted to warning: Error: Error evaluating duckdb query: Conversion Error: Could not convert string '(Missing)' to DOUBLE
-      
-      Error converted to warning: Error: Error evaluating duckdb query: Conversion Error: Could not convert string '(Missing)' to DOUBLE
-      
-      Error converted to warning: Error: Error evaluating duckdb query: Conversion Error: Could not convert string '(Missing)' to DOUBLE
-      
-      Error converted to warning: Error: Error evaluating duckdb query: Conversion Error: Could not convert string '(Missing)' to DOUBLE
-      
-      Error converted to warning: Error: Error evaluating duckdb query: Conversion Error: Could not convert string '(Missing)' to DOUBLE
-      
-      Error converted to warning: Error: Error evaluating duckdb query: Conversion Error: Could not convert string '(Missing)' to DOUBLE
-      
-      Error converted to warning: Error: Error evaluating duckdb query: Conversion Error: Could not convert string '(Missing)' to DOUBLE
-      
-      Error converted to warning: Error: Error evaluating duckdb query: Conversion Error: Could not convert string '(Missing)' to DOUBLE
-      
-      Error converted to warning: Error: Error evaluating duckdb query: Conversion Error: Could not convert string '(Missing)' to DOUBLE
-      
-      Error converted to warning: Error: Error evaluating duckdb query: Conversion Error: Could not convert string '(Missing)' to DOUBLE
-      
-      Error converted to warning: Error: Error evaluating duckdb query: Conversion Error: Could not convert string '(Missing)' to DOUBLE
-      
-      Error converted to warning: Error: Error evaluating duckdb query: Conversion Error: Could not convert string '(Missing)' to DOUBLE
-      
-      Error converted to warning: Error: Error evaluating duckdb query: Conversion Error: Could not convert string '(Missing)' to DOUBLE
-      
-      Error converted to warning: Error: Error evaluating duckdb query: Conversion Error: Could not convert string '(Missing)' to DOUBLE
-      
-      Error converted to warning: Error: Error evaluating duckdb query: Conversion Error: Could not convert string '(Missing)' to DOUBLE
-      
-      Error converted to warning: Error: Error evaluating duckdb query: Conversion Error: Could not convert string '(Missing)' to DOUBLE
-      
-      Error converted to warning: Error: Error evaluating duckdb query: Conversion Error: Could not convert string '(Missing)' to DOUBLE
-      
-      Error converted to warning: Error: Error evaluating duckdb query: Conversion Error: Could not convert string '(Missing)' to DOUBLE
-      
-      Error converted to warning: Error: Error evaluating duckdb query: Conversion Error: Could not convert string '(Missing)' to DOUBLE
-      
-      Error converted to warning: Error: Error evaluating duckdb query: Conversion Error: Could not convert string '(Missing)' to DOUBLE
-      
-      Error converted to warning: Error: Error evaluating duckdb query: Conversion Error: Could not convert string '(Missing)' to DOUBLE
-      
-      Error converted to warning: Error: Error evaluating duckdb query: Conversion Error: Could not convert string '(Missing)' to DOUBLE
-      
-      Error converted to warning: Error: Error evaluating duckdb query: Conversion Error: Could not convert string '(Missing)' to DOUBLE
-      
-      Error converted to warning: Error: Error evaluating duckdb query: Conversion Error: Could not convert string '(Missing)' to DOUBLE
-      
-      Error converted to warning: Error: Error evaluating duckdb query: Conversion Error: Could not convert string '(Missing)' to DOUBLE
-      
-      Error converted to warning: Error: Error evaluating duckdb query: Conversion Error: Could not convert string '(Missing)' to DOUBLE
-      
-      Error converted to warning: Error: Error evaluating duckdb query: Conversion Error: Could not convert string '(Missing)' to DOUBLE
-      
-      Error converted to warning: Error: Error evaluating duckdb query: Conversion Error: Could not convert string '(Missing)' to DOUBLE
-      
-      Error converted to warning: Error: Error evaluating duckdb query: Conversion Error: Could not convert string '(Missing)' to DOUBLE
-      
-      Error converted to warning: Error: Error evaluating duckdb query: Conversion Error: Could not convert string '(Missing)' to DOUBLE
-      
-      Error converted to warning: Error: Error evaluating duckdb query: Conversion Error: Could not convert string '(Missing)' to DOUBLE
-      
-      Error converted to warning: Error: Error evaluating duckdb query: Conversion Error: Could not convert string '(Missing)' to DOUBLE
-      
-      Error converted to warning: Error: Error evaluating duckdb query: Conversion Error: Could not convert string '(Missing)' to DOUBLE
-      
-      Error converted to warning: Error: Error evaluating duckdb query: Conversion Error: Could not convert string '(Missing)' to DOUBLE
-      
-      Error converted to warning: Error: Error evaluating duckdb query: Conversion Error: Could not convert string '(Missing)' to DOUBLE
-      
-      Error converted to warning: Error: Error evaluating duckdb query: Conversion Error: Could not convert string '(Missing)' to DOUBLE
-      
-      Error converted to warning: Error: Error evaluating duckdb query: Conversion Error: Could not convert string '(Missing)' to DOUBLE
-      
-      Error converted to warning: Error: Error evaluating duckdb query: Conversion Error: Could not convert string '(Missing)' to DOUBLE
-      
-      Error converted to warning: Error: Error evaluating duckdb query: Conversion Error: Could not convert string '(Missing)' to DOUBLE
-      
-      Error converted to warning: Error: Error evaluating duckdb query: Conversion Error: Could not convert string '(Missing)' to DOUBLE
-      
-      Error converted to warning: Error: Error evaluating duckdb query: Conversion Error: Could not convert string '(Missing)' to DOUBLE
-      
-      Error converted to warning: Error: Error evaluating duckdb query: Conversion Error: Could not convert string '(Missing)' to DOUBLE
-      
-      Error converted to warning: Error: Error evaluating duckdb query: Conversion Error: Could not convert string '(Missing)' to DOUBLE
-      
-      Error converted to warning: Error: Error evaluating duckdb query: Conversion Error: Could not convert string '(Missing)' to DOUBLE
-      
-      Error converted to warning: Error: Error evaluating duckdb query: Conversion Error: Could not convert string '(Missing)' to DOUBLE
-      
-      Error converted to warning: Error: Error evaluating duckdb query: Conversion Error: Could not convert string '(Missing)' to DOUBLE
-      
-      Error converted to warning: Error: Error evaluating duckdb query: Conversion Error: Could not convert string '(Missing)' to DOUBLE
-      
-      Error converted to warning: Error: Error evaluating duckdb query: Conversion Error: Could not convert string '(Missing)' to DOUBLE
-      
-      Error converted to warning: Error: Error evaluating duckdb query: Conversion Error: Could not convert string '(Missing)' to DOUBLE
-      
-      Error converted to warning: Error: Error evaluating duckdb query: Conversion Error: Could not convert string '(Missing)' to DOUBLE
-      
-      Error converted to warning: Error: Error evaluating duckdb query: Conversion Error: Could not convert string '(Missing)' to DOUBLE
-      
-      [ FAIL 1 | WARN 191 | SKIP 7 | PASS 201 ]
-      
-      ══ Skipped tests (7) ═══════════════════════════════════════════════════════════
-      • On CRAN (6): 'test_console_output.R:17:1', 'test_html.R:5:5',
-        'test_numeric.R:44:1', 'test_tests.R:24:1', 'test_tex.R:4:3',
-        'test_word.R:6:5'
-      • empty test (1): 'test_misc.R:50:1'
-      
-      ══ Failed tests ════════════════════════════════════════════════════════════════
-      ── Failure ('test_summary_stats.R:92:5'): numeric printing fails if some summary stat does not return numeric ──
-      `expect_error(...)` did not throw the expected warning.
-      
-      [ FAIL 1 | WARN 191 | SKIP 7 | PASS 201 ]
-      Error: Test failures
-      Execution halted
-    ```
-
-## In both
-
-*   checking dependencies in R code ... NOTE
-    ```
-    There are ::: calls to the package's namespace in its code. A package
-      almost never needs to use ::: for its own objects:
-      ‘.N’ ‘.Nmiss’ ‘.Q1’ ‘.Q3’ ‘.factorN’ ‘.factorNmiss’ ‘.factorQ1’
-      ‘.factorQ3’ ‘.factormax’ ‘.factormean’ ‘.factormedian’ ‘.factormin’
-      ‘.factorsd’ ‘.max’ ‘.mean’ ‘.median’ ‘.min’ ‘.sd’
-    ```
-
-*   checking re-building of vignette outputs ... NOTE
-    ```
-    Error(s) in re-building vignettes:
-    --- re-building ‘a_usage_guide.Rmd’ using rmarkdown
-    --- finished re-building ‘a_usage_guide.Rmd’
-    
-    --- re-building ‘b_test_choice_tree_pdf.Rmd’ using rmarkdown
-    A new version of TeX Live has been released. If you need to install or update any LaTeX packages, you have to upgrade TinyTeX with tinytex::reinstall_tinytex(repository = "illinois").
-    
-    tlmgr: Local TeX Live (2023) is older than remote repository (2024).
-    Cross release updates are only supported with
-      update-tlmgr-latest(.sh/.exe) --update
-    See https://tug.org/texlive/upgrade.html for details.
-    Warning in system2("tlmgr", args, ...) :
-      running command ''tlmgr' search --file --global '/pdfpages.sty'' had status 1
-    ! LaTeX Error: File `pdfpages.sty' not found.
-    
-    ! Emergency stop.
-    <read *> 
-    
-    Error: processing vignette 'b_test_choice_tree_pdf.Rmd' failed with diagnostics:
-    LaTeX failed to compile /tmp/workdir/DescrTab2/new/DescrTab2.Rcheck/vign_test/DescrTab2/vignettes/b_test_choice_tree_pdf.tex. See https://yihui.org/tinytex/r/#debugging for debugging tips. See b_test_choice_tree_pdf.log for more info.
-    --- failed re-building ‘b_test_choice_tree_pdf.Rmd’
-    
-    --- re-building ‘c_other_software_comparison.Rmd’ using rmarkdown
-    --- finished re-building ‘c_other_software_comparison.Rmd’
-    
-    --- re-building ‘d_validation_statement.Rmd’ using rmarkdown
-    --- finished re-building ‘d_validation_statement.Rmd’
-    
-    --- re-building ‘e_maintenance_guide.Rmd’ using rmarkdown
-    --- finished re-building ‘e_maintenance_guide.Rmd’
-    
-    SUMMARY: processing the following file failed:
-      ‘b_test_choice_tree_pdf.Rmd’
-    
-    Error: Vignette re-building failed.
-    Execution halted
     ```
 
 # duckplyr
@@ -2153,14 +1328,25 @@ Run `revdepcheck::cloud_details(, "duckplyr")` for more info
       `environment(actual$check_df_for_rel)` is <env:namespace:duckplyr>
       `environment(expected$check_df_for_rel)` is <env:namespace:dplyr>
       
+      body(actual$create_default_duckdb_connection)[3:8] vs body(expected$create_default_duckdb_connection)[3:10]
+        `    con <- DBI::dbConnect(duckdb::duckdb())`
+        `    DBI::dbExecute(con, "set memory_limit='2GB'")`
+        `    DBI::dbExecute(con, paste0("pragma temp_directory='", tempdir(), `
+        `        "'"))`
+      + `    DBI::dbExecute(con, sql_ext_install)`
+      + `    DBI::dbExecute(con, sql_ext_load)`
+        `    for (i in seq_along(duckplyr_macros)) {`
+        `        sql <- paste0("CREATE MACRO \\"", names(duckplyr_macros)[[i]], `
+        `            "\\"", duckplyr_macros[[i]])`
+      
       `environment(actual$create_default_duckdb_connection)` is <env:namespace:duckplyr>
       `environment(expected$create_default_duckdb_connection)` is <env:namespace:dplyr>
       
-      `actual$default_duckdb_connection$con@conn_ref` is <pointer: 0x5611e20c37e0>
-      `expected$default_duckdb_connection$con@conn_ref` is <pointer: 0x5611e4a55600>
+      `actual$default_duckdb_connection$con@conn_ref` is <pointer: 0x562cfeb8c6d0>
+      `expected$default_duckdb_connection$con@conn_ref` is <pointer: 0x562cfb508e00>
       
-      `actual$default_duckdb_connection$con@driver@database_ref` is <pointer: 0x5611e17bf470>
-      `expected$default_duckdb_connection$con@driver@database_ref` is <pointer: 0x5611e0304aa0>
+      `actual$default_duckdb_connection$con@driver@database_ref` is <pointer: 0x562cfd001080>
+      `expected$default_duckdb_connection$con@driver@database_ref` is <pointer: 0x562cff31df70>
       
       `environment(actual$df_from_csv)` is <env:namespace:duckplyr>
       `environment(expected$df_from_csv)` is <env:namespace:dplyr>
@@ -2267,15 +1453,25 @@ Run `revdepcheck::cloud_details(, "duckplyr")` for more info
       `environment(actual$duckplyr_left_join)` is <env:namespace:duckplyr>
       `environment(expected$duckplyr_left_join)` is <env:namespace:dplyr>
       
-      actual$duckplyr_macros[5:11] vs expected$duckplyr_macros[5:11]
-        =="(x, y) AS x = y"
-        !="(x, y) AS x <> y"
+      actual$duckplyr_macros[1:11] vs expected$duckplyr_macros[1:11]
+      - <"(x, y) AS x < y"
+      + <"(x, y) AS \"r_base::<\"(x, y)"
+      - <="(x, y) AS x <= y"
+      + <="(x, y) AS \"r_base::<=\"(x, y)"
+      - >"(x, y) AS x > y"
+      + >"(x, y) AS \"r_base::>\"(x, y)"
+      - >="(x, y) AS x >= y"
+      + >="(x, y) AS \"r_base::>=\"(x, y)"
+      - =="(x, y) AS x = y"
+      + =="(x, y) AS \"r_base::==\"(x, y)"
+      - !="(x, y) AS x <> y"
+      + !="(x, y) AS \"r_base::!=\"(x, y)"
         ___divide"(x, y) AS CASE WHEN y = 0 THEN CASE WHEN x = 0 THEN CAST('NaN' AS double) WHEN x > 0 THEN CAST('+Infinity' AS double) ELSE CAST('-Infinity' AS double) END ELSE CAST(x AS double) / y END"
       - is.na"(x) AS (x IS NULL)"
       + is.na"(x) AS (x IS NULL OR isnan(x))"
         n"() AS CAST(COUNT(*) AS int32)"
         ___log10"(x) AS CASE WHEN x < 0 THEN CAST('NaN' AS double) WHEN x = 0 THEN CAST('-Inf' AS double) ELSE log10(x) END"
-        ___log"(x) AS CASE WHEN x < 0 THEN CAST('NaN' AS double) WHEN x = 0 THEN CAST('-Inf' AS double) ELSE ln(x) END"
+      and 1 more ...
       
       `environment(actual$duckplyr_mutate)` is <env:namespace:duckplyr>
       `environment(expected$duckplyr_mutate)` is <env:namespace:dplyr>
@@ -2753,7 +1949,7 @@ Run `revdepcheck::cloud_details(, "duckplyr")` for more info
       🦆:  661
       add_count, anti_join, arrange, compute, count, cross_join, distinct, do, eval, filter, full_join, group_by, inner_join, intersect, left_join, mutate, mutate.data.frame, nest_join, pull, reframe, relocate, rename, rename_with, right_join, rows_append, rows_delete, rows_insert, rows_patch, rows_update, rows_upsert, rowwise, select, semi_join, setdiff, setequal, slice, slice_head, slice_sample, slice_tail, summarise, symdiff, transmute, ungroup, union_all
       
-      00:00:55.590968
+      00:00:51.68547
       Execution halted
     ```
 
@@ -2960,71 +2156,6 @@ Run `revdepcheck::cloud_details(, "ern")` for more info
       `expected`: TRUE 
       
       [ FAIL 1 | WARN 0 | SKIP 0 | PASS 167 ]
-      Error: Test failures
-      Execution halted
-    ```
-
-# fqar
-
-<details>
-
-* Version: 0.5.3
-* GitHub: https://github.com/equitable-equations/fqar
-* Source code: https://github.com/cran/fqar
-* Date/Publication: 2024-04-13 21:50:02 UTC
-* Number of recursive dependencies: 76
-
-Run `revdepcheck::cloud_details(, "fqar")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking tests ... ERROR
-    ```
-      Running ‘testthat.R’
-    Running the tests in ‘tests/testthat.R’ failed.
-    Complete output:
-      > # This file is part of the standard setup for testthat.
-      > # It is recommended that you do not modify it.
-      > #
-      > # Where should you do additional test configuration?
-      > # Learn more about the roles of various files in:
-      > # * https://r-pkgs.org/tests.html
-      > # * https://testthat.r-lib.org/reference/test_package.html#special-files
-      > 
-      > library(testthat)
-      > library(fqar)
-      > 
-      > test_check("fqar")
-      data_set must be a dataframe obtained from the universalFQA.org website. Type ?download_transect for help.
-      [ FAIL 2 | WARN 0 | SKIP 0 | PASS 361 ]
-      
-      ══ Failed tests ════════════════════════════════════════════════════════════════
-      ── Error ('test-download_assessment_list.R:10:5'): download_assessment_list works ──
-      Error: Error evaluating duckdb query: Conversion Error: Could not convert string 'hi' to DOUBLE
-      Backtrace:
-          ▆
-       1. ├─testthat::expect_message(...) at test-download_assessment_list.R:10:5
-       2. │ └─testthat:::expect_condition_matching(...)
-       3. │   └─testthat:::quasi_capture(...)
-       4. │     ├─testthat (local) .capture(...)
-       5. │     │ └─base::withCallingHandlers(...)
-       6. │     └─rlang::eval_bare(quo_get_expr(.quo), quo_get_env(.quo))
-       7. └─fqar::download_assessment_list(1, id == "hi")
-      ── Error ('test-download_transect_list.R:5:3'): download_transect_list works ───
-      Error: Error evaluating duckdb query: Conversion Error: Could not convert string 'hi' to DOUBLE
-      Backtrace:
-          ▆
-       1. ├─testthat::expect_message(download_transect_list(1, id == "hi")) at test-download_transect_list.R:5:3
-       2. │ └─testthat:::expect_condition_matching(...)
-       3. │   └─testthat:::quasi_capture(...)
-       4. │     ├─testthat (local) .capture(...)
-       5. │     │ └─base::withCallingHandlers(...)
-       6. │     └─rlang::eval_bare(quo_get_expr(.quo), quo_get_env(.quo))
-       7. └─fqar::download_transect_list(1, id == "hi")
-      
-      [ FAIL 2 | WARN 0 | SKIP 0 | PASS 361 ]
       Error: Test failures
       Execution halted
     ```
@@ -3285,436 +2416,6 @@ Run `revdepcheck::cloud_details(, "linelist")` for more info
       ‘software-permissions.Rmd’ using ‘UTF-8’... OK
     ```
 
-# mpwR
-
-<details>
-
-* Version: 0.1.5
-* GitHub: NA
-* Source code: https://github.com/cran/mpwR
-* Date/Publication: 2023-11-13 23:33:26 UTC
-* Number of recursive dependencies: 112
-
-Run `revdepcheck::cloud_details(, "mpwR")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking tests ... ERROR
-    ```
-      Running ‘testthat.R’
-    Running the tests in ‘tests/testthat.R’ failed.
-    Complete output:
-      > library(testthat)
-      > library(mpwR)
-      > 
-      > test_check("mpwR")
-      Protein-level not available for Spectronaut.
-      For ProteinGroup.IDs - No flowTraceR filtering applied
-      For ProteinGroup.IDs - No flowTraceR filtering applied
-      For ProteinGroup.IDs - No flowTraceR filtering applied
-      For ProteinGroup.IDs - No flowTraceR filtering applied
-      For MaxQuant evidence.txt - the following column need to be present:  Raw file 
-      For MaxQuant evidence.txt - the following column need to be present:  Proteins 
-      For MaxQuant evidence.txt - the following column need to be present:  Modified sequence 
-      For MaxQuant evidence.txt - the following column need to be present:  Sequence 
-      For MaxQuant evidence.txt - the following column need to be present:  Missed cleavages 
-      For MaxQuant evidence.txt - the following column need to be present:  Charge 
-      For MaxQuant evidence.txt - the following column need to be present:  Retention time 
-      For MaxQuant evidence.txt - the following column need to be present:  Potential contaminant 
-      For MaxQuant evidence.txt - the following column need to be present:  Reverse 
-      
-      For DIA-NN input - the following column need to be present:  Run 
-      For DIA-NN input - the following column need to be present:  Protein.Group 
-      For DIA-NN input - the following column need to be present:  Protein.Ids 
-      For DIA-NN input - the following column need to be present:  Modified.Sequence 
-      For DIA-NN input - the following column need to be present:  Stripped.Sequence 
-      For DIA-NN input - the following column need to be present:  Precursor.Id 
-      For DIA-NN input - the following column need to be present:  Precursor.Charge 
-      For DIA-NN input - the following column need to be present:  RT 
-      For DIA-NN input - the following column need to be present:  PG.MaxLFQ 
-      
-      For DIA-NN input - the following column need to be present:  Run 
-      For DIA-NN input - the following column need to be present:  Protein.Group 
-      For DIA-NN input - the following column need to be present:  Protein.Ids 
-      For DIA-NN input - the following column need to be present:  Modified.Sequence 
-      For DIA-NN input - the following column need to be present:  Stripped.Sequence 
-      For DIA-NN input - the following column need to be present:  Precursor.Id 
-      For DIA-NN input - the following column need to be present:  Precursor.Charge 
-      For DIA-NN input - the following column need to be present:  RT 
-      For DIA-NN input - the following column need to be present:  PG.MaxLFQ 
-      
-      For PD PSMs.txt - the following column need to be present:  Confidence 
-      For PD PSMs.txt - the following column need to be present:  Spectrum File 
-      For PD PSMs.txt - the following column need to be present:  Protein Accessions 
-      For PD PSMs.txt - the following column need to be present:  Annotated Sequence 
-      For PD PSMs.txt - the following column need to be present:  Modifications 
-      For PD PSMs.txt - the following column need to be present:  Number of Missed Cleavages 
-      For PD PSMs.txt - the following column need to be present:  Charge 
-      For PD PSMs.txt - the following column need to be present:  RT in min 
-      
-      For PD PeptideGroups.txt - the following column(s) need to be present: Found in Sample
-      For PD PeptideGroups.txt - the following column need to be present:  Number of Protein Groups 
-      For PD PeptideGroups.txt - the following column need to be present:  Number of Proteins 
-      For PD PeptideGroups.txt - the following column need to be present:  Number of PSMs 
-      For PD PeptideGroups.txt - the following column need to be present:  Confidence 
-      For PD PeptideGroups.txt - the following column need to be present:  Sequence 
-      For PD PeptideGroups.txt - the following column need to be present:  Modifications 
-      For PD PeptideGroups.txt - the following column need to be present:  Number of Missed Cleavages 
-      
-      For PD PeptideGroups.txt - the following column(s) need to be present: Found in Sample
-      For PD PeptideGroups.txt - the following column need to be present:  Number of Protein Groups 
-      For PD PeptideGroups.txt - the following column need to be present:  Number of Proteins 
-      For PD PeptideGroups.txt - the following column need to be present:  Number of PSMs 
-      For PD PeptideGroups.txt - the following column need to be present:  Confidence 
-      For PD PeptideGroups.txt - the following column need to be present:  Sequence 
-      For PD PeptideGroups.txt - the following column need to be present:  Modifications 
-      For PD PeptideGroups.txt - the following column need to be present:  Number of Missed Cleavages 
-      
-      For PD Proteins.txt - the following column(s) need to be present: Found in Sample
-      For PD Proteins.txt - the following column need to be present:  Proteins Unique Sequence ID 
-      For PD Proteins.txt - the following column need to be present:  Accession 
-      For PD Proteins.txt - the following column need to be present:  Description 
-      
-      For PD Proteins.txt - the following column(s) need to be present: Found in Sample
-      For PD Proteins.txt - the following column need to be present:  Proteins Unique Sequence ID 
-      For PD Proteins.txt - the following column need to be present:  Accession 
-      For PD Proteins.txt - the following column need to be present:  Description 
-      
-      For PD ProteinGroups.txt - the following column(s) need to be present: Found in Sample
-      For PD ProteinGroups.txt - the following column need to be present:  Protein Groups Protein Group ID 
-      For PD ProteinGroups.txt - the following column need to be present:  Group Description 
-      For PD ProteinGroups.txt - the following column need to be present:  Number of Proteins 
-      For PD ProteinGroups.txt - the following column need to be present:  Number of Unique Peptides 
-      
-      For PD ProteinGroups.txt - the following column(s) need to be present: Found in Sample
-      For PD ProteinGroups.txt - the following column need to be present:  Protein Groups Protein Group ID 
-      For PD ProteinGroups.txt - the following column need to be present:  Group Description 
-      For PD ProteinGroups.txt - the following column need to be present:  Number of Proteins 
-      For PD ProteinGroups.txt - the following column need to be present:  Number of Unique Peptides 
-      
-      For plotting density: CV_Retention.time_mpwR is not detected in submitted data.
-      For plotting density: CV_Peptide_LFQ_mpwR is not detected in submitted data.
-      For plotting density: CV_ProteinGroup_LFQ_mpwR is not detected in submitted data.
-      For plotting barplot: Only NA detected for Protein.IDs! Not included in vizualisation.
-      For plotting stacked barplot: Only NA detected for Protein.IDs! Not included in vizualisation.
-      For plotting barplot: Only NA detected for Protein.IDs! Not included in vizualisation.
-      For plotting boxplot: Only NA detected for Protein.IDs! Not included in vizualisation.
-      [ FAIL 12 | WARN 67 | SKIP 0 | PASS 514 ]
-      
-      ══ Failed tests ════════════════════════════════════════════════════════════════
-      ── Error ('test_CV.R:91:5'): get_CV_LFQ_pep works ──────────────────────────────
-      Error: Error evaluating duckdb query: Conversion Error: Could not convert string '' to DOUBLE
-      Backtrace:
-           ▆
-        1. ├─mpwR::get_CV_LFQ_pep(input_list = data) at test_CV.R:91:5
-        2. │ └─... %>% ...
-        3. ├─mpwR:::calculate_CV(...)
-        4. │ └─mpwR:::get_full_profile(input_df = input_prepared, level = level)
-        5. │   └─... %>% ...
-        6. ├─dplyr::filter(., .data$Nr_Appearances == length(unique(input_df$Run_mpwR)))
-        7. ├─dplyr::rename(., Nr_Appearances = n)
-        8. ├─dplyr::count(., !!as.symbol(paste0(level, "_mpwR")))
-        9. ├─dplyr::ungroup(.)
-       10. ├─dplyr::distinct(., !!as.symbol(paste0(level, "_mpwR")), .keep_all = TRUE)
-       11. ├─dplyr::group_by(., .data$Run_mpwR)
-       12. └─dplyr:::group_by.data.frame(., .data$Run_mpwR)
-       13.   └─dplyr::group_by(.data, ..., .add = .add, .drop = .drop)
-       14.     └─dplyr::grouped_df(groups$data, groups$group_names, .drop)
-       15.       └─dplyr:::compute_groups(data, vars, drop = drop)
-       16.         ├─tibble::as_tibble(data)
-       17.         └─tibble:::as_tibble.data.frame(data)
-       18.           └─base::nrow(x)
-       19.             ├─base::dim(x)
-       20.             └─base::dim.data.frame(x)
-       21.               └─base::.row_names_info(x, 2L)
-      ── Error ('test_CV.R:254:5'): get_CV_LFQ_pg works ──────────────────────────────
-      Error: Error evaluating duckdb query: Conversion Error: Could not convert string '' to DOUBLE
-      Backtrace:
-           ▆
-        1. ├─mpwR::get_CV_LFQ_pg(input_list = data) at test_CV.R:254:5
-        2. │ └─... %>% ...
-        3. ├─mpwR:::calculate_CV(...)
-        4. │ └─mpwR:::get_full_profile(input_df = input_prepared, level = level)
-        5. │   └─... %>% ...
-        6. ├─dplyr::filter(., .data$Nr_Appearances == length(unique(input_df$Run_mpwR)))
-        7. ├─dplyr::rename(., Nr_Appearances = n)
-        8. ├─dplyr::count(., !!as.symbol(paste0(level, "_mpwR")))
-        9. ├─dplyr::ungroup(.)
-       10. ├─dplyr::distinct(., !!as.symbol(paste0(level, "_mpwR")), .keep_all = TRUE)
-       11. ├─dplyr::group_by(., .data$Run_mpwR)
-       12. └─dplyr:::group_by.data.frame(., .data$Run_mpwR)
-       13.   └─dplyr::group_by(.data, ..., .add = .add, .drop = .drop)
-       14.     └─dplyr::grouped_df(groups$data, groups$group_names, .drop)
-       15.       └─dplyr:::compute_groups(data, vars, drop = drop)
-       16.         ├─tibble::as_tibble(data)
-       17.         └─tibble:::as_tibble.data.frame(data)
-       18.           └─base::nrow(x)
-       19.             ├─base::dim(x)
-       20.             └─base::dim.data.frame(x)
-       21.               └─base::.row_names_info(x, 2L)
-      ── Error ('test_DC.R:90:5'): get_DC_Report works ───────────────────────────────
-      Error: Error evaluating duckdb query: Conversion Error: Could not convert string '' to DOUBLE
-      Backtrace:
-           ▆
-        1. ├─mpwR::get_DC_Report(input_list = data, metric = "absolute") at test_DC.R:90:5
-        2. │ └─mpwR:::generate_DC_Report(...)
-        3. │   └─mpwR:::generate_DC_count(input_df = MQ_tidy_pg, level = "ProteinGroup.IDs")
-        4. │     └─... %>% dplyr::rename(!!as.symbol(level) := n)
-        5. ├─dplyr::rename(., `:=`(!!as.symbol(level), n))
-        6. ├─dplyr::count(., .data$Nr_Appearances, .drop = FALSE)
-        7. ├─dplyr::rename(., Nr_Appearances = n)
-        8. ├─dplyr::count(., !!as.symbol(paste0(level, "_mpwR")))
-        9. ├─dplyr::ungroup(.)
-       10. ├─dplyr::distinct(., !!as.symbol(paste0(level, "_mpwR")), .keep_all = TRUE)
-       11. ├─dplyr::group_by(., .data$Run_mpwR)
-       12. └─dplyr:::group_by.data.frame(., .data$Run_mpwR)
-       13.   └─dplyr::group_by(.data, ..., .add = .add, .drop = .drop)
-       14.     └─dplyr::grouped_df(groups$data, groups$group_names, .drop)
-       15.       └─dplyr:::compute_groups(data, vars, drop = drop)
-       16.         ├─tibble::as_tibble(data)
-       17.         └─tibble:::as_tibble.data.frame(data)
-       18.           └─base::nrow(x)
-       19.             ├─base::dim(x)
-       20.             └─base::dim.data.frame(x)
-       21.               └─base::.row_names_info(x, 2L)
-      ── Error ('test_ID.R:90:5'): get_ID_Report works ───────────────────────────────
-      Error: Error evaluating duckdb query: Conversion Error: Could not convert string '' to DOUBLE
-      Backtrace:
-           ▆
-        1. ├─mpwR::get_ID_Report(input_list = data) at test_ID.R:90:5
-        2. │ └─mpwR:::generate_ID_Report(...)
-        3. │   ├─generate_level_count(MQ_tidy_pg, "ProteinGroup.IDs") %>% ...
-        4. │   └─mpwR:::generate_level_count(MQ_tidy_pg, "ProteinGroup.IDs")
-        5. │     └─... %>% dplyr::rename(!!as.symbol(level) := n)
-        6. ├─dplyr::arrange(., .data$Run_mpwR)
-        7. ├─dplyr::rename(., `:=`(!!as.symbol(level), n))
-        8. ├─dplyr::count(., .data$Run_mpwR)
-        9. ├─dplyr::ungroup(.)
-       10. ├─dplyr::distinct(., !!as.symbol(paste0(level, "_mpwR")), .keep_all = TRUE)
-       11. ├─dplyr::group_by(...)
-       12. └─dplyr:::group_by.data.frame(...)
-       13.   └─dplyr::group_by(.data, ..., .add = .add, .drop = .drop)
-       14.     └─dplyr::grouped_df(groups$data, groups$group_names, .drop)
-       15.       └─dplyr:::compute_groups(data, vars, drop = drop)
-       16.         ├─tibble::as_tibble(data)
-       17.         └─tibble:::as_tibble.data.frame(data)
-       18.           └─base::nrow(x)
-       19.             ├─base::dim(x)
-       20.             └─base::dim.data.frame(x)
-       21.               └─base::.row_names_info(x, 2L)
-      ── Error ('test_MC.R:59:5'): get_MC_Report works ───────────────────────────────
-      Error: Error evaluating duckdb query: Conversion Error: Could not convert string '' to DOUBLE
-      Backtrace:
-           ▆
-        1. ├─mpwR::get_MC_Report(input_list = data, metric = "absolute") at test_MC.R:59:5
-        2. │ └─... %>% ...
-        3. ├─mpwR:::generate_MC_Report(...)
-        4. │ └─... %>% ...
-        5. ├─mpwR:::add_analysis_col(input_df = ., analysis_name = analysis_name)
-        6. │ ├─base::cbind(...)
-        7. │ └─base::nrow(input_df)
-        8. ├─dplyr::rename(., Missed.Cleavage = "Missed.Cleavage_mpwR", mc_count = n)
-        9. ├─dplyr::count(., .data$Missed.Cleavage_mpwR)
-       10. └─dplyr:::count.data.frame(., .data$Missed.Cleavage_mpwR)
-       11.   └─dplyr::count(...)
-       12.     ├─dplyr::group_by(x, ..., .add = TRUE, .drop = .drop)
-       13.     └─dplyr:::group_by.data.frame(x, ..., .add = TRUE, .drop = .drop)
-       14.       └─dplyr::group_by(.data, ..., .add = .add, .drop = .drop)
-       15.         └─dplyr::grouped_df(groups$data, groups$group_names, .drop)
-       16.           └─dplyr:::compute_groups(data, vars, drop = drop)
-       17.             ├─tibble::as_tibble(data)
-       18.             └─tibble:::as_tibble.data.frame(data)
-       19.               └─base::nrow(x)
-       20.                 ├─base::dim(x)
-       21.                 └─base::dim.data.frame(x)
-       22.                   └─base::.row_names_info(x, 2L)
-      ── Error ('test_Upset.R:106:4'): get_Upset_list works ──────────────────────────
-      Error: Error evaluating duckdb query: Conversion Error: Could not convert string '' to DOUBLE
-      Backtrace:
-          ▆
-       1. ├─mpwR::get_Upset_list(input_list = data, level = "ProteinGroup.IDs") at test_Upset.R:106:4
-       2. │ └─tidy_MQ_pep_pg(input_list[[i]][["data"]][["pg"]]) %>% ...
-       3. ├─mpwR:::prepare_Upset(...)
-       4. │ └─... %>% unlist()
-       5. └─base::unlist(.)
-      ── Error ('test_summary.R:116:2'): get_summary_Report works ────────────────────
-      Error: Error evaluating duckdb query: Conversion Error: Could not convert string '' to DOUBLE
-      Backtrace:
-           ▆
-        1. ├─mpwR::get_summary_Report(input_list = data) at test_summary.R:116:2
-        2. │ └─mpwR:::generate_summary_Report(...)
-        3. │   └─mpwR:::generate_ID_Report(...)
-        4. │     ├─generate_level_count(MQ_tidy_pg, "ProteinGroup.IDs") %>% ...
-        5. │     └─mpwR:::generate_level_count(MQ_tidy_pg, "ProteinGroup.IDs")
-        6. │       └─... %>% dplyr::rename(!!as.symbol(level) := n)
-        7. ├─dplyr::arrange(., .data$Run_mpwR)
-        8. ├─dplyr::rename(., `:=`(!!as.symbol(level), n))
-        9. ├─dplyr::count(., .data$Run_mpwR)
-       10. ├─dplyr::ungroup(.)
-       11. ├─dplyr::distinct(., !!as.symbol(paste0(level, "_mpwR")), .keep_all = TRUE)
-       12. ├─dplyr::group_by(...)
-       13. └─dplyr:::group_by.data.frame(...)
-       14.   └─dplyr::group_by(.data, ..., .add = .add, .drop = .drop)
-       15.     └─dplyr::grouped_df(groups$data, groups$group_names, .drop)
-       16.       └─dplyr:::compute_groups(data, vars, drop = drop)
-       17.         ├─tibble::as_tibble(data)
-       18.         └─tibble:::as_tibble.data.frame(data)
-       19.           └─base::nrow(x)
-       20.             ├─base::dim(x)
-       21.             └─base::dim.data.frame(x)
-       22.               └─base::.row_names_info(x, 2L)
-      ── Error ('test_utils_helpers.R:117:4'): tidy_MQ_pep_pg works ──────────────────
-      Error: Error evaluating duckdb query: Conversion Error: Could not convert string '' to DOUBLE
-      Backtrace:
-          ▆
-       1. ├─testthat::expect_equal(nrow(output), 7) at test_utils_helpers.R:117:4
-       2. │ └─testthat::quasi_label(enquo(object), label, arg = "object")
-       3. │   └─rlang::eval_bare(expr, quo_get_env(quo))
-       4. └─base::nrow(output)
-       5.   ├─base::dim(x)
-       6.   └─base::dim.data.frame(x)
-       7.     └─base::.row_names_info(x, 2L)
-      ── Error ('test_utils_helpers.R:325:4'): tidy_MQ_LFQ works ─────────────────────
-      Error: Error evaluating duckdb query: Conversion Error: Could not convert string '' to DOUBLE
-      Backtrace:
-          ▆
-       1. ├─testthat::expect_equal(nrow(output), 7) at test_utils_helpers.R:325:4
-       2. │ └─testthat::quasi_label(enquo(object), label, arg = "object")
-       3. │   └─rlang::eval_bare(expr, quo_get_env(quo))
-       4. └─base::nrow(output)
-       5.   ├─base::dim(x)
-       6.   └─base::dim.data.frame(x)
-       7.     └─base::.row_names_info(x, 2L)
-      ── Error ('test_utils_reports.R:19:4'): generate_DC_Report works ───────────────
-      Error: Error evaluating duckdb query: Conversion Error: Could not convert string '' to DOUBLE
-      Backtrace:
-           ▆
-        1. ├─mpwR:::generate_DC_Report(...) at test_utils_reports.R:19:4
-        2. │ └─mpwR:::generate_DC_count(input_df = MQ_tidy_pg, level = "ProteinGroup.IDs")
-        3. │   └─... %>% dplyr::rename(!!as.symbol(level) := n)
-        4. ├─dplyr::rename(., `:=`(!!as.symbol(level), n))
-        5. ├─dplyr::count(., .data$Nr_Appearances, .drop = FALSE)
-        6. ├─dplyr::rename(., Nr_Appearances = n)
-        7. ├─dplyr::count(., !!as.symbol(paste0(level, "_mpwR")))
-        8. ├─dplyr::ungroup(.)
-        9. ├─dplyr::distinct(., !!as.symbol(paste0(level, "_mpwR")), .keep_all = TRUE)
-       10. ├─dplyr::group_by(., .data$Run_mpwR)
-       11. └─dplyr:::group_by.data.frame(., .data$Run_mpwR)
-       12.   └─dplyr::group_by(.data, ..., .add = .add, .drop = .drop)
-       13.     └─dplyr::grouped_df(groups$data, groups$group_names, .drop)
-       14.       └─dplyr:::compute_groups(data, vars, drop = drop)
-       15.         ├─tibble::as_tibble(data)
-       16.         └─tibble:::as_tibble.data.frame(data)
-       17.           └─base::nrow(x)
-       18.             ├─base::dim(x)
-       19.             └─base::dim.data.frame(x)
-       20.               └─base::.row_names_info(x, 2L)
-      ── Error ('test_utils_reports.R:107:4'): generate_ID_Report works ──────────────
-      Error: Error evaluating duckdb query: Conversion Error: Could not convert string '' to DOUBLE
-      Backtrace:
-           ▆
-        1. ├─mpwR:::generate_ID_Report(...) at test_utils_reports.R:107:4
-        2. │ ├─generate_level_count(MQ_tidy_pg, "ProteinGroup.IDs") %>% ...
-        3. │ └─mpwR:::generate_level_count(MQ_tidy_pg, "ProteinGroup.IDs")
-        4. │   └─... %>% dplyr::rename(!!as.symbol(level) := n)
-        5. ├─dplyr::arrange(., .data$Run_mpwR)
-        6. ├─dplyr::rename(., `:=`(!!as.symbol(level), n))
-        7. ├─dplyr::count(., .data$Run_mpwR)
-        8. ├─dplyr::ungroup(.)
-        9. ├─dplyr::distinct(., !!as.symbol(paste0(level, "_mpwR")), .keep_all = TRUE)
-       10. ├─dplyr::group_by(...)
-       11. └─dplyr:::group_by.data.frame(...)
-       12.   └─dplyr::group_by(.data, ..., .add = .add, .drop = .drop)
-       13.     └─dplyr::grouped_df(groups$data, groups$group_names, .drop)
-       14.       └─dplyr:::compute_groups(data, vars, drop = drop)
-       15.         ├─tibble::as_tibble(data)
-       16.         └─tibble:::as_tibble.data.frame(data)
-       17.           └─base::nrow(x)
-       18.             ├─base::dim(x)
-       19.             └─base::dim.data.frame(x)
-       20.               └─base::.row_names_info(x, 2L)
-      ── Error ('test_utils_reports.R:322:4'): generate_summary_Report works ─────────
-      Error: Error evaluating duckdb query: Conversion Error: Could not convert string '' to DOUBLE
-      Backtrace:
-           ▆
-        1. ├─mpwR:::generate_summary_Report(...) at test_utils_reports.R:322:4
-        2. │ └─mpwR:::generate_ID_Report(...)
-        3. │   ├─generate_level_count(MQ_tidy_pg, "ProteinGroup.IDs") %>% ...
-        4. │   └─mpwR:::generate_level_count(MQ_tidy_pg, "ProteinGroup.IDs")
-        5. │     └─... %>% dplyr::rename(!!as.symbol(level) := n)
-        6. ├─dplyr::arrange(., .data$Run_mpwR)
-        7. ├─dplyr::rename(., `:=`(!!as.symbol(level), n))
-        8. ├─dplyr::count(., .data$Run_mpwR)
-        9. ├─dplyr::ungroup(.)
-       10. ├─dplyr::distinct(., !!as.symbol(paste0(level, "_mpwR")), .keep_all = TRUE)
-       11. ├─dplyr::group_by(...)
-       12. └─dplyr:::group_by.data.frame(...)
-       13.   └─dplyr::group_by(.data, ..., .add = .add, .drop = .drop)
-       14.     └─dplyr::grouped_df(groups$data, groups$group_names, .drop)
-       15.       └─dplyr:::compute_groups(data, vars, drop = drop)
-       16.         ├─tibble::as_tibble(data)
-       17.         └─tibble:::as_tibble.data.frame(data)
-       18.           └─base::nrow(x)
-       19.             ├─base::dim(x)
-       20.             └─base::dim.data.frame(x)
-       21.               └─base::.row_names_info(x, 2L)
-      
-      [ FAIL 12 | WARN 67 | SKIP 0 | PASS 514 ]
-      Error: Test failures
-      Execution halted
-    ```
-
-*   checking running R code from vignettes ... ERROR
-    ```
-    Errors in running code in vignettes:
-    when running code in ‘Workflow.Rmd’
-      ...
-    
-    > library(flextable)
-    
-    > files <- create_example()
-    
-    > ID_Reports <- get_ID_Report(input_list = files)
-    
-      When sourcing ‘Workflow.R’:
-    Error: Error evaluating duckdb query: Conversion Error: Could not convert string '' to DOUBLE
-    Execution halted
-    
-      ‘Import.Rmd’ using ‘UTF-8’... OK
-      ‘Output_Explanations.Rmd’ using ‘UTF-8’... OK
-      ‘Requirements.Rmd’ using ‘UTF-8’... OK
-      ‘Workflow.Rmd’ using ‘UTF-8’... failed
-    ```
-
-*   checking re-building of vignette outputs ... NOTE
-    ```
-    Error(s) in re-building vignettes:
-      ...
-    --- re-building ‘Import.Rmd’ using rmarkdown
-    --- finished re-building ‘Import.Rmd’
-    
-    --- re-building ‘Output_Explanations.Rmd’ using rmarkdown
-    --- finished re-building ‘Output_Explanations.Rmd’
-    
-    --- re-building ‘Requirements.Rmd’ using rmarkdown
-    --- finished re-building ‘Requirements.Rmd’
-    
-    --- re-building ‘Workflow.Rmd’ using rmarkdown
-    
-    Quitting from lines  at lines 56-57 [ID-Report] (Workflow.Rmd)
-    Error: processing vignette 'Workflow.Rmd' failed with diagnostics:
-    Error evaluating duckdb query: Conversion Error: Could not convert string '' to DOUBLE
-    --- failed re-building ‘Workflow.Rmd’
-    
-    SUMMARY: processing the following file failed:
-      ‘Workflow.Rmd’
-    
-    Error: Vignette re-building failed.
-    Execution halted
-    ```
-
 # msigdbr
 
 <details>
@@ -3741,14 +2442,6 @@ Run `revdepcheck::cloud_details(, "msigdbr")` for more info
       > 
       > test_check("msigdbr")
       Killed
-    ```
-
-*   checking re-building of vignette outputs ... NOTE
-    ```
-    Error(s) in re-building vignettes:
-      ...
-    --- re-building ‘msigdbr-intro.Rmd’ using rmarkdown
-    Killed
     ```
 
 ## In both
@@ -3786,94 +2479,6 @@ Run `revdepcheck::cloud_details(, "mtdesign")` for more info
       > 
       > test_check("mtdesign")
       Killed
-    ```
-
-# multiverse
-
-<details>
-
-* Version: 0.6.1
-* GitHub: https://github.com/MUCollective/multiverse
-* Source code: https://github.com/cran/multiverse
-* Date/Publication: 2022-07-04 13:20:02 UTC
-* Number of recursive dependencies: 134
-
-Run `revdepcheck::cloud_details(, "multiverse")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking tests ... ERROR
-    ```
-      Running ‘testthat.R’
-    Running the tests in ‘tests/testthat.R’ failed.
-    Complete output:
-      > library(testthat)
-      > library(multiverse)
-      Loading required package: knitr
-      > 
-      > test_check("multiverse")
-      Error in FUN(X[[i]], ...) : error
-       test_check -> test_dir -> test_files -> test_files_serial -> with_reporter -> lapply -> FUN -> source_file -> test_code -> tryCatchOne -> tryCatchList -> withCallingHandlers -> eval -> eval -> test_that -> test_code -> tryCatchOne -> tryCatchList -> withCallingHandlers -> eval -> eval -> expect_warning -> quasi_capture -> .capture -> withCallingHandlers -> eval_bare -> execute_multiverse -> mapply ->  -> app -> FUN -> tryStack -> lapply -> FUN -> FUN -> stop -> FUN(X[[i]], ...) 
-      
-      Error in FUN(X[[i]], ...) : error
-       test_check -> test_dir -> test_files -> test_files_serial -> with_reporter -> lapply -> FUN -> source_file -> test_code -> tryCatchOne -> tryCatchList -> withCallingHandlers -> eval -> eval -> test_that -> test_code -> tryCatchOne -> tryCatchList -> withCallingHandlers -> eval -> eval -> expect_warning -> quasi_capture -> .capture -> withCallingHandlers -> eval_bare -> execute_multiverse -> mapply ->  -> app -> FUN -> tryStack -> lapply -> FUN -> FUN -> stop -> FUN(X[[i]], ...) 
-      
-      [ FAIL 1 | WARN 1 | SKIP 0 | PASS 207 ]
-      
-      ══ Failed tests ════════════════════════════════════════════════════════════════
-      ── Failure ('test-parse_multiverse.R:389:3'): `parse_multiverse` works when conditions are specified ──
-      as.list(p_tbl_df) not equal to as.list(p_tbl_df.ref).
-      Component ".universe": Numeric: lengths (5, 4) differ
-      Component "values_y": Lengths (5, 4) differ (string compare on first 4)
-      Component "values_y": 1 string mismatch
-      Component "values_z": Lengths (5, 4) differ (string compare on first 4)
-      Component "values_z": 2 string mismatches
-      
-      [ FAIL 1 | WARN 1 | SKIP 0 | PASS 207 ]
-      Error: Test failures
-      Execution halted
-    ```
-
-## In both
-
-*   checking running R code from vignettes ... ERROR
-    ```
-    Errors in running code in vignettes:
-    when running code in ‘branch.Rmd’
-      ...
-    
-    > M = multiverse()
-    
-    > M = multiverse()
-    
-    > execute_multiverse(M)
-    
-      When sourcing ‘branch.R’:
-    Error: invalid 'n' - must contain at least one non-missing element, got none.
-    Execution halted
-    when running code in ‘frequentist-multiverse-analysis.Rmd’
-      ...
-    # A tibble: 1 × 5
-      .universe .parameter_assignment .code  .results   .errors
-          <int> <list>                <list> <list>     <lgl>  
-    1         1 <list [0]>            <NULL> <list [0]> NA     
-    
-    > execute_multiverse(M)
-    
-      When sourcing ‘frequentist-multiverse-analysis.R’:
-    Error: invalid 'n' - must contain at least one non-missing element, got none.
-    Execution halted
-    
-      ‘branch.Rmd’ using ‘UTF-8’... failed
-      ‘conditions.Rmd’ using ‘UTF-8’... OK
-      ‘durante-multiverse-analysis.Rmd’ using ‘UTF-8’... OK
-      ‘execution-multiverse.Rmd’ using ‘UTF-8’... OK
-      ‘frequentist-multiverse-analysis.Rmd’ using ‘UTF-8’... failed
-      ‘hurricane.Rmd’ using ‘UTF-8’... OK
-      ‘multiverse-in-rmd.Rmd’ using ‘UTF-8’... OK
-      ‘visualising-multiverse.Rmd’ using ‘UTF-8’... OK
     ```
 
 # NeuroDecodeR
@@ -3941,10 +2546,10 @@ Run `revdepcheck::cloud_details(, "NeuroDecodeR")` for more info
         |                                                                            
         |===================================                                   |  50%
         |                                                                            
-        |======================================================================| 100%[1] "2024-04-23 17:23:09 UTC"
-       [1] 0.1388889 0.1587302 0.1309524 0.1507937 0.1309524 0.1547619 0.1388889
-       [8] 0.1666667 0.1309524 0.1587302 0.3333333 0.8412698 0.8452381 0.8174603
-      [15] 0.7539683 0.6904762 0.6111111 0.7023810
+        |======================================================================| 100%[1] "2024-04-23 18:32:01 UTC"
+       [1] 0.14285714 0.15079365 0.11111111 0.13492063 0.16269841 0.15079365
+       [7] 0.11904762 0.09126984 0.15476190 0.12698413 0.34920635 0.82539683
+      [13] 0.85317460 0.78174603 0.69047619 0.66666667 0.63095238 0.73412698
       1 Mb
       
         |                                                                            
@@ -4069,99 +2674,6 @@ Run `revdepcheck::cloud_details(, "partition")` for more info
         libs  12.0Mb
     ```
 
-# PupilPre
-
-<details>
-
-* Version: 0.6.2
-* GitHub: NA
-* Source code: https://github.com/cran/PupilPre
-* Date/Publication: 2020-03-10 05:20:02 UTC
-* Number of recursive dependencies: 72
-
-Run `revdepcheck::cloud_details(, "PupilPre")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking examples ... ERROR
-    ```
-    Running examples in ‘PupilPre-Ex.R’ failed
-    The error most likely occurred in:
-    
-    > ### Name: ppl_prep_data
-    > ### Title: Check the classes of specific columns and re-assigns as
-    > ###   necessary.
-    > ### Aliases: ppl_prep_data
-    > 
-    > ### ** Examples
-    > 
-    > # Load example data
-    > data("Pupilex1")
-    > 
-    > dat <- ppl_prep_data(Pupilex1, Subject = "RECORDING_SESSION_LABEL",
-    +                      Item = "item",
-    +                      EventColumns = c("Subject","TRIAL_INDEX"))
-    Checking required columns...
-        All required columns are present in the data.
-    Checking optional columns...
-        All optional columns are present in the data.
-    Working on required columns...
-        RECORDING_SESSION_LABEL renamed to Subject. 
-        item renamed to Item.
-    Error: Error evaluating duckdb query: Conversion Error: Could not convert string 'factor' to DOUBLE
-    Execution halted
-    ```
-
-*   checking running R code from vignettes ... ERROR
-    ```
-    Errors in running code in vignettes:
-    when running code in ‘PupilPre_Basic_Preprocessing.Rmd’
-      ...
-        All required columns are present in the data.
-    Checking optional columns...
-        All optional columns are present in the data.
-    Working on required columns...
-        RECORDING_SESSION_LABEL renamed to Subject. 
-        item renamed to Item.
-    
-      When sourcing ‘PupilPre_Basic_Preprocessing.R’:
-    Error: Error evaluating duckdb query: Conversion Error: Could not convert string 'factor' to DOUBLE
-    Execution halted
-    when running code in ‘PupilPre_Message_Alignment.Rmd’
-      ...
-        All required columns are present in the data.
-    Checking optional columns...
-        All optional columns are present in the data.
-    Working on required columns...
-        RECORDING_SESSION_LABEL renamed to Subject. 
-        item renamed to Item.
-    
-      When sourcing ‘PupilPre_Message_Alignment.R’:
-    Error: Error evaluating duckdb query: Conversion Error: Could not convert string 'factor' to DOUBLE
-    Execution halted
-    
-      ‘PupilPre_Basic_Preprocessing.Rmd’ using ‘UTF-8’... failed
-      ‘PupilPre_Cleanup.Rmd’ using ‘UTF-8’... OK
-      ‘PupilPre_Interpolation_and_Filtering.Rmd’ using ‘UTF-8’... OK
-      ‘PupilPre_Message_Alignment.Rmd’ using ‘UTF-8’... failed
-      ‘PupilPre_Plotting.Rmd’ using ‘UTF-8’... OK
-    ```
-
-*   checking re-building of vignette outputs ... NOTE
-    ```
-    Error(s) in re-building vignettes:
-    --- re-building ‘PupilPre_Basic_Preprocessing.Rmd’ using rmarkdown
-    
-    Quitting from lines  at lines 80-81 [unnamed-chunk-4] (PupilPre_Basic_Preprocessing.Rmd)
-    Error: processing vignette 'PupilPre_Basic_Preprocessing.Rmd' failed with diagnostics:
-    Error evaluating duckdb query: Conversion Error: Could not convert string 'factor' to DOUBLE
-    --- failed re-building ‘PupilPre_Basic_Preprocessing.Rmd’
-    
-    --- re-building ‘PupilPre_Cleanup.Rmd’ using rmarkdown
-    ```
-
 # rfars
 
 <details>
@@ -4210,6 +2722,8 @@ Run `revdepcheck::cloud_details(, "rfars")` for more info
       ‘Crash_sequence_of_events.Rmd’ using ‘UTF-8’... failed to complete the test
       ‘Searchable_Codebooks.Rmd’ using ‘UTF-8’... OK
     ```
+
+## In both
 
 *   checking re-building of vignette outputs ... NOTE
     ```
@@ -4270,9 +2784,6 @@ Run `revdepcheck::cloud_details(, "rWCVP")` for more info
       
       -- Exact matching 7 names --
       
-      v Found 4 of 7 names
-      
-      -- Fuzzy matching 3 names --
       
       -- Matching names to WCVP ------------------------------------------------------
       i Using the `scientificName` column
@@ -4280,24 +2791,12 @@ Run `revdepcheck::cloud_details(, "rWCVP")` for more info
       
       -- Exact matching  names --
       
-      v Found 4 of  names
-      
-      -- Fuzzy matching 3 names --
       
       -- Matching names to WCVP ------------------------------------------------------
       i Using the `scientificName` column
       
       -- Exact matching 7 names --
       
-      v Found 4 of 7 names
-      
-      -- Matching complete! --
-      
-      v Matched 4 of 7 names
-      i Exact (with author): 2
-      i Exact (without author): 2
-      i No match found: 3
-      ! Names with multiple matches: 0
       
       -- Matching names to WCVP ------------------------------------------------------
       i Using the `genus`, `species`, `infra_rank`, and `infra` columns
@@ -4305,27 +2804,62 @@ Run `revdepcheck::cloud_details(, "rWCVP")` for more info
       
       -- Exact matching  names --
       
-      v Found 4 of  names
-      
-      -- Fuzzy matching 3 names --
       
       -- Matching names to WCVP ------------------------------------------------------
       i Using the `scientificName` column
       
       -- Exact matching 7 names --
       
-      v Found 4 of 7 names
-      
-      -- Fuzzy matching 3 names --
-      
       i No area specified. Generating global summary.
       i Aggregating occurrence types across input area ("the world") - see `?wcvp_summary()` for details.
       i No area specified. Generating global summary.
       i Matches to input geography found at Continent (Level 1)
       i Aggregating occurrence types across input area ("ASIA-TROPICAL") - see `?wcvp_summary()` for details.
-      [ FAIL 9 | WARN 0 | SKIP 0 | PASS 33 ]
+      [ FAIL 12 | WARN 0 | SKIP 0 | PASS 19 ]
       
       ══ Failed tests ════════════════════════════════════════════════════════════════
+      ── Error ('test-exact_match.R:2:3'): exact match with author returns expected output ──
+      Error: Error evaluating duckdb query: Invalid Input Error: Invalid unicode (byte sequence mismatch) detected in value construction
+      Backtrace:
+           ▆
+        1. ├─rWCVP::wcvp_match_exact(...) at test-exact_match.R:2:3
+        2. │ └─... %>% select(-"n")
+        3. ├─dplyr::select(., -"n")
+        4. ├─dplyr::mutate(., multiple_matches = .data$n > 1)
+        5. ├─dplyr::add_count(., .data[[id_col]])
+        6. ├─dplyr::mutate(...)
+        7. └─dplyr:::mutate.data.frame(...)
+        8.   └─dplyr::mutate(...)
+        9.     └─dplyr:::compute_by(...)
+       10.       ├─dplyr::group_data(data)
+       11.       ├─dplyr:::group_data.tbl_df(data)
+       12.       ├─base::NextMethod()
+       13.       └─dplyr:::group_data.data.frame(data)
+       14.         └─base::nrow(.data)
+       15.           ├─base::dim(x)
+       16.           └─base::dim.data.frame(x)
+       17.             └─base::.row_names_info(x, 2L)
+      ── Error ('test-exact_match.R:11:3'): exact match without author returns expected output ──
+      Error: Error evaluating duckdb query: Invalid Input Error: Invalid unicode (byte sequence mismatch) detected in value construction
+      Backtrace:
+           ▆
+        1. ├─rWCVP::wcvp_match_exact(...) at test-exact_match.R:11:3
+        2. │ └─... %>% select(-"n")
+        3. ├─dplyr::select(., -"n")
+        4. ├─dplyr::mutate(., multiple_matches = .data$n > 1)
+        5. ├─dplyr::add_count(., .data[[id_col]])
+        6. ├─dplyr::mutate(...)
+        7. └─dplyr:::mutate.data.frame(...)
+        8.   └─dplyr::mutate(...)
+        9.     └─dplyr:::compute_by(...)
+       10.       ├─dplyr::group_data(data)
+       11.       ├─dplyr:::group_data.tbl_df(data)
+       12.       ├─base::NextMethod()
+       13.       └─dplyr:::group_data.data.frame(data)
+       14.         └─base::nrow(.data)
+       15.           ├─base::dim(x)
+       16.           └─base::dim.data.frame(x)
+       17.             └─base::.row_names_info(x, 2L)
       ── Error ('test-fuzzy_match.R:4:3'): edit match returns name within correct distance ──
       Error in `nchar(str2)`: invalid multibyte string, element 8
       Backtrace:
@@ -4407,51 +2941,127 @@ Run `revdepcheck::cloud_details(, "rWCVP")` for more info
        5.   └─phonics::metaphone(wcvp_names$taxon_name, maxCodeLen = 20, clean = FALSE)
        6.     └─base::toupper(word)
       ── Error ('test-match_names.R:2:3'): match names with author returns expected output ──
-      Error in `toupper(word)`: invalid input 'bytes Tromostapelia mutabilis var. americana' in 'utf8towcs'
+      Error: Error evaluating duckdb query: Invalid Input Error: Invalid unicode (byte sequence mismatch) detected in value construction
       Backtrace:
-          ▆
-       1. ├─rWCVP::wcvp_match_names(...) at test-match_names.R:2:3
-       2. │ └─rWCVP::wcvp_match_fuzzy(...)
-       3. │   └─... %>% filter(!is.na(.data$wcvp_id))
-       4. ├─dplyr::filter(., !is.na(.data$wcvp_id))
-       5. └─rWCVP::phonetic_match(., wcvp_species, name_col = name_col)
-       6.   └─phonics::metaphone(wcvp_names$taxon_name, maxCodeLen = 20, clean = FALSE)
-       7.     └─base::toupper(word)
+           ▆
+        1. ├─rWCVP::wcvp_match_names(...) at test-match_names.R:2:3
+        2. │ └─... %>% filter(!is.na(.data$wcvp_id))
+        3. ├─dplyr::filter(., !is.na(.data$wcvp_id))
+        4. ├─rWCVP::wcvp_match_exact(...)
+        5. │ └─... %>% select(-"n")
+        6. ├─dplyr::select(., -"n")
+        7. ├─dplyr::mutate(., multiple_matches = .data$n > 1)
+        8. ├─dplyr::add_count(., .data[[id_col]])
+        9. ├─dplyr::mutate(...)
+       10. └─dplyr:::mutate.data.frame(...)
+       11.   └─dplyr::mutate(...)
+       12.     └─dplyr:::compute_by(...)
+       13.       ├─dplyr::group_data(data)
+       14.       ├─dplyr:::group_data.tbl_df(data)
+       15.       ├─base::NextMethod()
+       16.       └─dplyr:::group_data.data.frame(data)
+       17.         └─base::nrow(.data)
+       18.           ├─base::dim(x)
+       19.           └─base::dim.data.frame(x)
+       20.             └─base::.row_names_info(x, 2L)
       ── Error ('test-match_names.R:16:3'): match names without author returns expected output ──
-      Error in `toupper(word)`: invalid input 'bytes Tromostapelia mutabilis var. americana' in 'utf8towcs'
+      Error: Error evaluating duckdb query: Invalid Input Error: Invalid unicode (byte sequence mismatch) detected in value construction
       Backtrace:
-          ▆
-       1. ├─rWCVP::wcvp_match_names(...) at test-match_names.R:16:3
-       2. │ └─rWCVP::wcvp_match_fuzzy(...)
-       3. │   └─... %>% filter(!is.na(.data$wcvp_id))
-       4. ├─dplyr::filter(., !is.na(.data$wcvp_id))
-       5. └─rWCVP::phonetic_match(., wcvp_species, name_col = name_col)
-       6.   └─phonics::metaphone(wcvp_names$taxon_name, maxCodeLen = 20, clean = FALSE)
-       7.     └─base::toupper(word)
+           ▆
+        1. ├─rWCVP::wcvp_match_names(...) at test-match_names.R:16:3
+        2. │ └─... %>% filter(!is.na(.data$wcvp_id))
+        3. ├─dplyr::filter(., !is.na(.data$wcvp_id))
+        4. ├─rWCVP::wcvp_match_exact(...)
+        5. │ └─... %>% select(-"n")
+        6. ├─dplyr::select(., -"n")
+        7. ├─dplyr::mutate(., multiple_matches = .data$n > 1)
+        8. ├─dplyr::add_count(., .data[[id_col]])
+        9. ├─dplyr::mutate(...)
+       10. └─dplyr:::mutate.data.frame(...)
+       11.   └─dplyr::mutate(...)
+       12.     └─dplyr:::compute_by(...)
+       13.       ├─dplyr::group_data(data)
+       14.       ├─dplyr:::group_data.tbl_df(data)
+       15.       ├─base::NextMethod()
+       16.       └─dplyr:::group_data.data.frame(data)
+       17.         └─base::nrow(.data)
+       18.           ├─base::dim(x)
+       19.           └─base::dim.data.frame(x)
+       20.             └─base::.row_names_info(x, 2L)
+      ── Error ('test-match_names.R:30:3'): match names without fuzzy returns expected output ──
+      Error: Error evaluating duckdb query: Invalid Input Error: Invalid unicode (byte sequence mismatch) detected in value construction
+      Backtrace:
+           ▆
+        1. ├─rWCVP::wcvp_match_names(...) at test-match_names.R:30:3
+        2. │ └─... %>% filter(!is.na(.data$wcvp_id))
+        3. ├─dplyr::filter(., !is.na(.data$wcvp_id))
+        4. ├─rWCVP::wcvp_match_exact(...)
+        5. │ └─... %>% select(-"n")
+        6. ├─dplyr::select(., -"n")
+        7. ├─dplyr::mutate(., multiple_matches = .data$n > 1)
+        8. ├─dplyr::add_count(., .data[[id_col]])
+        9. ├─dplyr::mutate(...)
+       10. └─dplyr:::mutate.data.frame(...)
+       11.   └─dplyr::mutate(...)
+       12.     └─dplyr:::compute_by(...)
+       13.       ├─dplyr::group_data(data)
+       14.       ├─dplyr:::group_data.tbl_df(data)
+       15.       ├─base::NextMethod()
+       16.       └─dplyr:::group_data.data.frame(data)
+       17.         └─base::nrow(.data)
+       18.           ├─base::dim(x)
+       19.           └─base::dim.data.frame(x)
+       20.             └─base::.row_names_info(x, 2L)
       ── Error ('test-match_names.R:44:3'): match names without taxon name parts returns expected output ──
-      Error in `toupper(word)`: invalid input 'bytes Tromostapelia mutabilis var. americana' in 'utf8towcs'
+      Error: Error evaluating duckdb query: Invalid Input Error: Invalid unicode (byte sequence mismatch) detected in value construction
       Backtrace:
-          ▆
-       1. ├─rWCVP::wcvp_match_names(...) at test-match_names.R:44:3
-       2. │ └─rWCVP::wcvp_match_fuzzy(...)
-       3. │   └─... %>% filter(!is.na(.data$wcvp_id))
-       4. ├─dplyr::filter(., !is.na(.data$wcvp_id))
-       5. └─rWCVP::phonetic_match(., wcvp_species, name_col = name_col)
-       6.   └─phonics::metaphone(wcvp_names$taxon_name, maxCodeLen = 20, clean = FALSE)
-       7.     └─base::toupper(word)
+           ▆
+        1. ├─rWCVP::wcvp_match_names(...) at test-match_names.R:44:3
+        2. │ └─... %>% filter(!is.na(.data$wcvp_id))
+        3. ├─dplyr::filter(., !is.na(.data$wcvp_id))
+        4. ├─rWCVP::wcvp_match_exact(...)
+        5. │ └─... %>% select(-"n")
+        6. ├─dplyr::select(., -"n")
+        7. ├─dplyr::mutate(., multiple_matches = .data$n > 1)
+        8. ├─dplyr::add_count(., .data[[id_col]])
+        9. ├─dplyr::mutate(...)
+       10. └─dplyr:::mutate.data.frame(...)
+       11.   └─dplyr::mutate(...)
+       12.     └─dplyr:::compute_by(...)
+       13.       ├─dplyr::group_data(data)
+       14.       ├─dplyr:::group_data.tbl_df(data)
+       15.       ├─base::NextMethod()
+       16.       └─dplyr:::group_data.data.frame(data)
+       17.         └─base::nrow(.data)
+       18.           ├─base::dim(x)
+       19.           └─base::dim.data.frame(x)
+       20.             └─base::.row_names_info(x, 2L)
       ── Error ('test-match_names.R:58:3'): match names returns original columns ─────
-      Error in `toupper(word)`: invalid input 'bytes Tromostapelia mutabilis var. americana' in 'utf8towcs'
+      Error: Error evaluating duckdb query: Invalid Input Error: Invalid unicode (byte sequence mismatch) detected in value construction
       Backtrace:
-          ▆
-       1. ├─rWCVP::wcvp_match_names(...) at test-match_names.R:58:3
-       2. │ └─rWCVP::wcvp_match_fuzzy(...)
-       3. │   └─... %>% filter(!is.na(.data$wcvp_id))
-       4. ├─dplyr::filter(., !is.na(.data$wcvp_id))
-       5. └─rWCVP::phonetic_match(., wcvp_species, name_col = name_col)
-       6.   └─phonics::metaphone(wcvp_names$taxon_name, maxCodeLen = 20, clean = FALSE)
-       7.     └─base::toupper(word)
+           ▆
+        1. ├─rWCVP::wcvp_match_names(...) at test-match_names.R:58:3
+        2. │ └─... %>% filter(!is.na(.data$wcvp_id))
+        3. ├─dplyr::filter(., !is.na(.data$wcvp_id))
+        4. ├─rWCVP::wcvp_match_exact(...)
+        5. │ └─... %>% select(-"n")
+        6. ├─dplyr::select(., -"n")
+        7. ├─dplyr::mutate(., multiple_matches = .data$n > 1)
+        8. ├─dplyr::add_count(., .data[[id_col]])
+        9. ├─dplyr::mutate(...)
+       10. └─dplyr:::mutate.data.frame(...)
+       11.   └─dplyr::mutate(...)
+       12.     └─dplyr:::compute_by(...)
+       13.       ├─dplyr::group_data(data)
+       14.       ├─dplyr:::group_data.tbl_df(data)
+       15.       ├─base::NextMethod()
+       16.       └─dplyr:::group_data.data.frame(data)
+       17.         └─base::nrow(.data)
+       18.           ├─base::dim(x)
+       19.           └─base::dim.data.frame(x)
+       20.             └─base::.row_names_info(x, 2L)
       
-      [ FAIL 9 | WARN 0 | SKIP 0 | PASS 33 ]
+      [ FAIL 12 | WARN 0 | SKIP 0 | PASS 19 ]
       Error: Test failures
       Execution halted
     ```
@@ -4469,40 +3079,6 @@ Run `revdepcheck::cloud_details(, "rWCVP")` for more info
 *   checking data for non-ASCII characters ... NOTE
     ```
       Note: found 16 marked UTF-8 strings
-    ```
-
-# sampler
-
-<details>
-
-* Version: 0.2.4
-* GitHub: https://github.com/mbaldassaro/sampler
-* Source code: https://github.com/cran/sampler
-* Date/Publication: 2019-09-15 15:40:02 UTC
-* Number of recursive dependencies: 24
-
-Run `revdepcheck::cloud_details(, "sampler")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking examples ... ERROR
-    ```
-    Running examples in ‘sampler-Ex.R’ failed
-    The error most likely occurred in:
-    
-    > ### Name: cpro
-    > ### Title: Calculate proportion and margin of error (unequal-sized cluster
-    > ###   sample)
-    > ### Aliases: cpro
-    > 
-    > ### ** Examples
-    > 
-    > alresults <- ssamp(albania, 890, qarku)
-    > cpro(df=alresults, numerator=totalVoters, denominator=zgjedhes, ci=95)
-    Error: Error evaluating duckdb query: Conversion Error: Could not convert string '' to INT32
-    Execution halted
     ```
 
 # sapfluxnetr
@@ -4905,70 +3481,6 @@ Run `revdepcheck::cloud_details(, "text2sdg")` for more info
       Note: found 37 marked UTF-8 strings
     ```
 
-# tidytransit
-
-<details>
-
-* Version: 1.6.1
-* GitHub: https://github.com/r-transit/tidytransit
-* Source code: https://github.com/cran/tidytransit
-* Date/Publication: 2023-12-07 13:40:02 UTC
-* Number of recursive dependencies: 96
-
-Run `revdepcheck::cloud_details(, "tidytransit")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking running R code from vignettes ... ERROR
-    ```
-    Errors in running code in vignettes:
-    when running code in ‘frequency.Rmd’
-      ...
-    |104N    |1        |            0|ASP18GEN-1087-Weekday-00 |           31|          465|
-    |104S    |1        |            1|ASP18GEN-1087-Weekday-00 |           47|          306|
-    
-    > one_line_stops <- am_stop_freq %>% filter(route_id == 
-    +     1 & direction_id == 0) %>% left_join(gtfs$stops, by = "stop_id") %>% 
-    +     mutate(mean .... [TRUNCATED] 
-    
-      When sourcing ‘frequency.R’:
-    Error: Error evaluating duckdb query: Conversion Error: Could not convert string 'GS' to DOUBLE
-    Execution halted
-    
-      ‘frequency.Rmd’ using ‘UTF-8’... failed
-      ‘introduction.Rmd’ using ‘UTF-8’... OK
-      ‘servicepatterns.Rmd’ using ‘UTF-8’... OK
-      ‘timetable.Rmd’ using ‘UTF-8’... OK
-    ```
-
-*   checking re-building of vignette outputs ... NOTE
-    ```
-    Error(s) in re-building vignettes:
-    --- re-building ‘frequency.Rmd’ using rmarkdown
-    
-    Quitting from lines  at lines 198-202 [unnamed-chunk-12] (frequency.Rmd)
-    Error: processing vignette 'frequency.Rmd' failed with diagnostics:
-    Error evaluating duckdb query: Conversion Error: Could not convert string 'GS' to DOUBLE
-    --- failed re-building ‘frequency.Rmd’
-    
-    --- re-building ‘introduction.Rmd’ using rmarkdown
-    --- finished re-building ‘introduction.Rmd’
-    
-    --- re-building ‘servicepatterns.Rmd’ using rmarkdown
-    ```
-
-## In both
-
-*   checking installed package size ... NOTE
-    ```
-      installed size is  7.1Mb
-      sub-directories of 1Mb or more:
-        doc       2.0Mb
-        extdata   4.5Mb
-    ```
-
 # unheadr
 
 <details>
@@ -5003,115 +3515,6 @@ Run `revdepcheck::cloud_details(, "unheadr")` for more info
       [ FAIL 1 | WARN 0 | SKIP 0 | PASS 31 ]
       Error: Test failures
       Execution halted
-    ```
-
-# vcfR
-
-<details>
-
-* Version: 1.15.0
-* GitHub: https://github.com/knausb/vcfR
-* Source code: https://github.com/cran/vcfR
-* Date/Publication: 2023-12-08 00:30:03 UTC
-* Number of recursive dependencies: 100
-
-Run `revdepcheck::cloud_details(, "vcfR")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking examples ... ERROR
-    ```
-    Running examples in ‘vcfR-Ex.R’ failed
-    The error most likely occurred in:
-    
-    > ### Name: Convert to tidy data frames
-    > ### Title: Convert vcfR objects to tidy data frames
-    > ### Aliases: 'Convert to tidy data frames' vcfR2tidy extract_info_tidy
-    > ###   extract_gt_tidy vcf_field_names
-    > 
-    > ### ** Examples
-    > 
-    > # load the data
-    > data("vcfR_test")
-    > vcf <- vcfR_test
-    > 
-    > 
-    > # extract all the INFO and FORMAT fields into a list of tidy
-    > # data frames: fix, gt, and meta. Here we don't coerce columns
-    > # to integer or numeric types...
-    > Z <- vcfR2tidy(vcf)
-    Error: Error evaluating duckdb query: Conversion Error: Could not convert string 'A' to DOUBLE
-    Execution halted
-    ```
-
-*   checking tests ... ERROR
-    ```
-      Running ‘testthat.R’
-    Running the tests in ‘tests/testthat.R’ failed.
-    Complete output:
-      > 
-      > library("testthat")
-      > #library("vcfR")
-      > #
-      > #
-      > test_check("vcfR")
-      Loading required package: vcfR
-      
-         *****       ***   vcfR   ***       *****
-         This is vcfR 1.15.0 
-           browseVignettes('vcfR') # Documentation
-           citation('vcfR') # Citation
-         *****       *****      *****       *****
-      
-      [ FAIL 3 | WARN 0 | SKIP 0 | PASS 487 ]
-      
-      ══ Failed tests ════════════════════════════════════════════════════════════════
-      ── Error ('test_vcfRtidy.R:92:3'): extract_gt_tidy works for all elements ──────
-      Error: Error evaluating duckdb query: Conversion Error: Could not convert string '.' to DOUBLE
-      Backtrace:
-          ▆
-       1. ├─base::suppressMessages(Z <- extract_gt_tidy(vcf)) at test_vcfRtidy.R:92:3
-       2. │ └─base::withCallingHandlers(...)
-       3. ├─vcfR::extract_gt_tidy(vcf)
-       4. │ └─vcfR:::guess_types(format_df %>% dplyr::filter(ID %in% format_fields))
-       5. │   └─... %>% dplyr::bind_rows(tmp)
-       6. └─dplyr::bind_rows(., tmp)
-       7.   └─vctrs::vec_rbind(!!!dots, .names_to = .id, .error_call = current_env())
-      ── Error ('test_vcfRtidy.R:103:3'): vcfR2tidy works ────────────────────────────
-      Error: Error evaluating duckdb query: Conversion Error: Could not convert string 'A' to DOUBLE
-      Backtrace:
-          ▆
-       1. ├─vcfR::vcfR2tidy(vcfR_test, info_only = FALSE) at test_vcfRtidy.R:103:3
-       2. │ ├─base::do.call(what = extract_info_tidy, args = info_dots)
-       3. │ └─vcfR (local) `<fn>`(x = `<vcfR[,8,4]>`)
-       4. │   └─vcfR:::guess_types(info_df)
-       5. │     └─... %>% dplyr::bind_rows(tmp)
-       6. └─dplyr::bind_rows(., tmp)
-       7.   └─vctrs::vec_rbind(!!!dots, .names_to = .id, .error_call = current_env())
-      ── Error ('test_vcfRtidy.R:139:3'): extract_info_tidy works with Flags ─────────
-      Error: Error evaluating duckdb query: Conversion Error: Could not convert string 'A' to DOUBLE
-      Backtrace:
-          ▆
-       1. ├─vcfR::extract_info_tidy(vcfR_test, info_types = TRUE) at test_vcfRtidy.R:139:3
-       2. │ └─vcfR:::guess_types(info_df)
-       3. │   └─... %>% dplyr::bind_rows(tmp)
-       4. └─dplyr::bind_rows(., tmp)
-       5.   └─vctrs::vec_rbind(!!!dots, .names_to = .id, .error_call = current_env())
-      
-      [ FAIL 3 | WARN 0 | SKIP 0 | PASS 487 ]
-      Error: Test failures
-      Execution halted
-    ```
-
-## In both
-
-*   checking installed package size ... NOTE
-    ```
-      installed size is 15.8Mb
-      sub-directories of 1Mb or more:
-        libs  13.4Mb
     ```
 
 # vDiveR
@@ -5203,205 +3606,5 @@ Run `revdepcheck::cloud_details(, "vDiveR")` for more info
     Namespaces in Imports field not imported from:
       ‘DT’ ‘maps’ ‘readr’
       All declared Imports should be used.
-    ```
-
-# vivaldi
-
-<details>
-
-* Version: 1.0.1
-* GitHub: https://github.com/GreshamLab/vivaldi
-* Source code: https://github.com/cran/vivaldi
-* Date/Publication: 2023-03-21 20:10:02 UTC
-* Number of recursive dependencies: 102
-
-Run `revdepcheck::cloud_details(, "vivaldi")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking running R code from vignettes ... ERROR
-    ```
-    Errors in running code in vignettes:
-    when running code in ‘vignette.Rmd’
-      ...
-    "/tmp/workdir/vivaldi/new/vivaldi.Rcheck/vivaldi/extdata/vcfs/H1N1-random3_m1_AF_random-a3_frac_0.01_BWA_varscan_custom.ann.vcf", "/tmp/workdir/vivaldi/new/vivaldi.Rcheck/vivaldi/extdata/vcfs/H1N1-random3_m2_AF_random-a1_frac_0.01_BWA_freebayes_custom.ann.vcf", "/tmp/workdir/vivaldi/new/vivaldi.Rcheck/vivaldi/extdata/vcfs/H1N1-random3_m2_AF_random-a1_frac_0.01_BWA_ivar_custom.ann.vcf", "/tmp/workdir/vivaldi/new/vivaldi.Rcheck/vivaldi/extdata/vcfs/H1N1-random3_m2_AF_random-a1_frac_0.01_BWA_varscan_custom.ann.vcf", 
-    "/tmp/workdir/vivaldi/new/vivaldi.Rcheck/vivaldi/extdata/vcfs/H1N1-random3_m2_AF_random-a2_frac_0.01_BWA_freebayes_custom.ann.vcf", "/tmp/workdir/vivaldi/new/vivaldi.Rcheck/vivaldi/extdata/vcfs/H1N1-random3_m2_AF_random-a2_frac_0.01_BWA_ivar_custom.ann.vcf", "/tmp/workdir/vivaldi/new/vivaldi.Rcheck/vivaldi/extdata/vcfs/H1N1-random3_m2_AF_random-a2_frac_0.01_BWA_varscan_custom.ann.vcf", "/tmp/workdir/vivaldi/new/vivaldi.Rcheck/vivaldi/extdata/vcfs/H1N1-random3_m2_AF_random-a3_frac_0.01_BWA_freebayes_custom.ann.vcf", 
-    "/tmp/workdir/vivaldi/new/vivaldi.Rcheck/vivaldi/extdata/vcfs/H1N1-random3_m2_AF_random-a3_frac_0.01_BWA_ivar_custom.ann.vcf", "/tmp/workdir/vivaldi/new/vivaldi.Rcheck/vivaldi/extdata/vcfs/H1N1-random3_m2_AF_random-a3_frac_0.01_BWA_varscan_custom.ann.vcf", "/tmp/workdir/vivaldi/new/vivaldi.Rcheck/vivaldi/extdata/vcfs/H1N1-random4_m1_AF_random-a4_frac_0.01_BWA_freebayes_custom.ann.vcf", "/tmp/workdir/vivaldi/new/vivaldi.Rcheck/vivaldi/extdata/vcfs/H1N1-random4_m1_AF_random-a4_frac_0.01_BWA_ivar_custom.ann.vcf", 
-    "/tmp/workdir/vivaldi/new/vivaldi.Rcheck/vivaldi/extdata/vcfs/H1N1-random4_m1_AF_random-a4_frac_0.01_BWA_varscan_custom.ann.vcf", "/tmp/workdir/vivaldi/new/vivaldi.Rcheck/vivaldi/extdata/vcfs/H1N1-random4_m2_AF_random-a4_frac_0.01_BWA_freebayes_custom.ann.vcf", "/tmp/workdir/vivaldi/new/vivaldi.Rcheck/vivaldi/extdata/vcfs/H1N1-random4_m2_AF_random-a4_frac_0.01_BWA_ivar_custom.ann.vcf", "/tmp/workdir/vivaldi/new/vivaldi.Rcheck/vivaldi/extdata/vcfs/H1N1-random4_m2_AF_random-a4_frac_0.01_BWA_varscan_custom.ann.vcf"
-    )
-    Sample name is: H1N1-random3_m1_AF_random-a1_frac_0.01_BWA_freebayes_custom.ann
-    
-      When sourcing ‘vignette.R’:
-    Error: Error evaluating duckdb query: Conversion Error: Could not convert string 'A' to DOUBLE
-    Execution halted
-    
-      ‘vignette.Rmd’ using ‘UTF-8’... failed
-    ```
-
-*   checking re-building of vignette outputs ... NOTE
-    ```
-    Error(s) in re-building vignettes:
-      ...
-    --- re-building ‘vignette.Rmd’ using rmarkdown
-    
-    Quitting from lines  at lines 76-83 [unnamed-chunk-5] (vignette.Rmd)
-    Error: processing vignette 'vignette.Rmd' failed with diagnostics:
-    Error evaluating duckdb query: Conversion Error: Could not convert string 'A' to DOUBLE
-    --- failed re-building ‘vignette.Rmd’
-    
-    SUMMARY: processing the following file failed:
-      ‘vignette.Rmd’
-    
-    Error: Vignette re-building failed.
-    Execution halted
-    ```
-
-## In both
-
-*   checking installed package size ... NOTE
-    ```
-      installed size is  6.8Mb
-      sub-directories of 1Mb or more:
-        doc       5.4Mb
-        extdata   1.1Mb
-    ```
-
-# VWPre
-
-<details>
-
-* Version: 1.2.4
-* GitHub: NA
-* Source code: https://github.com/cran/VWPre
-* Date/Publication: 2020-11-29 17:10:02 UTC
-* Number of recursive dependencies: 69
-
-Run `revdepcheck::cloud_details(, "VWPre")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking running R code from vignettes ... ERROR
-    ```
-    Errors in running code in vignettes:
-    when running code in ‘VWPre_Basic_Preprocessing.Rmd’
-      ...
-    Checking optional columns...
-        The following optional is not present in the data:  EYE_TRACKED 
-    
-    Working on required columns...
-        RECORDING_SESSION_LABEL renamed to Subject. 
-        itemid renamed to Item.
-    
-      When sourcing ‘VWPre_Basic_Preprocessing.R’:
-    Error: Error evaluating duckdb query: Conversion Error: Could not convert string 'factor' to DOUBLE
-    Execution halted
-    
-      ‘VWPre_Basic_Preprocessing.Rmd’ using ‘UTF-8’... failed
-      ‘VWPre_Interest_Areas.Rmd’ using ‘UTF-8’... OK
-      ‘VWPre_Message_Alignment.Rmd’ using ‘UTF-8’... OK
-      ‘VWPre_Plotting.Rmd’ using ‘UTF-8’... OK
-    ```
-
-*   checking re-building of vignette outputs ... NOTE
-    ```
-    Error(s) in re-building vignettes:
-    --- re-building ‘VWPre_Basic_Preprocessing.Rmd’ using rmarkdown
-    
-    Quitting from lines  at lines 78-79 [unnamed-chunk-4] (VWPre_Basic_Preprocessing.Rmd)
-    Error: processing vignette 'VWPre_Basic_Preprocessing.Rmd' failed with diagnostics:
-    Error evaluating duckdb query: Conversion Error: Could not convert string 'factor' to DOUBLE
-    --- failed re-building ‘VWPre_Basic_Preprocessing.Rmd’
-    
-    --- re-building ‘VWPre_Interest_Areas.Rmd’ using rmarkdown
-    --- finished re-building ‘VWPre_Interest_Areas.Rmd’
-    
-    --- re-building ‘VWPre_Message_Alignment.Rmd’ using rmarkdown
-    --- finished re-building ‘VWPre_Message_Alignment.Rmd’
-    
-    --- re-building ‘VWPre_Plotting.Rmd’ using rmarkdown
-    ```
-
-# zipcodeR
-
-<details>
-
-* Version: 0.3.5
-* GitHub: https://github.com/gavinrozzi/zipcodeR
-* Source code: https://github.com/cran/zipcodeR
-* Date/Publication: 2022-10-03 22:00:02 UTC
-* Number of recursive dependencies: 100
-
-Run `revdepcheck::cloud_details(, "zipcodeR")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking examples ... ERROR
-    ```
-    Running examples in ‘zipcodeR-Ex.R’ failed
-    The error most likely occurred in:
-    
-    > ### Name: zip_distance
-    > ### Title: Calculate the distance between two ZIP codes in miles
-    > ### Aliases: zip_distance
-    > 
-    > ### ** Examples
-    > 
-    > zip_distance("08731", "08901")
-    Error: Error evaluating duckdb query: Conversion Error: Could not convert string 'NA' to DOUBLE
-    Execution halted
-    ```
-
-*   checking running R code from vignettes ... ERROR
-    ```
-    Errors in running code in vignettes:
-    when running code in ‘geographic.Rmd’
-      ...
-    
-    > knitr::opts_chunk$set(echo = TRUE)
-    
-    > set.seed(1000)
-    
-    > zip_distance("08731", "08753")
-    
-      When sourcing ‘geographic.R’:
-    Error: Error evaluating duckdb query: Conversion Error: Could not convert string 'NA' to DOUBLE
-    Execution halted
-    
-      ‘geographic.Rmd’ using ‘UTF-8’... failed
-      ‘zipcodeR.Rmd’ using ‘UTF-8’... OK
-    ```
-
-*   checking re-building of vignette outputs ... NOTE
-    ```
-    Error(s) in re-building vignettes:
-      ...
-    --- re-building ‘geographic.Rmd’ using knitr
-    
-    Quitting from lines  at lines 27-28 [unnamed-chunk-1] (geographic.Rmd)
-    Error: processing vignette 'geographic.Rmd' failed with diagnostics:
-    Error evaluating duckdb query: Conversion Error: Could not convert string 'NA' to DOUBLE
-    --- failed re-building ‘geographic.Rmd’
-    
-    --- re-building ‘zipcodeR.Rmd’ using knitr
-    --- finished re-building ‘zipcodeR.Rmd’
-    
-    SUMMARY: processing the following file failed:
-      ‘geographic.Rmd’
-    
-    Error: Vignette re-building failed.
-    Execution halted
-    ```
-
-## In both
-
-*   checking data for non-ASCII characters ... NOTE
-    ```
-      Note: found 5 marked UTF-8 strings
     ```
 

@@ -1,8 +1,8 @@
 ## revdepcheck results
 
-We checked 40 reverse dependencies, comparing R CMD check results across CRAN and dev versions of this package.
+We checked 39 reverse dependencies, comparing R CMD check results across CRAN and dev versions of this package.
 
- * We saw 39 new problems
+ * We saw 24 new problems
  * We failed to check 0 packages
 
 Issues with CRAN packages are summarised below.
@@ -24,36 +24,16 @@ Issues with CRAN packages are summarised below.
 * cards
   checking tests ... ERROR
 
-* causalBatch
-  checking tests ... ERROR
-
-* CausalQueries
-  checking examples ... ERROR
-
-* CCWeights
-  checking examples ... ERROR
-
 * CodelistGenerator
   checking tests ... ERROR
 
 * crosshap
-  checking examples ... ERROR
-  checking tests ... ERROR
-
-* dbGaPCheckup
-  checking examples ... ERROR
-
-* DescrTab2
-  checking examples ... ERROR
   checking tests ... ERROR
 
 * duckplyr
   checking tests ... ERROR
 
 * ern
-  checking tests ... ERROR
-
-* fqar
   checking tests ... ERROR
 
 * gtreg
@@ -68,19 +48,10 @@ Issues with CRAN packages are summarised below.
 * linelist
   checking tests ... ERROR
 
-* mpwR
-  checking tests ... ERROR
-  checking running R code from vignettes ... ERROR
-  checking re-building of vignette outputs ... NOTE
-
 * msigdbr
   checking tests ... ERROR
-  checking re-building of vignette outputs ... NOTE
 
 * mtdesign
-  checking tests ... ERROR
-
-* multiverse
   checking tests ... ERROR
 
 * NeuroDecodeR
@@ -93,20 +64,11 @@ Issues with CRAN packages are summarised below.
   checking running R code from vignettes ... ERROR
   checking re-building of vignette outputs ... NOTE
 
-* PupilPre
-  checking examples ... ERROR
-  checking running R code from vignettes ... ERROR
-  checking re-building of vignette outputs ... NOTE
-
 * rfars
   checking running R code from vignettes ... ERROR
-  checking re-building of vignette outputs ... NOTE
 
 * rWCVP
   checking tests ... ERROR
-
-* sampler
-  checking examples ... ERROR
 
 * sapfluxnetr
   checking tests ... ERROR
@@ -123,30 +85,9 @@ Issues with CRAN packages are summarised below.
   checking running R code from vignettes ... ERROR
   checking re-building of vignette outputs ... NOTE
 
-* tidytransit
-  checking running R code from vignettes ... ERROR
-  checking re-building of vignette outputs ... NOTE
-
 * unheadr
-  checking tests ... ERROR
-
-* vcfR
-  checking examples ... ERROR
   checking tests ... ERROR
 
 * vDiveR
   checking tests ... ERROR
-
-* vivaldi
-  checking running R code from vignettes ... ERROR
-  checking re-building of vignette outputs ... NOTE
-
-* VWPre
-  checking running R code from vignettes ... ERROR
-  checking re-building of vignette outputs ... NOTE
-
-* zipcodeR
-  checking examples ... ERROR
-  checking running R code from vignettes ... ERROR
-  checking re-building of vignette outputs ... NOTE
 
