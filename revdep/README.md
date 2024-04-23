@@ -1,6 +1,6 @@
 # Revdeps
 
-## New problems (40)
+## New problems (39)
 
 |package           |version |error    |warning |note     |
 |:-----------------|:-------|:--------|:-------|:--------|
@@ -23,11 +23,10 @@
 |[iNZightTools](problems.md#inzighttools)|2.0.1   |__+1__   |        |         |
 |[linelist](problems.md#linelist)|1.1.3   |1 __+1__ |        |         |
 |[mpwR](problems.md#mpwr)|0.1.5   |__+2__   |        |__+1__   |
-|[msigdbr](problems.md#msigdbr)|7.5.1   |__+1__   |        |1        |
+|[msigdbr](problems.md#msigdbr)|7.5.1   |__+1__   |        |1 __+1__ |
 |[mtdesign](problems.md#mtdesign)|0.1.0   |__+1__   |        |         |
 |[multiverse](problems.md#multiverse)|0.6.1   |1 __+1__ |        |         |
 |[NeuroDecodeR](problems.md#neurodecoder)|0.2.0   |__+3__   |        |__+1__   |
-|[omopgenerics](problems.md#omopgenerics)|0.1.2   |1 __+1__ |        |         |
 |[partition](problems.md#partition)|0.2.0   |__+1__   |        |1 __+1__ |
 |[PupilPre](problems.md#pupilpre)|0.6.2   |__+2__   |        |__+1__   |
 |[rfars](problems.md#rfars)|1.2.0   |__+1__   |        |__+1__   |

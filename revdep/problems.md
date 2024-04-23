@@ -1411,14 +1411,13 @@ Run `revdepcheck::cloud_details(, "crosshap")` for more info
       > library(crosshap)
       > 
       > test_check("crosshap")
-      ■■■■■                             14% | ETA: 20s
-      ■■■■■■■■■■■■                      36% | ETA: 14s
-      ■■■■■■■■■■■■■■                    43% | ETA: 15s
-      ■■■■■■■■■■■■■■■■■■                57% | ETA: 10s
-      ■■■■■■■■■■■■■■■■■■■■              64% | ETA:  9s
-      ■■■■■■■■■■■■■■■■■■■■■■            71% | ETA:  8s
-      ■■■■■■■■■■■■■■■■■■■■■■■■■■■       86% | ETA:  4s
-      ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■     93% | ETA:  2s
+      ■■■■■                             14% | ETA: 15s
+      ■■■■■■■■■■                        29% | ETA: 10s
+      ■■■■■■■■■■■■                      36% | ETA: 11s
+      ■■■■■■■■■■■■■■                    43% | ETA: 12s
+      ■■■■■■■■■■■■■■■■■■■■              64% | ETA:  7s
+      ■■■■■■■■■■■■■■■■■■■■■■            71% | ETA:  6s
+      ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■     93% | ETA:  1s
       ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■  100% | ETA:  0s
       WARNING: Phenotype association scores (phenodiff) not calculated for 252 of 2041 sites
       NOTE: 432 sites have more heterozygous individuals (1/0) than one of the homozygous states (1/1 or 0/0).
@@ -1467,8 +1466,7 @@ Run `revdepcheck::cloud_details(, "crosshap")` for more info
       20  7.75     0 hap_eps0.99~ 0.99    F          21             48.8         0.667
       # i 3 more variables: .ggraph.orig_index <int>, circular <lgl>,
       #   .ggraph.index <int>
-      ■■■■■■■■■■■                       33% | ETA:  5s
-      ■■■■■■■■■■■■■■■■■■■■■             67% | ETA:  2s
+      ■■■■■■■■■■■                       33% | ETA:  4s
       ■■■■■■■■■■■■■■■■■■■■■■■■■■        83% | ETA:  1s
       ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■  100% | ETA:  0s
       WARNING: Phenotype association scores (phenodiff) not calculated for 252 of 2041 sites
@@ -1477,8 +1475,7 @@ Run `revdepcheck::cloud_details(, "crosshap")` for more info
       Haplotyping was performed with hetphenos = F, meaning phenotype association scores for heterozygous sites was ignored.
       ✔ Haplotyping complete!
       Info saved in Haplotypes_30_E objects
-      ■■■■■■■■■■■                       33% | ETA:  6s
-      ■■■■■■■■■■■■■■■■■■■■■             67% | ETA:  2s
+      ■■■■■■■■■■■                       33% | ETA:  4s
       ■■■■■■■■■■■■■■■■■■■■■■■■■■        83% | ETA:  1s
       ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■  100% | ETA:  0s
       WARNING: Phenotype association scores (phenodiff) not calculated for 252 of 2041 sites
@@ -2159,11 +2156,11 @@ Run `revdepcheck::cloud_details(, "duckplyr")` for more info
       `environment(actual$create_default_duckdb_connection)` is <env:namespace:duckplyr>
       `environment(expected$create_default_duckdb_connection)` is <env:namespace:dplyr>
       
-      `actual$default_duckdb_connection$con@conn_ref` is <pointer: 0x55658a147c50>
-      `expected$default_duckdb_connection$con@conn_ref` is <pointer: 0x55658d3c1fd0>
+      `actual$default_duckdb_connection$con@conn_ref` is <pointer: 0x5611e20c37e0>
+      `expected$default_duckdb_connection$con@conn_ref` is <pointer: 0x5611e4a55600>
       
-      `actual$default_duckdb_connection$con@driver@database_ref` is <pointer: 0x7f3b68000a80>
-      `expected$default_duckdb_connection$con@driver@database_ref` is <pointer: 0x55658a0e5f20>
+      `actual$default_duckdb_connection$con@driver@database_ref` is <pointer: 0x5611e17bf470>
+      `expected$default_duckdb_connection$con@driver@database_ref` is <pointer: 0x5611e0304aa0>
       
       `environment(actual$df_from_csv)` is <env:namespace:duckplyr>
       `environment(expected$df_from_csv)` is <env:namespace:dplyr>
@@ -2638,6 +2635,18 @@ Run `revdepcheck::cloud_details(, "duckplyr")` for more info
         `                      relexpr_function("|", list(.x, .y))`
         `                    })`
       
+      body(actual$rel_translate)[129:134] vs body(expected$rel_translate)[129:137]
+        `                if (window) {`
+        `                  partitions <- map(partition, relexpr_reference)`
+        `                  fun <- relexpr_window(fun, partitions, order_bys, `
+        `                    offset_expr = offset_expr, default_expr = default_expr)`
+      + `                  if (name == "row_number") {`
+      + `                    fun <- relexpr_function("as.integer", list(fun))`
+      + `                  }`
+        `                }`
+        `                fun`
+        `            }, cli::cli_abort("Internal: Unknown type {.val {typeof(expr)}}"))`
+      
       `environment(actual$rel_translate)` is <env:namespace:duckplyr>
       `environment(expected$rel_translate)` is <env:namespace:dplyr>
       
@@ -2744,7 +2753,7 @@ Run `revdepcheck::cloud_details(, "duckplyr")` for more info
       🦆:  661
       add_count, anti_join, arrange, compute, count, cross_join, distinct, do, eval, filter, full_join, group_by, inner_join, intersect, left_join, mutate, mutate.data.frame, nest_join, pull, reframe, relocate, rename, rename_with, right_join, rows_append, rows_delete, rows_insert, rows_patch, rows_update, rows_upsert, rowwise, select, semi_join, setdiff, setequal, slice, slice_head, slice_sample, slice_tail, summarise, symdiff, transmute, ungroup, union_all
       
-      00:00:53.595203
+      00:00:55.590968
       Execution halted
     ```
 
@@ -3734,6 +3743,14 @@ Run `revdepcheck::cloud_details(, "msigdbr")` for more info
       Killed
     ```
 
+*   checking re-building of vignette outputs ... NOTE
+    ```
+    Error(s) in re-building vignettes:
+      ...
+    --- re-building ‘msigdbr-intro.Rmd’ using rmarkdown
+    Killed
+    ```
+
 ## In both
 
 *   checking installed package size ... NOTE
@@ -3924,10 +3941,10 @@ Run `revdepcheck::cloud_details(, "NeuroDecodeR")` for more info
         |                                                                            
         |===================================                                   |  50%
         |                                                                            
-        |======================================================================| 100%[1] "2024-04-23 07:20:31 UTC"
-       [1] 0.13888889 0.11507937 0.09126984 0.09920635 0.13888889 0.11111111
-       [7] 0.11904762 0.11904762 0.10714286 0.16666667 0.36507937 0.80555556
-      [13] 0.82936508 0.76190476 0.73412698 0.65873016 0.59126984 0.66666667
+        |======================================================================| 100%[1] "2024-04-23 17:23:09 UTC"
+       [1] 0.1388889 0.1587302 0.1309524 0.1507937 0.1309524 0.1547619 0.1388889
+       [8] 0.1666667 0.1309524 0.1587302 0.3333333 0.8412698 0.8452381 0.8174603
+      [15] 0.7539683 0.6904762 0.6111111 0.7023810
       1 Mb
       
         |                                                                            
@@ -3995,86 +4012,6 @@ Run `revdepcheck::cloud_details(, "NeuroDecodeR")` for more info
     --- finished re-building ‘datasets.Rmd’
     
     --- re-building ‘generalization_tutorial.Rmd’ using rmarkdown
-    ```
-
-# omopgenerics
-
-<details>
-
-* Version: 0.1.2
-* GitHub: NA
-* Source code: https://github.com/cran/omopgenerics
-* Date/Publication: 2024-03-09 23:30:10 UTC
-* Number of recursive dependencies: 68
-
-Run `revdepcheck::cloud_details(, "omopgenerics")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking tests ... ERROR
-    ```
-      Running ‘testthat.R’
-    Running the tests in ‘tests/testthat.R’ failed.
-    Complete output:
-      > # This file is part of the standard setup for testthat.
-      > # It is recommended that you do not modify it.
-      > #
-      > # Where should you do additional test configuration?
-      > # Learn more about the roles of various files in:
-      > # * https://r-pkgs.org/testing-design.html#sec-tests-files-overview
-      > # * https://testthat.r-lib.org/articles/special-files.html
-      > 
-      > library(testthat)
-      > library(omopgenerics)
-      
-      Attaching package: 'omopgenerics'
-      
-      The following object is masked from 'package:stats':
-      
-          filter
-      
-      > 
-      > test_check("omopgenerics")
-      Starting 2 test processes
-      [ FAIL 1 | WARN 0 | SKIP 0 | PASS 561 ]
-      
-      ══ Failed tests ════════════════════════════════════════════════════════════════
-      ── Failure ('test-methodBind.R:53:3'): bind a cohort_table ─────────────────────
-      data.frame(settings(newcdm$new_cohort)) (`actual`) not identical to data.frame(dplyr::bind_rows(settings(newcdm$cohort1), settings(newcdm$cohort2))) (`expected`).
-      
-      `actual$cohort_definition_id` is a double vector (1, 2, 3)
-      `expected$cohort_definition_id` is an integer vector (1, 2, 3)
-      
-      [ FAIL 1 | WARN 0 | SKIP 0 | PASS 561 ]
-      Error: Test failures
-      Execution halted
-    ```
-
-## In both
-
-*   checking running R code from vignettes ... ERROR
-    ```
-    Errors in running code in vignettes:
-    when running code in ‘a02_concept_set.Rmd’
-      ...
-    - asthma (1 codes)
-    
-    > condition_codes <- list(c(201820, 4087682, 3655269))
-    
-    > newCodelist(condition_codes)
-    
-      When sourcing ‘a02_concept_set.R’:
-    Error: x must be a list; it can not contain NA; it can not be NULL; it has to
-    be named; elements must have class: numeric, integer.
-    Execution halted
-    
-      ‘a01_cdm_reference.Rmd’ using ‘UTF-8’... OK
-      ‘a02_concept_set.Rmd’ using ‘UTF-8’... failed
-      ‘a03_cohort_table.Rmd’ using ‘UTF-8’... OK
-      ‘a04_summarised_result.Rmd’ using ‘UTF-8’... OK
-      ‘reexport.Rmd’ using ‘UTF-8’... OK
     ```
 
 # partition
