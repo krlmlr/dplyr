@@ -2917,7 +2917,7 @@ duckplyr_macros <- c(
   #
   "___divide" = "(x, y) AS CASE WHEN y = 0 THEN CASE WHEN x = 0 THEN CAST('NaN' AS double) WHEN x > 0 THEN CAST('+Infinity' AS double) ELSE CAST('-Infinity' AS double) END ELSE CAST(x AS double) / y END",
   #
-  "is.na" = "(x) AS (x IS NULL)",
+  "is.na" = "(x) AS (x IS NULL OR isnan(x))",
   "n" = "() AS CAST(COUNT(*) AS int32)",
   #
   "___log10" = "(x) AS CASE WHEN x < 0 THEN CAST('NaN' AS double) WHEN x = 0 THEN CAST('-Inf' AS double) ELSE log10(x) END",
@@ -5265,6 +5265,7 @@ summarise.data.frame <- function(.data, ..., .by = NULL, .groups = NULL) {
 
       dots <- dplyr_quosures(...)
       dots <- fix_auto_name(dots)
+      dots <- dots[!duplicated(names(dots), fromLast = TRUE)]
 
       oo <- (length(by) > 0) && oo_force()
       if (oo) {
