@@ -1,8 +1,8 @@
 ## revdepcheck results
 
-We checked 39 reverse dependencies, comparing R CMD check results across CRAN and dev versions of this package.
+We checked 24 reverse dependencies, comparing R CMD check results across CRAN and dev versions of this package.
 
- * We saw 24 new problems
+ * We saw 21 new problems
  * We failed to check 0 packages
 
 Issues with CRAN packages are summarised below.
@@ -21,13 +21,11 @@ Issues with CRAN packages are summarised below.
 * auk
   checking examples ... ERROR
 
-* cards
-  checking tests ... ERROR
-
 * CodelistGenerator
   checking tests ... ERROR
 
 * crosshap
+  checking examples ... ERROR
   checking tests ... ERROR
 
 * duckplyr
@@ -35,12 +33,6 @@ Issues with CRAN packages are summarised below.
 
 * ern
   checking tests ... ERROR
-
-* gtreg
-  checking tests ... ERROR
-
-* gtsummary
-  checking running R code from vignettes ... ERROR
 
 * iNZightTools
   checking tests ... ERROR
@@ -50,6 +42,8 @@ Issues with CRAN packages are summarised below.
 
 * msigdbr
   checking tests ... ERROR
+  checking running R code from vignettes ... ERROR
+  checking re-building of vignette outputs ... NOTE
 
 * mtdesign
   checking tests ... ERROR
@@ -66,6 +60,7 @@ Issues with CRAN packages are summarised below.
 
 * rfars
   checking running R code from vignettes ... ERROR
+  checking re-building of vignette outputs ... NOTE
 
 * rWCVP
   checking tests ... ERROR

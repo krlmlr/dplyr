@@ -803,94 +803,6 @@ Run `revdepcheck::cloud_details(, "auk")` for more info
       ‘development.Rmd’ using ‘UTF-8’... OK
     ```
 
-# cards
-
-<details>
-
-* Version: 0.1.0
-* GitHub: https://github.com/insightsengineering/cards
-* Source code: https://github.com/cran/cards
-* Date/Publication: 2024-02-26 16:50:02 UTC
-* Number of recursive dependencies: 48
-
-Run `revdepcheck::cloud_details(, "cards")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking tests ... ERROR
-    ```
-      Running ‘spelling.R’
-      Running ‘testthat.R’
-    Running the tests in ‘tests/testthat.R’ failed.
-    Complete output:
-      > # This file is part of the standard setup for testthat.
-      > # It is recommended that you do not modify it.
-      > #
-      > # Where should you do additional test configuration?
-      > # Learn more about the roles of various files in:
-      > # * https://r-pkgs.org/testing-design.html#sec-tests-files-overview
-      > # * https://testthat.r-lib.org/articles/special-files.html
-      > 
-      > library(testthat)
-      > library(cards)
-      
-      Attaching package: 'cards'
-      
-      The following object is masked from 'package:testthat':
-      
-          matches
-      
-      > 
-      > test_check("cards")
-      Starting 2 test processes
-      [ FAIL 3 | WARN 0 | SKIP 41 | PASS 111 ]
-      
-      ══ Skipped tests (41) ══════════════════════════════════════════════════════════
-      • On CRAN (41): 'test-ard_attributes.R:2:3', 'test-apply_fmt_fn.R:76:3',
-        'test-ard_complex.R:87:3', 'test-ard_categorical.R:6:3',
-        'test-ard_categorical.R:77:3', 'test-ard_categorical.R:103:3',
-        'test-ard_categorical.R:221:3', 'test-ard_categorical.R:234:3',
-        'test-ard_categorical.R:391:3', 'test-ard_categorical.R:498:3',
-        'test-ard_categorical.R:576:3', 'test-ard_categorical.R:677:3',
-        'test-ard_dichotomous.R:11:3', 'test-ard_dichotomous.R:46:3',
-        'test-ard_hierarchical.R:12:3', 'test-ard_hierarchical.R:97:3',
-        'test-ard_hierarchical.R:118:3', 'test-ard_hierarchical.R:208:3',
-        'test-ard_missing.R:7:3', 'test-ard_missing.R:31:3',
-        'test-ard_continuous.R:7:3', 'test-ard_continuous.R:35:3',
-        'test-ard_continuous.R:86:3', 'test-ard_continuous.R:106:3',
-        'test-ard_continuous.R:234:3', 'test-as_nested_list.R:2:3',
-        'test-bind_ard.R:14:3', 'test-bind_ard.R:27:3',
-        'test-check_ard_structure.R:2:3', 'test-eval_capture_conditions.R:3:3',
-        'test-get_ard_statistics.R:4:3', 'test-print.R:2:3',
-        'test-print_ard_conditions.R:3:3', 'test-process_selectors.R:21:3',
-        'test-process_selectors.R:52:3', 'test-process_selectors.R:85:3',
-        'test-round5.R:2:3', 'test-shuffle_ard.R:9:3', 'test-shuffle_ard.R:68:3',
-        'test-shuffle_ard.R:79:3', 'test-tidy_as_ard.R:3:3'
-      
-      ══ Failed tests ════════════════════════════════════════════════════════════════
-      ── Failure ('test-ard_categorical.R:352:3'): ard_categorical(denominator='row') works ──
-      ...[] (`actual`) not equal to unlist(...) (`expected`).
-      
-        `actual`: 0.4
-      `expected`: 1.0
-      ── Failure ('test-ard_categorical.R:369:3'): ard_categorical(denominator='row') works ──
-      ...[] (`actual`) not equal to unlist(...) (`expected`).
-      
-        `actual`: 0.4
-      `expected`: 1.0
-      ── Failure ('test-ard_categorical.R:559:3'): ard_categorical(denominator=<data frame without counts>) works ──
-      unique(...) (`actual`) not equal to 0L (`expected`).
-      
-        `actual`: 0 NaN
-      `expected`: 0    
-      
-      [ FAIL 3 | WARN 0 | SKIP 41 | PASS 111 ]
-      Error: Test failures
-      Execution halted
-    ```
-
 # CodelistGenerator
 
 <details>
@@ -964,6 +876,23 @@ Run `revdepcheck::cloud_details(, "crosshap")` for more info
 
 ## Newly broken
 
+*   checking examples ... ERROR
+    ```
+    Running examples in ‘crosshap-Ex.R’ failed
+    The error most likely occurred in:
+    
+    > ### Name: build_bot_halfeyeplot
+    > ### Title: Bot hap-pheno raincloud plot
+    > ### Aliases: build_bot_halfeyeplot
+    > 
+    > ### ** Examples
+    > 
+    > 
+    > build_bot_halfeyeplot(HapObject, epsilon = 0.6, hide_labels = FALSE)
+    Error: Error evaluating duckdb query: Conversion Error: Could not convert string 'D' to DOUBLE
+    Execution halted
+    ```
+
 *   checking tests ... ERROR
     ```
       Running ‘testthat.R’
@@ -981,12 +910,14 @@ Run `revdepcheck::cloud_details(, "crosshap")` for more info
       > library(crosshap)
       > 
       > test_check("crosshap")
-      ■■■■■                             14% | ETA: 18s
-      ■■■■■■■■■■■■                      36% | ETA: 12s
-      ■■■■■■■■■■■■■■                    43% | ETA: 13s
-      ■■■■■■■■■■■■■■■■■■■■              64% | ETA:  8s
-      ■■■■■■■■■■■■■■■■■■■■■■            71% | ETA:  7s
-      ■■■■■■■■■■■■■■■■■■■■■■■■■■■       86% | ETA:  3s
+      ■■■■■                             14% | ETA: 20s
+      ■■■■■■■■■■■■                      36% | ETA: 14s
+      ■■■■■■■■■■■■■■                    43% | ETA: 15s
+      ■■■■■■■■■■■■■■■■■■                57% | ETA: 10s
+      ■■■■■■■■■■■■■■■■■■■■              64% | ETA:  9s
+      ■■■■■■■■■■■■■■■■■■■■■■            71% | ETA:  8s
+      ■■■■■■■■■■■■■■■■■■■■■■■■■■■       86% | ETA:  4s
+      ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■     93% | ETA:  2s
       ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■  100% | ETA:  0s
       WARNING: Phenotype association scores (phenodiff) not calculated for 252 of 2041 sites
       NOTE: 432 sites have more heterozygous individuals (1/0) than one of the homozygous states (1/1 or 0/0).
@@ -1036,30 +967,6 @@ Run `revdepcheck::cloud_details(, "crosshap")` for more info
       # i 3 more variables: .ggraph.orig_index <int>, circular <lgl>,
       #   .ggraph.index <int>
       ■■■■■■■■■■■                       33% | ETA:  5s
-      ■■■■■■■■■■■■■■■■■■■■■■■■■■        83% | ETA:  1s
-      ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■  100% | ETA:  0s
-      WARNING: Phenotype association scores (phenodiff) not calculated for 252 of 2041 sites
-      NOTE: 432 sites have more heterozygous individuals (1/0) than one of the homozygous states (1/1 or 0/0).
-      
-      Haplotyping was performed with hetphenos = F, meaning phenotype association scores for heterozygous sites was ignored.
-      ✔ Haplotyping complete!
-      Info saved in Haplotypes_30_E objects
-      list()
-      attr(,"class")
-      [1] "waiver"
-      list()
-      attr(,"class")
-      [1] "waiver"
-      list()
-      attr(,"class")
-      [1] "waiver"
-      Haplotype phenotype averages of wt individuals only:
-               A    B    C    D    E
-      Pheno 44.9 47.4 42.3 45.9 48.4
-      list()
-      attr(,"class")
-      [1] "waiver"
-      ■■■■■■■■■■■                       33% | ETA:  5s
       ■■■■■■■■■■■■■■■■■■■■■             67% | ETA:  2s
       ■■■■■■■■■■■■■■■■■■■■■■■■■■        83% | ETA:  1s
       ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■  100% | ETA:  0s
@@ -1069,14 +976,71 @@ Run `revdepcheck::cloud_details(, "crosshap")` for more info
       Haplotyping was performed with hetphenos = F, meaning phenotype association scores for heterozygous sites was ignored.
       ✔ Haplotyping complete!
       Info saved in Haplotypes_30_E objects
-      [ FAIL 1 | WARN 0 | SKIP 6 | PASS 5 ]
+      ■■■■■■■■■■■                       33% | ETA:  6s
+      ■■■■■■■■■■■■■■■■■■■■■             67% | ETA:  2s
+      ■■■■■■■■■■■■■■■■■■■■■■■■■■        83% | ETA:  1s
+      ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■  100% | ETA:  0s
+      WARNING: Phenotype association scores (phenodiff) not calculated for 252 of 2041 sites
+      NOTE: 432 sites have more heterozygous individuals (1/0) than one of the homozygous states (1/1 or 0/0).
       
-      ══ Skipped tests (6) ═══════════════════════════════════════════════════════════
-      • On CRAN (6): 'test-clustree.R:14:1', 'test-clustree.R:19:1',
-        'test-crosshapviz.R:13:3', 'test-crosshapviz.R:18:3',
-        'test-crosshapviz.R:23:3', 'test-crosshapviz.R:28:3'
+      Haplotyping was performed with hetphenos = F, meaning phenotype association scores for heterozygous sites was ignored.
+      ✔ Haplotyping complete!
+      Info saved in Haplotypes_30_E objects
+      [ FAIL 5 | WARN 0 | SKIP 2 | PASS 5 ]
+      
+      ══ Skipped tests (2) ═══════════════════════════════════════════════════════════
+      • On CRAN (2): 'test-clustree.R:14:1', 'test-clustree.R:19:1'
       
       ══ Failed tests ════════════════════════════════════════════════════════════════
+      ── Error ('test-crosshapviz.R:12:3'): test crosshap viz ────────────────────────
+      Error: Error evaluating duckdb query: Conversion Error: Could not convert string 'A' to DOUBLE
+      Backtrace:
+          ▆
+       1. └─crosshap::crosshap_viz(HapObject = testHapObject, epsilon = 0.62) at test-crosshapviz.R:12:3
+       2.   └─crosshap::build_bot_halfeyeplot(...)
+       3.     ├─base::setdiff(...)
+       4.     │ └─base::as.vector(y)
+       5.     ├─base::unique(halfeyedat$hap)
+       6.     └─base::unique.default(halfeyedat$hap)
+      ── Error ('test-crosshapviz.R:17:3'): test alt crosshap viz ────────────────────
+      Error: Error evaluating duckdb query: Conversion Error: Could not convert string 'A' to DOUBLE
+      Backtrace:
+          ▆
+       1. └─crosshap::crosshap_viz(...) at test-crosshapviz.R:17:3
+       2.   └─crosshap::build_bot_halfeyeplot(...)
+       3.     ├─base::setdiff(...)
+       4.     │ └─base::as.vector(y)
+       5.     ├─base::unique(halfeyedat$hap)
+       6.     └─base::unique.default(halfeyedat$hap)
+      ── Error ('test-crosshapviz.R:22:3'): test no labels crosshap viz ──────────────
+      Error: Error evaluating duckdb query: Conversion Error: Could not convert string 'A' to DOUBLE
+      Backtrace:
+          ▆
+       1. └─crosshap::crosshap_viz(...) at test-crosshapviz.R:22:3
+       2.   └─crosshap::build_bot_halfeyeplot(...)
+       3.     ├─base::setdiff(...)
+       4.     │ └─base::as.vector(y)
+       5.     ├─base::unique(halfeyedat$hap)
+       6.     └─base::unique.default(halfeyedat$hap)
+      ── Error ('test-crosshapviz.R:27:3'): test isolate_groups ──────────────────────
+      Error: Error evaluating duckdb query: Conversion Error: Could not convert string 'A' to DOUBLE
+      Backtrace:
+           ▆
+        1. ├─crosshap::crosshap_viz(...) at test-crosshapviz.R:27:3
+        2. │ └─crosshap::build_bot_halfeyeplot(...)
+        3. │   └─no0data %>% ...
+        4. ├─dplyr::mutate(...)
+        5. └─dplyr:::mutate.data.frame(...)
+        6.   └─dplyr::mutate(...)
+        7.     └─dplyr:::compute_by(...)
+        8.       ├─dplyr::group_data(data)
+        9.       ├─dplyr:::group_data.tbl_df(data)
+       10.       ├─base::NextMethod()
+       11.       └─dplyr:::group_data.data.frame(data)
+       12.         └─base::nrow(.data)
+       13.           ├─base::dim(x)
+       14.           └─base::dim.data.frame(x)
+       15.             └─base::.row_names_info(x, 2L)
       ── Error ('test-umap.R:4:1'): (code run outside of `test_that()`) ──────────────
       Error: Can't subset `.data` outside of a data mask context.
       Backtrace:
@@ -1091,7 +1055,12 @@ Run `revdepcheck::cloud_details(, "crosshap")` for more info
        8.   └─rlang:::stop_fake_data_subset(call)
        9.     └─rlang::abort(...)
       
-      [ FAIL 1 | WARN 0 | SKIP 6 | PASS 5 ]
+      [ FAIL 5 | WARN 0 | SKIP 2 | PASS 5 ]
+      Deleting unused snapshots:
+      • crosshapviz/haplotype-viz-alt4data.svg
+      • crosshapviz/haplotype-viz-isolatewt3-data.svg
+      • crosshapviz/haplotype-viz-nolabs3data.svg
+      • crosshapviz/haplotype-viz4data.svg
       Error: Test failures
       Execution halted
     ```
@@ -1328,25 +1297,14 @@ Run `revdepcheck::cloud_details(, "duckplyr")` for more info
       `environment(actual$check_df_for_rel)` is <env:namespace:duckplyr>
       `environment(expected$check_df_for_rel)` is <env:namespace:dplyr>
       
-      body(actual$create_default_duckdb_connection)[3:8] vs body(expected$create_default_duckdb_connection)[3:10]
-        `    con <- DBI::dbConnect(duckdb::duckdb())`
-        `    DBI::dbExecute(con, "set memory_limit='2GB'")`
-        `    DBI::dbExecute(con, paste0("pragma temp_directory='", tempdir(), `
-        `        "'"))`
-      + `    DBI::dbExecute(con, sql_ext_install)`
-      + `    DBI::dbExecute(con, sql_ext_load)`
-        `    for (i in seq_along(duckplyr_macros)) {`
-        `        sql <- paste0("CREATE MACRO \\"", names(duckplyr_macros)[[i]], `
-        `            "\\"", duckplyr_macros[[i]])`
-      
       `environment(actual$create_default_duckdb_connection)` is <env:namespace:duckplyr>
       `environment(expected$create_default_duckdb_connection)` is <env:namespace:dplyr>
       
-      `actual$default_duckdb_connection$con@conn_ref` is <pointer: 0x562cfeb8c6d0>
-      `expected$default_duckdb_connection$con@conn_ref` is <pointer: 0x562cfb508e00>
+      `actual$default_duckdb_connection$con@conn_ref` is <pointer: 0x55be50e52160>
+      `expected$default_duckdb_connection$con@conn_ref` is <pointer: 0x55be550f1aa0>
       
-      `actual$default_duckdb_connection$con@driver@database_ref` is <pointer: 0x562cfd001080>
-      `expected$default_duckdb_connection$con@driver@database_ref` is <pointer: 0x562cff31df70>
+      `actual$default_duckdb_connection$con@driver@database_ref` is <pointer: 0x55be4ce9b360>
+      `expected$default_duckdb_connection$con@driver@database_ref` is <pointer: 0x55be51702190>
       
       `environment(actual$df_from_csv)` is <env:namespace:duckplyr>
       `environment(expected$df_from_csv)` is <env:namespace:dplyr>
@@ -1453,25 +1411,15 @@ Run `revdepcheck::cloud_details(, "duckplyr")` for more info
       `environment(actual$duckplyr_left_join)` is <env:namespace:duckplyr>
       `environment(expected$duckplyr_left_join)` is <env:namespace:dplyr>
       
-      actual$duckplyr_macros[1:11] vs expected$duckplyr_macros[1:11]
-      - <"(x, y) AS x < y"
-      + <"(x, y) AS \"r_base::<\"(x, y)"
-      - <="(x, y) AS x <= y"
-      + <="(x, y) AS \"r_base::<=\"(x, y)"
-      - >"(x, y) AS x > y"
-      + >"(x, y) AS \"r_base::>\"(x, y)"
-      - >="(x, y) AS x >= y"
-      + >="(x, y) AS \"r_base::>=\"(x, y)"
-      - =="(x, y) AS x = y"
-      + =="(x, y) AS \"r_base::==\"(x, y)"
-      - !="(x, y) AS x <> y"
-      + !="(x, y) AS \"r_base::!=\"(x, y)"
+      actual$duckplyr_macros[5:11] vs expected$duckplyr_macros[5:11]
+        =="(x, y) AS x = y"
+        !="(x, y) AS x <> y"
         ___divide"(x, y) AS CASE WHEN y = 0 THEN CASE WHEN x = 0 THEN CAST('NaN' AS double) WHEN x > 0 THEN CAST('+Infinity' AS double) ELSE CAST('-Infinity' AS double) END ELSE CAST(x AS double) / y END"
       - is.na"(x) AS (x IS NULL)"
       + is.na"(x) AS (x IS NULL OR isnan(x))"
         n"() AS CAST(COUNT(*) AS int32)"
         ___log10"(x) AS CASE WHEN x < 0 THEN CAST('NaN' AS double) WHEN x = 0 THEN CAST('-Inf' AS double) ELSE log10(x) END"
-      and 1 more ...
+        ___log"(x) AS CASE WHEN x < 0 THEN CAST('NaN' AS double) WHEN x = 0 THEN CAST('-Inf' AS double) ELSE ln(x) END"
       
       `environment(actual$duckplyr_mutate)` is <env:namespace:duckplyr>
       `environment(expected$duckplyr_mutate)` is <env:namespace:dplyr>
@@ -1815,6 +1763,14 @@ Run `revdepcheck::cloud_details(, "duckplyr")` for more info
       `environment(actual$rel_to_df)` is <env:namespace:duckplyr>
       `environment(expected$rel_to_df)` is <env:namespace:dplyr>
       
+      body(actual$rel_to_df.duckdb_relation) vs body(expected$rel_to_df.duckdb_relation)
+        `{`
+      + `    if (anyDuplicated(tolower(names(rel)))) {`
+      + `        cli::cli_abort("Column names are case-insensitive in duckdb, fallback required.")`
+      + `    }`
+        `    duckdb$rel_to_altrep(rel)`
+        `}`
+      
       `environment(actual$rel_to_df.duckdb_relation)` is <env:namespace:duckplyr>
       `environment(expected$rel_to_df.duckdb_relation)` is <env:namespace:dplyr>
       
@@ -1949,7 +1905,7 @@ Run `revdepcheck::cloud_details(, "duckplyr")` for more info
       🦆:  661
       add_count, anti_join, arrange, compute, count, cross_join, distinct, do, eval, filter, full_join, group_by, inner_join, intersect, left_join, mutate, mutate.data.frame, nest_join, pull, reframe, relocate, rename, rename_with, right_join, rows_append, rows_delete, rows_insert, rows_patch, rows_update, rows_upsert, rowwise, select, semi_join, setdiff, setequal, slice, slice_head, slice_sample, slice_tail, summarise, symdiff, transmute, ungroup, union_all
       
-      00:00:51.68547
+      00:01:31.498321
       Execution halted
     ```
 
@@ -2160,128 +2116,6 @@ Run `revdepcheck::cloud_details(, "ern")` for more info
       Execution halted
     ```
 
-# gtreg
-
-<details>
-
-* Version: 0.3.0
-* GitHub: https://github.com/shannonpileggi/gtreg
-* Source code: https://github.com/cran/gtreg
-* Date/Publication: 2023-11-17 17:10:02 UTC
-* Number of recursive dependencies: 102
-
-Run `revdepcheck::cloud_details(, "gtreg")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking tests ... ERROR
-    ```
-      Running ‘spelling.R’
-      Running ‘testthat.R’
-    Running the tests in ‘tests/testthat.R’ failed.
-    Complete output:
-      > library(testthat)
-      > library(gtreg)
-      
-      Attaching package: 'gtreg'
-      
-      The following object is masked from 'package:testthat':
-      
-          matches
-      
-      > 
-      > test_check("gtreg")
-      x The `column=` argument is required.
-      i Run `show_header_names(x)` to list the column names and headers.
-      Variable 'soc' likely not unique in gtsummary table, and the cell(s) you wish
-      to display may not be accessible. This may occur when gtsummary tables with
-      repeated variable names are combined using `tbl_stack()`.
-      [ FAIL 3 | WARN 0 | SKIP 6 | PASS 85 ]
-      
-      ══ Skipped tests (6) ═══════════════════════════════════════════════════════════
-      • On CRAN (6): 'test-add_overall.R:1:1', 'test-style_xxx.R:67:3',
-        'test-style_xxx.R:110:3', 'test-tbl_ae.R:1:1', 'test-tbl_ae_count.R:1:1',
-        'test-tbl_ae_focus.R:1:1'
-      
-      ══ Failed tests ════════════════════════════════════════════════════════════════
-      ── Failure ('test-modify_header.R:46:3'): modify_header() works ────────────────
-      ... %>% unique() (`actual`) not equal to c(NA, "**Control Group**, N = 44/100 (44%)", "**Experimental Group**, N = 56/100 (56%)") (`expected`).
-      
-      actual vs expected
-        NA
-      - "**Control Group**, N = 100/100 (100%)"
-      + "**Control Group**, N = 44/100 (44%)"
-      - "**Experimental Group**, N = 100/100 (100%)"
-      + "**Experimental Group**, N = 56/100 (56%)"
-      ── Failure ('test-modify_header.R:94:3'): modify_header() works ────────────────
-      t1_modified$table_styling$header %>% filter(!hide) %>% dplyr::pull(label) (`actual`) not equal to c(...) (`expected`).
-      
-           actual                     | expected                                
-       [1] "**Adverse Event**"        | "**Adverse Event**"       [1]           
-       [2] "**Grade 1**, N = 10 / 10" - "**Grade 1**, N = 3 / 10" [2]           
-       [3] "**Grade 2**, N = 10 / 10" - "**Grade 2**, N = 3 / 10" [3]           
-       [4] "**Grade 3**, N = 10 / 10" - "**Grade 3**, N = 3 / 10" [4]           
-       [5] "**Grade 4**, N = 10 / 10" - "**Grade 4**, N = 3 / 10" [5]           
-       [6] "**Grade 5**, N = 10 / 10" - "**Grade 5**, N = 3 / 10" [6]           
-       [7] "**Grade 1**, N = 10 / 10" - "**Grade 1**, N = 7 / 10" [7]           
-       [8] "**Grade 2**, N = 10 / 10" - "**Grade 2**, N = 7 / 10" [8]           
-       [9] "**Grade 3**, N = 10 / 10" - "**Grade 3**, N = 7 / 10" [9]           
-      [10] "**Grade 4**, N = 10 / 10" - "**Grade 4**, N = 7 / 10" [10]          
-       ... ...                          ...                       and 1 more ...
-      ── Failure ('test-modify_header.R:101:3'): modify_header() works ───────────────
-      ... %>% unique() (`actual`) not equal to c(NA, "**Drug A**, N = 3 / 10", "**Drug B**, N = 7 / 10") (`expected`).
-      
-      `actual`:   NA "**Drug A**, N = 10 / 10" "**Drug B**, N = 10 / 10"
-      `expected`: NA "**Drug A**, N = 3 / 10"  "**Drug B**, N = 7 / 10" 
-      
-      [ FAIL 3 | WARN 0 | SKIP 6 | PASS 85 ]
-      Error: Test failures
-      Execution halted
-    ```
-
-# gtsummary
-
-<details>
-
-* Version: 1.7.2
-* GitHub: https://github.com/ddsjoberg/gtsummary
-* Source code: https://github.com/cran/gtsummary
-* Date/Publication: 2023-07-15 21:10:14 UTC
-* Number of recursive dependencies: 206
-
-Run `revdepcheck::cloud_details(, "gtsummary")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking running R code from vignettes ... ERROR
-    ```
-    Errors in running code in vignettes:
-    when running code in ‘tbl_summary.Rmd’
-      ...
-    +     "API in 1999") .... [TRUNCATED] 
-    
-      When sourcing ‘tbl_summary.R’:
-    Error: ℹ In argument: `df_stats = pmap(...)`.
-    Caused by error in `pmap()`:
-    ℹ In index: 1.
-    Caused by error in `rename()`:
-    ! Can't rename columns that don't exist.
-    ✖ Column `N` doesn't exist.
-    Execution halted
-    
-      ‘gallery.Rmd’ using ‘UTF-8’... OK
-      ‘gtsummary_definition.Rmd’ using ‘UTF-8’... OK
-      ‘inline_text.Rmd’ using ‘UTF-8’... OK
-      ‘rmarkdown.Rmd’ using ‘UTF-8’... OK
-      ‘tbl_regression.Rmd’ using ‘UTF-8’... OK
-      ‘tbl_summary.Rmd’ using ‘UTF-8’... failed
-      ‘themes.Rmd’ using ‘UTF-8’... OK
-    ```
-
 # iNZightTools
 
 <details>
@@ -2444,6 +2278,33 @@ Run `revdepcheck::cloud_details(, "msigdbr")` for more info
       Killed
     ```
 
+*   checking running R code from vignettes ... ERROR
+    ```
+    Errors in running code in vignettes:
+    when running code in ‘msigdbr-intro.Rmd’
+      ...
+    #   gs_geoid <chr>, gs_exact_source <chr>, gs_url <chr>, gs_description <chr>,
+    #   taxon_id <int>, ortholog_sources <chr>, num_ortholog_sources <dbl>
+    
+    > cgp_gene_sets = msigdbr(species = "mouse", category = "C2", 
+    +     subcategory = "CGP")
+    
+    > head(cgp_gene_sets)
+    Killed
+    
+    ... incomplete output.  Crash?
+    
+      ‘msigdbr-intro.Rmd’ using ‘UTF-8’... failed to complete the test
+    ```
+
+*   checking re-building of vignette outputs ... NOTE
+    ```
+    Error(s) in re-building vignettes:
+      ...
+    --- re-building ‘msigdbr-intro.Rmd’ using rmarkdown
+    Killed
+    ```
+
 ## In both
 
 *   checking installed package size ... NOTE
@@ -2546,10 +2407,10 @@ Run `revdepcheck::cloud_details(, "NeuroDecodeR")` for more info
         |                                                                            
         |===================================                                   |  50%
         |                                                                            
-        |======================================================================| 100%[1] "2024-04-23 18:32:01 UTC"
-       [1] 0.14285714 0.15079365 0.11111111 0.13492063 0.16269841 0.15079365
-       [7] 0.11904762 0.09126984 0.15476190 0.12698413 0.34920635 0.82539683
-      [13] 0.85317460 0.78174603 0.69047619 0.66666667 0.63095238 0.73412698
+        |======================================================================| 100%[1] "2024-04-25 06:34:45 UTC"
+       [1] 0.1190476 0.1666667 0.1547619 0.1626984 0.1230159 0.1349206 0.1388889
+       [8] 0.1230159 0.1150794 0.1349206 0.3611111 0.8373016 0.8690476 0.7658730
+      [15] 0.7182540 0.6111111 0.6031746 0.7023810
       1 Mb
       
         |                                                                            
@@ -2723,8 +2584,6 @@ Run `revdepcheck::cloud_details(, "rfars")` for more info
       ‘Searchable_Codebooks.Rmd’ using ‘UTF-8’... OK
     ```
 
-## In both
-
 *   checking re-building of vignette outputs ... NOTE
     ```
     Error(s) in re-building vignettes:
@@ -2784,6 +2643,9 @@ Run `revdepcheck::cloud_details(, "rWCVP")` for more info
       
       -- Exact matching 7 names --
       
+      v Found 4 of 7 names
+      
+      -- Fuzzy matching 3 names --
       
       -- Matching names to WCVP ------------------------------------------------------
       i Using the `scientificName` column
@@ -2791,12 +2653,24 @@ Run `revdepcheck::cloud_details(, "rWCVP")` for more info
       
       -- Exact matching  names --
       
+      v Found 4 of  names
+      
+      -- Fuzzy matching 3 names --
       
       -- Matching names to WCVP ------------------------------------------------------
       i Using the `scientificName` column
       
       -- Exact matching 7 names --
       
+      v Found 4 of 7 names
+      
+      -- Matching complete! --
+      
+      v Matched 4 of 7 names
+      i Exact (with author): 2
+      i Exact (without author): 2
+      i No match found: 3
+      ! Names with multiple matches: 0
       
       -- Matching names to WCVP ------------------------------------------------------
       i Using the `genus`, `species`, `infra_rank`, and `infra` columns
@@ -2804,62 +2678,27 @@ Run `revdepcheck::cloud_details(, "rWCVP")` for more info
       
       -- Exact matching  names --
       
+      v Found 4 of  names
+      
+      -- Fuzzy matching 3 names --
       
       -- Matching names to WCVP ------------------------------------------------------
       i Using the `scientificName` column
       
       -- Exact matching 7 names --
       
+      v Found 4 of 7 names
+      
+      -- Fuzzy matching 3 names --
+      
       i No area specified. Generating global summary.
       i Aggregating occurrence types across input area ("the world") - see `?wcvp_summary()` for details.
       i No area specified. Generating global summary.
       i Matches to input geography found at Continent (Level 1)
       i Aggregating occurrence types across input area ("ASIA-TROPICAL") - see `?wcvp_summary()` for details.
-      [ FAIL 12 | WARN 0 | SKIP 0 | PASS 19 ]
+      [ FAIL 9 | WARN 0 | SKIP 0 | PASS 33 ]
       
       ══ Failed tests ════════════════════════════════════════════════════════════════
-      ── Error ('test-exact_match.R:2:3'): exact match with author returns expected output ──
-      Error: Error evaluating duckdb query: Invalid Input Error: Invalid unicode (byte sequence mismatch) detected in value construction
-      Backtrace:
-           ▆
-        1. ├─rWCVP::wcvp_match_exact(...) at test-exact_match.R:2:3
-        2. │ └─... %>% select(-"n")
-        3. ├─dplyr::select(., -"n")
-        4. ├─dplyr::mutate(., multiple_matches = .data$n > 1)
-        5. ├─dplyr::add_count(., .data[[id_col]])
-        6. ├─dplyr::mutate(...)
-        7. └─dplyr:::mutate.data.frame(...)
-        8.   └─dplyr::mutate(...)
-        9.     └─dplyr:::compute_by(...)
-       10.       ├─dplyr::group_data(data)
-       11.       ├─dplyr:::group_data.tbl_df(data)
-       12.       ├─base::NextMethod()
-       13.       └─dplyr:::group_data.data.frame(data)
-       14.         └─base::nrow(.data)
-       15.           ├─base::dim(x)
-       16.           └─base::dim.data.frame(x)
-       17.             └─base::.row_names_info(x, 2L)
-      ── Error ('test-exact_match.R:11:3'): exact match without author returns expected output ──
-      Error: Error evaluating duckdb query: Invalid Input Error: Invalid unicode (byte sequence mismatch) detected in value construction
-      Backtrace:
-           ▆
-        1. ├─rWCVP::wcvp_match_exact(...) at test-exact_match.R:11:3
-        2. │ └─... %>% select(-"n")
-        3. ├─dplyr::select(., -"n")
-        4. ├─dplyr::mutate(., multiple_matches = .data$n > 1)
-        5. ├─dplyr::add_count(., .data[[id_col]])
-        6. ├─dplyr::mutate(...)
-        7. └─dplyr:::mutate.data.frame(...)
-        8.   └─dplyr::mutate(...)
-        9.     └─dplyr:::compute_by(...)
-       10.       ├─dplyr::group_data(data)
-       11.       ├─dplyr:::group_data.tbl_df(data)
-       12.       ├─base::NextMethod()
-       13.       └─dplyr:::group_data.data.frame(data)
-       14.         └─base::nrow(.data)
-       15.           ├─base::dim(x)
-       16.           └─base::dim.data.frame(x)
-       17.             └─base::.row_names_info(x, 2L)
       ── Error ('test-fuzzy_match.R:4:3'): edit match returns name within correct distance ──
       Error in `nchar(str2)`: invalid multibyte string, element 8
       Backtrace:
@@ -2941,127 +2780,51 @@ Run `revdepcheck::cloud_details(, "rWCVP")` for more info
        5.   └─phonics::metaphone(wcvp_names$taxon_name, maxCodeLen = 20, clean = FALSE)
        6.     └─base::toupper(word)
       ── Error ('test-match_names.R:2:3'): match names with author returns expected output ──
-      Error: Error evaluating duckdb query: Invalid Input Error: Invalid unicode (byte sequence mismatch) detected in value construction
+      Error in `toupper(word)`: invalid input 'bytes Tromostapelia mutabilis var. americana' in 'utf8towcs'
       Backtrace:
-           ▆
-        1. ├─rWCVP::wcvp_match_names(...) at test-match_names.R:2:3
-        2. │ └─... %>% filter(!is.na(.data$wcvp_id))
-        3. ├─dplyr::filter(., !is.na(.data$wcvp_id))
-        4. ├─rWCVP::wcvp_match_exact(...)
-        5. │ └─... %>% select(-"n")
-        6. ├─dplyr::select(., -"n")
-        7. ├─dplyr::mutate(., multiple_matches = .data$n > 1)
-        8. ├─dplyr::add_count(., .data[[id_col]])
-        9. ├─dplyr::mutate(...)
-       10. └─dplyr:::mutate.data.frame(...)
-       11.   └─dplyr::mutate(...)
-       12.     └─dplyr:::compute_by(...)
-       13.       ├─dplyr::group_data(data)
-       14.       ├─dplyr:::group_data.tbl_df(data)
-       15.       ├─base::NextMethod()
-       16.       └─dplyr:::group_data.data.frame(data)
-       17.         └─base::nrow(.data)
-       18.           ├─base::dim(x)
-       19.           └─base::dim.data.frame(x)
-       20.             └─base::.row_names_info(x, 2L)
+          ▆
+       1. ├─rWCVP::wcvp_match_names(...) at test-match_names.R:2:3
+       2. │ └─rWCVP::wcvp_match_fuzzy(...)
+       3. │   └─... %>% filter(!is.na(.data$wcvp_id))
+       4. ├─dplyr::filter(., !is.na(.data$wcvp_id))
+       5. └─rWCVP::phonetic_match(., wcvp_species, name_col = name_col)
+       6.   └─phonics::metaphone(wcvp_names$taxon_name, maxCodeLen = 20, clean = FALSE)
+       7.     └─base::toupper(word)
       ── Error ('test-match_names.R:16:3'): match names without author returns expected output ──
-      Error: Error evaluating duckdb query: Invalid Input Error: Invalid unicode (byte sequence mismatch) detected in value construction
+      Error in `toupper(word)`: invalid input 'bytes Tromostapelia mutabilis var. americana' in 'utf8towcs'
       Backtrace:
-           ▆
-        1. ├─rWCVP::wcvp_match_names(...) at test-match_names.R:16:3
-        2. │ └─... %>% filter(!is.na(.data$wcvp_id))
-        3. ├─dplyr::filter(., !is.na(.data$wcvp_id))
-        4. ├─rWCVP::wcvp_match_exact(...)
-        5. │ └─... %>% select(-"n")
-        6. ├─dplyr::select(., -"n")
-        7. ├─dplyr::mutate(., multiple_matches = .data$n > 1)
-        8. ├─dplyr::add_count(., .data[[id_col]])
-        9. ├─dplyr::mutate(...)
-       10. └─dplyr:::mutate.data.frame(...)
-       11.   └─dplyr::mutate(...)
-       12.     └─dplyr:::compute_by(...)
-       13.       ├─dplyr::group_data(data)
-       14.       ├─dplyr:::group_data.tbl_df(data)
-       15.       ├─base::NextMethod()
-       16.       └─dplyr:::group_data.data.frame(data)
-       17.         └─base::nrow(.data)
-       18.           ├─base::dim(x)
-       19.           └─base::dim.data.frame(x)
-       20.             └─base::.row_names_info(x, 2L)
-      ── Error ('test-match_names.R:30:3'): match names without fuzzy returns expected output ──
-      Error: Error evaluating duckdb query: Invalid Input Error: Invalid unicode (byte sequence mismatch) detected in value construction
-      Backtrace:
-           ▆
-        1. ├─rWCVP::wcvp_match_names(...) at test-match_names.R:30:3
-        2. │ └─... %>% filter(!is.na(.data$wcvp_id))
-        3. ├─dplyr::filter(., !is.na(.data$wcvp_id))
-        4. ├─rWCVP::wcvp_match_exact(...)
-        5. │ └─... %>% select(-"n")
-        6. ├─dplyr::select(., -"n")
-        7. ├─dplyr::mutate(., multiple_matches = .data$n > 1)
-        8. ├─dplyr::add_count(., .data[[id_col]])
-        9. ├─dplyr::mutate(...)
-       10. └─dplyr:::mutate.data.frame(...)
-       11.   └─dplyr::mutate(...)
-       12.     └─dplyr:::compute_by(...)
-       13.       ├─dplyr::group_data(data)
-       14.       ├─dplyr:::group_data.tbl_df(data)
-       15.       ├─base::NextMethod()
-       16.       └─dplyr:::group_data.data.frame(data)
-       17.         └─base::nrow(.data)
-       18.           ├─base::dim(x)
-       19.           └─base::dim.data.frame(x)
-       20.             └─base::.row_names_info(x, 2L)
+          ▆
+       1. ├─rWCVP::wcvp_match_names(...) at test-match_names.R:16:3
+       2. │ └─rWCVP::wcvp_match_fuzzy(...)
+       3. │   └─... %>% filter(!is.na(.data$wcvp_id))
+       4. ├─dplyr::filter(., !is.na(.data$wcvp_id))
+       5. └─rWCVP::phonetic_match(., wcvp_species, name_col = name_col)
+       6.   └─phonics::metaphone(wcvp_names$taxon_name, maxCodeLen = 20, clean = FALSE)
+       7.     └─base::toupper(word)
       ── Error ('test-match_names.R:44:3'): match names without taxon name parts returns expected output ──
-      Error: Error evaluating duckdb query: Invalid Input Error: Invalid unicode (byte sequence mismatch) detected in value construction
+      Error in `toupper(word)`: invalid input 'bytes Tromostapelia mutabilis var. americana' in 'utf8towcs'
       Backtrace:
-           ▆
-        1. ├─rWCVP::wcvp_match_names(...) at test-match_names.R:44:3
-        2. │ └─... %>% filter(!is.na(.data$wcvp_id))
-        3. ├─dplyr::filter(., !is.na(.data$wcvp_id))
-        4. ├─rWCVP::wcvp_match_exact(...)
-        5. │ └─... %>% select(-"n")
-        6. ├─dplyr::select(., -"n")
-        7. ├─dplyr::mutate(., multiple_matches = .data$n > 1)
-        8. ├─dplyr::add_count(., .data[[id_col]])
-        9. ├─dplyr::mutate(...)
-       10. └─dplyr:::mutate.data.frame(...)
-       11.   └─dplyr::mutate(...)
-       12.     └─dplyr:::compute_by(...)
-       13.       ├─dplyr::group_data(data)
-       14.       ├─dplyr:::group_data.tbl_df(data)
-       15.       ├─base::NextMethod()
-       16.       └─dplyr:::group_data.data.frame(data)
-       17.         └─base::nrow(.data)
-       18.           ├─base::dim(x)
-       19.           └─base::dim.data.frame(x)
-       20.             └─base::.row_names_info(x, 2L)
+          ▆
+       1. ├─rWCVP::wcvp_match_names(...) at test-match_names.R:44:3
+       2. │ └─rWCVP::wcvp_match_fuzzy(...)
+       3. │   └─... %>% filter(!is.na(.data$wcvp_id))
+       4. ├─dplyr::filter(., !is.na(.data$wcvp_id))
+       5. └─rWCVP::phonetic_match(., wcvp_species, name_col = name_col)
+       6.   └─phonics::metaphone(wcvp_names$taxon_name, maxCodeLen = 20, clean = FALSE)
+       7.     └─base::toupper(word)
       ── Error ('test-match_names.R:58:3'): match names returns original columns ─────
-      Error: Error evaluating duckdb query: Invalid Input Error: Invalid unicode (byte sequence mismatch) detected in value construction
+      Error in `toupper(word)`: invalid input 'bytes Tromostapelia mutabilis var. americana' in 'utf8towcs'
       Backtrace:
-           ▆
-        1. ├─rWCVP::wcvp_match_names(...) at test-match_names.R:58:3
-        2. │ └─... %>% filter(!is.na(.data$wcvp_id))
-        3. ├─dplyr::filter(., !is.na(.data$wcvp_id))
-        4. ├─rWCVP::wcvp_match_exact(...)
-        5. │ └─... %>% select(-"n")
-        6. ├─dplyr::select(., -"n")
-        7. ├─dplyr::mutate(., multiple_matches = .data$n > 1)
-        8. ├─dplyr::add_count(., .data[[id_col]])
-        9. ├─dplyr::mutate(...)
-       10. └─dplyr:::mutate.data.frame(...)
-       11.   └─dplyr::mutate(...)
-       12.     └─dplyr:::compute_by(...)
-       13.       ├─dplyr::group_data(data)
-       14.       ├─dplyr:::group_data.tbl_df(data)
-       15.       ├─base::NextMethod()
-       16.       └─dplyr:::group_data.data.frame(data)
-       17.         └─base::nrow(.data)
-       18.           ├─base::dim(x)
-       19.           └─base::dim.data.frame(x)
-       20.             └─base::.row_names_info(x, 2L)
+          ▆
+       1. ├─rWCVP::wcvp_match_names(...) at test-match_names.R:58:3
+       2. │ └─rWCVP::wcvp_match_fuzzy(...)
+       3. │   └─... %>% filter(!is.na(.data$wcvp_id))
+       4. ├─dplyr::filter(., !is.na(.data$wcvp_id))
+       5. └─rWCVP::phonetic_match(., wcvp_species, name_col = name_col)
+       6.   └─phonics::metaphone(wcvp_names$taxon_name, maxCodeLen = 20, clean = FALSE)
+       7.     └─base::toupper(word)
       
-      [ FAIL 12 | WARN 0 | SKIP 0 | PASS 19 ]
+      [ FAIL 9 | WARN 0 | SKIP 0 | PASS 33 ]
       Error: Test failures
       Execution halted
     ```
