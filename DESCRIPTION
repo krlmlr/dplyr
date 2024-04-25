@@ -62,7 +62,7 @@ Suggests:
 VignetteBuilder:
     knitr
 Remotes: 
-    duckdb/duckdb-r
+    duckdb=url::https://duckdb.r-universe.dev/bin/linux/jammy/4.3/src/contrib/duckdb_0.10.1.9001.tar.gz
 Config/Needs/website: tidyverse, shiny, pkgdown, tidyverse/tidytemplate
 Config/testthat/edition: 3
 Encoding: UTF-8
