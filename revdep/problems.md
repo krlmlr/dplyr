@@ -910,14 +910,12 @@ Run `revdepcheck::cloud_details(, "crosshap")` for more info
       > library(crosshap)
       > 
       > test_check("crosshap")
-      ■■■■■                             14% | ETA: 20s
-      ■■■■■■■■■■■■                      36% | ETA: 14s
-      ■■■■■■■■■■■■■■                    43% | ETA: 15s
-      ■■■■■■■■■■■■■■■■■■                57% | ETA: 10s
-      ■■■■■■■■■■■■■■■■■■■■              64% | ETA:  9s
-      ■■■■■■■■■■■■■■■■■■■■■■            71% | ETA:  8s
-      ■■■■■■■■■■■■■■■■■■■■■■■■■■■       86% | ETA:  4s
-      ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■     93% | ETA:  2s
+      ■■■■■                             14% | ETA: 14s
+      ■■■■■■■■■■                        29% | ETA:  9s
+      ■■■■■■■■■■■■■■                    43% | ETA: 11s
+      ■■■■■■■■■■■■■■■■■■                57% | ETA:  7s
+      ■■■■■■■■■■■■■■■■■■■■■■            71% | ETA:  5s
+      ■■■■■■■■■■■■■■■■■■■■■■■■■■■       86% | ETA:  3s
       ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■  100% | ETA:  0s
       WARNING: Phenotype association scores (phenodiff) not calculated for 252 of 2041 sites
       NOTE: 432 sites have more heterozygous individuals (1/0) than one of the homozygous states (1/1 or 0/0).
@@ -966,18 +964,8 @@ Run `revdepcheck::cloud_details(, "crosshap")` for more info
       20  7.75     0 hap_eps0.99~ 0.99    F          21             48.8         0.667
       # i 3 more variables: .ggraph.orig_index <int>, circular <lgl>,
       #   .ggraph.index <int>
-      ■■■■■■■■■■■                       33% | ETA:  5s
-      ■■■■■■■■■■■■■■■■■■■■■■■■■■        83% | ETA:  1s
-      ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■  100% | ETA:  0s
-      WARNING: Phenotype association scores (phenodiff) not calculated for 252 of 2041 sites
-      NOTE: 432 sites have more heterozygous individuals (1/0) than one of the homozygous states (1/1 or 0/0).
-      
-      Haplotyping was performed with hetphenos = F, meaning phenotype association scores for heterozygous sites was ignored.
-      ✔ Haplotyping complete!
-      Info saved in Haplotypes_30_E objects
-      ■■■■■■■■■■■                       33% | ETA:  5s
+      ■■■■■■■■■■■                       33% | ETA:  4s
       ■■■■■■■■■■■■■■■■■■■■■             67% | ETA:  2s
-      ■■■■■■■■■■■■■■■■■■■■■■■■■■        83% | ETA:  1s
       ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■  100% | ETA:  0s
       WARNING: Phenotype association scores (phenodiff) not calculated for 252 of 2041 sites
       NOTE: 432 sites have more heterozygous individuals (1/0) than one of the homozygous states (1/1 or 0/0).
@@ -985,7 +973,16 @@ Run `revdepcheck::cloud_details(, "crosshap")` for more info
       Haplotyping was performed with hetphenos = F, meaning phenotype association scores for heterozygous sites was ignored.
       ✔ Haplotyping complete!
       Info saved in Haplotypes_30_E objects
-      [ FAIL 5 | WARN 0 | SKIP 2 | PASS 5 ]
+      ■■■■■■■■■■■                       33% | ETA:  4s
+      ■■■■■■■■■■■■■■■■■■■■■             67% | ETA:  2s
+      ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■  100% | ETA:  0s
+      WARNING: Phenotype association scores (phenodiff) not calculated for 252 of 2041 sites
+      NOTE: 432 sites have more heterozygous individuals (1/0) than one of the homozygous states (1/1 or 0/0).
+      
+      Haplotyping was performed with hetphenos = F, meaning phenotype association scores for heterozygous sites was ignored.
+      ✔ Haplotyping complete!
+      Info saved in Haplotypes_30_E objects
+      [ FAIL 4 | WARN 0 | SKIP 2 | PASS 6 ]
       
       ══ Skipped tests (2) ═══════════════════════════════════════════════════════════
       • On CRAN (2): 'test-clustree.R:14:1', 'test-clustree.R:19:1'
@@ -1040,21 +1037,8 @@ Run `revdepcheck::cloud_details(, "crosshap")` for more info
        13.           ├─base::dim(x)
        14.           └─base::dim.data.frame(x)
        15.             └─base::.row_names_info(x, 2L)
-      ── Error ('test-umap.R:4:1'): (code run outside of `test_that()`) ──────────────
-      Error: Can't subset `.data` outside of a data mask context.
-      Backtrace:
-          ▆
-       1. ├─crosshap::prepare_hap_umap(...) at test-umap.R:4:1
-       2. │ └─... %>% ...
-       3. ├─dplyr::left_join(., HapObject_eps$Indfile, .data$hap, by = "Ind")
-       4. ├─dplyr:::left_join.data.frame(...)
-       5. │ └─dplyr:::rel_try(...)
-       6. ├─hap
-       7. └─rlang:::`$.rlang_fake_data_pronoun`(.data, hap)
-       8.   └─rlang:::stop_fake_data_subset(call)
-       9.     └─rlang::abort(...)
       
-      [ FAIL 5 | WARN 0 | SKIP 2 | PASS 5 ]
+      [ FAIL 4 | WARN 0 | SKIP 2 | PASS 6 ]
       Deleting unused snapshots:
       • crosshapviz/haplotype-viz-alt4data.svg
       • crosshapviz/haplotype-viz-isolatewt3-data.svg
@@ -1299,11 +1283,11 @@ Run `revdepcheck::cloud_details(, "duckplyr")` for more info
       `environment(actual$create_default_duckdb_connection)` is <env:namespace:duckplyr>
       `environment(expected$create_default_duckdb_connection)` is <env:namespace:dplyr>
       
-      `actual$default_duckdb_connection$con@conn_ref` is <pointer: 0x56325325bee0>
-      `expected$default_duckdb_connection$con@conn_ref` is <pointer: 0x5632583ab8b0>
+      `actual$default_duckdb_connection$con@conn_ref` is <pointer: 0x55ae0f027e00>
+      `expected$default_duckdb_connection$con@conn_ref` is <pointer: 0x55ae0d4b5b70>
       
-      `actual$default_duckdb_connection$con@driver@database_ref` is <pointer: 0x563254f47dd0>
-      `expected$default_duckdb_connection$con@driver@database_ref` is <pointer: 0x563254ee43f0>
+      `actual$default_duckdb_connection$con@driver@database_ref` is <pointer: 0x55ae120125d0>
+      `expected$default_duckdb_connection$con@driver@database_ref` is <pointer: 0x55ae0b729660>
       
       `environment(actual$df_from_csv)` is <env:namespace:duckplyr>
       `environment(expected$df_from_csv)` is <env:namespace:dplyr>
@@ -1921,7 +1905,7 @@ Run `revdepcheck::cloud_details(, "duckplyr")` for more info
       🦆:  661
       add_count, anti_join, arrange, compute, count, cross_join, distinct, do, eval, filter, full_join, group_by, inner_join, intersect, left_join, mutate, mutate.data.frame, nest_join, pull, reframe, relocate, rename, rename_with, right_join, rows_append, rows_delete, rows_insert, rows_patch, rows_update, rows_upsert, rowwise, select, semi_join, setdiff, setequal, slice, slice_head, slice_sample, slice_tail, summarise, symdiff, transmute, ungroup, union_all
       
-      00:01:38.152647
+      00:00:56.962274
       Execution halted
     ```
 
@@ -2292,25 +2276,6 @@ Run `revdepcheck::cloud_details(, "msigdbr")` for more info
       > 
       > test_check("msigdbr")
       Killed
-    ```
-
-*   checking running R code from vignettes ... ERROR
-    ```
-    Errors in running code in vignettes:
-    when running code in ‘msigdbr-intro.Rmd’
-      ...
-    #   gs_geoid <chr>, gs_exact_source <chr>, gs_url <chr>, gs_description <chr>,
-    #   taxon_id <int>, ortholog_sources <chr>, num_ortholog_sources <dbl>
-    
-    > cgp_gene_sets = msigdbr(species = "mouse", category = "C2", 
-    +     subcategory = "CGP")
-    
-    > head(cgp_gene_sets)
-    Killed
-    
-    ... incomplete output.  Crash?
-    
-      ‘msigdbr-intro.Rmd’ using ‘UTF-8’... failed to complete the test
     ```
 
 ## In both
@@ -3023,95 +2988,6 @@ Run `revdepcheck::cloud_details(, "starschemar")` for more info
       [ FAIL 8 | WARN 0 | SKIP 0 | PASS 161 ]
       Error: Test failures
       Execution halted
-    ```
-
-# streamDepletr
-
-<details>
-
-* Version: 0.2.0
-* GitHub: https://github.com/FoundrySpatial/streamDepletr
-* Source code: https://github.com/cran/streamDepletr
-* Date/Publication: 2023-07-19 21:30:02 UTC
-* Number of recursive dependencies: 70
-
-Run `revdepcheck::cloud_details(, "streamDepletr")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking running R code from vignettes ... ERROR
-    ```
-    Errors in running code in vignettes:
-    when running code in ‘intro-to-streamDepletr.Rmd’
-      ...
-    1 Dorn Creek            0.426
-    2 Sixmile Creek         0.574
-    
-    > fi <- dplyr::left_join(dplyr::summarize(dplyr::group_by(subset(rdll, 
-    +     reach %in% fi$reach), reach), dist_min = min(dist)), fi, 
-    +     ., by =  .... [TRUNCATED] 
-    
-      When sourcing ‘intro-to-streamDepletr.R’:
-    Error: object '.' not found
-    Execution halted
-    
-      ‘intro-to-streamDepletr.Rmd’ using ‘UTF-8’... failed
-    ```
-
-*   checking re-building of vignette outputs ... NOTE
-    ```
-    Error(s) in re-building vignettes:
-    --- re-building ‘intro-to-streamDepletr.Rmd’ using rmarkdown
-    ```
-
-# text2sdg
-
-<details>
-
-* Version: 1.1.1
-* GitHub: https://github.com/dwulff/text2sdg
-* Source code: https://github.com/cran/text2sdg
-* Date/Publication: 2023-03-17 20:50:02 UTC
-* Number of recursive dependencies: 93
-
-Run `revdepcheck::cloud_details(, "text2sdg")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking running R code from vignettes ... ERROR
-    ```
-    Errors in running code in vignettes:
-    when running code in ‘text2sdg.Rmd’
-      ...
-    Elsevier     0.75   0.24     1.00 0.29 0.23  0.27
-    SDGO         0.34   0.14     0.29 1.00 0.35  0.19
-    SDSN         0.27   0.12     0.23 0.35 1.00  0.19
-    SIRIS        0.32   0.30     0.27 0.19 0.19  1.00
-    
-    > crosstab_sdg(hits_all, compare = "sdgs") %>% round(2)
-    
-      When sourcing ‘text2sdg.R’:
-    Error: object 'document' not found
-    Execution halted
-    
-      ‘text2sdg.Rmd’ using ‘UTF-8’... failed
-    ```
-
-*   checking re-building of vignette outputs ... NOTE
-    ```
-    Error(s) in re-building vignettes:
-    --- re-building ‘text2sdg.Rmd’ using rmarkdown
-    ```
-
-## In both
-
-*   checking data for non-ASCII characters ... NOTE
-    ```
-      Note: found 37 marked UTF-8 strings
     ```
 
 # unheadr
