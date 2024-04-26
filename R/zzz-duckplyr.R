@@ -50,13 +50,13 @@ duckplyr_add_count <- function(x, ...) {
 anti_join.data.frame <- function(x, y, by = NULL, copy = FALSE, ..., na_matches = c("na", "never")) {
   check_dots_empty0(...)
   error_call <- caller_env()
+  y <- auto_copy(x, y, copy = copy)
 
   # https://github.com/duckdb/duckdb/issues/6597
   na_matches <- check_na_matches(na_matches, error_call = error_call)
 
   # Our implementation
   rel_try(call = list(name = "anti_join", x = x, y = y, args = list(by = if(!is.null(by)) as_join_by(by), copy = copy, na_matches = na_matches)),
-    "No relational implementation for anti_join(copy = TRUE)" = copy,
     {
       out <- rel_join_impl(x, y, by, "anti", na_matches, error_call = error_call)
       return(out)
@@ -65,7 +65,7 @@ anti_join.data.frame <- function(x, y, by = NULL, copy = FALSE, ..., na_matches 
 
   # dplyr forward
   anti_join <- anti_join_data_frame
-  out <- anti_join(x, y, by, copy, ..., na_matches = na_matches)
+  out <- anti_join(x, y, by, copy = FALSE, ..., na_matches = na_matches)
   return(out)
 
   # dplyr implementation
@@ -371,7 +371,7 @@ count.data.frame <- function(x, ..., wt = NULL, sort = FALSE, name = NULL, .drop
   by_exprs <- unname(map(by, quo_get_expr))
   is_name <- map_lgl(by_exprs, is_symbol)
 
-  rel_try(call = list(name = "count", x = x, args = list(dots = enquos(...), wt = enquo(wt), sort = sort, name = sym(name), .drop = .drop)),
+  rel_try(call = list(name = "count", x = x, args = list(dots = enquos(...), wt = enquo(wt), sort = sort, name = if (!is.null(name)) sym(name), .drop = .drop)),
     "count() needs all(is_name)" = !all(is_name),
     "count() only implemented for .drop = TRUE" = !.drop,
     "count() only implemented for sort = FALSE" = sort,
@@ -783,11 +783,11 @@ duckplyr_filter <- function(.data, ...) {
 full_join.data.frame <- function(x, y, by = NULL, copy = FALSE, suffix = c(".x", ".y"), ..., keep = NULL, na_matches = c("na", "never"), multiple = "all", relationship = NULL) {
   check_dots_empty0(...)
   error_call <- caller_env()
+  y <- auto_copy(x, y, copy = copy)
 
   # Our implementation
   rel_try(call = list(name = "full_join", x = x, y = y, args = list(by = if(!is.null(by)) as_join_by(by), copy = copy, keep = keep, na_matches = na_matches, multiple = multiple, relationship = relationship)),
     "No implicit cross joins for full_join()" = is_cross_by(by),
-    "No relational implementation for full_join(copy = TRUE)" = copy,
     {
       out <- rel_join_impl(x, y, by, "full", na_matches, suffix, keep, error_call)
       return(out)
@@ -796,7 +796,7 @@ full_join.data.frame <- function(x, y, by = NULL, copy = FALSE, suffix = c(".x",
 
   # dplyr forward
   full_join <- full_join_data_frame
-  out <- full_join(x, y, by, copy, suffix, ..., keep = keep, na_matches = na_matches, multiple = multiple, relationship = relationship)
+  out <- full_join(x, y, by, copy = FALSE, suffix, ..., keep = keep, na_matches = na_matches, multiple = multiple, relationship = relationship)
   return(out)
 
   # dplyr implementation
@@ -1805,11 +1805,11 @@ list_c <- function(x) {
 inner_join.data.frame <- function(x, y, by = NULL, copy = FALSE, suffix = c(".x", ".y"), ..., keep = NULL, na_matches = c("na", "never"), multiple = "all", unmatched = "drop", relationship = NULL) {
   check_dots_empty0(...)
   error_call <- caller_env()
+  y <- auto_copy(x, y, copy = copy)
 
   # Our implementation
   rel_try(call = list(name = "inner_join", x = x, y = y, args = list(by = if(!is.null(by)) as_join_by(by), copy = copy, keep = keep, na_matches = na_matches, multiple = multiple, unmatched = unmatched, relationship = relationship)),
     "No implicit cross joins for inner_join()" = is_cross_by(by),
-    "No relational implementation for inner_join(copy = TRUE)" = copy,
     {
       out <- rel_join_impl(x, y, by, "inner", na_matches, suffix, keep, error_call)
       return(out)
@@ -1818,7 +1818,7 @@ inner_join.data.frame <- function(x, y, by = NULL, copy = FALSE, suffix = c(".x"
 
   # dplyr forward
   inner_join <- inner_join_data_frame
-  out <- inner_join(x, y, by, copy, suffix, ..., keep = keep, na_matches = na_matches, multiple = multiple, unmatched = unmatched, relationship = relationship)
+  out <- inner_join(x, y, by, copy = FALSE, suffix, ..., keep = keep, na_matches = na_matches, multiple = multiple, unmatched = unmatched, relationship = relationship)
   return(out)
 
   # dplyr implementation
@@ -2250,11 +2250,11 @@ rel_join_impl <- function(x, y, by, join, na_matches, suffix, keep, error_call =
 left_join.data.frame <- function(x, y, by = NULL, copy = FALSE, suffix = c(".x", ".y"), ..., keep = NULL, na_matches = c("na", "never"), multiple = "all", unmatched = "drop", relationship = NULL) {
   check_dots_empty0(...)
   error_call <- caller_env()
+  y <- auto_copy(x, y, copy = copy)
 
   # Our implementation
   rel_try(call = list(name = "left_join", x = x, y = y, args = list(by = if(!is.null(by)) as_join_by(by), copy = copy, keep = keep, na_matches = na_matches, multiple = multiple, unmatched = unmatched, relationship = relationship)),
     "No implicit cross joins for left_join()" = is_cross_by(by),
-    "No relational implementation for left_join(copy = TRUE)" = copy,
     {
       out <- rel_join_impl(x, y, by, "left", na_matches, suffix, keep, error_call)
       return(out)
@@ -2263,7 +2263,7 @@ left_join.data.frame <- function(x, y, by = NULL, copy = FALSE, suffix = c(".x",
 
   # dplyr forward
   left_join <- left_join_data_frame
-  out <- left_join(x, y, by, copy, suffix, ..., keep = keep, na_matches = na_matches, multiple = multiple, unmatched = unmatched, relationship = relationship)
+  out <- left_join(x, y, by, copy = FALSE, suffix, ..., keep = keep, na_matches = na_matches, multiple = multiple, unmatched = unmatched, relationship = relationship)
   return(out)
 
   # dplyr implementation
@@ -4342,11 +4342,11 @@ duckplyr_rename_with <- function(.data, ...) {
 right_join.data.frame <- function(x, y, by = NULL, copy = FALSE, suffix = c(".x", ".y"), ..., keep = NULL, na_matches = c("na", "never"), multiple = "all", unmatched = "drop", relationship = NULL) {
   check_dots_empty0(...)
   error_call <- caller_env()
+  y <- auto_copy(x, y, copy = copy)
 
   # Our implementation
   rel_try(call = list(name = "right_join", x = x, y = y, args = list(by = if(!is.null(by)) as_join_by(by), copy = copy, keep = keep, na_matches = na_matches, multiple = multiple, unmatched = unmatched, relationship = relationship)),
     "No implicit cross joins for right_join()" = is_cross_by(by),
-    "No relational implementation for right_join(copy = TRUE)" = copy,
     {
       out <- rel_join_impl(x, y, by, "right", na_matches, suffix, keep, error_call)
       return(out)
@@ -4355,7 +4355,7 @@ right_join.data.frame <- function(x, y, by = NULL, copy = FALSE, suffix = c(".x"
 
   # dplyr forward
   right_join <- right_join_data_frame
-  out <- right_join(x, y, by, copy, suffix, ..., keep = keep, na_matches = na_matches, multiple = multiple, unmatched = unmatched, relationship = relationship)
+  out <- right_join(x, y, by, copy = FALSE, suffix, ..., keep = keep, na_matches = na_matches, multiple = multiple, unmatched = unmatched, relationship = relationship)
   return(out)
 
   # dplyr implementation
@@ -4909,13 +4909,13 @@ duckplyr_select <- function(.data, ...) {
 semi_join.data.frame <- function(x, y, by = NULL, copy = FALSE, ..., na_matches = c("na", "never")) {
   check_dots_empty0(...)
   error_call <- caller_env()
+  y <- auto_copy(x, y, copy = copy)
 
   # https://github.com/duckdb/duckdb/issues/6597
   na_matches <- check_na_matches(na_matches, error_call = error_call)
 
   # Our implementation
   rel_try(call = list(name = "semi_join", x = x, y = y, args = list(by = if(!is.null(by)) as_join_by(by), copy = copy, na_matches = na_matches)),
-    "No relational implementation for semi_join(copy = TRUE)" = copy,
     {
       out <- rel_join_impl(x, y, by, "semi", na_matches, error_call = error_call)
       return(out)
@@ -4924,7 +4924,7 @@ semi_join.data.frame <- function(x, y, by = NULL, copy = FALSE, ..., na_matches 
 
   # dplyr forward
   semi_join <- semi_join_data_frame
-  out <- semi_join(x, y, by, copy, ..., na_matches = na_matches)
+  out <- semi_join(x, y, by, copy = FALSE, ..., na_matches = na_matches)
   return(out)
 
   # dplyr implementation
