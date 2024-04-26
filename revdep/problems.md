@@ -803,63 +803,6 @@ Run `revdepcheck::cloud_details(, "auk")` for more info
       ‘development.Rmd’ using ‘UTF-8’... OK
     ```
 
-# CodelistGenerator
-
-<details>
-
-* Version: 2.2.3
-* GitHub: NA
-* Source code: https://github.com/cran/CodelistGenerator
-* Date/Publication: 2024-03-08 22:20:02 UTC
-* Number of recursive dependencies: 95
-
-Run `revdepcheck::cloud_details(, "CodelistGenerator")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking tests ... ERROR
-    ```
-      Running ‘testthat.R’
-    Running the tests in ‘tests/testthat.R’ failed.
-    Complete output:
-      > # This file is part of the standard setup for testthat.
-      > # It is recommended that you do not modify it.
-      > #
-      > # Where should you do additional test configuration?
-      > # Learn more about the roles of various files in:
-      > # * https://r-pkgs.org/tests.html
-      > # * https://testthat.r-lib.org/reference/test_package.html#special-files
-      > 
-      > library(testthat)
-      > library(CodelistGenerator)
-      > 
-      > test_check("CodelistGenerator")
-      Starting 2 test processes
-      [ FAIL 2 | WARN 0 | SKIP 8 | PASS 281 ]
-      
-      ══ Skipped tests (8) ═══════════════════════════════════════════════════════════
-      • On CRAN (2): 'test-summariseCodeUse.R:2:1', 'test-summariseCodeUse.R:290:3'
-      • Sys.getenv("CDM5_REDSHIFT_DBNAME") == "" is TRUE (4):
-        'test-codesFrom.R:100:3', 'test-dbms.R:6:3', 'test-findUnmappedCodes.R:3:3',
-        'test-summariseCodeUse.R:498:3'
-      • Sys.getenv("CDM5_SQL_SERVER_SERVER") == "" is TRUE (1):
-        'test-codesInUse.R:36:3'
-      • Sys.getenv("darwinDbDatabaseServer") == "" is TRUE (1):
-        'test-synthea_sql_server.R:2:3'
-      
-      ══ Failed tests ════════════════════════════════════════════════════════════════
-      ── Failure ('test-codesFrom.R:26:3'): test inputs - mock ───────────────────────
-      `codesFromConceptSet(...)` did not throw the expected error.
-      ── Failure ('test-codesFrom.R:26:3'): test inputs - mock ───────────────────────
-      `codesFromConceptSet(...)` did not throw the expected error.
-      
-      [ FAIL 2 | WARN 0 | SKIP 8 | PASS 281 ]
-      Error: Test failures
-      Execution halted
-    ```
-
 # crosshap
 
 <details>
@@ -910,12 +853,12 @@ Run `revdepcheck::cloud_details(, "crosshap")` for more info
       > library(crosshap)
       > 
       > test_check("crosshap")
-      ■■■■■                             14% | ETA:  1m
-      ■■■■■■■■■■■■                      36% | ETA: 43s
-      ■■■■■■■■■■■■■■                    43% | ETA: 37s
-      ■■■■■■■■■■■■■■■■■■                57% | ETA: 23s
-      ■■■■■■■■■■■■■■■■■■■■              64% | ETA: 24s
-      ■■■■■■■■■■■■■■■■■■■■■■            71% | ETA: 19s
+      ■■■■■                             14% | ETA: 50s
+      ■■■■■■■■■■                        29% | ETA: 26s
+      ■■■■■■■■■■■■                      36% | ETA: 41s
+      ■■■■■■■■■■■■■■                    43% | ETA: 35s
+      ■■■■■■■■■■■■■■■■■■■■              64% | ETA: 23s
+      ■■■■■■■■■■■■■■■■■■■■■■            71% | ETA: 18s
       ■■■■■■■■■■■■■■■■■■■■■■■■■■■       86% | ETA:  8s
       ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■     93% | ETA:  5s
       ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■  100% | ETA:  0s
@@ -966,7 +909,7 @@ Run `revdepcheck::cloud_details(, "crosshap")` for more info
       20  7.75     0 hap_eps0.99~ 0.99    F          21             48.8         0.667
       # i 3 more variables: .ggraph.orig_index <int>, circular <lgl>,
       #   .ggraph.index <int>
-      ■■■■■■■■■■■                       33% | ETA: 15s
+      ■■■■■■■■■■■                       33% | ETA: 14s
       ■■■■■■■■■■■■■■■■■■■■■             67% | ETA:  5s
       ■■■■■■■■■■■■■■■■■■■■■■■■■■        83% | ETA:  5s
       ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■  100% | ETA:  0s
@@ -1281,31 +1224,49 @@ Run `revdepcheck::cloud_details(, "duckplyr")` for more info
       `environment(actual$as_duckplyr_df)` is <env:namespace:duckplyr>
       `environment(expected$as_duckplyr_df)` is <env:namespace:dplyr>
       
-      body(actual$check_df_for_rel)[50:55] vs body(expected$check_df_for_rel)[50:60]
+      body(actual$check_df_for_rel)[1:5] vs body(expected$check_df_for_rel)[1:6]
+        `{`
+      - `    if (is.character(.row_names_info(df, 0L))) {`
+      + `    rni <- .row_names_info(df, 0L)`
+      + `    if (is.character(rni) || !is.na(rni[[1]])) {`
+        `        cli::cli_abort("Need data frame without row names to convert to relational.")`
+        `    }`
+        `    for (i in seq_along(df)) {`
+      
+      body(actual$check_df_for_rel)[49:54] vs body(expected$check_df_for_rel)[50:60]
+        `            df_attrib <- attributes(df[[i]])`
         `            roundtrip_attrib <- attributes(roundtrip[[i]])`
         `            if (!identical(df_attrib, roundtrip_attrib)) {`
         `                cli::cli_abort("Attributes are lost during conversion. Affected column: {.var {names(df)[[i]]}}.")`
-        `            }`
+      + `            }`
       + `            if (inherits(df[[i]], "POSIXct")) {`
       + `                if (!identical(df[[i]], roundtrip[[i]])) {`
       + `                  cli::cli_abort("Imperfect roundtrip. Affected column: {.var {names(df)[[i]]}}.")`
       + `                }`
-      + `            }`
+        `            }`
         `        }`
-        `    }`
       and 1 more ...
       
       `environment(actual$check_df_for_rel)` is <env:namespace:duckplyr>
       `environment(expected$check_df_for_rel)` is <env:namespace:dplyr>
       
+      body(actual$create_default_duckdb_connection)[1:6] vs body(expected$create_default_duckdb_connection)[1:6]
+        `{`
+        `    con <- DBI::dbConnect(duckdb::duckdb())`
+      - `    DBI::dbExecute(con, "set memory_limit='2GB'")`
+      + `    DBI::dbExecute(con, "set memory_limit='1GB'")`
+        `    DBI::dbExecute(con, paste0("pragma temp_directory='", tempdir(), `
+        `        "'"))`
+        `    for (i in seq_along(duckplyr_macros)) {`
+      
       `environment(actual$create_default_duckdb_connection)` is <env:namespace:duckplyr>
       `environment(expected$create_default_duckdb_connection)` is <env:namespace:dplyr>
       
-      `actual$default_duckdb_connection$con@conn_ref` is <pointer: 0x559f84dd4150>
-      `expected$default_duckdb_connection$con@conn_ref` is <pointer: 0x559f84701590>
+      `actual$default_duckdb_connection$con@conn_ref` is <pointer: 0x55fbdbd747f0>
+      `expected$default_duckdb_connection$con@conn_ref` is <pointer: 0x55fbe0264080>
       
-      `actual$default_duckdb_connection$con@driver@database_ref` is <pointer: 0x559f87fbcd20>
-      `expected$default_duckdb_connection$con@driver@database_ref` is <pointer: 0x559f858a60f0>
+      `actual$default_duckdb_connection$con@driver@database_ref` is <pointer: 0x55fbdb2de1d0>
+      `expected$default_duckdb_connection$con@driver@database_ref` is <pointer: 0x55fbdf81a510>
       
       `environment(actual$df_from_csv)` is <env:namespace:duckplyr>
       `environment(expected$df_from_csv)` is <env:namespace:dplyr>
@@ -1741,19 +1702,19 @@ Run `revdepcheck::cloud_details(, "duckplyr")` for more info
       `expected$rel_stats_env$rel_limit` is absent
       
         `actual$rel_stats_env$rel_names`: 742
-      `expected$rel_stats_env$rel_names`: 348
+      `expected$rel_stats_env$rel_names`: 347
       
         `actual$rel_stats_env$rel_order`: 273
       `expected$rel_stats_env$rel_order`:  69
       
         `actual$rel_stats_env$rel_project`: 904
-      `expected$rel_stats_env$rel_project`: 306
+      `expected$rel_stats_env$rel_project`: 305
       
         `actual$rel_stats_env$rel_set_alias`: 142
       `expected$rel_stats_env$rel_set_alias`:  18
       
         `actual$rel_stats_env$rel_to_df`: 485
-      `expected$rel_stats_env$rel_to_df`: 167
+      `expected$rel_stats_env$rel_to_df`: 166
       
         `actual$rel_stats_env$rel_union_all`: 8
       `expected$rel_stats_env$rel_union_all`: 7
@@ -1927,7 +1888,7 @@ Run `revdepcheck::cloud_details(, "duckplyr")` for more info
       🦆:  661
       add_count, anti_join, arrange, compute, count, cross_join, distinct, do, eval, filter, full_join, group_by, inner_join, intersect, left_join, mutate, mutate.data.frame, nest_join, pull, reframe, relocate, rename, rename_with, right_join, rows_append, rows_delete, rows_insert, rows_patch, rows_update, rows_upsert, rowwise, select, semi_join, setdiff, setequal, slice, slice_head, slice_sample, slice_tail, summarise, symdiff, transmute, ungroup, union_all
       
-      00:01:34.102247
+      00:00:49.682625
       Execution halted
     ```
 
@@ -2298,33 +2259,6 @@ Run `revdepcheck::cloud_details(, "msigdbr")` for more info
       > 
       > test_check("msigdbr")
       Killed
-    ```
-
-*   checking running R code from vignettes ... ERROR
-    ```
-    Errors in running code in vignettes:
-    when running code in ‘msigdbr-intro.Rmd’
-      ...
-    #   gs_geoid <chr>, gs_exact_source <chr>, gs_url <chr>, gs_description <chr>,
-    #   taxon_id <int>, ortholog_sources <chr>, num_ortholog_sources <dbl>
-    
-    > cgp_gene_sets = msigdbr(species = "mouse", category = "C2", 
-    +     subcategory = "CGP")
-    
-    > head(cgp_gene_sets)
-    Killed
-    
-    ... incomplete output.  Crash?
-    
-      ‘msigdbr-intro.Rmd’ using ‘UTF-8’... failed to complete the test
-    ```
-
-*   checking re-building of vignette outputs ... NOTE
-    ```
-    Error(s) in re-building vignettes:
-      ...
-    --- re-building ‘msigdbr-intro.Rmd’ using rmarkdown
-    Killed
     ```
 
 ## In both
@@ -3006,96 +2940,5 @@ Run `revdepcheck::cloud_details(, "unheadr")` for more info
       [ FAIL 1 | WARN 0 | SKIP 0 | PASS 31 ]
       Error: Test failures
       Execution halted
-    ```
-
-# vDiveR
-
-<details>
-
-* Version: 1.2.1
-* GitHub: NA
-* Source code: https://github.com/cran/vDiveR
-* Date/Publication: 2024-01-09 20:20:02 UTC
-* Number of recursive dependencies: 132
-
-Run `revdepcheck::cloud_details(, "vDiveR")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking tests ... ERROR
-    ```
-      Running ‘testthat.R’
-    Running the tests in ‘tests/testthat.R’ failed.
-    Complete output:
-      > # This file is part of the standard setup for testthat.
-      > # It is recommended that you do not modify it.
-      > #
-      > # Where should you do additional test configuration?
-      > # Learn more about the roles of various files in:
-      > # * https://r-pkgs.org/tests.html
-      > # * https://testthat.r-lib.org/reference/test_package.html#special-files
-      > 
-      > library(testthat)
-      > library(vDiveR)
-      > 
-      > test_check("vDiveR")
-      [ FAIL 8 | WARN 0 | SKIP 0 | PASS 63 ]
-      
-      ══ Failed tests ════════════════════════════════════════════════════════════════
-      ── Failure ('test-concat-seq.R:58:5'): Test Case 3: 9-mer HCS (single host), with FASTA output ──
-      HCS_1host[1, 1] (`actual`) not equal to ">HCS_A_1" (`expected`).
-      
-      `names(actual)` is a character vector ('HCS')
-      `names(expected)` is absent
-      ── Failure ('test-concat-seq.R:59:5'): Test Case 3: 9-mer HCS (single host), with FASTA output ──
-      HCS_1host[2, 1] (`actual`) not equal to "MSTNPKPQRKTKRNTNRR" (`expected`).
-      
-      `names(actual)` is a character vector ('Sequence')
-      `names(expected)` is absent
-      ── Failure ('test-concat-seq.R:61:5'): Test Case 3: 9-mer HCS (single host), with FASTA output ──
-      HCS_1host[5, 1] (`actual`) not equal to ">HCS_A_3" (`expected`).
-      
-      `names(actual)` is a character vector ('HCS')
-      `names(expected)` is absent
-      ── Failure ('test-concat-seq.R:62:5'): Test Case 3: 9-mer HCS (single host), with FASTA output ──
-      HCS_1host[6, 1] (`actual`) not equal to "RKTSERSQPRGRRQPIPK" (`expected`).
-      
-      `names(actual)` is a character vector ('Sequence')
-      `names(expected)` is absent
-      ── Failure ('test-concat-seq.R:64:5'): Test Case 3: 9-mer HCS (single host), with FASTA output ──
-      HCS_1host[11, 1] (`actual`) not equal to ">HCS_B_1" (`expected`).
-      
-      `names(actual)` is a character vector ('HCS')
-      `names(expected)` is absent
-      ── Failure ('test-concat-seq.R:65:5'): Test Case 3: 9-mer HCS (single host), with FASTA output ──
-      HCS_1host[12, 1] (`actual`) not equal to "TSLTGRDKN" (`expected`).
-      
-      `names(actual)` is a character vector ('Sequence')
-      `names(expected)` is absent
-      ── Failure ('test-concat-seq.R:74:5'): Test Case 4: 9-mer CCS (single host), with FASTA output ──
-      CCS_1host[1, 1] (`actual`) not equal to ">CCS_A_1" (`expected`).
-      
-      `names(actual)` is a character vector ('CCS')
-      `names(expected)` is absent
-      ── Failure ('test-concat-seq.R:75:5'): Test Case 4: 9-mer CCS (single host), with FASTA output ──
-      CCS_1host[2, 1] (`actual`) not equal to "MSTNPKPQRKTKRNTNRR" (`expected`).
-      
-      `names(actual)` is a character vector ('Sequence')
-      `names(expected)` is absent
-      
-      [ FAIL 8 | WARN 0 | SKIP 0 | PASS 63 ]
-      Error: Test failures
-      Execution halted
-    ```
-
-## In both
-
-*   checking dependencies in R code ... NOTE
-    ```
-    Namespaces in Imports field not imported from:
-      ‘DT’ ‘maps’ ‘readr’
-      All declared Imports should be used.
     ```
 
