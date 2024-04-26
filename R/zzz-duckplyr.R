@@ -2951,7 +2951,7 @@ duckplyr_macros <- c(
 create_default_duckdb_connection <- function() {
   con <- DBI::dbConnect(duckdb::duckdb())
 
-  DBI::dbExecute(con, "set memory_limit='2GB'")
+  DBI::dbExecute(con, "set memory_limit='1GB'")
   DBI::dbExecute(con, paste0("pragma temp_directory='", tempdir(), "'"))
 
   for (i in seq_along(duckplyr_macros)) {
@@ -2996,7 +2996,8 @@ duckdb_rel_from_df <- function(df) {
 
 # FIXME: This should be duckdb's responsibility
 check_df_for_rel <- function(df) {
-  if (is.character(.row_names_info(df, 0L))) {
+  rni <- .row_names_info(df, 0L)
+  if (is.character(rni) || !is.na(rni[[1]])) {
     cli::cli_abort("Need data frame without row names to convert to relational.")
   }
 
