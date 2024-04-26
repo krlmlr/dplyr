@@ -1,8 +1,8 @@
 ## revdepcheck results
 
-We checked 24 reverse dependencies, comparing R CMD check results across CRAN and dev versions of this package.
+We checked 21 reverse dependencies, comparing R CMD check results across CRAN and dev versions of this package.
 
- * We saw 21 new problems
+ * We saw 20 new problems
  * We failed to check 0 packages
 
 Issues with CRAN packages are summarised below.
@@ -43,16 +43,9 @@ Issues with CRAN packages are summarised below.
 * msigdbr
   checking tests ... ERROR
   checking running R code from vignettes ... ERROR
-  checking re-building of vignette outputs ... NOTE
 
 * mtdesign
   checking tests ... ERROR
-
-* NeuroDecodeR
-  checking examples ... ERROR
-  checking tests ... ERROR
-  checking running R code from vignettes ... ERROR
-  checking re-building of vignette outputs ... NOTE
 
 * partition
   checking running R code from vignettes ... ERROR

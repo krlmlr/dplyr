@@ -967,7 +967,6 @@ Run `revdepcheck::cloud_details(, "crosshap")` for more info
       # i 3 more variables: .ggraph.orig_index <int>, circular <lgl>,
       #   .ggraph.index <int>
       ■■■■■■■■■■■                       33% | ETA:  5s
-      ■■■■■■■■■■■■■■■■■■■■■             67% | ETA:  2s
       ■■■■■■■■■■■■■■■■■■■■■■■■■■        83% | ETA:  1s
       ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■  100% | ETA:  0s
       WARNING: Phenotype association scores (phenodiff) not calculated for 252 of 2041 sites
@@ -976,7 +975,7 @@ Run `revdepcheck::cloud_details(, "crosshap")` for more info
       Haplotyping was performed with hetphenos = F, meaning phenotype association scores for heterozygous sites was ignored.
       ✔ Haplotyping complete!
       Info saved in Haplotypes_30_E objects
-      ■■■■■■■■■■■                       33% | ETA:  6s
+      ■■■■■■■■■■■                       33% | ETA:  5s
       ■■■■■■■■■■■■■■■■■■■■■             67% | ETA:  2s
       ■■■■■■■■■■■■■■■■■■■■■■■■■■        83% | ETA:  1s
       ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■  100% | ETA:  0s
@@ -1300,11 +1299,11 @@ Run `revdepcheck::cloud_details(, "duckplyr")` for more info
       `environment(actual$create_default_duckdb_connection)` is <env:namespace:duckplyr>
       `environment(expected$create_default_duckdb_connection)` is <env:namespace:dplyr>
       
-      `actual$default_duckdb_connection$con@conn_ref` is <pointer: 0x55be50e52160>
-      `expected$default_duckdb_connection$con@conn_ref` is <pointer: 0x55be550f1aa0>
+      `actual$default_duckdb_connection$con@conn_ref` is <pointer: 0x56325325bee0>
+      `expected$default_duckdb_connection$con@conn_ref` is <pointer: 0x5632583ab8b0>
       
-      `actual$default_duckdb_connection$con@driver@database_ref` is <pointer: 0x55be4ce9b360>
-      `expected$default_duckdb_connection$con@driver@database_ref` is <pointer: 0x55be51702190>
+      `actual$default_duckdb_connection$con@driver@database_ref` is <pointer: 0x563254f47dd0>
+      `expected$default_duckdb_connection$con@driver@database_ref` is <pointer: 0x563254ee43f0>
       
       `environment(actual$df_from_csv)` is <env:namespace:duckplyr>
       `environment(expected$df_from_csv)` is <env:namespace:dplyr>
@@ -1814,6 +1813,23 @@ Run `revdepcheck::cloud_details(, "duckplyr")` for more info
         `    }`
         `    stats$attempts <- stats$attempts + 1L`
       
+      body(actual$rel_try)[34:43] vs body(expected$rel_try)[34:47]
+        `            return()`
+        `        }`
+        `    }`
+      - `    DBI::dbExecute(get_default_duckdb_connection(), "SET max_expression_depth TO 100")`
+      - `    withr::defer({`
+      - `        DBI::dbExecute(get_default_duckdb_connection(), "SET max_expression_depth TO 200")`
+      - `    })`
+      + `    max_expression_depth <- DBI::dbGetQuery(get_default_duckdb_connection(), `
+      + `        "SELECT current_setting('max_expression_depth')")[[1]]`
+      + `    if (max_expression_depth != 100) {`
+      + `        DBI::dbExecute(get_default_duckdb_connection(), "SET max_expression_depth TO 100")`
+      + `        withr::defer({`
+      + `            DBI::dbExecute(get_default_duckdb_connection(), "SET max_expression_depth TO 200")`
+      + `        })`
+      and 4 more ...
+      
       `environment(actual$rel_try)` is <env:namespace:duckplyr>
       `environment(expected$rel_try)` is <env:namespace:dplyr>
       
@@ -1905,7 +1921,7 @@ Run `revdepcheck::cloud_details(, "duckplyr")` for more info
       🦆:  661
       add_count, anti_join, arrange, compute, count, cross_join, distinct, do, eval, filter, full_join, group_by, inner_join, intersect, left_join, mutate, mutate.data.frame, nest_join, pull, reframe, relocate, rename, rename_with, right_join, rows_append, rows_delete, rows_insert, rows_patch, rows_update, rows_upsert, rowwise, select, semi_join, setdiff, setequal, slice, slice_head, slice_sample, slice_tail, summarise, symdiff, transmute, ungroup, union_all
       
-      00:01:31.498321
+      00:01:38.152647
       Execution halted
     ```
 
@@ -2297,14 +2313,6 @@ Run `revdepcheck::cloud_details(, "msigdbr")` for more info
       ‘msigdbr-intro.Rmd’ using ‘UTF-8’... failed to complete the test
     ```
 
-*   checking re-building of vignette outputs ... NOTE
-    ```
-    Error(s) in re-building vignettes:
-      ...
-    --- re-building ‘msigdbr-intro.Rmd’ using rmarkdown
-    Killed
-    ```
-
 ## In both
 
 *   checking installed package size ... NOTE
@@ -2340,144 +2348,6 @@ Run `revdepcheck::cloud_details(, "mtdesign")` for more info
       > 
       > test_check("mtdesign")
       Killed
-    ```
-
-# NeuroDecodeR
-
-<details>
-
-* Version: 0.2.0
-* GitHub: https://github.com/emeyers/NeuroDecodeR
-* Source code: https://github.com/cran/NeuroDecodeR
-* Date/Publication: 2024-03-15 11:40:02 UTC
-* Number of recursive dependencies: 86
-
-Run `revdepcheck::cloud_details(, "NeuroDecodeR")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking examples ... ERROR
-    ```
-    Running examples in ‘NeuroDecodeR-Ex.R’ failed
-    The error most likely occurred in:
-    
-    > ### Name: get_num_label_repetitions
-    > ### Title: Get the number of sites have at least k trials of each label
-    > ###   level
-    > ### Aliases: get_num_label_repetitions
-    > 
-    > ### ** Examples
-    > 
-    > data_file <- system.file("extdata/ZD_150bins_50sampled.Rda", package = "NeuroDecodeR")
-    > label_rep_info <- get_num_label_repetitions(data_file, "stimulus_ID")
-    Error: Error evaluating duckdb query: Parser Error: Maximum tree depth of 200 exceeded in logical planner
-    Execution halted
-    ```
-
-*   checking tests ... ERROR
-    ```
-      Running ‘testthat.R’
-    Running the tests in ‘tests/testthat.R’ failed.
-    Complete output:
-      > library(testthat)
-      > library(NeuroDecodeR)
-      > 
-      > test_check("NeuroDecodeR")
-      
-        |                                                                            
-        |                                                                      |   0%
-        |                                                                            
-        |==================                                                    |  25%
-        |                                                                            
-        |===================================                                   |  50%
-        |                                                                            
-        |====================================================                  |  75%
-        |                                                                            
-        |======================================================================| 100%
-        |                                                                            
-        |                                                                      |   0%
-        |                                                                            
-        |===================================                                   |  50%
-        |                                                                            
-        |======================================================================| 100%
-        |                                                                            
-        |                                                                      |   0%
-        |                                                                            
-        |===================================                                   |  50%
-        |                                                                            
-        |======================================================================| 100%[1] "2024-04-25 06:34:45 UTC"
-       [1] 0.1190476 0.1666667 0.1547619 0.1626984 0.1230159 0.1349206 0.1388889
-       [8] 0.1230159 0.1150794 0.1349206 0.3611111 0.8373016 0.8690476 0.7658730
-      [15] 0.7182540 0.6111111 0.6031746 0.7023810
-      1 Mb
-      
-        |                                                                            
-        |                                                                      |   0%
-        |                                                                            
-        |===================================                                   |  50%
-        |                                                                            
-        |======================================================================| 100%[ FAIL 1 | WARN 0 | SKIP 0 | PASS 160 ]
-      
-      ══ Failed tests ════════════════════════════════════════════════════════════════
-      ── Error ('test-bin_convert_data.R:237:3'): get_num_label_repetitions() correctly assesses how many times a label was repeated ──
-      Error: Error evaluating duckdb query: Parser Error: Maximum tree depth of 200 exceeded in logical planner
-      Backtrace:
-           ▆
-        1. └─NeuroDecodeR::get_num_label_repetitions(file_name, "stimulus_ID") at test-bin_convert_data.R:237:3
-        2.   ├─dplyr::left_join(...)
-        3.   └─dplyr:::left_join.data.frame(...)
-        4.     └─dplyr::left_join(...)
-        5.       └─dplyr:::join_mutate(...)
-        6.         ├─tibble::as_tibble(x, .name_repair = "minimal")
-        7.         └─tibble:::as_tibble.data.frame(x, .name_repair = "minimal")
-        8.           └─base::nrow(x)
-        9.             ├─base::dim(x)
-       10.             └─base::dim.data.frame(x)
-       11.               └─base::.row_names_info(x, 2L)
-      
-      [ FAIL 1 | WARN 0 | SKIP 0 | PASS 160 ]
-      Error: Test failures
-      Execution halted
-    ```
-
-*   checking running R code from vignettes ... ERROR
-    ```
-    Errors in running code in vignettes:
-    when running code in ‘introduction_tutorial.Rmd’
-      ...
-    
-    > binned_file_name <- system.file(file.path("extdata", 
-    +     "ZD_150bins_50sampled.Rda"), package = "NeuroDecodeR")
-    
-    > label_rep_info <- get_num_label_repetitions(binned_file_name, 
-    +     "stimulus_ID")
-    
-      When sourcing ‘introduction_tutorial.R’:
-    Error: Error evaluating duckdb query: Parser Error: Maximum tree depth of 200 exceeded in logical planner
-    Execution halted
-    
-      ‘NDR_object_specification.Rmd’ using ‘UTF-8’... OK
-      ‘data_formats.Rmd’ using ‘UTF-8’... OK
-      ‘datasets.Rmd’ using ‘UTF-8’... OK
-      ‘generalization_tutorial.Rmd’ using ‘UTF-8’... OK
-      ‘introduction_tutorial.Rmd’ using ‘UTF-8’... failed
-    ```
-
-*   checking re-building of vignette outputs ... NOTE
-    ```
-    Error(s) in re-building vignettes:
-    --- re-building ‘NDR_object_specification.Rmd’ using rmarkdown
-    --- finished re-building ‘NDR_object_specification.Rmd’
-    
-    --- re-building ‘data_formats.Rmd’ using rmarkdown
-    --- finished re-building ‘data_formats.Rmd’
-    
-    --- re-building ‘datasets.Rmd’ using rmarkdown
-    --- finished re-building ‘datasets.Rmd’
-    
-    --- re-building ‘generalization_tutorial.Rmd’ using rmarkdown
     ```
 
 # partition
