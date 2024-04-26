@@ -43,7 +43,6 @@ Suggests:
     covr,
     DBI,
     dbplyr (>= 2.2.1),
-    duckdb,
     ggplot2,
     knitr,
     Lahman,
