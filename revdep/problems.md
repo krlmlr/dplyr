@@ -910,12 +910,14 @@ Run `revdepcheck::cloud_details(, "crosshap")` for more info
       > library(crosshap)
       > 
       > test_check("crosshap")
-      ■■■■■                             14% | ETA: 14s
-      ■■■■■■■■■■                        29% | ETA:  9s
-      ■■■■■■■■■■■■■■                    43% | ETA: 11s
-      ■■■■■■■■■■■■■■■■■■                57% | ETA:  7s
-      ■■■■■■■■■■■■■■■■■■■■■■            71% | ETA:  5s
-      ■■■■■■■■■■■■■■■■■■■■■■■■■■■       86% | ETA:  3s
+      ■■■■■                             14% | ETA:  1m
+      ■■■■■■■■■■■■                      36% | ETA: 43s
+      ■■■■■■■■■■■■■■                    43% | ETA: 37s
+      ■■■■■■■■■■■■■■■■■■                57% | ETA: 23s
+      ■■■■■■■■■■■■■■■■■■■■              64% | ETA: 24s
+      ■■■■■■■■■■■■■■■■■■■■■■            71% | ETA: 19s
+      ■■■■■■■■■■■■■■■■■■■■■■■■■■■       86% | ETA:  8s
+      ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■     93% | ETA:  5s
       ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■  100% | ETA:  0s
       WARNING: Phenotype association scores (phenodiff) not calculated for 252 of 2041 sites
       NOTE: 432 sites have more heterozygous individuals (1/0) than one of the homozygous states (1/1 or 0/0).
@@ -964,8 +966,9 @@ Run `revdepcheck::cloud_details(, "crosshap")` for more info
       20  7.75     0 hap_eps0.99~ 0.99    F          21             48.8         0.667
       # i 3 more variables: .ggraph.orig_index <int>, circular <lgl>,
       #   .ggraph.index <int>
-      ■■■■■■■■■■■                       33% | ETA:  4s
-      ■■■■■■■■■■■■■■■■■■■■■             67% | ETA:  2s
+      ■■■■■■■■■■■                       33% | ETA: 15s
+      ■■■■■■■■■■■■■■■■■■■■■             67% | ETA:  5s
+      ■■■■■■■■■■■■■■■■■■■■■■■■■■        83% | ETA:  5s
       ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■  100% | ETA:  0s
       WARNING: Phenotype association scores (phenodiff) not calculated for 252 of 2041 sites
       NOTE: 432 sites have more heterozygous individuals (1/0) than one of the homozygous states (1/1 or 0/0).
@@ -973,8 +976,9 @@ Run `revdepcheck::cloud_details(, "crosshap")` for more info
       Haplotyping was performed with hetphenos = F, meaning phenotype association scores for heterozygous sites was ignored.
       ✔ Haplotyping complete!
       Info saved in Haplotypes_30_E objects
-      ■■■■■■■■■■■                       33% | ETA:  4s
-      ■■■■■■■■■■■■■■■■■■■■■             67% | ETA:  2s
+      ■■■■■■■■■■■                       33% | ETA: 15s
+      ■■■■■■■■■■■■■■■■■■■■■             67% | ETA:  5s
+      ■■■■■■■■■■■■■■■■■■■■■■■■■■        83% | ETA:  5s
       ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■  100% | ETA:  0s
       WARNING: Phenotype association scores (phenodiff) not calculated for 252 of 2041 sites
       NOTE: 432 sites have more heterozygous individuals (1/0) than one of the homozygous states (1/1 or 0/0).
@@ -1277,17 +1281,31 @@ Run `revdepcheck::cloud_details(, "duckplyr")` for more info
       `environment(actual$as_duckplyr_df)` is <env:namespace:duckplyr>
       `environment(expected$as_duckplyr_df)` is <env:namespace:dplyr>
       
+      body(actual$check_df_for_rel)[50:55] vs body(expected$check_df_for_rel)[50:60]
+        `            roundtrip_attrib <- attributes(roundtrip[[i]])`
+        `            if (!identical(df_attrib, roundtrip_attrib)) {`
+        `                cli::cli_abort("Attributes are lost during conversion. Affected column: {.var {names(df)[[i]]}}.")`
+        `            }`
+      + `            if (inherits(df[[i]], "POSIXct")) {`
+      + `                if (!identical(df[[i]], roundtrip[[i]])) {`
+      + `                  cli::cli_abort("Imperfect roundtrip. Affected column: {.var {names(df)[[i]]}}.")`
+      + `                }`
+      + `            }`
+        `        }`
+        `    }`
+      and 1 more ...
+      
       `environment(actual$check_df_for_rel)` is <env:namespace:duckplyr>
       `environment(expected$check_df_for_rel)` is <env:namespace:dplyr>
       
       `environment(actual$create_default_duckdb_connection)` is <env:namespace:duckplyr>
       `environment(expected$create_default_duckdb_connection)` is <env:namespace:dplyr>
       
-      `actual$default_duckdb_connection$con@conn_ref` is <pointer: 0x55ae0f027e00>
-      `expected$default_duckdb_connection$con@conn_ref` is <pointer: 0x55ae0d4b5b70>
+      `actual$default_duckdb_connection$con@conn_ref` is <pointer: 0x559f84dd4150>
+      `expected$default_duckdb_connection$con@conn_ref` is <pointer: 0x559f84701590>
       
-      `actual$default_duckdb_connection$con@driver@database_ref` is <pointer: 0x55ae120125d0>
-      `expected$default_duckdb_connection$con@driver@database_ref` is <pointer: 0x55ae0b729660>
+      `actual$default_duckdb_connection$con@driver@database_ref` is <pointer: 0x559f87fbcd20>
+      `expected$default_duckdb_connection$con@driver@database_ref` is <pointer: 0x559f858a60f0>
       
       `environment(actual$df_from_csv)` is <env:namespace:duckplyr>
       `environment(expected$df_from_csv)` is <env:namespace:dplyr>
@@ -1760,8 +1778,12 @@ Run `revdepcheck::cloud_details(, "duckplyr")` for more info
       `environment(actual$rel_to_df.relational_df)` is <env:namespace:duckplyr>
       `environment(expected$rel_to_df.relational_df)` is <env:namespace:dplyr>
       
-      body(actual$rel_translate)[64:70] vs body(expected$rel_translate)[64:70]
-        `                    values <- eval(expr[[3]], envir = baseenv())`
+      body(actual$rel_translate)[61:70] vs body(expected$rel_translate)[61:70]
+        `                  }`
+        `                }, \`%in%\` = {`
+        `                  tryCatch({`
+      - `                    values <- eval(expr[[3]], envir = baseenv())`
+      + `                    values <- eval(expr[[3]], envir = env)`
         `                    consts <- map(values, do_translate, in_window = in_window)`
         `                    ops <- map(consts, list, do_translate(expr[[2]]))`
       - `                    cmp <- map(ops, relexpr_function, name = "==")`
@@ -1905,7 +1927,7 @@ Run `revdepcheck::cloud_details(, "duckplyr")` for more info
       🦆:  661
       add_count, anti_join, arrange, compute, count, cross_join, distinct, do, eval, filter, full_join, group_by, inner_join, intersect, left_join, mutate, mutate.data.frame, nest_join, pull, reframe, relocate, rename, rename_with, right_join, rows_append, rows_delete, rows_insert, rows_patch, rows_update, rows_upsert, rowwise, select, semi_join, setdiff, setequal, slice, slice_head, slice_sample, slice_tail, summarise, symdiff, transmute, ungroup, union_all
       
-      00:00:56.962274
+      00:01:34.102247
       Execution halted
     ```
 
@@ -2276,6 +2298,33 @@ Run `revdepcheck::cloud_details(, "msigdbr")` for more info
       > 
       > test_check("msigdbr")
       Killed
+    ```
+
+*   checking running R code from vignettes ... ERROR
+    ```
+    Errors in running code in vignettes:
+    when running code in ‘msigdbr-intro.Rmd’
+      ...
+    #   gs_geoid <chr>, gs_exact_source <chr>, gs_url <chr>, gs_description <chr>,
+    #   taxon_id <int>, ortholog_sources <chr>, num_ortholog_sources <dbl>
+    
+    > cgp_gene_sets = msigdbr(species = "mouse", category = "C2", 
+    +     subcategory = "CGP")
+    
+    > head(cgp_gene_sets)
+    Killed
+    
+    ... incomplete output.  Crash?
+    
+      ‘msigdbr-intro.Rmd’ using ‘UTF-8’... failed to complete the test
+    ```
+
+*   checking re-building of vignette outputs ... NOTE
+    ```
+    Error(s) in re-building vignettes:
+      ...
+    --- re-building ‘msigdbr-intro.Rmd’ using rmarkdown
+    Killed
     ```
 
 ## In both
@@ -2677,73 +2726,6 @@ Run `revdepcheck::cloud_details(, "rWCVP")` for more info
 *   checking data for non-ASCII characters ... NOTE
     ```
       Note: found 16 marked UTF-8 strings
-    ```
-
-# sapfluxnetr
-
-<details>
-
-* Version: 0.1.4
-* GitHub: https://github.com/sapfluxnet/sapfluxnetr
-* Source code: https://github.com/cran/sapfluxnetr
-* Date/Publication: 2023-01-25 15:30:02 UTC
-* Number of recursive dependencies: 82
-
-Run `revdepcheck::cloud_details(, "sapfluxnetr")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking tests ... ERROR
-    ```
-      Running ‘testthat.R’
-    Running the tests in ‘tests/testthat.R’ failed.
-    Complete output:
-      > library(testthat)
-      > library(sapfluxnetr)
-      > 
-      > test_check("sapfluxnetr")
-      Starting 2 test processes
-      [ FAIL 1 | WARN 0 | SKIP 19 | PASS 329 ]
-      
-      ══ Skipped tests (19) ══════════════════════════════════════════════════════════
-      • On CRAN (19): 'test-metrics.R:345:3', 'test-metrics.R:412:3',
-        'test-metrics.R:459:3', 'test-metrics.R:506:3', 'test-metrics.R:605:3',
-        'test-metrics.R:672:3', 'test-metrics.R:691:3', 'test-metrics.R:710:3',
-        'test-metrics.R:729:3', 'test-metrics.R:748:3', 'test-metrics.R:767:3',
-        'test-metrics.R:786:3', 'test-metrics.R:854:3', 'test-metrics.R:879:3',
-        'test-metrics.R:968:3', 'test-metrics.R:1001:3', 'test-metrics.R:1035:3',
-        'test-metrics.R:1069:3', 'test-sfn_data_classes.R:60:3'
-      
-      ══ Failed tests ════════════════════════════════════════════════════════════════
-      ── Error ('test-sfn_dplyr_methods.R:14:3'): sfn_filter returns correct results ──
-      Error in `validObject(.Object)`: invalid class "sfn_data" object: 1: nrow(*_flags) =! nrow(*_flags) | nrow(*_flags) =! nrow(*_data)
-      invalid class "sfn_data" object: 2: nrow(sapf_flags) != length(timestamp) | nrow(env_flags) != length(timestamp)
-      Backtrace:
-           ▆
-        1. └─sapfluxnetr::sfn_filter(...) at test-sfn_dplyr_methods.R:14:3
-        2.   └─sapfluxnetr::sfn_data(...)
-        3.     └─methods::new(`<chr>`, ...)
-        4.       ├─methods::initialize(value, ...)
-        5.       └─sapfluxnetr::initialize(value, ...)
-        6.         └─sapfluxnetr (local) .local(.Object, ...)
-        7.           ├─methods::callNextMethod(...)
-        8.           │ └─base::eval(call, callEnv)
-        9.           │   └─base::eval(call, callEnv)
-       10.           └─methods (local) .nextMethod(...)
-       11.             └─methods::validObject(.Object)
-      
-      [ FAIL 1 | WARN 0 | SKIP 19 | PASS 329 ]
-      Error: Test failures
-      Execution halted
-    ```
-
-## In both
-
-*   checking data for non-ASCII characters ... NOTE
-    ```
-      Note: found 4 marked UTF-8 strings
     ```
 
 # starschemar
