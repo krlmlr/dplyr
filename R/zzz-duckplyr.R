@@ -2997,8 +2997,13 @@ duckdb_rel_from_df <- function(df) {
 # FIXME: This should be duckdb's responsibility
 check_df_for_rel <- function(df) {
   rni <- .row_names_info(df, 0L)
-  if (is.character(rni) || !is.na(rni[[1]])) {
-    cli::cli_abort("Need data frame without row names to convert to relational.")
+  if (is.character(rni)) {
+    cli::cli_abort("Need data frame without row names to convert to relational, got character row names.")
+  }
+  if (length(rni) != 0) {
+    if (length(rni) != 2L || !is.na(rni[[1]])) {
+      cli::cli_abort("Need data frame without row names to convert to relational, got numeric row names.")
+    }
   }
 
   for (i in seq_along(df)) {
@@ -4025,6 +4030,13 @@ rel_translate <- function(
           pkg <- NULL
         }
 
+        if (!(name %in% c("wday", "strftime", "lag", "lead"))) {
+          if (!is.null(names(expr)) && any(names(expr) != "")) {
+            # Fix grepl() logic below when allowing matching by argument name
+            cli::cli_abort("Can't translate named argument {.code {name}({names(expr)[names(expr) != ''][[1]]} = )}.")
+          }
+        }
+
         switch(name,
           "(" = {
             return(do_translate(expr[[2]], in_window = in_window))
@@ -4156,6 +4168,13 @@ rel_translate <- function(
         }
 
         args <- map(as.list(expr[-1]), do_translate, in_window = in_window || window)
+
+        if (name == "grepl") {
+          if (!inherits(args[[1]], "relational_relexpr_constant")) {
+            cli::cli_abort("Only constant patterns are supported in {.code grepl()}")
+          }
+        }
+
         fun <- relexpr_function(name, args)
         if (window) {
           partitions <- map(partition, relexpr_reference)
@@ -4202,7 +4221,7 @@ relocate.data.frame <- function(.data, ..., .before = NULL, .after = NULL) {
   exprs <- exprs_from_loc(.data, loc)
 
   # Ensure `relocate()` appears in call stack
-  rel_try(call = list(name = "relocate", x = .data, args = list(dots = enquos(...))),
+  rel_try(call = list(name = "relocate", x = .data, args = list(dots = enquos(...), .before = enquo(.before), .after = enquo(.after))),
     "Can't use relational with zero-column result set." = (length(exprs) == 0),
     {
       rel <- duckdb_rel_from_df(.data)
