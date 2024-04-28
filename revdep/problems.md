@@ -2,10 +2,10 @@
 
 <details>
 
-* Version: 2.0.2
+* Version: 2.1.0
 * GitHub: https://github.com/pydemull/activAnalyzer
 * Source code: https://github.com/cran/activAnalyzer
-* Date/Publication: 2024-01-08 23:10:15 UTC
+* Date/Publication: 2024-04-26 21:50:02 UTC
 * Number of recursive dependencies: 150
 
 Run `revdepcheck::cloud_details(, "activAnalyzer")` for more info
@@ -541,7 +541,7 @@ Run `revdepcheck::cloud_details(, "activAnalyzer")` for more info
 * GitHub: https://github.com/apache/arrow
 * Source code: https://github.com/cran/arrow
 * Date/Publication: 2024-03-12 12:30:10 UTC
-* Number of recursive dependencies: 78
+* Number of recursive dependencies: 77
 
 Run `revdepcheck::cloud_details(, "arrow")` for more info
 
@@ -853,14 +853,14 @@ Run `revdepcheck::cloud_details(, "crosshap")` for more info
       > library(crosshap)
       > 
       > test_check("crosshap")
-      ■■■■■                             14% | ETA: 50s
-      ■■■■■■■■■■                        29% | ETA: 26s
-      ■■■■■■■■■■■■                      36% | ETA: 41s
-      ■■■■■■■■■■■■■■                    43% | ETA: 35s
-      ■■■■■■■■■■■■■■■■■■■■              64% | ETA: 23s
-      ■■■■■■■■■■■■■■■■■■■■■■            71% | ETA: 18s
-      ■■■■■■■■■■■■■■■■■■■■■■■■■■■       86% | ETA:  8s
-      ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■     93% | ETA:  5s
+      ■■■■■                             14% | ETA: 15s
+      ■■■■■■■■■■                        29% | ETA: 10s
+      ■■■■■■■■■■■■                      36% | ETA: 17s
+      ■■■■■■■■■■■■■■                    43% | ETA: 16s
+      ■■■■■■■■■■■■■■■■■■■■              64% | ETA: 11s
+      ■■■■■■■■■■■■■■■■■■■■■■            71% | ETA:  9s
+      ■■■■■■■■■■■■■■■■■■■■■■■■■■■       86% | ETA:  4s
+      ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■     93% | ETA:  2s
       ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■  100% | ETA:  0s
       WARNING: Phenotype association scores (phenodiff) not calculated for 252 of 2041 sites
       NOTE: 432 sites have more heterozygous individuals (1/0) than one of the homozygous states (1/1 or 0/0).
@@ -909,9 +909,8 @@ Run `revdepcheck::cloud_details(, "crosshap")` for more info
       20  7.75     0 hap_eps0.99~ 0.99    F          21             48.8         0.667
       # i 3 more variables: .ggraph.orig_index <int>, circular <lgl>,
       #   .ggraph.index <int>
-      ■■■■■■■■■■■                       33% | ETA: 14s
-      ■■■■■■■■■■■■■■■■■■■■■             67% | ETA:  5s
-      ■■■■■■■■■■■■■■■■■■■■■■■■■■        83% | ETA:  5s
+      ■■■■■■■■■■■                       33% | ETA:  4s
+      ■■■■■■■■■■■■■■■■■■■■■■■■■■        83% | ETA:  2s
       ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■  100% | ETA:  0s
       WARNING: Phenotype association scores (phenodiff) not calculated for 252 of 2041 sites
       NOTE: 432 sites have more heterozygous individuals (1/0) than one of the homozygous states (1/1 or 0/0).
@@ -919,9 +918,9 @@ Run `revdepcheck::cloud_details(, "crosshap")` for more info
       Haplotyping was performed with hetphenos = F, meaning phenotype association scores for heterozygous sites was ignored.
       ✔ Haplotyping complete!
       Info saved in Haplotypes_30_E objects
-      ■■■■■■■■■■■                       33% | ETA: 15s
-      ■■■■■■■■■■■■■■■■■■■■■             67% | ETA:  5s
-      ■■■■■■■■■■■■■■■■■■■■■■■■■■        83% | ETA:  5s
+      ■■■■■■■■■■■                       33% | ETA:  4s
+      ■■■■■■■■■■■■■■■■■■■■■             67% | ETA:  2s
+      ■■■■■■■■■■■■■■■■■■■■■■■■■■        83% | ETA:  2s
       ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■  100% | ETA:  0s
       WARNING: Phenotype association scores (phenodiff) not calculated for 252 of 2041 sites
       NOTE: 432 sites have more heterozygous individuals (1/0) than one of the homozygous states (1/1 or 0/0).
@@ -1224,27 +1223,33 @@ Run `revdepcheck::cloud_details(, "duckplyr")` for more info
       `environment(actual$as_duckplyr_df)` is <env:namespace:duckplyr>
       `environment(expected$as_duckplyr_df)` is <env:namespace:dplyr>
       
-      body(actual$check_df_for_rel)[1:5] vs body(expected$check_df_for_rel)[1:6]
+      body(actual$check_df_for_rel)[1:7] vs body(expected$check_df_for_rel)[1:13]
         `{`
       - `    if (is.character(.row_names_info(df, 0L))) {`
+      - `        cli::cli_abort("Need data frame without row names to convert to relational.")`
       + `    rni <- .row_names_info(df, 0L)`
-      + `    if (is.character(rni) || !is.na(rni[[1]])) {`
-        `        cli::cli_abort("Need data frame without row names to convert to relational.")`
+      + `    if (is.character(rni)) {`
+      + `        cli::cli_abort("Need data frame without row names to convert to relational, got character row names.")`
         `    }`
-        `    for (i in seq_along(df)) {`
+      + `    if (length(rni) != 0) {`
+      + `        if (length(rni) != 2L || !is.na(rni[[1]])) {`
+      + `            cli::cli_abort("Need data frame without row names to convert to relational, got numeric row names.")`
+      + `        }`
+      + `    }`
+      and 3 more ...
       
-      body(actual$check_df_for_rel)[49:54] vs body(expected$check_df_for_rel)[50:60]
-        `            df_attrib <- attributes(df[[i]])`
+      body(actual$check_df_for_rel)[50:55] vs body(expected$check_df_for_rel)[56:66]
         `            roundtrip_attrib <- attributes(roundtrip[[i]])`
         `            if (!identical(df_attrib, roundtrip_attrib)) {`
         `                cli::cli_abort("Attributes are lost during conversion. Affected column: {.var {names(df)[[i]]}}.")`
-      + `            }`
+        `            }`
       + `            if (inherits(df[[i]], "POSIXct")) {`
       + `                if (!identical(df[[i]], roundtrip[[i]])) {`
       + `                  cli::cli_abort("Imperfect roundtrip. Affected column: {.var {names(df)[[i]]}}.")`
       + `                }`
-        `            }`
+      + `            }`
         `        }`
+        `    }`
       and 1 more ...
       
       `environment(actual$check_df_for_rel)` is <env:namespace:duckplyr>
@@ -1262,11 +1267,11 @@ Run `revdepcheck::cloud_details(, "duckplyr")` for more info
       `environment(actual$create_default_duckdb_connection)` is <env:namespace:duckplyr>
       `environment(expected$create_default_duckdb_connection)` is <env:namespace:dplyr>
       
-      `actual$default_duckdb_connection$con@conn_ref` is <pointer: 0x55fbdbd747f0>
-      `expected$default_duckdb_connection$con@conn_ref` is <pointer: 0x55fbe0264080>
+      `actual$default_duckdb_connection$con@conn_ref` is <pointer: 0x56474f7224a0>
+      `expected$default_duckdb_connection$con@conn_ref` is <pointer: 0x56474e66a940>
       
-      `actual$default_duckdb_connection$con@driver@database_ref` is <pointer: 0x55fbdb2de1d0>
-      `expected$default_duckdb_connection$con@driver@database_ref` is <pointer: 0x55fbdf81a510>
+      `actual$default_duckdb_connection$con@driver@database_ref` is <pointer: 0x56475073a2b0>
+      `expected$default_duckdb_connection$con@driver@database_ref` is <pointer: 0x5647511210a0>
       
       `environment(actual$df_from_csv)` is <env:namespace:duckplyr>
       `environment(expected$df_from_csv)` is <env:namespace:dplyr>
@@ -1687,7 +1692,7 @@ Run `revdepcheck::cloud_details(, "duckplyr")` for more info
       [8] "rel_project"               | "rel_project"                 [7]
       
         `actual$rel_stats_env$rel_aggregate`: 55
-      `expected$rel_stats_env$rel_aggregate`: 14
+      `expected$rel_stats_env$rel_aggregate`: 12
       
         `actual$rel_stats_env$rel_distinct`: 9
       `expected$rel_stats_env$rel_distinct`: 3
@@ -1702,19 +1707,19 @@ Run `revdepcheck::cloud_details(, "duckplyr")` for more info
       `expected$rel_stats_env$rel_limit` is absent
       
         `actual$rel_stats_env$rel_names`: 742
-      `expected$rel_stats_env$rel_names`: 347
+      `expected$rel_stats_env$rel_names`: 348
       
         `actual$rel_stats_env$rel_order`: 273
       `expected$rel_stats_env$rel_order`:  69
       
         `actual$rel_stats_env$rel_project`: 904
-      `expected$rel_stats_env$rel_project`: 305
+      `expected$rel_stats_env$rel_project`: 306
       
         `actual$rel_stats_env$rel_set_alias`: 142
       `expected$rel_stats_env$rel_set_alias`:  18
       
         `actual$rel_stats_env$rel_to_df`: 485
-      `expected$rel_stats_env$rel_to_df`: 166
+      `expected$rel_stats_env$rel_to_df`: 167
       
         `actual$rel_stats_env$rel_union_all`: 8
       `expected$rel_stats_env$rel_union_all`: 7
@@ -1739,7 +1744,21 @@ Run `revdepcheck::cloud_details(, "duckplyr")` for more info
       `environment(actual$rel_to_df.relational_df)` is <env:namespace:duckplyr>
       `environment(expected$rel_to_df.relational_df)` is <env:namespace:dplyr>
       
-      body(actual$rel_translate)[61:70] vs body(expected$rel_translate)[61:70]
+      body(actual$rel_translate)[35:40] vs body(expected$rel_translate)[35:47]
+        `                  name <- name[[3]]`
+        `                } else {`
+        `                  pkg <- NULL`
+        `                }`
+      + `                if (!(name %in% c("wday", "strftime", "lag", `
+      + `                  "lead"))) {`
+      + `                  if (!is.null(names(expr)) && any(names(expr) != `
+      + `                    "")) {`
+      + `                    cli::cli_abort("Can't translate named argument {.code {name}({names(expr)[names(expr) != ''][[1]]} = )}.")`
+      + `                  }`
+      + `                }`
+      and 3 more ...
+      
+      body(actual$rel_translate)[61:70] vs body(expected$rel_translate)[68:77]
         `                  }`
         `                }, \`%in%\` = {`
         `                  tryCatch({`
@@ -1753,17 +1772,19 @@ Run `revdepcheck::cloud_details(, "duckplyr")` for more info
         `                      relexpr_function("|", list(.x, .y))`
         `                    })`
       
-      body(actual$rel_translate)[129:134] vs body(expected$rel_translate)[129:137]
-        `                if (window) {`
-        `                  partitions <- map(partition, relexpr_reference)`
-        `                  fun <- relexpr_window(fun, partitions, order_bys, `
-        `                    offset_expr = offset_expr, default_expr = default_expr)`
-      + `                  if (name == "row_number") {`
-      + `                    fun <- relexpr_function("as.integer", list(fun))`
-      + `                  }`
+      body(actual$rel_translate)[124:134] vs body(expected$rel_translate)[131:149]
+        `                  }`
         `                }`
-        `                fun`
-        `            }, cli::cli_abort("Internal: Unknown type {.val {typeof(expr)}}"))`
+        `                args <- map(as.list(expr[-1]), do_translate, `
+        `                  in_window = in_window || window)`
+      + `                if (name == "grepl") {`
+      + `                  if (!inherits(args[[1]], "relational_relexpr_constant")) {`
+      + `                    cli::cli_abort("Only constant patterns are supported in {.code grepl()}")`
+      + `                  }`
+      + `                }`
+        `                fun <- relexpr_function(name, args)`
+        `                if (window) {`
+      and 9 more ...
       
       `environment(actual$rel_translate)` is <env:namespace:duckplyr>
       `environment(expected$rel_translate)` is <env:namespace:dplyr>
@@ -1888,214 +1909,7 @@ Run `revdepcheck::cloud_details(, "duckplyr")` for more info
       🦆:  661
       add_count, anti_join, arrange, compute, count, cross_join, distinct, do, eval, filter, full_join, group_by, inner_join, intersect, left_join, mutate, mutate.data.frame, nest_join, pull, reframe, relocate, rename, rename_with, right_join, rows_append, rows_delete, rows_insert, rows_patch, rows_update, rows_upsert, rowwise, select, semi_join, setdiff, setequal, slice, slice_head, slice_sample, slice_tail, summarise, symdiff, transmute, ungroup, union_all
       
-      00:00:49.682625
-      Execution halted
-    ```
-
-# ern
-
-<details>
-
-* Version: 2.0.0
-* GitHub: NA
-* Source code: https://github.com/cran/ern
-* Date/Publication: 2024-04-22 13:22:33 UTC
-* Number of recursive dependencies: 95
-
-Run `revdepcheck::cloud_details(, "ern")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking tests ... ERROR
-    ```
-      Running ‘testthat.R’
-    Running the tests in ‘tests/testthat.R’ failed.
-    Complete output:
-      > # This file is part of the standard setup for testthat.
-      > # It is recommended that you do not modify it.
-      > #
-      > # Where should you do additional test configuration?
-      > # Learn more about the roles of various files in:
-      > # * https://r-pkgs.org/tests.html
-      > # * https://testthat.r-lib.org/reference/test_package.html#special-files
-      > 
-      > library(testthat)
-      > library(ern)
-      
-      ern version: 2.0.0 
-      
-      If not already installed, software JAGS is recommended. 
-      (https://sourceforge.net/projects/mcmc-jags/files/)
-      
-      > 
-      > test_check("ern")
-      Compiling model graph
-         Resolving undeclared variables
-         Allocating nodes
-      Graph information:
-         Observed stochastic nodes: 8
-         Unobserved stochastic nodes: 58
-         Total graph size: 790
-      
-      Initializing model
-      
-      MCMC paramters:
-        Number of chains   : 1
-        Burn-in iterations : 5
-        MCMC iterations    : 5
-      Wastewater data smoothed using loess method
-      iterations Richardson-Lucy deconvolution:  20
-      -----
-      The clinical testing data you input is not daily.
-      `ern` requires daily data to compute Rt, so it will infer daily reports from your inputs.
-      Inference method for daily incidence: `renewal`
-      See `prm.daily` and `prm.daily.check` arguments of `estimate_R_cl()` for daily inference options.
-      -----
-      -----
-      Assuming the first observed report (from 2020-03-14)
-      is aggregated over 7 previous days
-      (second observation's aggregation period).
-      This can be changed in `estimate_R_cl()`, using the
-      `prm.daily` argument (set a value for `first.agg.period`
-      in this parameter list).
-      -----
-      Running MCMC model to infer daily reports from aggregated reports...
-      
-      Compiling model graph
-         Resolving undeclared variables
-         Allocating nodes
-      Graph information:
-         Observed stochastic nodes: 8
-         Unobserved stochastic nodes: 58
-         Total graph size: 790
-      
-      Initializing model
-      
-      MCMC paramters:
-        Number of chains   : 1
-        Burn-in iterations : 5
-        MCMC iterations    : 5
-      Aggregating inferred daily reports back using the original reporting schedule, and calculating relative difference with original reports...
-      Filtering out any daily inferred reports associated with inferred aggregates outside of the specified tolerance of 10%...
-        Before filtering : 56 daily reports
-        After filtering  :  42 daily reports
-      Using default config in `EpiEstim::estimate_R()`.
-      Deconvolution reporting delays...
-      iterations Richardson-Lucy deconvolution:  10
-      Deconvolution incubation period...
-      iterations Richardson-Lucy deconvolution:  10
-      -----
-      The clinical testing data you input is not daily.
-      `ern` requires daily data to compute Rt, so it will infer daily reports from your inputs.
-      Inference method for daily incidence: `renewal`
-      See `prm.daily` and `prm.daily.check` arguments of `estimate_R_cl()` for daily inference options.
-      -----
-      -----
-      Assuming the first observed report (from 2020-03-14)
-      is aggregated over 7 previous days
-      (second observation's aggregation period).
-      This can be changed in `estimate_R_cl()`, using the
-      `prm.daily` argument (set a value for `first.agg.period`
-      in this parameter list).
-      -----
-      Running MCMC model to infer daily reports from aggregated reports...
-      
-      Compiling model graph
-         Resolving undeclared variables
-         Allocating nodes
-      Graph information:
-         Observed stochastic nodes: 8
-         Unobserved stochastic nodes: 58
-         Total graph size: 790
-      
-      Initializing model
-      
-      MCMC paramters:
-        Number of chains   : 2
-        Burn-in iterations : 55
-        MCMC iterations    : 55
-      Aggregating inferred daily reports back using the original reporting schedule, and calculating relative difference with original reports...
-      Filtering out any daily inferred reports associated with inferred aggregates outside of the specified tolerance of 10%...
-        Before filtering : 56 daily reports
-        After filtering  :  42 daily reports
-      To reduce the number of observations dropped in filtering,either:
-      - adjust MCMC parameters in prm.daily (burn, iter, chains) to improve chances of MCMC convergence,
-      - increase tolerance for this check (prm.daily.check$agg.reldiff.tol)
-      Using default config in `EpiEstim::estimate_R()`.
-      Deconvolution reporting delays...
-      iterations Richardson-Lucy deconvolution:  10
-      Deconvolution incubation period...
-      iterations Richardson-Lucy deconvolution:  10
-      Using default config in `EpiEstim::estimate_R()`.
-      Deconvolution reporting delays...
-      iterations Richardson-Lucy deconvolution:  10
-      Deconvolution incubation period...
-      iterations Richardson-Lucy deconvolution:  10
-      Deconvolution reporting delays...
-      iterations Richardson-Lucy deconvolution:  10
-      Deconvolution incubation period...
-      iterations Richardson-Lucy deconvolution:  10
-      Using default config in `EpiEstim::estimate_R()`.
-      Deconvolution reporting delays...
-      iterations Richardson-Lucy deconvolution:  10
-      Deconvolution incubation period...
-      iterations Richardson-Lucy deconvolution:  10
-      Deconvolution reporting delays...
-      iterations Richardson-Lucy deconvolution:  10
-      Deconvolution incubation period...
-      iterations Richardson-Lucy deconvolution:  10
-      iterations Richardson-Lucy deconvolution:  9
-      Deconvolution incubation period...
-      iterations Richardson-Lucy deconvolution:  9
-      Wastewater data smoothed using loess method
-      Wastewater data smoothed using loess method
-      iterations Richardson-Lucy deconvolution:  9
-      iterations Richardson-Lucy deconvolution:  9
-      iterations Richardson-Lucy deconvolution:  9
-      iterations Richardson-Lucy deconvolution:  9
-      iterations Richardson-Lucy deconvolution:  9
-      iterations Richardson-Lucy deconvolution:  9
-      iterations Richardson-Lucy deconvolution:  9
-      iterations Richardson-Lucy deconvolution:  9
-      iterations Richardson-Lucy deconvolution:  9
-      iterations Richardson-Lucy deconvolution:  9
-      iterations Richardson-Lucy deconvolution:  9
-      iterations Richardson-Lucy deconvolution:  9
-      iterations Richardson-Lucy deconvolution:  9
-      iterations Richardson-Lucy deconvolution:  9
-      iterations Richardson-Lucy deconvolution:  9
-      iterations Richardson-Lucy deconvolution:  9
-      iterations Richardson-Lucy deconvolution:  9
-      iterations Richardson-Lucy deconvolution:  9
-      iterations Richardson-Lucy deconvolution:  9
-      iterations Richardson-Lucy deconvolution:  9
-      iterations Richardson-Lucy deconvolution:  9
-      iterations Richardson-Lucy deconvolution:  9
-      iterations Richardson-Lucy deconvolution:  9
-      iterations Richardson-Lucy deconvolution:  9
-      iterations Richardson-Lucy deconvolution:  9
-      iterations Richardson-Lucy deconvolution:  9
-      iterations Richardson-Lucy deconvolution:  9
-      iterations Richardson-Lucy deconvolution:  9
-      iterations Richardson-Lucy deconvolution:  9
-      iterations Richardson-Lucy deconvolution:  9
-      
-      ERROR: `si_distr` must be specified in `config.EpiEstim`. ABORTING!
-      Wastewater data smoothed using loess method
-      Wastewater data smoothed using rollmean method
-      [ FAIL 1 | WARN 0 | SKIP 0 | PASS 167 ]
-      
-      ══ Failed tests ════════════════════════════════════════════════════════════════
-      ── Failure ('test-agg_to_daily.R:100:3'): internal time index is correctly specified ──
-      `check` is not TRUE
-      
-      `actual`:   FALSE
-      `expected`: TRUE 
-      
-      [ FAIL 1 | WARN 0 | SKIP 0 | PASS 167 ]
-      Error: Test failures
+      00:00:45.591196
       Execution halted
     ```
 
@@ -2902,42 +2716,6 @@ Run `revdepcheck::cloud_details(, "starschemar")` for more info
        13.                     └─rlang::abort(message, class = c(class, "vctrs_error"), ..., call = call)
       
       [ FAIL 8 | WARN 0 | SKIP 0 | PASS 161 ]
-      Error: Test failures
-      Execution halted
-    ```
-
-# unheadr
-
-<details>
-
-* Version: 0.3.3
-* GitHub: https://github.com/luisDVA/unheadr
-* Source code: https://github.com/cran/unheadr
-* Date/Publication: 2022-08-15 05:40:02 UTC
-* Number of recursive dependencies: 74
-
-Run `revdepcheck::cloud_details(, "unheadr")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking tests ... ERROR
-    ```
-      Running ‘testthat.R’
-    Running the tests in ‘tests/testthat.R’ failed.
-    Complete output:
-      > library(testthat)
-      > library(unheadr)
-      > 
-      > test_check("unheadr")
-      [ FAIL 1 | WARN 0 | SKIP 0 | PASS 31 ]
-      
-      ══ Failed tests ════════════════════════════════════════════════════════════════
-      ── Failure ('test-untangle2.R:8:3'): target variable is called 'regex' ─────────
-      `untangle2(df, regex = "^gp", orig = regex, new = new_col)` did not produce any warnings.
-      
-      [ FAIL 1 | WARN 0 | SKIP 0 | PASS 31 ]
       Error: Test failures
       Execution halted
     ```
