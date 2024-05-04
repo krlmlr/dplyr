@@ -112,170 +112,6 @@ Run `revdepcheck::cloud_details(, "admiral")` for more info
       Note: found 12 marked UTF-8 strings
     ```
 
-# alakazam
-
-<details>
-
-* Version: 1.3.0
-* GitHub: NA
-* Source code: https://github.com/cran/alakazam
-* Date/Publication: 2023-09-30 01:12:40 UTC
-* Number of recursive dependencies: 120
-
-Run `revdepcheck::cloud_details(, "alakazam")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking installed package size ... NOTE
-    ```
-      installed size is  5.7Mb
-      sub-directories of 1Mb or more:
-        doc    1.5Mb
-        libs   2.2Mb
-    ```
-
-## In both
-
-*   checking re-building of vignette outputs ... NOTE
-    ```
-    Error(s) in re-building vignettes:
-    --- re-building ‘AminoAcids-Vignette.Rmd’ using rmarkdown
-    A new version of TeX Live has been released. If you need to install or update any LaTeX packages, you have to upgrade TinyTeX with tinytex::reinstall_tinytex(repository = "illinois").
-    
-    tlmgr: Local TeX Live (2023) is older than remote repository (2024).
-    Cross release updates are only supported with
-      update-tlmgr-latest(.sh/.exe) --update
-    See https://tug.org/texlive/upgrade.html for details.
-    Warning in system2("tlmgr", args, ...) :
-      running command ''tlmgr' search --file --global '/bookmark.sty'' had status 1
-    ! LaTeX Error: File `bookmark.sty' not found.
-    
-    ! Emergency stop.
-    <read *> 
-    
-    Error: processing vignette 'AminoAcids-Vignette.Rmd' failed with diagnostics:
-    LaTeX failed to compile /tmp/workdir/alakazam/new/alakazam.Rcheck/vign_test/alakazam/vignettes/AminoAcids-Vignette.tex. See https://yihui.org/tinytex/r/#debugging for debugging tips. See AminoAcids-Vignette.log for more info.
-    --- failed re-building ‘AminoAcids-Vignette.Rmd’
-    
-    --- re-building ‘Diversity-Vignette.Rmd’ using rmarkdown
-    A new version of TeX Live has been released. If you need to install or update any LaTeX packages, you have to upgrade TinyTeX with tinytex::reinstall_tinytex(repository = "illinois").
-    
-    tlmgr: Local TeX Live (2023) is older than remote repository (2024).
-    Cross release updates are only supported with
-      update-tlmgr-latest(.sh/.exe) --update
-    See https://tug.org/texlive/upgrade.html for details.
-    Warning in system2("tlmgr", args, ...) :
-      running command ''tlmgr' search --file --global '/bookmark.sty'' had status 1
-    ! LaTeX Error: File `bookmark.sty' not found.
-    
-    ! Emergency stop.
-    <read *> 
-    
-    Error: processing vignette 'Diversity-Vignette.Rmd' failed with diagnostics:
-    LaTeX failed to compile /tmp/workdir/alakazam/new/alakazam.Rcheck/vign_test/alakazam/vignettes/Diversity-Vignette.tex. See https://yihui.org/tinytex/r/#debugging for debugging tips. See Diversity-Vignette.log for more info.
-    --- failed re-building ‘Diversity-Vignette.Rmd’
-    
-    --- re-building ‘Fastq-Vignette.Rmd’ using rmarkdown
-    A new version of TeX Live has been released. If you need to install or update any LaTeX packages, you have to upgrade TinyTeX with tinytex::reinstall_tinytex(repository = "illinois").
-    
-    tlmgr: Local TeX Live (2023) is older than remote repository (2024).
-    Cross release updates are only supported with
-      update-tlmgr-latest(.sh/.exe) --update
-    See https://tug.org/texlive/upgrade.html for details.
-    Warning in system2("tlmgr", args, ...) :
-      running command ''tlmgr' search --file --global '/bookmark.sty'' had status 1
-    ! LaTeX Error: File `bookmark.sty' not found.
-    
-    ! Emergency stop.
-    <read *> 
-    
-    Error: processing vignette 'Fastq-Vignette.Rmd' failed with diagnostics:
-    LaTeX failed to compile /tmp/workdir/alakazam/new/alakazam.Rcheck/vign_test/alakazam/vignettes/Fastq-Vignette.tex. See https://yihui.org/tinytex/r/#debugging for debugging tips. See Fastq-Vignette.log for more info.
-    --- failed re-building ‘Fastq-Vignette.Rmd’
-    
-    --- re-building ‘Files-Vignette.Rmd’ using rmarkdown
-    A new version of TeX Live has been released. If you need to install or update any LaTeX packages, you have to upgrade TinyTeX with tinytex::reinstall_tinytex(repository = "illinois").
-    
-    tlmgr: Local TeX Live (2023) is older than remote repository (2024).
-    Cross release updates are only supported with
-      update-tlmgr-latest(.sh/.exe) --update
-    See https://tug.org/texlive/upgrade.html for details.
-    Warning in system2("tlmgr", args, ...) :
-      running command ''tlmgr' search --file --global '/bookmark.sty'' had status 1
-    ! LaTeX Error: File `bookmark.sty' not found.
-    
-    ! Emergency stop.
-    <read *> 
-    
-    Error: processing vignette 'Files-Vignette.Rmd' failed with diagnostics:
-    LaTeX failed to compile /tmp/workdir/alakazam/new/alakazam.Rcheck/vign_test/alakazam/vignettes/Files-Vignette.tex. See https://yihui.org/tinytex/r/#debugging for debugging tips. See Files-Vignette.log for more info.
-    --- failed re-building ‘Files-Vignette.Rmd’
-    
-    --- re-building ‘GeneUsage-Vignette.Rmd’ using rmarkdown
-    A new version of TeX Live has been released. If you need to install or update any LaTeX packages, you have to upgrade TinyTeX with tinytex::reinstall_tinytex(repository = "illinois").
-    
-    tlmgr: Local TeX Live (2023) is older than remote repository (2024).
-    Cross release updates are only supported with
-      update-tlmgr-latest(.sh/.exe) --update
-    See https://tug.org/texlive/upgrade.html for details.
-    Warning in system2("tlmgr", args, ...) :
-      running command ''tlmgr' search --file --global '/bookmark.sty'' had status 1
-    ! LaTeX Error: File `bookmark.sty' not found.
-    
-    ! Emergency stop.
-    <read *> 
-    
-    Error: processing vignette 'GeneUsage-Vignette.Rmd' failed with diagnostics:
-    LaTeX failed to compile /tmp/workdir/alakazam/new/alakazam.Rcheck/vign_test/alakazam/vignettes/GeneUsage-Vignette.tex. See https://yihui.org/tinytex/r/#debugging for debugging tips. See GeneUsage-Vignette.log for more info.
-    --- failed re-building ‘GeneUsage-Vignette.Rmd’
-    
-    --- re-building ‘Lineage-Vignette.Rmd’ using rmarkdown
-    A new version of TeX Live has been released. If you need to install or update any LaTeX packages, you have to upgrade TinyTeX with tinytex::reinstall_tinytex(repository = "illinois").
-    
-    tlmgr: Local TeX Live (2023) is older than remote repository (2024).
-    Cross release updates are only supported with
-      update-tlmgr-latest(.sh/.exe) --update
-    See https://tug.org/texlive/upgrade.html for details.
-    Warning in system2("tlmgr", args, ...) :
-      running command ''tlmgr' search --file --global '/bookmark.sty'' had status 1
-    ! LaTeX Error: File `bookmark.sty' not found.
-    
-    ! Emergency stop.
-    <read *> 
-    
-    Error: processing vignette 'Lineage-Vignette.Rmd' failed with diagnostics:
-    LaTeX failed to compile /tmp/workdir/alakazam/new/alakazam.Rcheck/vign_test/alakazam/vignettes/Lineage-Vignette.tex. See https://yihui.org/tinytex/r/#debugging for debugging tips. See Lineage-Vignette.log for more info.
-    --- failed re-building ‘Lineage-Vignette.Rmd’
-    
-    --- re-building ‘Topology-Vignette.Rmd’ using rmarkdown
-    A new version of TeX Live has been released. If you need to install or update any LaTeX packages, you have to upgrade TinyTeX with tinytex::reinstall_tinytex(repository = "illinois").
-    
-    tlmgr: Local TeX Live (2023) is older than remote repository (2024).
-    Cross release updates are only supported with
-      update-tlmgr-latest(.sh/.exe) --update
-    See https://tug.org/texlive/upgrade.html for details.
-    Warning in system2("tlmgr", args, ...) :
-      running command ''tlmgr' search --file --global '/bookmark.sty'' had status 1
-    ! LaTeX Error: File `bookmark.sty' not found.
-    
-    ! Emergency stop.
-    <read *> 
-    
-    Error: processing vignette 'Topology-Vignette.Rmd' failed with diagnostics:
-    LaTeX failed to compile /tmp/workdir/alakazam/new/alakazam.Rcheck/vign_test/alakazam/vignettes/Topology-Vignette.tex. See https://yihui.org/tinytex/r/#debugging for debugging tips. See Topology-Vignette.log for more info.
-    --- failed re-building ‘Topology-Vignette.Rmd’
-    
-    SUMMARY: processing the following files failed:
-      ‘AminoAcids-Vignette.Rmd’ ‘Diversity-Vignette.Rmd’
-      ‘Fastq-Vignette.Rmd’ ‘Files-Vignette.Rmd’ ‘GeneUsage-Vignette.Rmd’
-      ‘Lineage-Vignette.Rmd’ ‘Topology-Vignette.Rmd’
-    
-    Error: Vignette re-building failed.
-    Execution halted
-    ```
-
 # arrow
 
 <details>
@@ -648,29 +484,6 @@ Run `revdepcheck::cloud_details(, "broom.helpers")` for more info
 *   checking package dependencies ... NOTE
     ```
     Package suggested but not available for checking: ‘margins’
-    ```
-
-# bsitar
-
-<details>
-
-* Version: 0.2.1
-* GitHub: https://github.com/Sandhu-SS/bsitar
-* Source code: https://github.com/cran/bsitar
-* Date/Publication: 2024-03-19 17:00:08 UTC
-* Number of recursive dependencies: 152
-
-Run `revdepcheck::cloud_details(, "bsitar")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking installed package size ... NOTE
-    ```
-      installed size is  5.5Mb
-      sub-directories of 1Mb or more:
-        data   3.9Mb
     ```
 
 # CNAIM
@@ -1201,11 +1014,11 @@ Run `revdepcheck::cloud_details(, "duckplyr")` for more info
       `environment(actual$create_default_duckdb_connection)` is <env:namespace:duckplyr>
       `environment(expected$create_default_duckdb_connection)` is <env:namespace:dplyr>
       
-      `actual$default_duckdb_connection$con@conn_ref` is <pointer: 0x560bc2352ba0>
-      `expected$default_duckdb_connection$con@conn_ref` is <pointer: 0x560bc38dd000>
+      `actual$default_duckdb_connection$con@conn_ref` is <pointer: 0x55e536c33e50>
+      `expected$default_duckdb_connection$con@conn_ref` is <pointer: 0x55e53a436030>
       
-      `actual$default_duckdb_connection$con@driver@database_ref` is <pointer: 0x560bc03e88d0>
-      `expected$default_duckdb_connection$con@driver@database_ref` is <pointer: 0x560bbb6f9210>
+      `actual$default_duckdb_connection$con@driver@database_ref` is <pointer: 0x55e53a61bf40>
+      `expected$default_duckdb_connection$con@driver@database_ref` is <pointer: 0x55e539e4af60>
       
       `environment(actual$df_from_csv)` is <env:namespace:duckplyr>
       `environment(expected$df_from_csv)` is <env:namespace:dplyr>
@@ -1853,44 +1666,8 @@ Run `revdepcheck::cloud_details(, "duckplyr")` for more info
       🦆:  661
       add_count, anti_join, arrange, compute, count, cross_join, distinct, do, eval, filter, full_join, group_by, inner_join, intersect, left_join, mutate, mutate.data.frame, nest_join, pull, reframe, relocate, rename, rename_with, right_join, rows_append, rows_delete, rows_insert, rows_patch, rows_update, rows_upsert, rowwise, select, semi_join, setdiff, setequal, slice, slice_head, slice_sample, slice_tail, summarise, symdiff, transmute, ungroup, union_all
       
-      00:01:36.31796
+      00:00:50.016488
       Execution halted
-    ```
-
-# glmmfields
-
-<details>
-
-* Version: 0.1.8
-* GitHub: https://github.com/seananderson/glmmfields
-* Source code: https://github.com/cran/glmmfields
-* Date/Publication: 2023-10-20 17:50:02 UTC
-* Number of recursive dependencies: 109
-
-Run `revdepcheck::cloud_details(, "glmmfields")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking installed package size ... NOTE
-    ```
-      installed size is 127.1Mb
-      sub-directories of 1Mb or more:
-        libs  126.4Mb
-    ```
-
-*   checking for GNU extensions in Makefiles ... NOTE
-    ```
-    GNU make is a SystemRequirements.
-    ```
-
-## Newly fixed
-
-*   checking whether package ‘glmmfields’ can be installed ... ERROR
-    ```
-    Installation failed.
-    See ‘/tmp/workdir/glmmfields/old/glmmfields.Rcheck/00install.out’ for details.
     ```
 
 # homologene
@@ -3255,7 +3032,7 @@ Run `revdepcheck::cloud_details(, "scrutiny")` for more info
     
       When sourcing ‘consistency-tests-in-depth.R’:
     Error: Could not find a root 'DESCRIPTION' file that starts with '^Package' in
-    '/tmp/RtmpOJl02d/file15b333daeed4/vignettes'.
+    '/tmp/RtmpxrNSvB/file15b858cf3a69/vignettes'.
     ℹ Are you in your project directory and does your project have a 'DESCRIPTION'
       file?
     Execution halted
@@ -3267,7 +3044,7 @@ Run `revdepcheck::cloud_details(, "scrutiny")` for more info
     
       When sourcing ‘consistency-tests-simple.R’:
     Error: Could not find a root 'DESCRIPTION' file that starts with '^Package' in
-    '/tmp/RtmpA8AMs3/file15be6428ccff/vignettes'.
+    '/tmp/RtmpAksmct/file15c375ce97fc/vignettes'.
     ℹ Are you in your project directory and does your project have a 'DESCRIPTION'
       file?
     Execution halted
@@ -3291,7 +3068,7 @@ Run `revdepcheck::cloud_details(, "scrutiny")` for more info
     
       When sourcing ‘grim.R’:
     Error: Could not find a root 'DESCRIPTION' file that starts with '^Package' in
-    '/tmp/RtmpfLeVoC/file15ed7bff1a20/vignettes'.
+    '/tmp/RtmpjfnBh2/file15f2fb442f3/vignettes'.
     ℹ Are you in your project directory and does your project have a 'DESCRIPTION'
       file?
     Execution halted
@@ -3303,7 +3080,7 @@ Run `revdepcheck::cloud_details(, "scrutiny")` for more info
     
       When sourcing ‘grimmer.R’:
     Error: Could not find a root 'DESCRIPTION' file that starts with '^Package' in
-    '/tmp/Rtmp4Cm7Jq/file15f874b32b9a/vignettes'.
+    '/tmp/RtmpfhCsJO/file15fd1702d4d1/vignettes'.
     ℹ Are you in your project directory and does your project have a 'DESCRIPTION'
       file?
     Execution halted
