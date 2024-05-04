@@ -4009,7 +4009,7 @@ rel_translate <- function(
       integer = ,
       double = relexpr_constant(expr),
       # https://github.com/duckdb/duckdb-r/pull/156
-      logical = if (is.na(expr)) relexpr_function("___null", boo) else relexpr_constant(expr),
+      logical = if (is.na(expr)) relexpr_function("___null", list()) else relexpr_constant(expr),
       #
       symbol = {
         if (as.character(expr) %in% names_forbidden) {
