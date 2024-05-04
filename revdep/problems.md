@@ -1,117 +1,3 @@
-# activatr
-
-<details>
-
-* Version: 0.2.0
-* GitHub: https://github.com/dschafer/activatr
-* Source code: https://github.com/cran/activatr
-* Date/Publication: 2023-08-22 07:30:12 UTC
-* Number of recursive dependencies: 107
-
-Run `revdepcheck::cloud_details(, "activatr")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking tests ... ERROR
-    ```
-      Running ‘testthat.R’
-    Running the tests in ‘tests/testthat.R’ failed.
-    Complete output:
-      > library(testthat)
-      > library(activatr)
-      > 
-      > test_check("activatr")
-      [ FAIL 3 | WARN 0 | SKIP 0 | PASS 101 ]
-      
-      ══ Failed tests ════════════════════════════════════════════════════════════════
-      ── Failure ('test_act_tbl.R:52:3'): summary allows use of full to fill in missing columns ──
-      s2$AvgElev not equal to NA.
-      Types not compatible: integer is not logical
-      ── Failure ('test_act_tbl.R:53:3'): summary allows use of full to fill in missing columns ──
-      s2$ElevGain not equal to NA.
-      Types not compatible: integer is not logical
-      ── Failure ('test_act_tbl.R:54:3'): summary allows use of full to fill in missing columns ──
-      s2$ElevLoss not equal to NA.
-      Types not compatible: integer is not logical
-      
-      [ FAIL 3 | WARN 0 | SKIP 0 | PASS 101 ]
-      Error: Test failures
-      Execution halted
-    ```
-
-# admiral
-
-<details>
-
-* Version: 1.0.2
-* GitHub: https://github.com/pharmaverse/admiral
-* Source code: https://github.com/cran/admiral
-* Date/Publication: 2024-03-05 17:10:03 UTC
-* Number of recursive dependencies: 77
-
-Run `revdepcheck::cloud_details(, "admiral")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking tests ... ERROR
-    ```
-      Running ‘testthat.R’
-    Running the tests in ‘tests/testthat.R’ failed.
-    Complete output:
-      > # This file is part of the standard setup for testthat.
-      > # It is recommended that you do not modify it.
-      > #
-      > # Where should you do additional test configuration?
-      > # Learn more about the roles of various files in:
-      > # * https://r-pkgs.org/tests.html
-      > # * https://testthat.r-lib.org/reference/test_package.html#special-files
-      > 
-      > library(testthat) # nolint: undesirable_function_linter
-      > library(admiral) # nolint: undesirable_function_linter
-      > 
-      > test_check("admiral")
-      [ FAIL 1 | WARN 0 | SKIP 4 | PASS 714 ]
-      
-      ══ Skipped tests (4) ═══════════════════════════════════════════════════════════
-      • On CRAN (4): 'test-derive_var_ontrtfl.R:419:3', 'test-duplicates.R:43:3',
-        'test-roxygen2.R:20:3', 'test-user_utils.R:229:3'
-      
-      ══ Failed tests ════════════════════════════════════════════════════════════════
-      ── Error ('test-derive_var_atoxgr.R:4869:1'): (code run outside of `test_that()`) ──
-      <vctrs_error_ptype2/vctrs_error_incompatible_type/vctrs_error_incompatible/vctrs_error/rlang_error/error/condition>
-      Error in `bind_rows(., expected_phosd_daids_le14y, expected_phosd_daids_lt1y, 
-          expected_phosd_daids_noage)`: Can't combine `..1$ATOXGRL` <character> and `..4$ATOXGRL` <integer>.
-      Backtrace:
-           ▆
-        1. ├─expected_phosd_daids_gt14y %>% ... at test-derive_var_atoxgr.R:4869:1
-        2. ├─dplyr::bind_rows(., expected_phosd_daids_le14y, expected_phosd_daids_lt1y, expected_phosd_daids_noage)
-        3. │ └─vctrs::vec_rbind(!!!dots, .names_to = .id, .error_call = current_env())
-        4. └─vctrs (local) `<fn>`()
-        5.   └─vctrs::vec_default_ptype2(...)
-        6.     ├─base::withRestarts(...)
-        7.     │ └─base (local) withOneRestart(expr, restarts[[1L]])
-        8.     │   └─base (local) doWithOneRestart(return(expr), restart)
-        9.     └─vctrs::stop_incompatible_type(...)
-       10.       └─vctrs:::stop_incompatible(...)
-       11.         └─vctrs:::stop_vctrs(...)
-       12.           └─rlang::abort(message, class = c(class, "vctrs_error"), ..., call = call)
-      
-      [ FAIL 1 | WARN 0 | SKIP 4 | PASS 714 ]
-      Error: Test failures
-      Execution halted
-    ```
-
-## In both
-
-*   checking data for non-ASCII characters ... NOTE
-    ```
-      Note: found 12 marked UTF-8 strings
-    ```
-
 # arrow
 
 <details>
@@ -486,97 +372,6 @@ Run `revdepcheck::cloud_details(, "broom.helpers")` for more info
     Package suggested but not available for checking: ‘margins’
     ```
 
-# CNAIM
-
-<details>
-
-* Version: 2.1.4
-* GitHub: https://github.com/Utiligize/CNAIM
-* Source code: https://github.com/cran/CNAIM
-* Date/Publication: 2022-08-31 08:40:22 UTC
-* Number of recursive dependencies: 82
-
-Run `revdepcheck::cloud_details(, "CNAIM")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking tests ... ERROR
-    ```
-      Running ‘testthat.R’
-    Running the tests in ‘tests/testthat.R’ failed.
-    Complete output:
-      > library(testthat)
-      > library(CNAIM)
-      The CNAIM package is created by Utiligize.
-      Please cite the CNAIM package as: Utiligize (2022). CNAIM: R package version 2.1.3, www.cnaim.io.
-      > 
-      > test_check("CNAIM")
-      [1] 0
-      [1] 0
-      [1] 0
-      [1] 0.02847501
-      [1] 0.02847501
-      [1] 0.02847501
-      [1] 0.0251779
-      [1] 0.02637685
-      [1] 0.03425565
-      [1] 0.7732397
-        condition_factor condition_cap condition_collar
-      1                1            10              0.5
-      [1] 1
-      [1] 0.7732397
-      [1] 0.0435981
-      [1] 0.08872213
-      [1] 0.05994738
-      [1] 0
-      [1] 0
-      [1] 0.0739351
-      [1] 0.1109027
-      [1] 0.03037334
-      [1] 0.09114558
-      [1] 0
-      [1] 0
-      [1] 0
-      [1] 0
-      [1] 0.04032824
-      [1] 0.04032824
-      [1] 0.04032824
-      [ FAIL 1 | WARN 1 | SKIP 0 | PASS 222 ]
-      
-      ══ Failed tests ════════════════════════════════════════════════════════════════
-      ── Failure ('test-risk_matrix_structure.R:11:3'): basic case ───────────────────
-      `res` not equal to `expected_df`.
-      Component "value": Modes: logical, numeric
-      Component "value": target is logical, current is numeric
-      
-      [ FAIL 1 | WARN 1 | SKIP 0 | PASS 222 ]
-      Error: Test failures
-      Execution halted
-    ```
-
-## In both
-
-*   checking running R code from vignettes ... ERROR
-    ```
-    Errors in running code in vignettes:
-    when running code in ‘cnaim.Rmd’
-      ...
-    > source("fns_monetary_risk.R")
-    
-    > matrix_structure <- risk_matrix_structure(5, 4, NA)
-    
-    > risk_coordinates <- risk_calculation(matrix_dimensions = matrix_structure, 
-    +     id = "Transformer1", pof = 0.08, cof = 18232, asset_type = "6.6/11 ..." ... [TRUNCATED] 
-    
-      When sourcing ‘cnaim.R’:
-    Error: unused argument (pof = 0.08)
-    Execution halted
-    
-      ‘cnaim.Rmd’ using ‘UTF-8’... failed
-    ```
-
 # CodelistGenerator
 
 <details>
@@ -632,108 +427,6 @@ Run `revdepcheck::cloud_details(, "CodelistGenerator")` for more info
       [ FAIL 2 | WARN 6 | SKIP 8 | PASS 281 ]
       Error: Test failures
       Execution halted
-    ```
-
-# dat
-
-<details>
-
-* Version: 0.5.0
-* GitHub: https://github.com/wahani/dat
-* Source code: https://github.com/cran/dat
-* Date/Publication: 2020-05-15 19:40:03 UTC
-* Number of recursive dependencies: 75
-
-Run `revdepcheck::cloud_details(, "dat")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking tests ... ERROR
-    ```
-      Running ‘testthat.R’
-    Running the tests in ‘tests/testthat.R’ failed.
-    Complete output:
-      > library("dat")
-      To use dplyr as backend set 'options(dat.use.dplyr = TRUE)'.
-      
-      Attaching package: 'dat'
-      
-      The following object is masked from 'package:base':
-      
-          replace
-      
-      > 
-      > if (requireNamespace("testthat", quietly = TRUE)) {
-      +   testthat::test_check("dat")
-      + }
-      [ FAIL 1 | WARN 67 | SKIP 1 | PASS 123 ]
-      
-      ══ Skipped tests (1) ═══════════════════════════════════════════════════════════
-      • On CRAN (1): 'test-lintr.R:5:5'
-      
-      ══ Failed tests ════════════════════════════════════════════════════════════════
-      ── Failure ('test-mutar.R:117:5'): Parameterized formulas ──────────────────────
-      `dat` not identical to `dat1`.
-      Component "y": Modes: numeric, logical
-      Component "y": target is numeric, current is logical
-      Backtrace:
-          ▆
-       1. ├─dat:::WITH_DPLYR(...) at test-mutar.R:103:3
-       2. └─testthat::expect_identical(dat, dat1) at test-mutar.R:117:5
-      
-      [ FAIL 1 | WARN 67 | SKIP 1 | PASS 123 ]
-      Error: Test failures
-      Execution halted
-    ```
-
-# descstat
-
-<details>
-
-* Version: 0.1-2
-* GitHub: NA
-* Source code: https://github.com/cran/descstat
-* Date/Publication: 2021-02-17 16:40:02 UTC
-* Number of recursive dependencies: 58
-
-Run `revdepcheck::cloud_details(, "descstat")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking examples ... ERROR
-    ```
-    Running examples in ‘descstat-Ex.R’ failed
-    The error most likely occurred in:
-    
-    > ### Name: freq_table
-    > ### Title: Frequency table
-    > ### Aliases: freq_table
-    > ### Keywords: manip
-    > 
-    > ### ** Examples
-    > 
-    > # in table padova, price is a numeric variable, a vector of breaks should be provided
-    > library("dplyr")
-    
-    Attaching package: ‘dplyr’
-    
-    The following objects are masked from ‘package:stats’:
-    
-        filter, lag
-    
-    The following objects are masked from ‘package:base’:
-    
-        intersect, setdiff, setequal, union
-    
-    > padova %>% freq_table(price,
-    +                       breaks = c(50, 100, 150, 200, 250, 300, 350, 400),
-    +                       right = TRUE)
-    # A tibble: 9 × 3
-      price         x     n
     ```
 
 # duckplyr
@@ -1014,11 +707,11 @@ Run `revdepcheck::cloud_details(, "duckplyr")` for more info
       `environment(actual$create_default_duckdb_connection)` is <env:namespace:duckplyr>
       `environment(expected$create_default_duckdb_connection)` is <env:namespace:dplyr>
       
-      `actual$default_duckdb_connection$con@conn_ref` is <pointer: 0x55e536c33e50>
-      `expected$default_duckdb_connection$con@conn_ref` is <pointer: 0x55e53a436030>
+      `actual$default_duckdb_connection$con@conn_ref` is <pointer: 0x55fb63ba8600>
+      `expected$default_duckdb_connection$con@conn_ref` is <pointer: 0x55fb639ea910>
       
-      `actual$default_duckdb_connection$con@driver@database_ref` is <pointer: 0x55e53a61bf40>
-      `expected$default_duckdb_connection$con@driver@database_ref` is <pointer: 0x55e539e4af60>
+      `actual$default_duckdb_connection$con@driver@database_ref` is <pointer: 0x55fb672607b0>
+      `expected$default_duckdb_connection$con@driver@database_ref` is <pointer: 0x55fb6a74c250>
       
       `environment(actual$df_from_csv)` is <env:namespace:duckplyr>
       `environment(expected$df_from_csv)` is <env:namespace:dplyr>
@@ -1125,25 +818,28 @@ Run `revdepcheck::cloud_details(, "duckplyr")` for more info
       `environment(actual$duckplyr_left_join)` is <env:namespace:duckplyr>
       `environment(expected$duckplyr_left_join)` is <env:namespace:dplyr>
       
-      actual$duckplyr_macros[1:11] vs expected$duckplyr_macros[1:11]
+      `names(actual$duckplyr_macros)[1:3]`:             "<" "<=" ">"
+      `names(expected$duckplyr_macros)[1:4]`: "___null" "<" "<=" ">"
+      
+      actual$duckplyr_macros[1:11] vs expected$duckplyr_macros[1:12]
       - <"(x, y) AS x < y"
-      + <"(x, y) AS \"r_base::<\"(x, y)"
       - <="(x, y) AS x <= y"
-      + <="(x, y) AS \"r_base::<=\"(x, y)"
       - >"(x, y) AS x > y"
-      + >"(x, y) AS \"r_base::>\"(x, y)"
       - >="(x, y) AS x >= y"
-      + >="(x, y) AS \"r_base::>=\"(x, y)"
       - =="(x, y) AS x = y"
-      + =="(x, y) AS \"r_base::==\"(x, y)"
       - !="(x, y) AS x <> y"
+      + ___null"() AS CAST(NULL AS BOOLEAN)"
+      + <"(x, y) AS \"r_base::<\"(x, y)"
+      + <="(x, y) AS \"r_base::<=\"(x, y)"
+      + >"(x, y) AS \"r_base::>\"(x, y)"
+      + >="(x, y) AS \"r_base::>=\"(x, y)"
+      + =="(x, y) AS \"r_base::==\"(x, y)"
       + !="(x, y) AS \"r_base::!=\"(x, y)"
         ___divide"(x, y) AS CASE WHEN y = 0 THEN CASE WHEN x = 0 THEN CAST('NaN' AS double) WHEN x > 0 THEN CAST('+Infinity' AS double) ELSE CAST('-Infinity' AS double) END ELSE CAST(x AS double) / y END"
       - is.na"(x) AS (x IS NULL)"
       + is.na"(x) AS (x IS NULL OR isnan(x))"
         n"() AS CAST(COUNT(*) AS int32)"
-        ___log10"(x) AS CASE WHEN x < 0 THEN CAST('NaN' AS double) WHEN x = 0 THEN CAST('-Inf' AS double) ELSE log10(x) END"
-      and 1 more ...
+      and 2 more ...
       
       `environment(actual$duckplyr_mutate)` is <env:namespace:duckplyr>
       `environment(expected$duckplyr_mutate)` is <env:namespace:dplyr>
@@ -1501,21 +1197,34 @@ Run `revdepcheck::cloud_details(, "duckplyr")` for more info
       `environment(actual$rel_to_df.relational_df)` is <env:namespace:duckplyr>
       `environment(expected$rel_to_df.relational_df)` is <env:namespace:dplyr>
       
-      body(actual$rel_translate)[35:40] vs body(expected$rel_translate)[35:47]
+      body(actual$rel_translate)[12:19] vs body(expected$rel_translate)[12:20]
+        `        if (is_quosure(expr)) {`
+        `            expr <- quo_get_expr(expr)`
+        `        }`
+      - `        switch(typeof(expr), character = , logical = , integer = , `
+      - `            double = relexpr_constant(expr), symbol = {`
+      + `        switch(typeof(expr), character = , integer = , double = relexpr_constant(expr), `
+      + `            logical = if (is.na(expr)) relexpr_function("___null", `
+      + `                boo) else relexpr_constant(expr), symbol = {`
+        `                if (as.character(expr) %in% names_forbidden) {`
+        `                  cli::cli_abort("Can't reuse summary variable {.var {as.character(expr)}}.")`
+        `                }`
+      
+      body(actual$rel_translate)[34:39] vs body(expected$rel_translate)[35:47]
+        `                  pkg <- name[[2]]`
         `                  name <- name[[3]]`
         `                } else {`
         `                  pkg <- NULL`
-        `                }`
+      + `                }`
       + `                if (!(name %in% c("wday", "strftime", "lag", `
       + `                  "lead"))) {`
       + `                  if (!is.null(names(expr)) && any(names(expr) != `
       + `                    "")) {`
       + `                    cli::cli_abort("Can't translate named argument {.code {name}({names(expr)[names(expr) != ''][[1]]} = )}.")`
       + `                  }`
-      + `                }`
       and 3 more ...
       
-      body(actual$rel_translate)[61:70] vs body(expected$rel_translate)[68:77]
+      body(actual$rel_translate)[61:70] vs body(expected$rel_translate)[69:78]
         `                  }`
         `                }, \`%in%\` = {`
         `                  tryCatch({`
@@ -1529,7 +1238,7 @@ Run `revdepcheck::cloud_details(, "duckplyr")` for more info
         `                      relexpr_function("|", list(.x, .y))`
         `                    })`
       
-      body(actual$rel_translate)[124:134] vs body(expected$rel_translate)[131:149]
+      body(actual$rel_translate)[124:134] vs body(expected$rel_translate)[132:150]
         `                  }`
         `                }`
         `                args <- map(as.list(expr[-1]), do_translate, `
@@ -1666,7 +1375,7 @@ Run `revdepcheck::cloud_details(, "duckplyr")` for more info
       🦆:  661
       add_count, anti_join, arrange, compute, count, cross_join, distinct, do, eval, filter, full_join, group_by, inner_join, intersect, left_join, mutate, mutate.data.frame, nest_join, pull, reframe, relocate, rename, rename_with, right_join, rows_append, rows_delete, rows_insert, rows_patch, rows_update, rows_upsert, rowwise, select, semi_join, setdiff, setequal, slice, slice_head, slice_sample, slice_tail, summarise, symdiff, transmute, ungroup, union_all
       
-      00:00:50.016488
+      00:01:39.674859
       Execution halted
     ```
 
@@ -1871,87 +1580,6 @@ Run `revdepcheck::cloud_details(, "linelist")` for more info
       ‘design-principles.Rmd’ using ‘UTF-8’... OK
       ‘linelist.Rmd’ using ‘UTF-8’... failed
       ‘software-permissions.Rmd’ using ‘UTF-8’... OK
-    ```
-
-# MixviR
-
-<details>
-
-* Version: 3.5.0
-* GitHub: https://github.com/mikesovic/MixviR
-* Source code: https://github.com/cran/MixviR
-* Date/Publication: 2022-10-22 22:17:49 UTC
-* Number of recursive dependencies: 105
-
-Run `revdepcheck::cloud_details(, "MixviR")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking examples ... ERROR
-    ```
-    Running examples in ‘MixviR-Ex.R’ failed
-    The error most likely occurred in:
-    
-    > ### Name: create_ref
-    > ### Title: Create MixVir-formatted reference genome object
-    > ### Aliases: create_ref
-    > ### Keywords: reference
-    > 
-    > ### ** Examples
-    > 
-    > site1 <- "https://raw.githubusercontent.com/mikesovic/MixviR/main/raw_files/GCF_ASM985889v3.fa"
-    > site2 <- "https://raw.githubusercontent.com/mikesovic/MixviR/main/raw_files/sars_cov2_genes.bed"
-    > 
-    > if (httr::http_error(site1) | httr::http_error(site2)) {
-    +      message("No internet connection or data source broken.") 
-    +      return(NULL)
-    + } else { 
-    + create_ref(
-    +  genome = site1,
-    +  feature.bed = site2,
-    +  code.num = "1")
-    + }
-    Rows: 12 Columns: 6
-    ── Column specification ────────────────────────────────────────────────────────
-    Delimiter: "\t"
-    chr (4): X1, X4, X5, X6
-    dbl (2): X2, X3
-    
-    ℹ Use `spec()` to retrieve the full column specification for this data.
-    ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
-    trying URL 'https://raw.githubusercontent.com/mikesovic/MixviR/main/raw_files/GCF_ASM985889v3.fa'
-    Content type 'text/plain; charset=utf-8' length 30290 bytes (29 KB)
-    ==================================================
-    downloaded 29 KB
-    
-    Warning: Returning more (or less) than 1 row per `summarise()` group was deprecated in
-    dplyr 1.1.0.
-    ℹ Please use `reframe()` instead.
-    ℹ When switching from `summarise()` to `reframe()`, remember that `reframe()`
-      always returns an ungrouped data frame and adjust accordingly.
-    ℹ The deprecated feature was likely used in the MixviR package.
-      Please report the issue at <https://groups.google.com/g/mixvir>.
-    Error in `dplyr::bind_rows()`:
-    ! Can't combine `..1$REF_CODON` <integer> and `..2$REF_CODON` <character>.
-    Backtrace:
-         ▆
-      1. ├─MixviR::create_ref(genome = site1, feature.bed = site2, code.num = "1")
-      2. │ ├─... %>% dplyr::arrange(CHR, POS)
-      3. │ └─dplyr::bind_rows(nonfeature_positions, feature_positions)
-      4. │   └─vctrs::vec_rbind(!!!dots, .names_to = .id, .error_call = current_env())
-      5. ├─dplyr::arrange(., CHR, POS)
-      6. └─vctrs (local) `<fn>`()
-      7.   └─vctrs::vec_default_ptype2(...)
-      8.     ├─base::withRestarts(...)
-      9.     │ └─base (local) withOneRestart(expr, restarts[[1L]])
-     10.     │   └─base (local) doWithOneRestart(return(expr), restart)
-     11.     └─vctrs::stop_incompatible_type(...)
-     12.       └─vctrs:::stop_incompatible(...)
-     13.         └─vctrs:::stop_vctrs(...)
-     14.           └─rlang::abort(message, class = c(class, "vctrs_error"), ..., call = call)
-    Execution halted
     ```
 
 # msigdbr
@@ -2179,390 +1807,6 @@ Run `revdepcheck::cloud_details(, "partition")` for more info
       sub-directories of 1Mb or more:
         doc    2.8Mb
         libs  12.0Mb
-    ```
-
-# PublicWorksFinanceIT
-
-<details>
-
-* Version: 0.2.0
-* GitHub: NA
-* Source code: https://github.com/cran/PublicWorksFinanceIT
-* Date/Publication: 2024-03-07 10:30:06 UTC
-* Number of recursive dependencies: 87
-
-Run `revdepcheck::cloud_details(, "PublicWorksFinanceIT")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking examples ... ERROR
-    ```
-    Running examples in ‘PublicWorksFinanceIT-Ex.R’ failed
-    The error most likely occurred in:
-    
-    > ### Name: merge_data
-    > ### Title: Merging the three financial datasets
-    > ### Aliases: merge_data
-    > 
-    > ### ** Examples
-    > 
-    > data(OCpoint)
-    > data(OBDAPpoint)
-    > data(RENDISpoint)
-    > data_all <- merge_data(RENDISpoint, OBDAPpoint, OCpoint)
-    Error in `dplyr::bind_rows()`:
-    ! Can't combine `..1$FeasibilityStudyStartingDate` <character> and `..2$FeasibilityStudyStartingDate` <integer>.
-    Backtrace:
-         ▆
-      1. ├─PublicWorksFinanceIT::merge_data(RENDISpoint, OBDAPpoint, OCpoint)
-      2. │ └─dplyr::bind_rows(data_OC, data_OBDAP, data_RENDIS)
-      3. │   └─vctrs::vec_rbind(!!!dots, .names_to = .id, .error_call = current_env())
-      4. └─vctrs (local) `<fn>`()
-      5.   └─vctrs::vec_default_ptype2(...)
-      6.     ├─base::withRestarts(...)
-      7.     │ └─base (local) withOneRestart(expr, restarts[[1L]])
-      8.     │   └─base (local) doWithOneRestart(return(expr), restart)
-      9.     └─vctrs::stop_incompatible_type(...)
-     10.       └─vctrs:::stop_incompatible(...)
-     11.         └─vctrs:::stop_vctrs(...)
-     12.           └─rlang::abort(message, class = c(class, "vctrs_error"), ..., call = call)
-    Execution halted
-    ```
-
-## In both
-
-*   checking installed package size ... NOTE
-    ```
-      installed size is 13.1Mb
-      sub-directories of 1Mb or more:
-        data  12.9Mb
-    ```
-
-# recipes
-
-<details>
-
-* Version: 1.0.10
-* GitHub: https://github.com/tidymodels/recipes
-* Source code: https://github.com/cran/recipes
-* Date/Publication: 2024-02-18 18:00:02 UTC
-* Number of recursive dependencies: 139
-
-Run `revdepcheck::cloud_details(, "recipes")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking tests ... ERROR
-    ```
-      Running ‘testthat.R’
-    Running the tests in ‘tests/testthat.R’ failed.
-    Complete output:
-      > library(testthat)
-      > library(recipes)
-      Loading required package: dplyr
-      
-      Attaching package: 'dplyr'
-      
-      The following object is masked from 'package:testthat':
-      
-          matches
-      
-      The following objects are masked from 'package:stats':
-      
-          filter, lag
-      
-      The following objects are masked from 'package:base':
-      
-          intersect, setdiff, setequal, union
-      
-      
-      Attaching package: 'recipes'
-      
-      The following object is masked from 'package:stats':
-      
-          step
-      
-      > 
-      > test_check("recipes")
-      
-      Attaching package: 'purrr'
-      
-      The following object is masked from 'package:testthat':
-      
-          is_null
-      
-      1 package (fastICA) is needed for this step but is not installed.
-      To install run: `install.packages("fastICA")`
-      1 package (dimRed) is needed for this step but is not installed.
-      To install run: `install.packages("dimRed")`
-      1 package (dimRed) is needed for this step but is not installed.
-      To install run: `install.packages("dimRed")`
-      1 package (dimRed) is needed for this step but is not installed.
-      To install run: `install.packages("dimRed")`
-      1 package (dimRed) is needed for this step but is not installed.
-      To install run: `install.packages("dimRed")`
-      1 package (dimRed) is needed for this step but is not installed.
-      To install run: `install.packages("dimRed")`
-      1 package (mixOmics) is needed for this step but is not installed.
-      To install run: `install.packages("mixOmics")`
-      1 package (mixOmics) is needed for this step but is not installed.
-      To install run: `install.packages("mixOmics")`
-      1 package (mixOmics) is needed for this step but is not installed.
-      To install run: `install.packages("mixOmics")`
-      1 package (mixOmics) is needed for this step but is not installed.
-      To install run: `install.packages("mixOmics")`
-      1 package (mixOmics) is needed for this step but is not installed.
-      To install run: `install.packages("mixOmics")`
-      1 package (mixOmics) is needed for this step but is not installed.
-      To install run: `install.packages("mixOmics")`
-      [ FAIL 1 | WARN 2 | SKIP 479 | PASS 2119 ]
-      
-      ══ Skipped tests (479) ═════════════════════════════════════════════════════════
-      • On CRAN (443): 'test-BoxCox.R:77:3', 'test-BoxCox.R:83:3',
-        'test-BoxCox.R:111:3', 'test-BoxCox.R:148:3', 'test-YeoJohnson.R:89:3',
-        'test-YeoJohnson.R:112:3', 'test-YeoJohnson.R:149:3', 'test-arrange.R:76:3',
-        'test-arrange.R:113:3', 'test-basics.R:19:3', 'test-basics.R:50:3',
-        'test-basics.R:116:3', 'test-basics.R:157:3', 'test-basics.R:185:3',
-        'test-basics.R:201:3', 'test-basics.R:265:3', 'test-basics.R:291:3',
-        'test-basics.R:303:3', 'test-basics.R:333:3', 'test-basics.R:344:3',
-        'test-bin2factor.R:47:3', 'test-bin2factor.R:86:3',
-        'test-bin2factor.R:123:3', 'test-bs.R:79:3', 'test-bs.R:130:3',
-        'test-bs.R:195:3', 'test-bs.R:209:3', 'test-case-weight-functions.R:144:3',
-        'test-case-weight-functions.R:158:3', 'test-center.R:94:3',
-        'test-center.R:115:3', 'test-center.R:139:3', 'test-center.R:176:3',
-        'test-class.R:19:3', 'test-class.R:38:3', 'test-class.R:53:3',
-        'test-class.R:102:3', 'test-class.R:133:3', 'test-class.R:170:3',
-        'test-classdist.R:87:3', 'test-classdist.R:171:3', 'test-classdist.R:192:3',
-        'test-classdist.R:264:3', 'test-classdist.R:279:3',
-        'test-classdist_shrunken.R:84:3', 'test-classdist_shrunken.R:180:3',
-        'test-classdist_shrunken.R:259:3', 'test-colcheck.R:38:3',
-        'test-colcheck.R:163:3', 'test-colcheck.R:200:3', 'test-corr.R:41:3',
-        'test-corr.R:56:3', 'test-corr.R:104:3', 'test-corr.R:147:3',
-        'test-corr.R:185:3', 'test-count.R:49:3', 'test-count.R:64:3',
-        'test-count.R:93:3', 'test-count.R:161:3', 'test-count.R:175:3',
-        'test-cut.R:4:3', 'test-cut.R:31:3', 'test-cut.R:193:3', 'test-cut.R:230:3',
-        'test-date.R:98:3', 'test-date.R:201:3', 'test-date.R:271:3',
-        'test-date.R:285:3', 'test-depth.R:105:3', 'test-depth.R:174:3',
-        'test-depth.R:189:3', 'test-discretize.R:45:3', 'test-discretize.R:49:3',
-        'test-discretize.R:126:3', 'test-discretize.R:142:3',
-        'test-discretize.R:191:3', 'test-discretize.R:228:3', 'test-dummy.R:72:3',
-        'test-dummy.R:79:3', 'test-dummy.R:160:3', 'test-dummy.R:182:3',
-        'test-dummy.R:217:3', 'test-dummy.R:286:3', 'test-dummy.R:308:3',
-        'test-dummy.R:321:3', 'test-dummy.R:344:3', 'test-dummy.R:409:3',
-        'test-dummy.R:423:3', 'test-dummy_extract.R:81:3',
-        'test-dummy_extract.R:228:3', 'test-dummy_extract.R:270:3',
-        'test-dummy_extract.R:317:3', 'test-dummy_extract.R:384:3',
-        'test-dummy_extract.R:398:3', 'test-dummy_multi_choice.R:42:3',
-        'test-dummy_multi_choice.R:52:3', 'test-dummy_multi_choice.R:154:3',
-        'test-dummy_multi_choice.R:219:3', 'test-dummy_multi_choice.R:233:3',
-        'test-extension_check.R:2:3', 'test-extract-dials.R:62:3',
-        'test-extract-dials.R:74:3', 'test-factor2string.R:28:3',
-        'test-factor2string.R:52:3', 'test-factor2string.R:89:3',
-        'test-filter.R:116:3', 'test-filter.R:153:3', 'test-filter_missing.R:77:3',
-        'test-filter_missing.R:110:3', 'test-filter_missing.R:147:3',
-        'test-format.R:68:3', 'test-formula.R:21:3', 'test-formula.R:62:3',
-        'test-geodist.R:72:3', 'test-geodist.R:163:3', 'test-geodist.R:175:3',
-        'test-geodist.R:242:3', 'test-geodist.R:326:3', 'test-geodist.R:343:3',
-        'test-harmonic.R:25:3', 'test-harmonic.R:268:3', 'test-harmonic.R:284:3',
-        'test-harmonic.R:303:3', 'test-harmonic.R:320:3', 'test-harmonic.R:399:3',
-        'test-harmonic.R:446:3', 'test-harmonic.R:520:3', 'test-harmonic.R:534:3',
-        'test-holiday.R:179:3', 'test-holiday.R:203:3', 'test-holiday.R:270:3',
-        'test-holiday.R:284:3', 'test-hyperbolic.R:59:3', 'test-hyperbolic.R:80:3',
-        'test-hyperbolic.R:122:3', 'test-impute_bag.R:90:3',
-        'test-impute_bag.R:143:3', 'test-impute_bag.R:181:3',
-        'test-impute_knn.R:101:3', 'test-impute_knn.R:161:3',
-        'test-impute_knn.R:201:3', 'test-impute_knn.R:247:3',
-        'test-impute_linear.R:62:3', 'test-impute_linear.R:109:3',
-        'test-impute_linear.R:154:3', 'test-impute_linear.R:191:3',
-        'test-impute_lower.R:57:3', 'test-impute_lower.R:65:3',
-        'test-impute_lower.R:89:3', 'test-impute_lower.R:127:3',
-        'test-impute_mean.R:82:3', 'test-impute_mean.R:99:3',
-        'test-impute_mean.R:167:3', 'test-impute_mean.R:226:3',
-        'test-impute_mean.R:263:3', 'test-impute_median.R:66:3',
-        'test-impute_median.R:83:3', 'test-impute_median.R:106:3',
-        'test-impute_median.R:148:3', 'test-impute_median.R:185:3',
-        'test-impute_mode.R:68:3', 'test-impute_mode.R:94:3',
-        'test-impute_mode.R:100:3', 'test-impute_mode.R:124:3',
-        'test-impute_mode.R:166:3', 'test-impute_mode.R:203:3',
-        'test-impute_roll.R:73:3', 'test-impute_roll.R:96:3',
-        'test-impute_roll.R:135:3', 'test-impute_roll.R:173:3',
-        'test-indicate_na.R:95:3', 'test-indicate_na.R:118:3',
-        'test-indicate_na.R:183:3', 'test-indicate_na.R:197:3',
-        'test-integer.R:98:3', 'test-integer.R:135:3', 'test-interact.R:173:3',
-        'test-interact.R:291:3', 'test-interact.R:298:3', 'test-interact.R:363:3',
-        'test-interact.R:377:3', 'test-intercept.R:35:3', 'test-intercept.R:61:3',
-        'test-intercept.R:97:3', 'test-inverse.R:56:3', 'test-inverse.R:93:3',
-        'test-invlogit.R:47:3', 'test-invlogit.R:83:3', 'test-isomap.R:41:3',
-        'test-isomap.R:66:3', 'test-isomap.R:91:3', 'test-isomap.R:110:3',
-        'test-isomap.R:147:3', 'test-isomap.R:169:3', 'test-isomap.R:203:3',
-        'test-isomap.R:238:3', 'test-isomap.R:262:3', 'test-kpca.R:51:3',
-        'test-kpca.R:74:3', 'test-kpca.R:111:3', 'test-kpca.R:178:3',
-        'test-kpca.R:194:3', 'test-kpca_poly.R:57:3', 'test-kpca_poly.R:68:3',
-        'test-kpca_poly.R:121:3', 'test-kpca_poly.R:192:3', 'test-kpca_poly.R:208:3',
-        'test-kpca_rbf.R:57:3', 'test-kpca_rbf.R:68:3', 'test-kpca_rbf.R:119:3',
-        'test-kpca_rbf.R:186:3', 'test-kpca_rbf.R:202:3', 'test-lag.R:40:3',
-        'test-lag.R:98:3', 'test-lag.R:163:3', 'test-lag.R:177:3',
-        'test-lincomb.R:81:3', 'test-lincomb.R:118:3', 'test-log.R:58:3',
-        'test-log.R:79:3', 'test-log.R:116:3', 'test-logit.R:45:3',
-        'test-logit.R:68:3', 'test-logit.R:105:3', 'test-matrix.R:67:3',
-        'test-misc.R:13:3', 'test-misc.R:29:3', 'test-misc.R:33:3',
-        'test-missing.R:28:3', 'test-missing.R:35:3', 'test-missing.R:45:3',
-        'test-missing.R:68:3', 'test-missing.R:105:3', 'test-mutate.R:64:3',
-        'test-mutate.R:124:3', 'test-mutate.R:148:3', 'test-mutate_at.R:95:3',
-        'test-mutate_at.R:132:3', 'test-naomit.R:54:3', 'test-naomit.R:91:3',
-        'test-newvalues.R:13:3', 'test-newvalues.R:19:3', 'test-newvalues.R:29:3',
-        'test-newvalues.R:39:3', 'test-newvalues.R:50:3', 'test-newvalues.R:72:3',
-        'test-newvalues.R:92:3', 'test-newvalues.R:102:3', 'test-newvalues.R:131:3',
-        'test-newvalues.R:137:3', 'test-newvalues.R:143:3', 'test-newvalues.R:149:3',
-        'test-newvalues.R:155:3', 'test-newvalues.R:176:3', 'test-newvalues.R:213:3',
-        'test-nomial_types.R:140:3', 'test-nomial_types.R:157:3',
-        'test-nomial_types.R:173:3', 'test-normalize.R:68:3',
-        'test-normalize.R:100:3', 'test-normalize.R:122:3', 'test-normalize.R:148:3',
-        'test-normalize.R:173:3', 'test-normalize.R:215:3', 'test-novel.R:79:3',
-        'test-novel.R:117:3', 'test-novel.R:154:3', 'test-ns.R:81:3',
-        'test-ns.R:132:3', 'test-ns.R:197:3', 'test-ns.R:211:3',
-        'test-num2factor.R:38:3', 'test-num2factor.R:67:3',
-        'test-num2factor.R:104:3', 'test-nzv.R:64:3', 'test-nzv.R:71:3',
-        'test-nzv.R:120:3', 'test-nzv.R:195:3', 'test-nzv.R:232:3',
-        'test-ordinalscore.R:69:3', 'test-ordinalscore.R:94:3',
-        'test-ordinalscore.R:131:3', 'test-other.R:247:3', 'test-other.R:280:5',
-        'test-other.R:357:3', 'test-other.R:402:3', 'test-other.R:439:3',
-        'test-pca.R:82:3', 'test-pca.R:132:3', 'test-pca.R:157:3',
-        'test-pca.R:167:3', 'test-pca.R:213:3', 'test-pca.R:273:3',
-        'test-pca.R:343:3', 'test-pca.R:358:3', 'test-percentile.R:142:3',
-        'test-percentile.R:187:3', 'test-percentile.R:245:3',
-        'test-percentile.R:287:3', 'test-pkg_check.R:2:3', 'test-pls.R:242:3',
-        'test-pls.R:293:3', 'test-pls_old.R:29:3', 'test-poly.R:71:3',
-        'test-poly.R:135:3', 'test-poly.R:200:3', 'test-poly.R:215:3',
-        'test-poly_bernstein.R:82:3', 'test-poly_bernstein.R:129:3',
-        'test-poly_bernstein.R:199:3', 'test-profile.R:73:3', 'test-profile.R:138:3',
-        'test-profile.R:173:3', 'test-range.R:182:3', 'test-range.R:188:3',
-        'test-range.R:213:3', 'test-range.R:250:3', 'test-range_check.R:7:3',
-        'test-range_check.R:18:3', 'test-range_check.R:50:3',
-        'test-range_check.R:81:3', 'test-range_check.R:118:3', 'test-ratio.R:118:3',
-        'test-ratio.R:142:3', 'test-ratio.R:166:3', 'test-ratio.R:231:3',
-        'test-ratio.R:245:3', 'test-regex.R:41:3', 'test-regex.R:56:3',
-        'test-regex.R:83:3', 'test-regex.R:150:3', 'test-regex.R:164:3',
-        'test-relevel.R:25:3', 'test-relevel.R:66:3', 'test-relevel.R:103:3',
-        'test-relu.R:68:3', 'test-relu.R:110:3', 'test-relu.R:152:3',
-        'test-rename.R:63:3', 'test-rename.R:100:3', 'test-rename_at.R:36:3',
-        'test-rename_at.R:64:3', 'test-rename_at.R:101:3', 'test-retraining.R:28:3',
-        'test-rm.R:76:3', 'test-rm.R:183:3', 'test-rm.R:220:3', 'test-roles.R:41:3',
-        'test-roles.R:171:3', 'test-roles.R:195:3', 'test-roles.R:217:3',
-        'test-roles.R:226:3', 'test-roles.R:234:3', 'test-roles.R:246:3',
-        'test-roles.R:338:3', 'test-roles.R:370:3', 'test-roles.R:522:3',
-        'test-roles.R:569:3', 'test-sample.R:72:3', 'test-sample.R:125:3',
-        'test-sample.R:151:3', 'test-sample.R:181:3', 'test-scale.R:67:3',
-        'test-scale.R:91:3', 'test-scale.R:117:3', 'test-scale.R:124:3',
-        'test-scale.R:141:3', 'test-scale.R:177:3', 'test-scale.R:214:3',
-        'test-select.R:125:3', 'test-select.R:152:3', 'test-select.R:182:3',
-        'test-selections.R:130:3', 'test-shuffle.R:68:3', 'test-shuffle.R:90:3',
-        'test-shuffle.R:127:3', 'test-skipping.R:18:3', 'test-slice.R:88:3',
-        'test-slice.R:111:3', 'test-slice.R:148:3', 'test-sparsity.R:66:3',
-        'test-spatialsign.R:73:3', 'test-spatialsign.R:111:3',
-        'test-spatialsign.R:151:3', 'test-spline_b.R:83:3', 'test-spline_b.R:142:3',
-        'test-spline_b.R:212:3', 'test-spline_convex.R:83:3',
-        'test-spline_convex.R:142:3', 'test-spline_convex.R:212:3',
-        'test-spline_monotone.R:83:3', 'test-spline_monotone.R:142:3',
-        'test-spline_monotone.R:212:3', 'test-spline_natural.R:83:3',
-        'test-spline_natural.R:142:3', 'test-spline_natural.R:212:3',
-        'test-spline_nonnegative.R:83:3', 'test-spline_nonnegative.R:142:3',
-        'test-spline_nonnegative.R:212:3', 'test-sqrt.R:38:3', 'test-sqrt.R:75:3',
-        'test-string2factor.R:39:3', 'test-string2factor.R:84:3',
-        'test-string2factor.R:121:3', 'test-stringsAsFactors.R:27:3',
-        'test-stringsAsFactors.R:42:3', 'test-tidy.R:36:3', 'test-tidy.R:70:3',
-        'test-tidy.R:83:3', 'test-time.R:104:3', 'test-time.R:134:3',
-        'test-time.R:209:3', 'test-time.R:228:3', 'test-unknown.R:34:3',
-        'test-unknown.R:59:3', 'test-unknown.R:101:3', 'test-unknown.R:138:3',
-        'test-unorder.R:29:3', 'test-unorder.R:51:3', 'test-unorder.R:88:3',
-        'test-update-role-requirements.R:9:3',
-        'test-update-role-requirements.R:37:3',
-        'test-update-role-requirements.R:46:3',
-        'test-update-role-requirements.R:55:3',
-        'test-update-role-requirements.R:77:3',
-        'test-update-role-requirements.R:117:3',
-        'test-update-role-requirements.R:140:3',
-        'test-update-role-requirements.R:171:3',
-        'test-update-role-requirements.R:185:3',
-        'test-update-role-requirements.R:198:3',
-        'test-update-role-requirements.R:247:3',
-        'test-update-role-requirements.R:270:3',
-        'test-update-role-requirements.R:290:3',
-        'test-update-role-requirements.R:305:3', 'test-update.R:13:3',
-        'test-update.R:21:3', 'test-window.R:16:3', 'test-window.R:140:3',
-        'test-window.R:165:3', 'test-window.R:237:3', 'test-window.R:251:3',
-        'test-zv.R:99:3', 'test-zv.R:139:3'
-      • RcppML cannot be loaded (9): 'test-nnmf_sparse.R:2:3',
-        'test-nnmf_sparse.R:18:3', 'test-nnmf_sparse.R:33:3',
-        'test-nnmf_sparse.R:48:3', 'test-nnmf_sparse.R:61:3',
-        'test-nnmf_sparse.R:76:3', 'test-nnmf_sparse.R:96:3',
-        'test-nnmf_sparse.R:124:3', 'test-nnmf_sparse.R:142:3'
-      • dimRed cannot be loaded (12): 'test-ica.R:38:3', 'test-ica.R:79:3',
-        'test-ica.R:96:3', 'test-ica.R:113:3', 'test-ica.R:143:3',
-        'test-ica.R:162:3', 'test-ica.R:177:3', 'test-ica.R:194:3',
-        'test-ica.R:216:3', 'test-ica.R:246:3', 'test-ica.R:266:3',
-        'test-ica.R:281:3'
-      • mixOmics cannot be loaded (15): 'test-pls.R:32:3', 'test-pls.R:51:3',
-        'test-pls.R:70:3', 'test-pls.R:90:3', 'test-pls.R:111:3', 'test-pls.R:130:3',
-        'test-pls.R:139:3', 'test-pls.R:159:3', 'test-pls.R:170:3',
-        'test-pls.R:190:3', 'test-pls.R:226:3', 'test-pls.R:277:3',
-        'test-pls.R:332:3', 'test-pls.R:359:3', 'test-pls.R:376:3'
-      
-      ══ Failed tests ════════════════════════════════════════════════════════════════
-      ── Failure ('test-impute_linear.R:44:3'): All NA values ────────────────────────
-      unname(imputed_te$Lot_Frontage) (`actual`) not equal to `lm_predicted` (`expected`).
-      
-           actual   | expected                  
-       [1] 109.0000 - 108.6459 [1]              
-       [2] 73.0000  - 72.6421  [2]              
-       [3] 77.0000  - 77.3687  [3]              
-       [4] 72.0000  - 71.8165  [4]              
-       [5] 77.0000  - 76.5877  [5]              
-       [6] 70.0000  - 69.7043  [6]              
-       [7] 61.0000  - 60.6659  [7]              
-       [8] 61.0000  - 60.8178  [8]              
-       [9] 62.0000  - 61.5040  [9]              
-      [10] 65.0000  - 65.2762  [10]             
-       ... ...        ...      and 2920 more ...
-      
-      [ FAIL 1 | WARN 2 | SKIP 479 | PASS 2119 ]
-      Error: Test failures
-      Execution halted
-    ```
-
-## In both
-
-*   checking running R code from vignettes ... ERROR
-    ```
-    Errors in running code in vignettes:
-    when running code in ‘Roles.Rmd’
-      ...
-    6 nitrogen <chr [2]> predictor original
-    7 sulfur   <chr [2]> predictor original
-    8 HHV      <chr [2]> outcome   original
-    
-    > recipe(HHV ~ ., data = biomass) %>% update_role(sample, 
-    +     new_role = NA)
-    
-      When sourcing ‘Roles.R’:
-    Error: `new_role` must not be `NA`.
-    Execution halted
-    
-      ‘Dummies.Rmd’ using ‘UTF-8’... OK
-      ‘Ordering.Rmd’ using ‘UTF-8’... OK
-      ‘Roles.Rmd’ using ‘UTF-8’... failed
-      ‘Selecting_Variables.Rmd’ using ‘UTF-8’... OK
-      ‘Skipping.Rmd’ using ‘UTF-8’... OK
-      ‘recipes.Rmd’ using ‘UTF-8’... OK
-    ```
-
-*   checking Rd cross-references ... NOTE
-    ```
-    Packages unavailable to check Rd xrefs: ‘fastICA’, ‘dimRed’
     ```
 
 # rfars
@@ -3032,7 +2276,7 @@ Run `revdepcheck::cloud_details(, "scrutiny")` for more info
     
       When sourcing ‘consistency-tests-in-depth.R’:
     Error: Could not find a root 'DESCRIPTION' file that starts with '^Package' in
-    '/tmp/RtmpxrNSvB/file15b858cf3a69/vignettes'.
+    '/tmp/Rtmp8uzvZh/file15b47400060a/vignettes'.
     ℹ Are you in your project directory and does your project have a 'DESCRIPTION'
       file?
     Execution halted
@@ -3044,7 +2288,7 @@ Run `revdepcheck::cloud_details(, "scrutiny")` for more info
     
       When sourcing ‘consistency-tests-simple.R’:
     Error: Could not find a root 'DESCRIPTION' file that starts with '^Package' in
-    '/tmp/RtmpAksmct/file15c375ce97fc/vignettes'.
+    '/tmp/RtmpC6ppt9/file15bf4e2c3a34/vignettes'.
     ℹ Are you in your project directory and does your project have a 'DESCRIPTION'
       file?
     Execution halted
@@ -3068,7 +2312,7 @@ Run `revdepcheck::cloud_details(, "scrutiny")` for more info
     
       When sourcing ‘grim.R’:
     Error: Could not find a root 'DESCRIPTION' file that starts with '^Package' in
-    '/tmp/RtmpjfnBh2/file15f2fb442f3/vignettes'.
+    '/tmp/RtmpJok6HG/file15ee124ea643/vignettes'.
     ℹ Are you in your project directory and does your project have a 'DESCRIPTION'
       file?
     Execution halted
@@ -3080,7 +2324,7 @@ Run `revdepcheck::cloud_details(, "scrutiny")` for more info
     
       When sourcing ‘grimmer.R’:
     Error: Could not find a root 'DESCRIPTION' file that starts with '^Package' in
-    '/tmp/RtmpfhCsJO/file15fd1702d4d1/vignettes'.
+    '/tmp/Rtmp32EcAx/file15f9a198906/vignettes'.
     ℹ Are you in your project directory and does your project have a 'DESCRIPTION'
       file?
     Execution halted
@@ -3101,221 +2345,6 @@ Run `revdepcheck::cloud_details(, "scrutiny")` for more info
 *   checking Rd cross-references ... NOTE
     ```
     Packages unavailable to check Rd xrefs: ‘janitor’, ‘unheadr’, ‘validate’
-    ```
-
-# srvyr
-
-<details>
-
-* Version: 1.2.0
-* GitHub: https://github.com/gergness/srvyr
-* Source code: https://github.com/cran/srvyr
-* Date/Publication: 2023-02-21 04:10:02 UTC
-* Number of recursive dependencies: 101
-
-Run `revdepcheck::cloud_details(, "srvyr")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking tests ... ERROR
-    ```
-      Running ‘spelling.R’
-      Running ‘testthat.R’
-    Running the tests in ‘tests/testthat.R’ failed.
-    Complete output:
-      > library(testthat)
-      > library(srvyr)
-      
-      Attaching package: 'srvyr'
-      
-      The following object is masked from 'package:stats':
-      
-          filter
-      
-      > 
-      > test_check("srvyr")
-      [ FAIL 2 | WARN 2 | SKIP 0 | PASS 393 ]
-      
-      ══ Failed tests ════════════════════════════════════════════════════════════════
-      ── Error ('test_cascade.r:144:3'): cascade can fill parts - non-interacted factor and string default fill ──
-      <vctrs_error_ptype2/vctrs_error_incompatible_type/vctrs_error_incompatible/vctrs_error/rlang_error/error/condition>
-      Error in `dplyr::bind_rows(out)`: Can't combine `..1$awards` <character> and `..3$awards` <integer>.
-      Backtrace:
-           ▆
-        1. ├─... %>% cascade(x = survey_mean()) at test_cascade.r:144:3
-        2. ├─srvyr::cascade(., x = survey_mean())
-        3. ├─srvyr:::cascade.tbl_svy(., x = survey_mean())
-        4. │ └─dplyr::bind_rows(out)
-        5. │   └─vctrs::vec_rbind(!!!dots, .names_to = .id, .error_call = current_env())
-        6. │     └─vctrs (local) `<fn>`()
-        7. │       └─vctrs (local) vec_ptype2.grouped_df.tbl_df(...)
-        8. │         └─vctrs:::gdf_ptype2(x, y, ...)
-        9. │           └─vctrs::df_ptype2(x, y, ...)
-       10. └─vctrs (local) `<fn>`()
-       11.   └─vctrs::vec_default_ptype2(...)
-       12.     ├─base::withRestarts(...)
-       13.     │ └─base (local) withOneRestart(expr, restarts[[1L]])
-       14.     │   └─base (local) doWithOneRestart(return(expr), restart)
-       15.     └─vctrs::stop_incompatible_type(...)
-       16.       └─vctrs:::stop_incompatible(...)
-       17.         └─vctrs:::stop_vctrs(...)
-       18.           └─rlang::abort(message, class = c(class, "vctrs_error"), ..., call = call)
-      ── Error ('test_cascade.r:164:3'): cascade can fill parts - non-interacted factor and string with default fill ──
-      <vctrs_error_ptype2/vctrs_error_incompatible_type/vctrs_error_incompatible/vctrs_error/rlang_error/error/condition>
-      Error in `dplyr::bind_rows(out)`: Can't combine `..1$awards` <character> and `..4$awards` <integer>.
-      Backtrace:
-           ▆
-        1. ├─... %>% cascade(x = survey_mean()) at test_cascade.r:164:3
-        2. ├─srvyr::cascade(., x = survey_mean())
-        3. ├─srvyr:::cascade.tbl_svy(., x = survey_mean())
-        4. │ └─dplyr::bind_rows(out)
-        5. │   └─vctrs::vec_rbind(!!!dots, .names_to = .id, .error_call = current_env())
-        6. └─vctrs (local) `<fn>`()
-        7.   └─vctrs::vec_default_ptype2(...)
-        8.     ├─base::withRestarts(...)
-        9.     │ └─base (local) withOneRestart(expr, restarts[[1L]])
-       10.     │   └─base (local) doWithOneRestart(return(expr), restart)
-       11.     └─vctrs::stop_incompatible_type(...)
-       12.       └─vctrs:::stop_incompatible(...)
-       13.         └─vctrs:::stop_vctrs(...)
-       14.           └─rlang::abort(message, class = c(class, "vctrs_error"), ..., call = call)
-      
-      [ FAIL 2 | WARN 2 | SKIP 0 | PASS 393 ]
-      Error: Test failures
-      Execution halted
-    ```
-
-## In both
-
-*   checking running R code from vignettes ... ERROR
-    ```
-    Errors in running code in vignettes:
-    when running code in ‘srvyr-database.Rmd’
-      ...
-    +     library(RSQLite)
-    + })
-    
-    > load("acs_m.Rdata")
-    Warning in readChar(con, 5L, useBytes = TRUE) :
-      cannot open compressed file 'acs_m.Rdata', probable reason 'No such file or directory'
-    
-      When sourcing ‘srvyr-database.R’:
-    Error: cannot open the connection
-    Execution halted
-    
-      ‘extending-srvyr.Rmd’ using ‘UTF-8’... OK
-      ‘srvyr-database.Rmd’ using ‘UTF-8’... failed
-      ‘srvyr-vs-survey.Rmd’ using ‘UTF-8’... OK
-    ```
-
-# SwimmeR
-
-<details>
-
-* Version: 0.14.2
-* GitHub: NA
-* Source code: https://github.com/cran/SwimmeR
-* Date/Publication: 2023-03-24 13:20:02 UTC
-* Number of recursive dependencies: 75
-
-Run `revdepcheck::cloud_details(, "SwimmeR")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking running R code from vignettes ... ERROR
-    ```
-    Errors in running code in vignettes:
-    when running code in ‘SwimmeR.Rmd’
-      ...
-    > if (SwimmeR:::is_link_broken(file_url) == TRUE) {
-    +     warning("External data unavailable")
-    + } else {
-    +     file_read <- read_results(file_url)
-    +  .... [TRUNCATED] 
-    Joining with `by = join_by(Row_Numb)`
-    
-      When sourcing ‘SwimmeR.R’:
-    Error: Can't combine `..1$Points` <character> and `..2$Points` <integer>.
-    Execution halted
-    
-      ‘SwimmeR.Rmd’ using ‘UTF-8’... failed
-    ```
-
-*   checking re-building of vignette outputs ... NOTE
-    ```
-    Error(s) in re-building vignettes:
-      ...
-    --- re-building ‘SwimmeR.Rmd’ using rmarkdown
-    
-    Quitting from lines  at lines 223-234 [swim_parse_ISL] (SwimmeR.Rmd)
-    Error: processing vignette 'SwimmeR.Rmd' failed with diagnostics:
-    Can't combine `..1$Points` <character> and `..2$Points` <integer>.
-    --- failed re-building ‘SwimmeR.Rmd’
-    
-    SUMMARY: processing the following file failed:
-      ‘SwimmeR.Rmd’
-    
-    Error: Vignette re-building failed.
-    Execution halted
-    ```
-
-# TKCat
-
-<details>
-
-* Version: 1.0.7
-* GitHub: https://github.com/patzaw/TKCat
-* Source code: https://github.com/cran/TKCat
-* Date/Publication: 2023-02-16 14:50:03 UTC
-* Number of recursive dependencies: 114
-
-Run `revdepcheck::cloud_details(, "TKCat")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking re-building of vignette outputs ... NOTE
-    ```
-    Error(s) in re-building vignettes:
-      ...
-    --- re-building ‘TKCat-User-guide.Rmd’ using rmarkdown
-    
-    Quitting from lines  at lines 942-947 [unnamed-chunk-55] (TKCat-User-guide.Rmd)
-    Error: processing vignette 'TKCat-User-guide.Rmd' failed with diagnostics:
-    Error evaluating duckdb query: Conversion Error: Could not convert string 'Condition' to INT32
-    --- failed re-building ‘TKCat-User-guide.Rmd’
-    
-    SUMMARY: processing the following file failed:
-      ‘TKCat-User-guide.Rmd’
-    
-    Error: Vignette re-building failed.
-    Execution halted
-    ```
-
-## In both
-
-*   checking running R code from vignettes ... ERROR
-    ```
-    Errors in running code in vignettes:
-    when running code in ‘TKCat-User-guide.Rmd’
-      ...
-      collection table.x      mid.x table.y   mid.y
-           <int> <chr>        <int> <chr>     <int>
-    1         NA HPO_diseases     2 traitCref     1
-    
-    > hpo_clinvar <- merge(file_hpo, file_clinvar, by = sel_coll, 
-    +     dmAutoLayout = igraph_available)
-    
-      When sourcing ‘TKCat-User-guide.R’:
-    Error: Error evaluating duckdb query: Conversion Error: Could not convert string 'Condition' to INT32
-    Execution halted
-    
-      ‘TKCat-User-guide.Rmd’ using ‘UTF-8’... failed
     ```
 
 # tv
