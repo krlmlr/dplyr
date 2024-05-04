@@ -1,14 +1,14 @@
-# activAnalyzer
+# activatr
 
 <details>
 
-* Version: 2.1.0
-* GitHub: https://github.com/pydemull/activAnalyzer
-* Source code: https://github.com/cran/activAnalyzer
-* Date/Publication: 2024-04-26 21:50:02 UTC
-* Number of recursive dependencies: 150
+* Version: 0.2.0
+* GitHub: https://github.com/dschafer/activatr
+* Source code: https://github.com/cran/activatr
+* Date/Publication: 2023-08-22 07:30:12 UTC
+* Number of recursive dependencies: 107
 
-Run `revdepcheck::cloud_details(, "activAnalyzer")` for more info
+Run `revdepcheck::cloud_details(, "activatr")` for more info
 
 </details>
 
@@ -16,521 +16,264 @@ Run `revdepcheck::cloud_details(, "activAnalyzer")` for more info
 
 *   checking tests ... ERROR
     ```
-      Running ‘spelling.R’
       Running ‘testthat.R’
     Running the tests in ‘tests/testthat.R’ failed.
     Complete output:
       > library(testthat)
-      > library(shinytest2)
-      > library(activAnalyzer)
+      > library(activatr)
       > 
-      > test_check("activAnalyzer")
-      Loading required package: shiny
-      frame is 90
-      streamFrame is 30
-      allowanceFrame is 2
-      You have computed intensity metrics with the mark_intensity() function using the following inputs: 
-          axis = vm
-          sed_cutpoint = 200 counts/min
-          mpa_cutpoint = 2690 counts/min
-          vpa_cutpoint = 6167 counts/min
-          equation = Sasaki et al. (2011) [Adults]
-          age = 32
-          weight = 67
-          sex = male
-      frame is 90
-      streamFrame is 30
-      allowanceFrame is 2
-      You have computed intensity metrics with the mark_intensity() function using the following inputs: 
-          axis = vm
-          sed_cutpoint = 200 counts/min
-          mpa_cutpoint = 2690 counts/min
-          vpa_cutpoint = 6167 counts/min
-          equation = Sasaki et al. (2011) [Adults]
-          age = 32
-          weight = 67
-          sex = male
-      You have computed BMR using the following inputs: 
-          age = 32
-          weight = 67
-          sex = male
-      You have computed BMR using the following inputs: 
-          age = 65
-          weight = 58
-          sex = female
-      You have computed BMR using the following inputs: 
-          age = 65
-          weight = 58
-          sex = undefined
-      You have computed BMR using the following inputs: 
-          age = 65
-          weight = 58
-          sex = intersex
-      You have computed BMR using the following inputs: 
-          age = 65
-          weight = 58
-          sex = prefer not to say
-      frame is 90
-      streamFrame is 30
-      allowanceFrame is 2
-      You have computed intensity metrics with the mark_intensity() function using the following inputs: 
-          axis = vm
-          sed_cutpoint = 200 counts/min
-          mpa_cutpoint = 2690 counts/min
-          vpa_cutpoint = 6167 counts/min
-          equation = Sasaki et al. (2011) [Adults]
-          age = 40
-          weight = 70
-          sex = male
-      Joining with `by = join_by(date)`
-      frame is 90
-      streamFrame is 30
-      allowanceFrame is 2
-      You have computed intensity metrics with the mark_intensity() function using the following inputs: 
-          axis = vm
-          sed_cutpoint = 200 counts/min
-          mpa_cutpoint = 2690 counts/min
-          vpa_cutpoint = 6167 counts/min
-          equation = Sasaki et al. (2011) [Adults]
-          age = 40
-          weight = 70
-          sex = male
-      Joining with `by = join_by(date)`
-      You have computed METs using the following inputs: 
-          equation = Santos-Lozano et al. (2013) [Older adults]
-          weight = 70
-          sex = male
-      You have computed METs using the following inputs: 
-          equation = Santos-Lozano et al. (2013) [Older adults]
-          weight = 70
-          sex = female
-      You have computed METs using the following inputs: 
-          equation = Santos-Lozano et al. (2013) [Older adults]
-          weight = 70
-          sex = undefined
-      You have computed METs using the following inputs: 
-          equation = Santos-Lozano et al. (2013) [Older adults]
-          weight = 70
-          sex = intersex
-      You have computed METs using the following inputs: 
-          equation = Santos-Lozano et al. (2013) [Older adults]
-          weight = 70
-          sex = prefer not to say
-      You have computed METs using the following inputs: 
-          equation = Santos-Lozano et al. (2013) [Adults]
-          weight = 67
-          sex = male
-      You have computed METs using the following inputs: 
-          equation = Santos-Lozano et al. (2013) [Adults]
-          weight = 67
-          sex = female
-      You have computed METs using the following inputs: 
-          equation = Santos-Lozano et al. (2013) [Adults]
-          weight = 67
-          sex = undefined
-      You have computed METs using the following inputs: 
-          equation = Santos-Lozano et al. (2013) [Adults]
-          weight = 67
-          sex = intersex
-      You have computed METs using the following inputs: 
-          equation = Santos-Lozano et al. (2013) [Adults]
-          weight = 67
-          sex = prefer not to say
-      You have computed METs using the following inputs: 
-          equation = Sasaki et al. (2011) [Adults]
-          weight = 70
-          sex = male
-      You have computed METs using the following inputs: 
-          equation = Sasaki et al. (2011) [Adults]
-          weight = 70
-          sex = female
-      You have computed METs using the following inputs: 
-          equation = Sasaki et al. (2011) [Adults]
-          weight = 70
-          sex = undefined
-      You have computed METs using the following inputs: 
-          equation = Sasaki et al. (2011) [Adults]
-          weight = 70
-          sex = intersex
-      You have computed METs using the following inputs: 
-          equation = Sasaki et al. (2011) [Adults]
-          weight = 70
-          sex = prefer not to say
-      You have computed METs using the following inputs: 
-          equation = Freedson et al. (1998) [Adults]
-          weight = 70
-          sex = male
-      You have computed METs using the following inputs: 
-          equation = Freedson et al. (1998) [Adults]
-          weight = 70
-          sex = female
-      You have computed METs using the following inputs: 
-          equation = Freedson et al. (1998) [Adults]
-          weight = 70
-          sex = undefined
-      You have computed METs using the following inputs: 
-          equation = Freedson et al. (1998) [Adults]
-          weight = 70
-          sex = intersex
-      You have computed METs using the following inputs: 
-          equation = Freedson et al. (1998) [Adults]
-          weight = 70
-          sex = prefer not to say
-      frame is 90
-      streamFrame is 30
-      allowanceFrame is 2
-      You have computed intensity metrics with the mark_intensity() function using the following inputs: 
-          axis = vm
-          sed_cutpoint = 200 counts/min
-          mpa_cutpoint = 2690 counts/min
-          vpa_cutpoint = 6167 counts/min
-          equation = Sasaki et al. (2011) [Adults]
-          age = 32
-          weight = 67
-          sex = male
-      Joining with `by = join_by(date)`
-      Joining with `by = join_by(date)`
-      Joining with `by = join_by(date)`
-      You have computed results with the recap_by_day() function using the following inputs: 
-               age = 32
-               weight = 67
-               sex = male
-      frame is 90
-      streamFrame is 30
-      allowanceFrame is 2
-      You have computed intensity metrics with the mark_intensity() function using the following inputs: 
-          axis = vm
-          sed_cutpoint = 200 counts/min
-          mpa_cutpoint = 2690 counts/min
-          vpa_cutpoint = 6167 counts/min
-          equation = Sasaki et al. (2011) [Adults]
-          age = 32
-          weight = 67
-          sex = male
-      Joining with `by = join_by(date)`
-      Joining with `by = join_by(date)`
-      Joining with `by = join_by(date)`
-      You have computed results with the recap_by_day() function using the following inputs: 
-               age = 32
-               weight = 67
-               sex = male
-      frame is 90
-      streamFrame is 30
-      allowanceFrame is 2
-      You have computed intensity metrics with the mark_intensity() function using the following inputs: 
-          axis = vm
-          sed_cutpoint = 200 counts/min
-          mpa_cutpoint = 2690 counts/min
-          vpa_cutpoint = 6167 counts/min
-          equation = Sasaki et al. (2011) [Adults]
-          age = 32
-          weight = 67
-          sex = male
-      Joining with `by = join_by(date)`
-      Joining with `by = join_by(date)`
-      Joining with `by = join_by(date)`
-      You have computed results with the recap_by_day() function using the following inputs: 
-               age = 32
-               weight = 67
-               sex = male
-      frame is 90
-      streamFrame is 30
-      allowanceFrame is 2
-      You have computed intensity metrics with the mark_intensity() function using the following inputs: 
-          axis = vm
-          sed_cutpoint = 200 counts/min
-          mpa_cutpoint = 2690 counts/min
-          vpa_cutpoint = 6167 counts/min
-          equation = Sasaki et al. (2011) [Adults]
-          age = 32
-          weight = 67
-          sex = male
-      Joining with `by = join_by(date)`
-      Joining with `by = join_by(date)`
-      Joining with `by = join_by(date)`
-      You have computed results with the recap_by_day() function using the following inputs: 
-               age = 32
-               weight = 67
-               sex = male
-      frame is 90
-      streamFrame is 30
-      allowanceFrame is 2
-      You have computed intensity metrics with the mark_intensity() function using the following inputs: 
-          axis = vm
-          sed_cutpoint = 200 counts/min
-          mpa_cutpoint = 2690 counts/min
-          vpa_cutpoint = 6167 counts/min
-          equation = Sasaki et al. (2011) [Adults]
-          age = 40
-          weight = 70
-          sex = male
-      Joining with `by = join_by(date)`
-      Joining with `by = join_by(date)`
-      Joining with `by = join_by(date)`
-      You have computed results with the recap_by_day() function using the following inputs: 
-               age = 40
-               weight = 70
-               sex = male
-      frame is 90
-      streamFrame is 30
-      allowanceFrame is 2
-      frame is 90
-      streamFrame is 30
-      allowanceFrame is 2
-      frame is 90
-      streamFrame is 30
-      allowanceFrame is 2
-      frame is 90
-      streamFrame is 30
-      allowanceFrame is 2
-      frame is 90
-      streamFrame is 30
-      allowanceFrame is 2
-      frame is 90
-      streamFrame is 30
-      allowanceFrame is 2
-      You have computed intensity metrics with the mark_intensity() function using the following inputs: 
-          axis = vm
-          sed_cutpoint = 200 counts/min
-          mpa_cutpoint = 2690 counts/min
-          vpa_cutpoint = 6167 counts/min
-          equation = Sasaki et al. (2011) [Adults]
-          age = 40
-          weight = 70
-          sex = male
-      frame is 90
-      streamFrame is 30
-      allowanceFrame is 2
-      You have computed intensity metrics with the mark_intensity() function using the following inputs: 
-          axis = vm
-          sed_cutpoint = 200 counts/min
-          mpa_cutpoint = 2690 counts/min
-          vpa_cutpoint = 6167 counts/min
-          equation = Sasaki et al. (2011) [Adults]
-          age = 40
-          weight = 70
-          sex = male
-      frame is 90
-      streamFrame is 30
-      allowanceFrame is 2
-      You have computed intensity metrics with the mark_intensity() function using the following inputs: 
-          axis = vm
-          sed_cutpoint = 200 counts/min
-          mpa_cutpoint = 2690 counts/min
-          vpa_cutpoint = 6167 counts/min
-          equation = Sasaki et al. (2011) [Adults]
-          age = 40
-          weight = 70
-          sex = male
-      frame is 90
-      streamFrame is 30
-      allowanceFrame is 2
-      You have computed intensity metrics with the mark_intensity() function using the following inputs: 
-          axis = vm
-          sed_cutpoint = 200 counts/min
-          mpa_cutpoint = 2690 counts/min
-          vpa_cutpoint = 6167 counts/min
-          equation = Sasaki et al. (2011) [Adults]
-          age = 40
-          weight = 70
-          sex = male
-      frame is 90
-      streamFrame is 30
-      allowanceFrame is 2
-      You have computed intensity metrics with the mark_intensity() function using the following inputs: 
-          axis = vm
-          sed_cutpoint = 200 counts/min
-          mpa_cutpoint = 2690 counts/min
-          vpa_cutpoint = 6167 counts/min
-          equation = Sasaki et al. (2011) [Adults]
-          age = 40
-          weight = 70
-          sex = male
-      frame is 90
-      streamFrame is 30
-      allowanceFrame is 2
-      You have computed intensity metrics with the mark_intensity() function using the following inputs: 
-          axis = vm
-          sed_cutpoint = 200 counts/min
-          mpa_cutpoint = 2690 counts/min
-          vpa_cutpoint = 6167 counts/min
-          equation = Sasaki et al. (2011) [Adults]
-          age = 32
-          weight = 67
-          sex = male
-      Joining with `by = join_by(date)`
-      Joining with `by = join_by(date)`
-      Joining with `by = join_by(date)`
-      You have computed results with the recap_by_day() function using the following inputs: 
-               age = 32
-               weight = 67
-               sex = male
-      frame is 90
-      streamFrame is 30
-      allowanceFrame is 2
-      You have computed intensity metrics with the mark_intensity() function using the following inputs: 
-          axis = vm
-          sed_cutpoint = 200 counts/min
-          mpa_cutpoint = 2690 counts/min
-          vpa_cutpoint = 6167 counts/min
-          equation = Sasaki et al. (2011) [Adults]
-          age = 32
-          weight = 67
-          sex = male
-      Joining with `by = join_by(date)`
-      Joining with `by = join_by(date)`
-      Joining with `by = join_by(date)`
-      You have computed results with the recap_by_day() function using the following inputs: 
-               age = 32
-               weight = 67
-               sex = male
-      frame is 90
-      streamFrame is 30
-      allowanceFrame is 2
-      You have computed intensity metrics with the mark_intensity() function using the following inputs: 
-          axis = vm
-          sed_cutpoint = 200 counts/min
-          mpa_cutpoint = 2690 counts/min
-          vpa_cutpoint = 6167 counts/min
-          equation = Sasaki et al. (2011) [Adults]
-          age = 32
-          weight = 67
-          sex = male
-      Joining with `by = join_by(date)`
-      Joining with `by = join_by(date)`
-      Joining with `by = join_by(date)`
-      You have computed results with the recap_by_day() function using the following inputs: 
-               age = 32
-               weight = 67
-               sex = male
-      You have computed BMR using the following inputs: 
-          age = 32
-          weight = 67
-          sex = male
-      frame is 90
-      streamFrame is 30
-      allowanceFrame is 2
-      You have computed intensity metrics with the mark_intensity() function using the following inputs: 
-          axis = vm
-          sed_cutpoint = 200 counts/min
-          mpa_cutpoint = 2690 counts/min
-          vpa_cutpoint = 6167 counts/min
-          equation = Sasaki et al. (2011) [Adults]
-          age = 32
-          weight = 67
-          sex = male
-      Joining with `by = join_by(date)`
-      Joining with `by = join_by(date)`
-      Joining with `by = join_by(date)`
-      You have computed results with the recap_by_day() function using the following inputs: 
-               age = 32
-               weight = 67
-               sex = male
-      You have computed BMR using the following inputs: 
-          age = 32
-          weight = 67
-          sex = male
-      [ FAIL 3 | WARN 4 | SKIP 1 | PASS 190 ]
-      
-      ══ Skipped tests (1) ═══════════════════════════════════════════════════════════
-      • On CRAN (1): 'test-golem-recommended.R:39:3'
+      > test_check("activatr")
+      [ FAIL 3 | WARN 0 | SKIP 0 | PASS 101 ]
       
       ══ Failed tests ════════════════════════════════════════════════════════════════
-      ── Error ('test-compute_accumulation_metrics.R:27:3'): The function provides numeric and graphic objects ──
-      Error: Error evaluating duckdb query: Conversion Error: Could not convert string '0-29' to BOOL
-      Backtrace:
-           ▆
-        1. ├─activAnalyzer::compute_accumulation_metrics(...) at test-compute_accumulation_metrics.R:27:3
-        2. │ └─summarised_bouts_primer %>% ...
-        3. ├─dplyr::mutate(., cum_frac_time = cumsum(prod/sum(prod)), cum_frac_bout = cumsum(n/sum(n)))
-        4. └─dplyr:::mutate.data.frame(...)
-        5.   └─dplyr::mutate(...)
-        6.     └─dplyr:::compute_by(...)
-        7.       ├─dplyr::group_data(data)
-        8.       ├─dplyr:::group_data.tbl_df(data)
-        9.       ├─base::NextMethod()
-       10.       └─dplyr:::group_data.data.frame(data)
-       11.         └─base::nrow(.data)
-       12.           ├─base::dim(x)
-       13.           └─base::dim.data.frame(x)
-       14.             └─base::.row_names_info(x, 2L)
-      ── Error ('test-compute_accumulation_metrics.R:109:1'): The function provides numeric and graphic objects even with customized variable
-                names ──
-      Error: Error evaluating duckdb query: Conversion Error: Could not convert string '0-29' to BOOL
-      Backtrace:
-           ▆
-        1. ├─activAnalyzer::compute_accumulation_metrics(...) at test-compute_accumulation_metrics.R:109:1
-        2. │ └─summarised_bouts_primer %>% ...
-        3. ├─dplyr::mutate(., cum_frac_time = cumsum(prod/sum(prod)), cum_frac_bout = cumsum(n/sum(n)))
-        4. └─dplyr:::mutate.data.frame(...)
-        5.   └─dplyr::mutate(...)
-        6.     └─dplyr:::compute_by(...)
-        7.       ├─dplyr::group_data(data)
-        8.       ├─dplyr:::group_data.tbl_df(data)
-        9.       ├─base::NextMethod()
-       10.       └─dplyr:::group_data.data.frame(data)
-       11.         └─base::nrow(.data)
-       12.           ├─base::dim(x)
-       13.           └─base::dim.data.frame(x)
-       14.             └─base::.row_names_info(x, 2L)
-      ── Error ('test-do_all_analyses.R:2:3'): The function runs without error ───────
-      Error: Error evaluating duckdb query: Conversion Error: Could not convert string '0-29' to BOOL
-      Backtrace:
-           ▆
-        1. ├─activAnalyzer:::do_all_analyses() at test-do_all_analyses.R:2:3
-        2. │ └─activAnalyzer::compute_accumulation_metrics(...)
-        3. │   └─summarised_bouts_primer %>% ...
-        4. ├─dplyr::mutate(., cum_frac_time = cumsum(prod/sum(prod)), cum_frac_bout = cumsum(n/sum(n)))
-        5. └─dplyr:::mutate.data.frame(...)
-        6.   └─dplyr::mutate(...)
-        7.     └─dplyr:::compute_by(...)
-        8.       ├─dplyr::group_data(data)
-        9.       ├─dplyr:::group_data.tbl_df(data)
-       10.       ├─base::NextMethod()
-       11.       └─dplyr:::group_data.data.frame(data)
-       12.         └─base::nrow(.data)
-       13.           ├─base::dim(x)
-       14.           └─base::dim.data.frame(x)
-       15.             └─base::.row_names_info(x, 2L)
+      ── Failure ('test_act_tbl.R:52:3'): summary allows use of full to fill in missing columns ──
+      s2$AvgElev not equal to NA.
+      Types not compatible: integer is not logical
+      ── Failure ('test_act_tbl.R:53:3'): summary allows use of full to fill in missing columns ──
+      s2$ElevGain not equal to NA.
+      Types not compatible: integer is not logical
+      ── Failure ('test_act_tbl.R:54:3'): summary allows use of full to fill in missing columns ──
+      s2$ElevLoss not equal to NA.
+      Types not compatible: integer is not logical
       
-      [ FAIL 3 | WARN 4 | SKIP 1 | PASS 190 ]
+      [ FAIL 3 | WARN 0 | SKIP 0 | PASS 101 ]
       Error: Test failures
       Execution halted
     ```
 
-*   checking running R code from vignettes ... ERROR
-    ```
-    Errors in running code in vignettes:
-    when running code in ‘activAnalyzer.Rmd’
-      ...
-    
-    > create_fig_mx_summary(data = mean_results, labels = NULL, 
-    +     mpa_cutpoint = 2690, vpa_cutpoint = 6167)
-    
-    > accum_metrics_sed <- compute_accumulation_metrics(data = mydata_with_intensity_marks, 
-    +     behaviour = "sed", dates = c("2021-04-07", "2021-04-08" .... [TRUNCATED] 
-    
-      When sourcing ‘activAnalyzer.R’:
-    Error: Error evaluating duckdb query: Conversion Error: Could not convert string '0-29' to BOOL
-    Execution halted
-    
-      ‘activAnalyzer.Rmd’ using ‘UTF-8’... failed
-    ```
+# admiral
 
-*   checking re-building of vignette outputs ... NOTE
+<details>
+
+* Version: 1.0.2
+* GitHub: https://github.com/pharmaverse/admiral
+* Source code: https://github.com/cran/admiral
+* Date/Publication: 2024-03-05 17:10:03 UTC
+* Number of recursive dependencies: 77
+
+Run `revdepcheck::cloud_details(, "admiral")` for more info
+
+</details>
+
+## Newly broken
+
+*   checking tests ... ERROR
     ```
-    Error(s) in re-building vignettes:
-    --- re-building ‘activAnalyzer.Rmd’ using rmarkdown
+      Running ‘testthat.R’
+    Running the tests in ‘tests/testthat.R’ failed.
+    Complete output:
+      > # This file is part of the standard setup for testthat.
+      > # It is recommended that you do not modify it.
+      > #
+      > # Where should you do additional test configuration?
+      > # Learn more about the roles of various files in:
+      > # * https://r-pkgs.org/tests.html
+      > # * https://testthat.r-lib.org/reference/test_package.html#special-files
+      > 
+      > library(testthat) # nolint: undesirable_function_linter
+      > library(admiral) # nolint: undesirable_function_linter
+      > 
+      > test_check("admiral")
+      [ FAIL 1 | WARN 0 | SKIP 4 | PASS 714 ]
+      
+      ══ Skipped tests (4) ═══════════════════════════════════════════════════════════
+      • On CRAN (4): 'test-derive_var_ontrtfl.R:419:3', 'test-duplicates.R:43:3',
+        'test-roxygen2.R:20:3', 'test-user_utils.R:229:3'
+      
+      ══ Failed tests ════════════════════════════════════════════════════════════════
+      ── Error ('test-derive_var_atoxgr.R:4869:1'): (code run outside of `test_that()`) ──
+      <vctrs_error_ptype2/vctrs_error_incompatible_type/vctrs_error_incompatible/vctrs_error/rlang_error/error/condition>
+      Error in `bind_rows(., expected_phosd_daids_le14y, expected_phosd_daids_lt1y, 
+          expected_phosd_daids_noage)`: Can't combine `..1$ATOXGRL` <character> and `..4$ATOXGRL` <integer>.
+      Backtrace:
+           ▆
+        1. ├─expected_phosd_daids_gt14y %>% ... at test-derive_var_atoxgr.R:4869:1
+        2. ├─dplyr::bind_rows(., expected_phosd_daids_le14y, expected_phosd_daids_lt1y, expected_phosd_daids_noage)
+        3. │ └─vctrs::vec_rbind(!!!dots, .names_to = .id, .error_call = current_env())
+        4. └─vctrs (local) `<fn>`()
+        5.   └─vctrs::vec_default_ptype2(...)
+        6.     ├─base::withRestarts(...)
+        7.     │ └─base (local) withOneRestart(expr, restarts[[1L]])
+        8.     │   └─base (local) doWithOneRestart(return(expr), restart)
+        9.     └─vctrs::stop_incompatible_type(...)
+       10.       └─vctrs:::stop_incompatible(...)
+       11.         └─vctrs:::stop_vctrs(...)
+       12.           └─rlang::abort(message, class = c(class, "vctrs_error"), ..., call = call)
+      
+      [ FAIL 1 | WARN 0 | SKIP 4 | PASS 714 ]
+      Error: Test failures
+      Execution halted
     ```
 
 ## In both
 
+*   checking data for non-ASCII characters ... NOTE
+    ```
+      Note: found 12 marked UTF-8 strings
+    ```
+
+# alakazam
+
+<details>
+
+* Version: 1.3.0
+* GitHub: NA
+* Source code: https://github.com/cran/alakazam
+* Date/Publication: 2023-09-30 01:12:40 UTC
+* Number of recursive dependencies: 120
+
+Run `revdepcheck::cloud_details(, "alakazam")` for more info
+
+</details>
+
+## Newly broken
+
 *   checking installed package size ... NOTE
     ```
-      installed size is  5.2Mb
+      installed size is  5.7Mb
       sub-directories of 1Mb or more:
-        doc       1.0Mb
-        extdata   2.0Mb
+        doc    1.5Mb
+        libs   2.2Mb
+    ```
+
+## In both
+
+*   checking re-building of vignette outputs ... NOTE
+    ```
+    Error(s) in re-building vignettes:
+    --- re-building ‘AminoAcids-Vignette.Rmd’ using rmarkdown
+    A new version of TeX Live has been released. If you need to install or update any LaTeX packages, you have to upgrade TinyTeX with tinytex::reinstall_tinytex(repository = "illinois").
+    
+    tlmgr: Local TeX Live (2023) is older than remote repository (2024).
+    Cross release updates are only supported with
+      update-tlmgr-latest(.sh/.exe) --update
+    See https://tug.org/texlive/upgrade.html for details.
+    Warning in system2("tlmgr", args, ...) :
+      running command ''tlmgr' search --file --global '/bookmark.sty'' had status 1
+    ! LaTeX Error: File `bookmark.sty' not found.
+    
+    ! Emergency stop.
+    <read *> 
+    
+    Error: processing vignette 'AminoAcids-Vignette.Rmd' failed with diagnostics:
+    LaTeX failed to compile /tmp/workdir/alakazam/new/alakazam.Rcheck/vign_test/alakazam/vignettes/AminoAcids-Vignette.tex. See https://yihui.org/tinytex/r/#debugging for debugging tips. See AminoAcids-Vignette.log for more info.
+    --- failed re-building ‘AminoAcids-Vignette.Rmd’
+    
+    --- re-building ‘Diversity-Vignette.Rmd’ using rmarkdown
+    A new version of TeX Live has been released. If you need to install or update any LaTeX packages, you have to upgrade TinyTeX with tinytex::reinstall_tinytex(repository = "illinois").
+    
+    tlmgr: Local TeX Live (2023) is older than remote repository (2024).
+    Cross release updates are only supported with
+      update-tlmgr-latest(.sh/.exe) --update
+    See https://tug.org/texlive/upgrade.html for details.
+    Warning in system2("tlmgr", args, ...) :
+      running command ''tlmgr' search --file --global '/bookmark.sty'' had status 1
+    ! LaTeX Error: File `bookmark.sty' not found.
+    
+    ! Emergency stop.
+    <read *> 
+    
+    Error: processing vignette 'Diversity-Vignette.Rmd' failed with diagnostics:
+    LaTeX failed to compile /tmp/workdir/alakazam/new/alakazam.Rcheck/vign_test/alakazam/vignettes/Diversity-Vignette.tex. See https://yihui.org/tinytex/r/#debugging for debugging tips. See Diversity-Vignette.log for more info.
+    --- failed re-building ‘Diversity-Vignette.Rmd’
+    
+    --- re-building ‘Fastq-Vignette.Rmd’ using rmarkdown
+    A new version of TeX Live has been released. If you need to install or update any LaTeX packages, you have to upgrade TinyTeX with tinytex::reinstall_tinytex(repository = "illinois").
+    
+    tlmgr: Local TeX Live (2023) is older than remote repository (2024).
+    Cross release updates are only supported with
+      update-tlmgr-latest(.sh/.exe) --update
+    See https://tug.org/texlive/upgrade.html for details.
+    Warning in system2("tlmgr", args, ...) :
+      running command ''tlmgr' search --file --global '/bookmark.sty'' had status 1
+    ! LaTeX Error: File `bookmark.sty' not found.
+    
+    ! Emergency stop.
+    <read *> 
+    
+    Error: processing vignette 'Fastq-Vignette.Rmd' failed with diagnostics:
+    LaTeX failed to compile /tmp/workdir/alakazam/new/alakazam.Rcheck/vign_test/alakazam/vignettes/Fastq-Vignette.tex. See https://yihui.org/tinytex/r/#debugging for debugging tips. See Fastq-Vignette.log for more info.
+    --- failed re-building ‘Fastq-Vignette.Rmd’
+    
+    --- re-building ‘Files-Vignette.Rmd’ using rmarkdown
+    A new version of TeX Live has been released. If you need to install or update any LaTeX packages, you have to upgrade TinyTeX with tinytex::reinstall_tinytex(repository = "illinois").
+    
+    tlmgr: Local TeX Live (2023) is older than remote repository (2024).
+    Cross release updates are only supported with
+      update-tlmgr-latest(.sh/.exe) --update
+    See https://tug.org/texlive/upgrade.html for details.
+    Warning in system2("tlmgr", args, ...) :
+      running command ''tlmgr' search --file --global '/bookmark.sty'' had status 1
+    ! LaTeX Error: File `bookmark.sty' not found.
+    
+    ! Emergency stop.
+    <read *> 
+    
+    Error: processing vignette 'Files-Vignette.Rmd' failed with diagnostics:
+    LaTeX failed to compile /tmp/workdir/alakazam/new/alakazam.Rcheck/vign_test/alakazam/vignettes/Files-Vignette.tex. See https://yihui.org/tinytex/r/#debugging for debugging tips. See Files-Vignette.log for more info.
+    --- failed re-building ‘Files-Vignette.Rmd’
+    
+    --- re-building ‘GeneUsage-Vignette.Rmd’ using rmarkdown
+    A new version of TeX Live has been released. If you need to install or update any LaTeX packages, you have to upgrade TinyTeX with tinytex::reinstall_tinytex(repository = "illinois").
+    
+    tlmgr: Local TeX Live (2023) is older than remote repository (2024).
+    Cross release updates are only supported with
+      update-tlmgr-latest(.sh/.exe) --update
+    See https://tug.org/texlive/upgrade.html for details.
+    Warning in system2("tlmgr", args, ...) :
+      running command ''tlmgr' search --file --global '/bookmark.sty'' had status 1
+    ! LaTeX Error: File `bookmark.sty' not found.
+    
+    ! Emergency stop.
+    <read *> 
+    
+    Error: processing vignette 'GeneUsage-Vignette.Rmd' failed with diagnostics:
+    LaTeX failed to compile /tmp/workdir/alakazam/new/alakazam.Rcheck/vign_test/alakazam/vignettes/GeneUsage-Vignette.tex. See https://yihui.org/tinytex/r/#debugging for debugging tips. See GeneUsage-Vignette.log for more info.
+    --- failed re-building ‘GeneUsage-Vignette.Rmd’
+    
+    --- re-building ‘Lineage-Vignette.Rmd’ using rmarkdown
+    A new version of TeX Live has been released. If you need to install or update any LaTeX packages, you have to upgrade TinyTeX with tinytex::reinstall_tinytex(repository = "illinois").
+    
+    tlmgr: Local TeX Live (2023) is older than remote repository (2024).
+    Cross release updates are only supported with
+      update-tlmgr-latest(.sh/.exe) --update
+    See https://tug.org/texlive/upgrade.html for details.
+    Warning in system2("tlmgr", args, ...) :
+      running command ''tlmgr' search --file --global '/bookmark.sty'' had status 1
+    ! LaTeX Error: File `bookmark.sty' not found.
+    
+    ! Emergency stop.
+    <read *> 
+    
+    Error: processing vignette 'Lineage-Vignette.Rmd' failed with diagnostics:
+    LaTeX failed to compile /tmp/workdir/alakazam/new/alakazam.Rcheck/vign_test/alakazam/vignettes/Lineage-Vignette.tex. See https://yihui.org/tinytex/r/#debugging for debugging tips. See Lineage-Vignette.log for more info.
+    --- failed re-building ‘Lineage-Vignette.Rmd’
+    
+    --- re-building ‘Topology-Vignette.Rmd’ using rmarkdown
+    A new version of TeX Live has been released. If you need to install or update any LaTeX packages, you have to upgrade TinyTeX with tinytex::reinstall_tinytex(repository = "illinois").
+    
+    tlmgr: Local TeX Live (2023) is older than remote repository (2024).
+    Cross release updates are only supported with
+      update-tlmgr-latest(.sh/.exe) --update
+    See https://tug.org/texlive/upgrade.html for details.
+    Warning in system2("tlmgr", args, ...) :
+      running command ''tlmgr' search --file --global '/bookmark.sty'' had status 1
+    ! LaTeX Error: File `bookmark.sty' not found.
+    
+    ! Emergency stop.
+    <read *> 
+    
+    Error: processing vignette 'Topology-Vignette.Rmd' failed with diagnostics:
+    LaTeX failed to compile /tmp/workdir/alakazam/new/alakazam.Rcheck/vign_test/alakazam/vignettes/Topology-Vignette.tex. See https://yihui.org/tinytex/r/#debugging for debugging tips. See Topology-Vignette.log for more info.
+    --- failed re-building ‘Topology-Vignette.Rmd’
+    
+    SUMMARY: processing the following files failed:
+      ‘AminoAcids-Vignette.Rmd’ ‘Diversity-Vignette.Rmd’
+      ‘Fastq-Vignette.Rmd’ ‘Files-Vignette.Rmd’ ‘GeneUsage-Vignette.Rmd’
+      ‘Lineage-Vignette.Rmd’ ‘Topology-Vignette.Rmd’
+    
+    Error: Vignette re-building failed.
+    Execution halted
     ```
 
 # arrow
@@ -803,38 +546,239 @@ Run `revdepcheck::cloud_details(, "auk")` for more info
       ‘development.Rmd’ using ‘UTF-8’... OK
     ```
 
-# crosshap
+# broom.helpers
 
 <details>
 
-* Version: 1.4.0
-* GitHub: https://github.com/jacobimarsh/crosshap
-* Source code: https://github.com/cran/crosshap
-* Date/Publication: 2024-03-31 15:40:02 UTC
-* Number of recursive dependencies: 117
+* Version: 1.15.0
+* GitHub: https://github.com/larmarange/broom.helpers
+* Source code: https://github.com/cran/broom.helpers
+* Date/Publication: 2024-04-05 15:53:06 UTC
+* Number of recursive dependencies: 241
 
-Run `revdepcheck::cloud_details(, "crosshap")` for more info
+Run `revdepcheck::cloud_details(, "broom.helpers")` for more info
 
 </details>
 
 ## Newly broken
 
-*   checking examples ... ERROR
+*   checking tests ... ERROR
     ```
-    Running examples in ‘crosshap-Ex.R’ failed
-    The error most likely occurred in:
+      Running ‘spelling.R’
+      Running ‘testthat.R’
+    Running the tests in ‘tests/testthat.R’ failed.
+    Complete output:
+      > library(testthat)
+      > library(broom.helpers)
+      
+      Attaching package: 'broom.helpers'
+      
+      The following object is masked from 'package:testthat':
+      
+          matches
+      
+      > 
+      > test_check("broom.helpers")
+      [ FAIL 1 | WARN 10 | SKIP 96 | PASS 423 ]
+      
+      ══ Skipped tests (96) ══════════════════════════════════════════════════════════
+      • On CRAN (96): 'test-add_coefficients_type.R:113:3',
+        'test-add_coefficients_type.R:122:3', 'test-add_contrasts.R:193:3',
+        'test-add_contrasts.R:204:3', 'test-add_contrasts.R:317:3',
+        'test-add_estimate_to_reference_rows.R:111:3',
+        'test-add_estimate_to_reference_rows.R:257:1',
+        'test-add_header_rows.R:158:3', 'test-add_header_rows.R:220:3',
+        'test-add_n.R:150:3', 'test-add_n.R:161:3', 'test-add_n.R:174:3',
+        'test-add_n.R:181:3', 'test-add_n.R:192:3',
+        'test-add_pairwise_contrasts.R:2:3', 'test-add_reference_rows.R:223:3',
+        'test-add_reference_rows.R:238:3', 'test-add_reference_rows.R:256:3',
+        'test-add_term_labels.R:231:3', 'test-add_term_labels.R:274:3',
+        'test-add_term_labels.R:289:1', 'test-add_variable_labels.R:202:3',
+        'test-add_variable_labels.R:215:3', 'test-attach_and_detach.R:22:3',
+        'test-disambiguate_terms.R:14:3', 'test-disambiguate_terms.R:47:3',
+        'test-identify_variables.R:255:3', 'test-identify_variables.R:288:3',
+        'test-identify_variables.R:586:3', 'test-identify_variables.R:614:3',
+        'test-marginal_tidiers.R:2:3', 'test-marginal_tidiers.R:35:3',
+        'test-marginal_tidiers.R:68:3', 'test-marginal_tidiers.R:101:3',
+        'test-marginal_tidiers.R:201:3', 'test-marginal_tidiers.R:264:3',
+        'test-marginal_tidiers.R:346:3', 'test-marginal_tidiers.R:379:3',
+        'test-marginal_tidiers.R:442:3', 'test-marginal_tidiers.R:510:3',
+        'test-marginal_tidiers.R:576:3', 'test-model_get_n.R:192:3',
+        'test-model_get_n.R:212:3', 'test-model_get_n.R:224:3',
+        'test-model_get_n.R:239:3', 'test-model_get_n.R:260:3',
+        'test-model_get_n.R:272:3', 'test-model_get_n.R:298:3',
+        'test-model_get_n.R:324:3', 'test-model_get_n.R:333:3',
+        'test-model_get_n.R:341:3', 'test-model_get_n.R:349:3',
+        'test-model_get_n.R:370:3', 'test-model_get_n.R:380:3',
+        'test-model_get_n.R:401:3', 'test-model_get_n.R:413:3',
+        'test-select_helpers.R:83:3', 'test-tidy_plus_plus.R:59:3',
+        'test-tidy_plus_plus.R:108:3', 'test-tidy_plus_plus.R:129:3',
+        'test-tidy_plus_plus.R:160:3', 'test-tidy_plus_plus.R:173:3',
+        'test-tidy_plus_plus.R:189:3', 'test-tidy_plus_plus.R:210:3',
+        'test-tidy_plus_plus.R:225:3', 'test-tidy_plus_plus.R:235:3',
+        'test-tidy_plus_plus.R:249:3', 'test-tidy_plus_plus.R:268:3',
+        'test-tidy_plus_plus.R:310:3', 'test-tidy_plus_plus.R:332:3',
+        'test-tidy_plus_plus.R:346:3', 'test-tidy_plus_plus.R:359:3',
+        'test-tidy_plus_plus.R:371:3', 'test-tidy_plus_plus.R:383:3',
+        'test-tidy_plus_plus.R:393:3', 'test-tidy_plus_plus.R:402:3',
+        'test-tidy_plus_plus.R:419:3', 'test-tidy_plus_plus.R:431:3',
+        'test-tidy_plus_plus.R:446:3', 'test-tidy_plus_plus.R:463:3',
+        'test-tidy_plus_plus.R:479:3', 'test-tidy_plus_plus.R:491:3',
+        'test-tidy_plus_plus.R:505:3', 'test-tidy_plus_plus.R:525:3',
+        'test-tidy_plus_plus.R:549:3', 'test-tidy_plus_plus.R:589:3',
+        'test-tidy_plus_plus.R:612:3', 'test-tidy_plus_plus.R:631:3',
+        'test-tidy_plus_plus.R:654:3', 'test-tidy_plus_plus.R:677:3',
+        'test-tidy_plus_plus.R:696:3', 'test-tidy_plus_plus.R:714:3',
+        'test-tidy_plus_plus.R:735:3', 'test-tidy_plus_plus.R:781:3',
+        'test-tidy_plus_plus.R:839:3', 'test-tidy_plus_plus.R:915:3'
+      
+      ══ Failed tests ════════════════════════════════════════════════════════════════
+      ── Failure ('test-add_header_rows.R:75:3'): tidy_add_header_rows() works as expected ──
+      `mod %>% tidy_and_attach() %>% tidy_add_header_rows()` generated warnings:
+      * Calling 'structure(NULL, *)' is deprecated, as NULL cannot have attributes.
+        Consider 'structure(list(), *)' instead.
+      
+      [ FAIL 1 | WARN 10 | SKIP 96 | PASS 423 ]
+      Error: Test failures
+      Execution halted
+    ```
+
+## In both
+
+*   checking package dependencies ... NOTE
+    ```
+    Package suggested but not available for checking: ‘margins’
+    ```
+
+# bsitar
+
+<details>
+
+* Version: 0.2.1
+* GitHub: https://github.com/Sandhu-SS/bsitar
+* Source code: https://github.com/cran/bsitar
+* Date/Publication: 2024-03-19 17:00:08 UTC
+* Number of recursive dependencies: 152
+
+Run `revdepcheck::cloud_details(, "bsitar")` for more info
+
+</details>
+
+## Newly broken
+
+*   checking installed package size ... NOTE
+    ```
+      installed size is  5.5Mb
+      sub-directories of 1Mb or more:
+        data   3.9Mb
+    ```
+
+# CNAIM
+
+<details>
+
+* Version: 2.1.4
+* GitHub: https://github.com/Utiligize/CNAIM
+* Source code: https://github.com/cran/CNAIM
+* Date/Publication: 2022-08-31 08:40:22 UTC
+* Number of recursive dependencies: 82
+
+Run `revdepcheck::cloud_details(, "CNAIM")` for more info
+
+</details>
+
+## Newly broken
+
+*   checking tests ... ERROR
+    ```
+      Running ‘testthat.R’
+    Running the tests in ‘tests/testthat.R’ failed.
+    Complete output:
+      > library(testthat)
+      > library(CNAIM)
+      The CNAIM package is created by Utiligize.
+      Please cite the CNAIM package as: Utiligize (2022). CNAIM: R package version 2.1.3, www.cnaim.io.
+      > 
+      > test_check("CNAIM")
+      [1] 0
+      [1] 0
+      [1] 0
+      [1] 0.02847501
+      [1] 0.02847501
+      [1] 0.02847501
+      [1] 0.0251779
+      [1] 0.02637685
+      [1] 0.03425565
+      [1] 0.7732397
+        condition_factor condition_cap condition_collar
+      1                1            10              0.5
+      [1] 1
+      [1] 0.7732397
+      [1] 0.0435981
+      [1] 0.08872213
+      [1] 0.05994738
+      [1] 0
+      [1] 0
+      [1] 0.0739351
+      [1] 0.1109027
+      [1] 0.03037334
+      [1] 0.09114558
+      [1] 0
+      [1] 0
+      [1] 0
+      [1] 0
+      [1] 0.04032824
+      [1] 0.04032824
+      [1] 0.04032824
+      [ FAIL 1 | WARN 1 | SKIP 0 | PASS 222 ]
+      
+      ══ Failed tests ════════════════════════════════════════════════════════════════
+      ── Failure ('test-risk_matrix_structure.R:11:3'): basic case ───────────────────
+      `res` not equal to `expected_df`.
+      Component "value": Modes: logical, numeric
+      Component "value": target is logical, current is numeric
+      
+      [ FAIL 1 | WARN 1 | SKIP 0 | PASS 222 ]
+      Error: Test failures
+      Execution halted
+    ```
+
+## In both
+
+*   checking running R code from vignettes ... ERROR
+    ```
+    Errors in running code in vignettes:
+    when running code in ‘cnaim.Rmd’
+      ...
+    > source("fns_monetary_risk.R")
     
-    > ### Name: build_bot_halfeyeplot
-    > ### Title: Bot hap-pheno raincloud plot
-    > ### Aliases: build_bot_halfeyeplot
-    > 
-    > ### ** Examples
-    > 
-    > 
-    > build_bot_halfeyeplot(HapObject, epsilon = 0.6, hide_labels = FALSE)
-    Error: Error evaluating duckdb query: Conversion Error: Could not convert string 'D' to DOUBLE
+    > matrix_structure <- risk_matrix_structure(5, 4, NA)
+    
+    > risk_coordinates <- risk_calculation(matrix_dimensions = matrix_structure, 
+    +     id = "Transformer1", pof = 0.08, cof = 18232, asset_type = "6.6/11 ..." ... [TRUNCATED] 
+    
+      When sourcing ‘cnaim.R’:
+    Error: unused argument (pof = 0.08)
     Execution halted
+    
+      ‘cnaim.Rmd’ using ‘UTF-8’... failed
     ```
+
+# CodelistGenerator
+
+<details>
+
+* Version: 2.2.3
+* GitHub: NA
+* Source code: https://github.com/cran/CodelistGenerator
+* Date/Publication: 2024-03-08 22:20:02 UTC
+* Number of recursive dependencies: 95
+
+Run `revdepcheck::cloud_details(, "CodelistGenerator")` for more info
+
+</details>
+
+## Newly broken
 
 *   checking tests ... ERROR
     ```
@@ -850,148 +794,133 @@ Run `revdepcheck::cloud_details(, "crosshap")` for more info
       > # * https://testthat.r-lib.org/reference/test_package.html#special-files
       > 
       > library(testthat)
-      > library(crosshap)
+      > library(CodelistGenerator)
       > 
-      > test_check("crosshap")
-      ■■■■■                             14% | ETA: 15s
-      ■■■■■■■■■■                        29% | ETA: 10s
-      ■■■■■■■■■■■■                      36% | ETA: 17s
-      ■■■■■■■■■■■■■■                    43% | ETA: 16s
-      ■■■■■■■■■■■■■■■■■■■■              64% | ETA: 11s
-      ■■■■■■■■■■■■■■■■■■■■■■            71% | ETA:  9s
-      ■■■■■■■■■■■■■■■■■■■■■■■■■■■       86% | ETA:  4s
-      ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■     93% | ETA:  2s
-      ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■  100% | ETA:  0s
-      WARNING: Phenotype association scores (phenodiff) not calculated for 252 of 2041 sites
-      NOTE: 432 sites have more heterozygous individuals (1/0) than one of the homozygous states (1/1 or 0/0).
+      > test_check("CodelistGenerator")
+      Starting 2 test processes
+      [ FAIL 2 | WARN 6 | SKIP 8 | PASS 281 ]
       
-      Haplotyping was performed with hetphenos = F, meaning phenotype association scores for heterozygous sites was ignored.
-      ✔ Haplotyping complete!
-      Info saved in Haplotypes_30_E objects
-      # A tibble: 29 x 11
-              x     y node    MGs_eps cluster  size mean_na.rm_phenodiff sc3_stability
-       *  <dbl> <dbl> <chr>   <fct>   <fct>   <int>                <dbl>         <dbl>
-       1 -4.39      2 MGs_ep~ 0.39    0        1487                 2.60        0.0350
-       2 -2.39      2 MGs_ep~ 0.39    MG1        36                 2.71        0.151 
-       3  0.111     2 MGs_ep~ 0.39    MG2        49                 2.64        0.205 
-       4  2.11      2 MGs_ep~ 0.39    MG3        28                 2.68        0.117 
-       5  4.11      2 MGs_ep~ 0.39    MG4        55                 2.38        0.493 
-       6  6.11      2 MGs_ep~ 0.39    MG5        33                 2.56        0.509 
-       7  8.11      2 MGs_ep~ 0.39    MG6        37                 1.25        0.549 
-       8 10.1       2 MGs_ep~ 0.39    MG7        32                 4.39        0.627 
-       9 12.1       2 MGs_ep~ 0.39    MG8       284                 2.15        0.514 
-      10 -5.89      1 MGs_ep~ 0.79    0        1211                 2.67        0.279 
-      # i 19 more rows
-      # i 3 more variables: .ggraph.orig_index <int>, circular <lgl>,
-      #   .ggraph.index <int>
-      # A tibble: 20 x 11
-             x     y node         hap_eps cluster  size mean_na.rm_Pheno sc3_stability
-       * <dbl> <dbl> <chr>        <fct>   <fct>   <int>            <dbl>         <dbl>
-       1 -3.25     2 hap_eps0.39~ 0.39    0          43             48.0         0.551
-       2 -0.75     2 hap_eps0.39~ 0.39    A         824             44.0         0.151
-       3  1.75     2 hap_eps0.39~ 0.39    B          42             45.8         0.667
-       4  3.75     2 hap_eps0.39~ 0.39    C          29             48.1         0.189
-       5  5.75     2 hap_eps0.39~ 0.39    D          26             46.5         0.667
-       6  7.75     2 hap_eps0.39~ 0.39    E          21             48.8         0.667
-       7 -3.25     1 hap_eps0.79~ 0.79    0          52             48.0         0.379
-       8 -1.25     1 hap_eps0.79~ 0.79    A         774             43.8         0.646
-       9 -0.25     1 hap_eps0.79~ 0.79    B          48             47.2         0.353
-      10  1.75     1 hap_eps0.79~ 0.79    C          42             45.8         0.667
-      11  5.75     1 hap_eps0.79~ 0.79    D          26             46.5         0.667
-      12  3.75     1 hap_eps0.79~ 0.79    E          22             48.1         0.586
-      13  7.75     1 hap_eps0.79~ 0.79    F          21             48.8         0.667
-      14 -3.25     0 hap_eps0.99~ 0.99    0          52             48.0         0.379
-      15 -1.25     0 hap_eps0.99~ 0.99    A         774             43.8         0.646
-      16 -0.25     0 hap_eps0.99~ 0.99    B          48             47.2         0.353
-      17  1.75     0 hap_eps0.99~ 0.99    C          42             45.8         0.667
-      18  5.75     0 hap_eps0.99~ 0.99    D          26             46.5         0.667
-      19  3.75     0 hap_eps0.99~ 0.99    E          22             48.1         0.586
-      20  7.75     0 hap_eps0.99~ 0.99    F          21             48.8         0.667
-      # i 3 more variables: .ggraph.orig_index <int>, circular <lgl>,
-      #   .ggraph.index <int>
-      ■■■■■■■■■■■                       33% | ETA:  4s
-      ■■■■■■■■■■■■■■■■■■■■■■■■■■        83% | ETA:  2s
-      ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■  100% | ETA:  0s
-      WARNING: Phenotype association scores (phenodiff) not calculated for 252 of 2041 sites
-      NOTE: 432 sites have more heterozygous individuals (1/0) than one of the homozygous states (1/1 or 0/0).
-      
-      Haplotyping was performed with hetphenos = F, meaning phenotype association scores for heterozygous sites was ignored.
-      ✔ Haplotyping complete!
-      Info saved in Haplotypes_30_E objects
-      ■■■■■■■■■■■                       33% | ETA:  4s
-      ■■■■■■■■■■■■■■■■■■■■■             67% | ETA:  2s
-      ■■■■■■■■■■■■■■■■■■■■■■■■■■        83% | ETA:  2s
-      ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■  100% | ETA:  0s
-      WARNING: Phenotype association scores (phenodiff) not calculated for 252 of 2041 sites
-      NOTE: 432 sites have more heterozygous individuals (1/0) than one of the homozygous states (1/1 or 0/0).
-      
-      Haplotyping was performed with hetphenos = F, meaning phenotype association scores for heterozygous sites was ignored.
-      ✔ Haplotyping complete!
-      Info saved in Haplotypes_30_E objects
-      [ FAIL 4 | WARN 0 | SKIP 2 | PASS 6 ]
-      
-      ══ Skipped tests (2) ═══════════════════════════════════════════════════════════
-      • On CRAN (2): 'test-clustree.R:14:1', 'test-clustree.R:19:1'
+      ══ Skipped tests (8) ═══════════════════════════════════════════════════════════
+      • On CRAN (2): 'test-summariseCodeUse.R:2:1', 'test-summariseCodeUse.R:290:3'
+      • Sys.getenv("CDM5_REDSHIFT_DBNAME") == "" is TRUE (4):
+        'test-codesFrom.R:100:3', 'test-dbms.R:6:3', 'test-findUnmappedCodes.R:3:3',
+        'test-summariseCodeUse.R:498:3'
+      • Sys.getenv("CDM5_SQL_SERVER_SERVER") == "" is TRUE (1):
+        'test-codesInUse.R:36:3'
+      • Sys.getenv("darwinDbDatabaseServer") == "" is TRUE (1):
+        'test-synthea_sql_server.R:2:3'
       
       ══ Failed tests ════════════════════════════════════════════════════════════════
-      ── Error ('test-crosshapviz.R:12:3'): test crosshap viz ────────────────────────
-      Error: Error evaluating duckdb query: Conversion Error: Could not convert string 'A' to DOUBLE
-      Backtrace:
-          ▆
-       1. └─crosshap::crosshap_viz(HapObject = testHapObject, epsilon = 0.62) at test-crosshapviz.R:12:3
-       2.   └─crosshap::build_bot_halfeyeplot(...)
-       3.     ├─base::setdiff(...)
-       4.     │ └─base::as.vector(y)
-       5.     ├─base::unique(halfeyedat$hap)
-       6.     └─base::unique.default(halfeyedat$hap)
-      ── Error ('test-crosshapviz.R:17:3'): test alt crosshap viz ────────────────────
-      Error: Error evaluating duckdb query: Conversion Error: Could not convert string 'A' to DOUBLE
-      Backtrace:
-          ▆
-       1. └─crosshap::crosshap_viz(...) at test-crosshapviz.R:17:3
-       2.   └─crosshap::build_bot_halfeyeplot(...)
-       3.     ├─base::setdiff(...)
-       4.     │ └─base::as.vector(y)
-       5.     ├─base::unique(halfeyedat$hap)
-       6.     └─base::unique.default(halfeyedat$hap)
-      ── Error ('test-crosshapviz.R:22:3'): test no labels crosshap viz ──────────────
-      Error: Error evaluating duckdb query: Conversion Error: Could not convert string 'A' to DOUBLE
-      Backtrace:
-          ▆
-       1. └─crosshap::crosshap_viz(...) at test-crosshapviz.R:22:3
-       2.   └─crosshap::build_bot_halfeyeplot(...)
-       3.     ├─base::setdiff(...)
-       4.     │ └─base::as.vector(y)
-       5.     ├─base::unique(halfeyedat$hap)
-       6.     └─base::unique.default(halfeyedat$hap)
-      ── Error ('test-crosshapviz.R:27:3'): test isolate_groups ──────────────────────
-      Error: Error evaluating duckdb query: Conversion Error: Could not convert string 'A' to DOUBLE
-      Backtrace:
-           ▆
-        1. ├─crosshap::crosshap_viz(...) at test-crosshapviz.R:27:3
-        2. │ └─crosshap::build_bot_halfeyeplot(...)
-        3. │   └─no0data %>% ...
-        4. ├─dplyr::mutate(...)
-        5. └─dplyr:::mutate.data.frame(...)
-        6.   └─dplyr::mutate(...)
-        7.     └─dplyr:::compute_by(...)
-        8.       ├─dplyr::group_data(data)
-        9.       ├─dplyr:::group_data.tbl_df(data)
-       10.       ├─base::NextMethod()
-       11.       └─dplyr:::group_data.data.frame(data)
-       12.         └─base::nrow(.data)
-       13.           ├─base::dim(x)
-       14.           └─base::dim.data.frame(x)
-       15.             └─base::.row_names_info(x, 2L)
+      ── Failure ('test-codesFrom.R:26:3'): test inputs - mock ───────────────────────
+      `codesFromConceptSet(...)` did not throw the expected error.
+      ── Failure ('test-codesFrom.R:26:3'): test inputs - mock ───────────────────────
+      `codesFromConceptSet(...)` did not throw the expected error.
       
-      [ FAIL 4 | WARN 0 | SKIP 2 | PASS 6 ]
-      Deleting unused snapshots:
-      • crosshapviz/haplotype-viz-alt4data.svg
-      • crosshapviz/haplotype-viz-isolatewt3-data.svg
-      • crosshapviz/haplotype-viz-nolabs3data.svg
-      • crosshapviz/haplotype-viz4data.svg
+      [ FAIL 2 | WARN 6 | SKIP 8 | PASS 281 ]
       Error: Test failures
       Execution halted
+    ```
+
+# dat
+
+<details>
+
+* Version: 0.5.0
+* GitHub: https://github.com/wahani/dat
+* Source code: https://github.com/cran/dat
+* Date/Publication: 2020-05-15 19:40:03 UTC
+* Number of recursive dependencies: 75
+
+Run `revdepcheck::cloud_details(, "dat")` for more info
+
+</details>
+
+## Newly broken
+
+*   checking tests ... ERROR
+    ```
+      Running ‘testthat.R’
+    Running the tests in ‘tests/testthat.R’ failed.
+    Complete output:
+      > library("dat")
+      To use dplyr as backend set 'options(dat.use.dplyr = TRUE)'.
+      
+      Attaching package: 'dat'
+      
+      The following object is masked from 'package:base':
+      
+          replace
+      
+      > 
+      > if (requireNamespace("testthat", quietly = TRUE)) {
+      +   testthat::test_check("dat")
+      + }
+      [ FAIL 1 | WARN 67 | SKIP 1 | PASS 123 ]
+      
+      ══ Skipped tests (1) ═══════════════════════════════════════════════════════════
+      • On CRAN (1): 'test-lintr.R:5:5'
+      
+      ══ Failed tests ════════════════════════════════════════════════════════════════
+      ── Failure ('test-mutar.R:117:5'): Parameterized formulas ──────────────────────
+      `dat` not identical to `dat1`.
+      Component "y": Modes: numeric, logical
+      Component "y": target is numeric, current is logical
+      Backtrace:
+          ▆
+       1. ├─dat:::WITH_DPLYR(...) at test-mutar.R:103:3
+       2. └─testthat::expect_identical(dat, dat1) at test-mutar.R:117:5
+      
+      [ FAIL 1 | WARN 67 | SKIP 1 | PASS 123 ]
+      Error: Test failures
+      Execution halted
+    ```
+
+# descstat
+
+<details>
+
+* Version: 0.1-2
+* GitHub: NA
+* Source code: https://github.com/cran/descstat
+* Date/Publication: 2021-02-17 16:40:02 UTC
+* Number of recursive dependencies: 58
+
+Run `revdepcheck::cloud_details(, "descstat")` for more info
+
+</details>
+
+## Newly broken
+
+*   checking examples ... ERROR
+    ```
+    Running examples in ‘descstat-Ex.R’ failed
+    The error most likely occurred in:
+    
+    > ### Name: freq_table
+    > ### Title: Frequency table
+    > ### Aliases: freq_table
+    > ### Keywords: manip
+    > 
+    > ### ** Examples
+    > 
+    > # in table padova, price is a numeric variable, a vector of breaks should be provided
+    > library("dplyr")
+    
+    Attaching package: ‘dplyr’
+    
+    The following objects are masked from ‘package:stats’:
+    
+        filter, lag
+    
+    The following objects are masked from ‘package:base’:
+    
+        intersect, setdiff, setequal, union
+    
+    > padova %>% freq_table(price,
+    +                       breaks = c(50, 100, 150, 200, 250, 300, 350, 400),
+    +                       right = TRUE)
+    # A tibble: 9 × 3
+      price         x     n
     ```
 
 # duckplyr
@@ -1255,23 +1184,28 @@ Run `revdepcheck::cloud_details(, "duckplyr")` for more info
       `environment(actual$check_df_for_rel)` is <env:namespace:duckplyr>
       `environment(expected$check_df_for_rel)` is <env:namespace:dplyr>
       
-      body(actual$create_default_duckdb_connection)[1:6] vs body(expected$create_default_duckdb_connection)[1:6]
+      body(actual$create_default_duckdb_connection)[1:8] vs body(expected$create_default_duckdb_connection)[1:10]
         `{`
-        `    con <- DBI::dbConnect(duckdb::duckdb())`
+      - `    con <- DBI::dbConnect(duckdb::duckdb())`
       - `    DBI::dbExecute(con, "set memory_limit='2GB'")`
+      + `    drv <- duckdb::duckdb()`
+      + `    con <- DBI::dbConnect(drv)`
       + `    DBI::dbExecute(con, "set memory_limit='1GB'")`
         `    DBI::dbExecute(con, paste0("pragma temp_directory='", tempdir(), `
         `        "'"))`
+      + `    duckdb$rapi_load_rfuns(drv@database_ref)`
         `    for (i in seq_along(duckplyr_macros)) {`
+        `        sql <- paste0("CREATE MACRO \\"", names(duckplyr_macros)[[i]], `
+        `            "\\"", duckplyr_macros[[i]])`
       
       `environment(actual$create_default_duckdb_connection)` is <env:namespace:duckplyr>
       `environment(expected$create_default_duckdb_connection)` is <env:namespace:dplyr>
       
-      `actual$default_duckdb_connection$con@conn_ref` is <pointer: 0x56474f7224a0>
-      `expected$default_duckdb_connection$con@conn_ref` is <pointer: 0x56474e66a940>
+      `actual$default_duckdb_connection$con@conn_ref` is <pointer: 0x560bc2352ba0>
+      `expected$default_duckdb_connection$con@conn_ref` is <pointer: 0x560bc38dd000>
       
-      `actual$default_duckdb_connection$con@driver@database_ref` is <pointer: 0x56475073a2b0>
-      `expected$default_duckdb_connection$con@driver@database_ref` is <pointer: 0x5647511210a0>
+      `actual$default_duckdb_connection$con@driver@database_ref` is <pointer: 0x560bc03e88d0>
+      `expected$default_duckdb_connection$con@driver@database_ref` is <pointer: 0x560bbb6f9210>
       
       `environment(actual$df_from_csv)` is <env:namespace:duckplyr>
       `environment(expected$df_from_csv)` is <env:namespace:dplyr>
@@ -1378,15 +1312,25 @@ Run `revdepcheck::cloud_details(, "duckplyr")` for more info
       `environment(actual$duckplyr_left_join)` is <env:namespace:duckplyr>
       `environment(expected$duckplyr_left_join)` is <env:namespace:dplyr>
       
-      actual$duckplyr_macros[5:11] vs expected$duckplyr_macros[5:11]
-        =="(x, y) AS x = y"
-        !="(x, y) AS x <> y"
+      actual$duckplyr_macros[1:11] vs expected$duckplyr_macros[1:11]
+      - <"(x, y) AS x < y"
+      + <"(x, y) AS \"r_base::<\"(x, y)"
+      - <="(x, y) AS x <= y"
+      + <="(x, y) AS \"r_base::<=\"(x, y)"
+      - >"(x, y) AS x > y"
+      + >"(x, y) AS \"r_base::>\"(x, y)"
+      - >="(x, y) AS x >= y"
+      + >="(x, y) AS \"r_base::>=\"(x, y)"
+      - =="(x, y) AS x = y"
+      + =="(x, y) AS \"r_base::==\"(x, y)"
+      - !="(x, y) AS x <> y"
+      + !="(x, y) AS \"r_base::!=\"(x, y)"
         ___divide"(x, y) AS CASE WHEN y = 0 THEN CASE WHEN x = 0 THEN CAST('NaN' AS double) WHEN x > 0 THEN CAST('+Infinity' AS double) ELSE CAST('-Infinity' AS double) END ELSE CAST(x AS double) / y END"
       - is.na"(x) AS (x IS NULL)"
       + is.na"(x) AS (x IS NULL OR isnan(x))"
         n"() AS CAST(COUNT(*) AS int32)"
         ___log10"(x) AS CASE WHEN x < 0 THEN CAST('NaN' AS double) WHEN x = 0 THEN CAST('-Inf' AS double) ELSE log10(x) END"
-        ___log"(x) AS CASE WHEN x < 0 THEN CAST('NaN' AS double) WHEN x = 0 THEN CAST('-Inf' AS double) ELSE ln(x) END"
+      and 1 more ...
       
       `environment(actual$duckplyr_mutate)` is <env:namespace:duckplyr>
       `environment(expected$duckplyr_mutate)` is <env:namespace:dplyr>
@@ -1909,8 +1853,113 @@ Run `revdepcheck::cloud_details(, "duckplyr")` for more info
       🦆:  661
       add_count, anti_join, arrange, compute, count, cross_join, distinct, do, eval, filter, full_join, group_by, inner_join, intersect, left_join, mutate, mutate.data.frame, nest_join, pull, reframe, relocate, rename, rename_with, right_join, rows_append, rows_delete, rows_insert, rows_patch, rows_update, rows_upsert, rowwise, select, semi_join, setdiff, setequal, slice, slice_head, slice_sample, slice_tail, summarise, symdiff, transmute, ungroup, union_all
       
-      00:00:45.591196
+      00:01:36.31796
       Execution halted
+    ```
+
+# glmmfields
+
+<details>
+
+* Version: 0.1.8
+* GitHub: https://github.com/seananderson/glmmfields
+* Source code: https://github.com/cran/glmmfields
+* Date/Publication: 2023-10-20 17:50:02 UTC
+* Number of recursive dependencies: 109
+
+Run `revdepcheck::cloud_details(, "glmmfields")` for more info
+
+</details>
+
+## Newly broken
+
+*   checking installed package size ... NOTE
+    ```
+      installed size is 127.1Mb
+      sub-directories of 1Mb or more:
+        libs  126.4Mb
+    ```
+
+*   checking for GNU extensions in Makefiles ... NOTE
+    ```
+    GNU make is a SystemRequirements.
+    ```
+
+## Newly fixed
+
+*   checking whether package ‘glmmfields’ can be installed ... ERROR
+    ```
+    Installation failed.
+    See ‘/tmp/workdir/glmmfields/old/glmmfields.Rcheck/00install.out’ for details.
+    ```
+
+# homologene
+
+<details>
+
+* Version: 1.4.68.19.3.27
+* GitHub: https://github.com/oganm/homologene
+* Source code: https://github.com/cran/homologene
+* Date/Publication: 2019-03-28 23:10:03 UTC
+* Number of recursive dependencies: 48
+
+Run `revdepcheck::cloud_details(, "homologene")` for more info
+
+</details>
+
+## Newly broken
+
+*   checking tests ... ERROR
+    ```
+      Running ‘testthat.R’
+    Running the tests in ‘tests/testthat.R’ failed.
+    Complete output:
+      > library(testthat)
+      > library(homologene)
+      > 
+      > test_check("homologene")
+      [ FAIL 4 | WARN 0 | SKIP 0 | PASS 7 ]
+      
+      ══ Failed tests ════════════════════════════════════════════════════════════════
+      ── Failure ('test_homologene.R:5:5'): Multiple orthologues ─────────────────────
+      humanOrthos$mouseGene not equal to c("Gzmd", "Gzme", "Gzmg", "Gzmf").
+      Lengths differ: 0 is not 4
+      ── Failure ('test_homologene.R:9:5'): Regular functionality ────────────────────
+      mouse2human(c("Eno2", "Mog"))$humanGene not equal to c("ENO2", "MOG").
+      Lengths differ: 0 is not 2
+      ── Failure ('test_homologene.R:49:5'): Detached behaviour ──────────────────────
+      homologene::mouse2human(c("Eno2", "Mog"))$humanGene not equal to c("ENO2", "MOG").
+      Lengths differ: 0 is not 2
+      ── Error ('test_utilities.R:32:5'): automatic matching ─────────────────────────
+      Error: Error evaluating duckdb query: Conversion Error: Could not convert string 'Gzmf' to INT32
+      Backtrace:
+           ▆
+        1. ├─homologene::autoTranslate(inGenes, targetGenes, returnAllPossible = TRUE) at test_utilities.R:32:5
+        2. │ └─... %>% dplyr::group_by(Taxonomy)
+        3. ├─dplyr::group_by(., Taxonomy)
+        4. └─dplyr:::group_by.data.frame(., Taxonomy)
+        5.   └─dplyr::group_by(.data, ..., .add = .add, .drop = .drop)
+        6.     └─dplyr::grouped_df(groups$data, groups$group_names, .drop)
+        7.       └─dplyr:::compute_groups(data, vars, drop = drop)
+        8.         ├─tibble::as_tibble(data)
+        9.         └─tibble:::as_tibble.data.frame(data)
+       10.           └─base::nrow(x)
+       11.             ├─base::dim(x)
+       12.             └─base::dim.data.frame(x)
+       13.               └─base::.row_names_info(x, 2L)
+      
+      [ FAIL 4 | WARN 0 | SKIP 0 | PASS 7 ]
+      Error: Test failures
+      Execution halted
+    ```
+
+## In both
+
+*   checking installed package size ... NOTE
+    ```
+      installed size is  6.2Mb
+      sub-directories of 1Mb or more:
+        data   6.1Mb
     ```
 
 # iNZightTools
@@ -2047,6 +2096,87 @@ Run `revdepcheck::cloud_details(, "linelist")` for more info
       ‘software-permissions.Rmd’ using ‘UTF-8’... OK
     ```
 
+# MixviR
+
+<details>
+
+* Version: 3.5.0
+* GitHub: https://github.com/mikesovic/MixviR
+* Source code: https://github.com/cran/MixviR
+* Date/Publication: 2022-10-22 22:17:49 UTC
+* Number of recursive dependencies: 105
+
+Run `revdepcheck::cloud_details(, "MixviR")` for more info
+
+</details>
+
+## Newly broken
+
+*   checking examples ... ERROR
+    ```
+    Running examples in ‘MixviR-Ex.R’ failed
+    The error most likely occurred in:
+    
+    > ### Name: create_ref
+    > ### Title: Create MixVir-formatted reference genome object
+    > ### Aliases: create_ref
+    > ### Keywords: reference
+    > 
+    > ### ** Examples
+    > 
+    > site1 <- "https://raw.githubusercontent.com/mikesovic/MixviR/main/raw_files/GCF_ASM985889v3.fa"
+    > site2 <- "https://raw.githubusercontent.com/mikesovic/MixviR/main/raw_files/sars_cov2_genes.bed"
+    > 
+    > if (httr::http_error(site1) | httr::http_error(site2)) {
+    +      message("No internet connection or data source broken.") 
+    +      return(NULL)
+    + } else { 
+    + create_ref(
+    +  genome = site1,
+    +  feature.bed = site2,
+    +  code.num = "1")
+    + }
+    Rows: 12 Columns: 6
+    ── Column specification ────────────────────────────────────────────────────────
+    Delimiter: "\t"
+    chr (4): X1, X4, X5, X6
+    dbl (2): X2, X3
+    
+    ℹ Use `spec()` to retrieve the full column specification for this data.
+    ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+    trying URL 'https://raw.githubusercontent.com/mikesovic/MixviR/main/raw_files/GCF_ASM985889v3.fa'
+    Content type 'text/plain; charset=utf-8' length 30290 bytes (29 KB)
+    ==================================================
+    downloaded 29 KB
+    
+    Warning: Returning more (or less) than 1 row per `summarise()` group was deprecated in
+    dplyr 1.1.0.
+    ℹ Please use `reframe()` instead.
+    ℹ When switching from `summarise()` to `reframe()`, remember that `reframe()`
+      always returns an ungrouped data frame and adjust accordingly.
+    ℹ The deprecated feature was likely used in the MixviR package.
+      Please report the issue at <https://groups.google.com/g/mixvir>.
+    Error in `dplyr::bind_rows()`:
+    ! Can't combine `..1$REF_CODON` <integer> and `..2$REF_CODON` <character>.
+    Backtrace:
+         ▆
+      1. ├─MixviR::create_ref(genome = site1, feature.bed = site2, code.num = "1")
+      2. │ ├─... %>% dplyr::arrange(CHR, POS)
+      3. │ └─dplyr::bind_rows(nonfeature_positions, feature_positions)
+      4. │   └─vctrs::vec_rbind(!!!dots, .names_to = .id, .error_call = current_env())
+      5. ├─dplyr::arrange(., CHR, POS)
+      6. └─vctrs (local) `<fn>`()
+      7.   └─vctrs::vec_default_ptype2(...)
+      8.     ├─base::withRestarts(...)
+      9.     │ └─base (local) withOneRestart(expr, restarts[[1L]])
+     10.     │   └─base (local) doWithOneRestart(return(expr), restart)
+     11.     └─vctrs::stop_incompatible_type(...)
+     12.       └─vctrs:::stop_incompatible(...)
+     13.         └─vctrs:::stop_vctrs(...)
+     14.           └─rlang::abort(message, class = c(class, "vctrs_error"), ..., call = call)
+    Execution halted
+    ```
+
 # msigdbr
 
 <details>
@@ -2073,6 +2203,33 @@ Run `revdepcheck::cloud_details(, "msigdbr")` for more info
       > 
       > test_check("msigdbr")
       Killed
+    ```
+
+*   checking running R code from vignettes ... ERROR
+    ```
+    Errors in running code in vignettes:
+    when running code in ‘msigdbr-intro.Rmd’
+      ...
+    #   gs_geoid <chr>, gs_exact_source <chr>, gs_url <chr>, gs_description <chr>,
+    #   taxon_id <int>, ortholog_sources <chr>, num_ortholog_sources <dbl>
+    
+    > cgp_gene_sets = msigdbr(species = "mouse", category = "C2", 
+    +     subcategory = "CGP")
+    
+    > head(cgp_gene_sets)
+    Killed
+    
+    ... incomplete output.  Crash?
+    
+      ‘msigdbr-intro.Rmd’ using ‘UTF-8’... failed to complete the test
+    ```
+
+*   checking re-building of vignette outputs ... NOTE
+    ```
+    Error(s) in re-building vignettes:
+      ...
+    --- re-building ‘msigdbr-intro.Rmd’ using rmarkdown
+    Killed
     ```
 
 ## In both
@@ -2110,6 +2267,86 @@ Run `revdepcheck::cloud_details(, "mtdesign")` for more info
       > 
       > test_check("mtdesign")
       Killed
+    ```
+
+# omopgenerics
+
+<details>
+
+* Version: 0.2.0
+* GitHub: NA
+* Source code: https://github.com/cran/omopgenerics
+* Date/Publication: 2024-04-30 13:12:39 UTC
+* Number of recursive dependencies: 68
+
+Run `revdepcheck::cloud_details(, "omopgenerics")` for more info
+
+</details>
+
+## Newly broken
+
+*   checking tests ... ERROR
+    ```
+      Running ‘testthat.R’
+    Running the tests in ‘tests/testthat.R’ failed.
+    Complete output:
+      > # This file is part of the standard setup for testthat.
+      > # It is recommended that you do not modify it.
+      > #
+      > # Where should you do additional test configuration?
+      > # Learn more about the roles of various files in:
+      > # * https://r-pkgs.org/testing-design.html#sec-tests-files-overview
+      > # * https://testthat.r-lib.org/articles/special-files.html
+      > 
+      > library(testthat)
+      > library(omopgenerics)
+      
+      Attaching package: 'omopgenerics'
+      
+      The following object is masked from 'package:stats':
+      
+          filter
+      
+      > 
+      > test_check("omopgenerics")
+      Starting 2 test processes
+      [ FAIL 1 | WARN 66 | SKIP 0 | PASS 600 ]
+      
+      ══ Failed tests ════════════════════════════════════════════════════════════════
+      ── Failure ('test-classCdmReference.R:95:3'): test assign and extract from cdm object ──
+      Expected `summary(emptyCdmReference("test"))` to run without any warnings.
+      i Actually got a <simpleWarning> with text:
+        Calling 'structure(NULL, *)' is deprecated, as NULL cannot have attributes.
+          Consider 'structure(list(), *)' instead.
+      
+      [ FAIL 1 | WARN 66 | SKIP 0 | PASS 600 ]
+      Error: Test failures
+      Execution halted
+    ```
+
+## In both
+
+*   checking running R code from vignettes ... ERROR
+    ```
+    Errors in running code in vignettes:
+    when running code in ‘a02_concept_set.Rmd’
+      ...
+    - asthma (1 codes)
+    
+    > condition_codes <- list(c(201820, 4087682, 3655269))
+    
+    > newCodelist(condition_codes)
+    
+      When sourcing ‘a02_concept_set.R’:
+    Error: x must be a list; it can not contain NA; it can not be NULL; it has to
+    be named; elements must have class: numeric, integer.
+    Execution halted
+    
+      ‘a01_cdm_reference.Rmd’ using ‘UTF-8’... OK
+      ‘a02_concept_set.Rmd’ using ‘UTF-8’... failed
+      ‘a03_cohort_table.Rmd’ using ‘UTF-8’... OK
+      ‘a04_summarised_result.Rmd’ using ‘UTF-8’... OK
+      ‘reexport.Rmd’ using ‘UTF-8’... OK
     ```
 
 # partition
@@ -2165,6 +2402,390 @@ Run `revdepcheck::cloud_details(, "partition")` for more info
       sub-directories of 1Mb or more:
         doc    2.8Mb
         libs  12.0Mb
+    ```
+
+# PublicWorksFinanceIT
+
+<details>
+
+* Version: 0.2.0
+* GitHub: NA
+* Source code: https://github.com/cran/PublicWorksFinanceIT
+* Date/Publication: 2024-03-07 10:30:06 UTC
+* Number of recursive dependencies: 87
+
+Run `revdepcheck::cloud_details(, "PublicWorksFinanceIT")` for more info
+
+</details>
+
+## Newly broken
+
+*   checking examples ... ERROR
+    ```
+    Running examples in ‘PublicWorksFinanceIT-Ex.R’ failed
+    The error most likely occurred in:
+    
+    > ### Name: merge_data
+    > ### Title: Merging the three financial datasets
+    > ### Aliases: merge_data
+    > 
+    > ### ** Examples
+    > 
+    > data(OCpoint)
+    > data(OBDAPpoint)
+    > data(RENDISpoint)
+    > data_all <- merge_data(RENDISpoint, OBDAPpoint, OCpoint)
+    Error in `dplyr::bind_rows()`:
+    ! Can't combine `..1$FeasibilityStudyStartingDate` <character> and `..2$FeasibilityStudyStartingDate` <integer>.
+    Backtrace:
+         ▆
+      1. ├─PublicWorksFinanceIT::merge_data(RENDISpoint, OBDAPpoint, OCpoint)
+      2. │ └─dplyr::bind_rows(data_OC, data_OBDAP, data_RENDIS)
+      3. │   └─vctrs::vec_rbind(!!!dots, .names_to = .id, .error_call = current_env())
+      4. └─vctrs (local) `<fn>`()
+      5.   └─vctrs::vec_default_ptype2(...)
+      6.     ├─base::withRestarts(...)
+      7.     │ └─base (local) withOneRestart(expr, restarts[[1L]])
+      8.     │   └─base (local) doWithOneRestart(return(expr), restart)
+      9.     └─vctrs::stop_incompatible_type(...)
+     10.       └─vctrs:::stop_incompatible(...)
+     11.         └─vctrs:::stop_vctrs(...)
+     12.           └─rlang::abort(message, class = c(class, "vctrs_error"), ..., call = call)
+    Execution halted
+    ```
+
+## In both
+
+*   checking installed package size ... NOTE
+    ```
+      installed size is 13.1Mb
+      sub-directories of 1Mb or more:
+        data  12.9Mb
+    ```
+
+# recipes
+
+<details>
+
+* Version: 1.0.10
+* GitHub: https://github.com/tidymodels/recipes
+* Source code: https://github.com/cran/recipes
+* Date/Publication: 2024-02-18 18:00:02 UTC
+* Number of recursive dependencies: 139
+
+Run `revdepcheck::cloud_details(, "recipes")` for more info
+
+</details>
+
+## Newly broken
+
+*   checking tests ... ERROR
+    ```
+      Running ‘testthat.R’
+    Running the tests in ‘tests/testthat.R’ failed.
+    Complete output:
+      > library(testthat)
+      > library(recipes)
+      Loading required package: dplyr
+      
+      Attaching package: 'dplyr'
+      
+      The following object is masked from 'package:testthat':
+      
+          matches
+      
+      The following objects are masked from 'package:stats':
+      
+          filter, lag
+      
+      The following objects are masked from 'package:base':
+      
+          intersect, setdiff, setequal, union
+      
+      
+      Attaching package: 'recipes'
+      
+      The following object is masked from 'package:stats':
+      
+          step
+      
+      > 
+      > test_check("recipes")
+      
+      Attaching package: 'purrr'
+      
+      The following object is masked from 'package:testthat':
+      
+          is_null
+      
+      1 package (fastICA) is needed for this step but is not installed.
+      To install run: `install.packages("fastICA")`
+      1 package (dimRed) is needed for this step but is not installed.
+      To install run: `install.packages("dimRed")`
+      1 package (dimRed) is needed for this step but is not installed.
+      To install run: `install.packages("dimRed")`
+      1 package (dimRed) is needed for this step but is not installed.
+      To install run: `install.packages("dimRed")`
+      1 package (dimRed) is needed for this step but is not installed.
+      To install run: `install.packages("dimRed")`
+      1 package (dimRed) is needed for this step but is not installed.
+      To install run: `install.packages("dimRed")`
+      1 package (mixOmics) is needed for this step but is not installed.
+      To install run: `install.packages("mixOmics")`
+      1 package (mixOmics) is needed for this step but is not installed.
+      To install run: `install.packages("mixOmics")`
+      1 package (mixOmics) is needed for this step but is not installed.
+      To install run: `install.packages("mixOmics")`
+      1 package (mixOmics) is needed for this step but is not installed.
+      To install run: `install.packages("mixOmics")`
+      1 package (mixOmics) is needed for this step but is not installed.
+      To install run: `install.packages("mixOmics")`
+      1 package (mixOmics) is needed for this step but is not installed.
+      To install run: `install.packages("mixOmics")`
+      [ FAIL 1 | WARN 2 | SKIP 479 | PASS 2119 ]
+      
+      ══ Skipped tests (479) ═════════════════════════════════════════════════════════
+      • On CRAN (443): 'test-BoxCox.R:77:3', 'test-BoxCox.R:83:3',
+        'test-BoxCox.R:111:3', 'test-BoxCox.R:148:3', 'test-YeoJohnson.R:89:3',
+        'test-YeoJohnson.R:112:3', 'test-YeoJohnson.R:149:3', 'test-arrange.R:76:3',
+        'test-arrange.R:113:3', 'test-basics.R:19:3', 'test-basics.R:50:3',
+        'test-basics.R:116:3', 'test-basics.R:157:3', 'test-basics.R:185:3',
+        'test-basics.R:201:3', 'test-basics.R:265:3', 'test-basics.R:291:3',
+        'test-basics.R:303:3', 'test-basics.R:333:3', 'test-basics.R:344:3',
+        'test-bin2factor.R:47:3', 'test-bin2factor.R:86:3',
+        'test-bin2factor.R:123:3', 'test-bs.R:79:3', 'test-bs.R:130:3',
+        'test-bs.R:195:3', 'test-bs.R:209:3', 'test-case-weight-functions.R:144:3',
+        'test-case-weight-functions.R:158:3', 'test-center.R:94:3',
+        'test-center.R:115:3', 'test-center.R:139:3', 'test-center.R:176:3',
+        'test-class.R:19:3', 'test-class.R:38:3', 'test-class.R:53:3',
+        'test-class.R:102:3', 'test-class.R:133:3', 'test-class.R:170:3',
+        'test-classdist.R:87:3', 'test-classdist.R:171:3', 'test-classdist.R:192:3',
+        'test-classdist.R:264:3', 'test-classdist.R:279:3',
+        'test-classdist_shrunken.R:84:3', 'test-classdist_shrunken.R:180:3',
+        'test-classdist_shrunken.R:259:3', 'test-colcheck.R:38:3',
+        'test-colcheck.R:163:3', 'test-colcheck.R:200:3', 'test-corr.R:41:3',
+        'test-corr.R:56:3', 'test-corr.R:104:3', 'test-corr.R:147:3',
+        'test-corr.R:185:3', 'test-count.R:49:3', 'test-count.R:64:3',
+        'test-count.R:93:3', 'test-count.R:161:3', 'test-count.R:175:3',
+        'test-cut.R:4:3', 'test-cut.R:31:3', 'test-cut.R:193:3', 'test-cut.R:230:3',
+        'test-date.R:98:3', 'test-date.R:201:3', 'test-date.R:271:3',
+        'test-date.R:285:3', 'test-depth.R:105:3', 'test-depth.R:174:3',
+        'test-depth.R:189:3', 'test-discretize.R:45:3', 'test-discretize.R:49:3',
+        'test-discretize.R:126:3', 'test-discretize.R:142:3',
+        'test-discretize.R:191:3', 'test-discretize.R:228:3', 'test-dummy.R:72:3',
+        'test-dummy.R:79:3', 'test-dummy.R:160:3', 'test-dummy.R:182:3',
+        'test-dummy.R:217:3', 'test-dummy.R:286:3', 'test-dummy.R:308:3',
+        'test-dummy.R:321:3', 'test-dummy.R:344:3', 'test-dummy.R:409:3',
+        'test-dummy.R:423:3', 'test-dummy_extract.R:81:3',
+        'test-dummy_extract.R:228:3', 'test-dummy_extract.R:270:3',
+        'test-dummy_extract.R:317:3', 'test-dummy_extract.R:384:3',
+        'test-dummy_extract.R:398:3', 'test-dummy_multi_choice.R:42:3',
+        'test-dummy_multi_choice.R:52:3', 'test-dummy_multi_choice.R:154:3',
+        'test-dummy_multi_choice.R:219:3', 'test-dummy_multi_choice.R:233:3',
+        'test-extension_check.R:2:3', 'test-extract-dials.R:62:3',
+        'test-extract-dials.R:74:3', 'test-factor2string.R:28:3',
+        'test-factor2string.R:52:3', 'test-factor2string.R:89:3',
+        'test-filter.R:116:3', 'test-filter.R:153:3', 'test-filter_missing.R:77:3',
+        'test-filter_missing.R:110:3', 'test-filter_missing.R:147:3',
+        'test-format.R:68:3', 'test-formula.R:21:3', 'test-formula.R:62:3',
+        'test-geodist.R:72:3', 'test-geodist.R:163:3', 'test-geodist.R:175:3',
+        'test-geodist.R:242:3', 'test-geodist.R:326:3', 'test-geodist.R:343:3',
+        'test-harmonic.R:25:3', 'test-harmonic.R:268:3', 'test-harmonic.R:284:3',
+        'test-harmonic.R:303:3', 'test-harmonic.R:320:3', 'test-harmonic.R:399:3',
+        'test-harmonic.R:446:3', 'test-harmonic.R:520:3', 'test-harmonic.R:534:3',
+        'test-holiday.R:179:3', 'test-holiday.R:203:3', 'test-holiday.R:270:3',
+        'test-holiday.R:284:3', 'test-hyperbolic.R:59:3', 'test-hyperbolic.R:80:3',
+        'test-hyperbolic.R:122:3', 'test-impute_bag.R:90:3',
+        'test-impute_bag.R:143:3', 'test-impute_bag.R:181:3',
+        'test-impute_knn.R:101:3', 'test-impute_knn.R:161:3',
+        'test-impute_knn.R:201:3', 'test-impute_knn.R:247:3',
+        'test-impute_linear.R:62:3', 'test-impute_linear.R:109:3',
+        'test-impute_linear.R:154:3', 'test-impute_linear.R:191:3',
+        'test-impute_lower.R:57:3', 'test-impute_lower.R:65:3',
+        'test-impute_lower.R:89:3', 'test-impute_lower.R:127:3',
+        'test-impute_mean.R:82:3', 'test-impute_mean.R:99:3',
+        'test-impute_mean.R:167:3', 'test-impute_mean.R:226:3',
+        'test-impute_mean.R:263:3', 'test-impute_median.R:66:3',
+        'test-impute_median.R:83:3', 'test-impute_median.R:106:3',
+        'test-impute_median.R:148:3', 'test-impute_median.R:185:3',
+        'test-impute_mode.R:68:3', 'test-impute_mode.R:94:3',
+        'test-impute_mode.R:100:3', 'test-impute_mode.R:124:3',
+        'test-impute_mode.R:166:3', 'test-impute_mode.R:203:3',
+        'test-impute_roll.R:73:3', 'test-impute_roll.R:96:3',
+        'test-impute_roll.R:135:3', 'test-impute_roll.R:173:3',
+        'test-indicate_na.R:95:3', 'test-indicate_na.R:118:3',
+        'test-indicate_na.R:183:3', 'test-indicate_na.R:197:3',
+        'test-integer.R:98:3', 'test-integer.R:135:3', 'test-interact.R:173:3',
+        'test-interact.R:291:3', 'test-interact.R:298:3', 'test-interact.R:363:3',
+        'test-interact.R:377:3', 'test-intercept.R:35:3', 'test-intercept.R:61:3',
+        'test-intercept.R:97:3', 'test-inverse.R:56:3', 'test-inverse.R:93:3',
+        'test-invlogit.R:47:3', 'test-invlogit.R:83:3', 'test-isomap.R:41:3',
+        'test-isomap.R:66:3', 'test-isomap.R:91:3', 'test-isomap.R:110:3',
+        'test-isomap.R:147:3', 'test-isomap.R:169:3', 'test-isomap.R:203:3',
+        'test-isomap.R:238:3', 'test-isomap.R:262:3', 'test-kpca.R:51:3',
+        'test-kpca.R:74:3', 'test-kpca.R:111:3', 'test-kpca.R:178:3',
+        'test-kpca.R:194:3', 'test-kpca_poly.R:57:3', 'test-kpca_poly.R:68:3',
+        'test-kpca_poly.R:121:3', 'test-kpca_poly.R:192:3', 'test-kpca_poly.R:208:3',
+        'test-kpca_rbf.R:57:3', 'test-kpca_rbf.R:68:3', 'test-kpca_rbf.R:119:3',
+        'test-kpca_rbf.R:186:3', 'test-kpca_rbf.R:202:3', 'test-lag.R:40:3',
+        'test-lag.R:98:3', 'test-lag.R:163:3', 'test-lag.R:177:3',
+        'test-lincomb.R:81:3', 'test-lincomb.R:118:3', 'test-log.R:58:3',
+        'test-log.R:79:3', 'test-log.R:116:3', 'test-logit.R:45:3',
+        'test-logit.R:68:3', 'test-logit.R:105:3', 'test-matrix.R:67:3',
+        'test-misc.R:13:3', 'test-misc.R:29:3', 'test-misc.R:33:3',
+        'test-missing.R:28:3', 'test-missing.R:35:3', 'test-missing.R:45:3',
+        'test-missing.R:68:3', 'test-missing.R:105:3', 'test-mutate.R:64:3',
+        'test-mutate.R:124:3', 'test-mutate.R:148:3', 'test-mutate_at.R:95:3',
+        'test-mutate_at.R:132:3', 'test-naomit.R:54:3', 'test-naomit.R:91:3',
+        'test-newvalues.R:13:3', 'test-newvalues.R:19:3', 'test-newvalues.R:29:3',
+        'test-newvalues.R:39:3', 'test-newvalues.R:50:3', 'test-newvalues.R:72:3',
+        'test-newvalues.R:92:3', 'test-newvalues.R:102:3', 'test-newvalues.R:131:3',
+        'test-newvalues.R:137:3', 'test-newvalues.R:143:3', 'test-newvalues.R:149:3',
+        'test-newvalues.R:155:3', 'test-newvalues.R:176:3', 'test-newvalues.R:213:3',
+        'test-nomial_types.R:140:3', 'test-nomial_types.R:157:3',
+        'test-nomial_types.R:173:3', 'test-normalize.R:68:3',
+        'test-normalize.R:100:3', 'test-normalize.R:122:3', 'test-normalize.R:148:3',
+        'test-normalize.R:173:3', 'test-normalize.R:215:3', 'test-novel.R:79:3',
+        'test-novel.R:117:3', 'test-novel.R:154:3', 'test-ns.R:81:3',
+        'test-ns.R:132:3', 'test-ns.R:197:3', 'test-ns.R:211:3',
+        'test-num2factor.R:38:3', 'test-num2factor.R:67:3',
+        'test-num2factor.R:104:3', 'test-nzv.R:64:3', 'test-nzv.R:71:3',
+        'test-nzv.R:120:3', 'test-nzv.R:195:3', 'test-nzv.R:232:3',
+        'test-ordinalscore.R:69:3', 'test-ordinalscore.R:94:3',
+        'test-ordinalscore.R:131:3', 'test-other.R:247:3', 'test-other.R:280:5',
+        'test-other.R:357:3', 'test-other.R:402:3', 'test-other.R:439:3',
+        'test-pca.R:82:3', 'test-pca.R:132:3', 'test-pca.R:157:3',
+        'test-pca.R:167:3', 'test-pca.R:213:3', 'test-pca.R:273:3',
+        'test-pca.R:343:3', 'test-pca.R:358:3', 'test-percentile.R:142:3',
+        'test-percentile.R:187:3', 'test-percentile.R:245:3',
+        'test-percentile.R:287:3', 'test-pkg_check.R:2:3', 'test-pls.R:242:3',
+        'test-pls.R:293:3', 'test-pls_old.R:29:3', 'test-poly.R:71:3',
+        'test-poly.R:135:3', 'test-poly.R:200:3', 'test-poly.R:215:3',
+        'test-poly_bernstein.R:82:3', 'test-poly_bernstein.R:129:3',
+        'test-poly_bernstein.R:199:3', 'test-profile.R:73:3', 'test-profile.R:138:3',
+        'test-profile.R:173:3', 'test-range.R:182:3', 'test-range.R:188:3',
+        'test-range.R:213:3', 'test-range.R:250:3', 'test-range_check.R:7:3',
+        'test-range_check.R:18:3', 'test-range_check.R:50:3',
+        'test-range_check.R:81:3', 'test-range_check.R:118:3', 'test-ratio.R:118:3',
+        'test-ratio.R:142:3', 'test-ratio.R:166:3', 'test-ratio.R:231:3',
+        'test-ratio.R:245:3', 'test-regex.R:41:3', 'test-regex.R:56:3',
+        'test-regex.R:83:3', 'test-regex.R:150:3', 'test-regex.R:164:3',
+        'test-relevel.R:25:3', 'test-relevel.R:66:3', 'test-relevel.R:103:3',
+        'test-relu.R:68:3', 'test-relu.R:110:3', 'test-relu.R:152:3',
+        'test-rename.R:63:3', 'test-rename.R:100:3', 'test-rename_at.R:36:3',
+        'test-rename_at.R:64:3', 'test-rename_at.R:101:3', 'test-retraining.R:28:3',
+        'test-rm.R:76:3', 'test-rm.R:183:3', 'test-rm.R:220:3', 'test-roles.R:41:3',
+        'test-roles.R:171:3', 'test-roles.R:195:3', 'test-roles.R:217:3',
+        'test-roles.R:226:3', 'test-roles.R:234:3', 'test-roles.R:246:3',
+        'test-roles.R:338:3', 'test-roles.R:370:3', 'test-roles.R:522:3',
+        'test-roles.R:569:3', 'test-sample.R:72:3', 'test-sample.R:125:3',
+        'test-sample.R:151:3', 'test-sample.R:181:3', 'test-scale.R:67:3',
+        'test-scale.R:91:3', 'test-scale.R:117:3', 'test-scale.R:124:3',
+        'test-scale.R:141:3', 'test-scale.R:177:3', 'test-scale.R:214:3',
+        'test-select.R:125:3', 'test-select.R:152:3', 'test-select.R:182:3',
+        'test-selections.R:130:3', 'test-shuffle.R:68:3', 'test-shuffle.R:90:3',
+        'test-shuffle.R:127:3', 'test-skipping.R:18:3', 'test-slice.R:88:3',
+        'test-slice.R:111:3', 'test-slice.R:148:3', 'test-sparsity.R:66:3',
+        'test-spatialsign.R:73:3', 'test-spatialsign.R:111:3',
+        'test-spatialsign.R:151:3', 'test-spline_b.R:83:3', 'test-spline_b.R:142:3',
+        'test-spline_b.R:212:3', 'test-spline_convex.R:83:3',
+        'test-spline_convex.R:142:3', 'test-spline_convex.R:212:3',
+        'test-spline_monotone.R:83:3', 'test-spline_monotone.R:142:3',
+        'test-spline_monotone.R:212:3', 'test-spline_natural.R:83:3',
+        'test-spline_natural.R:142:3', 'test-spline_natural.R:212:3',
+        'test-spline_nonnegative.R:83:3', 'test-spline_nonnegative.R:142:3',
+        'test-spline_nonnegative.R:212:3', 'test-sqrt.R:38:3', 'test-sqrt.R:75:3',
+        'test-string2factor.R:39:3', 'test-string2factor.R:84:3',
+        'test-string2factor.R:121:3', 'test-stringsAsFactors.R:27:3',
+        'test-stringsAsFactors.R:42:3', 'test-tidy.R:36:3', 'test-tidy.R:70:3',
+        'test-tidy.R:83:3', 'test-time.R:104:3', 'test-time.R:134:3',
+        'test-time.R:209:3', 'test-time.R:228:3', 'test-unknown.R:34:3',
+        'test-unknown.R:59:3', 'test-unknown.R:101:3', 'test-unknown.R:138:3',
+        'test-unorder.R:29:3', 'test-unorder.R:51:3', 'test-unorder.R:88:3',
+        'test-update-role-requirements.R:9:3',
+        'test-update-role-requirements.R:37:3',
+        'test-update-role-requirements.R:46:3',
+        'test-update-role-requirements.R:55:3',
+        'test-update-role-requirements.R:77:3',
+        'test-update-role-requirements.R:117:3',
+        'test-update-role-requirements.R:140:3',
+        'test-update-role-requirements.R:171:3',
+        'test-update-role-requirements.R:185:3',
+        'test-update-role-requirements.R:198:3',
+        'test-update-role-requirements.R:247:3',
+        'test-update-role-requirements.R:270:3',
+        'test-update-role-requirements.R:290:3',
+        'test-update-role-requirements.R:305:3', 'test-update.R:13:3',
+        'test-update.R:21:3', 'test-window.R:16:3', 'test-window.R:140:3',
+        'test-window.R:165:3', 'test-window.R:237:3', 'test-window.R:251:3',
+        'test-zv.R:99:3', 'test-zv.R:139:3'
+      • RcppML cannot be loaded (9): 'test-nnmf_sparse.R:2:3',
+        'test-nnmf_sparse.R:18:3', 'test-nnmf_sparse.R:33:3',
+        'test-nnmf_sparse.R:48:3', 'test-nnmf_sparse.R:61:3',
+        'test-nnmf_sparse.R:76:3', 'test-nnmf_sparse.R:96:3',
+        'test-nnmf_sparse.R:124:3', 'test-nnmf_sparse.R:142:3'
+      • dimRed cannot be loaded (12): 'test-ica.R:38:3', 'test-ica.R:79:3',
+        'test-ica.R:96:3', 'test-ica.R:113:3', 'test-ica.R:143:3',
+        'test-ica.R:162:3', 'test-ica.R:177:3', 'test-ica.R:194:3',
+        'test-ica.R:216:3', 'test-ica.R:246:3', 'test-ica.R:266:3',
+        'test-ica.R:281:3'
+      • mixOmics cannot be loaded (15): 'test-pls.R:32:3', 'test-pls.R:51:3',
+        'test-pls.R:70:3', 'test-pls.R:90:3', 'test-pls.R:111:3', 'test-pls.R:130:3',
+        'test-pls.R:139:3', 'test-pls.R:159:3', 'test-pls.R:170:3',
+        'test-pls.R:190:3', 'test-pls.R:226:3', 'test-pls.R:277:3',
+        'test-pls.R:332:3', 'test-pls.R:359:3', 'test-pls.R:376:3'
+      
+      ══ Failed tests ════════════════════════════════════════════════════════════════
+      ── Failure ('test-impute_linear.R:44:3'): All NA values ────────────────────────
+      unname(imputed_te$Lot_Frontage) (`actual`) not equal to `lm_predicted` (`expected`).
+      
+           actual   | expected                  
+       [1] 109.0000 - 108.6459 [1]              
+       [2] 73.0000  - 72.6421  [2]              
+       [3] 77.0000  - 77.3687  [3]              
+       [4] 72.0000  - 71.8165  [4]              
+       [5] 77.0000  - 76.5877  [5]              
+       [6] 70.0000  - 69.7043  [6]              
+       [7] 61.0000  - 60.6659  [7]              
+       [8] 61.0000  - 60.8178  [8]              
+       [9] 62.0000  - 61.5040  [9]              
+      [10] 65.0000  - 65.2762  [10]             
+       ... ...        ...      and 2920 more ...
+      
+      [ FAIL 1 | WARN 2 | SKIP 479 | PASS 2119 ]
+      Error: Test failures
+      Execution halted
+    ```
+
+## In both
+
+*   checking running R code from vignettes ... ERROR
+    ```
+    Errors in running code in vignettes:
+    when running code in ‘Roles.Rmd’
+      ...
+    6 nitrogen <chr [2]> predictor original
+    7 sulfur   <chr [2]> predictor original
+    8 HHV      <chr [2]> outcome   original
+    
+    > recipe(HHV ~ ., data = biomass) %>% update_role(sample, 
+    +     new_role = NA)
+    
+      When sourcing ‘Roles.R’:
+    Error: `new_role` must not be `NA`.
+    Execution halted
+    
+      ‘Dummies.Rmd’ using ‘UTF-8’... OK
+      ‘Ordering.Rmd’ using ‘UTF-8’... OK
+      ‘Roles.Rmd’ using ‘UTF-8’... failed
+      ‘Selecting_Variables.Rmd’ using ‘UTF-8’... OK
+      ‘Skipping.Rmd’ using ‘UTF-8’... OK
+      ‘recipes.Rmd’ using ‘UTF-8’... OK
+    ```
+
+*   checking Rd cross-references ... NOTE
+    ```
+    Packages unavailable to check Rd xrefs: ‘fastICA’, ‘dimRed’
     ```
 
 # rfars
@@ -2275,9 +2896,6 @@ Run `revdepcheck::cloud_details(, "rWCVP")` for more info
       
       -- Exact matching 7 names --
       
-      v Found 4 of 7 names
-      
-      -- Fuzzy matching 3 names --
       
       -- Matching names to WCVP ------------------------------------------------------
       i Using the `scientificName` column
@@ -2285,24 +2903,12 @@ Run `revdepcheck::cloud_details(, "rWCVP")` for more info
       
       -- Exact matching  names --
       
-      v Found 4 of  names
-      
-      -- Fuzzy matching 3 names --
       
       -- Matching names to WCVP ------------------------------------------------------
       i Using the `scientificName` column
       
       -- Exact matching 7 names --
       
-      v Found 4 of 7 names
-      
-      -- Matching complete! --
-      
-      v Matched 4 of 7 names
-      i Exact (with author): 2
-      i Exact (without author): 2
-      i No match found: 3
-      ! Names with multiple matches: 0
       
       -- Matching names to WCVP ------------------------------------------------------
       i Using the `genus`, `species`, `infra_rank`, and `infra` columns
@@ -2310,27 +2916,62 @@ Run `revdepcheck::cloud_details(, "rWCVP")` for more info
       
       -- Exact matching  names --
       
-      v Found 4 of  names
-      
-      -- Fuzzy matching 3 names --
       
       -- Matching names to WCVP ------------------------------------------------------
       i Using the `scientificName` column
       
       -- Exact matching 7 names --
       
-      v Found 4 of 7 names
-      
-      -- Fuzzy matching 3 names --
-      
       i No area specified. Generating global summary.
       i Aggregating occurrence types across input area ("the world") - see `?wcvp_summary()` for details.
       i No area specified. Generating global summary.
       i Matches to input geography found at Continent (Level 1)
       i Aggregating occurrence types across input area ("ASIA-TROPICAL") - see `?wcvp_summary()` for details.
-      [ FAIL 9 | WARN 0 | SKIP 0 | PASS 33 ]
+      [ FAIL 12 | WARN 0 | SKIP 0 | PASS 19 ]
       
       ══ Failed tests ════════════════════════════════════════════════════════════════
+      ── Error ('test-exact_match.R:2:3'): exact match with author returns expected output ──
+      Error: Error evaluating duckdb query: Invalid Input Error: Invalid unicode (byte sequence mismatch) detected in value construction
+      Backtrace:
+           ▆
+        1. ├─rWCVP::wcvp_match_exact(...) at test-exact_match.R:2:3
+        2. │ └─... %>% select(-"n")
+        3. ├─dplyr::select(., -"n")
+        4. ├─dplyr::mutate(., multiple_matches = .data$n > 1)
+        5. ├─dplyr::add_count(., .data[[id_col]])
+        6. ├─dplyr::mutate(...)
+        7. └─dplyr:::mutate.data.frame(...)
+        8.   └─dplyr::mutate(...)
+        9.     └─dplyr:::compute_by(...)
+       10.       ├─dplyr::group_data(data)
+       11.       ├─dplyr:::group_data.tbl_df(data)
+       12.       ├─base::NextMethod()
+       13.       └─dplyr:::group_data.data.frame(data)
+       14.         └─base::nrow(.data)
+       15.           ├─base::dim(x)
+       16.           └─base::dim.data.frame(x)
+       17.             └─base::.row_names_info(x, 2L)
+      ── Error ('test-exact_match.R:11:3'): exact match without author returns expected output ──
+      Error: Error evaluating duckdb query: Invalid Input Error: Invalid unicode (byte sequence mismatch) detected in value construction
+      Backtrace:
+           ▆
+        1. ├─rWCVP::wcvp_match_exact(...) at test-exact_match.R:11:3
+        2. │ └─... %>% select(-"n")
+        3. ├─dplyr::select(., -"n")
+        4. ├─dplyr::mutate(., multiple_matches = .data$n > 1)
+        5. ├─dplyr::add_count(., .data[[id_col]])
+        6. ├─dplyr::mutate(...)
+        7. └─dplyr:::mutate.data.frame(...)
+        8.   └─dplyr::mutate(...)
+        9.     └─dplyr:::compute_by(...)
+       10.       ├─dplyr::group_data(data)
+       11.       ├─dplyr:::group_data.tbl_df(data)
+       12.       ├─base::NextMethod()
+       13.       └─dplyr:::group_data.data.frame(data)
+       14.         └─base::nrow(.data)
+       15.           ├─base::dim(x)
+       16.           └─base::dim.data.frame(x)
+       17.             └─base::.row_names_info(x, 2L)
       ── Error ('test-fuzzy_match.R:4:3'): edit match returns name within correct distance ──
       Error in `nchar(str2)`: invalid multibyte string, element 8
       Backtrace:
@@ -2412,51 +3053,127 @@ Run `revdepcheck::cloud_details(, "rWCVP")` for more info
        5.   └─phonics::metaphone(wcvp_names$taxon_name, maxCodeLen = 20, clean = FALSE)
        6.     └─base::toupper(word)
       ── Error ('test-match_names.R:2:3'): match names with author returns expected output ──
-      Error in `toupper(word)`: invalid input 'bytes Tromostapelia mutabilis var. americana' in 'utf8towcs'
+      Error: Error evaluating duckdb query: Invalid Input Error: Invalid unicode (byte sequence mismatch) detected in value construction
       Backtrace:
-          ▆
-       1. ├─rWCVP::wcvp_match_names(...) at test-match_names.R:2:3
-       2. │ └─rWCVP::wcvp_match_fuzzy(...)
-       3. │   └─... %>% filter(!is.na(.data$wcvp_id))
-       4. ├─dplyr::filter(., !is.na(.data$wcvp_id))
-       5. └─rWCVP::phonetic_match(., wcvp_species, name_col = name_col)
-       6.   └─phonics::metaphone(wcvp_names$taxon_name, maxCodeLen = 20, clean = FALSE)
-       7.     └─base::toupper(word)
+           ▆
+        1. ├─rWCVP::wcvp_match_names(...) at test-match_names.R:2:3
+        2. │ └─... %>% filter(!is.na(.data$wcvp_id))
+        3. ├─dplyr::filter(., !is.na(.data$wcvp_id))
+        4. ├─rWCVP::wcvp_match_exact(...)
+        5. │ └─... %>% select(-"n")
+        6. ├─dplyr::select(., -"n")
+        7. ├─dplyr::mutate(., multiple_matches = .data$n > 1)
+        8. ├─dplyr::add_count(., .data[[id_col]])
+        9. ├─dplyr::mutate(...)
+       10. └─dplyr:::mutate.data.frame(...)
+       11.   └─dplyr::mutate(...)
+       12.     └─dplyr:::compute_by(...)
+       13.       ├─dplyr::group_data(data)
+       14.       ├─dplyr:::group_data.tbl_df(data)
+       15.       ├─base::NextMethod()
+       16.       └─dplyr:::group_data.data.frame(data)
+       17.         └─base::nrow(.data)
+       18.           ├─base::dim(x)
+       19.           └─base::dim.data.frame(x)
+       20.             └─base::.row_names_info(x, 2L)
       ── Error ('test-match_names.R:16:3'): match names without author returns expected output ──
-      Error in `toupper(word)`: invalid input 'bytes Tromostapelia mutabilis var. americana' in 'utf8towcs'
+      Error: Error evaluating duckdb query: Invalid Input Error: Invalid unicode (byte sequence mismatch) detected in value construction
       Backtrace:
-          ▆
-       1. ├─rWCVP::wcvp_match_names(...) at test-match_names.R:16:3
-       2. │ └─rWCVP::wcvp_match_fuzzy(...)
-       3. │   └─... %>% filter(!is.na(.data$wcvp_id))
-       4. ├─dplyr::filter(., !is.na(.data$wcvp_id))
-       5. └─rWCVP::phonetic_match(., wcvp_species, name_col = name_col)
-       6.   └─phonics::metaphone(wcvp_names$taxon_name, maxCodeLen = 20, clean = FALSE)
-       7.     └─base::toupper(word)
+           ▆
+        1. ├─rWCVP::wcvp_match_names(...) at test-match_names.R:16:3
+        2. │ └─... %>% filter(!is.na(.data$wcvp_id))
+        3. ├─dplyr::filter(., !is.na(.data$wcvp_id))
+        4. ├─rWCVP::wcvp_match_exact(...)
+        5. │ └─... %>% select(-"n")
+        6. ├─dplyr::select(., -"n")
+        7. ├─dplyr::mutate(., multiple_matches = .data$n > 1)
+        8. ├─dplyr::add_count(., .data[[id_col]])
+        9. ├─dplyr::mutate(...)
+       10. └─dplyr:::mutate.data.frame(...)
+       11.   └─dplyr::mutate(...)
+       12.     └─dplyr:::compute_by(...)
+       13.       ├─dplyr::group_data(data)
+       14.       ├─dplyr:::group_data.tbl_df(data)
+       15.       ├─base::NextMethod()
+       16.       └─dplyr:::group_data.data.frame(data)
+       17.         └─base::nrow(.data)
+       18.           ├─base::dim(x)
+       19.           └─base::dim.data.frame(x)
+       20.             └─base::.row_names_info(x, 2L)
+      ── Error ('test-match_names.R:30:3'): match names without fuzzy returns expected output ──
+      Error: Error evaluating duckdb query: Invalid Input Error: Invalid unicode (byte sequence mismatch) detected in value construction
+      Backtrace:
+           ▆
+        1. ├─rWCVP::wcvp_match_names(...) at test-match_names.R:30:3
+        2. │ └─... %>% filter(!is.na(.data$wcvp_id))
+        3. ├─dplyr::filter(., !is.na(.data$wcvp_id))
+        4. ├─rWCVP::wcvp_match_exact(...)
+        5. │ └─... %>% select(-"n")
+        6. ├─dplyr::select(., -"n")
+        7. ├─dplyr::mutate(., multiple_matches = .data$n > 1)
+        8. ├─dplyr::add_count(., .data[[id_col]])
+        9. ├─dplyr::mutate(...)
+       10. └─dplyr:::mutate.data.frame(...)
+       11.   └─dplyr::mutate(...)
+       12.     └─dplyr:::compute_by(...)
+       13.       ├─dplyr::group_data(data)
+       14.       ├─dplyr:::group_data.tbl_df(data)
+       15.       ├─base::NextMethod()
+       16.       └─dplyr:::group_data.data.frame(data)
+       17.         └─base::nrow(.data)
+       18.           ├─base::dim(x)
+       19.           └─base::dim.data.frame(x)
+       20.             └─base::.row_names_info(x, 2L)
       ── Error ('test-match_names.R:44:3'): match names without taxon name parts returns expected output ──
-      Error in `toupper(word)`: invalid input 'bytes Tromostapelia mutabilis var. americana' in 'utf8towcs'
+      Error: Error evaluating duckdb query: Invalid Input Error: Invalid unicode (byte sequence mismatch) detected in value construction
       Backtrace:
-          ▆
-       1. ├─rWCVP::wcvp_match_names(...) at test-match_names.R:44:3
-       2. │ └─rWCVP::wcvp_match_fuzzy(...)
-       3. │   └─... %>% filter(!is.na(.data$wcvp_id))
-       4. ├─dplyr::filter(., !is.na(.data$wcvp_id))
-       5. └─rWCVP::phonetic_match(., wcvp_species, name_col = name_col)
-       6.   └─phonics::metaphone(wcvp_names$taxon_name, maxCodeLen = 20, clean = FALSE)
-       7.     └─base::toupper(word)
+           ▆
+        1. ├─rWCVP::wcvp_match_names(...) at test-match_names.R:44:3
+        2. │ └─... %>% filter(!is.na(.data$wcvp_id))
+        3. ├─dplyr::filter(., !is.na(.data$wcvp_id))
+        4. ├─rWCVP::wcvp_match_exact(...)
+        5. │ └─... %>% select(-"n")
+        6. ├─dplyr::select(., -"n")
+        7. ├─dplyr::mutate(., multiple_matches = .data$n > 1)
+        8. ├─dplyr::add_count(., .data[[id_col]])
+        9. ├─dplyr::mutate(...)
+       10. └─dplyr:::mutate.data.frame(...)
+       11.   └─dplyr::mutate(...)
+       12.     └─dplyr:::compute_by(...)
+       13.       ├─dplyr::group_data(data)
+       14.       ├─dplyr:::group_data.tbl_df(data)
+       15.       ├─base::NextMethod()
+       16.       └─dplyr:::group_data.data.frame(data)
+       17.         └─base::nrow(.data)
+       18.           ├─base::dim(x)
+       19.           └─base::dim.data.frame(x)
+       20.             └─base::.row_names_info(x, 2L)
       ── Error ('test-match_names.R:58:3'): match names returns original columns ─────
-      Error in `toupper(word)`: invalid input 'bytes Tromostapelia mutabilis var. americana' in 'utf8towcs'
+      Error: Error evaluating duckdb query: Invalid Input Error: Invalid unicode (byte sequence mismatch) detected in value construction
       Backtrace:
-          ▆
-       1. ├─rWCVP::wcvp_match_names(...) at test-match_names.R:58:3
-       2. │ └─rWCVP::wcvp_match_fuzzy(...)
-       3. │   └─... %>% filter(!is.na(.data$wcvp_id))
-       4. ├─dplyr::filter(., !is.na(.data$wcvp_id))
-       5. └─rWCVP::phonetic_match(., wcvp_species, name_col = name_col)
-       6.   └─phonics::metaphone(wcvp_names$taxon_name, maxCodeLen = 20, clean = FALSE)
-       7.     └─base::toupper(word)
+           ▆
+        1. ├─rWCVP::wcvp_match_names(...) at test-match_names.R:58:3
+        2. │ └─... %>% filter(!is.na(.data$wcvp_id))
+        3. ├─dplyr::filter(., !is.na(.data$wcvp_id))
+        4. ├─rWCVP::wcvp_match_exact(...)
+        5. │ └─... %>% select(-"n")
+        6. ├─dplyr::select(., -"n")
+        7. ├─dplyr::mutate(., multiple_matches = .data$n > 1)
+        8. ├─dplyr::add_count(., .data[[id_col]])
+        9. ├─dplyr::mutate(...)
+       10. └─dplyr:::mutate.data.frame(...)
+       11.   └─dplyr::mutate(...)
+       12.     └─dplyr:::compute_by(...)
+       13.       ├─dplyr::group_data(data)
+       14.       ├─dplyr:::group_data.tbl_df(data)
+       15.       ├─base::NextMethod()
+       16.       └─dplyr:::group_data.data.frame(data)
+       17.         └─base::nrow(.data)
+       18.           ├─base::dim(x)
+       19.           └─base::dim.data.frame(x)
+       20.             └─base::.row_names_info(x, 2L)
       
-      [ FAIL 9 | WARN 0 | SKIP 0 | PASS 33 ]
+      [ FAIL 12 | WARN 0 | SKIP 0 | PASS 19 ]
       Error: Test failures
       Execution halted
     ```
@@ -2476,56 +3193,369 @@ Run `revdepcheck::cloud_details(, "rWCVP")` for more info
       Note: found 16 marked UTF-8 strings
     ```
 
-# starschemar
+# scrutiny
 
 <details>
 
-* Version: 1.2.4
-* GitHub: https://github.com/josesamos/starschemar
-* Source code: https://github.com/cran/starschemar
-* Date/Publication: 2024-01-08 15:30:02 UTC
-* Number of recursive dependencies: 59
+* Version: 0.4.0
+* GitHub: https://github.com/lhdjung/scrutiny
+* Source code: https://github.com/cran/scrutiny
+* Date/Publication: 2024-02-23 23:30:02 UTC
+* Number of recursive dependencies: 86
 
-Run `revdepcheck::cloud_details(, "starschemar")` for more info
+Run `revdepcheck::cloud_details(, "scrutiny")` for more info
 
 </details>
 
 ## Newly broken
 
-*   checking examples ... ERROR
+*   checking tests ... ERROR
     ```
-    Running examples in ‘starschemar-Ex.R’ failed
-    The error most likely occurred in:
+      Running ‘testthat.R’
+    Running the tests in ‘tests/testthat.R’ failed.
+    Complete output:
+      > 
+      > 
+      > library(testthat)
+      > library(scrutiny)
+      > 
+      > test_check("scrutiny")
+      [ FAIL 1 | WARN 0 | SKIP 0 | PASS 511 ]
+      
+      ══ Failed tests ════════════════════════════════════════════════════════════════
+      ── Error ('test-duplicate-count.R:241:3'): `duplicate_count()` works correctly with `ignore` specified ──
+      Error: Error evaluating duckdb query: Conversion Error: Could not convert string 'setosa' to DOUBLE
+      Backtrace:
+          ▆
+       1. ├─iris %>% duplicate_count(ignore = 3) %>% ... at test-duplicate-count.R:241:3
+       2. ├─testthat::expect_equal(., iris_exp_ignore)
+       3. │ └─testthat::quasi_label(enquo(object), label, arg = "object")
+       4. │   └─rlang::eval_bare(expr, quo_get_env(quo))
+       5. └─scrutiny::duplicate_count(., ignore = 3)
+       6.   └─base::nrow(out)
+       7.     ├─base::dim(x)
+       8.     └─base::dim.data.frame(x)
+       9.       └─base::.row_names_info(x, 2L)
+      
+      [ FAIL 1 | WARN 0 | SKIP 0 | PASS 511 ]
+      Error: Test failures
+      Execution halted
+    ```
+
+## In both
+
+*   checking running R code from vignettes ... ERROR
+    ```
+    Errors in running code in vignettes:
+    when running code in ‘consistency-tests-in-depth.Rmd’
+      ...
+    > knitr::opts_chunk$set(collapse = TRUE, comment = "#>")
     
-    > ### Name: constellation
-    > ### Title: 'constellation' S3 class
-    > ### Aliases: constellation
-    > 
-    > ### ** Examples
-    > 
-    > 
-    > ct <- constellation(list(st_mrs_age, st_mrs_cause), name = "mrs")
-    Error in `eval_select_impl()`:
-    ! `x` must be a vector, not a <tbl_df/tbl/data.frame/dimension_table> object.
-    Backtrace:
-         ▆
-      1. └─starschemar::constellation(list(st_mrs_age, st_mrs_cause), name = "mrs")
-      2.   └─starschemar:::conform_all_dimensions(ct)
-      3.     └─starschemar:::conform_dimensions(ct, name = d)
-      4.       └─starschemar:::union_of_dimensions(dl, name = name, type = "conformed")
-      5.         ├─base::unlist(dplyr::summarise_all(dimensions[[1]], class))
-      6.         └─dplyr::summarise_all(dimensions[[1]], class)
-      7.           ├─dplyr::summarise(.tbl, !!!funs)
-      8.           └─dplyr:::summarise.data.frame(.tbl, !!!funs)
-      9.             └─dplyr:::eval_select_by(enquo(.by), .data)
-     10.               └─tidyselect::eval_select(...)
-     11.                 └─tidyselect:::eval_select_impl(...)
-     12.                   └─vctrs::vec_assert(x)
-     13.                     └─vctrs:::stop_scalar_type(x, arg, call = call)
-     14.                       └─vctrs:::stop_vctrs(...)
-     15.                         └─rlang::abort(message, class = c(class, "vctrs_error"), ..., call = call)
+    > pkgload::load_all()
+    
+      When sourcing ‘consistency-tests-in-depth.R’:
+    Error: Could not find a root 'DESCRIPTION' file that starts with '^Package' in
+    '/tmp/RtmpOJl02d/file15b333daeed4/vignettes'.
+    ℹ Are you in your project directory and does your project have a 'DESCRIPTION'
+      file?
+    Execution halted
+    when running code in ‘consistency-tests-simple.Rmd’
+      ...
+    > knitr::opts_chunk$set(collapse = TRUE, comment = "#>")
+    
+    > pkgload::load_all()
+    
+      When sourcing ‘consistency-tests-simple.R’:
+    Error: Could not find a root 'DESCRIPTION' file that starts with '^Package' in
+    '/tmp/RtmpA8AMs3/file15be6428ccff/vignettes'.
+    ℹ Are you in your project directory and does your project have a 'DESCRIPTION'
+      file?
+    Execution halted
+    when running code in ‘debit.Rmd’
+      ...
+    12 0.24  6.43     34
+    
+    > pigs5 %>% debit_map()
+    
+      When sourcing ‘debit.R’:
+    Error: ! DEBIT only works with binary summary data.
+    ! Binary mean (`x`) values must range from 0 to 1.
+    ✖ 11 out of 12 `x` values are not in that range, starting with 7.22, 4.74, and
+      5.23.
+    Execution halted
+    when running code in ‘grim.Rmd’
+      ...
+    > knitr::opts_chunk$set(collapse = TRUE, comment = "#>")
+    
+    > pkgload::load_all()
+    
+      When sourcing ‘grim.R’:
+    Error: Could not find a root 'DESCRIPTION' file that starts with '^Package' in
+    '/tmp/RtmpfLeVoC/file15ed7bff1a20/vignettes'.
+    ℹ Are you in your project directory and does your project have a 'DESCRIPTION'
+      file?
+    Execution halted
+    when running code in ‘grimmer.Rmd’
+      ...
+    > knitr::opts_chunk$set(collapse = TRUE, comment = "#>")
+    
+    > pkgload::load_all()
+    
+      When sourcing ‘grimmer.R’:
+    Error: Could not find a root 'DESCRIPTION' file that starts with '^Package' in
+    '/tmp/Rtmp4Cm7Jq/file15f874b32b9a/vignettes'.
+    ℹ Are you in your project directory and does your project have a 'DESCRIPTION'
+      file?
+    Execution halted
+    
+      ‘consistency-tests-in-depth.Rmd’ using ‘UTF-8’... failed
+      ‘consistency-tests-simple.Rmd’ using ‘UTF-8’... failed
+      ‘debit.Rmd’ using ‘UTF-8’... failed
+      ‘devtools.Rmd’ using ‘UTF-8’... OK
+      ‘duplicates.Rmd’ using ‘UTF-8’... OK
+      ‘grim.Rmd’ using ‘UTF-8’... failed
+      ‘grimmer.Rmd’ using ‘UTF-8’... failed
+      ‘related.Rmd’ using ‘UTF-8’... OK
+      ‘rounding-in-depth.Rmd’ using ‘UTF-8’... OK
+      ‘rounding-options.Rmd’ using ‘UTF-8’... OK
+      ‘wrangling.Rmd’ using ‘UTF-8’... OK
+    ```
+
+*   checking Rd cross-references ... NOTE
+    ```
+    Packages unavailable to check Rd xrefs: ‘janitor’, ‘unheadr’, ‘validate’
+    ```
+
+# srvyr
+
+<details>
+
+* Version: 1.2.0
+* GitHub: https://github.com/gergness/srvyr
+* Source code: https://github.com/cran/srvyr
+* Date/Publication: 2023-02-21 04:10:02 UTC
+* Number of recursive dependencies: 101
+
+Run `revdepcheck::cloud_details(, "srvyr")` for more info
+
+</details>
+
+## Newly broken
+
+*   checking tests ... ERROR
+    ```
+      Running ‘spelling.R’
+      Running ‘testthat.R’
+    Running the tests in ‘tests/testthat.R’ failed.
+    Complete output:
+      > library(testthat)
+      > library(srvyr)
+      
+      Attaching package: 'srvyr'
+      
+      The following object is masked from 'package:stats':
+      
+          filter
+      
+      > 
+      > test_check("srvyr")
+      [ FAIL 2 | WARN 2 | SKIP 0 | PASS 393 ]
+      
+      ══ Failed tests ════════════════════════════════════════════════════════════════
+      ── Error ('test_cascade.r:144:3'): cascade can fill parts - non-interacted factor and string default fill ──
+      <vctrs_error_ptype2/vctrs_error_incompatible_type/vctrs_error_incompatible/vctrs_error/rlang_error/error/condition>
+      Error in `dplyr::bind_rows(out)`: Can't combine `..1$awards` <character> and `..3$awards` <integer>.
+      Backtrace:
+           ▆
+        1. ├─... %>% cascade(x = survey_mean()) at test_cascade.r:144:3
+        2. ├─srvyr::cascade(., x = survey_mean())
+        3. ├─srvyr:::cascade.tbl_svy(., x = survey_mean())
+        4. │ └─dplyr::bind_rows(out)
+        5. │   └─vctrs::vec_rbind(!!!dots, .names_to = .id, .error_call = current_env())
+        6. │     └─vctrs (local) `<fn>`()
+        7. │       └─vctrs (local) vec_ptype2.grouped_df.tbl_df(...)
+        8. │         └─vctrs:::gdf_ptype2(x, y, ...)
+        9. │           └─vctrs::df_ptype2(x, y, ...)
+       10. └─vctrs (local) `<fn>`()
+       11.   └─vctrs::vec_default_ptype2(...)
+       12.     ├─base::withRestarts(...)
+       13.     │ └─base (local) withOneRestart(expr, restarts[[1L]])
+       14.     │   └─base (local) doWithOneRestart(return(expr), restart)
+       15.     └─vctrs::stop_incompatible_type(...)
+       16.       └─vctrs:::stop_incompatible(...)
+       17.         └─vctrs:::stop_vctrs(...)
+       18.           └─rlang::abort(message, class = c(class, "vctrs_error"), ..., call = call)
+      ── Error ('test_cascade.r:164:3'): cascade can fill parts - non-interacted factor and string with default fill ──
+      <vctrs_error_ptype2/vctrs_error_incompatible_type/vctrs_error_incompatible/vctrs_error/rlang_error/error/condition>
+      Error in `dplyr::bind_rows(out)`: Can't combine `..1$awards` <character> and `..4$awards` <integer>.
+      Backtrace:
+           ▆
+        1. ├─... %>% cascade(x = survey_mean()) at test_cascade.r:164:3
+        2. ├─srvyr::cascade(., x = survey_mean())
+        3. ├─srvyr:::cascade.tbl_svy(., x = survey_mean())
+        4. │ └─dplyr::bind_rows(out)
+        5. │   └─vctrs::vec_rbind(!!!dots, .names_to = .id, .error_call = current_env())
+        6. └─vctrs (local) `<fn>`()
+        7.   └─vctrs::vec_default_ptype2(...)
+        8.     ├─base::withRestarts(...)
+        9.     │ └─base (local) withOneRestart(expr, restarts[[1L]])
+       10.     │   └─base (local) doWithOneRestart(return(expr), restart)
+       11.     └─vctrs::stop_incompatible_type(...)
+       12.       └─vctrs:::stop_incompatible(...)
+       13.         └─vctrs:::stop_vctrs(...)
+       14.           └─rlang::abort(message, class = c(class, "vctrs_error"), ..., call = call)
+      
+      [ FAIL 2 | WARN 2 | SKIP 0 | PASS 393 ]
+      Error: Test failures
+      Execution halted
+    ```
+
+## In both
+
+*   checking running R code from vignettes ... ERROR
+    ```
+    Errors in running code in vignettes:
+    when running code in ‘srvyr-database.Rmd’
+      ...
+    +     library(RSQLite)
+    + })
+    
+    > load("acs_m.Rdata")
+    Warning in readChar(con, 5L, useBytes = TRUE) :
+      cannot open compressed file 'acs_m.Rdata', probable reason 'No such file or directory'
+    
+      When sourcing ‘srvyr-database.R’:
+    Error: cannot open the connection
+    Execution halted
+    
+      ‘extending-srvyr.Rmd’ using ‘UTF-8’... OK
+      ‘srvyr-database.Rmd’ using ‘UTF-8’... failed
+      ‘srvyr-vs-survey.Rmd’ using ‘UTF-8’... OK
+    ```
+
+# SwimmeR
+
+<details>
+
+* Version: 0.14.2
+* GitHub: NA
+* Source code: https://github.com/cran/SwimmeR
+* Date/Publication: 2023-03-24 13:20:02 UTC
+* Number of recursive dependencies: 75
+
+Run `revdepcheck::cloud_details(, "SwimmeR")` for more info
+
+</details>
+
+## Newly broken
+
+*   checking running R code from vignettes ... ERROR
+    ```
+    Errors in running code in vignettes:
+    when running code in ‘SwimmeR.Rmd’
+      ...
+    > if (SwimmeR:::is_link_broken(file_url) == TRUE) {
+    +     warning("External data unavailable")
+    + } else {
+    +     file_read <- read_results(file_url)
+    +  .... [TRUNCATED] 
+    Joining with `by = join_by(Row_Numb)`
+    
+      When sourcing ‘SwimmeR.R’:
+    Error: Can't combine `..1$Points` <character> and `..2$Points` <integer>.
+    Execution halted
+    
+      ‘SwimmeR.Rmd’ using ‘UTF-8’... failed
+    ```
+
+*   checking re-building of vignette outputs ... NOTE
+    ```
+    Error(s) in re-building vignettes:
+      ...
+    --- re-building ‘SwimmeR.Rmd’ using rmarkdown
+    
+    Quitting from lines  at lines 223-234 [swim_parse_ISL] (SwimmeR.Rmd)
+    Error: processing vignette 'SwimmeR.Rmd' failed with diagnostics:
+    Can't combine `..1$Points` <character> and `..2$Points` <integer>.
+    --- failed re-building ‘SwimmeR.Rmd’
+    
+    SUMMARY: processing the following file failed:
+      ‘SwimmeR.Rmd’
+    
+    Error: Vignette re-building failed.
     Execution halted
     ```
+
+# TKCat
+
+<details>
+
+* Version: 1.0.7
+* GitHub: https://github.com/patzaw/TKCat
+* Source code: https://github.com/cran/TKCat
+* Date/Publication: 2023-02-16 14:50:03 UTC
+* Number of recursive dependencies: 114
+
+Run `revdepcheck::cloud_details(, "TKCat")` for more info
+
+</details>
+
+## Newly broken
+
+*   checking re-building of vignette outputs ... NOTE
+    ```
+    Error(s) in re-building vignettes:
+      ...
+    --- re-building ‘TKCat-User-guide.Rmd’ using rmarkdown
+    
+    Quitting from lines  at lines 942-947 [unnamed-chunk-55] (TKCat-User-guide.Rmd)
+    Error: processing vignette 'TKCat-User-guide.Rmd' failed with diagnostics:
+    Error evaluating duckdb query: Conversion Error: Could not convert string 'Condition' to INT32
+    --- failed re-building ‘TKCat-User-guide.Rmd’
+    
+    SUMMARY: processing the following file failed:
+      ‘TKCat-User-guide.Rmd’
+    
+    Error: Vignette re-building failed.
+    Execution halted
+    ```
+
+## In both
+
+*   checking running R code from vignettes ... ERROR
+    ```
+    Errors in running code in vignettes:
+    when running code in ‘TKCat-User-guide.Rmd’
+      ...
+      collection table.x      mid.x table.y   mid.y
+           <int> <chr>        <int> <chr>     <int>
+    1         NA HPO_diseases     2 traitCref     1
+    
+    > hpo_clinvar <- merge(file_hpo, file_clinvar, by = sel_coll, 
+    +     dmAutoLayout = igraph_available)
+    
+      When sourcing ‘TKCat-User-guide.R’:
+    Error: Error evaluating duckdb query: Conversion Error: Could not convert string 'Condition' to INT32
+    Execution halted
+    
+      ‘TKCat-User-guide.Rmd’ using ‘UTF-8’... failed
+    ```
+
+# tv
+
+<details>
+
+* Version: 2.0.2
+* GitHub: NA
+* Source code: https://github.com/cran/tv
+* Date/Publication: 2024-02-16 20:10:03 UTC
+* Number of recursive dependencies: 54
+
+Run `revdepcheck::cloud_details(, "tv")` for more info
+
+</details>
+
+## Newly broken
 
 *   checking tests ... ERROR
     ```
@@ -2533,189 +3563,118 @@ Run `revdepcheck::cloud_details(, "starschemar")` for more info
     Running the tests in ‘tests/testthat.R’ failed.
     Complete output:
       > library(testthat)
-      > library(starschemar)
+      > library(tv)
       > 
-      > test_check("starschemar")
-      [ FAIL 8 | WARN 0 | SKIP 0 | PASS 161 ]
+      > test_check("tv")
+      
+      Attaching package: 'dplyr'
+      
+      The following object is masked from 'package:testthat':
+      
+          matches
+      
+      The following objects are masked from 'package:stats':
+      
+          filter, lag
+      
+      The following objects are masked from 'package:base':
+      
+          intersect, setdiff, setequal, union
+      
+      x$datetime is a Date; as such, be sure that your data is sorted in descending datetime order, so that `lvcf` picks the most recent row correctly (it picks the first row it finds).
+      
+      To silence this message, please specify `sort=TRUE` or `sort=FALSE`. Defaulting to `sort=FALSE`.
+      x$datetime is a Date; as such, be sure that your data is sorted in descending datetime order, so that `lvcf` picks the most recent row correctly (it picks the first row it finds).
+      
+      To silence this message, please specify `sort=TRUE` or `sort=FALSE`. Defaulting to `sort=FALSE`.
+      x$datetime is a Date; as such, be sure that your data is sorted in descending datetime order, so that `lvcf` picks the most recent row correctly (it picks the first row it finds).
+      
+      To silence this message, please specify `sort=TRUE` or `sort=FALSE`. Defaulting to `sort=FALSE`.
+      x$datetime is a Date; as such, be sure that your data is sorted in descending datetime order, so that `lvcf` picks the most recent row correctly (it picks the first row it finds).
+      
+      To silence this message, please specify `sort=TRUE` or `sort=FALSE`. Defaulting to `sort=FALSE`.
+      x$datetime is a Date; as such, be sure that your data is sorted in descending datetime order, so that `lvcf` picks the most recent row correctly (it picks the first row it finds).
+      
+      To silence this message, please specify `sort=TRUE` or `sort=FALSE`. Defaulting to `sort=FALSE`.
+      x$datetime is a Date; as such, be sure that your data is sorted in descending datetime order, so that `lvcf` picks the most recent row correctly (it picks the first row it finds).
+      
+      To silence this message, please specify `sort=TRUE` or `sort=FALSE`. Defaulting to `sort=FALSE`.
+      x$datetime is a Date; as such, be sure that your data is sorted in descending datetime order, so that `lvcf` picks the most recent row correctly (it picks the first row it finds).
+      
+      To silence this message, please specify `sort=TRUE` or `sort=FALSE`. Defaulting to `sort=FALSE`.
+      x$datetime is a Date; as such, be sure that your data is sorted in descending datetime order, so that `lvcf` picks the most recent row correctly (it picks the first row it finds).
+      
+      To silence this message, please specify `sort=TRUE` or `sort=FALSE`. Defaulting to `sort=FALSE`.
+      x$datetime is a Date; as such, be sure that your data is sorted in descending datetime order, so that `lvcf` picks the most recent row correctly (it picks the first row it finds).
+      
+      To silence this message, please specify `sort=TRUE` or `sort=FALSE`. Defaulting to `sort=FALSE`.
+      x$datetime is a Date; as such, be sure that your data is sorted in descending datetime order, so that `lvcf` picks the most recent row correctly (it picks the first row it finds).
+      
+      To silence this message, please specify `sort=TRUE` or `sort=FALSE`. Defaulting to `sort=FALSE`.
+      x$datetime is a Date; as such, be sure that your data is sorted in descending datetime order, so that `lvcf` picks the most recent row correctly (it picks the first row it finds).
+      
+      To silence this message, please specify `sort=TRUE` or `sort=FALSE`. Defaulting to `sort=FALSE`.
+      x$datetime is a Date; as such, be sure that your data is sorted in descending datetime order, so that `lvcf` picks the most recent row correctly (it picks the first row it finds).
+      
+      To silence this message, please specify `sort=TRUE` or `sort=FALSE`. Defaulting to `sort=FALSE`.
+      x$datetime is a Date; as such, be sure that your data is sorted in descending datetime order, so that `lvcf` picks the most recent row correctly (it picks the first row it finds).
+      
+      To silence this message, please specify `sort=TRUE` or `sort=FALSE`. Defaulting to `sort=FALSE`.
+      x$datetime is a Date; as such, be sure that your data is sorted in descending datetime order, so that `lvcf` picks the most recent row correctly (it picks the first row it finds).
+      
+      To silence this message, please specify `sort=TRUE` or `sort=FALSE`. Defaulting to `sort=FALSE`.
+      x$datetime is a Date; as such, be sure that your data is sorted in descending datetime order, so that `lvcf` picks the most recent row correctly (it picks the first row it finds).
+      
+      To silence this message, please specify `sort=TRUE` or `sort=FALSE`. Defaulting to `sort=FALSE`.
+      [ FAIL 1 | WARN 12 | SKIP 0 | PASS 18 ]
       
       ══ Failed tests ════════════════════════════════════════════════════════════════
-      ── Error ('test-constellation.R:4:3'): constellation works ─────────────────────
-      <vctrs_error_scalar_type/vctrs_error/rlang_error/error/condition>
-      Error in `eval_select_impl(data, names(data), as_quosure(expr, env), include = include, 
-          exclude = exclude, strict = strict, name_spec = name_spec, 
-          allow_rename = allow_rename, allow_empty = allow_empty, allow_predicates = allow_predicates, 
-          error_call = error_call, )`: `x` must be a vector, not a <tbl_df/tbl/data.frame/dimension_table> object.
+      ── Failure ('test-tv.R:156:3'): all-NA values passed to min/max are detected and not warned ──
+      `... <- NULL` threw an unexpected warning.
+      Message: Calling 'structure(NULL, *)' is deprecated, as NULL cannot have attributes.
+        Consider 'structure(list(), *)' instead.
+      Class:   simpleWarning/warning/condition
       Backtrace:
            ▆
-        1. └─starschemar::constellation(...) at test-constellation.R:4:3
-        2.   └─starschemar:::conform_all_dimensions(ct)
-        3.     └─starschemar:::conform_dimensions(ct, name = d)
-        4.       └─starschemar:::union_of_dimensions(dl, name = name, type = "conformed")
-        5.         ├─base::unlist(dplyr::summarise_all(dimensions[[1]], class))
-        6.         └─dplyr::summarise_all(dimensions[[1]], class)
-        7.           ├─dplyr::summarise(.tbl, !!!funs)
-        8.           └─dplyr:::summarise.data.frame(.tbl, !!!funs)
-        9.             └─dplyr:::eval_select_by(enquo(.by), .data)
-       10.               └─tidyselect::eval_select(...)
-       11.                 └─tidyselect:::eval_select_impl(...)
-       12.                   └─vctrs::vec_assert(x)
-       13.                     └─vctrs:::stop_scalar_type(x, arg, call = call)
-       14.                       └─vctrs:::stop_vctrs(...)
-       15.                         └─rlang::abort(message, class = c(class, "vctrs_error"), ..., call = call)
-      ── Error ('test-modify_conformed_dimension_records.R:4:3'): modify_conformed_dimension_records works ──
-      <vctrs_error_scalar_type/vctrs_error/rlang_error/error/condition>
-      Error in `eval_select_impl(data, names(data), as_quosure(expr, env), include = include, 
-          exclude = exclude, strict = strict, name_spec = name_spec, 
-          allow_rename = allow_rename, allow_empty = allow_empty, allow_predicates = allow_predicates, 
-          error_call = error_call, )`: `x` must be a vector, not a <tbl_df/tbl/data.frame/dimension_table> object.
-      Backtrace:
-           ▆
-        1. ├─starschemar::modify_conformed_dimension_records(...) at test-modify_conformed_dimension_records.R:4:3
-        2. └─starschemar:::modify_conformed_dimension_records.constellation(...)
-        3.   └─starschemar:::update_dimensions(ct$dimension, updates)
-        4.     ├─starschemar:::update_dimension(dimensions[[d]], updates)
-        5.     └─starschemar:::update_dimension.dimension_table(...)
-        6.       └─dplyr::summarise_all(mod_dim, class)
-        7.         ├─dplyr::summarise(.tbl, !!!funs)
-        8.         └─dplyr:::summarise.data.frame(.tbl, !!!funs)
-        9.           └─dplyr:::eval_select_by(enquo(.by), .data)
-       10.             └─tidyselect::eval_select(...)
-       11.               └─tidyselect:::eval_select_impl(...)
-       12.                 └─vctrs::vec_assert(x)
-       13.                   └─vctrs:::stop_scalar_type(x, arg, call = call)
-       14.                     └─vctrs:::stop_vctrs(...)
-       15.                       └─rlang::abort(message, class = c(class, "vctrs_error"), ..., call = call)
-      ── Error ('test-modify_dimension_records.R:4:3'): modify_dimension_records works ──
-      <vctrs_error_scalar_type/vctrs_error/rlang_error/error/condition>
-      Error in `eval_select_impl(data, names(data), as_quosure(expr, env), include = include, 
-          exclude = exclude, strict = strict, name_spec = name_spec, 
-          allow_rename = allow_rename, allow_empty = allow_empty, allow_predicates = allow_predicates, 
-          error_call = error_call, )`: `x` must be a vector, not a <tbl_df/tbl/data.frame/dimension_table> object.
-      Backtrace:
-           ▆
-        1. ├─starschemar::modify_dimension_records(st_mrs_age_test, updates_st_mrs_age_test) at test-modify_dimension_records.R:4:3
-        2. └─starschemar:::modify_dimension_records.star_schema(...)
-        3.   └─starschemar:::update_dimensions(dimensions, updates)
-        4.     ├─starschemar:::update_dimension(dimensions[[d]], updates)
-        5.     └─starschemar:::update_dimension.dimension_table(...)
-        6.       └─dplyr::summarise_all(mod_dim, class)
-        7.         ├─dplyr::summarise(.tbl, !!!funs)
-        8.         └─dplyr:::summarise.data.frame(.tbl, !!!funs)
-        9.           └─dplyr:::eval_select_by(enquo(.by), .data)
-       10.             └─tidyselect::eval_select(...)
-       11.               └─tidyselect:::eval_select_impl(...)
-       12.                 └─vctrs::vec_assert(x)
-       13.                   └─vctrs:::stop_scalar_type(x, arg, call = call)
-       14.                     └─vctrs:::stop_vctrs(...)
-       15.                       └─rlang::abort(message, class = c(class, "vctrs_error"), ..., call = call)
-      ── Error ('test-purge_dimensions_constellation.R:10:3'): purge_dimensions_constellation works ──
-      <vctrs_error_scalar_type/vctrs_error/rlang_error/error/condition>
-      Error in `eval_select_impl(data, names(data), as_quosure(expr, env), include = include, 
-          exclude = exclude, strict = strict, name_spec = name_spec, 
-          allow_rename = allow_rename, allow_empty = allow_empty, allow_predicates = allow_predicates, 
-          error_call = error_call, )`: `x` must be a vector, not a <tbl_df/tbl/data.frame/dimension_table> object.
-      Backtrace:
-           ▆
-        1. ├─starschemar::purge_dimensions_constellation(...) at test-purge_dimensions_constellation.R:10:3
-        2. └─starschemar:::purge_dimensions_constellation.constellation(...)
-        3.   └─starschemar:::conform_all_dimensions(ct)
-        4.     └─starschemar:::conform_dimensions(ct, name = d)
-        5.       └─starschemar:::union_of_dimensions(dl, name = name, type = "conformed")
-        6.         ├─base::unlist(dplyr::summarise_all(dimensions[[1]], class))
-        7.         └─dplyr::summarise_all(dimensions[[1]], class)
-        8.           ├─dplyr::summarise(.tbl, !!!funs)
-        9.           └─dplyr:::summarise.data.frame(.tbl, !!!funs)
-       10.             └─dplyr:::eval_select_by(enquo(.by), .data)
-       11.               └─tidyselect::eval_select(...)
-       12.                 └─tidyselect:::eval_select_impl(...)
-       13.                   └─vctrs::vec_assert(x)
-       14.                     └─vctrs:::stop_scalar_type(x, arg, call = call)
-       15.                       └─vctrs:::stop_vctrs(...)
-       16.                         └─rlang::abort(message, class = c(class, "vctrs_error"), ..., call = call)
-      ── Error ('test-union_of_dimensions.R:4:3'): union_of_dimensions works ─────────
-      <vctrs_error_scalar_type/vctrs_error/rlang_error/error/condition>
-      Error in `eval_select_impl(data, names(data), as_quosure(expr, env), include = include, 
-          exclude = exclude, strict = strict, name_spec = name_spec, 
-          allow_rename = allow_rename, allow_empty = allow_empty, allow_predicates = allow_predicates, 
-          error_call = error_call, )`: `x` must be a vector, not a <tbl_df/tbl/data.frame/dimension_table> object.
-      Backtrace:
-           ▆
-        1. └─starschemar:::union_of_dimensions(...) at test-union_of_dimensions.R:4:3
-        2.   ├─base::unlist(dplyr::summarise_all(dimensions[[1]], class))
-        3.   └─dplyr::summarise_all(dimensions[[1]], class)
-        4.     ├─dplyr::summarise(.tbl, !!!funs)
-        5.     └─dplyr:::summarise.data.frame(.tbl, !!!funs)
-        6.       └─dplyr:::eval_select_by(enquo(.by), .data)
-        7.         └─tidyselect::eval_select(...)
-        8.           └─tidyselect:::eval_select_impl(...)
-        9.             └─vctrs::vec_assert(x)
-       10.               └─vctrs:::stop_scalar_type(x, arg, call = call)
-       11.                 └─vctrs:::stop_vctrs(...)
-       12.                   └─rlang::abort(message, class = c(class, "vctrs_error"), ..., call = call)
-      ── Error ('test-update_dimension.R:4:3'): update_dimension works ───────────────
-      <vctrs_error_scalar_type/vctrs_error/rlang_error/error/condition>
-      Error in `eval_select_impl(data, names(data), as_quosure(expr, env), include = include, 
-          exclude = exclude, strict = strict, name_spec = name_spec, 
-          allow_rename = allow_rename, allow_empty = allow_empty, allow_predicates = allow_predicates, 
-          error_call = error_call, )`: `x` must be a vector, not a <tbl_df/tbl/data.frame/dimension_table> object.
-      Backtrace:
-           ▆
-        1. ├─starschemar:::update_dimension(...) at test-update_dimension.R:4:3
-        2. └─starschemar:::update_dimension.dimension_table(...)
-        3.   └─dplyr::summarise_all(mod_dim, class)
-        4.     ├─dplyr::summarise(.tbl, !!!funs)
-        5.     └─dplyr:::summarise.data.frame(.tbl, !!!funs)
-        6.       └─dplyr:::eval_select_by(enquo(.by), .data)
-        7.         └─tidyselect::eval_select(...)
-        8.           └─tidyselect:::eval_select_impl(...)
-        9.             └─vctrs::vec_assert(x)
-       10.               └─vctrs:::stop_scalar_type(x, arg, call = call)
-       11.                 └─vctrs:::stop_vctrs(...)
-       12.                   └─rlang::abort(message, class = c(class, "vctrs_error"), ..., call = call)
-      ── Error ('test-update_dimensions.R:4:3'): update_dimensions works ─────────────
-      <vctrs_error_scalar_type/vctrs_error/rlang_error/error/condition>
-      Error in `eval_select_impl(data, names(data), as_quosure(expr, env), include = include, 
-          exclude = exclude, strict = strict, name_spec = name_spec, 
-          allow_rename = allow_rename, allow_empty = allow_empty, allow_predicates = allow_predicates, 
-          error_call = error_call, )`: `x` must be a vector, not a <tbl_df/tbl/data.frame/dimension_table> object.
-      Backtrace:
-           ▆
-        1. └─starschemar:::update_dimensions(ct_mrs_test$dimension, updates_st_mrs_age_test) at test-update_dimensions.R:4:3
-        2.   ├─starschemar:::update_dimension(dimensions[[d]], updates)
-        3.   └─starschemar:::update_dimension.dimension_table(...)
-        4.     └─dplyr::summarise_all(mod_dim, class)
-        5.       ├─dplyr::summarise(.tbl, !!!funs)
-        6.       └─dplyr:::summarise.data.frame(.tbl, !!!funs)
-        7.         └─dplyr:::eval_select_by(enquo(.by), .data)
-        8.           └─tidyselect::eval_select(...)
-        9.             └─tidyselect:::eval_select_impl(...)
-       10.               └─vctrs::vec_assert(x)
-       11.                 └─vctrs:::stop_scalar_type(x, arg, call = call)
-       12.                   └─vctrs:::stop_vctrs(...)
-       13.                     └─rlang::abort(message, class = c(class, "vctrs_error"), ..., call = call)
-      ── Error ('test-update_facts_with_dimensions.R:5:3'): update_facts_with_dimensions works ──
-      <vctrs_error_scalar_type/vctrs_error/rlang_error/error/condition>
-      Error in `eval_select_impl(data, names(data), as_quosure(expr, env), include = include, 
-          exclude = exclude, strict = strict, name_spec = name_spec, 
-          allow_rename = allow_rename, allow_empty = allow_empty, allow_predicates = allow_predicates, 
-          error_call = error_call, )`: `x` must be a vector, not a <tbl_df/tbl/data.frame/dimension_table> object.
-      Backtrace:
-           ▆
-        1. └─starschemar:::update_dimensions(dimensions, updates_st_mrs_age_test) at test-update_facts_with_dimensions.R:5:3
-        2.   ├─starschemar:::update_dimension(dimensions[[d]], updates)
-        3.   └─starschemar:::update_dimension.dimension_table(...)
-        4.     └─dplyr::summarise_all(mod_dim, class)
-        5.       ├─dplyr::summarise(.tbl, !!!funs)
-        6.       └─dplyr:::summarise.data.frame(.tbl, !!!funs)
-        7.         └─dplyr:::eval_select_by(enquo(.by), .data)
-        8.           └─tidyselect::eval_select(...)
-        9.             └─tidyselect:::eval_select_impl(...)
-       10.               └─vctrs::vec_assert(x)
-       11.                 └─vctrs:::stop_scalar_type(x, arg, call = call)
-       12.                   └─vctrs:::stop_vctrs(...)
-       13.                     └─rlang::abort(message, class = c(class, "vctrs_error"), ..., call = call)
+        1. ├─testthat::expect_warning(...) at test-tv.R:156:3
+        2. │ └─testthat:::expect_condition_matching(...)
+        3. │   └─testthat:::quasi_capture(...)
+        4. │     ├─testthat (local) .capture(...)
+        5. │     │ └─base::withCallingHandlers(...)
+        6. │     └─rlang::eval_bare(quo_get_expr(.quo), quo_get_env(.quo))
+        7. ├─tv::time_varying(...)
+        8. │ └─... %>% dplyr::ungroup()
+        9. ├─dplyr::ungroup(.)
+       10. ├─dplyr::mutate(...)
+       11. ├─dplyr::group_by(., .data[[id]])
+       12. ├─dplyr::arrange(., .data[[id]], .data$row_start)
+       13. ├─dplyr::filter(...)
+       14. ├─dplyr::left_join(., x = exposure, by = id, relationship = "many-to-many")
+       15. ├─dplyr:::left_join.data.frame(., x = exposure, by = id, relationship = "many-to-many")
+       16. │ └─dplyr::auto_copy(x, y, copy = copy)
+       17. │   ├─dplyr::same_src(x, y)
+       18. │   └─dplyr:::same_src.data.frame(x, y)
+       19. │     └─base::is.data.frame(y)
+       20. ├─dplyr::distinct(., .data[[id]], row_start = .data$datetime)
+       21. ├─dplyr::bind_rows(...)
+       22. │ └─rlang::list2(...)
+       23. ├─dplyr::filter(., .data$feature %in% specs$feature[specs$use_for_grid])
+       24. └─dplyr:::filter.data.frame(., .data$feature %in% specs$feature[specs$use_for_grid])
+       25.   ├─dplyr:::rel_try(...)
+       26.   │ └─rlang::try_fetch(rel, error = identity)
+       27.   │   ├─base::tryCatch(...)
+       28.   │   │ └─base (local) tryCatchList(expr, classes, parentenv, handlers)
+       29.   │   │   └─base (local) tryCatchOne(expr, names, parentenv, handlers[[1L]])
+       30.   │   │     └─base (local) doTryCatch(return(expr), name, parentenv, handler)
+       31.   │   └─base::withCallingHandlers(...)
+       32.   └─dplyr:::rel_translate_dots(dots, .data)
+       33.     └─dplyr:::imap(dots, rel_translate, data = data)
+       34.       └─dplyr:::map2(.x, names(.x) %||% seq_along(.x), .f, ...)
+       35.         └─base::mapply(.f, .x, .y, MoreArgs = list(...), SIMPLIFY = FALSE)
+       36.           └─dplyr (local) `<fn>`(dots[[1L]][[1L]], dots[[2L]][[1L]], data = `<df[,4]>`)
+       37.             └─base::structure(out, used = used)
       
-      [ FAIL 8 | WARN 0 | SKIP 0 | PASS 161 ]
+      [ FAIL 1 | WARN 12 | SKIP 0 | PASS 18 ]
       Error: Test failures
       Execution halted
     ```

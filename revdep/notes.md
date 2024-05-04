@@ -1,3 +1,11 @@
+## Can't compile
+
+- AovBay: Needs Matrix >= 1.6.0
+- bayesdfa: OOM
+- EcoEnsemble: OOM
+- multinma: OOM
+
+
 ## Fixed by extension
 
 - causalBatch: ?
