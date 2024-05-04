@@ -268,110 +268,6 @@ Run `revdepcheck::cloud_details(, "auk")` for more info
       ‘development.Rmd’ using ‘UTF-8’... OK
     ```
 
-# broom.helpers
-
-<details>
-
-* Version: 1.15.0
-* GitHub: https://github.com/larmarange/broom.helpers
-* Source code: https://github.com/cran/broom.helpers
-* Date/Publication: 2024-04-05 15:53:06 UTC
-* Number of recursive dependencies: 241
-
-Run `revdepcheck::cloud_details(, "broom.helpers")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking tests ... ERROR
-    ```
-      Running ‘spelling.R’
-      Running ‘testthat.R’
-    Running the tests in ‘tests/testthat.R’ failed.
-    Complete output:
-      > library(testthat)
-      > library(broom.helpers)
-      
-      Attaching package: 'broom.helpers'
-      
-      The following object is masked from 'package:testthat':
-      
-          matches
-      
-      > 
-      > test_check("broom.helpers")
-      [ FAIL 1 | WARN 10 | SKIP 96 | PASS 423 ]
-      
-      ══ Skipped tests (96) ══════════════════════════════════════════════════════════
-      • On CRAN (96): 'test-add_coefficients_type.R:113:3',
-        'test-add_coefficients_type.R:122:3', 'test-add_contrasts.R:193:3',
-        'test-add_contrasts.R:204:3', 'test-add_contrasts.R:317:3',
-        'test-add_estimate_to_reference_rows.R:111:3',
-        'test-add_estimate_to_reference_rows.R:257:1',
-        'test-add_header_rows.R:158:3', 'test-add_header_rows.R:220:3',
-        'test-add_n.R:150:3', 'test-add_n.R:161:3', 'test-add_n.R:174:3',
-        'test-add_n.R:181:3', 'test-add_n.R:192:3',
-        'test-add_pairwise_contrasts.R:2:3', 'test-add_reference_rows.R:223:3',
-        'test-add_reference_rows.R:238:3', 'test-add_reference_rows.R:256:3',
-        'test-add_term_labels.R:231:3', 'test-add_term_labels.R:274:3',
-        'test-add_term_labels.R:289:1', 'test-add_variable_labels.R:202:3',
-        'test-add_variable_labels.R:215:3', 'test-attach_and_detach.R:22:3',
-        'test-disambiguate_terms.R:14:3', 'test-disambiguate_terms.R:47:3',
-        'test-identify_variables.R:255:3', 'test-identify_variables.R:288:3',
-        'test-identify_variables.R:586:3', 'test-identify_variables.R:614:3',
-        'test-marginal_tidiers.R:2:3', 'test-marginal_tidiers.R:35:3',
-        'test-marginal_tidiers.R:68:3', 'test-marginal_tidiers.R:101:3',
-        'test-marginal_tidiers.R:201:3', 'test-marginal_tidiers.R:264:3',
-        'test-marginal_tidiers.R:346:3', 'test-marginal_tidiers.R:379:3',
-        'test-marginal_tidiers.R:442:3', 'test-marginal_tidiers.R:510:3',
-        'test-marginal_tidiers.R:576:3', 'test-model_get_n.R:192:3',
-        'test-model_get_n.R:212:3', 'test-model_get_n.R:224:3',
-        'test-model_get_n.R:239:3', 'test-model_get_n.R:260:3',
-        'test-model_get_n.R:272:3', 'test-model_get_n.R:298:3',
-        'test-model_get_n.R:324:3', 'test-model_get_n.R:333:3',
-        'test-model_get_n.R:341:3', 'test-model_get_n.R:349:3',
-        'test-model_get_n.R:370:3', 'test-model_get_n.R:380:3',
-        'test-model_get_n.R:401:3', 'test-model_get_n.R:413:3',
-        'test-select_helpers.R:83:3', 'test-tidy_plus_plus.R:59:3',
-        'test-tidy_plus_plus.R:108:3', 'test-tidy_plus_plus.R:129:3',
-        'test-tidy_plus_plus.R:160:3', 'test-tidy_plus_plus.R:173:3',
-        'test-tidy_plus_plus.R:189:3', 'test-tidy_plus_plus.R:210:3',
-        'test-tidy_plus_plus.R:225:3', 'test-tidy_plus_plus.R:235:3',
-        'test-tidy_plus_plus.R:249:3', 'test-tidy_plus_plus.R:268:3',
-        'test-tidy_plus_plus.R:310:3', 'test-tidy_plus_plus.R:332:3',
-        'test-tidy_plus_plus.R:346:3', 'test-tidy_plus_plus.R:359:3',
-        'test-tidy_plus_plus.R:371:3', 'test-tidy_plus_plus.R:383:3',
-        'test-tidy_plus_plus.R:393:3', 'test-tidy_plus_plus.R:402:3',
-        'test-tidy_plus_plus.R:419:3', 'test-tidy_plus_plus.R:431:3',
-        'test-tidy_plus_plus.R:446:3', 'test-tidy_plus_plus.R:463:3',
-        'test-tidy_plus_plus.R:479:3', 'test-tidy_plus_plus.R:491:3',
-        'test-tidy_plus_plus.R:505:3', 'test-tidy_plus_plus.R:525:3',
-        'test-tidy_plus_plus.R:549:3', 'test-tidy_plus_plus.R:589:3',
-        'test-tidy_plus_plus.R:612:3', 'test-tidy_plus_plus.R:631:3',
-        'test-tidy_plus_plus.R:654:3', 'test-tidy_plus_plus.R:677:3',
-        'test-tidy_plus_plus.R:696:3', 'test-tidy_plus_plus.R:714:3',
-        'test-tidy_plus_plus.R:735:3', 'test-tidy_plus_plus.R:781:3',
-        'test-tidy_plus_plus.R:839:3', 'test-tidy_plus_plus.R:915:3'
-      
-      ══ Failed tests ════════════════════════════════════════════════════════════════
-      ── Failure ('test-add_header_rows.R:75:3'): tidy_add_header_rows() works as expected ──
-      `mod %>% tidy_and_attach() %>% tidy_add_header_rows()` generated warnings:
-      * Calling 'structure(NULL, *)' is deprecated, as NULL cannot have attributes.
-        Consider 'structure(list(), *)' instead.
-      
-      [ FAIL 1 | WARN 10 | SKIP 96 | PASS 423 ]
-      Error: Test failures
-      Execution halted
-    ```
-
-## In both
-
-*   checking package dependencies ... NOTE
-    ```
-    Package suggested but not available for checking: ‘margins’
-    ```
-
 # CodelistGenerator
 
 <details>
@@ -406,7 +302,7 @@ Run `revdepcheck::cloud_details(, "CodelistGenerator")` for more info
       > 
       > test_check("CodelistGenerator")
       Starting 2 test processes
-      [ FAIL 2 | WARN 6 | SKIP 8 | PASS 281 ]
+      [ FAIL 2 | WARN 0 | SKIP 8 | PASS 281 ]
       
       ══ Skipped tests (8) ═══════════════════════════════════════════════════════════
       • On CRAN (2): 'test-summariseCodeUse.R:2:1', 'test-summariseCodeUse.R:290:3'
@@ -424,7 +320,7 @@ Run `revdepcheck::cloud_details(, "CodelistGenerator")` for more info
       ── Failure ('test-codesFrom.R:26:3'): test inputs - mock ───────────────────────
       `codesFromConceptSet(...)` did not throw the expected error.
       
-      [ FAIL 2 | WARN 6 | SKIP 8 | PASS 281 ]
+      [ FAIL 2 | WARN 0 | SKIP 8 | PASS 281 ]
       Error: Test failures
       Execution halted
     ```
@@ -707,11 +603,11 @@ Run `revdepcheck::cloud_details(, "duckplyr")` for more info
       `environment(actual$create_default_duckdb_connection)` is <env:namespace:duckplyr>
       `environment(expected$create_default_duckdb_connection)` is <env:namespace:dplyr>
       
-      `actual$default_duckdb_connection$con@conn_ref` is <pointer: 0x55fb63ba8600>
-      `expected$default_duckdb_connection$con@conn_ref` is <pointer: 0x55fb639ea910>
+      `actual$default_duckdb_connection$con@conn_ref` is <pointer: 0x55be56ad6cb0>
+      `expected$default_duckdb_connection$con@conn_ref` is <pointer: 0x55be57862ed0>
       
-      `actual$default_duckdb_connection$con@driver@database_ref` is <pointer: 0x55fb672607b0>
-      `expected$default_duckdb_connection$con@driver@database_ref` is <pointer: 0x55fb6a74c250>
+      `actual$default_duckdb_connection$con@driver@database_ref` is <pointer: 0x55be56266f30>
+      `expected$default_duckdb_connection$con@driver@database_ref` is <pointer: 0x55be5223ae90>
       
       `environment(actual$df_from_csv)` is <env:namespace:duckplyr>
       `environment(expected$df_from_csv)` is <env:namespace:dplyr>
@@ -1224,21 +1120,22 @@ Run `revdepcheck::cloud_details(, "duckplyr")` for more info
       + `                  }`
       and 3 more ...
       
-      body(actual$rel_translate)[61:70] vs body(expected$rel_translate)[69:78]
+      body(actual$rel_translate)[61:70] vs body(expected$rel_translate)[69:81]
         `                  }`
         `                }, \`%in%\` = {`
         `                  tryCatch({`
       - `                    values <- eval(expr[[3]], envir = baseenv())`
       + `                    values <- eval(expr[[3]], envir = env)`
+      + `                    if (length(values) == 0) {`
+      + `                      return(relexpr_constant(FALSE))`
+      + `                    }`
         `                    consts <- map(values, do_translate, in_window = in_window)`
         `                    ops <- map(consts, list, do_translate(expr[[2]]))`
       - `                    cmp <- map(ops, relexpr_function, name = "==")`
       + `                    cmp <- map(ops, relexpr_function, name = "___eq_na_matches_na")`
-        `                    alt <- reduce(cmp, function(.x, .y) {`
-        `                      relexpr_function("|", list(.x, .y))`
-        `                    })`
+      and 3 more ...
       
-      body(actual$rel_translate)[124:134] vs body(expected$rel_translate)[132:150]
+      body(actual$rel_translate)[124:134] vs body(expected$rel_translate)[135:153]
         `                  }`
         `                }`
         `                args <- map(as.list(expr[-1]), do_translate, `
@@ -1375,7 +1272,7 @@ Run `revdepcheck::cloud_details(, "duckplyr")` for more info
       🦆:  661
       add_count, anti_join, arrange, compute, count, cross_join, distinct, do, eval, filter, full_join, group_by, inner_join, intersect, left_join, mutate, mutate.data.frame, nest_join, pull, reframe, relocate, rename, rename_with, right_join, rows_append, rows_delete, rows_insert, rows_patch, rows_update, rows_upsert, rowwise, select, semi_join, setdiff, setequal, slice, slice_head, slice_sample, slice_tail, summarise, symdiff, transmute, ungroup, union_all
       
-      00:01:39.674859
+      00:01:33.877023
       Execution halted
     ```
 
@@ -1610,33 +1507,6 @@ Run `revdepcheck::cloud_details(, "msigdbr")` for more info
       Killed
     ```
 
-*   checking running R code from vignettes ... ERROR
-    ```
-    Errors in running code in vignettes:
-    when running code in ‘msigdbr-intro.Rmd’
-      ...
-    #   gs_geoid <chr>, gs_exact_source <chr>, gs_url <chr>, gs_description <chr>,
-    #   taxon_id <int>, ortholog_sources <chr>, num_ortholog_sources <dbl>
-    
-    > cgp_gene_sets = msigdbr(species = "mouse", category = "C2", 
-    +     subcategory = "CGP")
-    
-    > head(cgp_gene_sets)
-    Killed
-    
-    ... incomplete output.  Crash?
-    
-      ‘msigdbr-intro.Rmd’ using ‘UTF-8’... failed to complete the test
-    ```
-
-*   checking re-building of vignette outputs ... NOTE
-    ```
-    Error(s) in re-building vignettes:
-      ...
-    --- re-building ‘msigdbr-intro.Rmd’ using rmarkdown
-    Killed
-    ```
-
 ## In both
 
 *   checking installed package size ... NOTE
@@ -1672,86 +1542,6 @@ Run `revdepcheck::cloud_details(, "mtdesign")` for more info
       > 
       > test_check("mtdesign")
       Killed
-    ```
-
-# omopgenerics
-
-<details>
-
-* Version: 0.2.0
-* GitHub: NA
-* Source code: https://github.com/cran/omopgenerics
-* Date/Publication: 2024-04-30 13:12:39 UTC
-* Number of recursive dependencies: 68
-
-Run `revdepcheck::cloud_details(, "omopgenerics")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking tests ... ERROR
-    ```
-      Running ‘testthat.R’
-    Running the tests in ‘tests/testthat.R’ failed.
-    Complete output:
-      > # This file is part of the standard setup for testthat.
-      > # It is recommended that you do not modify it.
-      > #
-      > # Where should you do additional test configuration?
-      > # Learn more about the roles of various files in:
-      > # * https://r-pkgs.org/testing-design.html#sec-tests-files-overview
-      > # * https://testthat.r-lib.org/articles/special-files.html
-      > 
-      > library(testthat)
-      > library(omopgenerics)
-      
-      Attaching package: 'omopgenerics'
-      
-      The following object is masked from 'package:stats':
-      
-          filter
-      
-      > 
-      > test_check("omopgenerics")
-      Starting 2 test processes
-      [ FAIL 1 | WARN 66 | SKIP 0 | PASS 600 ]
-      
-      ══ Failed tests ════════════════════════════════════════════════════════════════
-      ── Failure ('test-classCdmReference.R:95:3'): test assign and extract from cdm object ──
-      Expected `summary(emptyCdmReference("test"))` to run without any warnings.
-      i Actually got a <simpleWarning> with text:
-        Calling 'structure(NULL, *)' is deprecated, as NULL cannot have attributes.
-          Consider 'structure(list(), *)' instead.
-      
-      [ FAIL 1 | WARN 66 | SKIP 0 | PASS 600 ]
-      Error: Test failures
-      Execution halted
-    ```
-
-## In both
-
-*   checking running R code from vignettes ... ERROR
-    ```
-    Errors in running code in vignettes:
-    when running code in ‘a02_concept_set.Rmd’
-      ...
-    - asthma (1 codes)
-    
-    > condition_codes <- list(c(201820, 4087682, 3655269))
-    
-    > newCodelist(condition_codes)
-    
-      When sourcing ‘a02_concept_set.R’:
-    Error: x must be a list; it can not contain NA; it can not be NULL; it has to
-    be named; elements must have class: numeric, integer.
-    Execution halted
-    
-      ‘a01_cdm_reference.Rmd’ using ‘UTF-8’... OK
-      ‘a02_concept_set.Rmd’ using ‘UTF-8’... failed
-      ‘a03_cohort_table.Rmd’ using ‘UTF-8’... OK
-      ‘a04_summarised_result.Rmd’ using ‘UTF-8’... OK
-      ‘reexport.Rmd’ using ‘UTF-8’... OK
     ```
 
 # partition
@@ -2276,7 +2066,7 @@ Run `revdepcheck::cloud_details(, "scrutiny")` for more info
     
       When sourcing ‘consistency-tests-in-depth.R’:
     Error: Could not find a root 'DESCRIPTION' file that starts with '^Package' in
-    '/tmp/Rtmp8uzvZh/file15b47400060a/vignettes'.
+    '/tmp/RtmpgaJFRg/file15b338099819/vignettes'.
     ℹ Are you in your project directory and does your project have a 'DESCRIPTION'
       file?
     Execution halted
@@ -2288,7 +2078,7 @@ Run `revdepcheck::cloud_details(, "scrutiny")` for more info
     
       When sourcing ‘consistency-tests-simple.R’:
     Error: Could not find a root 'DESCRIPTION' file that starts with '^Package' in
-    '/tmp/RtmpC6ppt9/file15bf4e2c3a34/vignettes'.
+    '/tmp/RtmpzTbEf6/file15be6cbc2cbc/vignettes'.
     ℹ Are you in your project directory and does your project have a 'DESCRIPTION'
       file?
     Execution halted
@@ -2312,7 +2102,7 @@ Run `revdepcheck::cloud_details(, "scrutiny")` for more info
     
       When sourcing ‘grim.R’:
     Error: Could not find a root 'DESCRIPTION' file that starts with '^Package' in
-    '/tmp/RtmpJok6HG/file15ee124ea643/vignettes'.
+    '/tmp/RtmpIBjugE/file15ed735926a4/vignettes'.
     ℹ Are you in your project directory and does your project have a 'DESCRIPTION'
       file?
     Execution halted
@@ -2324,7 +2114,7 @@ Run `revdepcheck::cloud_details(, "scrutiny")` for more info
     
       When sourcing ‘grimmer.R’:
     Error: Could not find a root 'DESCRIPTION' file that starts with '^Package' in
-    '/tmp/Rtmp32EcAx/file15f9a198906/vignettes'.
+    '/tmp/RtmpjfVVLr/file15f85d6fce9c/vignettes'.
     ℹ Are you in your project directory and does your project have a 'DESCRIPTION'
       file?
     Execution halted
@@ -2345,143 +2135,5 @@ Run `revdepcheck::cloud_details(, "scrutiny")` for more info
 *   checking Rd cross-references ... NOTE
     ```
     Packages unavailable to check Rd xrefs: ‘janitor’, ‘unheadr’, ‘validate’
-    ```
-
-# tv
-
-<details>
-
-* Version: 2.0.2
-* GitHub: NA
-* Source code: https://github.com/cran/tv
-* Date/Publication: 2024-02-16 20:10:03 UTC
-* Number of recursive dependencies: 54
-
-Run `revdepcheck::cloud_details(, "tv")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking tests ... ERROR
-    ```
-      Running ‘testthat.R’
-    Running the tests in ‘tests/testthat.R’ failed.
-    Complete output:
-      > library(testthat)
-      > library(tv)
-      > 
-      > test_check("tv")
-      
-      Attaching package: 'dplyr'
-      
-      The following object is masked from 'package:testthat':
-      
-          matches
-      
-      The following objects are masked from 'package:stats':
-      
-          filter, lag
-      
-      The following objects are masked from 'package:base':
-      
-          intersect, setdiff, setequal, union
-      
-      x$datetime is a Date; as such, be sure that your data is sorted in descending datetime order, so that `lvcf` picks the most recent row correctly (it picks the first row it finds).
-      
-      To silence this message, please specify `sort=TRUE` or `sort=FALSE`. Defaulting to `sort=FALSE`.
-      x$datetime is a Date; as such, be sure that your data is sorted in descending datetime order, so that `lvcf` picks the most recent row correctly (it picks the first row it finds).
-      
-      To silence this message, please specify `sort=TRUE` or `sort=FALSE`. Defaulting to `sort=FALSE`.
-      x$datetime is a Date; as such, be sure that your data is sorted in descending datetime order, so that `lvcf` picks the most recent row correctly (it picks the first row it finds).
-      
-      To silence this message, please specify `sort=TRUE` or `sort=FALSE`. Defaulting to `sort=FALSE`.
-      x$datetime is a Date; as such, be sure that your data is sorted in descending datetime order, so that `lvcf` picks the most recent row correctly (it picks the first row it finds).
-      
-      To silence this message, please specify `sort=TRUE` or `sort=FALSE`. Defaulting to `sort=FALSE`.
-      x$datetime is a Date; as such, be sure that your data is sorted in descending datetime order, so that `lvcf` picks the most recent row correctly (it picks the first row it finds).
-      
-      To silence this message, please specify `sort=TRUE` or `sort=FALSE`. Defaulting to `sort=FALSE`.
-      x$datetime is a Date; as such, be sure that your data is sorted in descending datetime order, so that `lvcf` picks the most recent row correctly (it picks the first row it finds).
-      
-      To silence this message, please specify `sort=TRUE` or `sort=FALSE`. Defaulting to `sort=FALSE`.
-      x$datetime is a Date; as such, be sure that your data is sorted in descending datetime order, so that `lvcf` picks the most recent row correctly (it picks the first row it finds).
-      
-      To silence this message, please specify `sort=TRUE` or `sort=FALSE`. Defaulting to `sort=FALSE`.
-      x$datetime is a Date; as such, be sure that your data is sorted in descending datetime order, so that `lvcf` picks the most recent row correctly (it picks the first row it finds).
-      
-      To silence this message, please specify `sort=TRUE` or `sort=FALSE`. Defaulting to `sort=FALSE`.
-      x$datetime is a Date; as such, be sure that your data is sorted in descending datetime order, so that `lvcf` picks the most recent row correctly (it picks the first row it finds).
-      
-      To silence this message, please specify `sort=TRUE` or `sort=FALSE`. Defaulting to `sort=FALSE`.
-      x$datetime is a Date; as such, be sure that your data is sorted in descending datetime order, so that `lvcf` picks the most recent row correctly (it picks the first row it finds).
-      
-      To silence this message, please specify `sort=TRUE` or `sort=FALSE`. Defaulting to `sort=FALSE`.
-      x$datetime is a Date; as such, be sure that your data is sorted in descending datetime order, so that `lvcf` picks the most recent row correctly (it picks the first row it finds).
-      
-      To silence this message, please specify `sort=TRUE` or `sort=FALSE`. Defaulting to `sort=FALSE`.
-      x$datetime is a Date; as such, be sure that your data is sorted in descending datetime order, so that `lvcf` picks the most recent row correctly (it picks the first row it finds).
-      
-      To silence this message, please specify `sort=TRUE` or `sort=FALSE`. Defaulting to `sort=FALSE`.
-      x$datetime is a Date; as such, be sure that your data is sorted in descending datetime order, so that `lvcf` picks the most recent row correctly (it picks the first row it finds).
-      
-      To silence this message, please specify `sort=TRUE` or `sort=FALSE`. Defaulting to `sort=FALSE`.
-      x$datetime is a Date; as such, be sure that your data is sorted in descending datetime order, so that `lvcf` picks the most recent row correctly (it picks the first row it finds).
-      
-      To silence this message, please specify `sort=TRUE` or `sort=FALSE`. Defaulting to `sort=FALSE`.
-      x$datetime is a Date; as such, be sure that your data is sorted in descending datetime order, so that `lvcf` picks the most recent row correctly (it picks the first row it finds).
-      
-      To silence this message, please specify `sort=TRUE` or `sort=FALSE`. Defaulting to `sort=FALSE`.
-      [ FAIL 1 | WARN 12 | SKIP 0 | PASS 18 ]
-      
-      ══ Failed tests ════════════════════════════════════════════════════════════════
-      ── Failure ('test-tv.R:156:3'): all-NA values passed to min/max are detected and not warned ──
-      `... <- NULL` threw an unexpected warning.
-      Message: Calling 'structure(NULL, *)' is deprecated, as NULL cannot have attributes.
-        Consider 'structure(list(), *)' instead.
-      Class:   simpleWarning/warning/condition
-      Backtrace:
-           ▆
-        1. ├─testthat::expect_warning(...) at test-tv.R:156:3
-        2. │ └─testthat:::expect_condition_matching(...)
-        3. │   └─testthat:::quasi_capture(...)
-        4. │     ├─testthat (local) .capture(...)
-        5. │     │ └─base::withCallingHandlers(...)
-        6. │     └─rlang::eval_bare(quo_get_expr(.quo), quo_get_env(.quo))
-        7. ├─tv::time_varying(...)
-        8. │ └─... %>% dplyr::ungroup()
-        9. ├─dplyr::ungroup(.)
-       10. ├─dplyr::mutate(...)
-       11. ├─dplyr::group_by(., .data[[id]])
-       12. ├─dplyr::arrange(., .data[[id]], .data$row_start)
-       13. ├─dplyr::filter(...)
-       14. ├─dplyr::left_join(., x = exposure, by = id, relationship = "many-to-many")
-       15. ├─dplyr:::left_join.data.frame(., x = exposure, by = id, relationship = "many-to-many")
-       16. │ └─dplyr::auto_copy(x, y, copy = copy)
-       17. │   ├─dplyr::same_src(x, y)
-       18. │   └─dplyr:::same_src.data.frame(x, y)
-       19. │     └─base::is.data.frame(y)
-       20. ├─dplyr::distinct(., .data[[id]], row_start = .data$datetime)
-       21. ├─dplyr::bind_rows(...)
-       22. │ └─rlang::list2(...)
-       23. ├─dplyr::filter(., .data$feature %in% specs$feature[specs$use_for_grid])
-       24. └─dplyr:::filter.data.frame(., .data$feature %in% specs$feature[specs$use_for_grid])
-       25.   ├─dplyr:::rel_try(...)
-       26.   │ └─rlang::try_fetch(rel, error = identity)
-       27.   │   ├─base::tryCatch(...)
-       28.   │   │ └─base (local) tryCatchList(expr, classes, parentenv, handlers)
-       29.   │   │   └─base (local) tryCatchOne(expr, names, parentenv, handlers[[1L]])
-       30.   │   │     └─base (local) doTryCatch(return(expr), name, parentenv, handler)
-       31.   │   └─base::withCallingHandlers(...)
-       32.   └─dplyr:::rel_translate_dots(dots, .data)
-       33.     └─dplyr:::imap(dots, rel_translate, data = data)
-       34.       └─dplyr:::map2(.x, names(.x) %||% seq_along(.x), .f, ...)
-       35.         └─base::mapply(.f, .x, .y, MoreArgs = list(...), SIMPLIFY = FALSE)
-       36.           └─dplyr (local) `<fn>`(dots[[1L]][[1L]], dots[[2L]][[1L]], data = `<df[,4]>`)
-       37.             └─base::structure(out, used = used)
-      
-      [ FAIL 1 | WARN 12 | SKIP 0 | PASS 18 ]
-      Error: Test failures
-      Execution halted
     ```
 

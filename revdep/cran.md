@@ -1,8 +1,8 @@
 ## revdepcheck results
 
-We checked 27 reverse dependencies, comparing R CMD check results across CRAN and dev versions of this package.
+We checked 16 reverse dependencies, comparing R CMD check results across CRAN and dev versions of this package.
 
- * We saw 16 new problems
+ * We saw 13 new problems
  * We failed to check 0 packages
 
 Issues with CRAN packages are summarised below.
@@ -15,9 +15,6 @@ Issues with CRAN packages are summarised below.
 
 * auk
   checking examples ... ERROR
-
-* broom.helpers
-  checking tests ... ERROR
 
 * CodelistGenerator
   checking tests ... ERROR
@@ -36,13 +33,8 @@ Issues with CRAN packages are summarised below.
 
 * msigdbr
   checking tests ... ERROR
-  checking running R code from vignettes ... ERROR
-  checking re-building of vignette outputs ... NOTE
 
 * mtdesign
-  checking tests ... ERROR
-
-* omopgenerics
   checking tests ... ERROR
 
 * partition
@@ -57,8 +49,5 @@ Issues with CRAN packages are summarised below.
   checking tests ... ERROR
 
 * scrutiny
-  checking tests ... ERROR
-
-* tv
   checking tests ... ERROR
 
