@@ -2931,7 +2931,6 @@ duckplyr_macros <- c(
   # "as.Date" = '(x) AS strptime(x, \'%Y-%m-%d\')',
 
   "grepl" = "(pattern, x) AS (CASE WHEN x IS NULL THEN FALSE ELSE regexp_matches(x, pattern) END)",
-  "as.integer" = "(x) AS CAST(x AS int32)",
   "if_else" = "(test, yes, no) AS (CASE WHEN test THEN yes ELSE no END)",
   "|" = "(x, y) AS (x OR y)",
   "&" = "(x, y) AS (x AND y)",
@@ -3323,7 +3322,7 @@ to_duckdb_expr <- function(x) {
       out
     },
     NULL = NULL,
-    cli::cli_abort("Unknown expr class: {.cls {class(x))}}")
+    cli::cli_abort("Unknown expr class: {.cls {class(x)}}")
   )
 }
 
@@ -3399,7 +3398,7 @@ to_duckdb_expr_meta <- function(x) {
       out
     },
     NULL = expr(NULL),
-    cli::cli_abort("Unknown expr class: {.cls {class(x))}}")
+    cli::cli_abort("Unknown expr class: {.cls {class(x)}}")
   )
 }
 
@@ -4080,12 +4079,23 @@ rel_translate <- function(
                 if (length(values) == 0) {
                   return(relexpr_constant(FALSE))
                 }
-                consts <- map(values, do_translate, in_window = in_window)
-                ops <- map(consts, list, do_translate(expr[[2]]))
-                cmp <- map(ops, relexpr_function, name = "___eq_na_matches_na")
-                alt <- reduce(cmp, function(.x, .y) {
+
+                lhs <- do_translate(expr[[2]])
+
+                if (anyNA(values)) {
+                  cmp_base <- list(relexpr_function("is.na", list(lhs)))
+                  values <- values[!is.na(values)]
+                } else {
+                  cmp_base <- NULL
+                }
+
+                consts <- map(values, do_translate)
+                ops <- map(consts, ~ list(lhs, .x))
+                cmp <- map(ops, relexpr_function, name = "r_base::==")
+                alt <- reduce(c(cmp_base, cmp), function(.x, .y) {
                   relexpr_function("|", list(.x, .y))
                 })
+                meta_ext_register()
                 return(alt)
               },
               error = identity
@@ -4152,6 +4162,9 @@ rel_translate <- function(
 
         if (name %in% names(aliases)) {
           name <- aliases[[name]]
+          if (grepl("^r_base::", name)) {
+            meta_ext_register()
+          }
         }
         # name <- aliases[name] %|% name
 
@@ -4198,7 +4211,8 @@ rel_translate <- function(
           )
 
           if (name == "row_number") {
-            fun <- relexpr_function("as.integer", list(fun))
+            fun <- relexpr_function("r_base::as.integer", list(fun))
+            meta_ext_register()
           }
         }
         fun
