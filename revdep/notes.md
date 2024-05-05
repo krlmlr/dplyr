@@ -1,3 +1,8 @@
+```r
+broken <- setdiff(broken, c("duckplyr"))
+broken <- setdiff(broken, c("msigdbr", "mtdesign", "partition", "rfars"))
+```
+
 ## Can't compile
 
 - AovBay: Needs Matrix >= 1.6.0
@@ -54,6 +59,9 @@
 - ern: Unclear
     - `lag()` without importing it, need more data
     - Problem went away after stricter `as_duckplyr_df()`
+- auk: Could not convert string 'X' to INT32
+    - `as.integer()`
+    - https://github.com/hannes/duckdb-rfuns/issues/82
 
 ## Probably fixed by duckdb `NA` update, can't run revdepchecks
 
@@ -62,9 +70,6 @@
 
 ## Needs extension support
 
-- auk: Could not convert string 'X' to INT32
-    - `as.integer()`
-    - https://github.com/hannes/duckdb-rfuns/issues/82
 - arrow: `min(na.rm = FALSE)` and `max(na.rm = FALSE)`
     - Needs translation
 
