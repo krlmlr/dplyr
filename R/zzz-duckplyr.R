@@ -4113,6 +4113,7 @@ rel_translate <- function(
           "/" = "___divide",
           "log10" = "___log10",
           "log" = "___log",
+          "as.integer" = "r_base::as.integer",
           NULL
         )
 
