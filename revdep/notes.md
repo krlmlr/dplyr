@@ -109,3 +109,6 @@ broken <- setdiff(broken, c("msigdbr", "mtdesign", "partition", "rfars"))
 - iNZightTools
     - `join_data(iris, iris)` did not throw the expected warning
     - Many-to-many warnings with joins
+
+- CodelistGenerator
+    - `union_all()` on incompatible types still succeeds
