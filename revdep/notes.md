@@ -1,6 +1,7 @@
 ```r
 broken <- setdiff(broken, c("duckplyr"))
 broken <- setdiff(broken, c("msigdbr", "mtdesign", "partition", "rfars"))
+broken <- setdiff(broken, c("linelist"))
 ```
 
 ## Can't compile
