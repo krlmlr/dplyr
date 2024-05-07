@@ -1,8 +1,8 @@
 ## revdepcheck results
 
-We checked 12 reverse dependencies, comparing R CMD check results across CRAN and dev versions of this package.
+We checked 11 reverse dependencies, comparing R CMD check results across CRAN and dev versions of this package.
 
- * We saw 11 new problems
+ * We saw 7 new problems
  * We failed to check 0 packages
 
 Issues with CRAN packages are summarised below.
@@ -16,14 +16,8 @@ Issues with CRAN packages are summarised below.
 * CodelistGenerator
   checking tests ... ERROR
 
-* comperes
-  checking tests ... ERROR
-
 * dyngen
   checking examples ... ERROR
-
-* healthdb
-  checking tests ... ERROR
 
 * iNZightTools
   checking tests ... ERROR
@@ -31,15 +25,7 @@ Issues with CRAN packages are summarised below.
 * linelist
   checking tests ... ERROR
 
-* MassWateR
-  checking examples ... ERROR
-  checking tests ... ERROR
-  checking tests ... ERROR
-
 * migraph
-  checking tests ... ERROR
-
-* portalr
   checking tests ... ERROR
 
 * rWCVP
