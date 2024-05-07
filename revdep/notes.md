@@ -1,7 +1,12 @@
 ```r
+# Recurring
 broken <- setdiff(broken, c("duckplyr"))
+# OOM
 broken <- setdiff(broken, c("msigdbr", "mtdesign", "partition", "rfars"))
+# Not our problem
 broken <- setdiff(broken, c("linelist"))
+# Needs extension support
+broken <- setdiff(broken, c("arrow"))
 ```
 
 ## Can't compile
