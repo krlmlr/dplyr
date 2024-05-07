@@ -1,8 +1,8 @@
 ## revdepcheck results
 
-We checked 11 reverse dependencies, comparing R CMD check results across CRAN and dev versions of this package.
+We checked 5 reverse dependencies, comparing R CMD check results across CRAN and dev versions of this package.
 
- * We saw 7 new problems
+ * We saw 3 new problems
  * We failed to check 0 packages
 
 Issues with CRAN packages are summarised below.
@@ -10,22 +10,10 @@ Issues with CRAN packages are summarised below.
 ### New problems
 (This reports the first line of each new failure)
 
-* arrow
-  checking tests ... ERROR
-
 * CodelistGenerator
   checking tests ... ERROR
 
-* dyngen
-  checking examples ... ERROR
-
 * iNZightTools
-  checking tests ... ERROR
-
-* linelist
-  checking tests ... ERROR
-
-* migraph
   checking tests ... ERROR
 
 * rWCVP
