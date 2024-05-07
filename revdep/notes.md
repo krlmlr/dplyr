@@ -68,11 +68,8 @@ broken <- setdiff(broken, c("arrow"))
 - auk: Could not convert string 'X' to INT32
     - `as.integer()`
     - https://github.com/hannes/duckdb-rfuns/issues/82
-
-## Probably fixed by duckdb `NA` update, can't run revdepchecks
-
 - activAnalyzer: Could not convert string '0-29' to BOOL
-    - Unrelated errors collecting
+    - Typed `NA`
 
 ## Needs extension support
 
@@ -87,8 +84,6 @@ broken <- setdiff(broken, c("arrow"))
 
 ## Needs special packages
 
-- rWCVP: Unclear
-    - Character encoding
 - myClim: Unimplemented type for cast (TIMESTAMP -> DOUBLE)
     - Perhaps fixed by extension?
 - TKcat: Could not convert string 'Condition' to BOOL
@@ -118,3 +113,6 @@ broken <- setdiff(broken, c("arrow"))
 
 - CodelistGenerator
     - `union_all()` on incompatible types still succeeds
+
+- rWCVP
+    - Touching columns that don't need to be touched
