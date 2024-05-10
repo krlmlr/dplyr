@@ -86,7 +86,6 @@ test_that("can mutate a data frame with zero columns", {
 })
 
 test_that("mutate() handles symbol expressions", {
-  skip("TODO duckdb")
   df <- tibble(x = structure(1, class = "alien"))
   res <- mutate(df, y = x)
   expect_identical(df$x, res$y)

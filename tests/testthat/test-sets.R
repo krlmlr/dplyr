@@ -116,7 +116,6 @@ test_that("setequal uses coercion rules (#6114)", {
 })
 
 test_that("setequal tibbles must have same rows and columns", {
-  skip("TODO duckdb")
   # Different rows are the definition of not equal
   expect_false(setequal(tibble(x = 1:2), tibble(x = 2:3)))
 
