@@ -1860,6 +1860,7 @@ duckplyr_inner_join <- function(x, y, ...) {
 intersect.data.frame <- function(x, y, ...) {
   # Our implementation
   check_dots_empty()
+  dplyr$check_compatible(x, y)
 
   x_names <- names(x)
   y_names <- names(y)
@@ -5012,6 +5013,7 @@ duckplyr_semi_join <- function(x, y, ...) {
 setdiff.data.frame <- function(x, y, ...) {
   # Our implementation
   check_dots_empty()
+  dplyr$check_compatible(x, y)
 
   x_names <- names(x)
   y_names <- names(y)
@@ -5426,6 +5428,7 @@ duckplyr_summarise <- function(.data, ...) {
 symdiff.data.frame <- function(x, y, ...) {
   # Our implementation
   check_dots_empty()
+  dplyr$check_compatible(x, y)
 
   x_names <- names(x)
   y_names <- names(y)
@@ -5633,6 +5636,7 @@ duckplyr_union <- function(x, y, ...) {
 union_all.data.frame <- function(x, y, ...) {
   # Our implementation
   check_dots_empty()
+  dplyr$check_compatible(x, y)
 
   x_names <- names(x)
   y_names <- names(y)
