@@ -72,6 +72,8 @@ broken <- setdiff(broken, c("rWCVP"))
     - https://github.com/hannes/duckdb-rfuns/issues/82
 - activAnalyzer: Could not convert string '0-29' to BOOL
     - Typed `NA`
+- CodelistGenerator
+    - `union_all()` on incompatible types now throws error
 
 ## Needs extension support
 
@@ -112,9 +114,6 @@ broken <- setdiff(broken, c("rWCVP"))
 - iNZightTools
     - `join_data(iris, iris)` did not throw the expected warning
     - Many-to-many warnings with joins
-
-- CodelistGenerator
-    - `union_all()` on incompatible types still succeeds
 
 - rWCVP
     - Touching columns that don't need to be touched

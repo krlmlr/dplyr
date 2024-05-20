@@ -1,60 +1,3 @@
-# CodelistGenerator
-
-<details>
-
-* Version: 2.2.3
-* GitHub: NA
-* Source code: https://github.com/cran/CodelistGenerator
-* Date/Publication: 2024-03-08 22:20:02 UTC
-* Number of recursive dependencies: 95
-
-Run `revdepcheck::cloud_details(, "CodelistGenerator")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking tests ... ERROR
-    ```
-      Running ‘testthat.R’
-    Running the tests in ‘tests/testthat.R’ failed.
-    Complete output:
-      > # This file is part of the standard setup for testthat.
-      > # It is recommended that you do not modify it.
-      > #
-      > # Where should you do additional test configuration?
-      > # Learn more about the roles of various files in:
-      > # * https://r-pkgs.org/tests.html
-      > # * https://testthat.r-lib.org/reference/test_package.html#special-files
-      > 
-      > library(testthat)
-      > library(CodelistGenerator)
-      > 
-      > test_check("CodelistGenerator")
-      Starting 2 test processes
-      [ FAIL 2 | WARN 0 | SKIP 8 | PASS 281 ]
-      
-      ══ Skipped tests (8) ═══════════════════════════════════════════════════════════
-      • On CRAN (2): 'test-summariseCodeUse.R:2:1', 'test-summariseCodeUse.R:290:3'
-      • Sys.getenv("CDM5_REDSHIFT_DBNAME") == "" is TRUE (4):
-        'test-codesFrom.R:100:3', 'test-dbms.R:6:3', 'test-findUnmappedCodes.R:3:3',
-        'test-summariseCodeUse.R:498:3'
-      • Sys.getenv("CDM5_SQL_SERVER_SERVER") == "" is TRUE (1):
-        'test-codesInUse.R:36:3'
-      • Sys.getenv("darwinDbDatabaseServer") == "" is TRUE (1):
-        'test-synthea_sql_server.R:2:3'
-      
-      ══ Failed tests ════════════════════════════════════════════════════════════════
-      ── Failure ('test-codesFrom.R:26:3'): test inputs - mock ───────────────────────
-      `codesFromConceptSet(...)` did not throw the expected error.
-      ── Failure ('test-codesFrom.R:26:3'): test inputs - mock ───────────────────────
-      `codesFromConceptSet(...)` did not throw the expected error.
-      
-      [ FAIL 2 | WARN 0 | SKIP 8 | PASS 281 ]
-      Error: Test failures
-      Execution halted
-    ```
-
 # iNZightTools
 
 <details>
@@ -437,9 +380,9 @@ Run `revdepcheck::cloud_details(, "rWCVP")` for more info
 
 *   checking installed package size ... NOTE
     ```
-      installed size is  9.0Mb
+      installed size is  9.2Mb
       sub-directories of 1Mb or more:
-        data      6.2Mb
+        data      6.5Mb
         extdata   2.4Mb
     ```
 
