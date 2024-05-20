@@ -7,6 +7,8 @@ broken <- setdiff(broken, c("msigdbr", "mtdesign", "partition", "rfars"))
 broken <- setdiff(broken, c("linelist"))
 # Needs extension support
 broken <- setdiff(broken, c("arrow"))
+# https://github.com/duckdblabs/duckplyr/issues/162
+broken <- setdiff(broken, c("rWCVP"))
 ```
 
 ## Can't compile
