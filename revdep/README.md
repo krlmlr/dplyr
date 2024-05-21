@@ -2,8 +2,8 @@
 
 ## New problems (2)
 
-|package      |version |error  |warning |note |
-|:------------|:-------|:------|:-------|:----|
+|package         |version |error  |warning |note |
+|:---------------|:-------|:------|:-------|:----|
 |[iNZightTools](problems.md#inzighttools)|2.0.1   |__+1__ |        |     |
-|[rWCVP](problems.md#rwcvp)|1.2.4   |__+1__ |        |2    |
+|[PatientProfiles](problems.md#patientprofiles)|1.0.0   |__+1__ |        |     |
 
