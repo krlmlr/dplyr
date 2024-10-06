@@ -374,7 +374,6 @@ test_that("mutating joins don't trigger many-to-many warning when called indirec
 })
 
 test_that("mutating joins compute common columns", {
-  skip("TODO duckdb")
   df1 <- tibble(x = c(1, 2), y = c(2, 3))
   df2 <- tibble(x = c(1, 3), z = c(2, 3))
   expect_snapshot(out <- left_join(df1, df2))
@@ -445,7 +444,6 @@ test_that("mutating joins reference original column in `y` when there are type e
 })
 
 test_that("filtering joins reference original column in `y` when there are type errors (#6465)", {
-  skip("TODO duckdb")
   x <- tibble(a = 1)
   y <- tibble(b = "1")
 
