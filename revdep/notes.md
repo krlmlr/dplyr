@@ -95,6 +95,7 @@ broken <- setdiff(broken, c("rWCVP"))
 
 ## Killed
 
+- APCI: Killed
 - msigdbr: Killed
 - mtdesign: Killed
     - Slow also for dplyr
@@ -111,6 +112,9 @@ broken <- setdiff(broken, c("rWCVP"))
 
 - `left_join(data.frame(ID = 1), data.frame(ID = "1", TIME = 0))` did not throw an error.
 
+- admiral
+    - Many-to-many warnings with joins
+
 - iNZightTools
     - `join_data(iris, iris)` did not throw the expected warning
     - Many-to-many warnings with joins
@@ -120,3 +124,9 @@ broken <- setdiff(broken, c("rWCVP"))
 
 - PatientProfiles
     - Flaky
+
+## Unknown
+
+- canvasXpress.data
+- GauPro: different results
+- healthdb

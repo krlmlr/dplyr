@@ -79,47 +79,6 @@ Run `revdepcheck::cloud_details(, "admiral")` for more info
       Note: found 12 marked UTF-8 strings
     ```
 
-# APCI
-
-<details>
-
-* Version: 1.0.8
-* GitHub: NA
-* Source code: https://github.com/cran/APCI
-* Date/Publication: 2024-09-02 20:20:06 UTC
-* Number of recursive dependencies: 74
-
-Run `revdepcheck::cloud_details(, "APCI")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking tests ... ERROR
-    ```
-      Running ‘1_tests.R’
-    Running the tests in ‘tests/1_tests.R’ failed.
-    Complete output:
-      > # install the package and use this script to test the package
-      > library("APCI")
-      > # or: remotes::install_github("jiahui1902/APCI")
-      > test_data <- APCI::women9017
-      > test_data$acc <- as.factor(test_data$acc)
-      > test_data$pcc <- as.factor(test_data$pcc)
-      > test_data$educc <- as.factor(test_data$educc)
-    ...
-       -0.403833260   0.075671713   0.119488419  -0.340378313   0.247570465 
-          acc8:pcc3     acc9:pcc3     acc1:pcc4     acc2:pcc4     acc3:pcc4 
-       -0.145445794   0.169966132  -0.377207139   0.025314434   0.253084210 
-          acc4:pcc4     acc5:pcc4     acc6:pcc4     acc7:pcc4     acc8:pcc4 
-        0.257323983   0.263943730  -0.201903764  -0.034089074  -0.324948943 
-          acc9:pcc4     acc1:pcc5     acc2:pcc5     acc3:pcc5     acc4:pcc5 
-        0.138253250   0.028510683   0.286589579  -0.117611743  -0.139235959 
-          acc5:pcc5     acc6:pcc5     acc7:pcc5     acc8:pcc5     acc9:pcc5 
-       -0.520319848  -0.284198513   0.300133192   0.679876877  -0.320205963 
-      Killed
-    ```
-
 # arrow
 
 <details>
@@ -176,27 +135,111 @@ Run `revdepcheck::cloud_details(, "arrow")` for more info
     Package unavailable to check Rd xrefs: ‘readr’
     ```
 
-# canvasXpress.data
+# covidcast
 
 <details>
 
-* Version: 1.34.2
-* GitHub: https://github.com/neuhausi/canvasXpress.data
-* Source code: https://github.com/cran/canvasXpress.data
-* Date/Publication: 2021-06-29 17:20:02 UTC
-* Number of recursive dependencies: 43
+* Version: 0.5.2
+* GitHub: https://github.com/cmu-delphi/covidcast
+* Source code: https://github.com/cran/covidcast
+* Date/Publication: 2023-07-12 23:40:06 UTC
+* Number of recursive dependencies: 93
 
-Run `revdepcheck::cloud_details(, "canvasXpress.data")` for more info
+Run `revdepcheck::cloud_details(, "covidcast")` for more info
 
 </details>
 
 ## Newly broken
 
-*   checking installed package size ... NOTE
+*   checking running R code from vignettes ... ERROR
     ```
-      installed size is  8.7Mb
-      sub-directories of 1Mb or more:
-        data   8.5Mb
+    Errors in running code in vignettes:
+    when running code in ‘multi-signals.Rmd’
+      ...
+    
+    > signals <- covidcast_signals(data_source = "jhu-csse", 
+    +     signal = c("confirmed_7dav_incidence_prop", "deaths_7dav_incidence_prop"), 
+    +     star .... [TRUNCATED] 
+    
+      When sourcing ‘multi-signals.R’:
+    Error: Rate limit exceeded when fetching data from API anonymously. See the "API keys" section of the `covidcast_signal()` documentation for information on registering for an API key.
+    ...
+    Error: Rate limit exceeded when fetching data from API anonymously. See the "API keys" section of the `covidcast_signal()` documentation for information on registering for an API key.
+    ℹ Message from server:
+    ℹ Rate limit exceeded for anonymous queries. To remove this limit, register a free API key at https://api.delphi.cmu.edu/epidata/admin/registration_form
+    Execution halted
+    
+      ‘correlation-utils.Rmd’ using ‘UTF-8’... OK
+      ‘covidcast.Rmd’ using ‘UTF-8’... OK
+      ‘external-data.Rmd’ using ‘UTF-8’... OK
+      ‘multi-signals.Rmd’ using ‘UTF-8’... failed
+      ‘plotting-signals.Rmd’ using ‘UTF-8’... failed
+    ```
+
+*   checking re-building of vignette outputs ... NOTE
+    ```
+    Error(s) in re-building vignettes:
+    --- re-building ‘correlation-utils.Rmd’ using rmarkdown
+    --- finished re-building ‘correlation-utils.Rmd’
+    
+    --- re-building ‘covidcast.Rmd’ using rmarkdown
+    
+    Quitting from lines 38-45 [unnamed-chunk-1] (covidcast.Rmd)
+    Error: processing vignette 'covidcast.Rmd' failed with diagnostics:
+    Rate limit exceeded when fetching data from API anonymously. See the "API keys" section of the `covidcast_signal()` documentation for information on registering for an API key.
+    ℹ Message from server:
+    ℹ Rate limit exceeded for anonymous queries. To remove this limit, register a free API key at https://api.delphi.cmu.edu/epidata/admin/registration_form
+    --- failed re-building ‘covidcast.Rmd’
+    
+    --- re-building ‘external-data.Rmd’ using rmarkdown
+    ```
+
+## In both
+
+*   checking data for non-ASCII characters ... NOTE
+    ```
+      Note: found 20 marked UTF-8 strings
+    ```
+
+# crt2power
+
+<details>
+
+* Version: 1.1.0
+* GitHub: https://github.com/melodyaowen/crt2power
+* Source code: https://github.com/cran/crt2power
+* Date/Publication: 2024-09-23 19:30:02 UTC
+* Number of recursive dependencies: 167
+
+Run `revdepcheck::cloud_details(, "crt2power")` for more info
+
+</details>
+
+## Newly broken
+
+*   checking tests ... ERROR
+    ```
+      Running ‘testthat.R’
+    Running the tests in ‘tests/testthat.R’ failed.
+    Complete output:
+      > # This file is part of the standard setup for testthat.
+      > # It is recommended that you do not modify it.
+      > #
+      > # Where should you do additional test configuration?
+      > # Learn more about the roles of various files in:
+      > # * https://r-pkgs.org/testing-design.html#sec-tests-files-overview
+      > # * https://testthat.r-lib.org/articles/special-files.html
+    ...
+      ── Failure ('test-conj_test.R:166:3'): Conjunctive IU test K calculation aligns with power ──
+      result >= 297 & result <= 304 is not TRUE
+      
+      `actual`:   FALSE
+      `expected`: TRUE 
+      The result should be 300, but with rounding between 298 and 303
+      
+      [ FAIL 1 | WARN 0 | SKIP 0 | PASS 57 ]
+      Error: Test failures
+      Execution halted
     ```
 
 # duckplyr
@@ -236,59 +279,43 @@ Run `revdepcheck::cloud_details(, "duckplyr")` for more info
       🦆:  679
       add_count, anti_join, arrange, compute, count, cross_join, distinct, do, eval, filter, full_join, group_by, group_keys, group_map, group_modify, group_split, head, inner_join, intersect, left_join, mutate, mutate.data.frame, nest_join, pull, reframe, relocate, rename, rename_with, right_join, rows_append, rows_delete, rows_insert, rows_patch, rows_update, rows_upsert, rowwise, select, semi_join, setdiff, setequal, slice, slice_head, slice_sample, slice_tail, summarise, symdiff, transmute, ungroup, union_all
       
-      00:01:00.803474
+      00:01:42.253434
       Execution halted
     ```
 
-# GauPro
+# ecb
 
 <details>
 
-* Version: 0.2.13
-* GitHub: https://github.com/CollinErickson/GauPro
-* Source code: https://github.com/cran/GauPro
-* Date/Publication: 2024-09-26 21:30:10 UTC
-* Number of recursive dependencies: 82
+* Version: 0.4.2
+* GitHub: NA
+* Source code: https://github.com/cran/ecb
+* Date/Publication: 2023-04-20 16:32:34 UTC
+* Number of recursive dependencies: 80
 
-Run `revdepcheck::cloud_details(, "GauPro")` for more info
+Run `revdepcheck::cloud_details(, "ecb")` for more info
 
 </details>
 
 ## Newly broken
 
-*   checking tests ... ERROR
+*   checking examples ... ERROR
     ```
-      Running ‘testthat.R’
-    Running the tests in ‘tests/testthat.R’ failed.
-    Complete output:
-      > library(testthat)
-      > library(GauPro)
-      Loading required package: mixopt
-      Loading required package: dplyr
-      
-      Attaching package: 'dplyr'
-      
-    ...
-      `expected`: TRUE 
-      ── Failure ('test_kernel_model_and_kernels.R:646:5'): Cts kernels 2D ───────────
-      Product numgrad matches symbolic grad (failed on all 10 attempts) is not TRUE
-      
-      `actual` is a character vector ('Mean absolute difference: 6873811')
-      `expected` is a logical vector (TRUE)
-      
-      [ FAIL 2 | WARN 0 | SKIP 0 | PASS 3126 ]
-      Error: Test failures
-      Execution halted
-    ```
-
-## In both
-
-*   checking installed package size ... NOTE
-    ```
-      installed size is 13.8Mb
-      sub-directories of 1Mb or more:
-        R      1.5Mb
-        libs  11.5Mb
+    Running examples in ‘ecb-Ex.R’ failed
+    The error most likely occurred in:
+    
+    > ### Name: get_dataflows
+    > ### Title: Retrieve data frame of all datasets in the ECB Statistical Data
+    > ###   Warehouse
+    > ### Aliases: get_dataflows
+    > 
+    > ### ** Examples
+    > 
+    > df <- get_dataflows()
+    Error in curl::curl_fetch_memory(url, handle = handle) : 
+      Error in the HTTP2 framing layer
+    Calls: get_dataflows ... request_fetch -> request_fetch.write_memory -> <Anonymous>
+    Execution halted
     ```
 
 # healthdb
@@ -445,42 +472,6 @@ Run `revdepcheck::cloud_details(, "iNZightTools")` for more info
       [ FAIL 1 | WARN 0 | SKIP 4 | PASS 397 ]
       Error: Test failures
       Execution halted
-    ```
-
-# manynet
-
-<details>
-
-* Version: 1.2.6
-* GitHub: https://github.com/stocnet/manynet
-* Source code: https://github.com/cran/manynet
-* Date/Publication: 2024-10-05 16:40:01 UTC
-* Number of recursive dependencies: 146
-
-Run `revdepcheck::cloud_details(, "manynet")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking installed package size ... NOTE
-    ```
-      installed size is  5.2Mb
-      sub-directories of 1Mb or more:
-        R           1.5Mb
-        tutorials   1.8Mb
-    ```
-
-## In both
-
-*   checking package dependencies ... NOTE
-    ```
-    Package which this enhances but not available for checking: ‘Rgraphviz’
-    ```
-
-*   checking data for non-ASCII characters ... NOTE
-    ```
-      Note: found 7 marked UTF-8 strings
     ```
 
 # msigdbr
@@ -670,29 +661,6 @@ Run `revdepcheck::cloud_details(, "PatientProfiles")` for more info
       Execution halted
     ```
 
-# peacesciencer
-
-<details>
-
-* Version: 1.1.0
-* GitHub: https://github.com/svmiller/peacesciencer
-* Source code: https://github.com/cran/peacesciencer
-* Date/Publication: 2023-03-24 14:20:02 UTC
-* Number of recursive dependencies: 101
-
-Run `revdepcheck::cloud_details(, "peacesciencer")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking installed package size ... NOTE
-    ```
-      installed size is  6.7Mb
-      sub-directories of 1Mb or more:
-        data   6.0Mb
-    ```
-
 # rfars
 
 <details>
@@ -767,61 +735,6 @@ Run `revdepcheck::cloud_details(, "rfars")` for more info
       sub-directories of 1Mb or more:
         data   2.0Mb
         help   1.9Mb
-    ```
-
-# RivRetrieve
-
-<details>
-
-* Version: 0.1.5
-* GitHub: https://github.com/Ryan-Riggs/RivRetrieve
-* Source code: https://github.com/cran/RivRetrieve
-* Date/Publication: 2024-04-22 22:40:24 UTC
-* Number of recursive dependencies: 131
-
-Run `revdepcheck::cloud_details(, "RivRetrieve")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking re-building of vignette outputs ... NOTE
-    ```
-    Error(s) in re-building vignettes:
-      ...
-    --- re-building ‘my-vignette.Rmd’ using rmarkdown
-    
-    Quitting from lines 22-31 [setup] (my-vignette.Rmd)
-    Error: processing vignette 'my-vignette.Rmd' failed with diagnostics:
-    cannot open the connection to 'https://hubeau.eaufrance.fr/api/v1/hydrometrie/obs_elab?code_entite=K027401001&date_debut_obs_elab=1900-01-01&date_fin_obs_elab=2024-10-06&grandeur_hydro_elab=QmJ&size=20000'
-    --- failed re-building ‘my-vignette.Rmd’
-    
-    SUMMARY: processing the following file failed:
-      ‘my-vignette.Rmd’
-    
-    Error: Vignette re-building failed.
-    Execution halted
-    ```
-
-## In both
-
-*   checking running R code from vignettes ... ERROR
-    ```
-    Errors in running code in vignettes:
-    when running code in ‘my-vignette.Rmd’
-      ...
-    
-    > siteNumber = "K027401001"
-    
-    > discharge = france(site = siteNumber, variable = "discharge")
-    Warning in open.connection(con, "rb") :
-      URL 'https://hubeau.eaufrance.fr/api/v1/hydrometrie/obs_elab?code_entite=K027401001&date_debut_obs_elab=1900-01-01&date_fin_obs_elab=2024-10-06&grandeur_hydro_elab=QmJ&size=20000': status was 'SSL connect error'
-    
-      When sourcing ‘my-vignette.R’:
-    Error: cannot open the connection to 'https://hubeau.eaufrance.fr/api/v1/hydrometrie/obs_elab?code_entite=K027401001&date_debut_obs_elab=1900-01-01&date_fin_obs_elab=2024-10-06&grandeur_hydro_elab=QmJ&size=20000'
-    Execution halted
-    
-      ‘my-vignette.Rmd’ using ‘UTF-8’... failed
     ```
 
 # rWCVP

@@ -109,27 +109,24 @@
 |xpose.nlmixr2        |?       |      |        |     |
 |xxdi                 |?       |      |        |     |
 
-## New problems (19)
+## New problems (16)
 
-|package           |version  |error    |warning |note     |
-|:-----------------|:--------|:--------|:-------|:--------|
+|package         |version  |error    |warning |note     |
+|:---------------|:--------|:--------|:-------|:--------|
 |[admiral](problems.md#admiral)|1.1.1    |1 __+1__ |        |2        |
-|[APCI](problems.md#apci)|1.0.8    |__+1__   |        |         |
 |[arrow](problems.md#arrow)|17.0.0.1 |__+1__   |        |2        |
-|[canvasXpress.data](problems.md#canvasxpressdata)|1.34.2   |         |        |__+1__   |
+|[covidcast](problems.md#covidcast)|0.5.2    |__+1__   |        |1 __+1__ |
+|[crt2power](problems.md#crt2power)|1.1.0    |__+1__   |        |         |
 |[duckplyr](problems.md#duckplyr)|0.4.1    |__+1__   |        |         |
-|[GauPro](problems.md#gaupro)|0.2.13   |__+1__   |        |1        |
+|[ecb](problems.md#ecb)|0.4.2    |__+1__   |        |         |
 |[healthdb](problems.md#healthdb)|0.3.1    |__+1__   |        |         |
 |[hlaR](problems.md#hlar)|1.0.0    |__+2__   |        |__+1__   |
 |[iNZightTools](problems.md#inzighttools)|2.0.1    |__+1__   |        |         |
-|[manynet](problems.md#manynet)|1.2.6    |         |        |2 __+1__ |
 |[msigdbr](problems.md#msigdbr)|7.5.1    |__+2__   |        |1 __+1__ |
 |[mtdesign](problems.md#mtdesign)|0.1.0    |__+1__   |        |         |
 |[partition](problems.md#partition)|0.2.1    |__+1__   |        |1 __+1__ |
 |[PatientProfiles](problems.md#patientprofiles)|1.2.0    |__+1__   |        |         |
-|[peacesciencer](problems.md#peacesciencer)|1.1.0    |         |        |__+1__   |
 |[rfars](problems.md#rfars)|1.2.0    |__+1__   |        |1 __+1__ |
-|[RivRetrieve](problems.md#rivretrieve)|0.1.5    |1        |        |__+1__   |
 |[rWCVP](problems.md#rwcvp)|1.2.4    |__+1__   |        |2        |
 |[rwicc](problems.md#rwicc)|0.1.3    |__+1__   |        |__+1__   |
 

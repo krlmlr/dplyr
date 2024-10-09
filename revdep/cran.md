@@ -2,7 +2,7 @@
 
 We checked 4601 reverse dependencies (4595 from CRAN + 6 from Bioconductor), comparing R CMD check results across CRAN and dev versions of this package.
 
- * We saw 19 new problems
+ * We saw 16 new problems
  * We failed to check 98 packages
 
 Issues with CRAN packages are summarised below.
@@ -13,20 +13,21 @@ Issues with CRAN packages are summarised below.
 * admiral
   checking tests ... ERROR
 
-* APCI
-  checking tests ... ERROR
-
 * arrow
   checking tests ... ERROR
 
-* canvasXpress.data
-  checking installed package size ... NOTE
+* covidcast
+  checking running R code from vignettes ... ERROR
+  checking re-building of vignette outputs ... NOTE
+
+* crt2power
+  checking tests ... ERROR
 
 * duckplyr
   checking tests ... ERROR
 
-* GauPro
-  checking tests ... ERROR
+* ecb
+  checking examples ... ERROR
 
 * healthdb
   checking tests ... ERROR
@@ -38,9 +39,6 @@ Issues with CRAN packages are summarised below.
 
 * iNZightTools
   checking tests ... ERROR
-
-* manynet
-  checking installed package size ... NOTE
 
 * msigdbr
   checking tests ... ERROR
@@ -57,14 +55,8 @@ Issues with CRAN packages are summarised below.
 * PatientProfiles
   checking tests ... ERROR
 
-* peacesciencer
-  checking installed package size ... NOTE
-
 * rfars
   checking running R code from vignettes ... ERROR
-  checking re-building of vignette outputs ... NOTE
-
-* RivRetrieve
   checking re-building of vignette outputs ... NOTE
 
 * rWCVP
