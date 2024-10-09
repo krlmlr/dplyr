@@ -1,0 +1,5 @@
+last <- dir(pattern = "^dplyr_.*[.]tar[.]gz$")
+stopifnot(length(last) == 1)
+last
+
+revdepcheck::cloud_check(tarball = last, r_version = "4.4.0")
