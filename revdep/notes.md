@@ -1,15 +1,4 @@
-```r
-# Recurring
-broken <- setdiff(broken, c("duckplyr"))
-# OOM
-broken <- setdiff(broken, c("msigdbr", "mtdesign", "partition", "rfars"))
-# Not our problem
-broken <- setdiff(broken, c("linelist"))
-# Needs extension support
-broken <- setdiff(broken, c("arrow"))
-# https://github.com/duckdblabs/duckplyr/issues/162
-broken <- setdiff(broken, c("rWCVP"))
-```
+Edit `run-broken.R` to include exceptions.
 
 ## Can't compile
 
@@ -127,6 +116,5 @@ broken <- setdiff(broken, c("rWCVP"))
 
 ## Unknown
 
-- canvasXpress.data
-- GauPro: different results
 - healthdb
+- hlaR, rwicc: duckdb exception
