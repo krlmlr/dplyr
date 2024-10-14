@@ -1,4 +1,6 @@
 # Overwritten in meta.R
+meta_call_start <- function(...) {}
+meta_call_end <- function(...) {}
 meta_ext_register <- function(...) {}
 meta_rel_register <- function(...) {}
 meta_rel_register_df <- function(...) {}
@@ -4233,6 +4235,11 @@ rel_names <- function(rel, ...) {
 rel_try <- function(rel, ..., call = NULL) {
   call_name <- as.character(sys.call(-1)[[1]])
 
+  if (!is.null(call$name)) {
+    meta_call_start(call$name)
+    withr::defer(meta_call_end(call$name))
+  }
+
   # Avoid error when called via dplyr:::filter.data.frame() (in yamlet)
   if (length(call_name) == 1 && !(call_name %in% stats$calls)) {
     stats$calls <- c(stats$calls, call_name)
@@ -4274,17 +4281,6 @@ rel_try <- function(rel, ..., call = NULL) {
 
       return()
     }
-  }
-
-  # https://github.com/duckdb/duckdb-r/issues/101
-  max_expression_depth <- DBI::dbGetQuery(get_default_duckdb_connection(), "SELECT current_setting('max_expression_depth')")[[1]]
-  if (max_expression_depth != 100) {
-    # Only reset if this hasn't been set already
-    # NeuroDecodeR, delayed evaluation
-    DBI::dbExecute(get_default_duckdb_connection(), "SET max_expression_depth TO 100")
-    withr::defer({
-      DBI::dbExecute(get_default_duckdb_connection(), "SET max_expression_depth TO 200")
-    })
   }
 
   if (Sys.getenv("DUCKPLYR_FORCE") == "TRUE") {
