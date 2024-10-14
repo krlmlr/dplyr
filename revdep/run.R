@@ -1,4 +1,6 @@
-last <- dir(pattern = "^dplyr_.*[.]tar[.]gz$")
+me <- unname(desc::desc_get("Package"))
+
+last <- dir(pattern = paste0("^", me, "_.*[.]tar[.]gz$"))
 stopifnot(length(last) == 1)
 last
 
