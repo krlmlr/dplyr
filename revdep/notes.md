@@ -104,6 +104,10 @@ Edit `run-broken.R` to include exceptions.
 - admiral
     - Many-to-many warnings with joins
 
+- healthdb
+    - Many-to-many warnings with joins
+    - https://github.com/r-lib/testthat/issues/1994
+
 - iNZightTools
     - `join_data(iris, iris)` did not throw the expected warning
     - Many-to-many warnings with joins
@@ -116,5 +120,4 @@ Edit `run-broken.R` to include exceptions.
 
 ## Unknown
 
-- healthdb
 - hlaR, rwicc: duckdb exception
