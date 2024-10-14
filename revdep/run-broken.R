@@ -20,6 +20,9 @@ broken <- setdiff(broken, c("arrow"))
 # https://github.com/tidyverse/duckplyr/issues/162
 broken <- setdiff(broken, c("rWCVP"))
 
+# Can't install librdf.so
+broken <- setdiff(broken, tools::package_dependencies("redland", reverse = TRUE, recursive = TRUE)[[1]])
+
 print(broken)
 
 revdepcheck::cloud_check(tarball = last, revdep_packages = broken, r_version = "4.4.0")
