@@ -20,6 +20,8 @@ broken <- setdiff(broken, c("arrow"))
 # https://github.com/tidyverse/duckplyr/issues/162
 broken <- setdiff(broken, c("rWCVP"))
 
+print(broken)
+
 revdepcheck::cloud_check(tarball = last, revdep_packages = broken, r_version = "4.4.0")
 revdepcheck::cloud_status()
 revdepcheck::cloud_report()
