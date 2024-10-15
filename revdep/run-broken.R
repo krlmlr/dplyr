@@ -11,6 +11,11 @@ failures <- gsub("^# ", "", grep("^# ", readLines("revdep/failures.md"), value =
 
 broken <- c(problems, failures)
 
+# Don't rerun failures (comment to disable)
+broken <- setdiff(broken, failures)
+# Can't install librdf.so
+broken <- setdiff(broken, tools::package_dependencies("redland", reverse = TRUE, recursive = TRUE)[[1]])
+
 # Recurring
 broken <- setdiff(broken, c("duckplyr"))
 # OOM
@@ -19,9 +24,6 @@ broken <- setdiff(broken, c("msigdbr", "mtdesign", "partition", "rfars"))
 broken <- setdiff(broken, c("arrow"))
 # https://github.com/tidyverse/duckplyr/issues/162
 broken <- setdiff(broken, c("rWCVP"))
-
-# Can't install librdf.so
-broken <- setdiff(broken, tools::package_dependencies("redland", reverse = TRUE, recursive = TRUE)[[1]])
 
 print(broken)
 
