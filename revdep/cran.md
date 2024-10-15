@@ -1,9 +1,9 @@
 ## revdepcheck results
 
-We checked 111 reverse dependencies, comparing R CMD check results across CRAN and dev versions of this package.
+We checked 9 reverse dependencies, comparing R CMD check results across CRAN and dev versions of this package.
 
  * We saw 6 new problems
- * We failed to check 9 packages
+ * We failed to check 3 packages
 
 Issues with CRAN packages are summarised below.
 
@@ -33,12 +33,6 @@ Issues with CRAN packages are summarised below.
 
 ### Failed to check
 
-* arealDB          (NA)
-* FAIRmaterials    (NA)
 * loon.shiny       (NA)
-* metajam          (NA)
 * multinma         (NA)
-* nesRdata         (NA)
-* ontologics       (NA)
-* rdflib           (NA)
 * TriDimRegression (NA)

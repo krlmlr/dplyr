@@ -1,17 +1,11 @@
 # Revdeps
 
-## Failed to check (9)
+## Failed to check (3)
 
 |package          |version |error |warning |note |
 |:----------------|:-------|:-----|:-------|:----|
-|arealDB          |0.6.3   |1     |        |     |
-|FAIRmaterials    |0.4.2.1 |1     |        |     |
 |loon.shiny       |?       |      |        |     |
-|metajam          |0.3.1   |1     |        |     |
 |multinma         |0.7.2   |1     |        |     |
-|nesRdata         |0.3.1   |1     |        |     |
-|ontologics       |0.7.0   |1     |        |     |
-|rdflib           |0.2.9   |1     |        |     |
 |TriDimRegression |1.0.2   |1     |        |     |
 
 ## New problems (6)
