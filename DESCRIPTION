@@ -59,7 +59,7 @@ Suggests:
     tidyr (>= 1.3.0),
     withr
 Remotes: 
-    duckdb/duckdb-r@f-exp-depth-2
+    duckdb/duckdb-r
 VignetteBuilder:
     knitr
 Config/Needs/website: tidyverse, shiny, pkgdown, tidyverse/tidytemplate
