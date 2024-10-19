@@ -4,12 +4,21 @@ last <- dir(pattern = paste0("^", me, "_.*[.]tar[.]gz$"))
 stopifnot(length(last) == 1)
 last
 
+# See notes.md
+bad <- c(
+  "bayesdfa", "blavaan", "ctsem", "EcoEnsemble", "multinma",
+  "rstanarm", "arealDB", "atom4R", "dataone", "FAIRmaterials",
+  "metajam", "nesRdata", "ontologics", "rdflib", "randomForestSRC",
+  "rmsb", "TriDimRegression", "stats4teaching", "ImputeRobust",
+  "diveR", "loon.tourr", "loon.shiny", "ROracle"
+)
+
 problems <- gsub("^# ", "", grep("^# ", readLines("revdep/problems.md"), value = TRUE))
 # broken <- revdepcheck::cloud_broken(install_failures = TRUE, timeout_failures = TRUE)
 # failed <- revdepcheck::cloud_failed()
 failures <- gsub("^# ", "", grep("^# ", readLines("revdep/failures.md"), value = TRUE))
 
-broken <- c(problems, failures)
+broken <- setdiff(c(problems, failures), bad)
 
 # Don't rerun failures (comment to disable)
 broken <- setdiff(broken, failures)

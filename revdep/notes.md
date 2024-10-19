@@ -1,12 +1,55 @@
-Edit `run-broken.R` to include exceptions.
+Edit `run*.R` to include exceptions.
+
+# Failures
 
 ## Can't compile
 
-- AovBay: Needs Matrix >= 1.6.0
 - bayesdfa: OOM
-- EcoEnsemble: OOM
-- multinma: OOM
+- blavaan: Killed
+- ctsem: Killed
+- EcoEnsemble: Killed
+- multinma: Killed
+- rstanarm: Killed
 
+## Known `librdf.so` issue
+
+- arealDB
+- atom4R
+- dataone
+- FAIRmaterials
+- metajam
+- nesRdata
+- ontologics
+- rdflib
+
+## bnlearn
+
+- randomForestSRC
+
+## rstantools
+
+- rmsb
+- TriDimRegression
+
+## asbio
+
+- stats4teaching
+
+## gWidgets2tcltk
+
+- ImputeRobust
+
+## loon
+
+- diveR
+- loon.tourr
+- loon.shiny
+
+## Miscellaneous
+
+- ROracle: OCI libraries
+
+# Problems
 
 ## Fixed by extension
 
