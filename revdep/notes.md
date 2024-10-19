@@ -117,7 +117,3 @@ Edit `run-broken.R` to include exceptions.
 
 - PatientProfiles
     - Flaky
-
-## Unknown
-
-- hlaR, rwicc: duckdb exception
