@@ -59,7 +59,7 @@ anti_join.data.frame <- function(x, y, by = NULL, copy = FALSE, ..., na_matches 
   na_matches <- check_na_matches(na_matches, error_call = error_call)
 
   # Our implementation
-  rel_try(call = list(name = "anti_join", x = x, y = y, args = list(by = if(!is.null(by)) as_join_by(by), copy = copy, na_matches = na_matches)),
+  rel_try(call = list(name = "anti_join", x = x, y = y, args = list(by = if(!is.null(by) && !is_cross_by(by)) as_join_by(by), copy = copy, na_matches = na_matches)),
     {
       out <- rel_join_impl(x, y, by, "anti", na_matches, error_call = error_call)
       return(out)
@@ -619,20 +619,18 @@ count.data.frame <- function(x, ..., wt = NULL, sort = FALSE, name = NULL, .drop
   by_exprs <- unname(map(by, quo_get_expr))
   is_name <- map_lgl(by_exprs, is_symbol)
 
-  rel_try(call = list(name = "count", x = x, args = list(dots = enquos(...), wt = enquo(wt), sort = sort, name = if (!is.null(name)) sym(name), .drop = .drop)),
+  by_chr <- map_chr(by_exprs, as_string)
+  name_was_null <- is.null(name)
+  name <- check_n_name(name, by_chr, call = dplyr_error_call())
+
+  n <- tally_n(x, {{ wt }})
+
+  rel_try(call = list(name = "count", x = x, args = list(dots = enquos(...), wt = enquo(wt), sort = sort, name = if (!name_was_null) sym(name), .drop = .drop)),
     "count() needs all(is_name)" = !all(is_name),
     "count() only implemented for .drop = TRUE" = !.drop,
     "count() only implemented for sort = FALSE" = sort,
+    "Name clash in count()" = (name %in% by_chr),
     {
-      by_chr <- map_chr(by_exprs, as_string)
-      name <- check_n_name(name, by_chr)
-
-      if (name %in% by_chr) {
-        cli::cli_abort("Name clash in `count()`")
-      }
-
-      n <- tally_n(x, {{ wt }})
-
       rel <- duckdb_rel_from_df(x)
 
       groups <- rel_translate_dots(by, x)
@@ -1052,7 +1050,7 @@ full_join.data.frame <- function(x, y, by = NULL, copy = FALSE, suffix = c(".x",
   y <- auto_copy(x, y, copy = copy)
 
   # Our implementation
-  rel_try(call = list(name = "full_join", x = x, y = y, args = list(by = if(!is.null(by)) as_join_by(by), copy = copy, keep = keep, na_matches = na_matches, multiple = multiple, relationship = relationship)),
+  rel_try(call = list(name = "full_join", x = x, y = y, args = list(by = if(!is.null(by) && !is_cross_by(by)) as_join_by(by), copy = copy, keep = keep, na_matches = na_matches, multiple = multiple, relationship = relationship)),
     "No implicit cross joins for full_join()" = is_cross_by(by),
     {
       out <- rel_join_impl(x, y, by, "full", na_matches, suffix, keep, error_call)
@@ -2098,7 +2096,7 @@ inner_join.data.frame <- function(x, y, by = NULL, copy = FALSE, suffix = c(".x"
   y <- auto_copy(x, y, copy = copy)
 
   # Our implementation
-  rel_try(call = list(name = "inner_join", x = x, y = y, args = list(by = if(!is.null(by)) as_join_by(by), copy = copy, keep = keep, na_matches = na_matches, multiple = multiple, unmatched = unmatched, relationship = relationship)),
+  rel_try(call = list(name = "inner_join", x = x, y = y, args = list(by = if(!is.null(by) && !is_cross_by(by)) as_join_by(by), copy = copy, keep = keep, na_matches = na_matches, multiple = multiple, unmatched = unmatched, relationship = relationship)),
     "No implicit cross joins for inner_join()" = is_cross_by(by),
     {
       out <- rel_join_impl(x, y, by, "inner", na_matches, suffix, keep, error_call)
@@ -2598,7 +2596,7 @@ left_join.data.frame <- function(x, y, by = NULL, copy = FALSE, suffix = c(".x",
   y <- auto_copy(x, y, copy = copy)
 
   # Our implementation
-  rel_try(call = list(name = "left_join", x = x, y = y, args = list(by = if(!is.null(by)) as_join_by(by), copy = copy, keep = keep, na_matches = na_matches, multiple = multiple, unmatched = unmatched, relationship = relationship)),
+  rel_try(call = list(name = "left_join", x = x, y = y, args = list(by = if(!is.null(by) && !is_cross_by(by)) as_join_by(by), copy = copy, keep = keep, na_matches = na_matches, multiple = multiple, unmatched = unmatched, relationship = relationship)),
     "No implicit cross joins for left_join()" = is_cross_by(by),
     {
       out <- rel_join_impl(x, y, by, "left", na_matches, suffix, keep, error_call)
@@ -4237,7 +4235,7 @@ rel_try <- function(rel, ..., call = NULL) {
 
   if (!is.null(call$name)) {
     meta_call_start(call$name)
-    withr::defer(meta_call_end(call$name))
+    withr::defer(meta_call_end())
   }
 
   # Avoid error when called via dplyr:::filter.data.frame() (in yamlet)
@@ -4246,6 +4244,10 @@ rel_try <- function(rel, ..., call = NULL) {
   }
 
   stats$attempts <- stats$attempts + 1L
+
+  if (Sys.getenv("DUCKPLYR_TELEMETRY_PREP_TEST") == "TRUE") {
+    force(call)
+  }
 
   if (Sys.getenv("DUCKPLYR_TELEMETRY_TEST") == "TRUE") {
     force(call)
@@ -4494,7 +4496,7 @@ right_join.data.frame <- function(x, y, by = NULL, copy = FALSE, suffix = c(".x"
   y <- auto_copy(x, y, copy = copy)
 
   # Our implementation
-  rel_try(call = list(name = "right_join", x = x, y = y, args = list(by = if(!is.null(by)) as_join_by(by), copy = copy, keep = keep, na_matches = na_matches, multiple = multiple, unmatched = unmatched, relationship = relationship)),
+  rel_try(call = list(name = "right_join", x = x, y = y, args = list(by = if(!is.null(by) && !is_cross_by(by)) as_join_by(by), copy = copy, keep = keep, na_matches = na_matches, multiple = multiple, unmatched = unmatched, relationship = relationship)),
     "No implicit cross joins for right_join()" = is_cross_by(by),
     {
       out <- rel_join_impl(x, y, by, "right", na_matches, suffix, keep, error_call)
@@ -5064,7 +5066,7 @@ semi_join.data.frame <- function(x, y, by = NULL, copy = FALSE, ..., na_matches 
   na_matches <- check_na_matches(na_matches, error_call = error_call)
 
   # Our implementation
-  rel_try(call = list(name = "semi_join", x = x, y = y, args = list(by = if(!is.null(by)) as_join_by(by), copy = copy, na_matches = na_matches)),
+  rel_try(call = list(name = "semi_join", x = x, y = y, args = list(by = if(!is.null(by) && !is_cross_by(by)) as_join_by(by), copy = copy, na_matches = na_matches)),
     {
       out <- rel_join_impl(x, y, by, "semi", na_matches, error_call = error_call)
       return(out)
