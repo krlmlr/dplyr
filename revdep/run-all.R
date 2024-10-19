@@ -18,6 +18,8 @@ strong <- unlist(tools::package_dependencies(me, which = "most", reverse = TRUE)
 second <- unlist(tools::package_dependencies(strong, reverse = TRUE), use.names = FALSE)
 packages <- setdiff(unique(c(strong, second)), bad)
 
+writeLines(sort(packages), "revdep/packages.txt")
+
 revdepcheck::cloud_check(tarball = last, revdep_packages = packages, r_version = "4.4.0")
 unlink(last)
 revdepcheck::cloud_status()
