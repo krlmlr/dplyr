@@ -159,4 +159,28 @@ Edit `run*.R` to include exceptions.
     - Touching columns that don't need to be touched
 
 - PatientProfiles
-    - Flaky
+    - Flaky, don't understand
+
+- cardx
+    - Different data?
+
+- crosshap
+    - `.data` subsetting
+
+- gtsummary
+    - `.` not found
+
+- joyn
+    - `s` not found
+
+- offsetreg
+    - xgboost related error
+
+- refseqr
+    - Opaque error
+
+- streamDepletr
+    - Opaque vignette error
+
+- text2sdg
+    - Opaque vignette error
