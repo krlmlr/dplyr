@@ -59,7 +59,7 @@ Suggests:
     tidyr (>= 1.3.0),
     withr
 Remotes: 
-    url::https://duckdb.r-universe.dev/bin/linux/noble/4.4/src/contrib/duckdb_1.1.1.9000.tar.gz
+    duckdb=url::https://duckdb.r-universe.dev/bin/linux/noble/4.4/src/contrib/duckdb_1.1.1.9000.tar.gz
 RemotesNote: 
     https://github.com/r-lib/revdepcheck/issues/328#issuecomment-1323729492
 VignetteBuilder:
