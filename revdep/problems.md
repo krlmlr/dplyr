@@ -407,13 +407,14 @@ Run `revdepcheck::cloud_details(, "crosshap")` for more info
       > library(crosshap)
       > 
       > test_check("crosshap")
-      ■■■■■                             14% | ETA: 19s
-      ■■■■■■■■■■■■                      36% | ETA: 23s
-      ■■■■■■■■■■■■■■                    43% | ETA: 21s
-      ■■■■■■■■■■■■■■■■■■                57% | ETA: 13s
-      ■■■■■■■■■■■■■■■■■■■■              64% | ETA: 15s
-      ■■■■■■■■■■■■■■■■■■■■■■            71% | ETA: 12s
-      ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■     93% | ETA:  3s
+      ■■■■■                             14% | ETA: 33s
+      ■■■■■■■■■■■■                      36% | ETA: 35s
+      ■■■■■■■■■■■■■■                    43% | ETA: 31s
+      ■■■■■■■■■■■■■■■■■■                57% | ETA: 19s
+      ■■■■■■■■■■■■■■■■■■■■              64% | ETA: 22s
+      ■■■■■■■■■■■■■■■■■■■■■■            71% | ETA: 17s
+      ■■■■■■■■■■■■■■■■■■■■■■■■■■■       86% | ETA:  8s
+      ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■     93% | ETA:  5s
       ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■  100% | ETA:  0s
       WARNING: Phenotype association scores (phenodiff) not calculated for 252 of 2041 sites
       NOTE: 432 sites have more heterozygous individuals (1/0) than one of the homozygous states (1/1 or 0/0).
@@ -462,9 +463,9 @@ Run `revdepcheck::cloud_details(, "crosshap")` for more info
       20  7.75     0 hap_eps0.99~ 0.99    F          21             48.8         0.667
       # i 3 more variables: .ggraph.orig_index <int>, circular <lgl>,
       #   .ggraph.index <int>
-      ■■■■■■■■■■■                       33% | ETA:  5s
-      ■■■■■■■■■■■■■■■■■■■■■             67% | ETA:  2s
-      ■■■■■■■■■■■■■■■■■■■■■■■■■■        83% | ETA:  3s
+      ■■■■■■■■■■■                       33% | ETA:  9s
+      ■■■■■■■■■■■■■■■■■■■■■             67% | ETA:  3s
+      ■■■■■■■■■■■■■■■■■■■■■■■■■■        83% | ETA:  5s
       ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■  100% | ETA:  0s
       WARNING: Phenotype association scores (phenodiff) not calculated for 252 of 2041 sites
       NOTE: 432 sites have more heterozygous individuals (1/0) than one of the homozygous states (1/1 or 0/0).
@@ -487,9 +488,9 @@ Run `revdepcheck::cloud_details(, "crosshap")` for more info
       list()
       attr(,"class")
       [1] "waiver"
-      ■■■■■■■■■■■                       33% | ETA:  5s
-      ■■■■■■■■■■■■■■■■■■■■■             67% | ETA:  2s
-      ■■■■■■■■■■■■■■■■■■■■■■■■■■        83% | ETA:  3s
+      ■■■■■■■■■■■                       33% | ETA: 10s
+      ■■■■■■■■■■■■■■■■■■■■■             67% | ETA:  3s
+      ■■■■■■■■■■■■■■■■■■■■■■■■■■        83% | ETA:  5s
       ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■  100% | ETA:  0s
       WARNING: Phenotype association scores (phenodiff) not calculated for 252 of 2041 sites
       NOTE: 432 sites have more heterozygous individuals (1/0) than one of the homozygous states (1/1 or 0/0).
@@ -852,8 +853,8 @@ Run `revdepcheck::cloud_details(, "joyn")` for more info
       inner join: df1[id1, id2] 3/4 (75%) <1:1st> df3[id1, id2] 3/4 (75%)
       i Note: Joyn's report available in variable .joyn
       v This is an info message
-      o Timing:The full joyn is executed in 0.000594 seconds.
-      o Timing: The entire joyn function, including checks, is executed in 0.025342
+      o Timing:The full joyn is executed in 0.000431 seconds.
+      o Timing: The entire joyn function, including checks, is executed in 0.017826
       seconds.
       ! Warning: Currently, joyn allows only na_matches = 'na'
       x This is a warning message
@@ -972,42 +973,26 @@ Run `revdepcheck::cloud_details(, "offsetreg")` for more info
       > library(offsetreg)
       > 
       > test_check("offsetreg")
-      [ FAIL 2 | WARN 0 | SKIP 0 | PASS 42 ]
+      [ FAIL 1 | WARN 0 | SKIP 0 | PASS 42 ]
       
       ══ Failed tests ════════════════════════════════════════════════════════════════
       ── Failure ('test-xgboost.R:107:3'): boost_tree_offset() works with recipes ────
       predict(mod, xgtrain) (`actual`) not identical to predict(xgb_off, us_deaths)$.pred (`expected`).
       
            actual | expected                 
-       [1] 18863  - 13239    [1]             
-       [2] 19066  - 13382    [2]             
-       [3] 19278  - 13531    [3]             
-       [4] 19590  - 13750    [4]             
-       [5] 19855  - 13936    [5]             
-       [6] 20073  - 14089    [6]             
-       [7] 20322  - 14264    [7]             
-       [8] 20445  - 14350    [8]             
-       [9] 20531  - 14410    [9]             
-      [10] 22076  - 14794    [10]            
+       [1] 18863  - 16595    [1]             
+       [2] 19066  - 16775    [2]             
+       [3] 19278  - 16961    [3]             
+       [4] 19590  - 17235    [4]             
+       [5] 19855  - 17468    [5]             
+       [6] 20073  - 17660    [6]             
+       [7] 20322  - 17879    [7]             
+       [8] 20445  - 17988    [8]             
+       [9] 20531  - 18063    [9]             
+      [10] 22076  - 18145    [10]            
        ... ...      ...      and 130 more ...
-      ── Failure ('test-xgboost.R:137:3'): finalize works ────────────────────────────
-      Expected `fit(tune::finalize_workflow(wf, param_grid), us_deaths)` to run without any errors.
-      i Actually got a <simpleError> with text:
-        [20:37:48] src/data/data.cc:461: Check failed: valid: Label contains NaN, infinity or a value too large.
-        Stack trace:
-          [bt] (0) /usr/local/lib/R/site-library/xgboost/libs/xgboost.so(+0x72d4d) [0x7efcf8af5d4d]
-          [bt] (1) /usr/local/lib/R/site-library/xgboost/libs/xgboost.so(+0x14dc26) [0x7efcf8bd0c26]
-          [bt] (2) /usr/local/lib/R/site-library/xgboost/libs/xgboost.so(+0x14f443) [0x7efcf8bd2443]
-          [bt] (3) /usr/local/lib/R/site-library/xgboost/libs/xgboost.so(XGDMatrixSetFloatInfo+0x7e) [0x7efcf8d44aee]
-          [bt] (4) /usr/local/lib/R/site-library/xgboost/libs/xgboost.so(XGDMatrixSetInfo_R+0x609) [0x7efcf8af1879]
-          [bt] (5) /opt/R/4.4.0/lib/R/lib/libR.so(+0x105a3e) [0x7efd101b8a3e]
-          [bt] (6) /opt/R/4.4.0/lib/R/lib/libR.so(+0x1491f0) [0x7efd101fc1f0]
-          [bt] (7) /opt/R/4.4.0/lib/R/lib/libR.so(+0x15ccfa) [0x7efd1020fcfa]
-          [bt] (8) /opt/R/4.4.0/lib/R/lib/libR.so(Rf_eval+0x17b) [0x7efd1021006b]
-        
-        
       
-      [ FAIL 2 | WARN 0 | SKIP 0 | PASS 42 ]
+      [ FAIL 1 | WARN 0 | SKIP 0 | PASS 42 ]
       Error: Test failures
       Execution halted
     ```
@@ -1149,28 +1134,6 @@ Run `revdepcheck::cloud_details(, "refseqR")` for more info
       ‘refseqR.Rmd’
     
     Error: Vignette re-building failed.
-    Execution halted
-    ```
-
-## In both
-
-*   checking examples ... ERROR
-    ```
-    Running examples in ‘refseqR-Ex.R’ failed
-    The error most likely occurred in:
-    
-    > ### Name: refseq_GeneID
-    > ### Title: Get the GeneID
-    > ### Aliases: refseq_GeneID
-    > 
-    > ### ** Examples
-    > 
-    > # Get the gene symbol from a set of transcript accessions
-    > transcript = c("XM_004487701", "XM_004488493")
-    > sapply(transcript, function(x) refseq_GeneID (x, db = "nuccore", retries = 4), USE.NAMES = FALSE)
-    Error in curl::curl_fetch_memory(url, handle = handle) : 
-      transfer closed with outstanding read data remaining
-    Calls: sapply ... tryCatch -> tryCatchList -> tryCatchOne -> <Anonymous>
     Execution halted
     ```
 
