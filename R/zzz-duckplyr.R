@@ -2497,11 +2497,12 @@ rel_join_impl <- function(
     error_call = error_call
   )
 
-  x_in <- vec_ptype(x)
-  y_in <- vec_ptype(y)
+  # vec_ptype_safe: https://github.com/r-lib/vctrs/issues/1956
+  x_in <- map(as.list(x)[vars$x$key], vec_ptype_safe)
+  y_in <- map(as.list(y)[vars$y$key], vec_ptype_safe)
 
-  x_key <- set_names(x_in[vars$x$key], names(vars$x$key))
-  y_key <- set_names(y_in[vars$y$key], names(vars$x$key))
+  x_key <- as.data.frame(set_names(x_in, names(vars$x$key)))
+  y_key <- as.data.frame(set_names(y_in, names(vars$x$key)))
 
   # Side effect: check join compatibility
   join_ptype_common(x_key, y_key, vars, error_call = error_call)
@@ -3259,12 +3260,12 @@ duckplyr_macros <- c(
   # https://github.com/duckdb/duckdb-r/pull/156
   "___null" = "() AS CAST(NULL AS BOOLEAN)",
   #
-  "<" = '(x, y) AS "r_base::<"(x, y)',
-  "<=" = '(x, y) AS "r_base::<="(x, y)',
-  ">" = '(x, y) AS "r_base::>"(x, y)',
-  ">=" = '(x, y) AS "r_base::>="(x, y)',
-  "==" = '(x, y) AS "r_base::=="(x, y)',
-  "!=" = '(x, y) AS "r_base::!="(x, y)',
+  "<" = '(x, y) AS (x < y)',
+  "<=" = '(x, y) AS (x <= y)',
+  ">" = '(x, y) AS (x > y)',
+  ">=" = '(x, y) AS (x >= y)',
+  "==" = '(x, y) AS (x == y)',
+  "!=" = '(x, y) AS (x != y)',
   #
   "___divide" = "(x, y) AS CASE WHEN y = 0 THEN CASE WHEN x = 0 THEN CAST('NaN' AS double) WHEN x > 0 THEN CAST('+Infinity' AS double) ELSE CAST('-Infinity' AS double) END ELSE CAST(x AS double) / y END",
   #
@@ -3369,7 +3370,11 @@ check_df_for_rel <- function(df) {
     if (isS4(col)) {
       cli::cli_abort("Can't convert S4 columns to relational. Affected column: {.var {names(df)[[i]]}}.")
     }
-    # https://github.com/duckdb/duckdb/issues/8561
+
+    # Factors: https://github.com/duckdb/duckdb/issues/8561
+
+    # When adding new classes, make sure to adapt the first test in test-relational-duckdb.R
+
     col_class <- class(col)
     if (length(col_class) == 1) {
       valid <- col_class %in% c("logical", "integer", "numeric", "character", "Date", "difftime")
@@ -3419,6 +3424,15 @@ check_df_for_rel <- function(df) {
   }
 
   out
+}
+
+# https://github.com/r-lib/vctrs/issues/1956
+vec_ptype_safe <- function(x) {
+  if (inherits(x, "Date")) {
+    return(new_date())
+  }
+
+  exec(structure, vec_ptype(unclass(x)), !!!attributes(x))
 }
 
 #' @export
@@ -3653,9 +3667,6 @@ to_duckdb_expr <- function(x) {
       out
     },
     relational_relexpr_constant = {
-      # FIXME: Should be duckdb's responsibility
-      check_df_for_rel(tibble(constant = x$val))
-
       if ("experimental" %in% names(formals(duckdb$expr_constant))) {
         experimental <- (Sys.getenv("DUCKPLYR_EXPERIMENTAL") == "TRUE")
         out <- duckdb$expr_constant(x$val, experimental = experimental)
@@ -5699,7 +5710,7 @@ rel_find_call <- function(fun, env) {
     return(c("dplyr", "n"))
   }
 
-  fun_val <- get0(fun, env, mode = "function", inherits = TRUE)
+  fun_val <- get0(as.character(fun), env, mode = "function", inherits = TRUE)
 
   for (pkg in pkgs) {
     if (identical(fun_val, get(name, envir = asNamespace(pkg)))) {
@@ -5816,6 +5827,12 @@ rel_translate_lang <- function(
     "log10" = "___log10",
     "log" = "___log",
     "as.integer" = "r_base::as.integer",
+    "<" = "r_base::<",
+    "<=" = "r_base::<=",
+    ">" = "r_base::>",
+    ">=" = "r_base::>=",
+    "==" = "r_base::==",
+    "!=" = "r_base::!=",
     NULL
   )
 
