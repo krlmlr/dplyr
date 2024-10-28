@@ -131,8 +131,6 @@ Edit `run*.R` to include exceptions.
 - msigdbr: Killed
 - mtdesign: Killed
     - Slow also for dplyr
-- partition: Killed
-- rfars: Killed
 
 ## Non-fails
 
@@ -199,3 +197,9 @@ Edit `run*.R` to include exceptions.
 
 - plutor
     - ?
+
+- partition
+    - Killed previously, not anymore?
+
+- rfars
+    - Killed previously, not anymore?
