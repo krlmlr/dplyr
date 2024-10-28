@@ -140,6 +140,12 @@ Edit `run*.R` to include exceptions.
     - Test warnings that lead to an error
     - State inspector inspecting options, but harmless
 
+- fairadapt
+    - LaTeX errors
+
+- miWQS
+    - LaTeX errors
+
 ## Challenges
 
 - `left_join(data.frame(ID = 1), data.frame(ID = "1", TIME = 0))` did not throw an error.
@@ -168,15 +174,15 @@ Edit `run*.R` to include exceptions.
     - `.data` subsetting
 
 - gtsummary
-    - `.` not found
+    - `.` not found in `left_join()`
 
 - joyn
-    - `s` not found
+    - `s` not found in `anti_join()`
 
 - offsetreg
     - xgboost related error
 
-- refseqr
+- refseqR
     - Opaque error
 
 - streamDepletr
@@ -184,3 +190,12 @@ Edit `run*.R` to include exceptions.
 
 - text2sdg
     - Opaque vignette error
+
+- activatr
+    - ?
+
+- cvms
+    - ?
+
+- plutor
+    - ?
