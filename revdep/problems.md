@@ -453,13 +453,13 @@ Run `revdepcheck::cloud_details(, "crosshap")` for more info
       > library(crosshap)
       > 
       > test_check("crosshap")
-      ■■■■■                             14% | ETA: 34s
-      ■■■■■■■■■■■■                      36% | ETA: 36s
-      ■■■■■■■■■■■■■■                    43% | ETA: 32s
-      ■■■■■■■■■■■■■■■■■■■■              64% | ETA: 22s
-      ■■■■■■■■■■■■■■■■■■■■■■            71% | ETA: 18s
-      ■■■■■■■■■■■■■■■■■■■■■■■■■■■       86% | ETA:  8s
-      ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■     93% | ETA:  5s
+      ■■■■■                             14% | ETA: 19s
+      ■■■■■■■■■■■■                      36% | ETA:  6m
+      ■■■■■■■■■■■■■■                    43% | ETA:  5m
+      ■■■■■■■■■■■■■■■■■■■■              64% | ETA:  4m
+      ■■■■■■■■■■■■■■■■■■■■■■            71% | ETA:  3m
+      ■■■■■■■■■■■■■■■■■■■■■■■■■■■       86% | ETA:  1m
+      ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■     93% | ETA: 49s
       ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■  100% | ETA:  0s
       WARNING: Phenotype association scores (phenodiff) not calculated for 252 of 2041 sites
       NOTE: 432 sites have more heterozygous individuals (1/0) than one of the homozygous states (1/1 or 0/0).
@@ -508,9 +508,9 @@ Run `revdepcheck::cloud_details(, "crosshap")` for more info
       20  7.75     0 hap_eps0.99~ 0.99    F          21             48.8         0.667
       # i 3 more variables: .ggraph.orig_index <int>, circular <lgl>,
       #   .ggraph.index <int>
-      ■■■■■■■■■■■                       33% | ETA: 10s
-      ■■■■■■■■■■■■■■■■■■■■■             67% | ETA:  3s
-      ■■■■■■■■■■■■■■■■■■■■■■■■■■        83% | ETA:  4s
+      ■■■■■■■■■■■                       33% | ETA:  6s
+      ■■■■■■■■■■■■■■■■■■■■■             67% | ETA:  2s
+      ■■■■■■■■■■■■■■■■■■■■■■■■■■        83% | ETA: 43s
       ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■  100% | ETA:  0s
       WARNING: Phenotype association scores (phenodiff) not calculated for 252 of 2041 sites
       NOTE: 432 sites have more heterozygous individuals (1/0) than one of the homozygous states (1/1 or 0/0).
@@ -533,9 +533,8 @@ Run `revdepcheck::cloud_details(, "crosshap")` for more info
       list()
       attr(,"class")
       [1] "waiver"
-      ■■■■■■■■■■■                       33% | ETA: 10s
-      ■■■■■■■■■■■■■■■■■■■■■             67% | ETA:  3s
-      ■■■■■■■■■■■■■■■■■■■■■■■■■■        83% | ETA:  5s
+      ■■■■■■■■■■■                       33% | ETA:  5s
+      ■■■■■■■■■■■■■■■■■■■■■■■■■■        83% | ETA: 42s
       ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■  100% | ETA:  0s
       WARNING: Phenotype association scores (phenodiff) not calculated for 252 of 2041 sites
       NOTE: 432 sites have more heterozygous individuals (1/0) than one of the homozygous states (1/1 or 0/0).
@@ -567,6 +566,7 @@ Run `revdepcheck::cloud_details(, "crosshap")` for more info
       
       [ FAIL 1 | WARN 0 | SKIP 6 | PASS 5 ]
       Error: Test failures
+      In addition: There were 20 warnings (use warnings() to see them)
       Execution halted
     ```
 
@@ -982,8 +982,8 @@ Run `revdepcheck::cloud_details(, "joyn")` for more info
       inner join: df1[id1, id2] 3/4 (75%) <1:1st> df3[id1, id2] 3/4 (75%)
       i Note: Joyn's report available in variable .joyn
       v This is an info message
-      o Timing:The full joyn is executed in 0.000583 seconds.
-      o Timing: The entire joyn function, including checks, is executed in 0.028341
+      o Timing:The full joyn is executed in 0.00037 seconds.
+      o Timing: The entire joyn function, including checks, is executed in 0.016113
       seconds.
       ! Warning: Currently, joyn allows only na_matches = 'na'
       x This is a warning message
@@ -1065,111 +1065,6 @@ Run `revdepcheck::cloud_details(, "joyn")` for more info
        3.   └─dplyr:::rel_try(...)
       
       [ FAIL 1 | WARN 0 | SKIP 3 | PASS 463 ]
-      Error: Test failures
-      Execution halted
-    ```
-
-# PatientProfiles
-
-<details>
-
-* Version: 1.2.1
-* GitHub: https://github.com/darwin-eu-dev/PatientProfiles
-* Source code: https://github.com/cran/PatientProfiles
-* Date/Publication: 2024-10-25 04:40:02 UTC
-* Number of recursive dependencies: 126
-
-Run `revdepcheck::cloud_details(, "PatientProfiles")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking tests ... ERROR
-    ```
-      Running ‘spelling.R’
-      Running ‘testthat.R’
-    Running the tests in ‘tests/testthat.R’ failed.
-    Complete output:
-      > # This file is part of the standard setup for testthat.
-      > # It is recommended that you do not modify it.
-      > #
-      > # Where should you do additional test configuration?
-      > # Learn more about the roles of various files in:
-      > # * https://r-pkgs.org/tests.html
-      > # * https://testthat.r-lib.org/reference/test_package.html#special-files
-      > 
-      > library(testthat)
-      > library(PatientProfiles)
-      > 
-      > test_check("PatientProfiles")
-      Starting 2 test processes
-      [ FAIL 2 | WARN 0 | SKIP 104 | PASS 167 ]
-      
-      ══ Skipped tests (104) ═════════════════════════════════════════════════════════
-      • On CRAN (104): 'test-addAttributes.R:2:3', 'test-addCategories.R:2:3',
-        'test-addCategories.R:69:3', 'test-addCategories.R:106:3',
-        'test-addCategories.R:155:3', 'test-addConceptIntersect.R:2:3',
-        'test-addConceptIntersect.R:97:3', 'test-addConceptIntersect.R:138:3',
-        'test-addConceptIntersect.R:168:3', 'test-addConceptIntersect.R:199:3',
-        'test-addCohortIntersect.R:277:3', 'test-addCohortIntersect.R:353:3',
-        'test-addCohortIntersect.R:398:3', 'test-addCohortIntersect.R:509:3',
-        'test-addCohortIntersect.R:600:3', 'test-addCohortIntersect.R:660:3',
-        'test-addCohortIntersect.R:734:3', 'test-addCohortIntersect.R:752:3',
-        'test-addCohortIntersect.R:838:3', 'test-addDeath.R:104:3',
-        'test-addDeath.R:149:3', 'test-addDeath.R:247:3', 'test-addDeath.R:290:3',
-        'test-addFutureObservation.R:2:3', 'test-addFutureObservation.R:13:3',
-        'test-addFutureObservation.R:27:3', 'test-addFutureObservation.R:87:3',
-        'test-addFutureObservation.R:147:3', 'test-addFutureObservation.R:209:3',
-        'test-addFutureObservation.R:253:3', 'test-addInObservation.R:2:3',
-        'test-addInObservation.R:16:3', 'test-addInObservation.R:47:3',
-        'test-addInObservation.R:170:3', 'test-addIntersect.R:2:3',
-        'test-addIntersect.R:37:3', 'test-addIntersect.R:226:3',
-        'test-addIntersect.R:277:3', 'test-addIntersect.R:398:3',
-        'test-addIntersect.R:502:3', 'test-addIntersect.R:558:3',
-        'test-addIntersect.R:626:3', 'test-addIntersect.R:775:3',
-        'test-addIntersect.R:856:3', 'test-addIntersect.R:870:3',
-        'test-addIntersect.R:940:3', 'test-addIntersect.R:1027:3',
-        'test-addIntersect.R:1208:3', 'test-addIntersect.R:1219:3',
-        'test-addObservationPeriodId.R:2:3', 'test-addPriorObservation.R:2:3',
-        'test-addPriorObservation.R:13:3', 'test-addPriorObservation.R:27:3',
-        'test-addPriorObservation.R:73:3', 'test-addPriorObservation.R:118:3',
-        'test-addPriorObservation.R:180:3', 'test-addSex.R:2:3',
-        'test-addSex.R:13:3', 'test-addSex.R:25:3', 'test-addSex.R:66:3',
-        'test-addTableIntersect.R:28:3', 'test-addTableIntersect.R:209:3',
-        'test-addTableIntersect.R:316:3', 'test-addTableIntersect.R:451:3',
-        'test-addTableIntersect.R:581:3', 'test-checks.R:2:3', 'test-checks.R:106:3',
-        'test-checks.R:157:3', 'test-checks.R:177:3', 'test-checks.R:189:3',
-        'test-checks.R:237:3', 'test-checks.R:264:3', 'test-addDemographics.R:2:3',
-        'test-addDemographics.R:24:3', 'test-addDemographics.R:352:3',
-        'test-addDemographics.R:419:3', 'test-addDemographics.R:685:3',
-        'test-addDemographics.R:834:3', 'test-addDemographics.R:852:3',
-        'test-addDemographics.R:964:3', 'test-addDemographics.R:1043:3',
-        'test-addDemographics.R:1155:3', 'test-addDemographics.R:1220:3',
-        'test-addDemographics.R:1246:3', 'test-addDemographics.R:1273:3',
-        'test-addDemographics.R:1289:3', 'test-addDemographics.R:1300:3',
-        'test-addDemographics.R:1318:3', 'test-addDemographics.R:1346:3',
-        'test-format.R:2:3', 'test-format.R:89:3', 'test-format.R:100:3',
-        'test-format.R:110:3', 'test-format.R:139:3',
-        'test-mockPatientProfiles.R:2:3', 'test-name.R:2:3', 'test-utilities.R:2:3',
-        'test-summariseResult.R:205:3', 'test-summariseResult.R:251:3',
-        'test-summariseResult.R:308:3', 'test-summariseResult.R:352:3',
-        'test-summariseResult.R:373:3', 'test-summariseResult.R:448:3',
-        'test-summariseResult.R:534:3'
-      
-      ══ Failed tests ════════════════════════════════════════════════════════════════
-      ── Failure ('test-addDemographics.R:618:3'): age at cohort entry, missing year/month/day of birth ──
-      all(c(9, NA) %in% result$age) is not TRUE
-      
-      `actual`:   FALSE
-      `expected`: TRUE 
-      ── Failure ('test-addDemographics.R:670:3'): multiple cohortIds, check age at cohort end ──
-      all(c(15, 13, NA) %in% result$age) is not TRUE
-      
-      `actual`:   FALSE
-      `expected`: TRUE 
-      
-      [ FAIL 2 | WARN 0 | SKIP 104 | PASS 167 ]
       Error: Test failures
       Execution halted
     ```

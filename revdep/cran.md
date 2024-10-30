@@ -1,8 +1,8 @@
 ## revdepcheck results
 
-We checked 17 reverse dependencies, comparing R CMD check results across CRAN and dev versions of this package.
+We checked 13 reverse dependencies, comparing R CMD check results across CRAN and dev versions of this package.
 
- * We saw 13 new problems
+ * We saw 12 new problems
  * We failed to check 0 packages
 
 Issues with CRAN packages are summarised below.
@@ -35,9 +35,6 @@ Issues with CRAN packages are summarised below.
   checking tests ... ERROR
 
 * joyn
-  checking tests ... ERROR
-
-* PatientProfiles
   checking tests ... ERROR
 
 * plutor
