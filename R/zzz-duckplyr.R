@@ -965,6 +965,232 @@ duckplyr_mutate_keep <- function(out, keep, used, names_new, names_groups) {
 
 duckdb <- asNamespace("duckdb")
 
+# A simplified version of functions in dplyr's across.R
+
+duckplyr_expand_across <- function(data, quo) {
+  stopifnot(is.character(data))
+
+  quo_data <- attr(quo, "dplyr:::data")
+  if (!quo_is_call(quo, "across", ns = c("", "dplyr")) || quo_data$is_named) {
+    return(NULL)
+  }
+
+  # Expand dots in lexical env
+  env <- quo_get_env(quo)
+  expr <- match.call(
+    definition = dplyr::across,
+    call = quo_get_expr(quo),
+    expand.dots = FALSE,
+    envir = env
+  )
+
+  # Abort expansion if there are any expression supplied because dots
+  # must be evaluated once per group in the data mask. Expanding the
+  # `across()` call would lead to either `n_group * n_col` evaluations
+  # if dots are delayed or only 1 evaluation if they are eagerly
+  # evaluated.
+  if (!is_null(expr$...)) {
+    return(NULL)
+  }
+
+  if (".unpack" %in% names(expr)) {
+    # In dplyr this evaluates in the mask to reproduce the `mutate()` or
+    # `summarise()` context. We don't have a mask here but it's probably fine in
+    # almost all cases.
+    unpack <- eval_tidy(expr$.unpack, env = env)
+  } else {
+    unpack <- FALSE
+  }
+
+  # Abort expansion if unpacking as expansion makes named expressions and we
+  # need the expressions to remain unnamed
+  if (!is_false(unpack)) {
+    return(NULL)
+  }
+
+  # Differentiate between missing and null (`match.call()` doesn't
+  # expand default argument)
+  if (!(".cols" %in% names(expr))) {
+    # This is deprecated, let dplyr warn
+    return(NULL)
+  }
+
+  if (!(".fns" %in% names(expr))) {
+    # To be deprecated, let dplyr deal with this
+    return(NULL)
+  }
+
+  cols <- as_quosure(expr$.cols, env)
+
+  fns <- as_quosure(expr$.fns, env)
+  fns <- quo_eval_fns(fns, mask = env, error_call = error_call)
+
+  # In dplyr this evaluates in the mask to reproduce the `mutate()` or
+  # `summarise()` context. We don't have a mask here but it's probably fine in
+  # almost all cases.
+  names <- eval_tidy(expr$.names, env = env)
+
+  setup <- duckplyr_across_setup(
+    data,
+    cols,
+    fns = fns,
+    names = names,
+    .caller_env = env,
+    error_call = error_call
+  )
+
+  vars <- setup$vars
+
+  # Empty expansion
+  if (length(vars) == 0L) {
+    return(NULL)
+  }
+
+  fns <- setup$fns
+  names <- setup$names %||% vars
+
+  n_vars <- length(vars)
+  n_fns <- length(fns)
+
+  seq_vars <- seq_len(n_vars)
+  seq_fns  <- seq_len(n_fns)
+
+  exprs <- new_list(n_vars * n_fns, names = names)
+
+  k <- 1L
+  for (i in seq_vars) {
+    var <- vars[[i]]
+
+    for (j in seq_fns) {
+      # Note: `mask` isn't actually used inside this helper
+      fn_call <- as_across_fn_call(fn_to_expr(fns[[j]], env), var, env, mask = env)
+
+      name <- names[[k]]
+
+      exprs[[k]] <- new_dplyr_quosure(
+        fn_call,
+        name = name,
+        is_named = TRUE,
+        index = c(quo_data$index, k),
+        column = var
+      )
+
+      k <- k + 1L
+    }
+  }
+
+  exprs
+}
+
+duckplyr_across_setup <- function(data,
+                                  cols,
+                                  fns,
+                                  names,
+                                  .caller_env,
+                                  error_call = caller_env()) {
+  data <- set_names(seq_along(data), data)
+
+  vars <- tidyselect::eval_select(
+    cols,
+    data = data,
+    allow_predicates = FALSE,
+    error_call = error_call
+  )
+  names_vars <- names(vars)
+  vars <- names(data)[vars]
+
+  names_fns <- names(fns)
+
+  # apply `.names` smart default
+  if (is.function(fns)) {
+    names <- names %||% "{.col}"
+    fns <- list("1" = fns)
+  } else {
+    names <- names %||% "{.col}_{.fn}"
+  }
+
+  if (!is.list(fns)) {
+    abort("Expected a list.", .internal = TRUE)
+  }
+
+  # make sure fns has names, use number to replace unnamed
+  if (is.null(names(fns))) {
+    names_fns <- seq_along(fns)
+  } else {
+    names_fns <- names(fns)
+    empties <- which(names_fns == "")
+    if (length(empties)) {
+      names_fns[empties] <- empties
+    }
+  }
+
+  glue_mask <- across_glue_mask(.caller_env,
+    .col = rep(names_vars, each = length(fns)),
+    .fn  = rep(names_fns , length(vars))
+  )
+  names <- vec_as_names(
+    glue(names, .envir = glue_mask),
+    repair = "check_unique",
+    call = error_call
+  )
+
+  list(
+    vars = vars,
+    fns = fns,
+    names = names
+  )
+}
+
+fn_to_expr <- function(fn, env) {
+  fn_env <- environment(fn)
+  if (!is_namespace(fn_env)) {
+    return(fn)
+  }
+
+  # This is an environment that maps hashes to function names
+  ns_exports_lookup <- get_ns_exports_lookup(fn_env)
+
+  # Can we find the function among the exports in the namespace?
+  fun_name <- ns_exports_lookup[[hash(fn)]]
+  if (is.null(fun_name)) {
+    return(fn)
+  }
+
+  # Triple-check: Does the expression actually evaluate to fn?
+  ns_name <- getNamespaceName(fn_env)
+  out <- call2("::", sym(ns_name), sym(fun_name))
+  if (!identical(eval(out, env), fn)) {
+    return(fn)
+  }
+
+  out
+}
+
+# Memoize get_ns_exports_lookup() to avoid recomputing the hash of
+# every function in every namespace every time
+on_load({
+  get_ns_exports_lookup <<- memoise::memoise(get_ns_exports_lookup)
+})
+
+get_ns_exports_lookup <- function(ns) {
+  names <- getNamespaceExports(ns)
+  objs <- mget(names, ns)
+  funs <- objs[map_lgl(objs, is.function)]
+
+  hashes <- map_chr(funs, hash)
+  # Reverse, return as environment
+  new_environment(set_names(as.list(names(hashes)), hashes))
+}
+
+test_duckplyr_expand_across <- function(data, expr) {
+  quo <- new_dplyr_quosure(enquo(expr), is_named = FALSE, index = 1L)
+  out <- duckplyr_expand_across(data, quo)
+  if (is.null(out)) {
+    return(NULL)
+  }
+  call2(rlang::expr(tibble), !!!map(out, quo_get_expr))
+}
+
 #' Execute a statement for the default connection
 #'
 #' The \pkg{duckplyr} package relies on a DBI connection
@@ -2683,6 +2909,7 @@ mutate.data.frame <- function(.data, ..., .by = NULL, .keep = c("all", "used", "
 
       dots <- dplyr_quosures(...)
       dots <- fix_auto_name(dots)
+      names_dots <- names(dots)
 
       names_used <- character()
       names_new <- character()
@@ -2691,21 +2918,45 @@ mutate.data.frame <- function(.data, ..., .by = NULL, .keep = c("all", "used", "
       # FIXME: use fewer projections
       for (i in seq_along(dots)) {
         dot <- dots[[i]]
+        name_dot <- names_dots[[i]]
 
-        new <- names(dots)[[i]]
+        # Try expanding this `dot` if we see it is an `across()` call
+        expanded <- duckplyr_expand_across(names_out, dot)
 
-        names_new <- c(names_new, new)
+        if (is.null(expanded)) {
+          # Nothing we can expand, create a list with just the 1 expression to
+          # loop over
+          quos <- set_names(list(dot), name_dot)
+        } else {
+          # Actually expanded an `across()` call, make sure to fix up names
+          # again with the new set of dplyr quosures
+          quos <- expanded
+          quos <- fix_auto_name(quos)
+        }
 
-        new_pos <- match(new, names_out, nomatch = length(names_out) + 1L)
+        names_quos <- names(quos)
+
+        # Set up `exprs` outside the loop. All expressions expanded from an
+        # `across()` are evaluated together using the same projection.
         exprs <- imap(set_names(names_out), relexpr_reference, rel = NULL)
-        new_expr <- rel_translate(dot, names_data = names_out, alias = new, partition = by_names, need_window = TRUE)
-        exprs[[new_pos]] <- new_expr
+
+        for (j in seq_along(quos)) {
+          quo <- quos[[j]]
+          new <- names_quos[[j]]
+
+          names_new <- c(names_new, new)
+
+          new_pos <- match(new, names_out, nomatch = length(names_out) + 1L)
+          new_expr <- rel_translate(quo, names_data = names_out, alias = new, partition = by_names, need_window = TRUE)
+          exprs[[new_pos]] <- new_expr
+
+          names_out[[new_pos]] <- new
+
+          new_names_used <- intersect(attr(new_expr, "used"), names(.data))
+          names_used <- c(names_used, setdiff(new_names_used, names_used))
+        }
 
         rel <- rel_project(rel, unname(exprs))
-        names_out[[new_pos]] <- new
-
-        new_names_used <- intersect(attr(new_expr, "used"), names(.data))
-        names_used <- c(names_used, setdiff(new_names_used, names_used))
       }
 
       if (length(by_names) > 0) {
@@ -2788,6 +3039,34 @@ duckplyr_mutate <- function(.data, ...) {
   out <- mutate(.data, ...)
   class(out) <- setdiff(class(out), "duckplyr_df")
   out
+}
+
+# Copied from dplyr, can be reexported with dplyr > 1.1.4
+
+# Masks `ncol()` to avoid accidentally materializing ALTREP duckplyr
+# data frames.
+ncol <- function(x) {
+  abort("Use `df_n_col()` or `mat_n_col()` instead.")
+}
+
+# Alternative to `ncol()` which avoids `dim()`.
+#
+# `dim()` also requires knowing the number of rows,
+# which forces ALTREP duckplyr data frames to materialize.
+#
+# This function makes the same assertion as vctrs about data frame structure,
+# i.e. if `x` inherits from `"data.frame"`, then it is a VECSXP with length
+# equal to the number of columns.
+df_n_col <- function(x) {
+  x <- unclass(x)
+  obj_check_list(x)
+  length(x)
+}
+
+# In a few places we call `ncol()` on matrices, and in those
+# cases we want to continue using the base version.
+mat_n_col <- function(x) {
+  base::ncol(x)
 }
 
 # Generated by 02-duckplyr_df-methods.R
@@ -3667,6 +3946,10 @@ to_duckdb_expr <- function(x) {
       out
     },
     relational_relexpr_constant = {
+      # FIXME: Should be duckdb's responsibility
+      # Example: https://github.com/dschafer/activatr/issues/18
+      check_df_for_rel(tibble(constant = x$val))
+
       if ("experimental" %in% names(formals(duckdb$expr_constant))) {
         experimental <- (Sys.getenv("DUCKPLYR_EXPERIMENTAL") == "TRUE")
         out <- duckdb$expr_constant(x$val, experimental = experimental)
@@ -4319,22 +4602,41 @@ rel_try <- function(call, rel, ...) {
   cli::cli_abort("Must use a return() in rel_try().")
 }
 
-rel_translate_dots <- function(dots, data, forbid_new = FALSE) {
+rel_translate_dots <- function(dots, data) {
   if (is.null(names(dots))) {
     map(dots, rel_translate, data)
-  } else if (forbid_new) {
-    out <- accumulate(seq_along(dots), .init = NULL, function(.x, .y) {
-      new <- names(dots)[[.y]]
-      translation <- rel_translate(dots[[.y]], alias = new, data, names_forbidden = .x$new)
-      list(
-        new = c(.x$new, new),
-        translation = c(.x$translation, list(translation))
-      )
-    })
-    out[[length(out)]]$translation
   } else {
     imap(dots, rel_translate, data = data)
   }
+}
+
+# Currently does not support referring to names created during the `summarise()` call.
+# Also has specific support for `across()`.
+rel_translate_dots_summarise <- function(dots, data) {
+  stopifnot(
+    !is.null(names(dots))
+  )
+
+  out <- reduce(seq_along(dots), .init = NULL, function(.x, .y) {
+    current_names <- c(names(data), .x$new)
+
+    dot <- dots[[.y]]
+    expanded <- duckplyr_expand_across(current_names, dot)
+
+    if (is.null(expanded)) {
+      new <- names(dots)[[.y]]
+      translation <- list(rel_translate(dots[[.y]], alias = new, data, names_forbidden = .x$new))
+    } else {
+      new <- names(expanded)
+      translation <- imap(expanded, function(expr, name) rel_translate(expr, alias = name, data, names_forbidden = .x$new))
+    }
+
+    list(
+      new = c(.x$new, new),
+      translation = c(.x$translation, translation)
+    )
+  })
+  out$translation
 }
 
 new_failing_mask <- function(names_data) {
@@ -5453,7 +5755,7 @@ summarise.data.frame <- function(.data, ..., .by = NULL, .groups = NULL) {
       }
 
       groups <- lapply(by, relexpr_reference)
-      aggregates <- rel_translate_dots(dots, .data, forbid_new = TRUE)
+      aggregates <- rel_translate_dots_summarise(dots, .data)
 
       if (oo) {
         aggregates <- c(

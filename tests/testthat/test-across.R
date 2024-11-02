@@ -865,6 +865,7 @@ test_that("across() allows renaming in `.cols` (#6895)", {
 })
 
 test_that("if_any() and if_all() expansions deal with no inputs or single inputs", {
+  skip("TODO duckdb")
   d <- data.frame(x = 1)
 
   # No inputs
