@@ -23,7 +23,6 @@ Issues with CRAN packages are summarised below.
   checking examples ... ERROR
 
 * healthdb
-  checking examples ... ERROR
   checking tests ... ERROR
 
 * iNZightTools

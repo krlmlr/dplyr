@@ -407,14 +407,12 @@ Run `revdepcheck::cloud_details(, "crosshap")` for more info
       > library(crosshap)
       > 
       > test_check("crosshap")
-      ■■■■■                             14% | ETA: 15s
-      ■■■■■■■■■■                        29% | ETA: 10s
-      ■■■■■■■■■■■■                      36% | ETA:  5m
-      ■■■■■■■■■■■■■■                    43% | ETA:  4m
-      ■■■■■■■■■■■■■■■■■■                57% | ETA:  2m
-      ■■■■■■■■■■■■■■■■■■■■              64% | ETA:  3m
-      ■■■■■■■■■■■■■■■■■■■■■■            71% | ETA:  2m
-      ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■     93% | ETA: 38s
+      ■■■■■                             14% | ETA: 20s
+      ■■■■■■■■■■■■                      36% | ETA:  6m
+      ■■■■■■■■■■■■■■                    43% | ETA:  5m
+      ■■■■■■■■■■■■■■■■■■■■              64% | ETA:  4m
+      ■■■■■■■■■■■■■■■■■■■■■■            71% | ETA:  3m
+      ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■     93% | ETA: 49s
       ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■  100% | ETA:  0s
       WARNING: Phenotype association scores (phenodiff) not calculated for 252 of 2041 sites
       NOTE: 432 sites have more heterozygous individuals (1/0) than one of the homozygous states (1/1 or 0/0).
@@ -463,9 +461,8 @@ Run `revdepcheck::cloud_details(, "crosshap")` for more info
       20  7.75     0 hap_eps0.99~ 0.99    F          21             48.8         0.667
       # i 3 more variables: .ggraph.orig_index <int>, circular <lgl>,
       #   .ggraph.index <int>
-      ■■■■■■■■■■■                       33% | ETA:  5s
-      ■■■■■■■■■■■■■■■■■■■■■             67% | ETA:  2s
-      ■■■■■■■■■■■■■■■■■■■■■■■■■■        83% | ETA: 34s
+      ■■■■■■■■■■■                       33% | ETA:  6s
+      ■■■■■■■■■■■■■■■■■■■■■■■■■■        83% | ETA: 42s
       ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■  100% | ETA:  0s
       WARNING: Phenotype association scores (phenodiff) not calculated for 252 of 2041 sites
       NOTE: 432 sites have more heterozygous individuals (1/0) than one of the homozygous states (1/1 or 0/0).
@@ -488,9 +485,8 @@ Run `revdepcheck::cloud_details(, "crosshap")` for more info
       list()
       attr(,"class")
       [1] "waiver"
-      ■■■■■■■■■■■                       33% | ETA:  5s
-      ■■■■■■■■■■■■■■■■■■■■■             67% | ETA:  2s
-      ■■■■■■■■■■■■■■■■■■■■■■■■■■        83% | ETA: 34s
+      ■■■■■■■■■■■                       33% | ETA:  7s
+      ■■■■■■■■■■■■■■■■■■■■■■■■■■        83% | ETA: 42s
       ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■  100% | ETA:  0s
       WARNING: Phenotype association scores (phenodiff) not calculated for 252 of 2041 sites
       NOTE: 432 sites have more heterozygous individuals (1/0) than one of the homozygous states (1/1 or 0/0).
@@ -598,117 +594,6 @@ Run `revdepcheck::cloud_details(, "healthdb")` for more info
 
 ## Newly broken
 
-*   checking examples ... ERROR
-    ```
-    Running examples in ‘healthdb-Ex.R’ failed
-    The error most likely occurred in:
-    
-    > ### Name: fetch_var
-    > ### Title: Get variables from multiple tables with common ID columns
-    > ### Aliases: fetch_var
-    > 
-    > ### ** Examples
-    > 
-    > # make toy data
-    > size <- 30
-    > n <- 10
-    > df1 <- data.frame(
-    +   id = sample(1:n, size = size, replace = TRUE),
-    +   service_dt = sample(seq(as.Date("2020-01-01"), as.Date("2022-01-31"), by = 1),
-    +     size = size
-    +   )
-    + ) %>%
-    +   dplyr::mutate(year = lubridate::year(service_dt))
-    > df2 <- data.frame(
-    +   id = rep(1:n, size / n), year = rep(2020:2022, each = n),
-    +   status_1 = sample(0:1, size = size, replace = TRUE),
-    +   status_2 = sample(0:1, size = size, replace = TRUE)
-    + )
-    > df3 <- data.frame(id = 1:n, sex = sample(c("F", "M"), size = n, replace = TRUE))
-    > 
-    > # simple joins
-    > # note that for left_join(df1, df2), boths keys have to be used,
-    > # otherwise, error as the relation would not be one-to-one
-    > fetch_var(df1,
-    +   keys = c(id, year),
-    +   linkage = list(
-    +     df2 ~ starts_with("s"), # match both keys without '|'
-    +     df3 ~ sex | id
-    +   ) # match by id only; otherwise failed because df3 has no year
-    + )
-       id service_dt year status_1 status_2 sex
-    1   9 2021-07-07 2021        1        0   F
-    2   4 2021-02-25 2021        1        0   M
-    3   7 2020-04-20 2020        1        0   M
-    4   1 2021-02-07 2021        0        1   M
-    5   2 2021-06-15 2021        1        1   F
-    6   7 2021-05-20 2021        0        1   M
-    7   2 2021-07-09 2021        1        1   F
-    8   3 2020-12-08 2020        1        0   M
-    9   1 2021-08-04 2021        0        1   M
-    10  5 2020-04-30 2020        0        0   M
-    11  5 2020-02-09 2020        0        0   M
-    12 10 2021-11-14 2021        1        0   M
-    13  6 2021-06-20 2021        1        1   F
-    14 10 2021-01-09 2021        1        0   M
-    15  7 2020-09-04 2020        1        0   M
-    16  9 2020-07-16 2020        0        0   F
-    17  5 2021-01-12 2021        0        1   M
-    18  5 2020-02-08 2020        0        0   M
-    19  9 2021-03-10 2021        1        0   F
-    20  9 2021-01-24 2021        1        0   F
-    21  5 2020-10-06 2020        0        0   M
-    22  5 2021-11-02 2021        0        1   M
-    23  2 2021-06-09 2021        1        1   F
-    24 10 2021-10-03 2021        1        0   M
-    25  9 2020-02-14 2020        0        0   F
-    26  1 2021-02-05 2021        0        1   M
-    27  4 2020-01-22 2020        0        1   M
-    28  3 2021-12-18 2021        0        1   M
-    29  6 2020-07-11 2020        1        0   F
-    30 10 2021-01-05 2021        1        0   M
-    > 
-    > # example if some y is remote
-    > # make df2 as database table
-    > db2 <- dbplyr::tbl_memdb(df2)
-    > 
-    > fetch_var(df1,
-    +   keys = c(id, year),
-    +   linkage = list(
-    +     db2 ~ starts_with("s"),
-    +     df3 ~ sex | id
-    +   ),
-    +   copy = TRUE # pass to left_join for forced collection of remote table
-    + )
-    Error in `purrr::map()`:
-    ℹ In index: 1.
-    Caused by error in `auto_copy()`:
-    ! `x` and `y` must share the same src.
-    ℹ `x` is a <data.frame> object.
-    ℹ `y` is a <tbl_SQLiteConnection/tbl_dbi/tbl_sql/tbl_lazy/tbl> object.
-    ℹ Set `copy = TRUE` if `y` can be copied to the same source as `x` (may be
-      slow).
-    Backtrace:
-         ▆
-      1. ├─healthdb::fetch_var(...)
-      2. │ └─purrr::map(mod_calls, function(x) eval(x, envir = data_env) %>% dplyr::select(-dplyr::any_of(keys)))
-      3. │   └─purrr:::map_("list", .x, .f, ..., .progress = .progress)
-      4. │     ├─purrr:::with_indexed_errors(...)
-      5. │     │ └─base::withCallingHandlers(...)
-      6. │     ├─purrr:::call_with_cleanup(...)
-      7. │     └─healthdb (local) .f(.x[[i]], ...)
-      8. │       ├─eval(x, envir = data_env) %>% ...
-      9. │       └─base::eval(x, envir = data_env)
-     10. │         └─base::eval(x, envir = data_env)
-     11. ├─dplyr::select(., -dplyr::any_of(keys))
-     12. ├─dplyr::left_join(...)
-     13. └─dplyr:::left_join.data.frame(...)
-     14.   └─dplyr::left_join(...)
-     15.     └─dplyr::auto_copy(x, y, copy = copy)
-     16.       └─rlang::abort(bullets)
-    Execution halted
-    ```
-
 *   checking tests ... ERROR
     ```
       Running ‘testthat.R’
@@ -797,7 +682,7 @@ Run `revdepcheck::cloud_details(, "healthdb")` for more info
       i Identify records with condition(s):
       * where at least one of the diagx, diagx_1, diagx_2 column(s) in each record
       * contains a value exactly matched values in set: 1:10
-      [ FAIL 2 | WARN 2 | SKIP 6 | PASS 218 ]
+      [ FAIL 1 | WARN 2 | SKIP 6 | PASS 220 ]
       
       ══ Skipped tests (6) ═══════════════════════════════════════════════════════════
       • On CRAN (6): 'test-define_case.R:42:3', 'test-if_dates.R:2:3',
@@ -805,15 +690,6 @@ Run `revdepcheck::cloud_details(, "healthdb")` for more info
         'test-restrict_dates_sql.R:26:3', 'test-restrict_dates_sql.R:101:3'
       
       ══ Failed tests ════════════════════════════════════════════════════════════════
-      ── Error ('test-fetch_var.R:64:3'): multiple sources works ─────────────────────
-      <purrr_error_indexed/rlang_error/error/condition>
-      Error in `purrr::map(mod_calls, function(x) eval(x, envir = data_env) %>% 
-          dplyr::select(-dplyr::any_of(keys)))`: i In index: 2.
-      Caused by error in `auto_copy()`:
-      ! `x` and `y` must share the same src.
-      i `x` is a <data.frame> object.
-      i `y` is a <tbl_SQLiteConnection/tbl_dbi/tbl_sql/tbl_lazy/tbl> object.
-      i Set `copy = TRUE` if `y` can be copied to the same source as `x` (may be slow).
       ── Error ('test-fetch_var.R:115:3'): not one to one warning works ──────────────
       Error in `trace_back(top = getOption("testthat_topenv"), bottom = trace_env)`: Can't find `bottom` on the call tree.
       Backtrace:
@@ -826,7 +702,7 @@ Run `revdepcheck::cloud_details(, "healthdb")` for more info
        6.         └─rlang:::trace_find_bottom(bottom, frames)
        7.           └─rlang::abort(msg, call = call)
       
-      [ FAIL 2 | WARN 2 | SKIP 6 | PASS 218 ]
+      [ FAIL 1 | WARN 2 | SKIP 6 | PASS 220 ]
       Error: Test failures
       Execution halted
     ```
@@ -974,8 +850,8 @@ Run `revdepcheck::cloud_details(, "joyn")` for more info
       inner join: df1[id1, id2] 3/4 (75%) <1:1st> df3[id1, id2] 3/4 (75%)
       i Note: Joyn's report available in variable .joyn
       v This is an info message
-      o Timing:The full joyn is executed in 0.000533 seconds.
-      o Timing: The entire joyn function, including checks, is executed in 0.023796
+      o Timing:The full joyn is executed in 0.000559 seconds.
+      o Timing: The entire joyn function, including checks, is executed in 0.027513
       seconds.
       ! Warning: Currently, joyn allows only na_matches = 'na'
       x This is a warning message
