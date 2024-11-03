@@ -106,6 +106,8 @@ Edit `run*.R` to include exceptions.
     - Typed `NA`
 - CodelistGenerator
     - `union_all()` on incompatible types now throws error
+- PatientProfiles
+    - `if_else()` with `NA` input
 - activatr
     - Careful check of supported data type
 - cvms
@@ -150,6 +152,24 @@ Edit `run*.R` to include exceptions.
 - miWQS
     - LaTeX errors
 
+- joyn
+    - `s` not found in `anti_join()`
+    - Forcing `copy` argument
+    - https://github.com/randrescastaneda/joyn/pull/79
+    - Working around
+
+- gtsummary
+    - `.` not found in `left_join()`
+    - Forcing `copy` argument
+    - https://github.com/ddsjoberg/gtsummary/pull/2054
+    - Working around
+
+- crosshap
+    - `.data` subsetting
+    - Forcing `copy` argument
+    - https://github.com/jacobimarsh/crosshap/pull/7
+    - Working around
+
 ## Challenges
 
 - `left_join(data.frame(ID = 1), data.frame(ID = "1", TIME = 0))` did not throw an error.
@@ -168,20 +188,8 @@ Edit `run*.R` to include exceptions.
 - rWCVP
     - Touching columns that don't need to be touched
 
-- PatientProfiles
-    - Flaky, don't understand
-
 - cardx
     - Different data?
-
-- crosshap
-    - `.data` subsetting
-
-- gtsummary
-    - `.` not found in `left_join()`
-
-- joyn
-    - `s` not found in `anti_join()`
 
 - offsetreg
     - xgboost related error
