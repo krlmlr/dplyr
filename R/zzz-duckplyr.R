@@ -53,7 +53,6 @@ duckplyr_add_count <- function(x, ...) {
 anti_join.data.frame <- function(x, y, by = NULL, copy = FALSE, ..., na_matches = c("na", "never")) {
   check_dots_empty0(...)
   error_call <- caller_env()
-  y <- auto_copy(x, y, copy = copy)
 
   # https://github.com/duckdb/duckdb/issues/6597
   na_matches <- check_na_matches(na_matches, error_call = error_call)
@@ -1293,7 +1292,6 @@ duckplyr_filter <- function(.data, ...) {
 full_join.data.frame <- function(x, y, by = NULL, copy = FALSE, suffix = c(".x", ".y"), ..., keep = NULL, na_matches = c("na", "never"), multiple = "all", relationship = NULL) {
   check_dots_empty0(...)
   error_call <- caller_env()
-  y <- auto_copy(x, y, copy = copy)
 
   # Our implementation
   rel_try(list(name = "full_join", x = x, y = y, args = list(by = if (!is.null(by) && !is_cross_by(by)) as_join_by(by), copy = copy, keep = keep, na_matches = na_matches, multiple = multiple, relationship = relationship)),
@@ -2339,7 +2337,6 @@ list_c <- function(x) {
 inner_join.data.frame <- function(x, y, by = NULL, copy = FALSE, suffix = c(".x", ".y"), ..., keep = NULL, na_matches = c("na", "never"), multiple = "all", unmatched = "drop", relationship = NULL) {
   check_dots_empty0(...)
   error_call <- caller_env()
-  y <- auto_copy(x, y, copy = copy)
 
   # Our implementation
   rel_try(list(name = "inner_join", x = x, y = y, args = list(by = if (!is.null(by) && !is_cross_by(by)) as_join_by(by), copy = copy, keep = keep, na_matches = na_matches, multiple = multiple, unmatched = unmatched, relationship = relationship)),
@@ -2689,6 +2686,10 @@ rel_join_impl <- function(
   keep = NULL,
   error_call = caller_env()
 ) {
+  # Forcing copy might be an error, fall back in this case
+  # Examples: joyn, gtsummary, crosshap
+  y <- auto_copy(x, y, copy = copy)
+
   mutating <- !(join %in% c("semi", "anti"))
 
   if (mutating) {
@@ -2840,7 +2841,6 @@ join_ptype_common <- function(x, y, vars, error_call = caller_env()) {
 left_join.data.frame <- function(x, y, by = NULL, copy = FALSE, suffix = c(".x", ".y"), ..., keep = NULL, na_matches = c("na", "never"), multiple = "all", unmatched = "drop", relationship = NULL) {
   check_dots_empty0(...)
   error_call <- caller_env()
-  y <- auto_copy(x, y, copy = copy)
 
   # Our implementation
   rel_try(list(name = "left_join", x = x, y = y, args = list(by = if (!is.null(by) && !is_cross_by(by)) as_join_by(by), copy = copy, keep = keep, na_matches = na_matches, multiple = multiple, unmatched = unmatched, relationship = relationship)),
@@ -4781,7 +4781,6 @@ duckplyr_rename_with <- function(.data, ...) {
 right_join.data.frame <- function(x, y, by = NULL, copy = FALSE, suffix = c(".x", ".y"), ..., keep = NULL, na_matches = c("na", "never"), multiple = "all", unmatched = "drop", relationship = NULL) {
   check_dots_empty0(...)
   error_call <- caller_env()
-  y <- auto_copy(x, y, copy = copy)
 
   # Our implementation
   rel_try(list(name = "right_join", x = x, y = y, args = list(by = if (!is.null(by) && !is_cross_by(by)) as_join_by(by), copy = copy, keep = keep, na_matches = na_matches, multiple = multiple, unmatched = unmatched, relationship = relationship)),
@@ -5348,7 +5347,6 @@ duckplyr_select <- function(.data, ...) {
 semi_join.data.frame <- function(x, y, by = NULL, copy = FALSE, ..., na_matches = c("na", "never")) {
   check_dots_empty0(...)
   error_call <- caller_env()
-  y <- auto_copy(x, y, copy = copy)
 
   # https://github.com/duckdb/duckdb/issues/6597
   na_matches <- check_na_matches(na_matches, error_call = error_call)
