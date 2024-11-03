@@ -1,6 +1,5 @@
 # Overwritten in meta.R
-meta_call_start <- function(...) {}
-meta_call_end <- function(...) {}
+meta_call <- function(...) {}
 meta_ext_register <- function(...) {}
 meta_rel_register <- function(...) {}
 meta_rel_register_df <- function(...) {}
@@ -53,15 +52,16 @@ duckplyr_add_count <- function(x, ...) {
 anti_join.data.frame <- function(x, y, by = NULL, copy = FALSE, ..., na_matches = c("na", "never")) {
   check_dots_empty0(...)
   error_call <- caller_env()
+  y <- auto_copy(x, y, copy = copy)
 
   # https://github.com/duckdb/duckdb/issues/6597
   na_matches <- check_na_matches(na_matches, error_call = error_call)
 
   # Our implementation
-  rel_try(list(name = "anti_join", x = x, y = y, args = list(by = if (!is.null(by) && !is_cross_by(by)) as_join_by(by), copy = copy, na_matches = na_matches)),
+  rel_try(list(name = "anti_join", x = x, y = y, args = try_list(by = if (!is.null(by) && !is_cross_by(by)) as_join_by(by), copy = copy, na_matches = na_matches)),
     "No restrictions" = FALSE,
     {
-      out <- rel_join_impl(x, y, by, copy, "anti", na_matches, error_call = error_call)
+      out <- rel_join_impl(x, y, by, "anti", na_matches, error_call = error_call)
       return(out)
     }
   )
@@ -100,7 +100,7 @@ arrange.data.frame <- function(.data, ..., .by_group = FALSE, .locale = NULL) {
   dots <- enquos(...)
   dots <- unname(dots)
 
-  rel_try(list(name = "arrange", x = .data, args = list(dots = dots, .by_group = .by_group)),
+  rel_try(list(name = "arrange", x = .data, args = try_list(dots = dots, .by_group = .by_group)),
     ".by_group = TRUE not supported" = !identical(.by_group, FALSE),
     ".locale argument not supported" = !is.null(.locale),
     "dplyr.legacy_locale not supported" = isTRUE(getOption("dplyr.legacy_locale")),
@@ -633,7 +633,7 @@ count.data.frame <- function(x, ..., wt = NULL, sort = FALSE, name = NULL, .drop
   }
 
   # Passing `name` reliably is surprisingly complicated.
-  rel_try(list(name = "count", x = x, args = list(dots = enquos(...), wt = enquo(wt), sort = sort, .drop = .drop)),
+  rel_try(list(name = "count", x = x, args = try_list(dots = enquos(...), wt = enquo(wt), sort = sort, .drop = .drop)),
     "count() needs all(is_name)" = !all(is_name),
     "count() only implemented for .drop = TRUE" = !.drop,
     "count() only implemented for sort = FALSE" = sort,
@@ -780,7 +780,7 @@ distinct.data.frame <- function(.data, ..., .keep_all = FALSE) {
   dots <- enquos(..., .named = TRUE)
 
   # Our implementation
-  rel_try(list(name = "distinct", x = .data, args = list(dots = dots, .keep_all = .keep_all)),
+  rel_try(list(name = "distinct", x = .data, args = try_list(dots = dots, .keep_all = .keep_all)),
     "Implemented for all cases?" = FALSE,
     {
       # FIXME: avoid column duplication in a cleaner way
@@ -1233,7 +1233,7 @@ filter.data.frame <- function(.data, ..., .by = NULL, .preserve = FALSE) {
 
   by <- enquo(.by)
 
-  rel_try(list(name = "filter", x = .data, args = list(dots = dots, by = by, preserve = .preserve)),
+  rel_try(list(name = "filter", x = .data, args = try_list(dots = dots, by = by, preserve = .preserve)),
     "Can't use relational with zero-column result set." = (length(.data) == 0),
     "Can't use relational without filter conditions." = (length(dots) == 0),
     "Can't use relational with grouped operation." = (!quo_is_null(by)), # (length(by$names) > 0),
@@ -1292,12 +1292,14 @@ duckplyr_filter <- function(.data, ...) {
 full_join.data.frame <- function(x, y, by = NULL, copy = FALSE, suffix = c(".x", ".y"), ..., keep = NULL, na_matches = c("na", "never"), multiple = "all", relationship = NULL) {
   check_dots_empty0(...)
   error_call <- caller_env()
+  y <- auto_copy(x, y, copy = copy)
 
   # Our implementation
-  rel_try(list(name = "full_join", x = x, y = y, args = list(by = if (!is.null(by) && !is_cross_by(by)) as_join_by(by), copy = copy, keep = keep, na_matches = na_matches, multiple = multiple, relationship = relationship)),
+  rel_try(list(name = "full_join", x = x, y = y, args = try_list(by = if (!is.null(by) && !is_cross_by(by)) as_join_by(by), copy = copy, keep = keep, na_matches = na_matches, multiple = multiple, relationship = relationship)),
     "No implicit cross joins for full_join()" = is_cross_by(by),
+    "`multiple` not supported" = !identical(multiple, "all"),
     {
-      out <- rel_join_impl(x, y, by, copy, "full", na_matches, suffix, keep, error_call)
+      out <- rel_join_impl(x, y, by, "full", na_matches, suffix, keep, relationship, error_call)
       return(out)
     }
   )
@@ -2337,12 +2339,15 @@ list_c <- function(x) {
 inner_join.data.frame <- function(x, y, by = NULL, copy = FALSE, suffix = c(".x", ".y"), ..., keep = NULL, na_matches = c("na", "never"), multiple = "all", unmatched = "drop", relationship = NULL) {
   check_dots_empty0(...)
   error_call <- caller_env()
+  y <- auto_copy(x, y, copy = copy)
 
   # Our implementation
-  rel_try(list(name = "inner_join", x = x, y = y, args = list(by = if (!is.null(by) && !is_cross_by(by)) as_join_by(by), copy = copy, keep = keep, na_matches = na_matches, multiple = multiple, unmatched = unmatched, relationship = relationship)),
+  rel_try(list(name = "inner_join", x = x, y = y, args = try_list(by = if (!is.null(by) && !is_cross_by(by)) as_join_by(by), copy = copy, keep = keep, na_matches = na_matches, multiple = multiple, unmatched = unmatched, relationship = relationship)),
     "No implicit cross joins for inner_join()" = is_cross_by(by),
+    "`multiple` not supported" = !identical(multiple, "all"),
+    "`unmatched` not supported" = !identical(unmatched, "drop"),
     {
-      out <- rel_join_impl(x, y, by, copy, "inner", na_matches, suffix, keep, error_call)
+      out <- rel_join_impl(x, y, by, "inner", na_matches, suffix, keep, relationship, error_call)
       return(out)
     }
   )
@@ -2680,17 +2685,13 @@ rel_join_impl <- function(
   x,
   y,
   by,
-  copy,
   join,
   na_matches,
   suffix = c(".x", ".y"),
   keep = NULL,
+  relationship = NULL,
   error_call = caller_env()
 ) {
-  # Forcing copy might be an error, fall back in this case
-  # Examples: joyn, gtsummary, crosshap
-  y <- auto_copy(x, y, copy = copy)
-
   mutating <- !(join %in% c("semi", "anti"))
 
   if (mutating) {
@@ -2706,6 +2707,10 @@ rel_join_impl <- function(
     by <- join_by_common(x_names, y_names, error_call = error_call)
   } else {
     by <- as_join_by(by, error_call = error_call)
+  }
+
+  if (mutating) {
+    check_relationship(relationship, x, y, by, error_call = error_call)
   }
 
   x_by <- by$x
@@ -2821,6 +2826,66 @@ rel_join_impl <- function(
   return(out)
 }
 
+check_relationship <- function(relationship, x, y, by, error_call) {
+  if (is_null(relationship)) {
+    # FIXME: Determine behavior based on option
+    if (!is_key(x, by$x) && !is_key(y, by$y)) {
+      warn_join(
+        message = c(
+          "Detected an unexpected many-to-many relationship between `x` and `y`.",
+          i = paste0(
+            "If a many-to-many relationship is expected, ",
+            "set `relationship = \"many-to-many\"` to silence this warning."
+          )
+        ),
+        class = "dplyr_warning_join_relationship_many_to_many",
+        call = error_call
+      )
+    }
+    return()
+  }
+
+  if (relationship %in% c("one-to-many", "one-to-one")) {
+    if (!is_key(x, by$x)) {
+      stop_join(
+        message = c(
+          glue("Each row in `{x_name}` must match at most 1 row in `{y_name}`."),
+        ),
+        class = paste0("dplyr_error_join_relationship_", gsub("-", "_", relationship)),
+        call = error_call
+      )
+    }
+  }
+
+  if (relationship %in% c("many-to-one", "one-to-one")) {
+    if (!is_key(y, by$y)) {
+      stop_join(
+        message = c(
+          glue("Each row in `{y_name}` must match at most 1 row in `{x_name}`."),
+        ),
+        class = paste0("dplyr_error_join_relationship_", gsub("-", "_", relationship)),
+        call = error_call
+      )
+    }
+  }
+}
+
+is_key <- function(x, cols) {
+  local_options(duckdb.materialize_message = FALSE)
+
+  rows <-
+    x %>%
+    select(!!!cols) %>%
+    # FIXME: Why does this materialize
+    # as_duckplyr_tibble() %>%
+    count(!!!syms(cols), name = "___n") %>%
+    filter(`___n` > 1L) %>%
+    head(1L) %>%
+    nrow()
+
+  rows == 0
+}
+
 # https://github.com/tidyverse/dplyr/pull/7029
 
 join_ptype_common <- function(x, y, vars, error_call = caller_env()) {
@@ -2842,12 +2907,15 @@ join_ptype_common <- function(x, y, vars, error_call = caller_env()) {
 left_join.data.frame <- function(x, y, by = NULL, copy = FALSE, suffix = c(".x", ".y"), ..., keep = NULL, na_matches = c("na", "never"), multiple = "all", unmatched = "drop", relationship = NULL) {
   check_dots_empty0(...)
   error_call <- caller_env()
+  y <- auto_copy(x, y, copy = copy)
 
   # Our implementation
-  rel_try(list(name = "left_join", x = x, y = y, args = list(by = if (!is.null(by) && !is_cross_by(by)) as_join_by(by), copy = copy, keep = keep, na_matches = na_matches, multiple = multiple, unmatched = unmatched, relationship = relationship)),
+  rel_try(list(name = "left_join", x = x, y = y, args = try_list(by = if (!is.null(by) && !is_cross_by(by)) as_join_by(by), copy = copy, keep = keep, na_matches = na_matches, multiple = multiple, unmatched = unmatched, relationship = relationship)),
     "No implicit cross joins for left_join()" = is_cross_by(by),
+    "`multiple` not supported" = !identical(multiple, "all"),
+    "`unmatched` not supported" = !identical(unmatched, "drop"),
     {
-      out <- rel_join_impl(x, y, by, copy, "left", na_matches, suffix, keep, error_call)
+      out <- rel_join_impl(x, y, by, "left", na_matches, suffix, keep, relationship, error_call)
       return(out)
     }
   )
@@ -2899,7 +2967,7 @@ mutate.data.frame <- function(.data, ..., .by = NULL, .keep = c("all", "used", "
   by_names <- eval_select_by(by_arg, .data)
 
   # Our implementation
-  rel_try(list(name = "mutate", x = .data, args = list(dots = enquos(...), .by = by_arg, .keep = .keep)),
+  rel_try(list(name = "mutate", x = .data, args = try_list(dots = enquos(...), .by = by_arg, .keep = .keep)),
     "Implemented for all cases?" = FALSE,
     {
       rel <- duckdb_rel_from_df(.data)
@@ -4503,10 +4571,7 @@ rel_names <- function(rel, ...) {
 rel_try <- function(call, rel, ...) {
   call_name <- as.character(sys.call(-1)[[1]])
 
-  if (!is.null(call$name)) {
-    meta_call_start(call$name)
-    withr::defer(meta_call_end())
-  }
+  meta_call(call_name)
 
   # Avoid error when called via dplyr:::filter.data.frame() (in yamlet)
   if (length(call_name) == 1 && !(call_name %in% stats$calls)) {
@@ -4633,7 +4698,7 @@ relocate.data.frame <- function(.data, ..., .before = NULL, .after = NULL) {
   exprs <- exprs_from_loc(.data, loc)
 
   # Ensure `relocate()` appears in call stack
-  rel_try(list(name = "relocate", x = .data, args = list(dots = enquos(...), .before = enquo(.before), .after = enquo(.after))),
+  rel_try(list(name = "relocate", x = .data, args = try_list(dots = enquos(...), .before = enquo(.before), .after = enquo(.after))),
     "Can't use relational with zero-column result set." = (length(exprs) == 0),
     {
       rel <- duckdb_rel_from_df(.data)
@@ -4688,7 +4753,7 @@ rename.data.frame <- function(.data, ...) {
 
   exprs <- exprs_from_loc(.data, proj)
 
-  rel_try(list(name = "rename", x = .data, args = list(dots = enquos(...))),
+  rel_try(list(name = "rename", x = .data, args = try_list(dots = enquos(...))),
     "Can't use relational with zero-column result set." = (length(exprs) == 0),
     {
       rel <- duckdb_rel_from_df(.data)
@@ -4782,12 +4847,15 @@ duckplyr_rename_with <- function(.data, ...) {
 right_join.data.frame <- function(x, y, by = NULL, copy = FALSE, suffix = c(".x", ".y"), ..., keep = NULL, na_matches = c("na", "never"), multiple = "all", unmatched = "drop", relationship = NULL) {
   check_dots_empty0(...)
   error_call <- caller_env()
+  y <- auto_copy(x, y, copy = copy)
 
   # Our implementation
-  rel_try(list(name = "right_join", x = x, y = y, args = list(by = if (!is.null(by) && !is_cross_by(by)) as_join_by(by), copy = copy, keep = keep, na_matches = na_matches, multiple = multiple, unmatched = unmatched, relationship = relationship)),
+  rel_try(list(name = "right_join", x = x, y = y, args = try_list(by = if (!is.null(by) && !is_cross_by(by)) as_join_by(by), copy = copy, keep = keep, na_matches = na_matches, multiple = multiple, unmatched = unmatched, relationship = relationship)),
     "No implicit cross joins for right_join()" = is_cross_by(by),
+    "`multiple` not supported" = !identical(multiple, "all"),
+    "`unmatched` not supported" = !identical(unmatched, "drop"),
     {
-      out <- rel_join_impl(x, y, by, copy, "right", na_matches, suffix, keep, error_call)
+      out <- rel_join_impl(x, y, by, "right", na_matches, suffix, keep, relationship, error_call)
       return(out)
     }
   )
@@ -5300,7 +5368,7 @@ select.data.frame <- function(.data, ...) {
 
   exprs <- exprs_from_loc(.data, loc)
 
-  rel_try(list(name = "select", x = .data, args = list(dots = enquos(...))),
+  rel_try(list(name = "select", x = .data, args = try_list(dots = enquos(...))),
     "Can't use relational with zero-column result set." = (length(exprs) == 0),
     {
       rel <- duckdb_rel_from_df(.data)
@@ -5348,15 +5416,16 @@ duckplyr_select <- function(.data, ...) {
 semi_join.data.frame <- function(x, y, by = NULL, copy = FALSE, ..., na_matches = c("na", "never")) {
   check_dots_empty0(...)
   error_call <- caller_env()
+  y <- auto_copy(x, y, copy = copy)
 
   # https://github.com/duckdb/duckdb/issues/6597
   na_matches <- check_na_matches(na_matches, error_call = error_call)
 
   # Our implementation
-  rel_try(list(name = "semi_join", x = x, y = y, args = list(by = if (!is.null(by) && !is_cross_by(by)) as_join_by(by), copy = copy, na_matches = na_matches)),
+  rel_try(list(name = "semi_join", x = x, y = y, args = try_list(by = if (!is.null(by) && !is_cross_by(by)) as_join_by(by), copy = copy, na_matches = na_matches)),
     "No restrictions" = FALSE,
     {
-      out <- rel_join_impl(x, y, by, copy, "semi", na_matches, error_call = error_call)
+      out <- rel_join_impl(x, y, by, "semi", na_matches, error_call = error_call)
       return(out)
     }
   )
@@ -5711,7 +5780,7 @@ summarise.data.frame <- function(.data, ..., .by = NULL, .groups = NULL) {
 
   by <- eval_select_by(enquo(.by), .data)
 
-  rel_try(list(name = "summarise", x = .data, args = list(dots = enquos(...), by = syms(by), .groups = .groups)),
+  rel_try(list(name = "summarise", x = .data, args = try_list(dots = enquos(...), by = syms(by), .groups = .groups)),
     'summarize(.groups = "rowwise") not supported' = identical(.groups, "rowwise"),
     {
       rel <- duckdb_rel_from_df(.data)
@@ -6253,7 +6322,7 @@ transmute.data.frame <- function(.data, ...) {
   dots <- dplyr_quosures(!!!dots)
   dots <- fix_auto_name(dots)
 
-  rel_try(list(name = "transmute", x = .data, args = list(dots = enquos(...))),
+  rel_try(list(name = "transmute", x = .data, args = try_list(dots = enquos(...))),
     "Can't use relational with zero-column result set." = (length(dots) == 0),
     {
       exprs <- rel_translate_dots(dots, .data)
