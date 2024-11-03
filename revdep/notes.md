@@ -114,6 +114,10 @@ Edit `run*.R` to include exceptions.
     - Careful check of supported data type
 - plutor
     - Careful check of supported data type
+- cardx
+    - Case-sensitive column names
+    - https://github.com/duckdb/duckdb/discussions/14682
+    - Fix could be slow
 
 ## Needs extension support
 
@@ -188,9 +192,6 @@ Edit `run*.R` to include exceptions.
 - rWCVP
     - Touching columns that don't need to be touched
 
-- cardx
-    - Different data?
-
 - offsetreg
     - xgboost related error
 
@@ -208,3 +209,7 @@ Edit `run*.R` to include exceptions.
 
 - rfars
     - Killed previously, not anymore?
+
+- gutenbergr
+    - `%in%` for a vector of >50k elements
+
