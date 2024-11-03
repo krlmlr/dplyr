@@ -8,7 +8,7 @@
 |[cardx](problems.md#cardx)|0.2.1   |__+1__ |        |     |
 |[crosshap](problems.md#crosshap)|1.4.0   |__+1__ |        |     |
 |[gtsummary](problems.md#gtsummary)|2.0.3   |__+1__ |        |     |
-|[healthdb](problems.md#healthdb)|0.3.1   |__+1__ |        |     |
+|[healthdb](problems.md#healthdb)|0.3.1   |__+2__ |        |     |
 |[iNZightTools](problems.md#inzighttools)|2.0.1   |__+1__ |        |     |
 |[joyn](problems.md#joyn)|0.2.3   |__+1__ |        |     |
 |[streamDepletr](problems.md#streamdepletr)|0.2.0   |__+1__ |        |     |
