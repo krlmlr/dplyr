@@ -2875,11 +2875,9 @@ is_key <- function(x, cols) {
 
   rows <-
     x %>%
-    ungroup() %>%
-    select(!!!cols) %>%
     # FIXME: Why does this materialize
     # as_duckplyr_tibble() %>%
-    count(!!!syms(cols), name = "___n") %>%
+    summarize(.by = c(!!!syms(cols)), `___n` = n()) %>%
     filter(`___n` > 1L) %>%
     head(1L) %>%
     nrow()
