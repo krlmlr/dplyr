@@ -2875,6 +2875,7 @@ is_key <- function(x, cols) {
 
   rows <-
     x %>%
+    ungroup() %>%
     select(!!!cols) %>%
     # FIXME: Why does this materialize
     # as_duckplyr_tibble() %>%
@@ -6143,6 +6144,10 @@ rel_translate_lang <- function(
         }
       } else {
         has_na <- FALSE
+      }
+
+      if (length(values) > 100) {
+        cli::cli_abort("Can't translate {.code {name}} with more than 100 values.")
       }
 
       consts <- map(values, do_translate)
