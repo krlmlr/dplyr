@@ -61,7 +61,7 @@ anti_join.data.frame <- function(x, y, by = NULL, copy = FALSE, ..., na_matches 
   rel_try(list(name = "anti_join", x = x, y = y, args = list(by = if (!is.null(by) && !is_cross_by(by)) as_join_by(by), copy = copy, na_matches = na_matches)),
     "No restrictions" = FALSE,
     {
-      out <- rel_join_impl(x, y, by, "anti", na_matches, error_call = error_call)
+      out <- rel_join_impl(x, y, by, copy, "anti", na_matches, error_call = error_call)
       return(out)
     }
   )
@@ -1297,7 +1297,7 @@ full_join.data.frame <- function(x, y, by = NULL, copy = FALSE, suffix = c(".x",
   rel_try(list(name = "full_join", x = x, y = y, args = list(by = if (!is.null(by) && !is_cross_by(by)) as_join_by(by), copy = copy, keep = keep, na_matches = na_matches, multiple = multiple, relationship = relationship)),
     "No implicit cross joins for full_join()" = is_cross_by(by),
     {
-      out <- rel_join_impl(x, y, by, "full", na_matches, suffix, keep, error_call)
+      out <- rel_join_impl(x, y, by, copy, "full", na_matches, suffix, keep, error_call)
       return(out)
     }
   )
@@ -2342,7 +2342,7 @@ inner_join.data.frame <- function(x, y, by = NULL, copy = FALSE, suffix = c(".x"
   rel_try(list(name = "inner_join", x = x, y = y, args = list(by = if (!is.null(by) && !is_cross_by(by)) as_join_by(by), copy = copy, keep = keep, na_matches = na_matches, multiple = multiple, unmatched = unmatched, relationship = relationship)),
     "No implicit cross joins for inner_join()" = is_cross_by(by),
     {
-      out <- rel_join_impl(x, y, by, "inner", na_matches, suffix, keep, error_call)
+      out <- rel_join_impl(x, y, by, copy, "inner", na_matches, suffix, keep, error_call)
       return(out)
     }
   )
@@ -2680,6 +2680,7 @@ rel_join_impl <- function(
   x,
   y,
   by,
+  copy,
   join,
   na_matches,
   suffix = c(".x", ".y"),
@@ -2846,7 +2847,7 @@ left_join.data.frame <- function(x, y, by = NULL, copy = FALSE, suffix = c(".x",
   rel_try(list(name = "left_join", x = x, y = y, args = list(by = if (!is.null(by) && !is_cross_by(by)) as_join_by(by), copy = copy, keep = keep, na_matches = na_matches, multiple = multiple, unmatched = unmatched, relationship = relationship)),
     "No implicit cross joins for left_join()" = is_cross_by(by),
     {
-      out <- rel_join_impl(x, y, by, "left", na_matches, suffix, keep, error_call)
+      out <- rel_join_impl(x, y, by, copy, "left", na_matches, suffix, keep, error_call)
       return(out)
     }
   )
@@ -4786,7 +4787,7 @@ right_join.data.frame <- function(x, y, by = NULL, copy = FALSE, suffix = c(".x"
   rel_try(list(name = "right_join", x = x, y = y, args = list(by = if (!is.null(by) && !is_cross_by(by)) as_join_by(by), copy = copy, keep = keep, na_matches = na_matches, multiple = multiple, unmatched = unmatched, relationship = relationship)),
     "No implicit cross joins for right_join()" = is_cross_by(by),
     {
-      out <- rel_join_impl(x, y, by, "right", na_matches, suffix, keep, error_call)
+      out <- rel_join_impl(x, y, by, copy, "right", na_matches, suffix, keep, error_call)
       return(out)
     }
   )
@@ -5355,7 +5356,7 @@ semi_join.data.frame <- function(x, y, by = NULL, copy = FALSE, ..., na_matches 
   rel_try(list(name = "semi_join", x = x, y = y, args = list(by = if (!is.null(by) && !is_cross_by(by)) as_join_by(by), copy = copy, na_matches = na_matches)),
     "No restrictions" = FALSE,
     {
-      out <- rel_join_impl(x, y, by, "semi", na_matches, error_call = error_call)
+      out <- rel_join_impl(x, y, by, copy, "semi", na_matches, error_call = error_call)
       return(out)
     }
   )
