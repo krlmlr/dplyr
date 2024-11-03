@@ -1,17 +1,14 @@
 ## revdepcheck results
 
-We checked 13 reverse dependencies, comparing R CMD check results across CRAN and dev versions of this package.
+We checked 12 reverse dependencies, comparing R CMD check results across CRAN and dev versions of this package.
 
- * We saw 12 new problems
+ * We saw 9 new problems
  * We failed to check 0 packages
 
 Issues with CRAN packages are summarised below.
 
 ### New problems
 (This reports the first line of each new failure)
-
-* activatr
-  checking tests ... ERROR
 
 * admiral
   checking tests ... ERROR
@@ -20,9 +17,6 @@ Issues with CRAN packages are summarised below.
   checking tests ... ERROR
 
 * crosshap
-  checking tests ... ERROR
-
-* cvms
   checking tests ... ERROR
 
 * gtsummary
@@ -35,9 +29,6 @@ Issues with CRAN packages are summarised below.
   checking tests ... ERROR
 
 * joyn
-  checking tests ... ERROR
-
-* plutor
   checking tests ... ERROR
 
 * streamDepletr

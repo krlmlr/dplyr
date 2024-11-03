@@ -1,49 +1,3 @@
-# activatr
-
-<details>
-
-* Version: 0.2.1
-* GitHub: https://github.com/dschafer/activatr
-* Source code: https://github.com/cran/activatr
-* Date/Publication: 2024-07-27 21:20:02 UTC
-* Number of recursive dependencies: 106
-
-Run `revdepcheck::cloud_details(, "activatr")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking tests ... ERROR
-    ```
-      Running ‘testthat.R’
-    Running the tests in ‘tests/testthat.R’ failed.
-    Complete output:
-      > library(testthat)
-      > library(activatr)
-      > 
-      > test_check("activatr")
-      [ FAIL 6 | WARN 0 | SKIP 0 | PASS 98 ]
-      
-      ══ Failed tests ════════════════════════════════════════════════════════════════
-      ── Failure ('test_act_tbl.R:23:3'): summary works ──────────────────────────────
-      s$Time inherits from `'numeric'` not `'character'`.
-      ── Failure ('test_act_tbl.R:26:3'): summary works ──────────────────────────────
-      s$AvgPace inherits from `'numeric'` not `'character'`.
-      ── Failure ('test_act_tbl.R:28:3'): summary works ──────────────────────────────
-      s$MaxPace inherits from `'numeric'` not `'character'`.
-      ── Failure ('test_act_tbl.R:70:3'): summary allows for metric system ───────────
-      s$Time inherits from `'numeric'` not `'character'`.
-      ── Failure ('test_act_tbl.R:73:3'): summary allows for metric system ───────────
-      s$AvgPace inherits from `'numeric'` not `'character'`.
-      ── Failure ('test_act_tbl.R:75:3'): summary allows for metric system ───────────
-      s$MaxPace inherits from `'numeric'` not `'character'`.
-      
-      [ FAIL 6 | WARN 0 | SKIP 0 | PASS 98 ]
-      Error: Test failures
-      Execution halted
-    ```
-
 # admiral
 
 <details>
@@ -456,10 +410,11 @@ Run `revdepcheck::cloud_details(, "crosshap")` for more info
       ■■■■■                             14% | ETA: 19s
       ■■■■■■■■■■■■                      36% | ETA:  6m
       ■■■■■■■■■■■■■■                    43% | ETA:  5m
+      ■■■■■■■■■■■■■■■■■■                57% | ETA:  3m
       ■■■■■■■■■■■■■■■■■■■■              64% | ETA:  4m
       ■■■■■■■■■■■■■■■■■■■■■■            71% | ETA:  3m
       ■■■■■■■■■■■■■■■■■■■■■■■■■■■       86% | ETA:  1m
-      ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■     93% | ETA: 49s
+      ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■     93% | ETA: 48s
       ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■  100% | ETA:  0s
       WARNING: Phenotype association scores (phenodiff) not calculated for 252 of 2041 sites
       NOTE: 432 sites have more heterozygous individuals (1/0) than one of the homozygous states (1/1 or 0/0).
@@ -508,9 +463,9 @@ Run `revdepcheck::cloud_details(, "crosshap")` for more info
       20  7.75     0 hap_eps0.99~ 0.99    F          21             48.8         0.667
       # i 3 more variables: .ggraph.orig_index <int>, circular <lgl>,
       #   .ggraph.index <int>
-      ■■■■■■■■■■■                       33% | ETA:  6s
+      ■■■■■■■■■■■                       33% | ETA:  5s
       ■■■■■■■■■■■■■■■■■■■■■             67% | ETA:  2s
-      ■■■■■■■■■■■■■■■■■■■■■■■■■■        83% | ETA: 43s
+      ■■■■■■■■■■■■■■■■■■■■■■■■■■        83% | ETA: 42s
       ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■  100% | ETA:  0s
       WARNING: Phenotype association scores (phenodiff) not calculated for 252 of 2041 sites
       NOTE: 432 sites have more heterozygous individuals (1/0) than one of the homozygous states (1/1 or 0/0).
@@ -567,90 +522,6 @@ Run `revdepcheck::cloud_details(, "crosshap")` for more info
       [ FAIL 1 | WARN 0 | SKIP 6 | PASS 5 ]
       Error: Test failures
       In addition: There were 20 warnings (use warnings() to see them)
-      Execution halted
-    ```
-
-# cvms
-
-<details>
-
-* Version: 1.6.2
-* GitHub: https://github.com/ludvigolsen/cvms
-* Source code: https://github.com/cran/cvms
-* Date/Publication: 2024-07-31 10:40:38 UTC
-* Number of recursive dependencies: 151
-
-Run `revdepcheck::cloud_details(, "cvms")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking tests ... ERROR
-    ```
-      Running ‘testthat.R’
-    Running the tests in ‘tests/testthat.R’ failed.
-    Complete output:
-      > library(testthat)
-      > library(cvms)
-      > 
-      > if (require("xpectr")) {
-      +   test_check("cvms")
-      + }
-      Loading required package: xpectr
-      [ FAIL 2 | WARN 0 | SKIP 71 | PASS 3614 ]
-      
-      ══ Skipped tests (71) ══════════════════════════════════════════════════════════
-      • Fails in check - IMPROVE THESE TESTS (1): 'test_example_functions.R:7:3'
-      • On CRAN (58): 'test_baseline.R:9:3', 'test_baseline.R:630:3',
-        'test_baseline.R:921:3', 'test_baseline.R:1218:3', 'test_baseline.R:1518:3',
-        'test_baseline.R:3602:3', 'test_baseline.R:3694:3',
-        'test_cross_validate.R:134:3', 'test_cross_validate.R:246:3',
-        'test_cross_validate.R:734:3', 'test_cross_validate.R:935:3',
-        'test_cross_validate.R:969:3', 'test_cross_validate.R:1019:3',
-        'test_cross_validate.R:1245:3', 'test_cross_validate.R:1518:3',
-        'test_cross_validate.R:1859:3', 'test_cross_validate.R:2200:3',
-        'test_cross_validate.R:2395:3', 'test_cross_validate.R:2511:3',
-        'test_cross_validate.R:3138:3', 'test_cross_validate.R:3216:3',
-        'test_cross_validate_fn.R:101:3', 'test_cross_validate_fn.R:512:3',
-        'test_cross_validate_fn.R:752:3', 'test_cross_validate_fn.R:969:3',
-        'test_cross_validate_fn.R:1056:3', 'test_cross_validate_fn.R:1308:3',
-        'test_cross_validate_fn.R:1419:3', 'test_cross_validate_fn.R:1552:3',
-        'test_cross_validate_fn.R:1952:3', 'test_cross_validate_fn.R:2061:3',
-        'test_cross_validate_fn.R:2248:3', 'test_cross_validate_fn.R:2525:3',
-        'test_cross_validate_fn.R:2574:3', 'test_cross_validate_fn.R:2615:3',
-        'test_cross_validate_fn.R:3292:3', 'test_cross_validate_fn.R:3357:3',
-        'test_cross_validate_fn.R:3425:3', 'test_cross_validate_fn.R:3485:3',
-        'test_evaluate.R:3845:3', 'test_evaluate.R:4268:3', 'test_evaluate.R:4767:3',
-        'test_evaluate.R:5412:3', 'test_most_challenging.R:8:3',
-        'test_most_challenging.R:369:3', 'test_most_challenging.R:742:3',
-        'test_most_challenging.R:1502:3', 'test_select_definitions.R:7:3',
-        'test_select_metrics.R:7:3', 'test_select_metrics.R:573:3',
-        'test_validate.R:123:3', 'test_validate.R:296:3', 'test_validate.R:430:3',
-        'test_validate.R:665:3', 'test_validate_fn.R:185:3',
-        'test_validate_fn.R:828:3', 'test_validate_fn.R:2195:3',
-        'test_validate_fn.R:3079:3'
-      • Skipping check for CRAN release due to r_hub failure (1):
-        'test_combine_predictors.R:259:3'
-      • Skipping parallel tests (3): 'test_parallelization.R:11:3',
-        'test_parallelization.R:56:3', 'test_parallelization.R:141:3'
-      • Skipping test as R version is > 4.2. (1): 'test_cross_validate_fn.R:469:3'
-      • empty test (1): 'test_parallelization.R:99:1'
-      • keras and tensorflow take too long and have too many dependencies (1):
-        'test_cross_validate_fn.R:2333:3'
-      • mac and ubuntu give different warnings (4): 'test_cross_validate.R:596:3',
-        'test_cross_validate.R:664:3', 'test_helpers.R:42:3', 'test_helpers.R:287:3'
-      • tidymodels have too many dependencies (1): 'test_cross_validate_fn.R:2460:3'
-      
-      ══ Failed tests ════════════════════════════════════════════════════════════════
-      ── Failure ('test_cross_validate.R:1413:3'): gaussian models work with repeated cross_validate() ──
-      CVgausslist$Coefficients[[1]] inherits from `'data.frame'` not `'character'`.
-      ── Failure ('test_validate_fn.R:4529:3'): testing nested tibbles in multinomial validate_fn() ──
-      class(output_19148) not equal to c("tbl_df", "tbl", "data.frame").
-      Lengths differ: 1 is not 3
-      
-      [ FAIL 2 | WARN 0 | SKIP 71 | PASS 3614 ]
-      Error: Test failures
       Execution halted
     ```
 
@@ -982,8 +853,8 @@ Run `revdepcheck::cloud_details(, "joyn")` for more info
       inner join: df1[id1, id2] 3/4 (75%) <1:1st> df3[id1, id2] 3/4 (75%)
       i Note: Joyn's report available in variable .joyn
       v This is an info message
-      o Timing:The full joyn is executed in 0.00037 seconds.
-      o Timing: The entire joyn function, including checks, is executed in 0.016113
+      o Timing:The full joyn is executed in 0.000423 seconds.
+      o Timing: The entire joyn function, including checks, is executed in 0.025225
       seconds.
       ! Warning: Currently, joyn allows only na_matches = 'na'
       x This is a warning message
@@ -1065,217 +936,6 @@ Run `revdepcheck::cloud_details(, "joyn")` for more info
        3.   └─dplyr:::rel_try(...)
       
       [ FAIL 1 | WARN 0 | SKIP 3 | PASS 463 ]
-      Error: Test failures
-      Execution halted
-    ```
-
-# plutor
-
-<details>
-
-* Version: 0.1.0
-* GitHub: https://github.com/william-swl/plutor
-* Source code: https://github.com/cran/plutor
-* Date/Publication: 2023-10-27 08:00:02 UTC
-* Number of recursive dependencies: 114
-
-Run `revdepcheck::cloud_details(, "plutor")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking tests ... ERROR
-    ```
-      Running ‘testthat.R’
-    Running the tests in ‘tests/testthat.R’ failed.
-    Complete output:
-      > # This file is part of the standard setup for testthat.
-      > # It is recommended that you do not modify it.
-      > #
-      > # Where should you do additional test configuration?
-      > # Learn more about the roles of various files in:
-      > # * https://r-pkgs.org/tests.html
-      > # * https://testthat.r-lib.org/reference/test_package.html#special-files
-      > 
-      > library(testthat)
-      > library(plutor)
-      > 
-      > test_check("plutor")
-      [ FAIL 10 | WARN 12 | SKIP 17 | PASS 0 ]
-      
-      ══ Skipped tests (17) ══════════════════════════════════════════════════════════
-      • On CRAN (17): 'test-Position.R:4:3', 'test-Position.R:17:3',
-        'test-Scales.R:2:3', 'test-Scales.R:13:3', 'test-Scales.R:24:3',
-        'test-Scales.R:35:3', 'test-Stat.R:4:3', 'test-Stat.R:14:3',
-        'test-Stat.R:27:3', 'test-color.R:2:3', 'test-color.R:11:3',
-        'test-color.R:21:3', 'test-geom_compare.R:127:3',
-        'test-geom_compare.R:165:3', 'test-geom_describe.R:4:3',
-        'test-geom_describe.R:15:3', 'test-theme.R:2:3'
-      
-      ══ Failed tests ════════════════════════════════════════════════════════════════
-      ── Error ('test-geom_compare.R:4:3'): geom_compare ─────────────────────────────
-      Error in `layer(data = data, mapping = mapping, geom = GeomCompare, stat = stat, 
-          position = position, show.legend = show.legend, inherit.aes = inherit.aes, 
-          params = list(na.rm = na.rm, lab_pos = lab_pos, step_increase = step_increase, 
-              tip_length = tip_length, cp_label = cp_label, ignore_ns = ignore_ns, 
-              ns_lineheight_just = ns_lineheight_just, fc_method = fc_method, 
-              comparisons = comparisons, paired = paired, alternative = alternative, 
-              test_method = test_method, ns_symbol = ns_symbol, cp_ref = cp_ref, 
-              cp_inline = cp_inline, brackets_widen = brackets_widen, 
-              fc_digits = fc_digits, cp_result = cp_result, cp_manual = cp_manual, 
-              lineend = lineend, ...))`: Problem while converting geom to grob.
-      i Error occurred in the 2nd layer.
-      Caused by error in `mutate()`:
-      i In argument: `yend = y - tip_length * (y_range[2] - y_range[1])`.
-      Caused by error:
-      ! `yend` must be size 3 or 1, not 0.
-      ── Error ('test-geom_compare.R:15:3'): geom_compare, log10 ─────────────────────
-      Error in `layer(data = data, mapping = mapping, geom = GeomCompare, stat = stat, 
-          position = position, show.legend = show.legend, inherit.aes = inherit.aes, 
-          params = list(na.rm = na.rm, lab_pos = lab_pos, step_increase = step_increase, 
-              tip_length = tip_length, cp_label = cp_label, ignore_ns = ignore_ns, 
-              ns_lineheight_just = ns_lineheight_just, fc_method = fc_method, 
-              comparisons = comparisons, paired = paired, alternative = alternative, 
-              test_method = test_method, ns_symbol = ns_symbol, cp_ref = cp_ref, 
-              cp_inline = cp_inline, brackets_widen = brackets_widen, 
-              fc_digits = fc_digits, cp_result = cp_result, cp_manual = cp_manual, 
-              lineend = lineend, ...))`: Problem while converting geom to grob.
-      i Error occurred in the 2nd layer.
-      Caused by error in `mutate()`:
-      i In argument: `yend = y - tip_length * (y_range[2] - y_range[1])`.
-      Caused by error:
-      ! `yend` must be size 3 or 1, not 0.
-      ── Error ('test-geom_compare.R:26:3'): geom_compare, facet ─────────────────────
-      Error in `layer(data = data, mapping = mapping, geom = GeomCompare, stat = stat, 
-          position = position, show.legend = show.legend, inherit.aes = inherit.aes, 
-          params = list(na.rm = na.rm, lab_pos = lab_pos, step_increase = step_increase, 
-              tip_length = tip_length, cp_label = cp_label, ignore_ns = ignore_ns, 
-              ns_lineheight_just = ns_lineheight_just, fc_method = fc_method, 
-              comparisons = comparisons, paired = paired, alternative = alternative, 
-              test_method = test_method, ns_symbol = ns_symbol, cp_ref = cp_ref, 
-              cp_inline = cp_inline, brackets_widen = brackets_widen, 
-              fc_digits = fc_digits, cp_result = cp_result, cp_manual = cp_manual, 
-              lineend = lineend, ...))`: Problem while converting geom to grob.
-      i Error occurred in the 2nd layer.
-      Caused by error in `mutate()`:
-      i In argument: `yend = y - tip_length * (y_range[2] - y_range[1])`.
-      Caused by error:
-      ! `yend` must be size 3 or 1, not 0.
-      ── Error ('test-geom_compare.R:38:3'): geom_compare, ignore ns ─────────────────
-      Error in `layer(data = data, mapping = mapping, geom = GeomCompare, stat = stat, 
-          position = position, show.legend = show.legend, inherit.aes = inherit.aes, 
-          params = list(na.rm = na.rm, lab_pos = lab_pos, step_increase = step_increase, 
-              tip_length = tip_length, cp_label = cp_label, ignore_ns = ignore_ns, 
-              ns_lineheight_just = ns_lineheight_just, fc_method = fc_method, 
-              comparisons = comparisons, paired = paired, alternative = alternative, 
-              test_method = test_method, ns_symbol = ns_symbol, cp_ref = cp_ref, 
-              cp_inline = cp_inline, brackets_widen = brackets_widen, 
-              fc_digits = fc_digits, cp_result = cp_result, cp_manual = cp_manual, 
-              lineend = lineend, ...))`: Problem while converting geom to grob.
-      i Error occurred in the 2nd layer.
-      Caused by error in `mutate()`:
-      i In argument: `yend = y - tip_length * (y_range[2] - y_range[1])`.
-      Caused by error:
-      ! `yend` must be size 2 or 1, not 0.
-      ── Error ('test-geom_compare.R:52:3'): geom_compare, ignore ns partly ──────────
-      Error in `layer(data = data, mapping = mapping, geom = GeomCompare, stat = stat, 
-          position = position, show.legend = show.legend, inherit.aes = inherit.aes, 
-          params = list(na.rm = na.rm, lab_pos = lab_pos, step_increase = step_increase, 
-              tip_length = tip_length, cp_label = cp_label, ignore_ns = ignore_ns, 
-              ns_lineheight_just = ns_lineheight_just, fc_method = fc_method, 
-              comparisons = comparisons, paired = paired, alternative = alternative, 
-              test_method = test_method, ns_symbol = ns_symbol, cp_ref = cp_ref, 
-              cp_inline = cp_inline, brackets_widen = brackets_widen, 
-              fc_digits = fc_digits, cp_result = cp_result, cp_manual = cp_manual, 
-              lineend = lineend, ...))`: Problem while converting geom to grob.
-      i Error occurred in the 2nd layer.
-      Caused by error in `mutate()`:
-      i In argument: `yend = y - tip_length * (y_range[2] - y_range[1])`.
-      Caused by error:
-      ! `yend` must be size 3 or 1, not 0.
-      ── Error ('test-geom_compare.R:66:3'): geom_compare, fc1 ───────────────────────
-      Error in `layer(data = data, mapping = mapping, geom = GeomCompare, stat = stat, 
-          position = position, show.legend = show.legend, inherit.aes = inherit.aes, 
-          params = list(na.rm = na.rm, lab_pos = lab_pos, step_increase = step_increase, 
-              tip_length = tip_length, cp_label = cp_label, ignore_ns = ignore_ns, 
-              ns_lineheight_just = ns_lineheight_just, fc_method = fc_method, 
-              comparisons = comparisons, paired = paired, alternative = alternative, 
-              test_method = test_method, ns_symbol = ns_symbol, cp_ref = cp_ref, 
-              cp_inline = cp_inline, brackets_widen = brackets_widen, 
-              fc_digits = fc_digits, cp_result = cp_result, cp_manual = cp_manual, 
-              lineend = lineend, ...))`: Problem while converting geom to grob.
-      i Error occurred in the 2nd layer.
-      Caused by error in `mutate()`:
-      i In argument: `yend = y - tip_length * (y_range[2] - y_range[1])`.
-      Caused by error:
-      ! `yend` must be size 2 or 1, not 0.
-      ── Error ('test-geom_compare.R:82:3'): geom_compare, paired ────────────────────
-      Error in `layer(data = data, mapping = mapping, geom = GeomCompare, stat = stat, 
-          position = position, show.legend = show.legend, inherit.aes = inherit.aes, 
-          params = list(na.rm = na.rm, lab_pos = lab_pos, step_increase = step_increase, 
-              tip_length = tip_length, cp_label = cp_label, ignore_ns = ignore_ns, 
-              ns_lineheight_just = ns_lineheight_just, fc_method = fc_method, 
-              comparisons = comparisons, paired = paired, alternative = alternative, 
-              test_method = test_method, ns_symbol = ns_symbol, cp_ref = cp_ref, 
-              cp_inline = cp_inline, brackets_widen = brackets_widen, 
-              fc_digits = fc_digits, cp_result = cp_result, cp_manual = cp_manual, 
-              lineend = lineend, ...))`: Problem while converting geom to grob.
-      i Error occurred in the 2nd layer.
-      Caused by error in `mutate()`:
-      i In argument: `yend = y - tip_length * (y_range[2] - y_range[1])`.
-      Caused by error:
-      ! `yend` must be size 1, not 0.
-      ── Error ('test-geom_compare.R:98:3'): geom_compare, inline ────────────────────
-      Error in `layer(data = data, mapping = mapping, geom = GeomCompare, stat = stat, 
-          position = position, show.legend = show.legend, inherit.aes = inherit.aes, 
-          params = list(na.rm = na.rm, lab_pos = lab_pos, step_increase = step_increase, 
-              tip_length = tip_length, cp_label = cp_label, ignore_ns = ignore_ns, 
-              ns_lineheight_just = ns_lineheight_just, fc_method = fc_method, 
-              comparisons = comparisons, paired = paired, alternative = alternative, 
-              test_method = test_method, ns_symbol = ns_symbol, cp_ref = cp_ref, 
-              cp_inline = cp_inline, brackets_widen = brackets_widen, 
-              fc_digits = fc_digits, cp_result = cp_result, cp_manual = cp_manual, 
-              lineend = lineend, ...))`: Problem while converting geom to grob.
-      i Error occurred in the 2nd layer.
-      Caused by error in `mutate()`:
-      i In argument: `yend = y - tip_length * (y_range[2] - y_range[1])`.
-      Caused by error:
-      ! `yend` must be size 2 or 1, not 0.
-      ── Error ('test-geom_compare.R:113:3'): geom_compare, cp_ref ───────────────────
-      Error in `layer(data = data, mapping = mapping, geom = GeomCompare, stat = stat, 
-          position = position, show.legend = show.legend, inherit.aes = inherit.aes, 
-          params = list(na.rm = na.rm, lab_pos = lab_pos, step_increase = step_increase, 
-              tip_length = tip_length, cp_label = cp_label, ignore_ns = ignore_ns, 
-              ns_lineheight_just = ns_lineheight_just, fc_method = fc_method, 
-              comparisons = comparisons, paired = paired, alternative = alternative, 
-              test_method = test_method, ns_symbol = ns_symbol, cp_ref = cp_ref, 
-              cp_inline = cp_inline, brackets_widen = brackets_widen, 
-              fc_digits = fc_digits, cp_result = cp_result, cp_manual = cp_manual, 
-              lineend = lineend, ...))`: Problem while converting geom to grob.
-      i Error occurred in the 2nd layer.
-      Caused by error in `mutate()`:
-      i In argument: `yend = y - tip_length * (y_range[2] - y_range[1])`.
-      Caused by error:
-      ! `yend` must be size 2 or 1, not 0.
-      ── Error ('test-geom_compare.R:178:3'): geom_compare, manual comparisons table ──
-      Error in `layer(data = data, mapping = mapping, geom = GeomCompare, stat = stat, 
-          position = position, show.legend = show.legend, inherit.aes = inherit.aes, 
-          params = list(na.rm = na.rm, lab_pos = lab_pos, step_increase = step_increase, 
-              tip_length = tip_length, cp_label = cp_label, ignore_ns = ignore_ns, 
-              ns_lineheight_just = ns_lineheight_just, fc_method = fc_method, 
-              comparisons = comparisons, paired = paired, alternative = alternative, 
-              test_method = test_method, ns_symbol = ns_symbol, cp_ref = cp_ref, 
-              cp_inline = cp_inline, brackets_widen = brackets_widen, 
-              fc_digits = fc_digits, cp_result = cp_result, cp_manual = cp_manual, 
-              lineend = lineend, ...))`: Problem while converting geom to grob.
-      i Error occurred in the 2nd layer.
-      Caused by error in `mutate()`:
-      i In argument: `yend = y - tip_length * (y_range[2] - y_range[1])`.
-      Caused by error:
-      ! `yend` must be size 3 or 1, not 0.
-      
-      [ FAIL 10 | WARN 12 | SKIP 17 | PASS 0 ]
       Error: Test failures
       Execution halted
     ```

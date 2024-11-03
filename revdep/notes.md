@@ -108,6 +108,10 @@ Edit `run*.R` to include exceptions.
     - `union_all()` on incompatible types now throws error
 - activatr
     - Careful check of supported data type
+- cvms
+    - Careful check of supported data type
+- plutor
+    - Careful check of supported data type
 
 ## Needs extension support
 
@@ -190,12 +194,6 @@ Edit `run*.R` to include exceptions.
 
 - text2sdg
     - Opaque vignette error
-
-- cvms
-    - ?
-
-- plutor
-    - ?
 
 - partition
     - Killed previously, not anymore?
