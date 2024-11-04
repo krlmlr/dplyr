@@ -28,7 +28,7 @@ broken <- setdiff(broken, tools::package_dependencies("redland", reverse = TRUE,
 # Recurring
 broken <- setdiff(broken, c("duckplyr"))
 # OOM
-broken <- setdiff(broken, c("msigdbr", "mtdesign", "partition", "rfars"))
+# broken <- setdiff(broken, c("msigdbr", "mtdesign", "partition", "rfars"))
 # Needs extension support
 broken <- setdiff(broken, c("arrow"))
 # https://github.com/tidyverse/duckplyr/issues/162
