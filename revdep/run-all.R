@@ -6,6 +6,7 @@ last
 
 # See notes.md
 bad <- c(
+  "duckplyr",
   "bayesdfa", "blavaan", "ctsem", "EcoEnsemble", "multinma",
   "rstanarm", "arealDB", "atom4R", "dataone", "FAIRmaterials",
   "metajam", "nesRdata", "ontologics", "rdflib", "randomForestSRC",
