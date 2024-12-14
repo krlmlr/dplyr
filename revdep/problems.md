@@ -21,7 +21,7 @@ Run `revdepcheck::cloud_details(, "msigdbr")` for more info
     Complete output:
       > library(testthat)
       > library(msigdbr)
-      >
+      > 
       > test_check("msigdbr")
       Killed
     ```
@@ -66,7 +66,7 @@ Run `revdepcheck::cloud_details(, "mtdesign")` for more info
     Complete output:
       > library(testthat)
       > library(mtdesign)
-      >
+      > 
       > test_check("mtdesign")
       Killed
     ```
@@ -92,7 +92,7 @@ Run `revdepcheck::cloud_details(, "partition")` for more info
     Error(s) in re-building vignettes:
     --- re-building ‘extending-partition.Rmd’ using rmarkdown
     --- finished re-building ‘extending-partition.Rmd’
-
+    
     --- re-building ‘introduction-to-partition.Rmd’ using rmarkdown
     ```
 
@@ -130,21 +130,21 @@ Run `revdepcheck::cloud_details(, "rfars")` for more info
     Content type 'application/x-zip-compressed' length 49942611 bytes (47.6 MB)
     ==================================================
     downloaded 47.6 MB
-
+    
     Killed
     --- re-building ‘Crash_sequence_of_events.Rmd’ using rmarkdown
     trying URL 'https://static.nhtsa.gov/nhtsa/downloads/CRSS/2021/CRSS2021SAS.zip'
     Content type 'application/x-zip-compressed' length 66718214 bytes (63.6 MB)
     ==================================================
     downloaded 63.6 MB
-
+    
     Killed
     --- re-building ‘Searchable_Codebooks.Rmd’ using rmarkdown
     --- finished re-building ‘Searchable_Codebooks.Rmd’
-
+    
     SUMMARY: processing the following files failed:
       ‘Counts.Rmd’ ‘Crash_sequence_of_events.Rmd’
-
+    
     Error: Vignette re-building failed.
     Execution halted
     ```
@@ -158,3 +158,4 @@ Run `revdepcheck::cloud_details(, "rfars")` for more info
         data   2.0Mb
         help   1.9Mb
     ```
+
