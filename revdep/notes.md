@@ -98,7 +98,7 @@ Edit `run*.R` to include exceptions.
     - Not letting `grepl()` through
 - ern: Unclear
     - `lag()` without importing it, need more data
-    - Problem went away after stricter `as_duckplyr_df()`
+    - Problem went away after stricter `as_duckplyr_df_()`
 - auk: Could not convert string 'X' to INT32
     - `as.integer()`
     - https://github.com/hannes/duckdb-rfuns/issues/82
