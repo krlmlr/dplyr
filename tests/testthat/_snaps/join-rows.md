@@ -88,6 +88,9 @@
     Code
       left_join(df, df, by = join_by(x))
     Condition
+      Warning:
+      Detected an unexpected many-to-many relationship between `x` and `y`.
+      i If a many-to-many relationship is expected, set `relationship = "many-to-many"` to silence this warning.
       Warning in `left_join()`:
       Detected an unexpected many-to-many relationship between `x` and `y`.
       i Row 1 of `x` matches multiple rows in `y`.
