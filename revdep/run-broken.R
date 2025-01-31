@@ -1,6 +1,8 @@
 me <- unname(desc::desc_get("Package"))
 
 last <- dir(pattern = paste0("^", me, "_.*[.]tar[.]gz$"))
+
+# pkgbuild::build(dest_path = ".", args = c("--no-build-vignettes", "--no-manual"))
 stopifnot(length(last) == 1)
 last
 
