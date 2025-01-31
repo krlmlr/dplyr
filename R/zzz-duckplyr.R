@@ -11,14 +11,16 @@ meta_macro_register <- function(...) {}
 #' @export
 add_count.data.frame <- function(x, ..., wt = NULL, sort = FALSE, name = NULL, .drop = deprecated()) {
   # Our implementation
-  rel_try(NULL,
-    "No relational implementation for add_count()" = TRUE,
+  duckplyr_error <- rel_try(NULL,
+    "No relational implementation for {.code add_count()}" = TRUE,
     {
       return(out)
     }
   )
 
   # dplyr forward
+  check_prudence(x, duckplyr_error)
+
   add_count <- add_count_data_frame
   out <- add_count(x, ..., wt = {{ wt }}, sort = sort, name = name, .drop = .drop)
   return(out)
@@ -37,7 +39,7 @@ add_count.data.frame <- function(x, ..., wt = NULL, sort = FALSE, name = NULL, .
 
 duckplyr_add_count <- function(x, ...) {
   try_fetch(
-    x <- as_duckplyr_df(x),
+    x <- as_duckplyr_df_impl(x),
     error = function(e) {
       testthat::skip(conditionMessage(e))
     }
@@ -49,15 +51,14 @@ duckplyr_add_count <- function(x, ...) {
 
 #' @title Anti join
 #'
-#' @description  This is a method for the [`dplyr::anti_join()`] generic.
+#' @description  This is a method for the [dplyr::anti_join()] generic.
 #' `anti_join()` returns all rows from `x` with**out** a match in `y`.
 #'
 #' @inheritParams dplyr::anti_join
 #' @examples
-#' library("dplyr") # for the data
-#' library("duckplyr")
+#' library(duckplyr)
 #' band_members %>% anti_join(band_instruments)
-#' @seealso [`dplyr::anti_join()`]
+#' @seealso [dplyr::anti_join()]
 #' @rdname anti_join.duckplyr_df
 #' @name anti_join.duckplyr_df
 NULL
@@ -74,7 +75,7 @@ anti_join.data.frame <- function(x, y, by = NULL, copy = FALSE, ..., na_matches 
   na_matches <- check_na_matches(na_matches, error_call = error_call)
 
   # Our implementation
-  rel_try(list(name = "anti_join", x = x, y = y, args = try_list(by = if (!is.null(by) && !is_cross_by(by)) as_join_by(by), copy = copy, na_matches = na_matches)),
+  duckplyr_error <- rel_try(list(name = "anti_join", x = x, y = y, args = try_list(by = if (!is.null(by) && !is_cross_by(by)) as_join_by(by), copy = copy, na_matches = na_matches)),
     "No restrictions" = FALSE,
     {
       out <- rel_join_impl(x, y, by, "anti", na_matches, error_call = error_call)
@@ -83,6 +84,8 @@ anti_join.data.frame <- function(x, y, by = NULL, copy = FALSE, ..., na_matches 
   )
 
   # dplyr forward
+  check_prudence(x, duckplyr_error)
+
   anti_join <- anti_join_data_frame
   out <- anti_join(x, y, by, copy = FALSE, ..., na_matches = na_matches)
   return(out)
@@ -96,8 +99,8 @@ anti_join.data.frame <- function(x, y, by = NULL, copy = FALSE, ..., na_matches 
 duckplyr_anti_join <- function(x, y, ...) {
   try_fetch(
     {
-      x <- as_duckplyr_df(x)
-      y <- as_duckplyr_df(y)
+      x <- as_duckplyr_df_impl(x)
+      y <- as_duckplyr_df_impl(y)
     },
     error = function(e) {
       testthat::skip(conditionMessage(e))
@@ -110,7 +113,7 @@ duckplyr_anti_join <- function(x, y, ...) {
 
 #' @title Order rows using column values
 #'
-#' @description  This is a method for the [`dplyr::arrange()`] generic.
+#' @description  This is a method for the [dplyr::arrange()] generic.
 #' See "Fallbacks" section for differences in implementation.
 #' `arrange()` orders the rows of a data frame by the values of selected
 #' columns.
@@ -123,10 +126,10 @@ duckplyr_anti_join <- function(x, y, ...) {
 #'
 #' @inheritParams dplyr::arrange
 #' @examples
-#' library("duckplyr")
+#' library(duckplyr)
 #' arrange(mtcars, cyl, disp)
 #' arrange(mtcars, desc(disp))
-#' @seealso [`dplyr::arrange()`]
+#' @seealso [dplyr::arrange()]
 #' @rdname arrange.duckplyr_df
 #' @name arrange.duckplyr_df
 NULL
@@ -140,16 +143,16 @@ arrange.data.frame <- function(.data, ..., .by_group = FALSE, .locale = NULL) {
   dots <- enquos(...)
   dots <- unname(dots)
 
-  rel_try(list(name = "arrange", x = .data, args = try_list(dots = dots, .by_group = .by_group)),
+  duckplyr_error <- rel_try(list(name = "arrange", x = .data, args = try_list(dots = dots, .by_group = .by_group)),
     #' @section Fallbacks:
-    #' You cannot use `arrange.duckplyr_df` when:
-    #' - `.by_group = TRUE`,
+    #' You cannot use `arrange.duckplyr_df()`
+    #' - with `.by_group = TRUE`,
     #' - providing a value for the `.locale` argument,
     #' - providing a value for the `dplyr.legacy_locale` option.
     #'
     #' If you do the code will fall back to `dplyr::arrange()` without any error.
-    ".by_group = TRUE not supported" = !identical(.by_group, FALSE),
-    ".locale argument not supported" = !is.null(.locale),
+    "{.arg .by_group} = {.value TRUE} not supported" = !identical(.by_group, FALSE),
+    "{.arg .locale} argument not supported" = !is.null(.locale),
     "dplyr.legacy_locale not supported" = isTRUE(getOption("dplyr.legacy_locale")),
     {
       # Translate to df before early exit, so that we can bail out for subclasses
@@ -179,13 +182,14 @@ arrange.data.frame <- function(.data, ..., .by_group = FALSE, .locale = NULL) {
         out_rel <- rel
       }
 
-      out <- rel_to_df(out_rel)
-      out <- dplyr_reconstruct(out, .data)
+      out <- duckplyr_reconstruct(out_rel, .data)
       return(out)
     }
   )
 
   # dplyr forward
+  check_prudence(.data, duckplyr_error)
+
   arrange <- arrange_data_frame
   out <- arrange(.data, ..., .by_group = .by_group, .locale = .locale)
   return(out)
@@ -203,7 +207,7 @@ arrange.data.frame <- function(.data, ..., .by_group = FALSE, .locale = NULL) {
 
 duckplyr_arrange <- function(.data, ...) {
   try_fetch(
-    .data <- as_duckplyr_df(.data),
+    .data <- as_duckplyr_df_impl(.data),
     error = function(e) {
       testthat::skip(conditionMessage(e))
     }
@@ -216,6 +220,8 @@ duckplyr_arrange <- function(.data, ...) {
 #' Convert to a duckplyr data frame
 #'
 #' @description
+#' `r lifecycle::badge("deprecated")`
+#'
 #' These functions convert a data-frame-like input to an object of class `"duckpylr_df"`.
 #' For such objects,
 #' dplyr verbs such as [mutate()], [select()] or [filter()]  will attempt to use DuckDB.
@@ -234,29 +240,27 @@ duckplyr_arrange <- function(.data, ...) {
 #' @return For `as_duckplyr_df()`, an object of class `"duckplyr_df"`,
 #'   inheriting from the classes of the `.data` argument.
 #'
+#' @keywords internal
 #' @export
 #' @examples
 #' tibble(a = 1:3) %>%
 #'   mutate(b = a + 1)
-#'
-#' tibble(a = 1:3) %>%
-#'   as_duckplyr_df() %>%
-#'   mutate(b = a + 1)
 as_duckplyr_df <- function(.data) {
-  if (inherits(.data, "duckplyr_df")) {
-    return(.data)
+  lifecycle::deprecate_soft("1.0.0", "as_duckplyr_df()", "as_duckdb_tibble()")
+
+  as_duckplyr_df_impl(.data)
+}
+
+as_duckplyr_df_impl <- function(x, error_call = caller_env()) {
+  # FIXME: Move to as_duckdb_tibble()
+  if (!identical(class(x), "data.frame") && !identical(class(x), c("tbl_df", "tbl", "data.frame"))) {
+    cli::cli_abort(call = error_call, c(
+      "Must pass a plain data frame or a tibble, not {.obj_type_friendly {x}}.",
+      i = "Convert it with {.fun as.data.frame} or {.fun tibble::as_tibble}."
+    ))
   }
 
-  if (!identical(class(.data), "data.frame") && !identical(class(.data), c("tbl_df", "tbl", "data.frame"))) {
-    cli::cli_abort("Must pass a plain data frame or a tibble to `as_duckplyr_df()`.")
-  }
-
-  if (anyNA(names(.data)) || any(names(.data) == "")) {
-    cli::cli_abort("Missing or empty names not allowed.")
-  }
-
-  class(.data) <- c("duckplyr_df", class(.data))
-  .data
+  new_duckdb_tibble(x, class = class(x), error_call = error_call)
 }
 
 #' as_duckplyr_tibble
@@ -269,6 +273,8 @@ as_duckplyr_df <- function(.data) {
 #' @rdname as_duckplyr_df
 #' @export
 as_duckplyr_tibble <- function(.data) {
+  lifecycle::deprecate_soft("1.0.0", "as_duckplyr_tibble()", "as_duckdb_tibble()")
+
   if (inherits(.data, "tbl_duckdb_connection")) {
     con <- dbplyr::remote_con(.data)
     sql <- dbplyr::remote_query(.data)
@@ -279,13 +285,13 @@ as_duckplyr_tibble <- function(.data) {
   }
 
   # Extra as.data.frame() call for good measure and perhaps https://github.com/tidyverse/tibble/issues/1556
-  as_duckplyr_df(as_tibble(as.data.frame(.data)))
+  as_duckplyr_df_impl(as_tibble(as.data.frame(.data)))
 }
 
 # Generated by 02-duckplyr_df-methods.R
 #' @export
 auto_copy.data.frame <- function(x, y, copy = FALSE, ...) {
-  return(as_duckplyr_df(as.data.frame(y)))
+  return(as_duckplyr_df_impl(as.data.frame(y)))
 
   # dplyr implementation
   as.data.frame(y)
@@ -294,8 +300,8 @@ auto_copy.data.frame <- function(x, y, copy = FALSE, ...) {
 duckplyr_auto_copy <- function(x, y, ...) {
   try_fetch(
     {
-      x <- as_duckplyr_df(x)
-      y <- as_duckplyr_df(y)
+      x <- as_duckplyr_df_impl(x)
+      y <- as_duckplyr_df_impl(y)
     },
     error = function(e) {
       testthat::skip(conditionMessage(e))
@@ -305,17 +311,37 @@ duckplyr_auto_copy <- function(x, y, ...) {
   out
 }
 
+#' @title Force conversion to a data frame
+#'
+#' @description  This is a method for the [dplyr::collect()] generic.
+#' `collect()` converts the input to a tibble, materializing any lazy operations.
+#'
+#' @inheritParams dplyr::collect
+#' @examples
+#' library(duckplyr)
+#' df <- duckdb_tibble(x = c(1, 2), .lazy = TRUE)
+#' df
+#' try(print(df$x))
+#' df <- collect(df)
+#' df
+#' @seealso [dplyr::collect()]
+#' @rdname collect.duckplyr_df
+#' @name collect.duckplyr_df
+NULL
+
 # Generated by 02-duckplyr_df-methods.R
+#' @rdname collect.duckplyr_df
 #' @export
 collect.data.frame <- function(x, ...) {
   # Side effect: ALTREP materialization is triggered
   nrow(x)
+  class(x) <- setdiff(class(x), "duckplyr_df")
   x
 }
 
 duckplyr_collect <- function(x, ...) {
   try_fetch(
-    x <- as_duckplyr_df(x),
+    x <- as_duckplyr_df_impl(x),
     error = function(e) {
       testthat::skip(conditionMessage(e))
     }
@@ -325,18 +351,79 @@ duckplyr_collect <- function(x, ...) {
   out
 }
 
+#' @title Compute results
+#'
+#' @description  This is a method for the [dplyr::compute()] generic.
+#' For a duckplyr frame,
+#' `compute()` executes a query but stores it in a (temporary) table,
+#' or in a Parquet or CSV file.
+#' The result is a duckplyr frame that can be used with subsequent dplyr verbs.
+#'
+#' @inheritParams dplyr::compute
+#' @inheritParams duckdb_tibble
+#' @param name The name of the table to store the result in.
+#' @param schema_name The schema to store the result in, defaults to the current schema.
+#' @param temporary Set to `FALSE` to store the result in a permanent table.
+#' @examples
+#' library(duckplyr)
+#' df <- duckdb_tibble(x = c(1, 2))
+#' df <- mutate(df, y = 2)
+#' explain(df)
+#' df <- compute(df)
+#' explain(df)
+#' @seealso [dplyr::collect()]
+#' @rdname compute.duckplyr_df
+#' @name compute.duckplyr_df
+NULL
+
 # Generated by 02-duckplyr_df-methods.R
+#' @rdname compute.duckplyr_df
 #' @export
-compute.data.frame <- function(x, ...) {
+compute.data.frame <- function(
+  x,
+  ...,
+  prudence = NULL,
+  name = NULL,
+  schema_name = NULL,
+  temporary = TRUE
+) {
+  if (is.null(prudence)) {
+    prudence <- get_prudence_duckplyr_df(x)
+  }
+  if (is.null(schema_name)) {
+    schema_name <- ""
+  }
+  if (is.null(name)) {
+    if (isTRUE(temporary)) {
+      name <- unique_table_name()
+    } else {
+      cli::cli_abort("{.arg name} must be provided if {.arg temporary} is {.value FALSE}")
+    }
+  }
+
   # Our implementation
-  rel_try(NULL,
-    "No relational implementation for compute()" = TRUE,
+  duckplyr_error <- rel_try(NULL,
     {
+      rel <- duckdb_rel_from_df(x)
+
+      duckdb$rel_to_table(rel, schema_name, name, temporary)
+
+      # API inconsistency: order of name and schema_name
+      out_rel <- duckdb$rel_from_table(get_default_duckdb_connection(), name, schema_name)
+
+      out <- duckplyr_reconstruct(out_rel, x)
+
+      if (get_prudence_duckplyr_df(out) != prudence) {
+        out <- as_duckdb_tibble(out, prudence = prudence)
+      }
+
       return(out)
     }
   )
 
   # dplyr forward
+  check_prudence(x, duckplyr_error)
+
   compute <- compute_data_frame
   out <- compute(x, ...)
   return(out)
@@ -347,7 +434,7 @@ compute.data.frame <- function(x, ...) {
 
 duckplyr_compute <- function(x, ...) {
   try_fetch(
-    x <- as_duckplyr_df(x),
+    x <- as_duckplyr_df_impl(x),
     error = function(e) {
       testthat::skip(conditionMessage(e))
     }
@@ -357,26 +444,100 @@ duckplyr_compute <- function(x, ...) {
   out
 }
 
+#' @title Compute results to a file
+#'
+#' @description
+#' These functions apply to duckplyr frames.
+#' They executes a query and stores the results in a flat file.
+#' The result is a duckplyr frame that can be used with subsequent dplyr verbs.
+#'
+#' `compute_parquet()` creates a Parquet file.
+#'
+#' @inheritParams rlang::args_dots_empty
+#' @inheritParams compute.duckplyr_df
+#' @param path The path to store the result in.
+#' @param options A list of additional options to pass to create the storage format,
+#'   see <https://duckdb.org/docs/data/parquet/overview#writing-to-parquet-files>
+#'   or <https://duckdb.org/docs/data/csv/overview#writing-using-the-copy-statement>
+#'   for details.
+#'
+#' @export
+#' @examples
+#' library(duckplyr)
+#' df <- data.frame(x = c(1, 2))
+#' df <- mutate(df, y = 2)
+#' path <- tempfile(fileext = ".parquet")
+#' df <- compute_parquet(df, path)
+#' explain(df)
+#' @seealso [compute.duckplyr_df()], [dplyr::collect()]
+#' @name compute_file
+compute_parquet <- function(x, path, ..., prudence = NULL, options = NULL) {
+  check_dots_empty()
+
+  if (is.null(options)) {
+    options <- list()
+  }
+
+  if (is.null(prudence)) {
+    prudence <- get_prudence_duckplyr_df(x)
+  }
+
+  rel <- duckdb_rel_from_df(x)
+
+  duckdb$rel_to_parquet(rel, path, options)
+
+  # If the path is a directory, we assume that the user wants to write multiple files
+  if (dir.exists(path)) {
+    path <- file.path(path, "**", "**.parquet")
+  }
+
+  read_parquet_duckdb(path, prudence = prudence)
+}
+
+#' compute_csv()
+#'
+#' `compute_csv()` creates a CSV file.
+#' @rdname compute_file
+#' @export
+compute_csv <- function(x, path, ..., prudence = NULL, options = NULL) {
+  check_dots_empty()
+
+  if (is.null(options)) {
+    options <- list()
+  }
+
+  if (is.null(prudence)) {
+    prudence <- get_prudence_duckplyr_df(x)
+  }
+
+  rel <- duckdb_rel_from_df(x)
+
+  duckdb$rel_to_csv(rel, path, options)
+
+  # If the path is a directory, we assume that the user wants to write multiple files
+  if (dir.exists(path)) {
+    path <- file.path(path, "**", "**.csv")
+  }
+
+  read_csv_duckdb(path, prudence = prudence)
+}
+
 #' Configuration options
 #'
 #' The behavior of duckplyr can be fine-tuned with several environment variables,
 #' and one option.
 #'
-#' @section Options:
-#'
-#' `duckdb.materialize_message`: Set to `FALSE` to turn off diagnostic output from duckdb
-#' on data frame materialization.
-#' Currenty set to `TRUE` when duckplyr is loaded.
-#'
 #' @section Environment variables:
+#'
+#' `DUCKPLYR_TEMP_DIR`: Set to a path where temporary files can be created.
+#' By default, [tempdir()] is used.
 #'
 #' `DUCKPLYR_OUTPUT_ORDER`: If `TRUE`, row output order is preserved.
 #' The default may change the row order where dplyr would keep it stable.
+#' Preserving the order leads to more complicated execution plans
+#' with less potential for optimization, and thus may be slower.
 #'
 #' `DUCKPLYR_FORCE`: If `TRUE`, fail if duckdb cannot handle a request.
-#'
-#' `DUCKPLYR_FALLBACK_INFO`: If `TRUE`, print a message when a fallback to dplyr occurs
-#' because duckdb cannot handle a request.
 #'
 #' `DUCKPLYR_CHECK_ROUNDTRIP`: If `TRUE`, check if all columns are roundtripped perfectly
 #' when creating a relational object from a data frame,
@@ -390,33 +551,23 @@ duckplyr_compute <- function(x, ...) {
 #' `DUCKPLYR_METHODS_OVERWRITE`: If `TRUE`, call `methods_overwrite()`
 #' when the package is loaded.
 #'
-#' See [fallback] for more options related to logging and uploading of fallback events.
+#' See [fallback] for more options related to printing, logging, and uploading
+#' of fallback events.
 #'
 # Not available in the CRAN package:
+# `DUCKPLYR_META_ENABLE`: Skip recording the operations, replay not available.
 # `DUCKPLYR_META_GLOBAL`: Assume data frames in the global environment as "known".
-# `DUCKPLYR_META_SKIP`: Skip recording the operations, replay not available.
+# `DUCKPLYR_SKIP_DPLYR_TESTS`: Skip dplyr tests for performance
 #' @name config
 #' @examples
-#' # options(duckdb.materialize_message = FALSE)
-#' data.frame(a = 3:1) %>%
-#'   as_duckplyr_df() %>%
-#'   inner_join(data.frame(a = 1:4), by = "a")
-#'
-#' rlang::with_options(duckdb.materialize_message = FALSE, {
-#'   data.frame(a = 3:1) %>%
-#'     as_duckplyr_df() %>%
-#'     inner_join(data.frame(a = 1:4), by = "a") %>%
-#'     print()
-#' })
-#'
 #' # Sys.setenv(DUCKPLYR_OUTPUT_ORDER = TRUE)
 #' data.frame(a = 3:1) %>%
-#'   as_duckplyr_df() %>%
+#'   as_duckdb_tibble() %>%
 #'   inner_join(data.frame(a = 1:4), by = "a")
 #'
 #' withr::with_envvar(c(DUCKPLYR_OUTPUT_ORDER = "TRUE"), {
 #'   data.frame(a = 3:1) %>%
-#'     as_duckplyr_df() %>%
+#'     as_duckdb_tibble() %>%
 #'     inner_join(data.frame(a = 1:4), by = "a")
 #' })
 #'
@@ -426,19 +577,19 @@ duckplyr_compute <- function(x, ...) {
 #' }
 #'
 #' data.frame(a = 3:1) %>%
-#'   as_duckplyr_df() %>%
+#'   as_duckdb_tibble() %>%
 #'   mutate(b = add_one(a))
 #'
 #' try(withr::with_envvar(c(DUCKPLYR_FORCE = "TRUE"), {
 #'   data.frame(a = 3:1) %>%
-#'     as_duckplyr_df() %>%
+#'     as_duckdb_tibble() %>%
 #'     mutate(b = add_one(a))
 #' }))
 #'
 #' # Sys.setenv(DUCKPLYR_FALLBACK_INFO = TRUE)
 #' withr::with_envvar(c(DUCKPLYR_FALLBACK_INFO = "TRUE"), {
 #'   data.frame(a = 3:1) %>%
-#'     as_duckplyr_df() %>%
+#'     as_duckdb_tibble() %>%
 #'     mutate(b = add_one(a))
 #' })
 NULL
@@ -663,7 +814,7 @@ on_load({
 
 #' @title Count the observations in each group
 #'
-#' @description  This is a method for the [`dplyr::count()`] generic.
+#' @description  This is a method for the [dplyr::count()] generic.
 #' See "Fallbacks" section for differences in implementation.
 #' `count()` lets you quickly count the unique values of one or more variables:
 #' `df %>% count(a, b)` is roughly equivalent to
@@ -674,9 +825,9 @@ on_load({
 #'
 #' @inheritParams dplyr::count
 #' @examples
-#' library("duckplyr")
+#' library(duckplyr)
 #' count(mtcars, am)
-#' @seealso [`dplyr::count()`]
+#' @seealso [dplyr::count()]
 #' @rdname count.duckplyr_df
 #' @name count.duckplyr_df
 NULL
@@ -701,17 +852,17 @@ count.data.frame <- function(x, ..., wt = NULL, sort = FALSE, name = NULL, .drop
   }
 
   # Passing `name` reliably is surprisingly complicated.
-  rel_try(list(name = "count", x = x, args = try_list(dots = enquos(...), wt = enquo(wt), sort = sort, .drop = .drop)),
+  duckplyr_error <- rel_try(list(name = "count", x = x, args = try_list(dots = enquos(...), wt = enquo(wt), sort = sort, .drop = .drop)),
     #' @section Fallbacks:
-    #' You cannot use `count.duckplyr_df`
+    #' You cannot use `count.duckplyr_df()`
     #' - with complex expressions in `...`,
     #' - with `.drop = FALSE`,
     #' - with `sort = TRUE`.
     #'
     #' If you do the code will fall back to `dplyr::count()` without any error.
-    "count() needs all(is_name)" = !all(is_name),
-    "count() only implemented for .drop = TRUE" = !.drop,
-    "count() only implemented for sort = FALSE" = sort,
+    "{.code count()} requires columns in {.arg ...}" = !all(is_name),
+    "{.code count()} only implemented for {.arg .drop} = {.value TRUE}" = !.drop,
+    "{.code count()} only implemented for {.arg sort} = {.value FALSE}" = sort,
     {
       rel <- duckdb_rel_from_df(x)
 
@@ -733,9 +884,7 @@ count.data.frame <- function(x, ..., wt = NULL, sort = FALSE, name = NULL, .drop
         out_rel <- rel_order(out_rel, sort_cols)
       }
 
-      out <- rel_to_df(out_rel)
-      out <- dplyr_reconstruct(out, x)
-
+      out <- duckplyr_reconstruct(out_rel, x)
       return(out)
     }
   )
@@ -744,6 +893,8 @@ count.data.frame <- function(x, ..., wt = NULL, sort = FALSE, name = NULL, .drop
   # out <- count(x_df, !!!quos, wt = {{ wt }}, sort = sort, name = name, .drop = .drop)
 
   # dplyr forward
+  check_prudence(x, duckplyr_error)
+
   count <- count_data_frame
   out <- count(x, ..., wt = {{ wt }}, sort = sort, name = name, .drop = .drop)
   return(out)
@@ -767,7 +918,7 @@ count.data.frame <- function(x, ..., wt = NULL, sort = FALSE, name = NULL, .drop
 
 duckplyr_count <- function(x, ...) {
   try_fetch(
-    x <- as_duckplyr_df(x),
+    x <- as_duckplyr_df_impl(x),
     error = function(e) {
       testthat::skip(conditionMessage(e))
     }
@@ -781,14 +932,16 @@ duckplyr_count <- function(x, ...) {
 #' @export
 cross_join.data.frame <- function(x, y, ..., copy = FALSE, suffix = c(".x", ".y")) {
   # Our implementation
-  rel_try(NULL,
-    "No relational implementation for cross_join()" = TRUE,
+  duckplyr_error <- rel_try(NULL,
+    "No relational implementation for {.code cross_join()}" = TRUE,
     {
       return(out)
     }
   )
 
   # dplyr forward
+  check_prudence(x, duckplyr_error)
+
   cross_join <- cross_join_data_frame
   out <- cross_join(x, y, ..., copy = copy, suffix = suffix)
   return(out)
@@ -835,8 +988,8 @@ cross_join.data.frame <- function(x, y, ..., copy = FALSE, suffix = c(".x", ".y"
 duckplyr_cross_join <- function(x, y, ...) {
   try_fetch(
     {
-      x <- as_duckplyr_df(x)
-      y <- as_duckplyr_df(y)
+      x <- as_duckplyr_df_impl(x)
+      y <- as_duckplyr_df_impl(y)
     },
     error = function(e) {
       testthat::skip(conditionMessage(e))
@@ -849,19 +1002,19 @@ duckplyr_cross_join <- function(x, y, ...) {
 
 #' @title Keep distinct/unique rows
 #'
-#' @description  This is a method for the [`dplyr::distinct()`] generic.
+#' @description  This is a method for the [dplyr::distinct()] generic.
 #' Keep only unique/distinct rows from a data frame.
 #' This is similar to `unique.data.frame()` but considerably faster.
 #'
 #' @inheritParams dplyr::distinct
 #' @examples
-#' df <- tibble(
+#' df <- duckdb_tibble(
 #'   x = sample(10, 100, rep = TRUE),
 #'   y = sample(10, 100, rep = TRUE)
 #' )
 #' nrow(df)
 #' nrow(distinct(df))
-#' @seealso [`dplyr::distinct()`]
+#' @seealso [dplyr::distinct()]
 #' @rdname distinct.duckplyr_df
 #' @name distinct.duckplyr_df
 NULL
@@ -875,7 +1028,7 @@ distinct.data.frame <- function(.data, ..., .keep_all = FALSE) {
   dots <- enquos(..., .named = TRUE)
 
   # Our implementation
-  rel_try(list(name = "distinct", x = .data, args = try_list(dots = dots, .keep_all = .keep_all)),
+  duckplyr_error <- rel_try(list(name = "distinct", x = .data, args = try_list(dots = dots, .keep_all = .keep_all)),
     "Implemented for all cases?" = FALSE,
     {
       # FIXME: avoid column duplication in a cleaner way
@@ -931,13 +1084,14 @@ distinct.data.frame <- function(.data, ..., .keep_all = FALSE) {
         out_rel <- rel_distinct(rel)
       }
 
-      out <- rel_to_df(out_rel)
-      out <- dplyr_reconstruct(out, .data)
+      out <- duckplyr_reconstruct(out_rel, .data)
       return(out)
     }
   )
 
   # dplyr forward
+  check_prudence(.data, duckplyr_error)
+
   distinct <- distinct_data_frame
   out <- distinct(.data, ..., .keep_all = .keep_all)
   return(out)
@@ -962,7 +1116,7 @@ distinct.data.frame <- function(.data, ..., .keep_all = FALSE) {
 
 duckplyr_distinct <- function(.data, ...) {
   try_fetch(
-    .data <- as_duckplyr_df(.data),
+    .data <- as_duckplyr_df_impl(.data),
     error = function(e) {
       testthat::skip(conditionMessage(e))
     }
@@ -976,14 +1130,16 @@ duckplyr_distinct <- function(.data, ...) {
 #' @export
 do.data.frame <- function(.data, ...) {
   # Our implementation
-  rel_try(NULL,
-    "No relational implementation for do()" = TRUE,
+  duckplyr_error <- rel_try(NULL,
+    "No relational implementation for {.code do()}" = TRUE,
     {
       return(out)
     }
   )
 
   # dplyr forward
+  check_prudence(.data, duckplyr_error)
+
   do <- do_data_frame
   out <- do(.data, ...)
   return(out)
@@ -1013,7 +1169,7 @@ do.data.frame <- function(.data, ...) {
 
 duckplyr_do <- function(.data, ...) {
   try_fetch(
-    .data <- as_duckplyr_df(.data),
+    .data <- as_duckplyr_df_impl(.data),
     error = function(e) {
       testthat::skip(conditionMessage(e))
     }
@@ -1294,34 +1450,239 @@ test_duckplyr_expand_across <- function(data, expr) {
 
 #' Execute a statement for the default connection
 #'
+#' @description
+#' `r lifecycle::badge("deprecated")`
+#'
 #' The \pkg{duckplyr} package relies on a DBI connection
 #' to an in-memory database.
 #' The `duckplyr_execute()` function allows running SQL statements
 #' with this connection to, e.g., set up credentials
 #' or attach other databases.
+#' See <https://duckdb.org/docs/configuration/overview.html>
+#' for more information on the configuration options.
 #'
 #' @param sql The statement to run.
 #' @return The return value of the [DBI::dbExecute()] call, invisibly.
+#' @keywords internal
 #' @export
 #' @examples
 #' duckplyr_execute("SET threads TO 2")
 duckplyr_execute <- function(sql) {
+  lifecycle::deprecate_soft("1.0.0", "duckplyr_execute()", "db_exec()")
+
   con <- get_default_duckdb_connection()
+  invisible(DBI::dbExecute(con, sql))
+}
+
+#' duckplyr data frames
+#'
+#' @description
+#' Data frames backed by duckplyr have a special class, `"duckplyr_df"`,
+#' in addition to the default classes.
+#' This ensures that dplyr methods are dispatched correctly.
+#' For such objects,
+#' dplyr verbs such as [mutate()], [select()] or [filter()]  will use DuckDB.
+#'
+#' `duckdb_tibble()` works like [tibble()], returning a lavish duckplyr data frame by default.
+#' See `vignette("funnel")` for details.
+#'
+#' @param ... For `duckdb_tibble()`, passed on to [tibble()].
+#'   For `as_duckdb_tibble()`, passed on to methods.
+#' @param .prudence,prudence Either a string:
+#'   - `"frugal"`:  a frugal data frame,
+#'   - `"lavish"`: a lavish data frame,
+#'   - `"thrifty"`: allow the materialization up to a maximum size of 1 million cells.
+#'
+#' Or a named vector with at least one of
+#'   - `cells` (numeric)
+#'   - `rows` (numeric)
+#'
+#' to allow materialization for data up to a certain size,
+#' measured in cells (values) and rows in the resulting data frame.
+#' The equivalent of `"thrifty"` is `c(cells = 1e6)`.
+#'
+#' If `cells` is specified but not `rows`, `rows` is `Inf`.
+#' If `rows` is specified but not `cells`, `cells` is `Inf`.
+#'
+#' The default is to inherit the prudence of the input.
+#'
+#' @return For `duckdb_tibble()` and `as_duckdb_tibble()`, an object with the following classes:
+#'   - `"prudent_duckplyr_df"` if `.prudence` is not `"lavish"`
+#'   - `"duckplyr_df"`
+#'   - Classes of a [tibble]
+#'
+#' @examples
+#' x <- duckdb_tibble(a = 1)
+#' x
+#'
+#' library(dplyr)
+#' x %>%
+#'   mutate(b = 2)
+#'
+#' x$a
+#'
+#' y <- duckdb_tibble(a = 1, .prudence = "frugal")
+#' y
+#' try(length(y$a))
+#' length(collect(y)$a)
+#' @export
+duckdb_tibble <- function(..., .prudence = c("lavish", "thrifty", "frugal")) {
+  out <- tibble::tibble(...)
+
+  # Side effect: check compatibility
+  # No telemetry, this doesn't seem to be useful data
+  # (and conflicts with test-telemetry.R)
+  # FIXME: May be handled by other methods
+  check_df_for_rel(out)
+
+  new_duckdb_tibble(out, class(out), prudence = .prudence, adjust_prudence = TRUE)
+}
+
+#' as_duckdb_tibble
+#'
+#' `as_duckdb_tibble()` converts a data frame or a dplyr lazy table to a duckplyr data frame.
+#' This is a generic function that can be overridden for custom classes.
+#'
+#' @param x The object to convert or to test.
+#' @rdname duckdb_tibble
+#' @export
+as_duckdb_tibble <- function(x, ..., prudence = c("lavish", "thrifty", "frugal")) {
+  # Handle the prudence arg in the generic, only the other args will be dispatched
+  as_duckdb_tibble <- function(x, ...) {
+    UseMethod("as_duckdb_tibble")
+  }
+
+  out <- as_duckdb_tibble(x, ...)
+  new_duckdb_tibble(out, class(out), prudence = prudence, adjust_prudence = TRUE)
+}
+
+#' @export
+as_duckdb_tibble.tbl_duckdb_connection <- function(x, ...) {
+  check_dots_empty()
+
+  con <- dbplyr::remote_con(x)
+  sql <- dbplyr::remote_query(x)
+
+  # Start restrictive to avoid accidental materialization
+  read_sql_duckdb(sql, prudence = "frugal", con = con)
+}
+
+#' @export
+as_duckdb_tibble.data.frame <- function(x, ...) {
+  check_dots_empty()
+  x
+}
+
+#' @export
+as_duckdb_tibble.data.frame <- function(x, ...) {
+  check_dots_empty()
+
+  # Only if not materialized yet
+  if (is.null(duckdb$rel_from_altrep_df(x, strict = FALSE, allow_materialized = FALSE))) {
+    x <- as_tibble(x)
+  }
+
+  new_duckdb_tibble(x)
+}
+
+#' @export
+as_duckdb_tibble.default <- function(x, ...) {
+  check_dots_empty()
+
+  # - as.data.frame() call for good measure and perhaps https://github.com/tidyverse/tibble/issues/1556
+  # - as_tibble() to remove row names
+  # Could call as_duckdb_tibble(as.data.frame(x)) here, but that would be slower
+  new_duckdb_tibble(as_tibble(as.data.frame(x)))
+}
+
+#' @export
+as_duckdb_tibble.grouped_df <- function(x, ...) {
+  check_dots_empty()
+
+  cli::cli_abort(c(
+    "{.pkg duckplyr} does not support {.code group_by()}.",
+    i = "Use {.arg .by} instead.",
+    i = "To proceed with {.pkg dplyr}, use {.code as_tibble()} or {.code as.data.frame()}."
+  ))
+}
+
+#' @export
+as_duckdb_tibble.rowwise_df <- function(x, ...) {
+  check_dots_empty()
+
+  cli::cli_abort(c(
+    "{.pkg duckplyr} does not support {.code rowwise()}.",
+    i = "To proceed with {.pkg dplyr}, use {.code as_tibble()} or {.code as.data.frame()}."
+  ))
+}
+
+#' @export
+as_duckdb_tibble.spec_tbl_df <- function(x, ...) {
+  check_dots_empty()
+
+  cli::cli_abort(c(
+    "The input is data read by {.pkg readr}, and {.pkg duckplyr} supports reading CSV files directly.",
+    i = "Use {.code read_csv_duckdb()} to read with the built-in reader.",
+    i = "To proceed with the data as read by {.pkg readr}, use {.code as_tibble()} before {.code as_duckdb_tibble()}."
+  ))
+}
+
+#' is_duckdb_tibble
+#'
+#' `is_duckdb_tibble()` returns `TRUE` if `x` is a duckplyr data frame.
+#'
+#' @return For `is_duckdb_tibble()`, a scalar logical.
+#' @rdname duckdb_tibble
+#' @export
+is_duckdb_tibble <- function(x) {
+  inherits(x, "duckplyr_df")
+}
+
+#' Execute a statement for the default connection
+#'
+#' The \pkg{duckplyr} package relies on a DBI connection
+#' to an in-memory database.
+#' The `db_exec()` function allows running SQL statements
+#' with this connection to, e.g., set up credentials
+#' or attach other databases.
+#' See <https://duckdb.org/docs/configuration/overview.html>
+#' for more information on the configuration options.
+#'
+#' @seealso [read_sql_duckdb()]
+#'
+#' @param sql The statement to run.
+#' @inheritParams read_sql_duckdb
+#' @return The return value of the [DBI::dbExecute()] call, invisibly.
+#' @export
+#' @examples
+#' db_exec("SET threads TO 2")
+db_exec <- function(sql, ..., con = NULL) {
+  check_dots_empty()
+
+  if (!is_string(sql)) {
+    cli::cli_abort("{.arg sql} must be a string.")
+  }
+
+  if (is.null(con)) {
+    con <- get_default_duckdb_connection()
+  }
+
   invisible(DBI::dbExecute(con, sql))
 }
 
 #' @title Explain details of a tbl
 #'
-#' @description  This is a method for the [`dplyr::explain()`] generic.
+#' @description  This is a method for the [dplyr::explain()] generic.
 #' This is a generic function which gives more details about an object
 #' than `print()`, and is more focused on human readable output than `str()`.
 #'
 #' @inheritParams dplyr::explain
-#' @examplesIf identical(Sys.getenv("IN_PKGDOWN"), "true") || (rlang::is_interactive() && rlang::is_installed("dbplyr") && rlang::is_installed("Lahman"))
-#' lahman_s <- dbplyr::lahman_sqlite()
-#' batting <- tbl(lahman_s, "Batting")
-#' explain(batting)
-#' @seealso [`dplyr::explain()`]
+#' @examples
+#' library(duckplyr)
+#' df <- duckdb_tibble(x = c(1, 2))
+#' df <- mutate(df, y = 2)
+#' explain(df)
+#' @seealso [dplyr::explain()]
 #' @rdname explain.duckplyr_df
 #' @name explain.duckplyr_df
 NULL
@@ -1329,7 +1690,7 @@ NULL
 #' @rdname explain.duckplyr_df
 #' @export
 explain.data.frame <- function(x, ...) {
-  rel_try(list(name = "explain", x = x),
+  duckplyr_error <- rel_try(list(name = "explain", x = x),
     "No restrictions" = FALSE,
     {
       rel <- duckdb_rel_from_df(x)
@@ -1344,7 +1705,7 @@ explain.data.frame <- function(x, ...) {
 
 duckplyr_explain <- function(.data, ...) {
   try_fetch(
-    .data <- as_duckplyr_df(.data),
+    .data <- as_duckplyr_df_impl(.data),
     error = function(e) {
       testthat::skip(conditionMessage(e))
     }
@@ -1356,7 +1717,7 @@ duckplyr_explain <- function(.data, ...) {
 
 #' @title Keep rows that match a condition
 #'
-#' @description  This is a method for the [`dplyr::select()`] generic.
+#' @description  This is a method for the [dplyr::select()] generic.
 #' See "Fallbacks" section for differences in implementation.
 #' The `filter()` function is used to subset a data frame,
 #' retaining all rows that satisfy your conditions.
@@ -1366,15 +1727,16 @@ duckplyr_explain <- function(.data, ...) {
 #'
 #' @inheritParams dplyr::filter
 #' @examples
-#' filter(mtcars, mpg > 30)
-#' @seealso [`dplyr::filter()`]
+#' df <- duckdb_tibble(x = 1:3, y = 3:1)
+#' filter(df, x >= 2)
+#' @seealso [dplyr::filter()]
 #' @rdname filter.duckplyr_df
 #' @name filter.duckplyr_df
 NULL
 
 # Generated by 02-duckplyr_df-methods.R
 #' @rdname filter.duckplyr_df
-
+#' @export
 filter.data.frame <- function(.data, ..., .by = NULL, .preserve = FALSE) {
   force(.data)
 
@@ -1383,15 +1745,15 @@ filter.data.frame <- function(.data, ..., .by = NULL, .preserve = FALSE) {
 
   by <- enquo(.by)
 
-  rel_try(list(name = "filter", x = .data, args = try_list(dots = dots, by = by, preserve = .preserve)),
+  duckplyr_error <- rel_try(list(name = "filter", x = .data, args = try_list(dots = dots, by = by, preserve = .preserve)),
     #' @section Fallbacks:
-    #' You cannot use `filter.duckplyr_df`
+    #' You cannot use `filter.duckplyr_df()`
     #' - with no filter conditions,
     #' - nor for a grouped operation (if `.by` is set).
     #'
     #' If you do the code will fall back to `dplyr::filter()` without any error.
     "Can't use relational without filter conditions." = (length(dots) == 0),
-    "Can't use relational with grouped operation." = (!quo_is_null(by)), # (length(by$names) > 0),
+    "{.code filter(by = ...)} not implemented, try {.code mutate(by = ...)} followed by a simple {.code filter()}." = (!quo_is_null(by)), # (length(by$names) > 0),
     {
       rel <- duckdb_rel_from_df(.data)
       exprs <- rel_translate_dots(dots, .data)
@@ -1404,13 +1766,14 @@ filter.data.frame <- function(.data, ..., .by = NULL, .preserve = FALSE) {
 
       out_rel <- oo_restore(rel)
 
-      out <- rel_to_df(out_rel)
-      out <- dplyr_reconstruct(out, .data)
+      out <- duckplyr_reconstruct(out_rel, .data)
       return(out)
     }
   )
 
   # dplyr forward
+  check_prudence(.data, duckplyr_error)
+
   filter <- filter_data_frame
   out <- filter(.data, ..., .by = {{ .by }}, .preserve = .preserve)
   return(out)
@@ -1432,7 +1795,7 @@ filter.data.frame <- function(.data, ..., .by = NULL, .preserve = FALSE) {
 
 duckplyr_filter <- function(.data, ...) {
   try_fetch(
-    .data <- as_duckplyr_df(.data),
+    .data <- as_duckplyr_df_impl(.data),
     error = function(e) {
       testthat::skip(conditionMessage(e))
     }
@@ -1442,17 +1805,35 @@ duckplyr_filter <- function(.data, ...) {
   out
 }
 
+#' Flight data
+#'
+#' Provides a variant of `nycflights13::flights` that is compatible with duckplyr,
+#' as a tibble:
+#' the timezone has been set to UTC to work around a current limitation of duckplyr, see `vignette("limits.html")`.
+#' Call [as_duckdb_tibble()] to enable duckplyr operations.
+#'
+#' @export
+#' @examplesIf requireNamespace("nycflights13", quietly = TRUE)
+#' flights_df()
+flights_df <- function() {
+  check_installed("nycflights13")
+
+  out <- nycflights13::flights
+  attr(out$time_hour, "tzone") <- "UTC"
+  out
+}
+
 #' @title Full join
 #'
-#' @description  This is a method for the [`dplyr::full_join()`] generic.
+#' @description  This is a method for the [dplyr::full_join()] generic.
 #' See "Fallbacks" section for differences in implementation.
 #' A `full_join()` keeps all observations in `x` and `y`.
 #'
 #' @inheritParams dplyr::full_join
 #' @examples
-#' library("dplyr")
+#' library(duckplyr)
 #' full_join(band_members, band_instruments)
-#' @seealso [`dplyr::full_join()`]
+#' @seealso [dplyr::full_join()]
 #' @rdname full_join.duckplyr_df
 #' @name full_join.duckplyr_df
 NULL
@@ -1466,22 +1847,24 @@ full_join.data.frame <- function(x, y, by = NULL, copy = FALSE, suffix = c(".x",
   y <- auto_copy(x, y, copy = copy)
 
   # Our implementation
-  rel_try(list(name = "full_join", x = x, y = y, args = try_list(by = if (!is.null(by) && !is_cross_by(by)) as_join_by(by), copy = copy, keep = keep, na_matches = na_matches, multiple = multiple, relationship = relationship)),
+  duckplyr_error <- rel_try(list(name = "full_join", x = x, y = y, args = try_list(by = if (!is.null(by) && !is_cross_by(by)) as_join_by(by), copy = copy, keep = keep, na_matches = na_matches, multiple = multiple, relationship = relationship)),
     #' @section Fallbacks:
-    #' You cannot use `full_join.duckplyr_df`
+    #' You cannot use `full_join.duckplyr_df()`
     #' - for an implicit cross join,
     #' - for a value of the `multiple` argument that isn't the default `"all"`.
     #'
     #' If you do the code will fall back to `dplyr::full_join()` without any error.
-    "No implicit cross joins for full_join()" = is_cross_by(by),
-    "`multiple` not supported" = !identical(multiple, "all"),
+    "No implicit cross joins for {.code full_join()}" = is_cross_by(by),
+    "{.arg multiple} not supported" = !identical(multiple, "all"),
     {
-      out <- rel_join_impl(x, y, by, "full", na_matches, suffix, keep, relationship, error_call)
+      out <- rel_join_impl(x, y, by, "full", na_matches, suffix, keep, error_call)
       return(out)
     }
   )
 
   # dplyr forward
+  check_prudence(x, duckplyr_error)
+
   full_join <- full_join_data_frame
   out <- full_join(x, y, by, copy = FALSE, suffix, ..., keep = keep, na_matches = na_matches, multiple = multiple, relationship = relationship)
   return(out)
@@ -1508,8 +1891,8 @@ full_join.data.frame <- function(x, y, by = NULL, copy = FALSE, suffix = c(".x",
 duckplyr_full_join <- function(x, y, ...) {
   try_fetch(
     {
-      x <- as_duckplyr_df(x)
-      y <- as_duckplyr_df(y)
+      x <- as_duckplyr_df_impl(x)
+      y <- as_duckplyr_df_impl(y)
     },
     error = function(e) {
       testthat::skip(conditionMessage(e))
@@ -1518,6 +1901,159 @@ duckplyr_full_join <- function(x, y, ...) {
   out <- full_join(x, y, ...)
   class(out) <- setdiff(class(out), "duckplyr_df")
   out
+}
+
+#' @param prudence Only adds the class, does not recreate the relation object!
+#' @noRd
+new_duckdb_tibble <- function(x, class = NULL, prudence = "lavish", adjust_prudence = FALSE, error_call = caller_env()) {
+  if (is.null(class)) {
+    class <- c("tbl_df", "tbl", "data.frame")
+  } else {
+    class <- setdiff(class, c("prudent_duckplyr_df", "duckplyr_df"))
+  }
+
+  if (!inherits(x, "duckplyr_df")) {
+    if (anyNA(names(x)) || any(names(x) == "")) {
+      cli::cli_abort("Missing or empty names not allowed.", call = error_call)
+    }
+  }
+
+  prudence_parsed <- prudence_parse(prudence, error_call)
+
+  # Before setting class, needs prudence_parsed
+  if (adjust_prudence) {
+    rel <- duckdb_rel_from_df(x)
+
+    # Copied from rel_to_df.duckdb_relation(), to avoid recursion
+    x <- duckdb$rel_to_altrep(
+      rel,
+      # FIXME: Remove allow_materialization with duckdb >= 1.2.0
+      allow_materialization = prudence_parsed$allow_materialization,
+      n_rows = prudence_parsed$n_rows,
+      n_cells = prudence_parsed$n_cells
+    )
+  }
+
+  class(x) <- c(
+    if (!identical(prudence_parsed$prudence, "lavish")) "prudent_duckplyr_df",
+    "duckplyr_df",
+    class
+  )
+
+  prudence_attr <- c(
+    rows = if (is.finite(prudence_parsed$n_rows)) prudence_parsed$n_rows,
+    cells = if (is.finite(prudence_parsed$n_cells)) prudence_parsed$n_cells
+  )
+  attr(x, "prudence") <- prudence_attr
+
+  x
+}
+
+is_prudent_duckplyr_df <- function(x) {
+  inherits(x, "prudent_duckplyr_df")
+}
+
+prudence_parse <- function(prudence, call = caller_env()) {
+  n_rows <- Inf
+  n_cells <- Inf
+
+  if (is.numeric(prudence)) {
+    if (is.null(names(prudence))) {
+      cli::cli_abort("{.arg prudence} must have names if it is a named vector.", call = call)
+    }
+    extra_names <- setdiff(names(prudence), c("rows", "cells"))
+    if (length(extra_names) > 0) {
+      cli::cli_abort("Unknown name in {.arg prudence}: {extra_names[[1]]}", call = call)
+    }
+
+    if ("rows" %in% names(prudence)) {
+      n_rows <- prudence[["rows"]]
+      if (is.na(n_rows) || n_rows < 0) {
+        cli::cli_abort("The {.val rows} component of {.arg prudence} must be a non-negative integer", call = call)
+      }
+    }
+    if ("cells" %in% names(prudence)) {
+      n_cells <- prudence[["cells"]]
+      if (is.na(n_cells) || n_cells < 0) {
+        cli::cli_abort("The {.val cells} component of {.arg prudence} must be a non-negative integer", call = call)
+      }
+    }
+    allow_materialization <- is.finite(n_rows) || is.finite(n_cells)
+    prudence <- "frugal"
+  } else if (!is.character(prudence)) {
+    cli::cli_abort("{.arg prudence} must be an unnamed character vector or a named numeric vector", call = call)
+  } else {
+    prudence <- arg_match(prudence, c("lavish", "frugal", "thrifty"), error_call = call)
+
+    allow_materialization <- !identical(prudence, "frugal")
+    if (!allow_materialization) {
+      n_cells <- 0
+    } else if (identical(prudence, "thrifty")) {
+      n_cells <- 1e6
+    }
+  }
+
+  list(
+    prudence = prudence,
+    # FIXME: Remove allow_materialization with duckdb >= 1.2.0
+    allow_materialization = allow_materialization,
+    n_rows = n_rows,
+    n_cells = n_cells
+  )
+}
+
+get_prudence_duckplyr_df <- function(x) {
+  if (!is_prudent_duckplyr_df(x)) {
+    return("lavish")
+  }
+
+  prudence <- attr(x, "prudence")
+  if (is.null(prudence)) {
+    return("frugal")
+  }
+
+  if (identical(prudence, c(cells = 1e6))) {
+    return("thrifty")
+  }
+
+  prudence
+}
+
+duckplyr_reconstruct <- function(rel, template) {
+  out <- rel_to_df(
+    rel,
+    prudence = get_prudence_duckplyr_df(template)
+  )
+  dplyr_reconstruct(out, template)
+}
+
+#' @export
+collect.prudent_duckplyr_df <- function(x, ...) {
+  # Do nothing if already materialized
+  adjust_prudence <- !is.null(duckdb$rel_from_altrep_df(x, strict = FALSE, allow_materialized = FALSE))
+
+  out <- new_duckdb_tibble(x, class(x), adjust_prudence = adjust_prudence, prudence = "lavish")
+  collect(out)
+}
+
+#' @export
+as.data.frame.data.frame <- function(x, row.names = NULL, optional = FALSE, ...) {
+  out <- collect(x)
+  class(out) <- setdiff(class(out), c("duckplyr_df", "tbl_df", "tbl"))
+  as.data.frame(out, row.names = row.names, optional = optional, ...)
+}
+
+#' @export
+as.data.frame.prudent_duckplyr_df <- function(x, row.names = NULL, optional = FALSE, ...) {
+  out <- collect(x)
+  as.data.frame(out, row.names = row.names, optional = optional, ...)
+}
+
+#' @export
+as_tibble.data.frame <- function(x, ...) {
+  out <- collect(x)
+  class(out) <- setdiff(class(out), "duckplyr_df")
+  as_tibble(out)
 }
 
 # Generated by roxyglobals: do not edit by hand
@@ -1826,15 +2362,17 @@ utils::globalVariables(c(
 #' @export
 group_by.data.frame <- function(.data, ..., .add = FALSE, .drop = group_by_drop_default(.data)) {
   # Our implementation
-  rel_try(NULL,
+  duckplyr_error <- rel_try(NULL,
     # Always fall back to dplyr
-    "No relational implementation for group_by()" = TRUE,
+    "Try {.code summarise(.by = ...)} or {.code mutate(.by = ...)} instead of {.code group_by()} and {.code ungroup()}." = TRUE,
     {
       return(out)
     }
   )
 
   # dplyr forward
+  check_prudence(.data, duckplyr_error)
+
   group_by <- group_by_data_frame
   out <- group_by(.data, ..., .add = .add, .drop = .drop)
   return(out)
@@ -1851,7 +2389,7 @@ group_by.data.frame <- function(.data, ..., .add = FALSE, .drop = group_by_drop_
 
 duckplyr_group_by <- function(.data, ...) {
   try_fetch(
-    .data <- as_duckplyr_df(.data),
+    .data <- as_duckplyr_df_impl(.data),
     error = function(e) {
       testthat::skip(conditionMessage(e))
     }
@@ -1865,15 +2403,17 @@ duckplyr_group_by <- function(.data, ...) {
 #' @export
 group_indices.data.frame <- function(.data, ...) {
   # Our implementation
-  rel_try(NULL,
+  duckplyr_error <- rel_try(NULL,
     # Always fall back to dplyr
-    "No relational implementation for group_indices()" = TRUE,
+    "No relational implementation for {.code group_indices()}" = TRUE,
     {
       return(out)
     }
   )
 
   # dplyr forward
+  check_prudence(.data, duckplyr_error)
+
   group_indices <- group_indices_data_frame
   out <- group_indices(.data, ...)
   return(out)
@@ -1893,7 +2433,7 @@ group_indices.data.frame <- function(.data, ...) {
 
 duckplyr_group_indices <- function(.data, ...) {
   try_fetch(
-    .data <- as_duckplyr_df(.data),
+    .data <- as_duckplyr_df_impl(.data),
     error = function(e) {
       testthat::skip(conditionMessage(e))
     }
@@ -1907,15 +2447,17 @@ duckplyr_group_indices <- function(.data, ...) {
 #' @export
 group_keys.data.frame <- function(.tbl, ...) {
   # Our implementation
-  rel_try(NULL,
+  duckplyr_error <- rel_try(NULL,
     # Always fall back to dplyr
-    "No relational implementation for group_keys()" = TRUE,
+    "No relational implementation for {.code group_keys()}" = TRUE,
     {
       return(out)
     }
   )
 
   # dplyr forward
+  check_prudence(.tbl, duckplyr_error)
+
   group_keys <- group_keys_data_frame
   out <- group_keys(.tbl, ...)
   return(out)
@@ -1935,7 +2477,7 @@ group_keys.data.frame <- function(.tbl, ...) {
 
 duckplyr_group_keys <- function(.tbl, ...) {
   try_fetch(
-    .tbl <- as_duckplyr_df(.tbl),
+    .tbl <- as_duckplyr_df_impl(.tbl),
     error = function(e) {
       testthat::skip(conditionMessage(e))
     }
@@ -1954,15 +2496,17 @@ group_map.data.frame <- function(.data, .f, ..., .keep = FALSE, keep = deprecate
   }
 
   # Our implementation
-  rel_try(NULL,
+  duckplyr_error <- rel_try(NULL,
     # Always fall back to dplyr
-    "No relational implementation for group_map()" = TRUE,
+    "No relational implementation for {.code group_map()}" = TRUE,
     {
       return(out)
     }
   )
 
   # dplyr forward
+  check_prudence(.data, duckplyr_error)
+
   group_map <- group_map_data_frame
   out <- group_map(.data, .f, ..., .keep = .keep)
   return(out)
@@ -1993,7 +2537,7 @@ group_map.data.frame <- function(.data, .f, ..., .keep = FALSE, keep = deprecate
 
 duckplyr_group_map <- function(.data, ...) {
   try_fetch(
-    .data <- as_duckplyr_df(.data),
+    .data <- as_duckplyr_df_impl(.data),
     error = function(e) {
       testthat::skip(conditionMessage(e))
     }
@@ -2012,15 +2556,17 @@ group_modify.data.frame <- function(.data, .f, ..., .keep = FALSE, keep = deprec
   }
 
   # Our implementation
-  rel_try(NULL,
+  duckplyr_error <- rel_try(NULL,
     # Always fall back to dplyr
-    "No relational implementation for group_modify()" = TRUE,
+    "No relational implementation for {.code group_modify()}" = TRUE,
     {
       return(out)
     }
   )
 
   # dplyr forward
+  check_prudence(.data, duckplyr_error)
+
   group_modify <- group_modify_data_frame
   out <- group_modify(.data, .f, ..., .keep = .keep)
   return(out)
@@ -2036,7 +2582,7 @@ group_modify.data.frame <- function(.data, .f, ..., .keep = FALSE, keep = deprec
 
 duckplyr_group_modify <- function(.data, ...) {
   try_fetch(
-    .data <- as_duckplyr_df(.data),
+    .data <- as_duckplyr_df_impl(.data),
     error = function(e) {
       testthat::skip(conditionMessage(e))
     }
@@ -2050,15 +2596,17 @@ duckplyr_group_modify <- function(.data, ...) {
 #' @export
 group_nest.data.frame <- function(.tbl, ..., .key = "data", keep = FALSE) {
   # Our implementation
-  rel_try(NULL,
+  duckplyr_error <- rel_try(NULL,
     # Always fall back to dplyr
-    "No relational implementation for group_nest()" = TRUE,
+    "No relational implementation for {.code group_nest()}" = TRUE,
     {
       return(out)
     }
   )
 
   # dplyr forward
+  check_prudence(.tbl, duckplyr_error)
+
   group_nest <- group_nest_data_frame
   out <- group_nest(.tbl, ..., .key = .key, keep = keep)
   return(out)
@@ -2073,7 +2621,7 @@ group_nest.data.frame <- function(.tbl, ..., .key = "data", keep = FALSE) {
 
 duckplyr_group_nest <- function(.tbl, ...) {
   try_fetch(
-    .tbl <- as_duckplyr_df(.tbl),
+    .tbl <- as_duckplyr_df_impl(.tbl),
     error = function(e) {
       testthat::skip(conditionMessage(e))
     }
@@ -2087,15 +2635,17 @@ duckplyr_group_nest <- function(.tbl, ...) {
 #' @export
 group_size.data.frame <- function(x) {
   # Our implementation
-  rel_try(NULL,
+  duckplyr_error <- rel_try(NULL,
     # Always fall back to dplyr
-    "No relational implementation for group_size()" = TRUE,
+    "No relational implementation for {.code group_size()}" = TRUE,
     {
       return(out)
     }
   )
 
   # dplyr forward
+  check_prudence(x, duckplyr_error)
+
   group_size <- group_size_data_frame
   out <- group_size(x)
   return(out)
@@ -2106,7 +2656,7 @@ group_size.data.frame <- function(x) {
 
 duckplyr_group_size <- function(x, ...) {
   try_fetch(
-    x <- as_duckplyr_df(x),
+    x <- as_duckplyr_df_impl(x),
     error = function(e) {
       testthat::skip(conditionMessage(e))
     }
@@ -2125,15 +2675,17 @@ group_split.data.frame <- function(.tbl, ..., .keep = TRUE, keep = deprecated())
   }
 
   # Our implementation
-  rel_try(NULL,
+  duckplyr_error <- rel_try(NULL,
     # Always fall back to dplyr
-    "No relational implementation for group_split()" = TRUE,
+    "No relational implementation for {.code group_split()}" = TRUE,
     {
       return(out)
     }
   )
 
   # dplyr forward
+  check_prudence(.tbl, duckplyr_error)
+
   group_split <- group_split_data_frame
   out <- group_split(.tbl, ..., .keep = .keep)
   return(out)
@@ -2149,7 +2701,7 @@ group_split.data.frame <- function(.tbl, ..., .keep = TRUE, keep = deprecated())
 
 duckplyr_group_split <- function(.tbl, ...) {
   try_fetch(
-    .tbl <- as_duckplyr_df(.tbl),
+    .tbl <- as_duckplyr_df_impl(.tbl),
     error = function(e) {
       testthat::skip(conditionMessage(e))
     }
@@ -2163,15 +2715,17 @@ duckplyr_group_split <- function(.tbl, ...) {
 #' @export
 group_trim.data.frame <- function(.tbl, .drop = group_by_drop_default(.tbl)) {
   # Our implementation
-  rel_try(NULL,
+  duckplyr_error <- rel_try(NULL,
     # Always fall back to dplyr
-    "No relational implementation for group_trim()" = TRUE,
+    "No relational implementation for {.code group_trim()}" = TRUE,
     {
       return(out)
     }
   )
 
   # dplyr forward
+  check_prudence(.tbl, duckplyr_error)
+
   group_trim <- group_trim_data_frame
   out <- group_trim(.tbl, .drop)
   return(out)
@@ -2182,7 +2736,7 @@ group_trim.data.frame <- function(.tbl, .drop = group_by_drop_default(.tbl)) {
 
 duckplyr_group_trim <- function(.tbl, ...) {
   try_fetch(
-    .tbl <- as_duckplyr_df(.tbl),
+    .tbl <- as_duckplyr_df_impl(.tbl),
     error = function(e) {
       testthat::skip(conditionMessage(e))
     }
@@ -2205,7 +2759,7 @@ group_vars.data.frame <- function(x) {
 
 duckplyr_group_vars <- function(x, ...) {
   try_fetch(
-    x <- as_duckplyr_df(x),
+    x <- as_duckplyr_df_impl(x),
     error = function(e) {
       testthat::skip(conditionMessage(e))
     }
@@ -2218,15 +2772,17 @@ duckplyr_group_vars <- function(x, ...) {
 #' @export
 groups.data.frame <- function(x) {
   # Our implementation
-  rel_try(NULL,
+  duckplyr_error <- rel_try(NULL,
     # Always fall back to dplyr
-    "No relational implementation for groups()" = TRUE,
+    "No relational implementation for {.code groups()}" = TRUE,
     {
       return(out)
     }
   )
 
   # dplyr forward
+  check_prudence(x, duckplyr_error)
+
   groups <- groups_data_frame
   out <- groups(x)
   return(out)
@@ -2237,7 +2793,7 @@ groups.data.frame <- function(x) {
 
 duckplyr_groups <- function(x, ...) {
   try_fetch(
-    x <- as_duckplyr_df(x),
+    x <- as_duckplyr_df_impl(x),
     error = function(e) {
       testthat::skip(conditionMessage(e))
     }
@@ -2273,7 +2829,7 @@ handle_desc <- function(dots) {
 
 #' @title Return the First Parts of an Object
 #'
-#' @description  This is a method for the [`head()`] generic.
+#' @description  This is a method for the [head()] generic.
 #' See "Fallbacks" section for differences in implementation.
 #' Return the first rows of a data.frame
 #'
@@ -2282,7 +2838,7 @@ handle_desc <- function(dots) {
 #' @param ... Not used yet.
 #' @examples
 #' head(mtcars, 2)
-#' @seealso [`head()`]
+#' @seealso [head()]
 #' @rdname head.duckplyr_df
 #' @name head.duckplyr_df
 NULL
@@ -2529,16 +3085,16 @@ list_c <- function(x) {
 
 #' @title Inner join
 #'
-#' @description  This is a method for the [`dplyr::inner_join()`] generic.
+#' @description  This is a method for the [dplyr::inner_join()] generic.
 #' See "Fallbacks" section for differences in implementation.
 #' An `inner_join()` only keeps observations from `x`
 #' that have a matching key in `y`.
 #'
 #' @inheritParams dplyr::inner_join
 #' @examples
-#' library("dplyr")
+#' library(duckplyr)
 #' inner_join(band_members, band_instruments)
-#' @seealso [`dplyr::inner_join()`]
+#' @seealso [dplyr::inner_join()]
 #' @rdname inner_join.duckplyr_df
 #' @name inner_join.duckplyr_df
 NULL
@@ -2552,24 +3108,26 @@ inner_join.data.frame <- function(x, y, by = NULL, copy = FALSE, suffix = c(".x"
   y <- auto_copy(x, y, copy = copy)
 
   # Our implementation
-  rel_try(list(name = "inner_join", x = x, y = y, args = try_list(by = if (!is.null(by) && !is_cross_by(by)) as_join_by(by), copy = copy, keep = keep, na_matches = na_matches, multiple = multiple, unmatched = unmatched, relationship = relationship)),
+  duckplyr_error <- rel_try(list(name = "inner_join", x = x, y = y, args = try_list(by = if (!is.null(by) && !is_cross_by(by)) as_join_by(by), copy = copy, keep = keep, na_matches = na_matches, multiple = multiple, unmatched = unmatched, relationship = relationship)),
     #' @section Fallbacks:
-    #' You cannot use `inner_join.duckplyr_df`
+    #' You cannot use `inner_join.duckplyr_df()`
     #' - for an implicit crossjoin,
     #' - for a value of the `multiple` argument that isn't the default `"all"`.
     #' - for a value of the `unmatched` argument that isn't the default `"drop"`.
     #'
     #' If you do the code will fall back to `dplyr::inner_join()` without any error.
-    "No implicit cross joins for inner_join()" = is_cross_by(by),
-    "`multiple` not supported" = !identical(multiple, "all"),
-    "`unmatched` not supported" = !identical(unmatched, "drop"),
+    "No implicit cross joins for {.code inner_join()}" = is_cross_by(by),
+    "{.arg multiple} not supported" = !identical(multiple, "all"),
+    "{.arg unmatched} not supported" = !identical(unmatched, "drop"),
     {
-      out <- rel_join_impl(x, y, by, "inner", na_matches, suffix, keep, relationship, error_call)
+      out <- rel_join_impl(x, y, by, "inner", na_matches, suffix, keep, error_call)
       return(out)
     }
   )
 
   # dplyr forward
+  check_prudence(x, duckplyr_error)
+
   inner_join <- inner_join_data_frame
   out <- inner_join(x, y, by, copy = FALSE, suffix, ..., keep = keep, na_matches = na_matches, multiple = multiple, unmatched = unmatched, relationship = relationship)
   return(out)
@@ -2595,8 +3153,8 @@ inner_join.data.frame <- function(x, y, by = NULL, copy = FALSE, suffix = c(".x"
 duckplyr_inner_join <- function(x, y, ...) {
   try_fetch(
     {
-      x <- as_duckplyr_df(x)
-      y <- as_duckplyr_df(y)
+      x <- as_duckplyr_df_impl(x)
+      y <- as_duckplyr_df_impl(y)
     },
     error = function(e) {
       testthat::skip(conditionMessage(e))
@@ -2609,16 +3167,16 @@ duckplyr_inner_join <- function(x, y, ...) {
 
 #' @title Intersect
 #'
-#' @description  This is a method for the [`dplyr::intersect()`] generic.
+#' @description  This is a method for the [dplyr::intersect()] generic.
 #' See "Fallbacks" section for differences in implementation.
 #' `intersect(x, y)` finds all rows in both `x` and `y`.
 #'
 #' @inheritParams dplyr::intersect
 #' @examples
-#' df1 <- tibble(x = 1:3)
-#' df2 <- tibble(x = 3:5)
+#' df1 <- duckdb_tibble(x = 1:3)
+#' df2 <- duckdb_tibble(x = 3:5)
 #' intersect(df1, df2)
-#' @seealso [`dplyr::intersect()`]
+#' @seealso [dplyr::intersect()]
 #' @rdname intersect.duckplyr_df
 #' @name intersect.duckplyr_df
 NULL
@@ -2638,10 +3196,10 @@ intersect.data.frame <- function(x, y, ...) {
     y_names <- x_names
   }
 
-  rel_try(list(name = "intersect", x = x, y = y),
+  duckplyr_error <- rel_try(list(name = "intersect", x = x, y = y),
     #' @section Fallbacks:
-    #' You cannot use `intersect.duckplyr_df`
-    #' - if column names are duplicated in one of the tables
+    #' You cannot use `intersect.duckplyr_df()`
+    #' - if column names are duplicated in one of the tables,
     #' - if column names are different in both tables.
     #'
     #' If you do the code will fall back to `dplyr::intersect()` without any error.
@@ -2662,14 +3220,15 @@ intersect.data.frame <- function(x, y, ...) {
         }
 
         rel <- rel_set_intersect(x_rel, y_rel)
-        out <- rel_to_df(rel)
-        out <- dplyr_reconstruct(out, x)
+        out <- duckplyr_reconstruct(rel, x)
       }
       return(out)
     }
   )
 
   # dplyr forward
+  check_prudence(x, duckplyr_error)
+
   intersect <- intersect_data_frame
   out <- intersect(x, y, ...)
   return(out)
@@ -2686,8 +3245,8 @@ intersect.data.frame <- function(x, y, ...) {
 duckplyr_intersect <- function(x, y, ...) {
   try_fetch(
     {
-      x <- as_duckplyr_df(x)
-      y <- as_duckplyr_df(y)
+      x <- as_duckplyr_df_impl(x)
+      y <- as_duckplyr_df_impl(y)
     },
     error = function(e) {
       testthat::skip(conditionMessage(e))
@@ -2699,6 +3258,9 @@ duckplyr_intersect <- function(x, y, ...) {
 }
 
 #' Read Parquet, CSV, and other files using DuckDB
+#'
+#' @description
+#' `r lifecycle::badge("deprecated")`
 #'
 #' `df_from_file()` uses arbitrary table functions to read data.
 #' See <https://duckdb.org/docs/data/overview> for a documentation
@@ -2724,12 +3286,14 @@ duckplyr_intersect <- function(x, y, ...) {
 #'   `duckplyr_df_from_file()`, extended by the provided `class`.
 #'
 #' @export
+#' @keywords internal
 df_from_file <- function(path,
                          table_function,
                          ...,
                          options = list(),
                          class = NULL) {
   check_dots_empty()
+  lifecycle::deprecate_soft("1.0.0", "df_from_file()", "read_file_duckdb()")
 
   if (!rlang::is_character(path)) {
     cli::cli_abort("{.arg path} must be a character vector.")
@@ -2753,7 +3317,7 @@ df_from_file <- function(path,
     options
   )
 
-  meta_rel_register_file(out, path, table_function, options)
+  meta_rel_register_file(out, table_function, path, options)
 
   out <- duckdb$rel_to_altrep(out)
   class(out) <- unique(c(class, "data.frame"), fromLast = TRUE)
@@ -2774,9 +3338,10 @@ duckplyr_df_from_file <- function(
     options = list(),
     class = NULL) {
   check_dots_empty()
+  lifecycle::deprecate_soft("1.0.0", "duckplyr_df_from_file()", "read_file_duckdb()")
 
   out <- df_from_file(path, table_function, options = options, class = class)
-  as_duckplyr_df(out)
+  as_duckplyr_df_impl(out)
 }
 
 default_df_class <- function() {
@@ -2815,6 +3380,7 @@ default_df_class <- function() {
 #' )
 df_from_csv <- function(path, ..., options = list(), class = NULL) {
   check_dots_empty()
+  lifecycle::deprecate_soft("1.0.0", "df_from_csv()", "read_csv_duckdb()")
 
   df_from_file(path, "read_csv_auto", options = options, class = class)
 }
@@ -2837,6 +3403,7 @@ df_from_csv <- function(path, ..., options = list(), class = NULL) {
 #' unlink(c(path, path2))
 duckplyr_df_from_csv <- function(path, ..., options = list(), class = NULL) {
   check_dots_empty()
+  lifecycle::deprecate_soft("1.0.0", "duckplyr_df_from_csv()", "read_csv_duckdb()")
 
   duckplyr_df_from_file(path, "read_csv_auto", options = options, class = class)
 }
@@ -2850,6 +3417,7 @@ duckplyr_df_from_csv <- function(path, ..., options = list(), class = NULL) {
 #' @export
 df_from_parquet <- function(path, ..., options = list(), class = NULL) {
   check_dots_empty()
+  lifecycle::deprecate_soft("1.0.0", "df_from_parquet()", "read_parquet_duckdb()")
 
   df_from_file(path, "read_parquet", options = options, class = class)
 }
@@ -2863,6 +3431,7 @@ df_from_parquet <- function(path, ..., options = list(), class = NULL) {
 #' @export
 duckplyr_df_from_parquet <- function(path, ..., options = list(), class = NULL) {
   check_dots_empty()
+  lifecycle::deprecate_soft("1.0.0", "duckplyr_df_from_parquet()", "read_parquet_duckdb()")
 
   duckplyr_df_from_file(path, "read_parquet", options = options, class = class)
 }
@@ -2894,13 +3463,164 @@ duckplyr_df_from_parquet <- function(path, ..., options = list(), class = NULL) 
 #'
 #' unlink(path_parquet)
 df_to_parquet <- function(data, path) {
-  check_installed("duckdb", version = "0.10.0")
-
+  lifecycle::deprecate_soft("1.0.0", "df_to_parquet()", "compute_parquet()")
   rel <- duckdb_rel_from_df(data)
   duckdb$rel_to_parquet(rel, path)
 }
 
+#' Read Parquet, CSV, and other files using DuckDB
+#'
+#' @description
+#' These functions ingest data from a file.
+#' In many cases, these functions return immediately because they only read the metadata.
+#' The actual data is only read when it is actually processed.
+#'
+#' @name read_file_duckdb
+NULL
+
+#' @description
+#' `read_parquet_duckdb()` reads a CSV file using DuckDB's `read_parquet()` table function.
+#'
+#' @rdname read_file_duckdb
+#' @export
+read_parquet_duckdb <- function(path, ..., prudence = c("thrifty", "lavish", "frugal"), options = list()) {
+  check_dots_empty()
+
+  read_file_duckdb(path, "read_parquet", prudence = prudence, options = options)
+}
+
+#' @description
+#' `read_csv_duckdb()` reads a CSV file using DuckDB's `read_csv_auto()` table function.
+#'
+#' @rdname read_file_duckdb
+#' @export
+#' @examples
+#' # Create simple CSV file
+#' path <- tempfile("duckplyr_test_", fileext = ".csv")
+#' write.csv(data.frame(a = 1:3, b = letters[4:6]), path, row.names = FALSE)
+#'
+#' # Reading is immediate
+#' df <- read_csv_duckdb(path)
+#'
+#' # Names are always available
+#' names(df)
+#'
+#' # Materialization upon access is turned off by default
+#' try(print(df$a))
+#'
+#' # Materialize explicitly
+#' collect(df)$a
+#'
+#' # Automatic materialization with prudence = "lavish"
+#' df <- read_csv_duckdb(path, prudence = "lavish")
+#' df$a
+#'
+#' # Specify column types
+#' read_csv_duckdb(
+#'   path,
+#'   options = list(delim = ",", types = list(c("DOUBLE", "VARCHAR")))
+#' )
+read_csv_duckdb <- function(path, ..., prudence = c("thrifty", "lavish", "frugal"), options = list()) {
+  check_dots_empty()
+
+  read_file_duckdb(path, "read_csv_auto", prudence = prudence, options = options)
+}
+
+#' @description
+#' `read_json_duckdb()` reads a JSON file using DuckDB's `read_json()` table function.
+#'
+#' @rdname read_file_duckdb
+#' @export
+#' @examples
+#'
+#' # Create and read a simple JSON file
+#' path <- tempfile("duckplyr_test_", fileext = ".json")
+#' writeLines('[{"a": 1, "b": "x"}, {"a": 2, "b": "y"}]', path)
+#'
+#' # Reading needs the json extension
+#' db_exec("INSTALL json")
+#' db_exec("LOAD json")
+#' read_json_duckdb(path)
+read_json_duckdb <- function(path, ..., prudence = c("thrifty", "lavish", "frugal"), options = list()) {
+  check_dots_empty()
+
+  read_file_duckdb(path, "read_json", prudence = prudence, options = options)
+}
+
+#' @description
+#' `read_file_duckdb()` uses arbitrary readers to read data.
+#' See <https://duckdb.org/docs/data/overview> for a documentation
+#' of the available functions and their options.
+#' To read multiple files with the same schema,
+#' pass a wildcard or a character vector to the `path` argument,
+#'
+#' @inheritParams rlang::args_dots_empty
+#'
+#' @param path Path to files, glob patterns `*` and `?` are supported.
+#' @param table_function The name of a table-valued
+#'   DuckDB function such as `"read_parquet"`,
+#'   `"read_csv"`, `"read_csv_auto"` or `"read_json"`.
+#' @param prudence Logical, whether to create a frugal duckplyr frame.
+#'   By default, a frugal duckplyr frame, with a limit of one million cells, is created.
+#'   See `vignette("funnel")` for details.
+#' @param options Arguments to the DuckDB function
+#'   indicated by `table_function`.
+#'
+#' @return A duckplyr frame, see [as_duckdb_tibble()] for details.
+#'
+#' @rdname read_file_duckdb
+#' @export
+read_file_duckdb <- function(
+  path,
+  table_function,
+  ...,
+  prudence = c("thrifty", "lavish", "frugal"),
+  options = list()
+) {
+  check_dots_empty()
+
+  if (!rlang::is_character(path)) {
+    cli::cli_abort("{.arg path} must be a character vector.")
+  }
+
+  if (length(path) != 1) {
+    path <- list(path)
+  }
+
+  duckfun(table_function, c(list(path), options), prudence = prudence)
+}
+
+duckfun <- function(table_function, args, ..., prudence) {
+  if (!is.list(args)) {
+    cli::cli_abort("{.arg args} must be a list.")
+  }
+  if (length(args) == 0) {
+    cli::cli_abort("{.arg args} must not be empty.")
+  }
+
+  # FIXME: For some reason, it's important to create an alias here
+  con <- get_default_duckdb_connection()
+
+  # FIXME: Provide better duckdb API
+  path <- args[[1]]
+  options <- args[-1]
+
+  rel <- duckdb$rel_from_table_function(
+    con,
+    table_function,
+    list(path),
+    options
+  )
+
+  meta_rel_register_file(rel, table_function, path, options)
+
+  rel_to_df(rel, prudence = prudence)
+}
+
 #' Class predicate for duckplyr data frames
+#'
+#' @description
+#' `r lifecycle::badge("deprecated")`
 #'
 #' Tests if the input object is of class `"duckplyr_df"`.
 #'
@@ -2909,6 +3629,7 @@ df_to_parquet <- function(data, path) {
 #' @return `TRUE` if the input object is of class `"duckplyr_df"`,
 #'   otherwise `FALSE`.
 #'
+#' @keywords internal
 #' @export
 #' @examples
 #' tibble(a = 1:3) %>%
@@ -2918,6 +3639,8 @@ df_to_parquet <- function(data, path) {
 #'   as_duckplyr_df() %>%
 #'   is_duckplyr_df()
 is_duckplyr_df <- function(.data) {
+  lifecycle::deprecate_soft("1.0.0", "is_duckplyr_df()", "is_duckdb_tibble()")
+
   inherits(.data, "duckplyr_df")
 }
 
@@ -2929,7 +3652,6 @@ rel_join_impl <- function(
   na_matches,
   suffix = c(".x", ".y"),
   keep = NULL,
-  relationship = NULL,
   error_call = caller_env()
 ) {
   mutating <- !(join %in% c("semi", "anti"))
@@ -2947,10 +3669,6 @@ rel_join_impl <- function(
     by <- join_by_common(x_names, y_names, error_call = error_call)
   } else {
     by <- as_join_by(by, error_call = error_call)
-  }
-
-  if (mutating) {
-    check_relationship(relationship, x, y, by, error_call = error_call)
   }
 
   x_by <- by$x
@@ -3060,69 +3778,9 @@ rel_join_impl <- function(
     out <- oo_restore(joined, "___row_number_x", list(x_rel))
   } # if (mutating)
 
-  out <- rel_to_df(out)
-  out <- dplyr_reconstruct(out, x)
+  out <- duckplyr_reconstruct(out, x)
 
   return(out)
-}
-
-check_relationship <- function(relationship, x, y, by, error_call) {
-  if (is_null(relationship)) {
-    # FIXME: Determine behavior based on option
-    if (!is_key(x, by$x) && !is_key(y, by$y)) {
-      warn_join(
-        message = c(
-          "Detected an unexpected many-to-many relationship between `x` and `y`.",
-          i = paste0(
-            "If a many-to-many relationship is expected, ",
-            "set `relationship = \"many-to-many\"` to silence this warning."
-          )
-        ),
-        class = "dplyr_warning_join_relationship_many_to_many",
-        call = error_call
-      )
-    }
-    return()
-  }
-
-  if (relationship %in% c("one-to-many", "one-to-one")) {
-    if (!is_key(x, by$x)) {
-      stop_join(
-        message = c(
-          glue("Each row in `{x_name}` must match at most 1 row in `{y_name}`."),
-        ),
-        class = paste0("dplyr_error_join_relationship_", gsub("-", "_", relationship)),
-        call = error_call
-      )
-    }
-  }
-
-  if (relationship %in% c("many-to-one", "one-to-one")) {
-    if (!is_key(y, by$y)) {
-      stop_join(
-        message = c(
-          glue("Each row in `{y_name}` must match at most 1 row in `{x_name}`."),
-        ),
-        class = paste0("dplyr_error_join_relationship_", gsub("-", "_", relationship)),
-        call = error_call
-      )
-    }
-  }
-}
-
-is_key <- function(x, cols) {
-  local_options(duckdb.materialize_message = FALSE)
-
-  rows <-
-    x %>%
-    # FIXME: Why does this materialize
-    # as_duckplyr_tibble() %>%
-    summarize(.by = c(!!!syms(cols)), `___n` = n()) %>%
-    filter(`___n` > 1L) %>%
-    head(1L) %>%
-    nrow()
-
-  rows == 0
 }
 
 # https://github.com/tidyverse/dplyr/pull/7029
@@ -3141,17 +3799,41 @@ join_ptype_common <- function(x, y, vars, error_call = caller_env()) {
   ptype
 }
 
+#' Retrieve details about the most recent computation
+#'
+#' Before a result is computed, it is specified as a "relation" object.
+#' This function retrieves this object for the last computation that led to the
+#' materialization of a data frame.
+#'
+#' @return A duckdb "relation" object, or `NULL` if no computation has been
+#'   performed yet.
+#' @export
+last_rel <- function() {
+  duckplyr_the$last_rel
+}
+
+# Ellipsis for future extensions
+last_rel_store <- function(rel, ...) {
+  duckplyr_the$last_rel <- rel
+}
+
+on_load({
+  options(duckdb.materialize_callback = last_rel_store)
+})
+
+duckplyr_the <- new_environment()
+
 #' @title Left join
 #'
-#' @description  This is a method for the [`dplyr::left_join()`] generic.
+#' @description  This is a method for the [dplyr::left_join()] generic.
 #' See "Fallbacks" section for differences in implementation.
 #' A `left_join()` keeps all observations in `x`.
 #'
 #' @inheritParams dplyr::left_join
 #' @examples
-#' library("dplyr")
+#' library(duckplyr)
 #' left_join(band_members, band_instruments)
-#' @seealso [`dplyr::left_join()`]
+#' @seealso [dplyr::left_join()]
 #' @rdname left_join.duckplyr_df
 #' @name left_join.duckplyr_df
 NULL
@@ -3165,25 +3847,27 @@ left_join.data.frame <- function(x, y, by = NULL, copy = FALSE, suffix = c(".x",
   y <- auto_copy(x, y, copy = copy)
 
   # Our implementation
-  rel_try(list(name = "left_join", x = x, y = y, args = try_list(by = if (!is.null(by) && !is_cross_by(by)) as_join_by(by), copy = copy, keep = keep, na_matches = na_matches, multiple = multiple, unmatched = unmatched, relationship = relationship)),
+  duckplyr_error <- rel_try(list(name = "left_join", x = x, y = y, args = try_list(by = if (!is.null(by) && !is_cross_by(by)) as_join_by(by), copy = copy, keep = keep, na_matches = na_matches, multiple = multiple, unmatched = unmatched, relationship = relationship)),
     #' @section Fallbacks:
-    #' You cannot use `left_join.duckplyr_df`
+    #' You cannot use `left_join.duckplyr_df()`
     #' - for an implicit cross join,
     #' - for a value of the `multiple` argument that isn't the default `"all"`.
     #' - for a value of the `unmatched` argument that isn't the default `"drop"`.
     #'
     #' If you do the code will fall back to `dplyr::left_join()` without any error.
 
-    "No implicit cross joins for left_join()" = is_cross_by(by),
-    "`multiple` not supported" = !identical(multiple, "all"),
-    "`unmatched` not supported" = !identical(unmatched, "drop"),
+    "No implicit cross joins for {.code left_join()}" = is_cross_by(by),
+    "{.arg multiple} not supported" = !identical(multiple, "all"),
+    "{.arg unmatched} not supported" = !identical(unmatched, "drop"),
     {
-      out <- rel_join_impl(x, y, by, "left", na_matches, suffix, keep, relationship, error_call)
+      out <- rel_join_impl(x, y, by, "left", na_matches, suffix, keep, error_call)
       return(out)
     }
   )
 
   # dplyr forward
+  check_prudence(x, duckplyr_error)
+
   left_join <- left_join_data_frame
   out <- left_join(x, y, by, copy = FALSE, suffix, ..., keep = keep, na_matches = na_matches, multiple = multiple, unmatched = unmatched, relationship = relationship)
   return(out)
@@ -3209,8 +3893,8 @@ left_join.data.frame <- function(x, y, by = NULL, copy = FALSE, suffix = c(".x",
 duckplyr_left_join <- function(x, y, ...) {
   try_fetch(
     {
-      x <- as_duckplyr_df(x)
-      y <- as_duckplyr_df(y)
+      x <- as_duckplyr_df_impl(x)
+      y <- as_duckplyr_df_impl(y)
     },
     error = function(e) {
       testthat::skip(conditionMessage(e))
@@ -3221,20 +3905,20 @@ duckplyr_left_join <- function(x, y, ...) {
   out
 }
 
-#' @title Create, modify, and delete columns (duckplyr)
+#' @title Create, modify, and delete columns
 #'
-#' @description  This is a method for the [`dplyr::mutate()`] generic.
+#' @description  This is a method for the [dplyr::mutate()] generic.
 #' `mutate()` creates new columns that are functions of existing variables.
 #' It can also modify (if the name is the same as an existing column)
 #' and delete columns (by setting their value to `NULL`).
 #'
 #' @inheritParams dplyr::mutate
 #' @examples
-#' library("duckplyr")
-#' df <- data.frame(x = c(1, 2), row.names = c("a", "b"))
+#' library(duckplyr)
+#' df <- data.frame(x = c(1, 2))
 #' df <- mutate(df, y = 2)
 #' df
-#' @seealso [`dplyr::mutate()`]
+#' @seealso [dplyr::mutate()]
 #' @rdname mutate.duckplyr_df
 #' @name mutate.duckplyr_df
 NULL
@@ -3249,7 +3933,7 @@ mutate.data.frame <- function(.data, ..., .by = NULL, .keep = c("all", "used", "
   by_names <- eval_select_by(by_arg, .data)
 
   # Our implementation
-  rel_try(list(name = "mutate", x = .data, args = try_list(dots = enquos(...), .by = by_arg, .keep = .keep)),
+  duckplyr_error <- rel_try(list(name = "mutate", x = .data, args = try_list(dots = enquos(...), .by = by_arg, .keep = .keep)),
     "Implemented for all cases?" = FALSE,
     {
       rel <- duckdb_rel_from_df(.data)
@@ -3264,7 +3948,7 @@ mutate.data.frame <- function(.data, ..., .by = NULL, .keep = c("all", "used", "
 
       names_used <- character()
       names_new <- character()
-      current_data <- rel_to_df(rel)
+      current_data <- rel_to_df(rel, prudence = "frugal")
 
       # FIXME: use fewer projections
       for (i in seq_along(dots)) {
@@ -3312,16 +3996,14 @@ mutate.data.frame <- function(.data, ..., .by = NULL, .keep = c("all", "used", "
         }
 
         rel <- rel_project(rel, unname(exprs))
-        current_data <- rel_to_df(rel)
+        current_data <- rel_to_df(rel, prudence = "frugal")
       }
 
       if (length(by_names) > 0) {
         rel <- oo_restore(rel)
       }
 
-      out <- rel_to_df(rel)
-
-      out <- dplyr_reconstruct(out, .data)
+      out <- duckplyr_reconstruct(rel, .data)
 
       names_original <- names(.data)
 
@@ -3348,6 +4030,8 @@ mutate.data.frame <- function(.data, ..., .by = NULL, .keep = c("all", "used", "
   )
 
   # dplyr forward
+  check_prudence(.data, duckplyr_error)
+
   mutate <- mutate_data_frame
   out <- mutate(.data, ..., .by = {{ .by }}, .keep = .keep, .before = {{ .before }}, .after = {{ .after }})
   return(out)
@@ -3387,7 +4071,7 @@ mutate.data.frame <- function(.data, ..., .by = NULL, .keep = c("all", "used", "
 
 duckplyr_mutate <- function(.data, ...) {
   try_fetch(
-    .data <- as_duckplyr_df(.data),
+    .data <- as_duckplyr_df_impl(.data),
     error = function(e) {
       testthat::skip(conditionMessage(e))
     }
@@ -3401,15 +4085,17 @@ duckplyr_mutate <- function(.data, ...) {
 #' @export
 n_groups.data.frame <- function(x) {
   # Our implementation
-  rel_try(NULL,
+  duckplyr_error <- rel_try(NULL,
     # Always fall back to dplyr
-    "No relational implementation for n_groups()" = TRUE,
+    "No relational implementation for {.code n_groups()}" = TRUE,
     {
       return(out)
     }
   )
 
   # dplyr forward
+  check_prudence(x, duckplyr_error)
+
   n_groups <- n_groups_data_frame
   out <- n_groups(x)
   return(out)
@@ -3420,7 +4106,7 @@ n_groups.data.frame <- function(x) {
 
 duckplyr_n_groups <- function(x, ...) {
   try_fetch(
-    x <- as_duckplyr_df(x),
+    x <- as_duckplyr_df_impl(x),
     error = function(e) {
       testthat::skip(conditionMessage(e))
     }
@@ -3434,14 +4120,16 @@ duckplyr_n_groups <- function(x, ...) {
 #' @export
 nest_by.data.frame <- function(.data, ..., .key = "data", .keep = FALSE) {
   # Our implementation
-  rel_try(NULL,
-    "No relational implementation for nest_by()" = TRUE,
+  duckplyr_error <- rel_try(NULL,
+    "No relational implementation for {.code nest_by()}" = TRUE,
     {
       return(out)
     }
   )
 
   # dplyr forward
+  check_prudence(.data, duckplyr_error)
+
   nest_by <- nest_by_data_frame
   out <- nest_by(.data, ..., .key = .key, .keep = .keep)
   return(out)
@@ -3453,7 +4141,7 @@ nest_by.data.frame <- function(.data, ..., .key = "data", .keep = FALSE) {
 
 duckplyr_nest_by <- function(.data, ...) {
   try_fetch(
-    .data <- as_duckplyr_df(.data),
+    .data <- as_duckplyr_df_impl(.data),
     error = function(e) {
       testthat::skip(conditionMessage(e))
     }
@@ -3477,14 +4165,16 @@ nest_join.data.frame <- function(x, y, by = NULL, copy = FALSE, keep = NULL, nam
   }
 
   # Our implementation
-  rel_try(NULL,
-    "No relational implementation for nest_join()" = TRUE,
+  duckplyr_error <- rel_try(NULL,
+    "No relational implementation for {.code nest_join()}" = TRUE,
     {
       return(out)
     }
   )
 
   # dplyr forward
+  check_prudence(x, duckplyr_error)
+
   x_df <- x
   class(x_df) <- setdiff(class(x_df), "duckplyr_df")
   y_df <- y
@@ -3587,8 +4277,8 @@ duckplyr_nest_join <- function(x, y, by = NULL, copy = FALSE, keep = NULL, name 
 
   try_fetch(
     {
-      x <- as_duckplyr_df(x)
-      y <- as_duckplyr_df(y)
+      x <- as_duckplyr_df_impl(x)
+      y <- as_duckplyr_df_impl(y)
     },
     error = function(e) {
       testthat::skip(conditionMessage(e))
@@ -3602,44 +4292,43 @@ duckplyr_nest_join <- function(x, y, by = NULL, copy = FALSE, keep = NULL, name 
 #' Verbs not implemented in duckplyr
 #'
 #' The following dplyr generics have no counterpart method in duckplyr.
-#' If you want to help add a new verb, 
+#' If you want to help add a new verb,
 #' please refer to our contributing guide <https://duckplyr.tidyverse.org/CONTRIBUTING.html#support-new-verbs>
-#' @rdname not-supported
-#' @name not-supported
+#' @rdname unsupported
+#' @name unsupported
 #' @section Unsupported verbs:
 #' For these verbs, duckplyr will fall back to dplyr.
-#' - [`add_count()`]
-#' - [`compute()`]
-#' - [`cross_join()`]
-#' - [`do()`]
-#' - [`group_by()`]
-#' - [`group_indices()`]
-#' - [`group_keys()`]
-#' - [`group_map()`]
-#' - [`group_modify()`]
-#' - [`group_nest()`]
-#' - [`group_size()`]
-#' - [`group_split()`]
-#' - [`group_trim()`]
-#' - [`groups()`]
-#' - [`n_groups()`]
-#' - [`nest_by()`]
-#' - [`nest_join()`]
-#' - [`reframe()`]
-#' - [`rename_with()`]
-#' - [`rows_append()`]
-#' - [`rows_delete()`]
-#' - [`rows_insert()`]
-#' - [`rows_patch()`]
-#' - [`rows_update()`]
-#' - [`rows_upsert()`]
-#' - [`rowwise()`]
-#' - [`setequal()`]
-#' - [`slice_head()`]
-#' - [`slice_sample()`]
-#' - [`slice_tail()`]
-#' - [`slice()`]
-#' - [`ungroup()`]
+#' - [add_count()]
+#' - [cross_join()]
+#' - [do()]
+#' - [group_by()]
+#' - [group_indices()]
+#' - [group_keys()]
+#' - [group_map()]
+#' - [group_modify()]
+#' - [group_nest()]
+#' - [group_size()]
+#' - [group_split()]
+#' - [group_trim()]
+#' - [groups()]
+#' - [n_groups()]
+#' - [nest_by()]
+#' - [nest_join()]
+#' - [reframe()]
+#' - [rename_with()]
+#' - [rows_append()]
+#' - [rows_delete()]
+#' - [rows_insert()]
+#' - [rows_patch()]
+#' - [rows_update()]
+#' - [rows_upsert()]
+#' - [rowwise()]
+#' - [setequal()]
+#' - [slice_head()]
+#' - [slice_sample()]
+#' - [slice_tail()]
+#' - [slice()]
+#' - [ungroup()]
 NULL
 
 oo_force <- function() {
@@ -3720,6 +4409,36 @@ oo_restore_cols <- function(rel, colname = "___row_number", extra = NULL, force 
   rel_project(rel, unname(proj_exprs))
 }
 
+#' @importFrom pillar tbl_sum
+#' @export
+tbl_sum.data.frame <- function(x) {
+  c("A duckplyr data frame" = cli::pluralize("{length(x)} variable{?s}"))
+}
+
+# dim.prudent_duckplyr_df is not called, special dispatch
+
+#' @importFrom pillar tbl_nrow
+#' @export
+tbl_nrow.data.frame <- function(x, ...) {
+  NA_real_
+}
+
+#' @importFrom pillar tbl_format_setup
+#' @export
+tbl_format_setup.data.frame <- function(
+  x,
+  width,
+  ...,
+  setup,
+  n,
+  max_extra_cols,
+  max_footer_lines,
+  focus
+) {
+  local_options(duckdb.materialize_callback = NULL, duckdb.materialize_message = NULL)
+  NextMethod()
+}
+
 exprs_from_loc <- function(.data, loc) {
   nexprs_from_loc(names(.data), loc)
 }
@@ -3735,13 +4454,12 @@ nexprs <- function(names) {
 
 exprs_project <- function(rel, exprs, .data) {
   out_rel <- rel_project(rel, exprs)
-  out <- rel_to_df(out_rel)
-  dplyr_reconstruct(out, .data)
+  duckplyr_reconstruct(out_rel, .data)
 }
 
 #' @title Extract a single column
 #'
-#' @description  This is a method for the [`dplyr::pull()`] generic.
+#' @description  This is a method for the [dplyr::pull()] generic.
 #' See "Fallbacks" section for differences in implementation.
 #' `pull()` is similar to `$`.
 #' It's mostly useful because it looks a little nicer in pipes,
@@ -3749,9 +4467,10 @@ exprs_project <- function(rel, exprs, .data) {
 #'
 #' @inheritParams dplyr::pull
 #' @examples
+#' library(duckplyr)
 #' pull(mtcars, cyl)
 #' pull(mtcars, 1)
-#' @seealso [`dplyr::pull()`]
+#' @seealso [dplyr::pull()]
 #' @rdname pull.duckplyr_df
 #' @name pull.duckplyr_df
 NULL
@@ -3772,13 +4491,13 @@ pull.data.frame <- function(.data, var = -1, name = NULL, ...) {
 
   exprs <- exprs_from_loc(.data, loc)
 
-  rel_try(list(name = "pull", .data = .data),
+  duckplyr_error <- rel_try(list(name = "pull", .data = .data),
     #' @section Fallbacks:
-    #' You cannot use `pull.duckplyr_df`
-    #' - with a selection that returns no columns:
+    #' You cannot use `pull.duckplyr_df()`
+    #' - with a selection that returns no columns.
     #'
     #' If you do the code will fall back to `dplyr::pull()` without any error.
-    "Can't use relational with zero-column result set." = (length(exprs) == 0),
+    "Zero-column result set not supported." = (length(exprs) == 0),
     {
       rel <- duckdb_rel_from_df(.data)
       out_rel <- rel_project(rel, exprs)
@@ -3789,6 +4508,8 @@ pull.data.frame <- function(.data, var = -1, name = NULL, ...) {
   )
 
   # dplyr forward
+  check_prudence(.data, duckplyr_error)
+
   pull <- pull_data_frame
   out <- pull(.data, {{ var }}, {{ name }}, ...)
   return(out)
@@ -3805,7 +4526,7 @@ pull.data.frame <- function(.data, var = -1, name = NULL, ...) {
 
 duckplyr_pull <- function(.data, ...) {
   try_fetch(
-    .data <- as_duckplyr_df(.data),
+    .data <- as_duckplyr_df_impl(.data),
     error = function(e) {
       testthat::skip(conditionMessage(e))
     }
@@ -3818,14 +4539,16 @@ duckplyr_pull <- function(.data, ...) {
 #' @export
 reframe.data.frame <- function(.data, ..., .by = NULL) {
   # Our implementation
-  rel_try(NULL,
-    "No relational implementation for reframe()" = TRUE,
+  duckplyr_error <- rel_try(NULL,
+    "No relational implementation for {.code reframe()}" = TRUE,
     {
       return(out)
     }
   )
 
   # dplyr forward
+  check_prudence(.data, duckplyr_error)
+
   reframe <- reframe_data_frame
   out <- reframe(.data, ..., .by = {{ .by }})
   return(out)
@@ -3847,7 +4570,7 @@ reframe.data.frame <- function(.data, ..., .by = NULL) {
 
 duckplyr_reframe <- function(.data, ...) {
   try_fetch(
-    .data <- as_duckplyr_df(.data),
+    .data <- as_duckplyr_df_impl(.data),
     error = function(e) {
       testthat::skip(conditionMessage(e))
     }
@@ -3919,14 +4642,20 @@ rel_names.relational_df <- function(rel, ...) {}
 # we need a finalizer to disconnect on exit otherwise we get a warning
 default_duckdb_connection <- new.env(parent = emptyenv())
 get_default_duckdb_connection <- function() {
-  if (!exists("con", default_duckdb_connection)) {
+  if (is.null(default_duckdb_connection$con)) {
     default_duckdb_connection$con <- create_default_duckdb_connection()
-
-    reg.finalizer(default_duckdb_connection, onexit = TRUE, function(e) {
-      DBI::dbDisconnect(e$con, shutdown = TRUE)
-    })
+    reg.finalizer(default_duckdb_connection, onexit = TRUE, reset_default_duckdb_connection)
   }
   default_duckdb_connection$con
+}
+
+reset_default_duckdb_connection <- function(e = NULL) {
+  if (is.null(e)) {
+    e <- default_duckdb_connection
+  }
+  DBI::dbDisconnect(e$con)
+  # duckdb::duckdb_shutdown(e$con@driver)
+  e$con <- NULL
 }
 
 duckplyr_macros <- c(
@@ -3942,7 +4671,7 @@ duckplyr_macros <- c(
   #
   "___divide" = "(x, y) AS CASE WHEN y = 0 THEN CASE WHEN x = 0 THEN CAST('NaN' AS double) WHEN x > 0 THEN CAST('+Infinity' AS double) ELSE CAST('-Infinity' AS double) END ELSE CAST(x AS double) / y END",
   #
-  "is.na" = "(x) AS (x IS NULL OR isnan(x))",
+  "is.na" = "(x) AS (x IS NULL)",
   "n" = "() AS CAST(COUNT(*) AS int32)",
   #
   "___log10" = "(x) AS CASE WHEN x < 0 THEN CAST('NaN' AS double) WHEN x = 0 THEN CAST('-Inf' AS double) ELSE log10(x) END",
@@ -3952,6 +4681,8 @@ duckplyr_macros <- c(
   # https://github.com/duckdb/duckdb/discussions/8599
   # "as.Date" = '(x) AS strptime(x, \'%Y-%m-%d\')',
 
+  "sub" = "(pattern, replacement, x) AS (regexp_replace(x, pattern, replacement))",
+  "gsub" = "(pattern, replacement, x) AS (regexp_replace(x, pattern, replacement, 'g'))",
   "grepl" = "(pattern, x) AS (CASE WHEN x IS NULL THEN FALSE ELSE regexp_matches(x, pattern) END)",
   "if_else" = "(test, yes, no) AS (CASE WHEN test IS NULL THEN NULL ELSE CASE WHEN test THEN yes ELSE no END END)",
   "|" = "(x, y) AS (x OR y)",
@@ -3972,11 +4703,13 @@ duckplyr_macros <- c(
 )
 
 create_default_duckdb_connection <- function() {
-  drv <- duckdb::duckdb()
+  dbroot <- Sys.getenv("DUCKPLYR_TEMP_DIR", tempdir())
+  dbdir <- tempfile("duckplyr", tmpdir = dbroot, fileext = ".duckdb")
+
+  drv <- duckdb::duckdb(dbdir = dbdir)
   con <- DBI::dbConnect(drv)
 
-  # DBI::dbExecute(con, "set memory_limit='1GB'")
-  DBI::dbExecute(con, paste0("pragma temp_directory='", tempdir(), "'"))
+  DBI::dbExecute(con, paste0("pragma temp_directory='", dbroot, "'"))
 
   duckdb$rapi_load_rfuns(drv@database_ref)
 
@@ -4006,8 +4739,8 @@ duckdb_rel_from_df <- function(df) {
     return(rel)
   }
 
-  if (!is_duckplyr_df(df)) {
-    df <- as_duckplyr_df(df)
+  if (!is_duckdb_tibble(df)) {
+    df <- as_duckplyr_df_impl(df)
   }
 
   out <- check_df_for_rel(df)
@@ -4021,27 +4754,27 @@ duckdb_rel_from_df <- function(df) {
 }
 
 # FIXME: This should be duckdb's responsibility
-check_df_for_rel <- function(df) {
+check_df_for_rel <- function(df, call = caller_env()) {
   rni <- .row_names_info(df, 0L)
   if (is.character(rni)) {
-    cli::cli_abort("Need data frame without row names to convert to relational, got character row names.")
+    cli::cli_abort("Need data frame without row names to convert to relational, got character row names.", call = call)
   }
   if (length(rni) != 0) {
     if (length(rni) != 2L || !is.na(rni[[1]])) {
-      cli::cli_abort("Need data frame without row names to convert to relational, got numeric row names.")
+      cli::cli_abort("Need data frame without row names to convert to relational, got numeric row names.", call = call)
     }
   }
 
   for (i in seq_along(df)) {
     col <- .subset2(df, i)
     if (!is.null(names(col))) {
-      cli::cli_abort("Can't convert named vectors to relational. Affected column: {.var {names(df)[[i]]}}.")
+      cli::cli_abort("Can't convert named vectors to relational. Affected column: {.var {names(df)[[i]]}}.", call = call)
     }
     if (!is.null(dim(col))) {
-      cli::cli_abort("Can't convert arrays or matrices to relational. Affected column: {.var {names(df)[[i]]}}.")
+      cli::cli_abort("Can't convert arrays or matrices to relational. Affected column: {.var {names(df)[[i]]}}.", call = call)
     }
     if (isS4(col)) {
-      cli::cli_abort("Can't convert S4 columns to relational. Affected column: {.var {names(df)[[i]]}}.")
+      cli::cli_abort("Can't convert S4 columns to relational. Affected column: {.var {names(df)[[i]]}}.", call = call)
     }
 
     # Factors: https://github.com/duckdb/duckdb/issues/8561
@@ -4057,7 +4790,7 @@ check_df_for_rel <- function(df) {
       valid <- FALSE
     }
     if (!valid) {
-      cli::cli_abort("Can't convert columns of class {.cls {col_class}} to relational. Affected column: {.var {names(df)[[i]]}}.")
+      cli::cli_abort("Can't convert columns of class {.cls {col_class}} to relational. Affected column: {.var {names(df)[[i]]}}.", call = call)
     }
   }
 
@@ -4071,10 +4804,10 @@ check_df_for_rel <- function(df) {
 
   roundtrip <- duckdb$rapi_rel_to_altrep(out)
   if (Sys.getenv("DUCKPLYR_CHECK_ROUNDTRIP") == "TRUE") {
-    rlang::with_options(duckdb.materialize_message = FALSE, {
+    rlang::with_options(duckdb.materialize_callback = NULL, {
       for (i in seq_along(df)) {
         if (!identical(df[[i]], roundtrip[[i]])) {
-          cli::cli_abort("Imperfect roundtrip. Affected column: {.var {names(df)[[i]]}}.")
+          cli::cli_abort("Imperfect roundtrip. Affected column: {.var {names(df)[[i]]}}.", call = call)
         }
       }
     })
@@ -4083,15 +4816,7 @@ check_df_for_rel <- function(df) {
       df_attrib <- attributes(df[[i]])
       roundtrip_attrib <- attributes(roundtrip[[i]])
       if (!identical(df_attrib, roundtrip_attrib)) {
-        cli::cli_abort("Attributes are lost during conversion. Affected column: {.var {names(df)[[i]]}}.")
-      }
-      # Always check roundtrip for timestamp columns
-      # duckdb uses microsecond precision only, this is in some cases
-      # less than R does
-      if (inherits(df[[i]], "POSIXct")) {
-        if (!identical(df[[i]], roundtrip[[i]])) {
-          cli::cli_abort("Imperfect roundtrip. Affected column: {.var {names(df)[[i]]}}.")
-        }
+        cli::cli_abort("Attributes are lost during conversion. Affected column: {.var {names(df)[[i]]}}.", call = call)
       }
     }
   }
@@ -4109,8 +4834,30 @@ vec_ptype_safe <- function(x) {
 }
 
 #' @export
-rel_to_df.duckdb_relation <- function(rel, ...) {
-  duckdb$rel_to_altrep(rel)
+rel_to_df.duckdb_relation <- function(
+  rel,
+  ...,
+  prudence = NULL,
+  allow_materialization = TRUE,
+  n_rows = Inf,
+  n_cells = Inf
+) {
+  if (is.null(prudence)) {
+    # Legacy
+    return(duckdb$rel_to_altrep(rel, allow_materialization, n_rows, n_cells))
+  }
+
+  # Same code in new_duckdb_tibble(), to avoid recursion there
+  prudence_parsed <- prudence_parse(prudence)
+  out <- duckdb$rel_to_altrep(
+    rel,
+    # FIXME: Remove allow_materialization with duckdb >= 1.2.0
+    allow_materialization = prudence_parsed$allow_materialization,
+    n_rows = prudence_parsed$n_rows,
+    n_cells = prudence_parsed$n_cells
+  )
+
+  new_duckdb_tibble(out, prudence = prudence)
 }
 
 #' @export
@@ -4351,7 +5098,7 @@ to_duckdb_expr <- function(x) {
     relational_relexpr_constant = {
       # FIXME: Should be duckdb's responsibility
       # Example: https://github.com/dschafer/activatr/issues/18
-      check_df_for_rel(tibble(constant = x$val))
+      check_df_for_rel(vctrs::new_data_frame(list(constant = x$val)))
 
       if ("experimental" %in% names(formals(duckdb$expr_constant))) {
         experimental <- (Sys.getenv("DUCKPLYR_EXPERIMENTAL") == "TRUE")
@@ -4964,6 +5711,8 @@ rel_names <- function(rel, ...) {
   UseMethod("rel_names")
 }
 
+#' @return A string or a condition object.
+#' @noRd
 rel_try <- function(call, rel, ...) {
   call_name <- as.character(sys.call(-1)[[1]])
 
@@ -5005,35 +5754,41 @@ rel_try <- function(call, rel, ...) {
         }
 
         if (Sys.getenv("DUCKPLYR_FALLBACK_INFO") == "TRUE") {
-          inform(message = c("Requested fallback for relational:", i = message))
+          inform(message = c(
+            "Cannot process duckplyr query with DuckDB, falling back to dplyr.",
+            i = message
+          ))
         }
         if (Sys.getenv("DUCKPLYR_FORCE") == "TRUE") {
-          cli::cli_abort("Fallback not available with {.envvar DUCKPLYR_FORCE}.")
+          cli::cli_abort(c(
+            "Fallback not available with {.envvar DUCKPLYR_FORCE}.",
+            i = message
+          ))
         }
       }
 
-      return()
+      return(message)
     }
   }
 
   if (Sys.getenv("DUCKPLYR_FORCE") == "TRUE") {
-    return(rel)
+    force(rel)
+    cli::cli_abort("Must use a {.code return()} in {.code rel_try()}.", .internal = TRUE)
   }
 
   out <- rlang::try_fetch(rel, error = identity)
   if (inherits(out, "error")) {
     tel_collect(out, call)
 
-    # FIXME: enable always
     if (Sys.getenv("DUCKPLYR_FALLBACK_INFO") == "TRUE") {
-      rlang::cnd_signal(rlang::message_cnd(message = "Error processing with relational.", parent = out))
+      rlang::cnd_signal(rlang::message_cnd(message = "Error processing duckplyr query with DuckDB, falling back to dplyr.", parent = out))
     }
     stats$fallback <- stats$fallback + 1L
-    return()
+    return(out)
   }
 
   # Never reached due to return() in code
-  cli::cli_abort("Must use a return() in rel_try().")
+  cli::cli_abort("Must use a {.code return()} in {.code rel_try()}.", .internal = TRUE)
 }
 
 rel_translate_dots <- function(dots, data) {
@@ -5079,18 +5834,34 @@ new_failing_mask <- function(names_data) {
   new_data_mask(env)
 }
 
+#' @param duckplyr_error Return value from rel_try()
+#' @noRd
+check_prudence <- function(x, duckplyr_error, call = caller_env()) {
+  msg <- tryCatch(nrow(x), error = conditionMessage)
+  if (is.character(msg)) {
+    duckplyr_error_msg <- if (is.character(duckplyr_error)) duckplyr_error
+    duckplyr_error_parent <- if (is_condition(duckplyr_error)) duckplyr_error
+    cli::cli_abort(parent = duckplyr_error_parent, call = call, c(
+      "This operation cannot be carried out by DuckDB, and the input is a frugal duckplyr frame.",
+      "*" = duckplyr_error_msg,
+      "i" = 'Use {.code compute(prudence = "lavish")} to materialize to temporary storage and continue with {.pkg duckplyr}.',
+      "i" = 'See {.run vignette("funnel")} for other options.'
+    ))
+  }
+}
+
 #' @title Change column order
 #'
-#' @description  This is a method for the [`dplyr::relocate()`] generic.
+#' @description  This is a method for the [dplyr::relocate()] generic.
 #' See "Fallbacks" section for differences in implementation.
 #' Use `relocate()` to change column positions,
 #' using the same syntax as `select()` to make it easy to move blocks of columns at once.
 #'
 #' @inheritParams dplyr::relocate
 #' @examples
-#' df <- tibble(a = 1, b = 1, c = 1, d = "a", e = "a", f = "a")
+#' df <- duckdb_tibble(a = 1, b = 1, c = 1, d = "a", e = "a", f = "a")
 #' relocate(df, f)
-#' @seealso [`dplyr::relocate()`]
+#' @seealso [dplyr::relocate()]
 #' @rdname relocate.duckplyr_df
 #' @name relocate.duckplyr_df
 NULL
@@ -5111,13 +5882,13 @@ relocate.data.frame <- function(.data, ..., .before = NULL, .after = NULL) {
   exprs <- exprs_from_loc(.data, loc)
 
   # Ensure `relocate()` appears in call stack
-  rel_try(list(name = "relocate", x = .data, args = try_list(dots = enquos(...), .before = enquo(.before), .after = enquo(.after))),
+  duckplyr_error <- rel_try(list(name = "relocate", x = .data, args = try_list(dots = enquos(...), .before = enquo(.before), .after = enquo(.after))),
     #' @section Fallbacks:
-    #' You cannot use `relocate.duckplyr_df`
-    #' - with a selection that returns no columns:
+    #' You cannot use `relocate.duckplyr_df()`
+    #' - with a selection that returns no columns.
     #'
     #' If you do the code will fall back to `dplyr::relocate()` without any error.
-    "Can't use relational with zero-column result set." = (length(exprs) == 0),
+    "Zero-column result set not supported." = (length(exprs) == 0),
     {
       rel <- duckdb_rel_from_df(.data)
       out <- exprs_project(rel, exprs, .data)
@@ -5126,6 +5897,8 @@ relocate.data.frame <- function(.data, ..., .before = NULL, .after = NULL) {
   )
 
   # dplyr forward
+  check_prudence(.data, duckplyr_error)
+
   relocate <- relocate_data_frame
   out <- relocate(.data, ..., .before = {{ .before }}, .after = {{ .after }})
   return(out)
@@ -5148,7 +5921,7 @@ relocate.data.frame <- function(.data, ..., .before = NULL, .after = NULL) {
 
 duckplyr_relocate <- function(.data, ...) {
   try_fetch(
-    .data <- as_duckplyr_df(.data),
+    .data <- as_duckplyr_df_impl(.data),
     error = function(e) {
       testthat::skip(conditionMessage(e))
     }
@@ -5160,15 +5933,16 @@ duckplyr_relocate <- function(.data, ...) {
 
 #' @title Rename columns
 #'
-#' @description  This is a method for the [`dplyr::rename()`] generic.
+#' @description  This is a method for the [dplyr::rename()] generic.
 #' See "Fallbacks" section for differences in implementation.
 #' `rename()` changes the names of individual variables
 #' using `new_name = old_name` syntax.
 #'
 #' @inheritParams dplyr::rename
 #' @examples
+#' library(duckplyr)
 #' rename(mtcars, thing = mpg)
-#' @seealso [`dplyr::rename()`]
+#' @seealso [dplyr::rename()]
 #' @rdname rename.duckplyr_df
 #' @name rename.duckplyr_df
 NULL
@@ -5187,13 +5961,13 @@ rename.data.frame <- function(.data, ...) {
 
   exprs <- exprs_from_loc(.data, proj)
 
-  rel_try(list(name = "rename", x = .data, args = try_list(dots = enquos(...))),
+  duckplyr_error <- rel_try(list(name = "rename", x = .data, args = try_list(dots = enquos(...))),
     #' @section Fallbacks:
-    #' You cannot use `rename.duckplyr_df`
-    #' - with a selection that returns no columns:
+    #' You cannot use `rename.duckplyr_df()`
+    #' - with a selection that returns no columns.
     #'
     #' If you do the code will fall back to `dplyr::rename()` without any error.
-    "Can't use relational with zero-column result set." = (length(exprs) == 0),
+    "Zero-column result set not supported." = (length(exprs) == 0),
     {
       rel <- duckdb_rel_from_df(.data)
       out <- exprs_project(rel, exprs, .data)
@@ -5202,6 +5976,8 @@ rename.data.frame <- function(.data, ...) {
   )
 
   # dplyr forward
+  check_prudence(.data, duckplyr_error)
+
   rename <- rename_data_frame
   out <- rename(.data, ...)
   return(out)
@@ -5217,7 +5993,7 @@ rename.data.frame <- function(.data, ...) {
 
 duckplyr_rename <- function(.data, ...) {
   try_fetch(
-    .data <- as_duckplyr_df(.data),
+    .data <- as_duckplyr_df_impl(.data),
     error = function(e) {
       testthat::skip(conditionMessage(e))
     }
@@ -5231,14 +6007,16 @@ duckplyr_rename <- function(.data, ...) {
 #' @export
 rename_with.data.frame <- function(.data, .fn, .cols = everything(), ...) {
   # Our implementation
-  rel_try(NULL,
-    "No relational implementation for rename_with()" = TRUE,
+  duckplyr_error <- rel_try(NULL,
+    "No relational implementation for {.code rename_with()}" = TRUE,
     {
       return(out)
     }
   )
 
   # dplyr forward
+  check_prudence(.data, duckplyr_error)
+
   rename_with <- rename_with_data_frame
   out <- rename_with(.data, .fn, {{ .cols }}, ...)
   return(out)
@@ -5271,7 +6049,7 @@ rename_with.data.frame <- function(.data, .fn, .cols = everything(), ...) {
 
 duckplyr_rename_with <- function(.data, ...) {
   try_fetch(
-    .data <- as_duckplyr_df(.data),
+    .data <- as_duckplyr_df_impl(.data),
     error = function(e) {
       testthat::skip(conditionMessage(e))
     }
@@ -5283,15 +6061,15 @@ duckplyr_rename_with <- function(.data, ...) {
 
 #' @title Right join
 #'
-#' @description  This is a method for the [`dplyr::right_join()`] generic.
+#' @description  This is a method for the [dplyr::right_join()] generic.
 #' See "Fallbacks" section for differences in implementation.
 #' A `right_join()` keeps all observations in `y`.
 #'
 #' @inheritParams dplyr::right_join
 #' @examples
-#' library("dplyr")
+#' library(duckplyr)
 #' right_join(band_members, band_instruments)
-#' @seealso [`dplyr::right_join()`]
+#' @seealso [dplyr::right_join()]
 #' @rdname right_join.duckplyr_df
 #' @name right_join.duckplyr_df
 NULL
@@ -5305,24 +6083,26 @@ right_join.data.frame <- function(x, y, by = NULL, copy = FALSE, suffix = c(".x"
   y <- auto_copy(x, y, copy = copy)
 
   # Our implementation
-  rel_try(list(name = "right_join", x = x, y = y, args = try_list(by = if (!is.null(by) && !is_cross_by(by)) as_join_by(by), copy = copy, keep = keep, na_matches = na_matches, multiple = multiple, unmatched = unmatched, relationship = relationship)),
+  duckplyr_error <- rel_try(list(name = "right_join", x = x, y = y, args = try_list(by = if (!is.null(by) && !is_cross_by(by)) as_join_by(by), copy = copy, keep = keep, na_matches = na_matches, multiple = multiple, unmatched = unmatched, relationship = relationship)),
     #' @section Fallbacks:
-    #' You cannot use `right_join.duckplyr_df`
+    #' You cannot use `right_join.duckplyr_df()`
     #' - for an implicit cross join,
     #' - for a value of the `multiple` argument that isn't the default `"all"`.
     #' - for a value of the `unmatched` argument that isn't the default `"drop"`.
     #'
     #' If you do the code will fall back to `dplyr::right_join()` without any error.
-    "No implicit cross joins for right_join()" = is_cross_by(by),
-    "`multiple` not supported" = !identical(multiple, "all"),
-    "`unmatched` not supported" = !identical(unmatched, "drop"),
+    "No implicit cross joins for {.code right_join()}" = is_cross_by(by),
+    "{.arg multiple} not supported" = !identical(multiple, "all"),
+    "{.arg unmatched} not supported" = !identical(unmatched, "drop"),
     {
-      out <- rel_join_impl(x, y, by, "right", na_matches, suffix, keep, relationship, error_call)
+      out <- rel_join_impl(x, y, by, "right", na_matches, suffix, keep, error_call)
       return(out)
     }
   )
 
   # dplyr forward
+  check_prudence(x, duckplyr_error)
+
   right_join <- right_join_data_frame
   out <- right_join(x, y, by, copy = FALSE, suffix, ..., keep = keep, na_matches = na_matches, multiple = multiple, unmatched = unmatched, relationship = relationship)
   return(out)
@@ -5348,8 +6128,8 @@ right_join.data.frame <- function(x, y, by = NULL, copy = FALSE, suffix = c(".x"
 duckplyr_right_join <- function(x, y, ...) {
   try_fetch(
     {
-      x <- as_duckplyr_df(x)
-      y <- as_duckplyr_df(y)
+      x <- as_duckplyr_df_impl(x)
+      y <- as_duckplyr_df_impl(y)
     },
     error = function(e) {
       testthat::skip(conditionMessage(e))
@@ -5364,14 +6144,16 @@ duckplyr_right_join <- function(x, y, ...) {
 #' @export
 rows_append.data.frame <- function(x, y, ..., copy = FALSE, in_place = FALSE) {
   # Our implementation
-  rel_try(NULL,
-    "No relational implementation for rows_append()" = TRUE,
+  duckplyr_error <- rel_try(NULL,
+    "No relational implementation for {.code rows_append()}" = TRUE,
     {
       return(out)
     }
   )
 
   # dplyr forward
+  check_prudence(x, duckplyr_error)
+
   rows_append <- rows_append_data_frame
   out <- rows_append(x, y, ..., copy = copy, in_place = in_place)
   return(out)
@@ -5391,8 +6173,8 @@ rows_append.data.frame <- function(x, y, ..., copy = FALSE, in_place = FALSE) {
 duckplyr_rows_append <- function(x, y, ...) {
   try_fetch(
     {
-      x <- as_duckplyr_df(x)
-      y <- as_duckplyr_df(y)
+      x <- as_duckplyr_df_impl(x)
+      y <- as_duckplyr_df_impl(y)
     },
     error = function(e) {
       testthat::skip(conditionMessage(e))
@@ -5407,14 +6189,16 @@ duckplyr_rows_append <- function(x, y, ...) {
 #' @export
 rows_delete.data.frame <- function(x, y, by = NULL, ..., unmatched = c("error", "ignore"), copy = FALSE, in_place = FALSE) {
   # Our implementation
-  rel_try(NULL,
-    "No relational implementation for rows_delete()" = TRUE,
+  duckplyr_error <- rel_try(NULL,
+    "No relational implementation for {.code rows_delete()}" = TRUE,
     {
       return(out)
     }
   )
 
   # dplyr forward
+  check_prudence(x, duckplyr_error)
+
   rows_delete <- rows_delete_data_frame
   out <- rows_delete(x, y, by, ..., unmatched = unmatched, copy = copy, in_place = in_place)
   return(out)
@@ -5460,8 +6244,8 @@ rows_delete.data.frame <- function(x, y, by = NULL, ..., unmatched = c("error", 
 duckplyr_rows_delete <- function(x, y, ...) {
   try_fetch(
     {
-      x <- as_duckplyr_df(x)
-      y <- as_duckplyr_df(y)
+      x <- as_duckplyr_df_impl(x)
+      y <- as_duckplyr_df_impl(y)
     },
     error = function(e) {
       testthat::skip(conditionMessage(e))
@@ -5476,14 +6260,16 @@ duckplyr_rows_delete <- function(x, y, ...) {
 #' @export
 rows_insert.data.frame <- function(x, y, by = NULL, ..., conflict = c("error", "ignore"), copy = FALSE, in_place = FALSE) {
   # Our implementation
-  rel_try(NULL,
-    "No relational implementation for rows_insert()" = TRUE,
+  duckplyr_error <- rel_try(NULL,
+    "No relational implementation for {.code rows_insert()}" = TRUE,
     {
       return(out)
     }
   )
 
   # dplyr forward
+  check_prudence(x, duckplyr_error)
+
   rows_insert <- rows_insert_data_frame
   out <- rows_insert(x, y, by, ..., conflict = conflict, copy = copy, in_place = in_place)
   return(out)
@@ -5517,8 +6303,8 @@ rows_insert.data.frame <- function(x, y, by = NULL, ..., conflict = c("error", "
 duckplyr_rows_insert <- function(x, y, ...) {
   try_fetch(
     {
-      x <- as_duckplyr_df(x)
-      y <- as_duckplyr_df(y)
+      x <- as_duckplyr_df_impl(x)
+      y <- as_duckplyr_df_impl(y)
     },
     error = function(e) {
       testthat::skip(conditionMessage(e))
@@ -5533,14 +6319,16 @@ duckplyr_rows_insert <- function(x, y, ...) {
 #' @export
 rows_patch.data.frame <- function(x, y, by = NULL, ..., unmatched = c("error", "ignore"), copy = FALSE, in_place = FALSE) {
   # Our implementation
-  rel_try(NULL,
-    "No relational implementation for rows_patch()" = TRUE,
+  duckplyr_error <- rel_try(NULL,
+    "No relational implementation for {.code rows_patch()}" = TRUE,
     {
       return(out)
     }
   )
 
   # dplyr forward
+  check_prudence(x, duckplyr_error)
+
   rows_patch <- rows_patch_data_frame
   out <- rows_patch(x, y, by, ..., unmatched = unmatched, copy = copy, in_place = in_place)
   return(out)
@@ -5605,8 +6393,8 @@ rows_patch.data.frame <- function(x, y, by = NULL, ..., unmatched = c("error", "
 duckplyr_rows_patch <- function(x, y, ...) {
   try_fetch(
     {
-      x <- as_duckplyr_df(x)
-      y <- as_duckplyr_df(y)
+      x <- as_duckplyr_df_impl(x)
+      y <- as_duckplyr_df_impl(y)
     },
     error = function(e) {
       testthat::skip(conditionMessage(e))
@@ -5621,14 +6409,16 @@ duckplyr_rows_patch <- function(x, y, ...) {
 #' @export
 rows_update.data.frame <- function(x, y, by = NULL, ..., unmatched = c("error", "ignore"), copy = FALSE, in_place = FALSE) {
   # Our implementation
-  rel_try(NULL,
-    "No relational implementation for rows_update()" = TRUE,
+  duckplyr_error <- rel_try(NULL,
+    "No relational implementation for {.code rows_update()}" = TRUE,
     {
       return(out)
     }
   )
 
   # dplyr forward
+  check_prudence(x, duckplyr_error)
+
   rows_update <- rows_update_data_frame
   out <- rows_update(x, y, by, ..., unmatched = unmatched, copy = copy, in_place = in_place)
   return(out)
@@ -5686,8 +6476,8 @@ rows_update.data.frame <- function(x, y, by = NULL, ..., unmatched = c("error", 
 duckplyr_rows_update <- function(x, y, ...) {
   try_fetch(
     {
-      x <- as_duckplyr_df(x)
-      y <- as_duckplyr_df(y)
+      x <- as_duckplyr_df_impl(x)
+      y <- as_duckplyr_df_impl(y)
     },
     error = function(e) {
       testthat::skip(conditionMessage(e))
@@ -5702,14 +6492,16 @@ duckplyr_rows_update <- function(x, y, ...) {
 #' @export
 rows_upsert.data.frame <- function(x, y, by = NULL, ..., copy = FALSE, in_place = FALSE) {
   # Our implementation
-  rel_try(NULL,
-    "No relational implementation for rows_upsert()" = TRUE,
+  duckplyr_error <- rel_try(NULL,
+    "No relational implementation for {.code rows_upsert()}" = TRUE,
     {
       return(out)
     }
   )
 
   # dplyr forward
+  check_prudence(x, duckplyr_error)
+
   rows_upsert <- rows_upsert_data_frame
   out <- rows_upsert(x, y, by, ..., copy = copy, in_place = in_place)
   return(out)
@@ -5769,8 +6561,8 @@ rows_upsert.data.frame <- function(x, y, by = NULL, ..., copy = FALSE, in_place 
 duckplyr_rows_upsert <- function(x, y, ...) {
   try_fetch(
     {
-      x <- as_duckplyr_df(x)
-      y <- as_duckplyr_df(y)
+      x <- as_duckplyr_df_impl(x)
+      y <- as_duckplyr_df_impl(y)
     },
     error = function(e) {
       testthat::skip(conditionMessage(e))
@@ -5785,15 +6577,17 @@ duckplyr_rows_upsert <- function(x, y, ...) {
 #' @export
 rowwise.data.frame <- function(data, ...) {
   # Our implementation
-  rel_try(NULL,
+  duckplyr_error <- rel_try(NULL,
     # Always fall back to dplyr
-    "No relational implementation for rowwise()" = TRUE,
+    "No relational implementation for {.code rowwise()}" = TRUE,
     {
       return(out)
     }
   )
 
   # dplyr forward
+  check_prudence(data, duckplyr_error)
+
   rowwise <- rowwise_data_frame
   out <- rowwise(data, ...)
   return(out)
@@ -5805,7 +6599,7 @@ rowwise.data.frame <- function(data, ...) {
 
 duckplyr_rowwise <- function(data, ...) {
   try_fetch(
-    data <- as_duckplyr_df(data),
+    data <- as_duckplyr_df_impl(data),
     error = function(e) {
       testthat::skip(conditionMessage(e))
     }
@@ -5817,7 +6611,7 @@ duckplyr_rowwise <- function(data, ...) {
 
 #' @title Keep or drop columns using their names and types
 #'
-#' @description  This is a method for the [`dplyr::select()`] generic.
+#' @description  This is a method for the [dplyr::select()] generic.
 #' See "Fallbacks" section for differences in implementation.
 #' Select (and optionally rename) variables in a data frame,
 #' using a concise mini-language that makes it easy to refer to variables
@@ -5827,9 +6621,9 @@ duckplyr_rowwise <- function(data, ...) {
 #'
 #' @inheritParams dplyr::select
 #' @examples
-#' library("duckplyr")
+#' library(duckplyr)
 #' select(mtcars, mpg)
-#' @seealso [`dplyr::select()`]
+#' @seealso [dplyr::select()]
 #' @rdname select.duckplyr_df
 #' @name select.duckplyr_df
 NULL
@@ -5850,16 +6644,16 @@ select.data.frame <- function(.data, ...) {
 
   exprs <- exprs_from_loc(.data, loc)
 
-  rel_try(list(name = "select", x = .data, args = try_list(dots = enquos(...))),
+  duckplyr_error <- rel_try(list(name = "select", x = .data, args = try_list(dots = enquos(...))),
     # We could count and create a zero-col data frame, but we can't
     # create a duckplyr frame from it anyway.
     #' @section Fallbacks:
-    #' You cannot use `select.duckplyr_df`
+    #' You cannot use `select.duckplyr_df()`
     #' - with no expression,
-    #' - nor with a selection that returns no columns:
+    #' - nor with a selection that returns no columns.
     #'
     #' If you do the code will fall back to `dplyr::select()` without any error.
-    "Can't use relational with zero-column result set." = (length(exprs) == 0),
+    "Zero-column result set not supported." = (length(exprs) == 0),
     {
       rel <- duckdb_rel_from_df(.data)
       out <- exprs_project(rel, exprs, .data)
@@ -5869,6 +6663,8 @@ select.data.frame <- function(.data, ...) {
 
 
   # dplyr forward
+  check_prudence(.data, duckplyr_error)
+
   select <- select_data_frame
   out <- select(.data, ...)
   return(out)
@@ -5891,7 +6687,7 @@ select.data.frame <- function(.data, ...) {
 
 duckplyr_select <- function(.data, ...) {
   try_fetch(
-    .data <- as_duckplyr_df(.data),
+    .data <- as_duckplyr_df_impl(.data),
     error = function(e) {
       testthat::skip(conditionMessage(e))
     }
@@ -5903,15 +6699,14 @@ duckplyr_select <- function(.data, ...) {
 
 #' @title Semi join
 #'
-#' @description  This is a method for the [`dplyr::semi_join()`] generic.
+#' @description  This is a method for the [dplyr::semi_join()] generic.
 #' `semi_join()` returns all rows from x with a match in y.
 #'
 #' @inheritParams dplyr::semi_join
 #' @examples
 #' library(duckplyr)
-#' library(dplyr)
 #' band_members %>% semi_join(band_instruments)
-#' @seealso [`dplyr::semi_join()`]
+#' @seealso [dplyr::semi_join()]
 #' @rdname semi_join.duckplyr_df
 #' @name semi_join.duckplyr_df
 NULL
@@ -5928,7 +6723,7 @@ semi_join.data.frame <- function(x, y, by = NULL, copy = FALSE, ..., na_matches 
   na_matches <- check_na_matches(na_matches, error_call = error_call)
 
   # Our implementation
-  rel_try(list(name = "semi_join", x = x, y = y, args = try_list(by = if (!is.null(by) && !is_cross_by(by)) as_join_by(by), copy = copy, na_matches = na_matches)),
+  duckplyr_error <- rel_try(list(name = "semi_join", x = x, y = y, args = try_list(by = if (!is.null(by) && !is_cross_by(by)) as_join_by(by), copy = copy, na_matches = na_matches)),
     "No restrictions" = FALSE,
     {
       out <- rel_join_impl(x, y, by, "semi", na_matches, error_call = error_call)
@@ -5937,6 +6732,8 @@ semi_join.data.frame <- function(x, y, by = NULL, copy = FALSE, ..., na_matches 
   )
 
   # dplyr forward
+  check_prudence(x, duckplyr_error)
+
   semi_join <- semi_join_data_frame
   out <- semi_join(x, y, by, copy = FALSE, ..., na_matches = na_matches)
   return(out)
@@ -5950,8 +6747,8 @@ semi_join.data.frame <- function(x, y, by = NULL, copy = FALSE, ..., na_matches 
 duckplyr_semi_join <- function(x, y, ...) {
   try_fetch(
     {
-      x <- as_duckplyr_df(x)
-      y <- as_duckplyr_df(y)
+      x <- as_duckplyr_df_impl(x)
+      y <- as_duckplyr_df_impl(y)
     },
     error = function(e) {
       testthat::skip(conditionMessage(e))
@@ -5962,19 +6759,19 @@ duckplyr_semi_join <- function(x, y, ...) {
   out
 }
 
-#' @title Set diff
+#' @title Set difference
 #'
-#' @description  This is a method for the [`dplyr::setdiff()`] generic.
+#' @description  This is a method for the [dplyr::setdiff()] generic.
 #' See "Fallbacks" section for differences in implementation.
 #' `setdiff(x, y)` finds all rows in `x` that aren't in `y`.
 #'
 #' @inheritParams dplyr::setdiff
 #' @examples
-#' df1 <- tibble(x = 1:3)
-#' df2 <- tibble(x = 3:5)
+#' df1 <- duckdb_tibble(x = 1:3)
+#' df2 <- duckdb_tibble(x = 3:5)
 #' setdiff(df1, df2)
 #' setdiff(df2, df1)
-#' @seealso [`dplyr::setdiff()`]
+#' @seealso [dplyr::setdiff()]
 #' @rdname setdiff.duckplyr_df
 #' @name setdiff.duckplyr_df
 NULL
@@ -5994,10 +6791,10 @@ setdiff.data.frame <- function(x, y, ...) {
     y_names <- x_names
   }
 
-  rel_try(list(name = "setdiff", x = x, y = y),
+  duckplyr_error <- rel_try(list(name = "setdiff", x = x, y = y),
     #' @section Fallbacks:
-    #' You cannot use `setdiff.duckplyr_df`
-    #' - if column names are duplicated in one of the tables
+    #' You cannot use `setdiff.duckplyr_df()`
+    #' - if column names are duplicated in one of the tables,
     #' - if column names are different in both tables.
     #'
     #' If you do the code will fall back to `dplyr::setdiff()` without any error.
@@ -6018,14 +6815,15 @@ setdiff.data.frame <- function(x, y, ...) {
         }
 
         rel <- rel_set_diff(x_rel, y_rel)
-        out <- rel_to_df(rel)
-        out <- dplyr_reconstruct(out, x)
+        out <- duckplyr_reconstruct(rel, x)
       }
       return(out)
     }
   )
 
   # dplyr forward
+  check_prudence(x, duckplyr_error)
+
   setdiff <- setdiff_data_frame
   out <- setdiff(x, y, ...)
   return(out)
@@ -6042,8 +6840,8 @@ setdiff.data.frame <- function(x, y, ...) {
 duckplyr_setdiff <- function(x, y, ...) {
   try_fetch(
     {
-      x <- as_duckplyr_df(x)
-      y <- as_duckplyr_df(y)
+      x <- as_duckplyr_df_impl(x)
+      y <- as_duckplyr_df_impl(y)
     },
     error = function(e) {
       testthat::skip(conditionMessage(e))
@@ -6058,14 +6856,16 @@ duckplyr_setdiff <- function(x, y, ...) {
 #' @export
 setequal.data.frame <- function(x, y, ...) {
   # Our implementation
-  rel_try(NULL,
-    "No relational implementation for setequal()" = TRUE,
+  duckplyr_error <- rel_try(NULL,
+    "No relational implementation for {.code setequal()}" = TRUE,
     {
       return(out)
     }
   )
 
   # dplyr forward
+  check_prudence(x, duckplyr_error)
+
   setequal <- setequal_data_frame
   out <- setequal(x, y, ...)
   return(out)
@@ -6081,8 +6881,8 @@ setequal.data.frame <- function(x, y, ...) {
 duckplyr_setequal <- function(x, y, ...) {
   try_fetch(
     {
-      x <- as_duckplyr_df(x)
-      y <- as_duckplyr_df(y)
+      x <- as_duckplyr_df_impl(x)
+      y <- as_duckplyr_df_impl(y)
     },
     error = function(e) {
       testthat::skip(conditionMessage(e))
@@ -6096,14 +6896,16 @@ duckplyr_setequal <- function(x, y, ...) {
 #' @export
 slice.data.frame <- function(.data, ..., .by = NULL, .preserve = FALSE) {
   # Our implementation
-  rel_try(NULL,
-    "No relational implementation for slice()" = TRUE,
+  duckplyr_error <- rel_try(NULL,
+    "No relational implementation for {.code slice()}" = TRUE,
     {
       return(out)
     }
   )
 
   # dplyr forward
+  check_prudence(.data, duckplyr_error)
+
   slice <- slice_data_frame
   out <- slice(.data, ..., .by = {{ .by }}, .preserve = .preserve)
   return(out)
@@ -6126,7 +6928,7 @@ slice.data.frame <- function(.data, ..., .by = NULL, .preserve = FALSE) {
 
 duckplyr_slice <- function(.data, ...) {
   try_fetch(
-    .data <- as_duckplyr_df(.data),
+    .data <- as_duckplyr_df_impl(.data),
     error = function(e) {
       testthat::skip(conditionMessage(e))
     }
@@ -6140,14 +6942,16 @@ duckplyr_slice <- function(.data, ...) {
 #' @export
 slice_head.data.frame <- function(.data, ..., n, prop, by = NULL) {
   # Our implementation
-  rel_try(NULL,
-    "No relational implementation for slice_head()" = TRUE,
+  duckplyr_error <- rel_try(NULL,
+    "No relational implementation for {.code slice_head()}" = TRUE,
     {
       return(out)
     }
   )
 
   # dplyr forward
+  check_prudence(.data, duckplyr_error)
+
   slice_head <- slice_head_data_frame
   out <- slice_head(.data, ..., n = n, prop = prop, by = {{ by }})
   return(out)
@@ -6168,7 +6972,7 @@ slice_head.data.frame <- function(.data, ..., n, prop, by = NULL) {
 
 duckplyr_slice_head <- function(.data, ...) {
   try_fetch(
-    .data <- as_duckplyr_df(.data),
+    .data <- as_duckplyr_df_impl(.data),
     error = function(e) {
       testthat::skip(conditionMessage(e))
     }
@@ -6182,14 +6986,16 @@ duckplyr_slice_head <- function(.data, ...) {
 #' @export
 slice_sample.data.frame <- function(.data, ..., n, prop, by = NULL, weight_by = NULL, replace = FALSE) {
   # Our implementation
-  rel_try(NULL,
-    "No relational implementation for slice_sample()" = TRUE,
+  duckplyr_error <- rel_try(NULL,
+    "No relational implementation for {.code slice_sample()}" = TRUE,
     {
       return(out)
     }
   )
 
   # dplyr forward
+  check_prudence(.data, duckplyr_error)
+
   slice_sample <- slice_sample_data_frame
   out <- slice_sample(.data, ..., n = n, prop = prop, by = {{ by }}, weight_by = {{ weight_by }}, replace = replace)
   return(out)
@@ -6219,7 +7025,7 @@ slice_sample.data.frame <- function(.data, ..., n, prop, by = NULL, weight_by = 
 
 duckplyr_slice_sample <- function(.data, ...) {
   try_fetch(
-    .data <- as_duckplyr_df(.data),
+    .data <- as_duckplyr_df_impl(.data),
     error = function(e) {
       testthat::skip(conditionMessage(e))
     }
@@ -6233,14 +7039,16 @@ duckplyr_slice_sample <- function(.data, ...) {
 #' @export
 slice_tail.data.frame <- function(.data, ..., n, prop, by = NULL) {
   # Our implementation
-  rel_try(NULL,
-    "No relational implementation for slice_tail()" = TRUE,
+  duckplyr_error <- rel_try(NULL,
+    "No relational implementation for {.code slice_tail()}" = TRUE,
     {
       return(out)
     }
   )
 
   # dplyr forward
+  check_prudence(.data, duckplyr_error)
+
   slice_tail <- slice_tail_data_frame
   out <- slice_tail(.data, ..., n = n, prop = prop, by = {{ by }})
   return(out)
@@ -6261,7 +7069,7 @@ slice_tail.data.frame <- function(.data, ..., n, prop, by = NULL) {
 
 duckplyr_slice_tail <- function(.data, ...) {
   try_fetch(
-    .data <- as_duckplyr_df(.data),
+    .data <- as_duckplyr_df_impl(.data),
     error = function(e) {
       testthat::skip(conditionMessage(e))
     }
@@ -6269,6 +7077,43 @@ duckplyr_slice_tail <- function(.data, ...) {
   out <- slice_tail(.data, ...)
   class(out) <- setdiff(class(out), "duckplyr_df")
   out
+}
+
+#' Return SQL query as duckdb_tibble
+#'
+#' @description
+#' `r lifecycle::badge("experimental")`
+#'
+#' Runs a query and returns it as a duckplyr frame.
+#'
+#' @details
+#' Using data frames from the calling environment is not supported yet,
+#' see <https://github.com/duckdb/duckdb-r/issues/645> for details.
+#'
+#' @seealso [db_exec()]
+#'
+#' @inheritParams read_file_duckdb
+#' @param sql The SQL to run.
+#' @param con The connection, defaults to the default connection.
+#'
+#' @export
+#' @examples
+#' read_sql_duckdb("FROM duckdb_settings()")
+read_sql_duckdb <- function(sql, ..., prudence = c("thrifty", "lavish", "frugal"), con = NULL) {
+  if (!is_string(sql)) {
+    cli::cli_abort("{.arg sql} must be a string.")
+  }
+
+  # FIXME: For some reason, it's important to create an alias here
+  if (is.null(con)) {
+    con <- get_default_duckdb_connection()
+  }
+
+  rel <- duckdb$rel_from_sql(con, sql)
+
+  meta_rel_register(rel, expr(duckdb$rel_from_sql(con, !!sql)))
+
+  rel_to_df(rel, prudence = prudence)
 }
 
 stats <- new_environment(list(attempts = 0L, fallback = 0L, calls = character()))
@@ -6286,7 +7131,7 @@ stats <- new_environment(list(attempts = 0L, fallback = 0L, calls = character())
 #' stats_show()
 #'
 #' tibble(a = 1:3) %>%
-#'   as_duckplyr_df() %>%
+#'   as_duckplyr_tibble() %>%
 #'   mutate(b = a + 1)
 #'
 #' stats_show()
@@ -6303,7 +7148,7 @@ stats_show <- function() {
 
 #' @title Summarise each group down to one row
 #'
-#' @description  This is a method for the [`dplyr::summarise()`] generic.
+#' @description  This is a method for the [dplyr::summarise()] generic.
 #' See "Fallbacks" section for differences in implementation.
 #' `summarise()` creates a new data frame.
 #' It returns one row for each combination of grouping variables;
@@ -6314,8 +7159,9 @@ stats_show <- function() {
 #'
 #' @inheritParams dplyr::summarise
 #' @examples
+#' library(duckplyr)
 #' summarise(mtcars, mean = mean(disp), n = n())
-#' @seealso [`dplyr::summarise()`]
+#' @seealso [dplyr::summarise()]
 #' @rdname summarise.duckplyr_df
 #' @name summarise.duckplyr_df
 NULL
@@ -6330,13 +7176,13 @@ summarise.data.frame <- function(.data, ..., .by = NULL, .groups = NULL) {
 
   by <- eval_select_by(enquo(.by), .data)
 
-  rel_try(list(name = "summarise", x = .data, args = try_list(dots = enquos(...), by = syms(by), .groups = .groups)),
+  duckplyr_error <- rel_try(list(name = "summarise", x = .data, args = try_list(dots = enquos(...), by = syms(by), .groups = .groups)),
     #' @section Fallbacks:
-    #' You cannot use `summarise.duckplyr_df`
+    #' You cannot use `summarise.duckplyr_df()`
     #' - with `.groups = "rowwise"`.
     #'
     #' If you do the code will fall back to `dplyr::summarise()` without any error.
-    'summarize(.groups = "rowwise") not supported' = identical(.groups, "rowwise"),
+    '{.code summarise()} with {.arg .groups} = {.value "rowwise")} not supported' = identical(.groups, "rowwise"),
     {
       rel <- duckdb_rel_from_df(.data)
 
@@ -6373,15 +7219,17 @@ summarise.data.frame <- function(.data, ..., .by = NULL, .groups = NULL) {
         out_rel <- oo_restore(out_rel, "___row_number")
       }
 
-      out <- rel_to_df(out_rel)
+      out <- rel_to_df(out_rel, prudence = get_prudence_duckplyr_df(.data))
       # https://github.com/tidyverse/dplyr/pull/6988
-      class(out) <- intersect(c("duckplyr_df", "tbl_df", "tbl", "data.frame"), class(.data))
+      class(out) <- intersect(c("prudent_duckplyr_df", "duckplyr_df", "tbl_df", "tbl", "data.frame"), class(.data))
 
       return(out)
     }
   )
 
   # dplyr forward
+  check_prudence(.data, duckplyr_error)
+
   summarise <- summarise_data_frame
   out <- summarise(.data, ..., .by = {{ .by }}, .groups = .groups)
   # dplyr_reconstruct() is not called here, restoring manually
@@ -6416,7 +7264,7 @@ summarise.data.frame <- function(.data, ..., .by = NULL, .groups = NULL) {
 
 duckplyr_summarise <- function(.data, ...) {
   try_fetch(
-    .data <- as_duckplyr_df(.data),
+    .data <- as_duckplyr_df_impl(.data),
     error = function(e) {
       testthat::skip(conditionMessage(e))
     }
@@ -6428,17 +7276,17 @@ duckplyr_summarise <- function(.data, ...) {
 
 #' @title Symmetric difference
 #'
-#' @description  This is a method for the [`dplyr::symdiff()`] generic.
+#' @description  This is a method for the [dplyr::symdiff()] generic.
 #' See "Fallbacks" section for differences in implementation.
 #' `symdiff(x, y)`  computes the symmetric difference,
 #' i.e. all rows in `x` that aren't in `y` and all rows in `y` that aren't in `x`.
 #'
 #' @inheritParams dplyr::symdiff
 #' @examples
-#' df1 <- tibble(x = 1:3)
-#' df2 <- tibble(x = 3:5)
+#' df1 <- duckdb_tibble(x = 1:3)
+#' df2 <- duckdb_tibble(x = 3:5)
 #' symdiff(df1, df2)
-#' @seealso [`dplyr::symdiff()`]
+#' @seealso [dplyr::symdiff()]
 #' @rdname symdiff.duckplyr_df
 #' @name symdiff.duckplyr_df
 NULL
@@ -6458,14 +7306,15 @@ symdiff.data.frame <- function(x, y, ...) {
     y_names <- x_names
   }
 
-  rel_try(list(name = "symdiff", x = x, y = y),
+  duckplyr_error <- rel_try(list(name = "symdiff", x = x, y = y),
     "No duplicate names" = !identical(x_names, y_names) && anyDuplicated(x_names) && anyDuplicated(y_names),
     #' @section Fallbacks:
-    #' You cannot use `symdiff.duckplyr_df`
-    #' - if column names are duplicated in one of the tables
+    #' You cannot use `symdiff.duckplyr_df()`
+    #' - if column names are duplicated in one of the tables,
     #' - if column names are different in both tables.
     #'
     #' If you do the code will fall back to `dplyr::symdiff()` without any error.
+    "No duplicate names" = !identical(x_names, y_names) && anyDuplicated(x_names) && anyDuplicated(y_names),
     "Tables of different width" = length(x_names) != length(y_names),
     "Name mismatch" = !identical(x_names, y_names) && !all(y_names %in% x_names),
     {
@@ -6484,14 +7333,15 @@ symdiff.data.frame <- function(x, y, ...) {
         }
 
         rel <- rel_set_symdiff(x_rel, y_rel)
-        out <- rel_to_df(rel)
-        out <- dplyr_reconstruct(out, x)
+        out <- duckplyr_reconstruct(rel, x)
       }
       return(out)
     }
   )
 
   # dplyr forward
+  check_prudence(x, duckplyr_error)
+
   symdiff <- symdiff_data_frame
   out <- symdiff(x, y, ...)
   return(out)
@@ -6508,8 +7358,8 @@ symdiff.data.frame <- function(x, y, ...) {
 duckplyr_symdiff <- function(x, y, ...) {
   try_fetch(
     {
-      x <- as_duckplyr_df(x)
-      y <- as_duckplyr_df(y)
+      x <- as_duckplyr_df_impl(x)
+      y <- as_duckplyr_df_impl(y)
     },
     error = function(e) {
       testthat::skip(conditionMessage(e))
@@ -6538,12 +7388,13 @@ rel_find_call <- function(fun, env) {
   # Remember to update limits.Rmd when adding new functions!
   pkgs <- switch(name,
     # Handled in a special way, not mentioned here
-    # "desc" = c("dplyr", "duckplyr"),
+    "desc" = "dplyr",
+
     "==" = "base",
     "/" = "base",
     "$" = "base", # very special, also with constant folding
     "mean" = "base",
-    "n" = c("dplyr", "duckplyr"),
+    "n" = "dplyr",
     ">" = "base",
     "%in%" = "base",
     "sum" = "base",
@@ -6560,7 +7411,7 @@ rel_find_call <- function(fun, env) {
     "<" = "base",
     # "[" = "base", # won't implement?
     ">=" = "base",
-    "n_distinct" = c("dplyr", "duckplyr"),
+    "n_distinct" = "dplyr",
     "max" = "base",
     "<=" = "base",
     # "as.numeric" = "base",
@@ -6569,6 +7420,8 @@ rel_find_call <- function(fun, env) {
     # "^" = "base",
     "min" = "base",
     # "replace" = "base",
+    "sub" = "base",
+    "gsub" = "base",
     "grepl" = "base",
     # ":" = "base",
     # "as.character" = "base",
@@ -6576,7 +7429,7 @@ rel_find_call <- function(fun, env) {
     # "round" = "base",
     # "paste0" = "base",
     # "length" = "base",
-    # ".data$" = c("dplyr", "duckplyr"), # implemented
+    # ".data$" = "dplyr",
     "sd" = "stats",
     # "[[" = "base", # won't implement?
     # "gsub" = "base",
@@ -6584,35 +7437,35 @@ rel_find_call <- function(fun, env) {
     "median" = "stats",
     # "~" = "base", # won't implement?
     # "unique" = "base", # what's the use case?
-    # ".$" = c("dplyr", "duckplyr"), # won't implement?
+    # ".$" = "dplyr",
     # "%>%" = "magrittr", # with the help of magrittr?
     # "as.Date" = "base",
     "as.integer" = "base",
     # "nrow" = "base",
     # "as.factor" = "base",
     # "%<=>%" = "???", # what is this?
-    "row_number" = c("dplyr", "duckplyr"),
+    "row_number" = "dplyr",
     # "rev" = "base", # what's the use case?
     # "seq" = "base", # what's the use case?
     # "sqrt" = "base",
     # "abs" = "base",
-    "if_else" = c("dplyr", "duckplyr"),
+    "if_else" = "dplyr",
     #
     "any" = "base",
     "suppressWarnings" = "base",
-    "lag" = c("dplyr", "duckplyr"),
-    "lead" = c("dplyr", "duckplyr"),
-    "first" = c("dplyr", "duckplyr"),
-    "last" = c("dplyr", "duckplyr"),
-    "nth" = c("dplyr", "duckplyr"),
+    "lag" = "dplyr",
+    "lead" = "dplyr",
+    "first" = "dplyr",
+    "last" = "dplyr",
+    "nth" = "dplyr",
     "log10" = "base",
     "log" = "base",
     "rank" = "base",
-    "min_rank" = c("dplyr", "duckplyr"),
-    "dense_rank" = c("dplyr", "duckplyr"),
-    "percent_rank" = c("dplyr", "duckplyr"),
-    "cume_dist" = c("dplyr", "duckplyr"),
-    "ntile" = c("dplyr", "duckplyr"),
+    "min_rank" = "dplyr",
+    "dense_rank" = "dplyr",
+    "percent_rank" = "dplyr",
+    "cume_dist" = "dplyr",
+    "ntile" = "dplyr",
     "hour" = "lubridate",
     "minute" = "lubridate",
     "second" = "lubridate",
@@ -6936,7 +7789,7 @@ rel_translate <- function(
 
 #' @title Create, modify, and delete columns
 #'
-#' @description  This is a method for the [`dplyr::transmute()`] generic.
+#' @description  This is a method for the [dplyr::transmute()] generic.
 #' See "Fallbacks" section for differences in implementation.
 #' `transmute()` creates a new data frame containing only the specified computations.
 #' It's superseded because you can perform the same job with `mutate(.keep = "none")`.
@@ -6945,9 +7798,9 @@ rel_translate <- function(
 #'
 #' @inheritParams dplyr::transmute
 #' @examples
-#' library("duckplyr")
+#' library(duckplyr)
 #' transmute(mtcars, mpg2 = mpg*2)
-#' @seealso [`dplyr::transmute()`]
+#' @seealso [dplyr::transmute()]
 #' @rdname transmute.duckplyr_df
 #' @name transmute.duckplyr_df
 NULL
@@ -6962,24 +7815,25 @@ transmute.data.frame <- function(.data, ...) {
   dots <- dplyr_quosures(!!!dots)
   dots <- fix_auto_name(dots)
 
-  rel_try(list(name = "transmute", x = .data, args = try_list(dots = enquos(...))),
+  duckplyr_error <- rel_try(list(name = "transmute", x = .data, args = try_list(dots = enquos(...))),
     #' @section Fallbacks:
-    #' You cannot use `transmute.duckplyr_df`
+    #' You cannot use `transmute.duckplyr_df()`
     #' - with a selection that returns no columns:
     #'
     #' If you do the code will fall back to `dplyr::transmute()` without any error.
-    "Can't use relational with zero-column result set." = (length(dots) == 0),
+    "Zero-column result set not supported." = (length(dots) == 0),
     {
       exprs <- rel_translate_dots(dots, .data)
       rel <- duckdb_rel_from_df(.data)
       out_rel <- rel_project(rel, exprs)
-      out <- rel_to_df(out_rel)
-      out <- dplyr_reconstruct(out, .data)
+      out <- duckplyr_reconstruct(out_rel, .data)
       return(out)
     }
   )
 
   # dplyr forward
+  check_prudence(.data, duckplyr_error)
+
   transmute <- transmute_data_frame
   out <- transmute(.data, ...)
   return(out)
@@ -7015,7 +7869,7 @@ transmute.data.frame <- function(.data, ...) {
 
 duckplyr_transmute <- function(.data, ...) {
   try_fetch(
-    .data <- as_duckplyr_df(.data),
+    .data <- as_duckplyr_df_impl(.data),
     error = function(e) {
       testthat::skip(conditionMessage(e))
     }
@@ -7029,14 +7883,16 @@ duckplyr_transmute <- function(.data, ...) {
 #' @export
 ungroup.data.frame <- function(x, ...) {
   # Our implementation
-  rel_try(NULL,
-    "No relational implementation for ungroup()" = TRUE,
+  duckplyr_error <- rel_try(NULL,
+    "No relational implementation for {.code ungroup()}" = TRUE,
     {
       return(out)
     }
   )
 
   # dplyr forward
+  check_prudence(x, duckplyr_error)
+
   ungroup <- ungroup_data_frame
   out <- ungroup(x, ...)
   return(out)
@@ -7048,7 +7904,7 @@ ungroup.data.frame <- function(x, ...) {
 
 duckplyr_ungroup <- function(x, ...) {
   try_fetch(
-    x <- as_duckplyr_df(x),
+    x <- as_duckplyr_df_impl(x),
     error = function(e) {
       testthat::skip(conditionMessage(e))
     }
@@ -7058,7 +7914,24 @@ duckplyr_ungroup <- function(x, ...) {
   out
 }
 
+#' @title Union
+#'
+#' @description  This is a method for the [dplyr::union()] generic.
+#' `union(x, y)` finds all rows in either x or y, excluding duplicates.
+#' The implementation forwards to `distinct(union_all(x, y))`.
+#'
+#' @inheritParams dplyr::union
+#' @examples
+#' df1 <- duckdb_tibble(x = 1:3)
+#' df2 <- duckdb_tibble(x = 3:5)
+#' union(df1, df2)
+#' @seealso [dplyr::union()]
+#' @rdname union.duckplyr_df
+#' @name union.duckplyr_df
+NULL
+
 # Generated by 02-duckplyr_df-methods.R
+#' @rdname union.duckplyr_df
 #' @export
 union.data.frame <- function(x, y, ...) {
   # Our implementation
@@ -7067,7 +7940,11 @@ union.data.frame <- function(x, y, ...) {
   # This is difficult to do manually due to order preservation
   return(distinct(union_all(x, y)))
 
+  duckplyr_error <- NULL
+
   # dplyr forward
+  check_prudence(x, duckplyr_error)
+
   union <- union_data_frame
   out <- union(x, y, ...)
   return(out)
@@ -7084,8 +7961,8 @@ union.data.frame <- function(x, y, ...) {
 duckplyr_union <- function(x, y, ...) {
   try_fetch(
     {
-      x <- as_duckplyr_df(x)
-      y <- as_duckplyr_df(y)
+      x <- as_duckplyr_df_impl(x)
+      y <- as_duckplyr_df_impl(y)
     },
     error = function(e) {
       testthat::skip(conditionMessage(e))
@@ -7098,16 +7975,16 @@ duckplyr_union <- function(x, y, ...) {
 
 #' @title Union of all
 #'
-#' @description  This is a method for the [`dplyr::union_all()`] generic.
+#' @description  This is a method for the [dplyr::union_all()] generic.
 #' See "Fallbacks" section for differences in implementation.
 #' `union_all(x, y)` finds all rows in either x or y, including duplicates.
 #'
 #' @inheritParams dplyr::union_all
 #' @examples
-#' df1 <- tibble(x = 1:3)
-#' df2 <- tibble(x = 3:5)
+#' df1 <- duckdb_tibble(x = 1:3)
+#' df2 <- duckdb_tibble(x = 3:5)
 #' union_all(df1, df2)
-#' @seealso [`dplyr::union_all()`]
+#' @seealso [dplyr::union_all()]
 #' @rdname union_all.duckplyr_df
 #' @name union_all.duckplyr_df
 NULL
@@ -7127,14 +8004,15 @@ union_all.data.frame <- function(x, y, ...) {
     y_names <- x_names
   }
 
-  rel_try(list(name = "union_all", x = x, y = y),
+  duckplyr_error <- rel_try(list(name = "union_all", x = x, y = y),
     "No duplicate names" = !identical(x_names, y_names) && anyDuplicated(x_names) && anyDuplicated(y_names),
     #' @section Fallbacks:
-    #' You cannot use `union_all.duckplyr_df`
-    #' - if column names are duplicated in one of the tables
+    #' You cannot use `union_all.duckplyr_df()`
+    #' - if column names are duplicated in one of the tables,
     #' - if column names are different in both tables.
     #'
     #' If you do the code will fall back to `dplyr::union_all()` without any error.
+    "No duplicate names" = !identical(x_names, y_names) && anyDuplicated(x_names) && anyDuplicated(y_names),
     "Tables of different width" = length(x_names) != length(y_names),
     "Name mismatch" = !identical(x_names, y_names) && !all(y_names %in% x_names),
     {
@@ -7154,13 +8032,14 @@ union_all.data.frame <- function(x, y, ...) {
       # NULLs sort first in duckdb!
       rel <- oo_restore(rel, c("___row_number_x", "___row_number_y"))
 
-      out <- rel_to_df(rel)
-      out <- dplyr_reconstruct(out, x)
+      out <- duckplyr_reconstruct(rel, x)
       return(out)
     }
   )
 
   # dplyr forward
+  check_prudence(x, duckplyr_error)
+
   union_all <- union_all_data_frame
   out <- union_all(x, y, ...)
   return(out)
@@ -7176,8 +8055,8 @@ union_all.data.frame <- function(x, y, ...) {
 duckplyr_union_all <- function(x, y, ...) {
   try_fetch(
     {
-      x <- as_duckplyr_df(x)
-      y <- as_duckplyr_df(y)
+      x <- as_duckplyr_df_impl(x)
+      y <- as_duckplyr_df_impl(y)
     },
     error = function(e) {
       testthat::skip(conditionMessage(e))
@@ -7186,6 +8065,13 @@ duckplyr_union_all <- function(x, y, ...) {
   out <- union_all(x, y, ...)
   class(out) <- setdiff(class(out), "duckplyr_df")
   out
+}
+
+# From dbplyr
+unique_table_name <- function(prefix = "") {
+  vals <- c(letters, LETTERS, 0:9)
+  name <- paste0(sample(vals, 10, replace = TRUE), collapse = "")
+  paste0(prefix, "duckplyr_", name)
 }
 
 on_load({
