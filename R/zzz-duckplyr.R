@@ -1857,7 +1857,7 @@ full_join.data.frame <- function(x, y, by = NULL, copy = FALSE, suffix = c(".x",
     "No implicit cross joins for {.code full_join()}" = is_cross_by(by),
     "{.arg multiple} not supported" = !identical(multiple, "all"),
     {
-      out <- rel_join_impl(x, y, by, "full", na_matches, suffix, keep, error_call)
+      out <- rel_join_impl(x, y, by, "full", na_matches, suffix, keep, relationship, error_call)
       return(out)
     }
   )
@@ -2804,27 +2804,47 @@ duckplyr_groups <- function(x, ...) {
 }
 
 # Used in arrange()
+# Handles calls to 'desc' function by
+# - extracting the sort order
+# - removing any desc-function calls from the expressions: desc(colname) -> colname
 handle_desc <- function(dots) {
-  # Handles calls to 'desc' function by
-  # - extracting the sort order
-  # - removing any desc-function calls from the expressions: desc(colname) -> colname
   ascending <- rep(TRUE, length(dots))
 
   for (i in seq_along(dots)) {
     expr <- quo_get_expr(dots[[i]])
+    env <- quo_get_env(dots[[i]])
 
-    if (!is.call(expr)) next
-    if (expr[[1]] != "desc") next
-
-    # Check that desc is called with a single argument
-    # (dplyr::desc() accepts only one argument)
-    if (length(expr) > 2) cli::cli_abort("`desc()` must be called with exactly one argument.")
-
-    ascending[i] <- FALSE
-    dots[[i]] <- new_quosure(expr[[2]], env = quo_get_env(dots[[i]]))
+    if (is_desc(expr, env)) {
+      ascending[[i]] <- FALSE
+      dots[[i]] <- new_quosure(expr[[2]], env = env)
+    }
   }
 
   list(dots = dots, ascending = ascending)
+}
+
+is_desc <- function(expr, env) {
+  if (!is.call(expr)) {
+    return(FALSE)
+  }
+
+  if (expr[[1]] == "desc") {
+    if (!identical(eval(expr[[1]], env), dplyr::desc)) {
+      return(FALSE)
+    }
+  } else if (expr[[1]][[1]] == "::") {
+    if (expr[[1]][[2]] != "dplyr") {
+      return(FALSE)
+    }
+  } else {
+    return(FALSE)
+  }
+
+  if (length(expr) > 2) {
+    cli::cli_abort("{.fun desc} must be called with exactly one argument.")
+  }
+
+  TRUE
 }
 
 #' @title Return the First Parts of an Object
@@ -3120,7 +3140,7 @@ inner_join.data.frame <- function(x, y, by = NULL, copy = FALSE, suffix = c(".x"
     "{.arg multiple} not supported" = !identical(multiple, "all"),
     "{.arg unmatched} not supported" = !identical(unmatched, "drop"),
     {
-      out <- rel_join_impl(x, y, by, "inner", na_matches, suffix, keep, error_call)
+      out <- rel_join_impl(x, y, by, "inner", na_matches, suffix, keep, relationship, error_call)
       return(out)
     }
   )
@@ -3652,6 +3672,7 @@ rel_join_impl <- function(
   na_matches,
   suffix = c(".x", ".y"),
   keep = NULL,
+  relationship = NULL,
   error_call = caller_env()
 ) {
   mutating <- !(join %in% c("semi", "anti"))
@@ -3669,6 +3690,10 @@ rel_join_impl <- function(
     by <- join_by_common(x_names, y_names, error_call = error_call)
   } else {
     by <- as_join_by(by, error_call = error_call)
+  }
+
+  if (mutating) {
+    check_relationship(relationship, x, y, by, error_call = error_call)
   }
 
   x_by <- by$x
@@ -3783,6 +3808,65 @@ rel_join_impl <- function(
   return(out)
 }
 
+check_relationship <- function(relationship, x, y, by, error_call) {
+  if (is_null(relationship)) {
+    # FIXME: Determine behavior based on option
+    if (!is_key(x, by$x) && !is_key(y, by$y)) {
+      warn_join(
+        message = c(
+          "Detected an unexpected many-to-many relationship between `x` and `y`.",
+          i = paste0(
+            "If a many-to-many relationship is expected, ",
+            "set `relationship = \"many-to-many\"` to silence this warning."
+          )
+        ),
+        class = "dplyr_warning_join_relationship_many_to_many",
+        call = error_call
+      )
+    }
+    return()
+  }
+
+  if (relationship %in% c("one-to-many", "one-to-one")) {
+    if (!is_key(x, by$x)) {
+      stop_join(
+        message = c(
+          glue("Each row in `{x_name}` must match at most 1 row in `{y_name}`."),
+        ),
+        class = paste0("dplyr_error_join_relationship_", gsub("-", "_", relationship)),
+        call = error_call
+      )
+    }
+  }
+
+  if (relationship %in% c("many-to-one", "one-to-one")) {
+    if (!is_key(y, by$y)) {
+      stop_join(
+        message = c(
+          glue("Each row in `{y_name}` must match at most 1 row in `{x_name}`."),
+        ),
+        class = paste0("dplyr_error_join_relationship_", gsub("-", "_", relationship)),
+        call = error_call
+      )
+    }
+  }
+}
+
+is_key <- function(x, cols) {
+  local_options(duckdb.materialize_message = FALSE)
+
+  rows <-
+    x %>%
+    # FIXME: Why does this materialize
+    # as_duckplyr_tibble() %>%
+    summarize(.by = c(!!!syms(cols)), `___n` = n()) %>%
+    filter(`___n` > 1L) %>%
+    head(1L) %>%
+    nrow()
+
+  rows == 0
+}
+
 # https://github.com/tidyverse/dplyr/pull/7029
 
 join_ptype_common <- function(x, y, vars, error_call = caller_env()) {
@@ -3860,7 +3944,7 @@ left_join.data.frame <- function(x, y, by = NULL, copy = FALSE, suffix = c(".x",
     "{.arg multiple} not supported" = !identical(multiple, "all"),
     "{.arg unmatched} not supported" = !identical(unmatched, "drop"),
     {
-      out <- rel_join_impl(x, y, by, "left", na_matches, suffix, keep, error_call)
+      out <- rel_join_impl(x, y, by, "left", na_matches, suffix, keep, relationship, error_call)
       return(out)
     }
   )
@@ -4817,6 +4901,14 @@ check_df_for_rel <- function(df, call = caller_env()) {
       roundtrip_attrib <- attributes(roundtrip[[i]])
       if (!identical(df_attrib, roundtrip_attrib)) {
         cli::cli_abort("Attributes are lost during conversion. Affected column: {.var {names(df)[[i]]}}.", call = call)
+      }
+      # Always check roundtrip for timestamp columns
+      # duckdb uses microsecond precision only, this is in some cases
+      # less than R does
+      if (inherits(df[[i]], "POSIXct")) {
+        if (!identical(df[[i]], roundtrip[[i]])) {
+          cli::cli_abort("Imperfect roundtrip. Affected column: {.var {names(df)[[i]]}}.", call = call)
+        }
       }
     }
   }
@@ -6095,7 +6187,7 @@ right_join.data.frame <- function(x, y, by = NULL, copy = FALSE, suffix = c(".x"
     "{.arg multiple} not supported" = !identical(multiple, "all"),
     "{.arg unmatched} not supported" = !identical(unmatched, "drop"),
     {
-      out <- rel_join_impl(x, y, by, "right", na_matches, suffix, keep, error_call)
+      out <- rel_join_impl(x, y, by, "right", na_matches, suffix, keep, relationship, error_call)
       return(out)
     }
   )
