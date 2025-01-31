@@ -58,11 +58,6 @@
       Warning:
       Detected an unexpected many-to-many relationship between `x` and `y`.
       i If a many-to-many relationship is expected, set `relationship = "many-to-many"` to silence this warning.
-      Warning in `left_join()`:
-      Detected an unexpected many-to-many relationship between `x` and `y`.
-      i Row 1 of `x` matches multiple rows in `y`.
-      i Row 1 of `y` matches multiple rows in `x`.
-      i If a many-to-many relationship is expected, set `relationship = "many-to-many"` to silence this warning.
 
 # mutating joins compute common columns
 
@@ -70,14 +65,12 @@
       out <- left_join(df1, df2)
     Message
       Joining with `by = join_by(x)`
-      Joining with `by = join_by(x)`
 
 # filtering joins compute common columns
 
     Code
       out <- semi_join(df1, df2)
     Message
-      Joining with `by = join_by(x)`
       Joining with `by = join_by(x)`
 
 # mutating joins reference original column in `y` when there are type errors (#6465)
