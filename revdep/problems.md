@@ -143,10 +143,10 @@ Run `revdepcheck::cloud_details(, "datacutr")` for more info
       > test_check("datacutr")
       [1] "At least 1 patient with missing datacut date."
       [1] "At least 1 patient with missing datacut date, all records will be kept."
-      /usr/local/bin/pandoc +RTS -K512m -RTS read_out.knit.md --to html4 --from markdown+autolink_bare_uris+tex_math_single_backslash --output /tmp/Rtmpm1WdDj/datacut_2025-02-01_044850.html --lua-filter /usr/local/lib/R/site-library/rmarkdown/rmarkdown/lua/pagebreak.lua --lua-filter /usr/local/lib/R/site-library/rmarkdown/rmarkdown/lua/latex-div.lua --embed-resources --standalone --variable bs3=TRUE --section-divs --template /usr/local/lib/R/site-library/rmarkdown/rmd/h/default.html --no-highlight --variable highlightjs=1 --variable theme=bootstrap --mathjax --variable 'mathjax-url=https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML' --include-in-header /tmp/Rtmpm1WdDj/rmarkdown-str13341c2bd9d5.html 
-      /usr/local/bin/pandoc +RTS -K512m -RTS read_out.knit.md --to html4 --from markdown+autolink_bare_uris+tex_math_single_backslash --output /tmp/Rtmpm1WdDj/datacut_2025-02-01_044852.html --lua-filter /usr/local/lib/R/site-library/rmarkdown/rmarkdown/lua/pagebreak.lua --lua-filter /usr/local/lib/R/site-library/rmarkdown/rmarkdown/lua/latex-div.lua --embed-resources --standalone --variable bs3=TRUE --section-divs --template /usr/local/lib/R/site-library/rmarkdown/rmd/h/default.html --no-highlight --variable highlightjs=1 --variable theme=bootstrap --mathjax --variable 'mathjax-url=https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML' --include-in-header /tmp/Rtmpm1WdDj/rmarkdown-str133453d9cc64.html 
-      /usr/local/bin/pandoc +RTS -K512m -RTS read_out.knit.md --to html4 --from markdown+autolink_bare_uris+tex_math_single_backslash --output /tmp/Rtmpm1WdDj/datacut_2025-02-01_044853.html --lua-filter /usr/local/lib/R/site-library/rmarkdown/rmarkdown/lua/pagebreak.lua --lua-filter /usr/local/lib/R/site-library/rmarkdown/rmarkdown/lua/latex-div.lua --embed-resources --standalone --variable bs3=TRUE --section-divs --template /usr/local/lib/R/site-library/rmarkdown/rmd/h/default.html --no-highlight --variable highlightjs=1 --variable theme=bootstrap --mathjax --variable 'mathjax-url=https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML' --include-in-header /tmp/Rtmpm1WdDj/rmarkdown-str13344e075643.html 
-      /usr/local/bin/pandoc +RTS -K512m -RTS read_out.knit.md --to html4 --from markdown+autolink_bare_uris+tex_math_single_backslash --output /tmp/Rtmpm1WdDj/datacut_2025-02-01_044854.html --lua-filter /usr/local/lib/R/site-library/rmarkdown/rmarkdown/lua/pagebreak.lua --lua-filter /usr/local/lib/R/site-library/rmarkdown/rmarkdown/lua/latex-div.lua --embed-resources --standalone --variable bs3=TRUE --section-divs --template /usr/local/lib/R/site-library/rmarkdown/rmd/h/default.html --no-highlight --variable highlightjs=1 --variable theme=bootstrap --mathjax --variable 'mathjax-url=https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML' --include-in-header /tmp/Rtmpm1WdDj/rmarkdown-str13342b4df86f.html 
+      /usr/local/bin/pandoc +RTS -K512m -RTS read_out.knit.md --to html4 --from markdown+autolink_bare_uris+tex_math_single_backslash --output /tmp/RtmpcxgURY/datacut_2025-02-01_054214.html --lua-filter /usr/local/lib/R/site-library/rmarkdown/rmarkdown/lua/pagebreak.lua --lua-filter /usr/local/lib/R/site-library/rmarkdown/rmarkdown/lua/latex-div.lua --embed-resources --standalone --variable bs3=TRUE --section-divs --template /usr/local/lib/R/site-library/rmarkdown/rmd/h/default.html --no-highlight --variable highlightjs=1 --variable theme=bootstrap --mathjax --variable 'mathjax-url=https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML' --include-in-header /tmp/RtmpcxgURY/rmarkdown-str1334236d10c8.html 
+      /usr/local/bin/pandoc +RTS -K512m -RTS read_out.knit.md --to html4 --from markdown+autolink_bare_uris+tex_math_single_backslash --output /tmp/RtmpcxgURY/datacut_2025-02-01_054217.html --lua-filter /usr/local/lib/R/site-library/rmarkdown/rmarkdown/lua/pagebreak.lua --lua-filter /usr/local/lib/R/site-library/rmarkdown/rmarkdown/lua/latex-div.lua --embed-resources --standalone --variable bs3=TRUE --section-divs --template /usr/local/lib/R/site-library/rmarkdown/rmd/h/default.html --no-highlight --variable highlightjs=1 --variable theme=bootstrap --mathjax --variable 'mathjax-url=https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML' --include-in-header /tmp/RtmpcxgURY/rmarkdown-str13346230e5b8.html 
+      /usr/local/bin/pandoc +RTS -K512m -RTS read_out.knit.md --to html4 --from markdown+autolink_bare_uris+tex_math_single_backslash --output /tmp/RtmpcxgURY/datacut_2025-02-01_054219.html --lua-filter /usr/local/lib/R/site-library/rmarkdown/rmarkdown/lua/pagebreak.lua --lua-filter /usr/local/lib/R/site-library/rmarkdown/rmarkdown/lua/latex-div.lua --embed-resources --standalone --variable bs3=TRUE --section-divs --template /usr/local/lib/R/site-library/rmarkdown/rmd/h/default.html --no-highlight --variable highlightjs=1 --variable theme=bootstrap --mathjax --variable 'mathjax-url=https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML' --include-in-header /tmp/RtmpcxgURY/rmarkdown-str13345024a7e8.html 
+      /usr/local/bin/pandoc +RTS -K512m -RTS read_out.knit.md --to html4 --from markdown+autolink_bare_uris+tex_math_single_backslash --output /tmp/RtmpcxgURY/datacut_2025-02-01_054219.html --lua-filter /usr/local/lib/R/site-library/rmarkdown/rmarkdown/lua/pagebreak.lua --lua-filter /usr/local/lib/R/site-library/rmarkdown/rmarkdown/lua/latex-div.lua --embed-resources --standalone --variable bs3=TRUE --section-divs --template /usr/local/lib/R/site-library/rmarkdown/rmd/h/default.html --no-highlight --variable highlightjs=1 --variable theme=bootstrap --mathjax --variable 'mathjax-url=https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML' --include-in-header /tmp/RtmpcxgURY/rmarkdown-str1334654d78b9.html 
       [1] "At least 1 patient with missing datacut date, all records will be kept."
       [ FAIL 1 | WARN 0 | SKIP 0 | PASS 58 ]
       
@@ -159,215 +159,6 @@ Run `revdepcheck::cloud_details(, "datacutr")` for more info
       [ FAIL 1 | WARN 0 | SKIP 0 | PASS 58 ]
       Error: Test failures
       Execution halted
-    ```
-
-# eSDM
-
-<details>
-
-* Version: 0.4.4
-* GitHub: https://github.com/swfsc/eSDM
-* Source code: https://github.com/cran/eSDM
-* Date/Publication: 2024-10-07 22:20:02 UTC
-* Number of recursive dependencies: 131
-
-Run `revdepcheck::cloud_details(, "eSDM")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking re-building of vignette outputs ... ERROR
-    ```
-    Error(s) in re-building vignettes:
-    --- re-building ‘example-analysis.Rmd’ using rmarkdown
-    ```
-
-## In both
-
-*   checking installed package size ... NOTE
-    ```
-      installed size is  5.6Mb
-      sub-directories of 1Mb or more:
-        data      1.5Mb
-        extdata   1.5Mb
-        shiny     2.2Mb
-    ```
-
-# ezplot
-
-<details>
-
-* Version: 0.7.13
-* GitHub: NA
-* Source code: https://github.com/cran/ezplot
-* Date/Publication: 2024-01-28 11:30:05 UTC
-* Number of recursive dependencies: 108
-
-Run `revdepcheck::cloud_details(, "ezplot")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking tests ... ERROR
-    ```
-      Running ‘testthat.R’
-    Running the tests in ‘tests/testthat.R’ failed.
-    Complete output:
-      > library(testthat)
-      > library(ezplot)
-      > suppressPackageStartupMessages(library(tsibble))
-      > 
-      > test_check("ezplot")
-      [ FAIL 1 | WARN 0 | SKIP 0 | PASS 93 ]
-      
-      ══ Failed tests ════════════════════════════════════════════════════════════════
-      ── Failure ('test-classification_plot.R:9:3'): pr_plot ─────────────────────────
-      nrow(g$data) not equal to 11.
-      1/1 mismatches
-      [1] 12 - 11 == 1
-      
-      [ FAIL 1 | WARN 0 | SKIP 0 | PASS 93 ]
-      Error: Test failures
-      Execution halted
-    ```
-
-# GeoTox
-
-<details>
-
-* Version: 0.2.0
-* GitHub: https://github.com/NIEHS/GeoTox
-* Source code: https://github.com/cran/GeoTox
-* Date/Publication: 2024-11-15 14:20:02 UTC
-* Number of recursive dependencies: 143
-
-Run `revdepcheck::cloud_details(, "GeoTox")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking examples ... ERROR
-    ```
-    Running examples in ‘GeoTox-Ex.R’ failed
-    The error most likely occurred in:
-    
-    > ### Name: GeoTox
-    > ### Title: GeoTox S3 object
-    > ### Aliases: GeoTox plot.GeoTox
-    > 
-    > ### ** Examples
-    > 
-    > # Use a subset of the package data for demonstration purposes
-    > set.seed(2357)
-    > n <- 10 # Population size
-    > m <- 5 # Number of regions
-    > idx <- if (m < 100) sample(1:100, m) else 1:100
-    > 
-    > geoTox <- GeoTox() |> 
-    +   # Set region and group boundaries (for plotting)
-    +   set_boundaries(region = geo_tox_data$boundaries$county,
-    +                  group  = geo_tox_data$boundaries$state) |> 
-    +   # Simulate populations for each region
-    +   simulate_population(age           = split(geo_tox_data$age, ~FIPS)[idx],
-    +                       obesity       = geo_tox_data$obesity[idx, ],
-    +                       exposure      = split(geo_tox_data$exposure, ~FIPS)[idx],
-    +                       simulated_css = geo_tox_data$simulated_css,
-    +                       n             = n) |> 
-    +   # Estimated Hill parameters
-    +   set_hill_params(geo_tox_data$dose_response |>
-    +                     fit_hill(assay = "endp", chem = "casn") |> 
-    +                     dplyr::filter(!tp.sd.imputed, !logAC50.sd.imputed)) |>
-    +   # Calculate response
-    +   calculate_response() |>
-    +   # Perform sensitivity analysis
-    +   sensitivity_analysis()
-    Error in if (any(AC50 < 0)) { : missing value where TRUE/FALSE needed
-    Calls: sensitivity_analysis ... .calc_concentration_response -> <Anonymous> -> <Anonymous> -> f -> hill_conc
-    Execution halted
-    ```
-
-*   checking tests ... ERROR
-    ```
-      Running ‘testthat.R’
-    Running the tests in ‘tests/testthat.R’ failed.
-    Complete output:
-      > # This file is part of the standard setup for testthat.
-      > # It is recommended that you do not modify it.
-      > #
-      > # Where should you do additional test configuration?
-      > # Learn more about the roles of various files in:
-      > # * https://r-pkgs.org/testing-design.html#sec-tests-files-overview
-      > # * https://testthat.r-lib.org/articles/special-files.html
-      > 
-      > library(testthat)
-      > library(GeoTox)
-      > 
-      > test_check("GeoTox")
-      [ FAIL 5 | WARN 0 | SKIP 0 | PASS 334 ]
-      
-      ══ Failed tests ════════════════════════════════════════════════════════════════
-      ── Failure ('test-GeoTox.R:40:3'): package data subset ─────────────────────────
-      Expected `... <- NULL` to run without any errors.
-      i Actually got a <simpleError> with text:
-        missing value where TRUE/FALSE needed
-      ── Failure ('test-GeoTox.R:62:3'): package data subset ─────────────────────────
-      Expected `capture_output(print(geoTox))` to run without any errors.
-      i Actually got a <simpleError> with text:
-        object 'geoTox' not found
-      ── Failure ('test-GeoTox.R:65:3'): package data subset ─────────────────────────
-      Expected `plot(geoTox, type = "hill")` to run without any errors.
-      i Actually got a <simpleError> with text:
-        object 'geoTox' not found
-      ── Failure ('test-GeoTox.R:67:3'): package data subset ─────────────────────────
-      Expected `plot(geoTox, type = "exposure")` to run without any errors.
-      i Actually got a <simpleError> with text:
-        object 'geoTox' not found
-      ── Error ('test-GeoTox.R:70:3'): package data subset ───────────────────────────
-      Error in `eval(code, test_env)`: object 'geoTox' not found
-      Backtrace:
-          ▆
-       1. ├─testthat::expect_warning(plot(geoTox), "Multiple assays found, using first assay") at test-GeoTox.R:70:3
-       2. │ └─testthat:::expect_condition_matching(...)
-       3. │   └─testthat:::quasi_capture(...)
-       4. │     ├─testthat (local) .capture(...)
-       5. │     │ └─base::withCallingHandlers(...)
-       6. │     └─rlang::eval_bare(quo_get_expr(.quo), quo_get_env(.quo))
-       7. └─base::plot(geoTox)
-      
-      [ FAIL 5 | WARN 0 | SKIP 0 | PASS 334 ]
-      Error: Test failures
-      Execution halted
-    ```
-
-*   checking re-building of vignette outputs ... ERROR
-    ```
-    Error(s) in re-building vignettes:
-      ...
-    --- re-building ‘introduction.Rmd’ using rmarkdown
-    
-    Quitting from lines 33-55 [unnamed-chunk-2] (introduction.Rmd)
-    Error: processing vignette 'introduction.Rmd' failed with diagnostics:
-    missing value where TRUE/FALSE needed
-    --- failed re-building ‘introduction.Rmd’
-    
-    --- re-building ‘package_data.Rmd’ using rmarkdown
-    --- finished re-building ‘package_data.Rmd’
-    
-    SUMMARY: processing the following file failed:
-      ‘introduction.Rmd’
-    
-    Error: Vignette re-building failed.
-    Execution halted
-    ```
-
-## In both
-
-*   checking data for non-ASCII characters ... NOTE
-    ```
-      Note: found 775 marked UTF-8 strings
     ```
 
 # handwriterRF
@@ -410,7 +201,7 @@ Run `revdepcheck::cloud_details(, "handwriterRF")` for more info
       Creating output directory...
       Directory already exists.
       Processing document w0030_s01_pWOZ_r01.png...
-      path in readPNGBinary: /tmp/RtmpNNXYAz/comparison/docs/w0030_s01_pWOZ_r01.png
+      path in readPNGBinary: /tmp/RtmpuobuYe/comparison/docs/w0030_s01_pWOZ_r01.png
       Starting Processing...
       Getting Nodes...
       Skeletonizing writing...
@@ -425,7 +216,7 @@ Run `revdepcheck::cloud_details(, "handwriterRF")` for more info
       Saving processed document w0030_s01_pWOZ_r01.png...
       
       Processing document w0030_s01_pWOZ_r02.png...
-      path in readPNGBinary: /tmp/RtmpNNXYAz/comparison/docs/w0030_s01_pWOZ_r02.png
+      path in readPNGBinary: /tmp/RtmpuobuYe/comparison/docs/w0030_s01_pWOZ_r02.png
       Starting Processing...
       Getting Nodes...
       Skeletonizing writing...
@@ -462,175 +253,6 @@ Run `revdepcheck::cloud_details(, "handwriterRF")` for more info
       Calculating similarity score...
       Calculating SLR...
       Killed
-    ```
-
-# heemod
-
-<details>
-
-* Version: 1.0.2
-* GitHub: https://github.com/aphp/heemod
-* Source code: https://github.com/cran/heemod
-* Date/Publication: 2024-09-11 16:00:02 UTC
-* Number of recursive dependencies: 139
-
-Run `revdepcheck::cloud_details(, "heemod")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking tests ... ERROR
-    ```
-      Running ‘testthat.R’
-    Running the tests in ‘tests/testthat.R’ failed.
-    Complete output:
-      > library(testthat)
-      > library(heemod)
-      > 
-      > test_check("heemod")
-      I: detected use of 'state_time', expanding states: A, B.
-      I: detected use of 'state_time', expanding states: A, B.
-      I: detected use of 'state_time', expanding states: A, B.
-      I: detected use of 'state_time', expanding states: A, B.
-      I: detected use of 'state_time', expanding states: A, B.
-      I: detected use of 'state_time', expanding state: A.
-      I: detected use of 'state_time', expanding state: B.
-      I: detected use of 'state_time', expanding state: C.
-      Updating strategy 'I'...
-      Updating strategy 'II'...
-      Updating strategy 'I'...
-      Updating strategy 'II'...
-      No weights specified in update, using equal weights.
-      Updating strategy 'I'...
-      Updating strategy 'II'...
-      Loading required namespace: diagram
-      I: detected use of 'state_time', expanding state: A.
-      I: detected use of 'state_time', expanding state: A.
-      Updating strategy 'standard'...
-      Updating strategy 'new'...
-      Updating strategy 'standard'...
-      Updating strategy 'new'...
-      Cluster closed.
-      Loading required package: survival
-      Resampling strategy 'I'...
-      Resampling strategy 'II'...
-      Resampling strategy 'I'...
-      Resampling strategy 'II'...
-      Resampling strategy 'I'...
-      Resampling strategy 'II'...
-      Loading required namespace: logitnorm
-      I: detected use of 'state_time', expanding state: X2.
-      II: detected use of 'state_time', expanding state: X2.
-      Resampling strategy 'I'...
-      Resampling strategy 'II'...
-      `dplyr::filter(bc, group == "Good")` is a complex expression. If you need to
-      perform PSA, please make sure the data.frame does not include the package
-      environment, i.e. is not preceded by `::`.
-      No covariates provided, returning aggregate survival across all subjects.
-      No covariates provided, returning aggregate survival across all subjects.
-      No covariates provided, returning aggregate survival across all subjects.
-      No covariates provided, returning aggregate survival across all subjects.
-      Resampling strategy 'I'...
-      Resampling strategy 'I'...
-      Resampling strategy 'I'...
-      Resampling strategy 'II'...
-      Resampling strategy 'I'...
-      Resampling strategy 'I'...
-      No covariates provided, returning aggregate survival across all subjects.
-      Resampling strategy 'I'...
-      Resampling strategy 'I'...
-      `km_2` must be a <surv_fit>
-      No covariates provided, returning aggregate survival across all subjects.
-      No covariates provided, returning aggregate survival across all subjects.
-      Resampling strategy 'I'...
-      Resampling strategy 'II'...
-      No covariates provided, returning aggregate survival across all subjects.
-      No covariates provided, returning aggregate survival across all subjects.
-      No covariates provided, returning aggregate survival across all subjects.
-      No covariates provided, returning aggregate survival across all subjects.
-      No covariates provided, returning aggregate survival across all subjects.
-      No covariates provided, returning aggregate survival across all subjects.
-      No covariates provided, returning aggregate survival across all subjects.
-      No covariates provided, returning aggregate survival across all subjects.
-      No covariates provided, returning aggregate survival across all subjects.
-      No covariates provided, returning aggregate survival across all subjects.
-      No covariates provided, returning aggregate survival across all subjects.
-      No covariates provided, returning aggregate survival across all subjects.
-      No covariates provided, returning aggregate survival across all subjects.
-      No covariates provided, returning aggregate survival across all subjects.
-      No covariates provided, returning aggregate survival across all subjects.
-      No covariates provided, returning aggregate survival across all subjects.
-      No covariates provided, returning aggregate survival across all subjects.
-      No covariates provided, returning aggregate survival across all subjects.
-      No covariates provided, returning aggregate survival across all subjects.
-      No covariates provided, returning aggregate survival across all subjects.
-      No covariates provided, returning aggregate survival across all subjects.
-      Resampling strategy 'I'...
-      Resampling strategy 'standard'...
-      Resampling strategy 'new'...
-      Updating strategy 'standard'...
-      Updating strategy 'new'...
-      [ FAIL 10 | WARN 0 | SKIP 1 | PASS 504 ]
-      
-      ══ Skipped tests (1) ═══════════════════════════════════════════════════════════
-      • empty test (1): 'test_starting_values.R:200:1'
-      
-      ══ Failed tests ════════════════════════════════════════════════════════════════
-      ── Failure ('test_efficiency_frontier.R:15:5'): Identify Frontier Scenarios ────
-      `result1` (`actual`) not equal to c("Scenario 1", "Scenario 5", "Scenario 8") (`expected`).
-      
-      `actual`:   "Scenario 8"                          
-      `expected`: "Scenario 1" "Scenario 5" "Scenario 8"
-      ── Failure ('test_efficiency_frontier.R:32:5'): Identify Frontier Scenarios ────
-      `result2` (`actual`) not equal to c("Scenario 2", "Scenario 5") (`expected`).
-      
-      `actual`:   "Scenario 5"             
-      `expected`: "Scenario 2" "Scenario 5"
-      ── Failure ('test_efficiency_frontier.R:47:5'): Identify Frontier Scenarios ────
-      `result3` (`actual`) not equal to c("Scenario 1", "Scenario 2", "Scenario 4", "Scenario 6") (`expected`).
-      
-      `actual`:   "Scenario 6"                                       
-      `expected`: "Scenario 1" "Scenario 2" "Scenario 4" "Scenario 6"
-      ── Failure ('test_efficiency_frontier.R:63:5'): Identify Frontier Scenarios ────
-      `result4` (`actual`) not equal to c("Scenario 1", "Scenario 6") (`expected`).
-      
-      `actual`:   "Scenario 6"             
-      `expected`: "Scenario 1" "Scenario 6"
-      ── Failure ('test_efficiency_frontier.R:78:5'): Identify Frontier Scenarios ────
-      `result5` (`actual`) not equal to c("Scenario 1", "Scenario 2", "Scenario 3", "Scenario 4", "Scenario 5") (`expected`).
-      
-      `actual`:   "Scenario 5"                                                    
-      `expected`: "Scenario 1" "Scenario 2" "Scenario 3" "Scenario 4" "Scenario 5"
-      ── Failure ('test_efficiency_frontier.R:95:5'): Identify Frontier Scenarios ────
-      `result6` (`actual`) not equal to c("Scenario 1", "Scenario 4", "Scenario 7") (`expected`).
-      
-      `actual`:   "Scenario 7"                          
-      `expected`: "Scenario 1" "Scenario 4" "Scenario 7"
-      ── Failure ('test_efficiency_frontier.R:113:5'): Identify Frontier Scenarios ───
-      `result7` (`actual`) not equal to c("Scenario 2", "Scenario 4", "Scenario 5", "Scenario 7") (`expected`).
-      
-      `actual`:   "Scenario 7"                                       
-      `expected`: "Scenario 2" "Scenario 4" "Scenario 5" "Scenario 7"
-      ── Failure ('test_efficiency_frontier.R:128:5'): Identify Frontier Scenarios ───
-      `result8` (`actual`) not equal to c("Scenario 1", "Scenario 2") (`expected`).
-      
-      `actual`:   "Scenario 2"             
-      `expected`: "Scenario 1" "Scenario 2"
-      ── Failure ('test_efficiency_frontier.R:206:5'): Identify Frontier Scenarios ───
-      `result13` (`actual`) not equal to c("Scenario 2", "Scenario 3") (`expected`).
-      
-      `actual`:   "Scenario 3"             
-      `expected`: "Scenario 2" "Scenario 3"
-      ── Failure ('test_run_model.R:234:5'): run_model behaves as expected ───────────
-      s_mod$frontier (`actual`) not equal to c("I", "II") (`expected`).
-      
-      `actual`:   "II"     
-      `expected`: "I"  "II"
-      
-      [ FAIL 10 | WARN 0 | SKIP 1 | PASS 504 ]
-      Error: Test failures
-      Execution halted
     ```
 
 # immunarch
@@ -679,22 +301,25 @@ Run `revdepcheck::cloud_details(, "immunarch")` for more info
     
     == Step 1/3: loading repertoire files... ==
     
-    Processing "/tmp/RtmpQIXHj9" ...
-      -- [1/16] Parsing "/tmp/RtmpQIXHj9/A2-i129.tsv.gz" -- immunarch
-      -- [2/16] Parsing "/tmp/RtmpQIXHj9/A2-i131.tsv.gz" -- immunarch
-      -- [3/16] Parsing "/tmp/RtmpQIXHj9/A2-i132.tsv.gz" -- immunarch
-      -- [4/16] Parsing "/tmp/RtmpQIXHj9/A2-i133.tsv.gz" -- immunarch
-      -- [5/16] Parsing "/tmp/RtmpQIXHj9/A4-i191.tsv.gz" -- immunarch
-      -- [6/16] Parsing "/tmp/RtmpQIXHj9/A4-i192.tsv.gz" -- immunarch
-      -- [7/16] Parsing "/tmp/RtmpQIXHj9/MS1.tsv.gz" -- immunarch
-      -- [8/16] Parsing "/tmp/RtmpQIXHj9/MS2.tsv.gz" -- immunarch
-      -- [9/16] Parsing "/tmp/RtmpQIXHj9/MS3.tsv.gz" -- immunarch
-      -- [10/16] Parsing "/tmp/RtmpQIXHj9/MS4.tsv.gz" -- immunarch
-      -- [11/16] Parsing "/tmp/RtmpQIXHj9/MS5.tsv.gz" -- immunarch
-      -- [12/16] Parsing "/tmp/RtmpQIXHj9/MS6.tsv.gz" -- immunarch
-      -- [13/16] Parsing "/tmp/RtmpQIXHj9/duckplyr1a7373d62ba9.duckdb" -- Warning in readLines(f, 1) : line 1 appears to contain an embedded nul
+    Processing "/tmp/Rtmp0vODF3" ...
+      -- [1/14] Parsing "/tmp/Rtmp0vODF3/A2-i129.tsv.gz" -- immunarch
+      -- [2/14] Parsing "/tmp/Rtmp0vODF3/A2-i131.tsv.gz" -- immunarch
+      -- [3/14] Parsing "/tmp/Rtmp0vODF3/A2-i132.tsv.gz" -- immunarch
+      -- [4/14] Parsing "/tmp/Rtmp0vODF3/A2-i133.tsv.gz" -- immunarch
+      -- [5/14] Parsing "/tmp/Rtmp0vODF3/A4-i191.tsv.gz" -- immunarch
+      -- [6/14] Parsing "/tmp/Rtmp0vODF3/A4-i192.tsv.gz" -- immunarch
+      -- [7/14] Parsing "/tmp/Rtmp0vODF3/MS1.tsv.gz" -- immunarch
+      -- [8/14] Parsing "/tmp/Rtmp0vODF3/MS2.tsv.gz" -- immunarch
+      -- [9/14] Parsing "/tmp/Rtmp0vODF3/MS3.tsv.gz" -- immunarch
+      -- [10/14] Parsing "/tmp/Rtmp0vODF3/MS4.tsv.gz" -- immunarch
+      -- [11/14] Parsing "/tmp/Rtmp0vODF3/MS5.tsv.gz" -- immunarch
+      -- [12/14] Parsing "/tmp/Rtmp0vODF3/MS6.tsv.gz" -- immunarch
+      -- [13/14] Parsing "/tmp/Rtmp0vODF3/metadata.txt" -- metadata
+      -- [14/14] Parsing "/tmp/Rtmp0vODF3/pdf1a7344770bd2" -- unsupported format, skipping
+    Processing "/tmp/Rtmp0vODF3/duckplyr" ...
+      -- [1/2] Parsing "/tmp/Rtmp0vODF3/duckplyr/duckplyr1a73734dddf7.duckdb" -- Warning in readLines(f, 1) : line 1 appears to contain an embedded nul
     Warning in readLines(f, 1) :
-      incomplete final line found on '/tmp/RtmpQIXHj9/duckplyr1a7373d62ba9.duckdb'
+      incomplete final line found on '/tmp/Rtmp0vODF3/duckplyr/duckplyr1a73734dddf7.duckdb'
     Error in stri_trim_both(string) : 
       invalid UTF-8 byte sequence detected; try calling stri_enc_toutf8()
     Calls: repLoad ... .detect_format -> ifelse -> str_trim -> stri_trim_both
@@ -781,113 +406,113 @@ Run `revdepcheck::cloud_details(, "mtdesign")` for more info
       > library(mtdesign)
       > 
       > test_check("mtdesign")
-      testthat 2025-02-01 04:53:14 DEBUG test_check: Entry
-      testthat 2025-02-01 04:53:14 DEBUG test_check: Entry
-      testthat 2025-02-01 04:53:14 DEBUG test_check: Exit
-      testthat 2025-02-01 04:53:14 DEBUG test_check: One stage sample size is 15.  Search bounds are 20 to 30.
-      testthat 2025-02-01 04:53:14 TRACE test_check: Building grid - nTotal, nStage1: 264
-      testthat 2025-02-01 04:53:14 TRACE test_check: Building grid - nTotal, nStage1, rTotal: 6710
-      testthat 2025-02-01 04:53:14 TRACE test_check: Building grid - nTotal, nStage1, rTotal, rFutility: 26620
-      testthat 2025-02-01 04:53:14 TRACE test_check: Building grid - nTotal, nStage1, rTotal, rFutility, rSuccess: 97571
-      testthat 2025-02-01 04:53:14 TRACE test_check: Grid has 97571 rows.
-      testthat 2025-02-01 04:53:14 DEBUG test_check: Exit
-      testthat 2025-02-01 04:53:14 DEBUG test_check: Entry
-      testthat 2025-02-01 04:53:14 DEBUG test_check: Entry
-      testthat 2025-02-01 04:53:14 DEBUG test_check: Exit
-      testthat 2025-02-01 04:53:14 DEBUG test_check: Exit
-      testthat 2025-02-01 04:53:14 DEBUG test_check: Entry
-      testthat 2025-02-01 04:53:14 DEBUG test_check: Entry
-      testthat 2025-02-01 04:53:14 DEBUG test_check: Exit
-      testthat 2025-02-01 04:53:14 DEBUG test_check: Exit
-      testthat 2025-02-01 04:53:14 DEBUG test_check: Entry
-      testthat 2025-02-01 04:53:14 DEBUG test_check: Entry
-      testthat 2025-02-01 04:53:14 DEBUG test_check: Exit
-      testthat 2025-02-01 04:53:14 DEBUG test_check: Exit
-      testthat 2025-02-01 04:53:14 DEBUG test_check: Entry
-      testthat 2025-02-01 04:53:14 DEBUG test_check: Entry
-      testthat 2025-02-01 04:53:14 DEBUG test_check: Exit
-      testthat 2025-02-01 04:53:15 DEBUG test_check: Exit
-      testthat 2025-02-01 04:53:15 DEBUG test_check: Entry
-      testthat 2025-02-01 04:53:15 DEBUG test_check: Entry
-      testthat 2025-02-01 04:53:15 DEBUG test_check: Exit
-      testthat 2025-02-01 04:53:15 DEBUG test_check: Exit
-      testthat 2025-02-01 04:53:15 DEBUG test_check: Entry
-      testthat 2025-02-01 04:53:15 DEBUG test_check: Entry
-      testthat 2025-02-01 04:53:15 DEBUG test_check: Exit
-      testthat 2025-02-01 04:53:15 DEBUG test_check: Exit
-      testthat 2025-02-01 04:53:15 DEBUG test_check: Entry
-      testthat 2025-02-01 04:53:15 DEBUG test_check: Entry
-      testthat 2025-02-01 04:53:15 DEBUG test_check: Exit
-      testthat 2025-02-01 04:53:15 DEBUG test_check: Exit
-      testthat 2025-02-01 04:53:15 DEBUG test_check: Entry
-      testthat 2025-02-01 04:53:15 DEBUG test_check: Entry
-      testthat 2025-02-01 04:53:15 DEBUG test_check: Exit
-      testthat 2025-02-01 04:53:15 DEBUG test_check: Exit
-      testthat 2025-02-01 04:53:15 DEBUG test_check: Entry
-      testthat 2025-02-01 04:53:15 DEBUG test_check: Entry
-      testthat 2025-02-01 04:53:15 DEBUG test_check: Exit
-      testthat 2025-02-01 04:53:15 DEBUG test_check: Exit
-      testthat 2025-02-01 04:53:15 DEBUG test_check: Entry
-      testthat 2025-02-01 04:53:15 DEBUG test_check: Entry
-      testthat 2025-02-01 04:53:15 DEBUG test_check: Exit
-      testthat 2025-02-01 04:53:15 DEBUG test_check: Entry
-      testthat 2025-02-01 04:53:15 DEBUG test_check: Exit
-      testthat 2025-02-01 04:53:15 DEBUG test_check: Entry
-      testthat 2025-02-01 04:53:15 DEBUG test_check: Exit
-      testthat 2025-02-01 04:53:15 DEBUG test_check: Entry
-      testthat 2025-02-01 04:53:15 DEBUG test_check: Exit
-      testthat 2025-02-01 04:53:15 DEBUG test_check: Entry
-      testthat 2025-02-01 04:53:15 DEBUG test_check: Exit
-      testthat 2025-02-01 04:53:15 DEBUG test_check: Entry
-      testthat 2025-02-01 04:53:15 DEBUG test_check: Exit
-      testthat 2025-02-01 04:53:15 DEBUG test_check: Entry
-      testthat 2025-02-01 04:53:15 DEBUG test_check: Exit
-      testthat 2025-02-01 04:53:15 DEBUG test_check: Entry
-      testthat 2025-02-01 04:53:15 DEBUG test_check: Exit
-      testthat 2025-02-01 04:53:15 DEBUG test_check: Entry
-      testthat 2025-02-01 04:53:15 DEBUG test_check: Exit
-      testthat 2025-02-01 04:53:15 DEBUG test_check: Entry
-      testthat 2025-02-01 04:53:15 DEBUG test_check: Exit
-      testthat 2025-02-01 04:53:15 DEBUG test_check: Entry
-      testthat 2025-02-01 04:53:15 DEBUG test_check: Entry
-      testthat 2025-02-01 04:53:15 DEBUG test_check: Exit
-      testthat 2025-02-01 04:53:15 DEBUG test_check: Exit
-      testthat 2025-02-01 04:53:15 DEBUG test_check: Entry
-      testthat 2025-02-01 04:53:15 DEBUG test_check: Entry
-      testthat 2025-02-01 04:53:15 DEBUG test_check: Exit
-      testthat 2025-02-01 04:53:15 DEBUG test_check: Exit
-      testthat 2025-02-01 04:53:15 DEBUG test_check: Entry
-      testthat 2025-02-01 04:53:15 DEBUG test_check: Entry
-      testthat 2025-02-01 04:53:15 DEBUG test_check: Exit
-      testthat 2025-02-01 04:53:15 DEBUG test_check: Exit
-      testthat 2025-02-01 04:53:15 DEBUG test_check: Entry
-      testthat 2025-02-01 04:53:15 DEBUG test_check: Entry
-      testthat 2025-02-01 04:53:15 DEBUG test_check: Exit
-      testthat 2025-02-01 04:53:15 DEBUG test_check: Exit
-      testthat 2025-02-01 04:53:15 DEBUG test_check: Entry
-      testthat 2025-02-01 04:53:15 DEBUG test_check: Entry
-      testthat 2025-02-01 04:53:15 DEBUG test_check: Exit
-      testthat 2025-02-01 04:53:15 DEBUG test_check: Exit
-      testthat 2025-02-01 04:53:15 DEBUG test_check: Entry
-      testthat 2025-02-01 04:53:15 DEBUG test_check: Entry
-      testthat 2025-02-01 04:53:15 DEBUG test_check: Exit
-      testthat 2025-02-01 04:53:15 DEBUG test_check: Exit
-      testthat 2025-02-01 04:53:15 DEBUG test_check: Entry
-      testthat 2025-02-01 04:53:15 DEBUG test_check: Entry
-      testthat 2025-02-01 04:53:15 DEBUG test_check: Exit
-      testthat 2025-02-01 04:53:15 DEBUG test_check: Exit
-      testthat 2025-02-01 04:53:15 DEBUG test_check: Entry
-      testthat 2025-02-01 04:53:15 DEBUG test_check: Entry
-      testthat 2025-02-01 04:53:15 DEBUG test_check: Exit
-      testthat 2025-02-01 04:53:15 DEBUG test_check: Exit
-      testthat 2025-02-01 04:53:15 DEBUG test_check: Entry
-      testthat 2025-02-01 04:53:15 DEBUG test_check: Entry
-      testthat 2025-02-01 04:53:15 DEBUG test_check: Exit
-      testthat 2025-02-01 04:53:15 DEBUG test_check: Exit
-      testthat 2025-02-01 04:53:15 DEBUG test_check: Entry
-      testthat 2025-02-01 04:53:15 DEBUG test_check: Entry
-      testthat 2025-02-01 04:53:15 DEBUG test_check: Exit
-      testthat 2025-02-01 04:53:15 DEBUG test_check: Exit
+      testthat 2025-02-01 05:42:38 DEBUG test_check: Entry
+      testthat 2025-02-01 05:42:38 DEBUG test_check: Entry
+      testthat 2025-02-01 05:42:38 DEBUG test_check: Exit
+      testthat 2025-02-01 05:42:38 DEBUG test_check: One stage sample size is 15.  Search bounds are 20 to 30.
+      testthat 2025-02-01 05:42:38 TRACE test_check: Building grid - nTotal, nStage1: 264
+      testthat 2025-02-01 05:42:38 TRACE test_check: Building grid - nTotal, nStage1, rTotal: 6710
+      testthat 2025-02-01 05:42:38 TRACE test_check: Building grid - nTotal, nStage1, rTotal, rFutility: 26620
+      testthat 2025-02-01 05:42:38 TRACE test_check: Building grid - nTotal, nStage1, rTotal, rFutility, rSuccess: 97571
+      testthat 2025-02-01 05:42:38 TRACE test_check: Grid has 97571 rows.
+      testthat 2025-02-01 05:42:38 DEBUG test_check: Exit
+      testthat 2025-02-01 05:42:38 DEBUG test_check: Entry
+      testthat 2025-02-01 05:42:38 DEBUG test_check: Entry
+      testthat 2025-02-01 05:42:38 DEBUG test_check: Exit
+      testthat 2025-02-01 05:42:38 DEBUG test_check: Exit
+      testthat 2025-02-01 05:42:38 DEBUG test_check: Entry
+      testthat 2025-02-01 05:42:38 DEBUG test_check: Entry
+      testthat 2025-02-01 05:42:38 DEBUG test_check: Exit
+      testthat 2025-02-01 05:42:38 DEBUG test_check: Exit
+      testthat 2025-02-01 05:42:38 DEBUG test_check: Entry
+      testthat 2025-02-01 05:42:38 DEBUG test_check: Entry
+      testthat 2025-02-01 05:42:38 DEBUG test_check: Exit
+      testthat 2025-02-01 05:42:38 DEBUG test_check: Exit
+      testthat 2025-02-01 05:42:38 DEBUG test_check: Entry
+      testthat 2025-02-01 05:42:38 DEBUG test_check: Entry
+      testthat 2025-02-01 05:42:38 DEBUG test_check: Exit
+      testthat 2025-02-01 05:42:38 DEBUG test_check: Exit
+      testthat 2025-02-01 05:42:38 DEBUG test_check: Entry
+      testthat 2025-02-01 05:42:38 DEBUG test_check: Entry
+      testthat 2025-02-01 05:42:38 DEBUG test_check: Exit
+      testthat 2025-02-01 05:42:38 DEBUG test_check: Exit
+      testthat 2025-02-01 05:42:38 DEBUG test_check: Entry
+      testthat 2025-02-01 05:42:38 DEBUG test_check: Entry
+      testthat 2025-02-01 05:42:38 DEBUG test_check: Exit
+      testthat 2025-02-01 05:42:38 DEBUG test_check: Exit
+      testthat 2025-02-01 05:42:38 DEBUG test_check: Entry
+      testthat 2025-02-01 05:42:38 DEBUG test_check: Entry
+      testthat 2025-02-01 05:42:38 DEBUG test_check: Exit
+      testthat 2025-02-01 05:42:38 DEBUG test_check: Exit
+      testthat 2025-02-01 05:42:38 DEBUG test_check: Entry
+      testthat 2025-02-01 05:42:38 DEBUG test_check: Entry
+      testthat 2025-02-01 05:42:38 DEBUG test_check: Exit
+      testthat 2025-02-01 05:42:38 DEBUG test_check: Exit
+      testthat 2025-02-01 05:42:38 DEBUG test_check: Entry
+      testthat 2025-02-01 05:42:38 DEBUG test_check: Entry
+      testthat 2025-02-01 05:42:38 DEBUG test_check: Exit
+      testthat 2025-02-01 05:42:38 DEBUG test_check: Exit
+      testthat 2025-02-01 05:42:38 DEBUG test_check: Entry
+      testthat 2025-02-01 05:42:38 DEBUG test_check: Entry
+      testthat 2025-02-01 05:42:38 DEBUG test_check: Exit
+      testthat 2025-02-01 05:42:38 DEBUG test_check: Entry
+      testthat 2025-02-01 05:42:38 DEBUG test_check: Exit
+      testthat 2025-02-01 05:42:38 DEBUG test_check: Entry
+      testthat 2025-02-01 05:42:38 DEBUG test_check: Exit
+      testthat 2025-02-01 05:42:38 DEBUG test_check: Entry
+      testthat 2025-02-01 05:42:38 DEBUG test_check: Exit
+      testthat 2025-02-01 05:42:38 DEBUG test_check: Entry
+      testthat 2025-02-01 05:42:38 DEBUG test_check: Exit
+      testthat 2025-02-01 05:42:38 DEBUG test_check: Entry
+      testthat 2025-02-01 05:42:38 DEBUG test_check: Exit
+      testthat 2025-02-01 05:42:38 DEBUG test_check: Entry
+      testthat 2025-02-01 05:42:38 DEBUG test_check: Exit
+      testthat 2025-02-01 05:42:38 DEBUG test_check: Entry
+      testthat 2025-02-01 05:42:38 DEBUG test_check: Exit
+      testthat 2025-02-01 05:42:38 DEBUG test_check: Entry
+      testthat 2025-02-01 05:42:38 DEBUG test_check: Exit
+      testthat 2025-02-01 05:42:38 DEBUG test_check: Entry
+      testthat 2025-02-01 05:42:38 DEBUG test_check: Exit
+      testthat 2025-02-01 05:42:38 DEBUG test_check: Entry
+      testthat 2025-02-01 05:42:38 DEBUG test_check: Entry
+      testthat 2025-02-01 05:42:38 DEBUG test_check: Exit
+      testthat 2025-02-01 05:42:38 DEBUG test_check: Exit
+      testthat 2025-02-01 05:42:38 DEBUG test_check: Entry
+      testthat 2025-02-01 05:42:38 DEBUG test_check: Entry
+      testthat 2025-02-01 05:42:38 DEBUG test_check: Exit
+      testthat 2025-02-01 05:42:38 DEBUG test_check: Exit
+      testthat 2025-02-01 05:42:38 DEBUG test_check: Entry
+      testthat 2025-02-01 05:42:38 DEBUG test_check: Entry
+      testthat 2025-02-01 05:42:38 DEBUG test_check: Exit
+      testthat 2025-02-01 05:42:38 DEBUG test_check: Exit
+      testthat 2025-02-01 05:42:38 DEBUG test_check: Entry
+      testthat 2025-02-01 05:42:38 DEBUG test_check: Entry
+      testthat 2025-02-01 05:42:38 DEBUG test_check: Exit
+      testthat 2025-02-01 05:42:38 DEBUG test_check: Exit
+      testthat 2025-02-01 05:42:38 DEBUG test_check: Entry
+      testthat 2025-02-01 05:42:38 DEBUG test_check: Entry
+      testthat 2025-02-01 05:42:38 DEBUG test_check: Exit
+      testthat 2025-02-01 05:42:38 DEBUG test_check: Exit
+      testthat 2025-02-01 05:42:38 DEBUG test_check: Entry
+      testthat 2025-02-01 05:42:38 DEBUG test_check: Entry
+      testthat 2025-02-01 05:42:38 DEBUG test_check: Exit
+      testthat 2025-02-01 05:42:38 DEBUG test_check: Exit
+      testthat 2025-02-01 05:42:38 DEBUG test_check: Entry
+      testthat 2025-02-01 05:42:38 DEBUG test_check: Entry
+      testthat 2025-02-01 05:42:38 DEBUG test_check: Exit
+      testthat 2025-02-01 05:42:38 DEBUG test_check: Exit
+      testthat 2025-02-01 05:42:38 DEBUG test_check: Entry
+      testthat 2025-02-01 05:42:38 DEBUG test_check: Entry
+      testthat 2025-02-01 05:42:38 DEBUG test_check: Exit
+      testthat 2025-02-01 05:42:38 DEBUG test_check: Exit
+      testthat 2025-02-01 05:42:38 DEBUG test_check: Entry
+      testthat 2025-02-01 05:42:38 DEBUG test_check: Entry
+      testthat 2025-02-01 05:42:38 DEBUG test_check: Exit
+      testthat 2025-02-01 05:42:38 DEBUG test_check: Exit
+      testthat 2025-02-01 05:42:38 DEBUG test_check: Entry
+      testthat 2025-02-01 05:42:38 DEBUG test_check: Entry
+      testthat 2025-02-01 05:42:38 DEBUG test_check: Exit
+      testthat 2025-02-01 05:42:38 DEBUG test_check: Exit
       Killed
     ```
 
@@ -931,31 +556,31 @@ Run `revdepcheck::cloud_details(, "offsetreg")` for more info
       predict(mod, xgtrain) (`actual`) not identical to predict(xgb_off, us_deaths)$.pred (`expected`).
       
            actual  | expected                 
-       [1] 18862.6 - 14442.7  [1]             
-       [2] 19066.5 - 14598.8  [2]             
-       [3] 19277.9 - 14760.6  [3]             
-       [4] 19589.9 - 14999.6  [4]             
-       [5] 19855.2 - 15202.7  [5]             
-       [6] 20072.9 - 15369.4  [6]             
-       [7] 20321.9 - 15560.0  [7]             
-       [8] 20445.3 - 15654.5  [8]             
-       [9] 20530.8 - 15720.0  [9]             
-      [10] 22075.8 - 16306.7  [10]            
+       [1] 18862.6 - 23329.9  [1]             
+       [2] 19066.5 - 23582.1  [2]             
+       [3] 19277.9 - 23843.6  [3]             
+       [4] 19589.9 - 24229.5  [4]             
+       [5] 19855.2 - 24557.6  [5]             
+       [6] 20072.9 - 24826.9  [6]             
+       [7] 20321.9 - 25134.8  [7]             
+       [8] 20445.3 - 25287.4  [8]             
+       [9] 20530.8 - 25393.2  [9]             
+      [10] 22075.8 - 25442.8  [10]            
        ... ...       ...      and 130 more ...
       ── Failure ('test-xgboost.R:137:3'): finalize works ────────────────────────────
       Expected `fit(tune::finalize_workflow(wf, param_grid), us_deaths)` to run without any errors.
       i Actually got a <simpleError> with text:
-        [04:51:33] src/data/data.cc:461: Check failed: valid: Label contains NaN, infinity or a value too large.
+        [05:45:37] src/data/data.cc:461: Check failed: valid: Label contains NaN, infinity or a value too large.
         Stack trace:
-          [bt] (0) /usr/local/lib/R/site-library/xgboost/libs/xgboost.so(+0x72d4d) [0x7f42cc953d4d]
-          [bt] (1) /usr/local/lib/R/site-library/xgboost/libs/xgboost.so(+0x14dc26) [0x7f42cca2ec26]
-          [bt] (2) /usr/local/lib/R/site-library/xgboost/libs/xgboost.so(+0x14f443) [0x7f42cca30443]
-          [bt] (3) /usr/local/lib/R/site-library/xgboost/libs/xgboost.so(XGDMatrixSetFloatInfo+0x7e) [0x7f42ccba2aee]
-          [bt] (4) /usr/local/lib/R/site-library/xgboost/libs/xgboost.so(XGDMatrixSetInfo_R+0x609) [0x7f42cc94f879]
-          [bt] (5) /opt/R/4.4.0/lib/R/lib/libR.so(+0x105a3e) [0x7f42e3fd4a3e]
-          [bt] (6) /opt/R/4.4.0/lib/R/lib/libR.so(+0x1491f0) [0x7f42e40181f0]
-          [bt] (7) /opt/R/4.4.0/lib/R/lib/libR.so(+0x15ccfa) [0x7f42e402bcfa]
-          [bt] (8) /opt/R/4.4.0/lib/R/lib/libR.so(Rf_eval+0x17b) [0x7f42e402c06b]
+          [bt] (0) /usr/local/lib/R/site-library/xgboost/libs/xgboost.so(+0x72d4d) [0x7fc9219e5d4d]
+          [bt] (1) /usr/local/lib/R/site-library/xgboost/libs/xgboost.so(+0x14dc26) [0x7fc921ac0c26]
+          [bt] (2) /usr/local/lib/R/site-library/xgboost/libs/xgboost.so(+0x14f443) [0x7fc921ac2443]
+          [bt] (3) /usr/local/lib/R/site-library/xgboost/libs/xgboost.so(XGDMatrixSetFloatInfo+0x7e) [0x7fc921c34aee]
+          [bt] (4) /usr/local/lib/R/site-library/xgboost/libs/xgboost.so(XGDMatrixSetInfo_R+0x609) [0x7fc9219e1879]
+          [bt] (5) /opt/R/4.4.0/lib/R/lib/libR.so(+0x105a3e) [0x7fc939066a3e]
+          [bt] (6) /opt/R/4.4.0/lib/R/lib/libR.so(+0x1491f0) [0x7fc9390aa1f0]
+          [bt] (7) /opt/R/4.4.0/lib/R/lib/libR.so(+0x15ccfa) [0x7fc9390bdcfa]
+          [bt] (8) /opt/R/4.4.0/lib/R/lib/libR.so(Rf_eval+0x17b) [0x7fc9390be06b]
         
         
       

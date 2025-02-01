@@ -1,8 +1,8 @@
 ## revdepcheck results
 
-We checked 14 reverse dependencies, comparing R CMD check results across CRAN and dev versions of this package.
+We checked 13 reverse dependencies, comparing R CMD check results across CRAN and dev versions of this package.
 
- * We saw 13 new problems
+ * We saw 9 new problems
  * We failed to check 0 packages
 
 Issues with CRAN packages are summarised below.
@@ -16,21 +16,7 @@ Issues with CRAN packages are summarised below.
 * datacutr
   checking tests ... ERROR
 
-* eSDM
-  checking re-building of vignette outputs ... ERROR
-
-* ezplot
-  checking tests ... ERROR
-
-* GeoTox
-  checking examples ... ERROR
-  checking tests ... ERROR
-  checking re-building of vignette outputs ... ERROR
-
 * handwriterRF
-  checking tests ... ERROR
-
-* heemod
   checking tests ... ERROR
 
 * immunarch
