@@ -143,10 +143,10 @@ Run `revdepcheck::cloud_details(, "datacutr")` for more info
       > test_check("datacutr")
       [1] "At least 1 patient with missing datacut date."
       [1] "At least 1 patient with missing datacut date, all records will be kept."
-      /usr/local/bin/pandoc +RTS -K512m -RTS read_out.knit.md --to html4 --from markdown+autolink_bare_uris+tex_math_single_backslash --output /tmp/RtmpGY15Af/datacut_2025-02-01_092651.html --lua-filter /usr/local/lib/R/site-library/rmarkdown/rmarkdown/lua/pagebreak.lua --lua-filter /usr/local/lib/R/site-library/rmarkdown/rmarkdown/lua/latex-div.lua --embed-resources --standalone --variable bs3=TRUE --section-divs --template /usr/local/lib/R/site-library/rmarkdown/rmd/h/default.html --no-highlight --variable highlightjs=1 --variable theme=bootstrap --mathjax --variable 'mathjax-url=https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML' --include-in-header /tmp/RtmpGY15Af/rmarkdown-str133426744cca.html 
-      /usr/local/bin/pandoc +RTS -K512m -RTS read_out.knit.md --to html4 --from markdown+autolink_bare_uris+tex_math_single_backslash --output /tmp/RtmpGY15Af/datacut_2025-02-01_092654.html --lua-filter /usr/local/lib/R/site-library/rmarkdown/rmarkdown/lua/pagebreak.lua --lua-filter /usr/local/lib/R/site-library/rmarkdown/rmarkdown/lua/latex-div.lua --embed-resources --standalone --variable bs3=TRUE --section-divs --template /usr/local/lib/R/site-library/rmarkdown/rmd/h/default.html --no-highlight --variable highlightjs=1 --variable theme=bootstrap --mathjax --variable 'mathjax-url=https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML' --include-in-header /tmp/RtmpGY15Af/rmarkdown-str13343acd4d04.html 
-      /usr/local/bin/pandoc +RTS -K512m -RTS read_out.knit.md --to html4 --from markdown+autolink_bare_uris+tex_math_single_backslash --output /tmp/RtmpGY15Af/datacut_2025-02-01_092655.html --lua-filter /usr/local/lib/R/site-library/rmarkdown/rmarkdown/lua/pagebreak.lua --lua-filter /usr/local/lib/R/site-library/rmarkdown/rmarkdown/lua/latex-div.lua --embed-resources --standalone --variable bs3=TRUE --section-divs --template /usr/local/lib/R/site-library/rmarkdown/rmd/h/default.html --no-highlight --variable highlightjs=1 --variable theme=bootstrap --mathjax --variable 'mathjax-url=https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML' --include-in-header /tmp/RtmpGY15Af/rmarkdown-str133479b4950d.html 
-      /usr/local/bin/pandoc +RTS -K512m -RTS read_out.knit.md --to html4 --from markdown+autolink_bare_uris+tex_math_single_backslash --output /tmp/RtmpGY15Af/datacut_2025-02-01_092656.html --lua-filter /usr/local/lib/R/site-library/rmarkdown/rmarkdown/lua/pagebreak.lua --lua-filter /usr/local/lib/R/site-library/rmarkdown/rmarkdown/lua/latex-div.lua --embed-resources --standalone --variable bs3=TRUE --section-divs --template /usr/local/lib/R/site-library/rmarkdown/rmd/h/default.html --no-highlight --variable highlightjs=1 --variable theme=bootstrap --mathjax --variable 'mathjax-url=https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML' --include-in-header /tmp/RtmpGY15Af/rmarkdown-str133413083088.html 
+      /usr/local/bin/pandoc +RTS -K512m -RTS read_out.knit.md --to html4 --from markdown+autolink_bare_uris+tex_math_single_backslash --output /tmp/RtmpzPuGZX/datacut_2025-02-01_133202.html --lua-filter /usr/local/lib/R/site-library/rmarkdown/rmarkdown/lua/pagebreak.lua --lua-filter /usr/local/lib/R/site-library/rmarkdown/rmarkdown/lua/latex-div.lua --embed-resources --standalone --variable bs3=TRUE --section-divs --template /usr/local/lib/R/site-library/rmarkdown/rmd/h/default.html --no-highlight --variable highlightjs=1 --variable theme=bootstrap --mathjax --variable 'mathjax-url=https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML' --include-in-header /tmp/RtmpzPuGZX/rmarkdown-str1334186580ad.html 
+      /usr/local/bin/pandoc +RTS -K512m -RTS read_out.knit.md --to html4 --from markdown+autolink_bare_uris+tex_math_single_backslash --output /tmp/RtmpzPuGZX/datacut_2025-02-01_133205.html --lua-filter /usr/local/lib/R/site-library/rmarkdown/rmarkdown/lua/pagebreak.lua --lua-filter /usr/local/lib/R/site-library/rmarkdown/rmarkdown/lua/latex-div.lua --embed-resources --standalone --variable bs3=TRUE --section-divs --template /usr/local/lib/R/site-library/rmarkdown/rmd/h/default.html --no-highlight --variable highlightjs=1 --variable theme=bootstrap --mathjax --variable 'mathjax-url=https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML' --include-in-header /tmp/RtmpzPuGZX/rmarkdown-str13345d9fd774.html 
+      /usr/local/bin/pandoc +RTS -K512m -RTS read_out.knit.md --to html4 --from markdown+autolink_bare_uris+tex_math_single_backslash --output /tmp/RtmpzPuGZX/datacut_2025-02-01_133206.html --lua-filter /usr/local/lib/R/site-library/rmarkdown/rmarkdown/lua/pagebreak.lua --lua-filter /usr/local/lib/R/site-library/rmarkdown/rmarkdown/lua/latex-div.lua --embed-resources --standalone --variable bs3=TRUE --section-divs --template /usr/local/lib/R/site-library/rmarkdown/rmd/h/default.html --no-highlight --variable highlightjs=1 --variable theme=bootstrap --mathjax --variable 'mathjax-url=https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML' --include-in-header /tmp/RtmpzPuGZX/rmarkdown-str1334538acede.html 
+      /usr/local/bin/pandoc +RTS -K512m -RTS read_out.knit.md --to html4 --from markdown+autolink_bare_uris+tex_math_single_backslash --output /tmp/RtmpzPuGZX/datacut_2025-02-01_133207.html --lua-filter /usr/local/lib/R/site-library/rmarkdown/rmarkdown/lua/pagebreak.lua --lua-filter /usr/local/lib/R/site-library/rmarkdown/rmarkdown/lua/latex-div.lua --embed-resources --standalone --variable bs3=TRUE --section-divs --template /usr/local/lib/R/site-library/rmarkdown/rmd/h/default.html --no-highlight --variable highlightjs=1 --variable theme=bootstrap --mathjax --variable 'mathjax-url=https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML' --include-in-header /tmp/RtmpzPuGZX/rmarkdown-str13344d52a740.html 
       [1] "At least 1 patient with missing datacut date, all records will be kept."
       [ FAIL 1 | WARN 0 | SKIP 0 | PASS 58 ]
       
@@ -207,25 +207,25 @@ Run `revdepcheck::cloud_details(, "immunarch")` for more info
     
     == Step 1/3: loading repertoire files... ==
     
-    Processing "/tmp/RtmpfpfrpI" ...
-      -- [1/14] Parsing "/tmp/RtmpfpfrpI/A2-i129.tsv.gz" -- immunarch
-      -- [2/14] Parsing "/tmp/RtmpfpfrpI/A2-i131.tsv.gz" -- immunarch
-      -- [3/14] Parsing "/tmp/RtmpfpfrpI/A2-i132.tsv.gz" -- immunarch
-      -- [4/14] Parsing "/tmp/RtmpfpfrpI/A2-i133.tsv.gz" -- immunarch
-      -- [5/14] Parsing "/tmp/RtmpfpfrpI/A4-i191.tsv.gz" -- immunarch
-      -- [6/14] Parsing "/tmp/RtmpfpfrpI/A4-i192.tsv.gz" -- immunarch
-      -- [7/14] Parsing "/tmp/RtmpfpfrpI/MS1.tsv.gz" -- immunarch
-      -- [8/14] Parsing "/tmp/RtmpfpfrpI/MS2.tsv.gz" -- immunarch
-      -- [9/14] Parsing "/tmp/RtmpfpfrpI/MS3.tsv.gz" -- immunarch
-      -- [10/14] Parsing "/tmp/RtmpfpfrpI/MS4.tsv.gz" -- immunarch
-      -- [11/14] Parsing "/tmp/RtmpfpfrpI/MS5.tsv.gz" -- immunarch
-      -- [12/14] Parsing "/tmp/RtmpfpfrpI/MS6.tsv.gz" -- immunarch
-      -- [13/14] Parsing "/tmp/RtmpfpfrpI/metadata.txt" -- metadata
-      -- [14/14] Parsing "/tmp/RtmpfpfrpI/pdf1a737c5f1bc2" -- unsupported format, skipping
-    Processing "/tmp/RtmpfpfrpI/duckplyr" ...
-      -- [1/2] Parsing "/tmp/RtmpfpfrpI/duckplyr/duckplyr1a737abb38fb.duckdb" -- Warning in readLines(f, 1) : line 1 appears to contain an embedded nul
+    Processing "/tmp/Rtmpw3YB4w" ...
+      -- [1/14] Parsing "/tmp/Rtmpw3YB4w/A2-i129.tsv.gz" -- immunarch
+      -- [2/14] Parsing "/tmp/Rtmpw3YB4w/A2-i131.tsv.gz" -- immunarch
+      -- [3/14] Parsing "/tmp/Rtmpw3YB4w/A2-i132.tsv.gz" -- immunarch
+      -- [4/14] Parsing "/tmp/Rtmpw3YB4w/A2-i133.tsv.gz" -- immunarch
+      -- [5/14] Parsing "/tmp/Rtmpw3YB4w/A4-i191.tsv.gz" -- immunarch
+      -- [6/14] Parsing "/tmp/Rtmpw3YB4w/A4-i192.tsv.gz" -- immunarch
+      -- [7/14] Parsing "/tmp/Rtmpw3YB4w/MS1.tsv.gz" -- immunarch
+      -- [8/14] Parsing "/tmp/Rtmpw3YB4w/MS2.tsv.gz" -- immunarch
+      -- [9/14] Parsing "/tmp/Rtmpw3YB4w/MS3.tsv.gz" -- immunarch
+      -- [10/14] Parsing "/tmp/Rtmpw3YB4w/MS4.tsv.gz" -- immunarch
+      -- [11/14] Parsing "/tmp/Rtmpw3YB4w/MS5.tsv.gz" -- immunarch
+      -- [12/14] Parsing "/tmp/Rtmpw3YB4w/MS6.tsv.gz" -- immunarch
+      -- [13/14] Parsing "/tmp/Rtmpw3YB4w/metadata.txt" -- metadata
+      -- [14/14] Parsing "/tmp/Rtmpw3YB4w/pdf1a47438fcb14" -- unsupported format, skipping
+    Processing "/tmp/Rtmpw3YB4w/duckplyr" ...
+      -- [1/2] Parsing "/tmp/Rtmpw3YB4w/duckplyr/duckplyr1a472063466d.duckdb" -- Warning in readLines(f, 1) : line 1 appears to contain an embedded nul
     Warning in readLines(f, 1) :
-      incomplete final line found on '/tmp/RtmpfpfrpI/duckplyr/duckplyr1a737abb38fb.duckdb'
+      incomplete final line found on '/tmp/Rtmpw3YB4w/duckplyr/duckplyr1a472063466d.duckdb'
     Error in stri_trim_both(string) : 
       invalid UTF-8 byte sequence detected; try calling stri_enc_toutf8()
     Calls: repLoad ... .detect_format -> ifelse -> str_trim -> stri_trim_both
@@ -250,7 +250,7 @@ Run `revdepcheck::cloud_details(, "immunarch")` for more info
 * GitHub: https://github.com/mattheaphy/offsetreg
 * Source code: https://github.com/cran/offsetreg
 * Date/Publication: 2024-04-11 14:40:03 UTC
-* Number of recursive dependencies: 123
+* Number of recursive dependencies: 124
 
 Run `revdepcheck::cloud_details(, "offsetreg")` for more info
 
@@ -275,235 +275,60 @@ Run `revdepcheck::cloud_details(, "offsetreg")` for more info
       > library(offsetreg)
       > 
       > test_check("offsetreg")
-      [ FAIL 1 | WARN 0 | SKIP 0 | PASS 42 ]
+      [ FAIL 2 | WARN 0 | SKIP 0 | PASS 41 ]
       
       ══ Failed tests ════════════════════════════════════════════════════════════════
-      ── Failure ('test-xgboost.R:107:3'): boost_tree_offset() works with recipes ────
-      predict(mod, xgtrain) (`actual`) not identical to predict(xgb_off, us_deaths)$.pred (`expected`).
+      ── Error ('test-xgboost.R:97:3'): boost_tree_offset() works with recipes ───────
+      Error in `setinfo.xgb.DMatrix(dmat, names(p), p[[1]])`: [13:34:18] src/data/data.cc:461: Check failed: valid: Label contains NaN, infinity or a value too large.
+      Stack trace:
+        [bt] (0) /usr/local/lib/R/site-library/xgboost/libs/xgboost.so(+0x72d4d) [0x7f319451bd4d]
+        [bt] (1) /usr/local/lib/R/site-library/xgboost/libs/xgboost.so(+0x14dc26) [0x7f31945f6c26]
+        [bt] (2) /usr/local/lib/R/site-library/xgboost/libs/xgboost.so(+0x14f443) [0x7f31945f8443]
+        [bt] (3) /usr/local/lib/R/site-library/xgboost/libs/xgboost.so(XGDMatrixSetFloatInfo+0x7e) [0x7f319476aaee]
+        [bt] (4) /usr/local/lib/R/site-library/xgboost/libs/xgboost.so(XGDMatrixSetInfo_R+0x609) [0x7f3194517879]
+        [bt] (5) /opt/R/4.4.0/lib/R/lib/libR.so(+0x105a3e) [0x7f31abb9ca3e]
+        [bt] (6) /opt/R/4.4.0/lib/R/lib/libR.so(+0x1491f0) [0x7f31abbe01f0]
+        [bt] (7) /opt/R/4.4.0/lib/R/lib/libR.so(+0x15ccfa) [0x7f31abbf3cfa]
+        [bt] (8) /opt/R/4.4.0/lib/R/lib/libR.so(Rf_eval+0x17b) [0x7f31abbf406b]
       
-           actual  | expected                 
-       [1] 18862.6 - 14046.0  [1]             
-       [2] 19066.5 - 14197.9  [2]             
-       [3] 19277.9 - 14355.3  [3]             
-       [4] 19589.9 - 14587.7  [4]             
-       [5] 19855.2 - 14785.2  [5]             
-       [6] 20072.9 - 14947.3  [6]             
-       [7] 20321.9 - 15132.7  [7]             
-       [8] 20445.3 - 15224.6  [8]             
-       [9] 20530.8 - 16634.1  [9]             
-      [10] 22075.8 - 16953.4  [10]            
-       ... ...       ...      and 130 more ...
       
-      [ FAIL 1 | WARN 0 | SKIP 0 | PASS 42 ]
+      Backtrace:
+           ▆
+        1. ├─generics::fit(...) at test-xgboost.R:97:3
+        2. ├─workflows:::fit.workflow(...)
+        3. │ └─workflows::.fit_model(workflow, control)
+        4. │   ├─generics::fit(action_model, workflow = workflow, control = control)
+        5. │   └─workflows:::fit.action_model(...)
+        6. │     └─workflows:::fit_from_xy(spec, mold, case_weights, control_parsnip)
+        7. │       ├─generics::fit_xy(...)
+        8. │       └─parsnip::fit_xy.model_spec(...)
+        9. │         └─parsnip:::xy_xy(...)
+       10. │           └─parsnip:::eval_mod(...)
+       11. │             └─rlang::eval_tidy(e, env = envir, ...)
+       12. └─offsetreg::xgb_train_offset(...)
+       13.   └─offsetreg:::as_xgb_data_offset(...)
+       14.     └─xgboost::xgb.DMatrix(x, missing = NA, info = info_list)
+       15.       ├─xgboost::setinfo(dmat, names(p), p[[1]])
+       16.       └─xgboost:::setinfo.xgb.DMatrix(dmat, names(p), p[[1]])
+      ── Failure ('test-xgboost.R:137:3'): finalize works ────────────────────────────
+      Expected `fit(tune::finalize_workflow(wf, param_grid), us_deaths)` to run without any errors.
+      i Actually got a <simpleError> with text:
+        [13:34:19] src/data/data.cc:461: Check failed: valid: Label contains NaN, infinity or a value too large.
+        Stack trace:
+          [bt] (0) /usr/local/lib/R/site-library/xgboost/libs/xgboost.so(+0x72d4d) [0x7f319451bd4d]
+          [bt] (1) /usr/local/lib/R/site-library/xgboost/libs/xgboost.so(+0x14dc26) [0x7f31945f6c26]
+          [bt] (2) /usr/local/lib/R/site-library/xgboost/libs/xgboost.so(+0x14f443) [0x7f31945f8443]
+          [bt] (3) /usr/local/lib/R/site-library/xgboost/libs/xgboost.so(XGDMatrixSetFloatInfo+0x7e) [0x7f319476aaee]
+          [bt] (4) /usr/local/lib/R/site-library/xgboost/libs/xgboost.so(XGDMatrixSetInfo_R+0x609) [0x7f3194517879]
+          [bt] (5) /opt/R/4.4.0/lib/R/lib/libR.so(+0x105a3e) [0x7f31abb9ca3e]
+          [bt] (6) /opt/R/4.4.0/lib/R/lib/libR.so(+0x1491f0) [0x7f31abbe01f0]
+          [bt] (7) /opt/R/4.4.0/lib/R/lib/libR.so(+0x15ccfa) [0x7f31abbf3cfa]
+          [bt] (8) /opt/R/4.4.0/lib/R/lib/libR.so(Rf_eval+0x17b) [0x7f31abbf406b]
+        
+        
+      
+      [ FAIL 2 | WARN 0 | SKIP 0 | PASS 41 ]
       Error: Test failures
       Execution halted
-    ```
-
-# pointblank
-
-<details>
-
-* Version: 0.12.2
-* GitHub: https://github.com/rstudio/pointblank
-* Source code: https://github.com/cran/pointblank
-* Date/Publication: 2024-10-23 03:50:02 UTC
-* Number of recursive dependencies: 130
-
-Run `revdepcheck::cloud_details(, "pointblank")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking tests ... ERROR
-    ```
-      Running ‘testthat.R’
-    Running the tests in ‘tests/testthat.R’ failed.
-    Complete output:
-      > library(testthat)
-      > library(pointblank)
-      > library(dittodb)
-      Loading required package: DBI
-      > test_check("pointblank")
-      [ FAIL 6 | WARN 0 | SKIP 0 | PASS 1854 ]
-      
-      ══ Failed tests ════════════════════════════════════════════════════════════════
-      ── Failure ('test-snip_fns.R:599:3'): the `snip_lowest()` function works ───────
-      run_snip(snip_lowest(column = "c"), small_table) not equal to "2".
-      1/1 mismatches
-      x[1]: "3"
-      y[1]: "2"
-      ── Failure ('test-snip_fns.R:603:3'): the `snip_lowest()` function works ───────
-      run_snip(snip_lowest(column = "d"), small_table) not equal to "108.34".
-      1/1 mismatches
-      x[1]: "283.94"
-      y[1]: "108.34"
-      ── Failure ('test-snip_fns.R:607:3'): the `snip_lowest()` function works ───────
-      run_snip(snip_lowest(column = "e"), small_table) not equal to "0".
-      1/1 mismatches
-      x[1]: "FALSE"
-      y[1]: "0"
-      ── Failure ('test-snip_fns.R:627:3'): the `snip_highest()` function works ──────
-      run_snip(snip_highest(column = "c"), small_table) not equal to "9".
-      1/1 mismatches
-      x[1]: "8"
-      y[1]: "9"
-      ── Failure ('test-snip_fns.R:631:3'): the `snip_highest()` function works ──────
-      run_snip(snip_highest(column = "d"), small_table) not equal to "9999.99".
-      1/1 mismatches
-      x[1]: "2230.09"
-      y[1]: "9999.99"
-      ── Failure ('test-snip_fns.R:635:3'): the `snip_highest()` function works ──────
-      run_snip(snip_highest(column = "e"), small_table) not equal to "1".
-      1/1 mismatches
-      x[1]: "TRUE"
-      y[1]: "1"
-      
-      [ FAIL 6 | WARN 0 | SKIP 0 | PASS 1854 ]
-      Error: Test failures
-      Execution halted
-    ```
-
-## In both
-
-*   checking data for non-ASCII characters ... NOTE
-    ```
-      Note: found 1 marked UTF-8 string
-    ```
-
-# survivoR
-
-<details>
-
-* Version: 2.3.5
-* GitHub: https://github.com/doehm/survivoR
-* Source code: https://github.com/cran/survivoR
-* Date/Publication: 2025-01-09 00:30:02 UTC
-* Number of recursive dependencies: 96
-
-Run `revdepcheck::cloud_details(, "survivoR")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking tests ... ERROR
-    ```
-      Running ‘testthat.R’
-    Running the tests in ‘tests/testthat.R’ failed.
-    Complete output:
-      > # This file is part of the standard setup for testthat.
-      > # It is recommended that you do not modify it.
-      > #
-      > # Where should you do additional test configuration?
-      > # Learn more about the roles of various files in:
-      > # * https://r-pkgs.org/testing-design.html#sec-tests-files-overview
-      > # * https://testthat.r-lib.org/articles/special-files.html
-      > 
-      > library(testthat)
-      > library(survivoR)
-      > 
-      > test_check("survivoR")
-      
-      Attaching package: 'dplyr'
-      
-      The following object is masked from 'package:testthat':
-      
-          matches
-      
-      The following objects are masked from 'package:stats':
-      
-          filter, lag
-      
-      The following objects are masked from 'package:base':
-      
-          intersect, setdiff, setequal, union
-      
-      [ FAIL 2 | WARN 0 | SKIP 2 | PASS 132 ]
-      
-      ══ Skipped tests (2) ═══════════════════════════════════════════════════════════
-      • empty test (2): 'tests-functions.R:78:1', 'tests-functions.R:85:1'
-      
-      ══ Failed tests ════════════════════════════════════════════════════════════════
-      ── Failure ('tests-functions.R:25:3'): add_winner works ────────────────────────
-      pull(...) (`actual`) not equal to 69 (`expected`).
-      
-        `actual`: 30.0
-      `expected`: 69.0
-      ── Failure ('tests-functions.R:53:3'): add_finalist works ──────────────────────
-      pull(...) (`actual`) not equal to 176 (`expected`).
-      
-        `actual`:  83.0
-      `expected`: 176.0
-      
-      [ FAIL 2 | WARN 0 | SKIP 2 | PASS 132 ]
-      Error: Test failures
-      Execution halted
-    ```
-
-## In both
-
-*   checking data for non-ASCII characters ... NOTE
-    ```
-      Note: found 397 marked UTF-8 strings
-    ```
-
-# understandBPMN
-
-<details>
-
-* Version: 1.1.1
-* GitHub: NA
-* Source code: https://github.com/cran/understandBPMN
-* Date/Publication: 2019-09-27 11:30:03 UTC
-* Number of recursive dependencies: 102
-
-Run `revdepcheck::cloud_details(, "understandBPMN")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking tests ... ERROR
-    ```
-      Running ‘testthat.R’
-    Running the tests in ‘tests/testthat.R’ failed.
-    Complete output:
-      > library(testthat)
-      > library(understandBPMN)
-      > 
-      > test_check("understandBPMN")
-      [ FAIL 3 | WARN 1 | SKIP 0 | PASS 301 ]
-      
-      ══ Failed tests ════════════════════════════════════════════════════════════════
-      ── Failure ('testMetrics.R:257:3'): Cross connectivity ─────────────────────────
-      round(...) not equal to 0.1975309.
-      1/1 mismatches
-      [1] 0.102 - 0.198 == -0.0954
-      ── Failure ('testMetrics.R:258:3'): Cross connectivity ─────────────────────────
-      round(...) not equal to 0.1454408.
-      1/1 mismatches
-      [1] 0.0962 - 0.145 == -0.0492
-      ── Failure ('testMetrics.R:261:3'): Cross connectivity ─────────────────────────
-      cross_connectivity(doc_simple, generate_new_path_log = TRUE) not equal to 0.5.
-      1/1 mismatches
-      [1] 0.333 - 0.5 == -0.167
-      
-      [ FAIL 3 | WARN 1 | SKIP 0 | PASS 301 ]
-      Error: Test failures
-      Execution halted
-    ```
-
-## In both
-
-*   checking package subdirectories ... NOTE
-    ```
-    Problems with news in ‘NEWS.md’:
-    No news entries found.
-    ```
-
-*   checking LazyData ... NOTE
-    ```
-      'LazyData' is specified without a 'data' directory
     ```
 
