@@ -1,9 +1,9 @@
 ## revdepcheck results
 
-We checked 8911 reverse dependencies (8910 from CRAN + 1 from Bioconductor), comparing R CMD check results across CRAN and dev versions of this package.
+We checked 14 reverse dependencies, comparing R CMD check results across CRAN and dev versions of this package.
 
- * We saw 16 new problems
- * We failed to check 2 packages
+ * We saw 13 new problems
+ * We failed to check 0 packages
 
 Issues with CRAN packages are summarised below.
 
@@ -13,13 +13,7 @@ Issues with CRAN packages are summarised below.
 * admiral
   checking tests ... ERROR
 
-* arrow
-  checking tests ... ERROR
-
 * datacutr
-  checking tests ... ERROR
-
-* DiSCos
   checking tests ... ERROR
 
 * eSDM
@@ -58,10 +52,3 @@ Issues with CRAN packages are summarised below.
 * rfars
   checking re-building of vignette outputs ... ERROR
 
-* rWCVP
-  checking tests ... ERROR
-
-### Failed to check
-
-* gscramble (NA)
-* prqlr     (NA)
