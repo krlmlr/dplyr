@@ -50,6 +50,7 @@ adaptalint
 AdaptGauss
 adaptiveGPCA
 adaptMT
+adas.utils
 AdaSampling
 adbi
 add2ggplot
@@ -62,6 +63,7 @@ adephylo
 adepro
 adept
 adestr
+adfExplorer
 adformR
 adheRenceRX
 AdhereRViz
@@ -73,6 +75,7 @@ adjustedCurves
 adlift
 admiral
 admiraldev
+admiralmetabolic
 admiralonco
 admiralophtha
 admiralpeds
@@ -83,6 +86,7 @@ adnuts
 adobeanalyticsr
 adoptr
 ADPclust
+adplots
 adproclus
 adventr
 AdverseEvents
@@ -130,7 +134,6 @@ AHSurv
 AICcPermanova
 AID
 aides
-aifeducation
 aihuman
 aimPlot
 aimsir17
@@ -232,6 +235,7 @@ AntAngioCOOL
 antaresRead
 antaresViz
 AnthropMMD
+AntibodyForests
 AntMAN
 anybadger
 anyflights
@@ -251,7 +255,6 @@ apc
 APCalign
 APCI
 APCtools
-aPEAR
 apex
 apexcharter
 APIS
@@ -281,6 +284,7 @@ arcgeocoder
 arcgisgeocode
 arcgislayers
 arcgisutils
+archeofrag.gui
 archeoViz
 archetyper
 archive
@@ -404,8 +408,10 @@ babelwhale
 babette
 babynames
 babynamesIL
+babyTimeR
 BACCT
 backShift
+backtestGraphics
 baclava
 baf
 bage
@@ -469,6 +475,7 @@ BayesCVI
 BayesDLMfMRI
 bayesDP
 bayesEO
+bayesestdft
 BayesFactor
 BayesFBHborrow
 BayesFM
@@ -523,6 +530,7 @@ bbdetection
 BBEST
 bbknnR
 bbnet
+bbw
 BCClong
 bcdata
 BCEA
@@ -541,6 +549,7 @@ bdlp
 bdots
 bdrc
 bdscale
+bdsm
 bea.R
 beadplexr
 beakr
@@ -565,6 +574,7 @@ benchmarkme
 benchmarkmeData
 bennu
 benthos
+BerkeleyForestsAnalytics
 Bernadette
 bespatial
 besthr
@@ -598,6 +608,7 @@ bidask
 BiDimRegression
 BIEN
 BifactorIndicesCalculator
+BigDataPE
 bigDM
 bigergm
 BIGL
@@ -632,7 +643,6 @@ bioinactivation
 biolink
 BioM2
 biomartr
-BIOMASS
 biometryassist
 biomod2
 BioPET
@@ -657,10 +667,12 @@ bipl5
 biplotbootGUI
 birdie
 birdscanR
+BIS
 biscale
 bispdep
 bistablehistory
 bitmexr
+bivariateLeaflet
 BivRec
 bkmr
 bkmrhat
@@ -674,6 +686,7 @@ bliss
 blob
 BlockCov
 blockCV
+blockTools
 blocs
 blorr
 BLRShiny
@@ -768,6 +781,7 @@ broom.mixed
 brpop
 bruceR
 brulee
+bruneimap
 brunnermunzel
 BRVM
 bsam
@@ -863,6 +877,7 @@ candisc
 cansim
 canvasXpress
 canvasXpress.data
+capesR
 capl
 caplot
 capm
@@ -948,6 +963,7 @@ cdcatR
 CDCPLACES
 cder
 cdgd
+cdid
 cdlTools
 CDMConnector
 cdmTools
@@ -979,7 +995,10 @@ cercospoRa
 cereal
 ceRtainty
 Certara.R
+Certara.RsNLME.ModelBuilder
+Certara.RsNLME.ModelExecutor
 Certara.VPCResults
+Certara.Xpose.NLME
 ceser
 cesR
 ceterisParibus
@@ -1089,6 +1108,7 @@ classmap
 clc
 cleanepi
 cleaner
+Cleanet
 cleangeo
 CleaningValidation
 cleanr
@@ -1157,6 +1177,7 @@ cmaRs
 cmcR
 cmdfun
 cmhc
+CMHSU
 CMMs
 cmprskcoxmsm
 cmpsR
@@ -1182,6 +1203,7 @@ cocktailApp
 coconots
 cocoon
 coda4microbiome
+CoDaLoMic
 codaredistlm
 codebook
 codebookr
@@ -1197,7 +1219,6 @@ coefa
 coefplot
 cofad
 cofeatureR
-CoFRA
 cogmapr
 cognitoR
 CohortAlgebra
@@ -1223,6 +1244,7 @@ coloc
 colocalization
 colocalized
 colocr
+ColombiAPI
 ColOpenData
 colorblindcheck
 colorBlindness
@@ -1244,6 +1266,7 @@ colouR
 colourpicker
 cols4all
 combat.enigma
+ComBatFamQC
 combinationpvalues
 combinedevents
 combiroc
@@ -1389,7 +1412,6 @@ coveffectsplot
 coveR2
 covid19.analytics
 covid19br
-covid19brazil
 covid19france
 covid19india
 covid19sf
@@ -1401,7 +1423,6 @@ COVIDIBGE
 CovidMutations
 covidmx
 covr
-CovRegRF
 covTestR
 covtracer
 cowbell
@@ -1417,6 +1438,7 @@ cplm
 cpmBigData
 cpmr
 cpop
+cpp11bigwig
 cpr
 cprobit
 cpsR
@@ -1433,6 +1455,7 @@ crayons
 crctStepdown
 CRE
 creditmodel
+creepyalien
 crew
 crew.aws.batch
 crew.cluster
@@ -1589,7 +1612,6 @@ danstat
 dapper
 daqapo
 darksky
-dartR
 dartR.base
 dartR.captive
 dartR.data
@@ -1602,12 +1624,12 @@ data.table.threads
 data.validator
 DatabaseConnector
 DatabionicSwarm
-databraryr
 dataclass
 datacleanr
 DataCombine
 dataCompare
 dataCompareR
+datacutr
 datadictionary
 datadogr
 DataExplorer
@@ -1629,6 +1651,8 @@ dataReporter
 dataRetrieval
 datasauRus
 dataSDA
+dataset
+datasetjson
 dataspice
 datastepr
 DatastreamDSWS2R
@@ -1663,7 +1687,6 @@ dbnlearn
 dbparser
 dbplot
 dbplyr
-DBpower
 DBTC
 DBTCShiny
 dbWebForms
@@ -1737,6 +1760,7 @@ depigner
 DEploid
 DEPONS2R
 depower
+deprivateR
 DepthProc
 derivmkts
 describedata
@@ -1771,8 +1795,10 @@ dexter
 dextergui
 dexterMST
 df2yaml
+dfadjust
 DFD
 dfdr
+dfeR
 dfexpand
 dfidx
 DFIT
@@ -1790,14 +1816,15 @@ DGM
 dgpsi
 DHARMa
 DHBins
-dhis2r
 DHS.rates
+DHSr
 diagis
 diagmeta
 DiagrammeR
 DiallelAnalysisR
 dialr
 dials
+diario
 diathor
 dibble
 DICEM
@@ -1814,6 +1841,7 @@ DIDmultiplegt
 DIDmultiplegtDYN
 didrooRFM
 diemr
+dietr
 difconet
 diffdf
 diffdfs
@@ -1894,12 +1922,12 @@ dmai
 dmbc
 DMCfun
 dMod
+dMrs
 DMTL
 dmtools
 dmutate
 DMwR2
 dndR
-DNH4
 dnn
 do
 dobin
@@ -1969,6 +1997,7 @@ drpop
 drugDemand
 DrugExposureDiagnostics
 drugprepr
+drugsens
 DrugSim2DR
 DrugUtilisation
 drumr
@@ -1980,6 +2009,7 @@ DSAM
 dscore
 dscoreMSM
 dsdp
+dsem
 dsims
 DSjobtracker
 dslabs
@@ -2012,7 +2042,7 @@ dualScale
 duawranglr
 duckdb
 duckdbfs
-duckplyr
+duet
 duke
 dumbbell
 dunlin
@@ -2082,7 +2112,6 @@ ebvcube
 ec50estimator
 ecan
 ecb
-ecdata
 eCerto
 ech
 echarts4r
@@ -2097,6 +2126,7 @@ ecocomDP
 ecode
 EcoDiet
 ecolottery
+EcoMetrics
 econet
 EcoNetGen
 ecoregime
@@ -2160,6 +2190,7 @@ EGRET
 EGRETci
 eGST
 eHDPrep
+EHRmuse
 EHRtemporalVariability
 ehymet
 ei.Datasets
@@ -2183,12 +2214,12 @@ electoral
 elevatr
 ElevDistr
 Elja
+ellmer
 EloOptimized
 em
 EMAS
 emayili
 embed
-EmbedSOM
 embryogrowth
 EMC2
 emdi
@@ -2253,6 +2284,7 @@ EpiModel
 epinetr
 EpiNow2
 epiomics
+epiparameter
 epiphy
 epiR
 EpiReport
@@ -2437,6 +2469,7 @@ FactoClass
 factoextra
 FactoInvestigate
 FactoMineR
+FactorHet
 factormodel
 factory
 Factoshiny
@@ -2462,6 +2495,7 @@ fastai
 fastcpd
 fastdid
 fastDummies
+fasterRaster
 fastFMM
 FastJM
 fastLink
@@ -2479,6 +2513,7 @@ fastTopics
 fastTS
 FastUtils
 fastverse
+faux
 fauxnaif
 FAVA
 FAVAR
@@ -2509,7 +2544,6 @@ fec16
 fect
 FedData
 FedIRT
-fedmatch
 feisr
 felp
 feltr
@@ -2524,6 +2558,7 @@ fetchSalesforceR
 FFdownload
 ffp
 ffscrapr
+fftab
 FFTrees
 fgdr
 fgeo
@@ -2562,6 +2597,7 @@ findSVI
 findviews
 finetune
 fingerPro
+finna
 finnsurveytext
 finnts
 finreportr
@@ -2593,6 +2629,7 @@ flatr
 flattabler
 fledge
 flevr
+flexFitR
 flexlsx
 flexpolyline
 FlexReg
@@ -2617,13 +2654,13 @@ flowmapper
 flowml
 flowTraceR
 flps
-fluxfinder
 fluxible
 fma
 FMAT
 fmeffects
 fmesher
 fmf
+fmpapi
 fmpcloudr
 FMradio
 fmriqa
@@ -2651,8 +2688,8 @@ forensIT
 foreSIGHT
 forestat
 forestControl
-forestdata
 forestecology
+ForestElementsR
 forestError
 forestinventory
 forestly
@@ -2711,6 +2748,7 @@ friends
 fritools
 fritools2
 FRK
+froggeR
 frontiles
 frostr
 frscore
@@ -2754,6 +2792,7 @@ funtimes
 furniture
 furrr
 fusen
+fusionchartsR
 futureverse
 fuzzr
 FuzzyClass
@@ -2843,6 +2882,7 @@ genesysr
 genetic.algo.optimizeR
 geneticae
 GeNetIt
+geneviewer
 genieBPC
 genio
 geniusr
@@ -2988,6 +3028,7 @@ ggfittext
 ggfixest
 ggflowchart
 ggfocus
+ggfootball
 ggforce
 ggformula
 ggfortify
@@ -3024,6 +3065,7 @@ gglm
 gglogger
 gglorenz
 ggmap
+ggmapcn
 ggmapinset
 ggmatplot
 ggmcmc
@@ -3113,6 +3155,7 @@ ggsom
 ggspark
 ggspatial
 ggspectra
+ggstackplot
 ggstance
 ggstar
 ggstats
@@ -3123,6 +3166,7 @@ ggsurvey
 ggsurvfit
 ggswissmaps
 ggtangle
+ggtaxplot
 ggtea
 ggtern
 ggtext
@@ -3201,7 +3245,6 @@ glow
 glue
 gluedown
 gluvarpro
-glycanr
 gmailr
 gMCPLite
 gmDatabase
@@ -3223,6 +3266,7 @@ GofCens
 GofKmt
 gofreg
 goldfish
+goldilocks
 GomoGomonoMi
 gompertztrunc
 GoodFibes
@@ -3293,6 +3337,7 @@ greport
 greta
 greta.censored
 greta.dynamics
+greta.gam
 greta.gp
 Greymodels
 GRIDCOPULA
@@ -3310,6 +3355,7 @@ groupr
 grouprar
 growfunctions
 growthcleanr
+GrowthCurveME
 growthcurver
 growthPheno
 growthrates
@@ -3318,6 +3364,7 @@ grPipe
 grpsel
 GRShiny
 grwat
+gsaot
 gsbDesign
 gscaLCA
 gscounts
@@ -3468,6 +3515,7 @@ hereR
 hermiter
 hero
 hesim
+HEssRNA
 heterocop
 hettx
 hetu
@@ -3480,6 +3528,7 @@ hgutils
 hgwrr
 HH
 hhi
+hhmR
 hhsmm
 hibayes
 hidecan
@@ -3548,7 +3597,6 @@ hsstan
 hstats
 htetree
 html2R
-htmldf
 htmlreportR
 htmlTable
 htrSPRanalysis
@@ -3648,6 +3696,7 @@ ideanet
 IDEATools
 idefix
 idem
+idiffomix
 idiogramFISH
 idiolect
 idm
@@ -3794,6 +3843,7 @@ intsvy
 invacost
 inventorize
 invertiforms
+invivoPKfit
 iNZightPlots
 iNZightRegression
 iNZightTools
@@ -3855,7 +3905,6 @@ IsoCheck
 isocountry
 isoorbi
 isopam
-IsotopeR
 isotracer
 ISOweek
 ispdata
@@ -3866,6 +3915,7 @@ itan
 itdr
 itemanalysis
 IterativeHardThresholding
+itmsa
 ITNr
 itol.toolkit
 itraxR
@@ -3873,7 +3923,6 @@ its.analysis
 itscalledsoccer
 itsdm
 iucnr
-ivdesc
 ivDiag
 ivgets
 ivitr
@@ -3952,7 +4001,6 @@ kaigiroku
 kanjistat
 kaos
 kappaGold
-KaradaColor
 karel
 Karen
 karlen
@@ -3987,7 +4035,6 @@ kitagawa
 kiwisR
 klaR
 klassR
-klexdatr
 KLINK
 klovan
 KMEANS.KNN
@@ -4055,6 +4102,7 @@ lavaangui
 lavaanPlot
 lavaSearch2
 lay
+layer
 lazysf
 lazytrade
 lboxcox
@@ -4170,7 +4218,6 @@ lmDiallel
 lmds
 lmeresampler
 lmerTest
-LMMsolver
 LMMstar
 LMoFit
 lmomPi
@@ -4183,6 +4230,7 @@ localgauss
 localICE
 localIV
 localModel
+localsp
 locateip
 locStra
 locuszoomr
@@ -4219,6 +4267,7 @@ LorenzRegression
 LorMe
 LOST
 lotterybr
+lovecraftr
 lpcde
 lpdensity
 LPDynR
@@ -4335,6 +4384,7 @@ mapsPERU
 mapStats
 maptiles
 mapview
+maraca
 margaret
 marginaleffects
 MarginalMediation
@@ -4387,6 +4437,7 @@ MB
 MBAnalysis
 mbbe
 MBMethPred
+MBNMAtime
 mbreaks
 mbRes
 mbsts
@@ -4446,6 +4497,7 @@ meerva
 meetupapi
 mefdind
 Mega2R
+MEGB
 MEGENA
 mekko
 melt
@@ -4495,6 +4547,7 @@ MetaHD
 metainc
 metalite
 metalite.ae
+metalite.sl
 metalite.table1
 MetAlyzer
 metamicrobiomeR
@@ -4561,6 +4614,7 @@ miceadds
 miceafter
 miceFast
 micemd
+micer
 miceRanger
 miclust
 microbial
@@ -4762,6 +4816,7 @@ monoClust
 monographaR
 MonoInc
 monolix2rx
+MonotonicityTest
 MonteCarlo
 moodef
 moodleR
@@ -4814,7 +4869,6 @@ mppR
 MPTmultiverse
 mpwR
 mrct
-mregions2
 mrf2d
 MRFcov
 mrfDepth
@@ -4909,6 +4963,7 @@ multiverse
 multpois
 MultRegCMP
 munsell
+MuPETFlow
 muRL
 musclesyneRgies
 mutSignatures
@@ -4950,6 +5005,7 @@ narray
 naryn
 nasadata
 nasapower
+nascaR.data
 NatParksPalettes
 natserv
 natstrat
@@ -4967,6 +5023,7 @@ NBShiny3
 nbTransmission
 NBtsVarSel
 NCA
+ncaavolleyballr
 ncappc
 NCC
 ncdfCF
@@ -5054,6 +5111,7 @@ NFLSimulatoR
 nflverse
 ngboostForecast
 ngramr
+nhanesA
 nhdplusTools
 nhdR
 NHSDataDictionaRy
@@ -5230,6 +5288,7 @@ oHMMed
 ohsome
 ohun
 ojsr
+oldr
 OlinkAnalyze
 ollamar
 olsrr
@@ -5250,6 +5309,7 @@ omu
 onbabynames
 OnboardClient
 onbrand
+oncmap
 OncoBayes2
 OncoDataSets
 Oncofilterfast
@@ -5262,7 +5322,6 @@ One4All
 OneArm2stage
 OneArmTTE
 onelogin
-onemap
 OneSampleLogRankTest
 onewaytests
 onlineBcp
@@ -5298,6 +5357,7 @@ openmeteo
 OpenMindat
 openMSE
 OpeNoise
+OpenRange
 OpenRepGrid
 OpenRepGrid.ic
 openscoring
@@ -5314,7 +5374,6 @@ optedr
 optic
 opticskxi
 optim.functions
-OptimalGoldstandardDesigns
 optimall
 OptimalRerandExpDesigns
 OptimaRegion
@@ -5333,6 +5392,7 @@ Orcs
 ordbetareg
 orderanalyzer
 orderly
+ordinalsimr
 ordr
 oreo
 orf
@@ -5390,6 +5450,8 @@ packagefinder
 packager
 packageRank
 pacotest
+pacta.multi.loanbook
+pacu
 PACVr
 padr
 pafdR
@@ -5417,6 +5479,7 @@ palette
 palettes
 palmerpenguins
 pals
+pam
 PamBinaries
 PAMmisc
 pammtools
@@ -5483,6 +5546,7 @@ pathwayTMB
 PatientProfiles
 patientProfilesVis
 patrick
+patterncausality
 patternize
 patternplot
 pavo
@@ -5608,6 +5672,7 @@ phylopath
 phyloregion
 phyloseqGraphTest
 phylosignal
+phylospatial
 phylotypr
 phylter
 phyr
@@ -5702,6 +5767,7 @@ plsmmLasso
 plsmod
 plsmselect
 pltesim
+plug
 plume
 plusCode2
 plutor
@@ -5767,6 +5833,7 @@ PopGenReport
 poppr
 popPyramid
 popstudy
+PopulateR
 PopulationGrowthR
 populationPDXdesign
 populR
@@ -5810,7 +5877,6 @@ PPQplan
 pprof
 ppseq
 ppsr
-PPtreeregViz
 PPtreeViz
 praatpicture
 pracpac
@@ -5873,12 +5939,14 @@ priorCON
 prioriactions
 prioritizr
 prioritizrdata
+priorityelasticnet
 priorsense
 prism
 PRISMA
 PRISMA2020
 prismadiagramR
 prisonbrief
+ProActive
 ProAE
 probably
 ProbBayes
@@ -5921,6 +5989,7 @@ ProPublicaR
 PROsetta
 ProSportsDraftData
 protag
+ProtE
 protein8k
 ProteoBayes
 proteus
@@ -5948,12 +6017,14 @@ psdr
 pseudobibeR
 pseudohouseholds
 psfmi
+psHarmonize
 psidread
 PSIM
 PSLM2015
 psm3mkv
 psmineR
 pspatreg
+PSpower
 PSS.Health
 PStrata
 PSweight
@@ -6001,10 +6072,11 @@ pvcurveanalysis
 pvda
 pvldcurve
 pvLRT
-PVplr
 PvSTATEM
 PWIR
 pwr2ppl
+pwrFDR
+pxmake
 pxR
 pycno
 pysd2r
@@ -6037,11 +6109,13 @@ qiitr
 Qindex
 qlcVisualize
 qmd
+qmj
 qMRI
 QoLMiss
 qPCRhelper
 qPCRtools
 qpNCA
+qPRAentry
 qqboxplot
 qqplotr
 qra
@@ -6180,6 +6254,7 @@ rangeMapper
 rangeModelMetadata
 RanglaPunjab
 rank
+rankinma
 rankinPlot
 RankPCA
 Rapi
@@ -6232,6 +6307,7 @@ rbgm
 rBiasCorrection
 rbin
 rbioacc
+rbiom
 rbmi
 rbridge
 RBtest
@@ -6284,6 +6360,7 @@ rdfp
 rdhs
 rdi
 Rdistance
+rdlearn
 RDML
 rdmulti
 rdnb
@@ -6292,6 +6369,7 @@ rdracor
 rdrobust
 rdryad
 RDS
+rdss
 RDSsamplesize
 Rduinoiot
 Rdune
@@ -6301,6 +6379,7 @@ reactable
 reactable.extras
 reactablefmtr
 readabs
+readapra
 ReadDIM
 readit
 readJDX
@@ -6313,7 +6392,6 @@ readrba
 readsdr
 readtext
 readtextgrid
-readwritesqlite
 readxl
 ready4
 realTimeloads
@@ -6372,7 +6450,6 @@ regions
 registr
 regport
 regr.easy
-RegrCoeffsExplorer
 regressinator
 regressoR
 regrrr
@@ -6396,6 +6473,7 @@ rempsyc
 REN
 rENA
 repana
+RepeatedHighDim
 repello
 RepertoiR
 REPLesentR
@@ -6438,6 +6516,7 @@ restriktor
 ResultModelManager
 resumer
 ReSurv
+retimer
 retroharmonize
 retrosheet
 ReturnCurves
@@ -6466,12 +6545,10 @@ RFishBC
 rfishdraw
 rfisheries
 rfishnet2
-rflexscan
 rfm
 rfold
 rfPermute
 RFPM
-RFpredInterval
 rFSA
 Rfssa
 rfVarImpOOB
@@ -6480,6 +6557,7 @@ rgbif
 RGCCA
 RGENERATEPREC
 rgenius
+rgeoda
 rgeomstats
 rgeopat2
 Rgff
@@ -6561,6 +6639,7 @@ rKOMICS
 RKorAPClient
 rlandfire
 rlc
+RLescalation
 rlfsm
 rLFT
 Rlibkdv
@@ -6591,6 +6670,7 @@ RMFM
 rminer
 RMixtComp
 RMixtCompUtilities
+rmlnomogram
 RMM
 Rmonize
 rmoo
@@ -6695,6 +6775,7 @@ Rphylopars
 rphylopic
 rpivotTable
 rplanes
+rplec
 rpm
 rpmodel
 Rpolyhedra
@@ -6791,6 +6872,7 @@ rsyncrosim
 rsyntax
 rt
 rtables
+rtables.officer
 rtabulator
 Rtapas
 rTCRBCRr
@@ -6800,7 +6882,6 @@ rtemps
 rTG
 rtgstat
 Rthingsboard
-rticulate
 rtiddlywiki
 rtide
 rties
@@ -6832,6 +6913,7 @@ ruijter
 ruin
 ruler
 rules
+RulesTools
 rUM
 ruminate
 runcharter
@@ -6868,8 +6950,10 @@ rYWAASB
 rzentra
 s3
 s3.resourcer
+S4DM
 sabre
 saccadr
+sae.projection
 saebnocov
 saeczi
 saeHB
@@ -6986,6 +7070,7 @@ sclr
 scMappR
 scOntoMatch
 scoper
+scopr
 SCOPRO
 scorecard
 scorecardModelUtils
@@ -7049,6 +7134,7 @@ secuTrialR
 sedproxy
 see
 seecolor
+SeedMaker
 SeedMatchR
 seedreg
 seeds
@@ -7107,8 +7193,10 @@ seqimpute
 SeqNet
 seqSHP
 seqtrie
+sequenceR
 sergeant
 seriation
+serocalculator
 serosv
 servosphereR
 SetMethods
@@ -7125,6 +7213,7 @@ sfd
 sfdct
 sfdep
 sffdr
+sfhelper
 sfhotspot
 sfislands
 sfnetworks
@@ -7132,6 +7221,7 @@ sfo
 SFSI
 sftime
 sftrack
+sgapi
 sgat
 sgboost
 sgd
@@ -7178,6 +7268,7 @@ shinyaframe
 shinyauthr
 shinyChakraUI
 shinyChatR
+shinyCLT
 shinyCohortBuilder
 shinycssloaders
 shinycustomloader
@@ -7216,6 +7307,7 @@ ShinyQuickStarter
 shinyquiz
 shinyrecipes
 shinySbm
+shinyscholar
 shinySelect
 shinySIR
 shinystan
@@ -7240,6 +7332,7 @@ sidier
 sidrar
 Sie2nts
 sievePH
+SiFINeT
 sift
 sigInt
 sigmajs
@@ -7247,6 +7340,7 @@ sigminer
 Signac
 signatureSurvival
 signs
+sigugr
 siland
 silicate
 silp
@@ -7303,6 +7397,7 @@ simTool
 simtrial
 simts
 simulariatools
+simulist
 SingleCaseES
 singleCellHaystack
 SIPDIBGE
@@ -7337,7 +7432,6 @@ skimr
 skipTrack
 skylight
 slackr
-SlaPMEG
 slca
 SLCARE
 SleepCycles
@@ -7345,10 +7439,12 @@ sleeperapi
 sleepwalk
 SLEMI
 slendr
+SlideCNA
 slider
 slippymath
 sloop
 SLOPE
+SLOS
 smacof
 smallsets
 smallstuff
@@ -7362,6 +7458,7 @@ SmCCNet
 smd
 smdi
 SMDIC
+smer
 smetlite
 smidm
 smile
@@ -7369,7 +7466,6 @@ smiles
 SMITIDstruct
 SMMT
 smoof
-smoothAPC
 smoothic
 smoothr
 smoothy
@@ -7389,7 +7485,6 @@ snowquery
 snpAIMeR
 SNPannotator
 SNPassoc
-SNPfiltR
 snplinkage
 snplist
 sNPLS
@@ -7403,6 +7498,7 @@ sociome
 socviz
 SoftBart
 SOHPIE
+soilassessment
 soilDB
 soilfoodwebs
 SoilManageR
@@ -7413,6 +7509,7 @@ solrium
 SomaDataIO
 SOMbrero
 SOMEnv
+somhca
 SOMnmR
 somspace
 sonicscrewdriver
@@ -7430,6 +7527,7 @@ spacejamr
 spacyr
 spAddins
 SpaDES.core
+spanishoddata
 spant
 spark.sas7bdat
 sparkavro
@@ -7499,6 +7597,7 @@ spectralR
 Spectran
 spectre
 Spectrum
+spEDM
 speech
 speechbr
 speedycode
@@ -7530,6 +7629,7 @@ spMaps
 spmodel
 spmoran
 spnaf
+spNetwork
 spocc
 spongecake
 spooky
@@ -7539,6 +7639,7 @@ sportyR
 spotidy
 spotifyr
 spotoroo
+spqdep
 spray
 spreadr
 sprex
@@ -7670,6 +7771,7 @@ stcos
 stdmod
 stelfi
 StempCens
+stenographer
 stenR
 StepBeta
 stepcount
@@ -7708,7 +7810,6 @@ StratifiedMedicine
 StratifiedRF
 StratigrapheR
 STraTUS
-stratvns
 stray
 stream
 streamDepletr
@@ -7734,6 +7835,7 @@ StuteTest
 stxplore
 styler
 SubgrpID
+subincomeR
 subscreen
 subspace
 success
@@ -7759,14 +7861,15 @@ superheat
 superMICE
 supernova
 Superpower
+superspreading
 SupMZ
-suppdata
 supportR
 sure
 SuRF.vs
 SurfaceTortoise
 Surrogate
 SurrogateRsq
+SurrogateSeq
 surtvep
 surv2sampleComp
 survcompare
@@ -7792,7 +7895,6 @@ SurvivalClusteringTree
 survivalSL
 SurvivalTests
 survivoR
-SurvMetrics
 survminer
 survMisc
 survML
@@ -7844,6 +7946,7 @@ SynthETIC
 synthpop
 SynthTools
 syrup
+sysAgNPs
 sysid
 Sysrecon
 syuzhet
@@ -7888,6 +7991,7 @@ targets
 TAShiny
 tashu
 tastypie
+tatooheene
 tauturri
 taxa
 taxadb
@@ -7917,6 +8021,7 @@ teal
 teal.logger
 teal.modules.clinical
 teal.modules.general
+teal.reporter
 teal.slice
 teal.transform
 teal.widgets
@@ -7967,6 +8072,7 @@ text
 text2map
 text2sdg
 text2speech
+textanalyzer
 textclean
 textdata
 texteffect
@@ -8071,7 +8177,6 @@ tidyMC
 tidymodels
 tidymodlr
 TidyMultiqc
-tidymv
 tidync
 tidypaleo
 tidyplate
@@ -8080,6 +8185,7 @@ tidyplus
 tidypmc
 tidyposterior
 tidypredict
+tidyprompt
 tidyquant
 tidyquery
 tidyr
@@ -8123,7 +8229,6 @@ timbeR
 timbr
 time.slots
 timelineS
-timeplyr
 timeseriesdb
 timetk
 timevarcorr
@@ -8197,6 +8302,7 @@ TPMplt
 tqk
 tr.iatgen
 TR8
+trace
 tracee
 track2KBA
 trackdf
@@ -8226,6 +8332,7 @@ trawl
 treasury
 TreatmentPatterns
 TreatmentSelection
+treeclim
 treeDA
 TreeDep
 TreeDiagram
@@ -8292,6 +8399,7 @@ TSS.RESTREND
 tssim
 TSsmoothing
 TSstudio
+TSVC
 tsviz
 tswge
 TT
@@ -8315,6 +8423,7 @@ twangRDC
 twc
 tweenr
 tweetcheck
+twig
 twilio
 Twitmo
 twitteR
@@ -8323,6 +8432,7 @@ TwitterAutomatedTrading
 twn
 TwoArmSurvSim
 twosigma
+TwoTimeScales
 TwoWayFEWeights
 twowaytests
 twoxtwo
@@ -8330,6 +8440,7 @@ txshift
 typehint
 typetracer
 uavRmp
+ubair
 UBayFS
 ubiquity
 ubms
@@ -8458,6 +8569,7 @@ VDSM
 veccompare
 VectorCodeR
 vectorsurvR
+veesa
 vegawidget
 vegdata
 vegtable
@@ -8475,8 +8587,8 @@ vetiver
 VetResearchLMM
 VEwaning
 VEwaningVariant
-vfcp
 vhcub
+viafoundry
 viafr
 vICC
 vici
@@ -8665,6 +8777,7 @@ wikkitidy
 wildlifeDI
 wilson
 windAC
+windfarmGA
 windows.pls
 windsoraiR
 wINEQ
@@ -8782,7 +8895,7 @@ zdeskR
 zebu
 zendown
 zenstats
-zerotradeflow
+zephyr
 ZetaSuite
 zfit
 ZIBR
