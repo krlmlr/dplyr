@@ -608,7 +608,6 @@ bidask
 BiDimRegression
 BIEN
 BifactorIndicesCalculator
-BigDataPE
 bigDM
 bigergm
 BIGL
@@ -2220,6 +2219,7 @@ em
 EMAS
 emayili
 embed
+EmbedSOM
 embryogrowth
 EMC2
 emdi
@@ -2544,6 +2544,7 @@ fec16
 fect
 FedData
 FedIRT
+fedmatch
 feisr
 felp
 feltr
@@ -2622,6 +2623,7 @@ fitzRoy
 fivethirtyeight
 fixerapi
 fixtuRes
+fkbma
 flametree
 flashier
 flashlight
@@ -2700,6 +2702,7 @@ forestPSD
 forestr
 forestRK
 ForestTools
+forgts
 forImage
 ForIT
 formatdown
@@ -3162,6 +3165,7 @@ ggstats
 ggstatsplot
 ggstream
 ggstudent
+ggsurveillance
 ggsurvey
 ggsurvfit
 ggswissmaps
@@ -4909,6 +4913,7 @@ mtb
 mtdesign
 MTest
 mtlgmm
+mtrank
 MtreeRing
 mtscr
 mtsta
@@ -6806,6 +6811,7 @@ rr2
 Rraven
 Rrdap
 rrecsys
+rredlist
 RRedshiftSQL
 rreg
 rrepast
@@ -7790,6 +7796,7 @@ stminsights
 STMotif
 STMr
 stochLAB
+stochvolTMB
 StockDistFit
 stocks
 stodom
@@ -7898,6 +7905,7 @@ survivoR
 survminer
 survMisc
 survML
+survNMA
 survobj
 survout
 survParamSim
@@ -8854,6 +8862,7 @@ xkcd
 XKCDdata
 xlcutter
 XLS
+xmap
 xml2relational
 xmlconvert
 xmpdf
@@ -8878,6 +8887,7 @@ yardstick
 yatah
 YatchewTest
 ycevo
+YEAB
 yfR
 yhatr
 ymlthis
