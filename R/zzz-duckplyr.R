@@ -4991,7 +4991,6 @@ duckplyr_macros <- c(
   "|" = "(x, y) AS (x OR y)",
   "&" = "(x, y) AS (x AND y)",
   "!" = "(x) AS (NOT x)",
-  "any" = "(x) AS (bool_or(x))",
   "n_distinct" = "(x) AS (COUNT(DISTINCT x))",
   #
   "wday" = "(x) AS CAST(weekday(CAST (x AS DATE)) + 1 AS int32)",
@@ -5001,6 +5000,20 @@ duckplyr_macros <- c(
   #
   # FIXME: Need a better way?
   "suppressWarnings" = "(x) AS (x)",
+  #
+  "___sum" = "(x) AS (CASE WHEN COUNT(x) = 0 THEN 0 ELSE SUM(x) END)",
+  "___sum_na" = "(x) AS (CASE WHEN SUM(CASE WHEN x IS NULL THEN 1 ELSE 0 END) > 0 THEN NULL ELSE CASE WHEN COUNT(x) = 0 THEN 0 ELSE SUM(x) END END)",
+  "___min" = "(x) AS MIN(x)",
+  "___min_na" = "(x) AS (CASE WHEN SUM(CASE WHEN x IS NULL THEN 1 ELSE 0 END) > 0 THEN NULL ELSE MIN(x) END)",
+  "___max" = "(x) AS MAX(x)",
+  "___max_na" = "(x) AS (CASE WHEN SUM(CASE WHEN x IS NULL THEN 1 ELSE 0 END) > 0 THEN NULL ELSE MAX(x) END)",
+  "___any" = "(x) AS (CASE WHEN COUNT(x) = 0 THEN FALSE ELSE bool_or(x) END)",
+  "___any_na" = "(x) AS (CASE WHEN SUM(CASE WHEN x IS NULL THEN 1 ELSE 0 END) > 0 THEN NULL ELSE CASE WHEN COUNT(x) = 0 THEN FALSE ELSE bool_or(x) END END)",
+  "___all" = "(x) AS (CASE WHEN COUNT(x) = 0 THEN TRUE ELSE bool_and(x) END)",
+  "___all_na" = "(x) AS (CASE WHEN SUM(CASE WHEN x IS NULL THEN 1 ELSE 0 END) > 0 THEN NULL ELSE CASE WHEN COUNT(x) = 0 THEN TRUE ELSE bool_and(x) END END)",
+  "___mean_na" = "(x) AS (CASE WHEN SUM(CASE WHEN x IS NULL THEN 1 ELSE 0 END) > 0 THEN NULL ELSE AVG(x) END)",
+  "___sd_na" = "(x) AS (CASE WHEN SUM(CASE WHEN x IS NULL THEN 1 ELSE 0 END) > 0 THEN NULL ELSE STDDEV(x) END)",
+  "___median_na" = "(x) AS (CASE WHEN SUM(CASE WHEN x IS NULL THEN 1 ELSE 0 END) > 0 THEN NULL ELSE percentile_cont(0.5) WITHIN GROUP (ORDER BY x) END)",
   #
   NULL
 )
@@ -7881,6 +7894,7 @@ rel_find_call <- function(fun, env, call = caller_env()) {
     "if_else" = "dplyr",
     #
     "any" = "base",
+    "all" = "base",
     "suppressWarnings" = "base",
     "lag" = "dplyr",
     "lead" = "dplyr",
@@ -7986,7 +8000,7 @@ rel_translate_lang <- function(
   }
 
 
-  if (!(name %in% c("wday", "strftime", "lag", "lead", "sum", "min", "max"))) {
+  if (!(name %in% c("wday", "strftime", "lag", "lead", "sum", "min", "max", "any", "all", "mean", "median", "sd"))) {
     if (!is.null(names(expr)) && any(names(expr) != "")) {
       # Fix grepl() and sum()/min()/max() logic below when allowing matching by argument name
       cli::cli_abort("Can't translate named argument {.code {name}({names(expr)[names(expr) != ''][[1]]} = )}.", call = call)
@@ -8003,7 +8017,7 @@ rel_translate_lang <- function(
         cli::cli_abort("Don't know how to translate {.code {pkg}::{name}}.", call = call)
       }
       def <- lubridate::wday
-      call <- match.call(def, expr, envir = env)
+      call <- call_match(expr, def, dots_env = env)
       args <- as.list(call[-1])
       bad <- !(names(args) %in% c("x"))
       if (any(bad)) {
@@ -8015,27 +8029,12 @@ rel_translate_lang <- function(
     },
     "strftime" = {
       def <- strftime
-      call <- match.call(def, expr, envir = env)
+      call <- call_match(expr, def, dots_env = env)
       args <- as.list(call[-1])
       bad <- !(names(args) %in% c("x", "format"))
       if (any(bad)) {
         cli::cli_abort("{name}({names(args)[which(bad)[[1]]]} = ) not supported", call = call)
       }
-    },
-    "min" =,
-    "max" =,
-    "sum" = {
-      def <- function (..., na.rm = FALSE) {}
-      call <- match.call(def, expr, envir = env)
-      args <- as.list(call[-1])
-      bad <- !(names(args) %in% c("na.rm", ""))
-      if (any(bad)) {
-        cli::cli_abort("{name}({names(args)[which(bad)[[1]]]} = ) not supported", call = call)
-      }
-      if (sum(names2(args) == "") != 1) {
-        cli::cli_abort("{.fun {name}} needs exactly one argument besides the optional {.arg na.rm}", call = call)
-      }
-      names(args) <- NULL
     },
     "%in%" = {
       values <- eval_tidy(expr[[3]], data = new_failing_mask(names(data)), env = env)
@@ -8109,7 +8108,7 @@ rel_translate_lang <- function(
     "cume_dist", "lead", "lag", "ntile",
 
     # Aggregates
-    "sum", "mean", "sd", "min", "max", "median",
+    "sum", "min", "max", "any", "all", "mean", "sd", "median",
     #
     NULL
   )
@@ -8130,7 +8129,7 @@ rel_translate_lang <- function(
   default_expr <- NULL
   if (name %in% c("lag", "lead")) {
     # x, n = 1L, default = NULL, order_by = NULL
-    expr <- match.call(lag, expr)
+    expr <- call_match(expr, lag, dots_env = env)
 
     offset_expr <- relexpr_constant(expr$n %||% 1L)
     expr$n <- NULL
@@ -8146,12 +8145,57 @@ rel_translate_lang <- function(
     }
   }
 
-  if (name %in% c("sum", "min", "max") && length(expr) > 1) {
-    na_rm <- eval(expr[[2]], env)
-    if (!identical(na_rm, FALSE)) {
-      cli::cli_abort("{.fun {name}} does not support {.code na.rm = TRUE}", call = call)
+  # Other primitives: prod, range
+  # Other aggregates: var(), cum*(), quantile()
+  if (name %in% c("sum", "min", "max", "any", "all", "mean", "sd", "median")) {
+    is_primitive <- (name %in% c("sum", "min", "max", "any", "all"))
+
+    if (is_primitive) {
+      def <- function(..., na.rm = FALSE) {}
+      good_names <- c("", "na.rm")
+      unnamed_args <- 1
+    } else {
+      def <- function(x, ..., na.rm = FALSE) {}
+      good_names <- c("x", "na.rm")
+      unnamed_args <- 0
     }
-    expr <- expr[1]
+
+    expr <- call_match(expr, def, dots_env = env)
+    args <- as.list(expr[-1])
+    bad <- !(names(args) %in% good_names)
+    if (sum(names2(args) == "") != unnamed_args) {
+      cli::cli_abort("{.fun {name}} needs exactly one argument besides the optional {.arg na.rm}", call = call)
+    }
+    if (any(bad)) {
+      cli::cli_abort("{.code {name}({names(args)[which(bad)[[1]]]} = )} not supported", call = call)
+    }
+
+    na_rm <- FALSE
+    if (length(args) > 1) {
+      na_rm <- eval(args[[2]], env)
+    }
+
+    if (window) {
+      if (identical(na_rm, FALSE)) {
+        cli::cli_abort(call = call, c(
+          "{.code {name}(na.rm = FALSE)} not supported in window functions",
+          i = "Use {.code {name}(na.rm = TRUE)} after checking for missing values"
+        ))
+      } else if (!identical(na_rm, TRUE)) {
+        cli::cli_abort("Invalid value for {.arg na.rm} in call to {.fun {name}}", call = call)
+      }
+    } else {
+      if (identical(na_rm, FALSE)) {
+        aliased_name <- paste0("___", aliased_name, "_na") # ___sum_na, ___min_na, ___max_na
+      } else if (!identical(na_rm, TRUE)) {
+        cli::cli_abort("Invalid value for {.arg na.rm} in call to {.fun {name}}", call = call)
+      } else if (name %in% c("sum", "any", "all")) {
+        # Edge case: sum(integer()) is 0, not NA
+        aliased_name <- paste0("___", name)
+      }
+    }
+
+    expr <- expr[1:2]
   }
 
   args <- map(as.list(expr[-1]), do_translate, in_window = in_window || window)
