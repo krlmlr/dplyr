@@ -5082,6 +5082,10 @@ check_df_for_rel <- function(df, call = caller_env()) {
     }
   }
 
+  if (length(df) == 0L) {
+    cli::cli_abort("Can't convert empty data frame to relational.", call = call)
+  }
+
   for (i in seq_along(df)) {
     col <- .subset2(df, i)
     if (!is.null(names(col))) {
@@ -7890,7 +7894,7 @@ rel_find_call <- function(fun, env, call = caller_env()) {
     # "rev" = "base", # what's the use case?
     # "seq" = "base", # what's the use case?
     # "sqrt" = "base",
-    # "abs" = "base",
+    "abs" = "base",
     "if_else" = "dplyr",
     #
     "any" = "base",
@@ -7898,23 +7902,13 @@ rel_find_call <- function(fun, env, call = caller_env()) {
     "suppressWarnings" = "base",
     "lag" = "dplyr",
     "lead" = "dplyr",
-    "first" = "dplyr",
-    "last" = "dplyr",
-    "nth" = "dplyr",
     "log10" = "base",
     "log" = "base",
-    "rank" = "base",
-    "min_rank" = "dplyr",
-    "dense_rank" = "dplyr",
-    "percent_rank" = "dplyr",
-    "cume_dist" = "dplyr",
-    "ntile" = "dplyr",
     "hour" = "lubridate",
     "minute" = "lubridate",
     "second" = "lubridate",
     "wday" = "lubridate",
     "strftime" = "base",
-    "abs" = "base",
     "substr" = "base",
     NULL
   )
@@ -8083,10 +8077,10 @@ rel_translate_lang <- function(
   )
 
   aliases <- c(
-    sd = "stddev",
-    first = "first_value",
-    last = "last_value",
-    nth = "nth_value",
+    "sd" = "stddev",
+    "first" = "first_value",
+    "last" = "last_value",
+    "nth" = "nth_value",
     "/" = "___divide",
     "log10" = "___log10",
     "log" = "___log",
@@ -8103,9 +8097,13 @@ rel_translate_lang <- function(
 
   known_window <- c(
     # Window functions
-    "rank", "dense_rank", "percent_rank",
-    "row_number", "first", "last", "nth",
-    "cume_dist", "lead", "lag", "ntile",
+    "row_number",
+    # Not yet implemented
+    "ntile",
+    "first", "last", "nth",
+    # Difficult to implement
+    "rank", "dense_rank", "percent_rank", "cume_dist",
+    "lead", "lag",
 
     # Aggregates
     "sum", "min", "max", "any", "all", "mean", "sd", "median",
@@ -8186,7 +8184,7 @@ rel_translate_lang <- function(
       }
     } else {
       if (identical(na_rm, FALSE)) {
-        aliased_name <- paste0("___", aliased_name, "_na") # ___sum_na, ___min_na, ___max_na
+        aliased_name <- paste0("___", name, "_na") # ___sum_na, ___min_na, ___max_na
       } else if (!identical(na_rm, TRUE)) {
         cli::cli_abort("Invalid value for {.arg na.rm} in call to {.fun {name}}", call = call)
       } else if (name %in% c("sum", "any", "all")) {
