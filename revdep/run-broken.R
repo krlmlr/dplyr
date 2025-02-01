@@ -8,6 +8,12 @@ last
 
 # See notes.md
 bad <- c(
+  # FIXME: Remove these after incorporating the reldf_() API
+  "msigdbr", "mtdesign", "partition", "rfars",
+
+  # FIXME: not enough power on infrastructure
+  "handwriterRF",
+
   "bayesdfa", "blavaan", "ctsem", "EcoEnsemble", "multinma",
   "rstanarm", "arealDB", "atom4R", "dataone", "FAIRmaterials",
   "metajam", "nesRdata", "ontologics", "rdflib", "randomForestSRC",
