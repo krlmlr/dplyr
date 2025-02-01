@@ -8099,9 +8099,6 @@ rel_translate_lang <- function(
     "==" = "r_base::==",
     "!=" = "r_base::!=",
 
-    "sum" = "r_base::sum",
-    "min" = "r_base::min",
-    "max" = "r_base::max",
     NULL
   )
 
@@ -8149,17 +8146,19 @@ rel_translate_lang <- function(
     }
   }
 
+  if (name %in% c("sum", "min", "max") && length(expr) > 1) {
+    na_rm <- eval(expr[[2]], env)
+    if (!identical(na_rm, FALSE)) {
+      cli::cli_abort("{.fun {name}} does not support {.code na.rm = TRUE}", call = call)
+    }
+    expr <- expr[1]
+  }
+
   args <- map(as.list(expr[-1]), do_translate, in_window = in_window || window)
 
   if (name == "grepl") {
     if (!inherits(args[[1]], "relational_relexpr_constant")) {
       cli::cli_abort("Only constant patterns are supported in {.fun grepl}", call = call)
-    }
-  }
-
-  if (name %in% c("sum", "min", "max") && length(args) > 1) {
-    if (!inherits(args[[2]], "relational_relexpr_constant")) {
-      cli::cli_abort("Only constants are supported in {.code {name}(na.rm = )}", call = call)
     }
   }
 
