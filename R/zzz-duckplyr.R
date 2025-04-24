@@ -496,15 +496,13 @@ compute.data.frame <- function(
     }
   )
 
-  # dplyr forward
-  check_prudence(x, duckplyr_error)
-
-  compute <- compute_data_frame
-  out <- compute(x, ...)
-  return(out)
-
-  # dplyr implementation
-  x
+  # Unconditionally signal error
+  # (If we can't compute, something's weird here.)
+  if (is.character(duckplyr_error)) {
+    cli::cli_abort(duckplyr_error)
+  } else {
+    cnd_signal(duckplyr_error)
+  }
 }
 
 duckplyr_compute <- function(x, ...) {
@@ -534,7 +532,7 @@ duckplyr_compute <- function(x, ...) {
 #' @inheritParams compute.duckplyr_df
 #' @inheritParams compute_parquet
 #' @param options A list of additional options to pass to create the storage format,
-#'   see <https://duckdb.org/docs/data/csv/overview#writing-using-the-copy-statement>
+#'   see <https://duckdb.org/docs/sql/statements/copy.html#csv-options>
 #'   for details.
 #'
 #' @return A duckplyr frame.
@@ -587,7 +585,7 @@ compute_csv <- function(x, path, ..., prudence = NULL, options = NULL) {
 #' @param x A duckplyr frame.
 #' @param path The path of the Parquet file to create.
 #' @param options A list of additional options to pass to create the Parquet file,
-#'   see <https://duckdb.org/docs/data/parquet/overview#writing-to-parquet-files>
+#'   see <https://duckdb.org/docs/sql/statements/copy.html#parquet-options>
 #'   for details.
 #'
 #' @return A duckplyr frame.
@@ -1703,6 +1701,16 @@ prudence_parse <- function(prudence, call = caller_env()) {
 }
 
 get_prudence_duckplyr_df <- function(x) {
+  if (!is_duckdb_tibble(x)) {
+    # Avoid function calls for speed
+    prudence <- duckplyr_the$default_df_prudence
+    if (is.null(prudence)) {
+      prudence <- "lavish"
+    }
+
+    return(prudence)
+  }
+
   if (!is_prudent_duckplyr_df(x)) {
     return("lavish")
   }
@@ -3722,168 +3730,6 @@ df_to_parquet <- function(data, path) {
 # end R/io-parquet.R
 
 
-# begin R/io2.R
-#' Read Parquet, CSV, and other files using DuckDB
-#'
-#' @description
-#' These functions ingest data from a file.
-#' In many cases, these functions return immediately because they only read the metadata.
-#' The actual data is only read when it is actually processed.
-#'
-#' @name read_file_duckdb
-NULL
-
-#' @description
-#' `read_parquet_duckdb()` reads a CSV file using DuckDB's `read_parquet()` table function.
-#'
-#' @rdname read_file_duckdb
-#' @export
-read_parquet_duckdb <- function(path, ..., prudence = c("thrifty", "lavish", "stingy"), options = list()) {
-  check_dots_empty()
-
-  read_file_duckdb(path, "read_parquet", prudence = prudence, options = options)
-}
-
-#' @description
-#' `read_csv_duckdb()` reads a CSV file using DuckDB's `read_csv_auto()` table function.
-#'
-#' @rdname read_file_duckdb
-#' @export
-#' @examples
-#' # Create simple CSV file
-#' path <- tempfile("duckplyr_test_", fileext = ".csv")
-#' write.csv(data.frame(a = 1:3, b = letters[4:6]), path, row.names = FALSE)
-#'
-#' # Reading is immediate
-#' df <- read_csv_duckdb(path)
-#'
-#' # Names are always available
-#' names(df)
-#'
-#' # Materialization upon access is turned off by default
-#' try(print(df$a))
-#'
-#' # Materialize explicitly
-#' collect(df)$a
-#'
-#' # Automatic materialization with prudence = "lavish"
-#' df <- read_csv_duckdb(path, prudence = "lavish")
-#' df$a
-#'
-#' # Specify column types
-#' read_csv_duckdb(
-#'   path,
-#'   options = list(delim = ",", types = list(c("DOUBLE", "VARCHAR")))
-#' )
-read_csv_duckdb <- function(path, ..., prudence = c("thrifty", "lavish", "stingy"), options = list()) {
-  check_dots_empty()
-
-  read_file_duckdb(path, "read_csv_auto", prudence = prudence, options = options)
-}
-
-#' @description
-#' `read_json_duckdb()` reads a JSON file using DuckDB's `read_json()` table function.
-#'
-#' @rdname read_file_duckdb
-#' @export
-#' @examplesIf duckplyr:::can_load_extension("json")
-#'
-#' # Create and read a simple JSON file
-#' path <- tempfile("duckplyr_test_", fileext = ".json")
-#' writeLines('[{"a": 1, "b": "x"}, {"a": 2, "b": "y"}]', path)
-#'
-#' # Reading needs the json extension
-#' db_exec("INSTALL json")
-#' db_exec("LOAD json")
-#' read_json_duckdb(path)
-read_json_duckdb <- function(path, ..., prudence = c("thrifty", "lavish", "stingy"), options = list()) {
-  check_dots_empty()
-
-  read_file_duckdb(path, "read_json", prudence = prudence, options = options)
-}
-
-#' @description
-#' `read_file_duckdb()` uses arbitrary readers to read data.
-#' See <https://duckdb.org/docs/data/overview> for a documentation
-#' of the available functions and their options.
-#' To read multiple files with the same schema,
-#' pass a wildcard or a character vector to the `path` argument,
-#'
-#' @inheritParams rlang::args_dots_empty
-#'
-#' @param path Path to files, glob patterns `*` and `?` are supported.
-#' @param table_function The name of a table-valued
-#'   DuckDB function such as `"read_parquet"`,
-#'   `"read_csv"`, `"read_csv_auto"` or `"read_json"`.
-#' @param prudence Memory protection, controls if DuckDB may convert
-#'   intermediate results in DuckDB-managed memory to data frames in R memory.
-#'
-#'   - `"thrifty"`: up to a maximum size of 1 million cells,
-#'   - `"lavish"`: regardless of size,
-#'   - `"stingy"`: never.
-#'
-#' The default is `"thrifty"` for the ingestion functions,
-#' and may be different for other functions.
-#' See `vignette("prudence")` for more information.
-#'
-#' @param options Arguments to the DuckDB function
-#'   indicated by `table_function`.
-#'
-#' @inheritSection duckdb_tibble Fine-tuning prudence
-#'
-#' @return A duckplyr frame, see [as_duckdb_tibble()] for details.
-#'
-#' @rdname read_file_duckdb
-#' @export
-read_file_duckdb <- function(
-  path,
-  table_function,
-  ...,
-  prudence = c("thrifty", "lavish", "stingy"),
-  options = list()
-) {
-  check_dots_empty()
-
-  if (!rlang::is_character(path)) {
-    cli::cli_abort("{.arg path} must be a character vector.")
-  }
-
-  if (length(path) != 1) {
-    path <- list(path)
-  }
-
-  duckfun(table_function, c(list(path), options), prudence = prudence)
-}
-
-duckfun <- function(table_function, args, ..., prudence) {
-  if (!is.list(args)) {
-    cli::cli_abort("{.arg args} must be a list.")
-  }
-  if (length(args) == 0) {
-    cli::cli_abort("{.arg args} must not be empty.")
-  }
-
-  # FIXME: For some reason, it's important to create an alias here
-  con <- get_default_duckdb_connection()
-
-  # FIXME: Provide better duckdb API
-  path <- args[[1]]
-  options <- args[-1]
-
-  rel <- duckdb$rel_from_table_function(
-    con,
-    table_function,
-    list(path),
-    options
-  )
-
-  meta_rel_register_file(rel, table_function, path, options)
-
-  rel_to_df(rel, prudence = prudence)
-}
-# end R/io2.R
-
-
 # begin R/is_duckplyr_df.R
 #' Class predicate for duckplyr data frames
 #'
@@ -3933,8 +3779,8 @@ rel_join_impl <- function(
 
   na_matches <- check_na_matches(na_matches, error_call = error_call)
 
-  x_names <- tbl_vars(x)
-  y_names <- tbl_vars(y)
+  x_names <- tbl_vars_safe(x)
+  y_names <- tbl_vars_safe(y)
 
   if (is_null(by)) {
     by <- join_by_common(x_names, y_names, error_call = error_call)
@@ -4052,6 +3898,15 @@ rel_join_impl <- function(
   out <- duckplyr_reconstruct(out, x)
 
   return(out)
+}
+
+# Needed because dplyr::tbl_vars() calls dplyr::group_vars() which calls dplyr::group_data()
+# https://github.com/tidyverse/dplyr/issues/7668
+tbl_vars_safe <- function(x) {
+  if (inherits(x, "grouped_df")) {
+    return(tbl_vars(x))
+  }
+  names(x)
 }
 # end R/join.R
 
@@ -4715,6 +4570,68 @@ oo_restore_cols <- function(rel, colname = "___row_number", extra = NULL, force 
 # end R/oo.R
 
 
+# begin R/positron.R
+on_load({
+  ark_register_methods()
+})
+
+ark_register_methods <- function() {
+  ark_register_method(
+    "ark_positron_variable_display_value",
+    "duckplyr_df",
+    duckplyr_df_variable_display_value
+  )
+  ark_register_method(
+    "ark_positron_variable_display_type",
+    "duckplyr_df",
+    duckplyr_df_variable_display_type
+  )
+}
+
+# Registration either succeeds or silently fails to be as unobtrusive as possible
+ark_register_method <- function(generic, class, method) {
+  tryCatch(
+    eval(call(
+      ".ark.register_method",
+      quote(generic),
+      quote(class),
+      quote(method)
+    )),
+    error = function(cnd) {
+      # Errors indicate that we aren't in ark and `.ark.register_method()`
+      # doesn't exist, or we called it wrong.
+      NULL
+    },
+    warning = function(cnd) {
+      # Warnings likely indicate that we are in ark < 0.1.176, where duckplyr
+      # was not yet allowed to register ark methods, and ark would warn about
+      # this.
+      NULL
+    }
+  )
+}
+
+duckplyr_df_variable_display_value <- function(x, ...) {
+  n_col <- df_n_col(x)
+
+  if (n_col == 1L) {
+    col_word <- "column"
+  } else {
+    col_word <- "columns"
+  }
+
+  paste0("[? rows x ", n_col, " ", col_word, "] <duckplyr_df>")
+}
+
+# You don't ever see this on the Positron side because it's a table and we
+# show the table icon instead, but we still need this because Ark will otherwise
+# try and compute the number of rows (materializing the query).
+duckplyr_df_variable_display_type <- function(x, ...) {
+  "duckplyr_df"
+}
+# end R/positron.R
+
+
 # begin R/print.R
 #' @importFrom pillar tbl_sum
 #' @export
@@ -4817,7 +4734,7 @@ pull.data.frame <- function(.data, var = -1, name = NULL, ...) {
     {
       rel <- duckdb_rel_from_df(.data)
       out_rel <- rel_project(rel, exprs)
-      out <- rel_to_df(out_rel)
+      out <- rel_to_df(out_rel, prudence = "lavish")
       out <- tibble::deframe(out)
       return(out)
     }
@@ -4851,6 +4768,189 @@ duckplyr_pull <- function(.data, ...) {
   out
 }
 # end R/pull.R
+
+
+# begin R/read_csv_duckdb.R
+#' Read CSV files using DuckDB
+#'
+#' @description
+#' `read_csv_duckdb()` reads a CSV file using DuckDB's `read_csv_auto()` table function.
+#'
+#' @inheritParams read_file_duckdb
+#' @param options Arguments to the DuckDB `read_csv_auto` table function.
+#'
+#' @seealso [read_parquet_duckdb()], [read_json_duckdb()]
+#'
+#' @export
+#' @examples
+#' # Create simple CSV file
+#' path <- tempfile("duckplyr_test_", fileext = ".csv")
+#' write.csv(data.frame(a = 1:3, b = letters[4:6]), path, row.names = FALSE)
+#'
+#' # Reading is immediate
+#' df <- read_csv_duckdb(path)
+#'
+#' # Names are always available
+#' names(df)
+#'
+#' # Materialization upon access is turned off by default
+#' try(print(df$a))
+#'
+#' # Materialize explicitly
+#' collect(df)$a
+#'
+#' # Automatic materialization with prudence = "lavish"
+#' df <- read_csv_duckdb(path, prudence = "lavish")
+#' df$a
+#'
+#' # Specify column types
+#' read_csv_duckdb(
+#'   path,
+#'   options = list(delim = ",", types = list(c("DOUBLE", "VARCHAR")))
+#' )
+read_csv_duckdb <- function(path, ..., prudence = c("thrifty", "lavish", "stingy"), options = list()) {
+  check_dots_empty()
+
+  read_file_duckdb(path, "read_csv_auto", prudence = prudence, options = options)
+}
+# end R/read_csv_duckdb.R
+
+
+# begin R/read_file_duckdb.R
+#' Read files using DuckDB
+#'
+#' @description
+#' `read_file_duckdb()` uses arbitrary readers to read data.
+#' See <https://duckdb.org/docs/data/overview> for a documentation
+#' of the available functions and their options.
+#' To read multiple files with the same schema,
+#' pass a wildcard or a character vector to the `path` argument,
+#'
+#' @inheritParams rlang::args_dots_empty
+#'
+#' @param path Path to files, glob patterns `*` and `?` are supported.
+#' @param table_function The name of a table-valued
+#'   DuckDB function such as `"read_parquet"`,
+#'   `"read_csv"`, `"read_csv_auto"` or `"read_json"`.
+#' @param prudence Memory protection, controls if DuckDB may convert
+#'   intermediate results in DuckDB-managed memory to data frames in R memory.
+#'
+#'   - `"thrifty"`: up to a maximum size of 1 million cells,
+#'   - `"lavish"`: regardless of size,
+#'   - `"stingy"`: never.
+#'
+#' The default is `"thrifty"` for the ingestion functions,
+#' and may be different for other functions.
+#' See `vignette("prudence")` for more information.
+#'
+#' @param options Arguments to the DuckDB function
+#'   indicated by `table_function`.
+#'
+#' @inheritSection duckdb_tibble Fine-tuning prudence
+#'
+#' @return A duckplyr frame, see [as_duckdb_tibble()] for details.
+#'
+#' @seealso [read_csv_duckdb()], [read_parquet_duckdb()], [read_json_duckdb()]
+#'
+#' @rdname read_file_duckdb
+#' @export
+read_file_duckdb <- function(
+  path,
+  table_function,
+  ...,
+  prudence = c("thrifty", "lavish", "stingy"),
+  options = list()
+) {
+  check_dots_empty()
+
+  if (!rlang::is_character(path)) {
+    cli::cli_abort("{.arg path} must be a character vector.")
+  }
+
+  if (length(path) != 1) {
+    path <- list(path)
+  }
+
+  duckfun(table_function, c(list(path), options), prudence = prudence)
+}
+
+duckfun <- function(table_function, args, ..., prudence) {
+  if (!is.list(args)) {
+    cli::cli_abort("{.arg args} must be a list.")
+  }
+  if (length(args) == 0) {
+    cli::cli_abort("{.arg args} must not be empty.")
+  }
+
+  # FIXME: For some reason, it's important to create an alias here
+  con <- get_default_duckdb_connection()
+
+  # FIXME: Provide better duckdb API
+  path <- args[[1]]
+  options <- args[-1]
+
+  rel <- duckdb$rel_from_table_function(
+    con,
+    table_function,
+    list(path),
+    options
+  )
+
+  meta_rel_register_file(rel, table_function, path, options)
+
+  rel_to_df(rel, prudence = prudence)
+}
+# end R/read_file_duckdb.R
+
+
+# begin R/read_json_duckdb.R
+#' Read JSON files using DuckDB
+#'
+#' @description
+#' `read_json_duckdb()` reads a JSON file using DuckDB's `read_json()` table function.
+#'
+#' @inheritParams read_file_duckdb
+#' @param options Arguments to the DuckDB `read_json` table function.
+#'
+#' @seealso [read_csv_duckdb()], [read_parquet_duckdb()]
+#'
+#' @export
+#' @examplesIf identical(Sys.getenv("IN_PKGDOWN"), "TRUE")
+#'
+#' # Create and read a simple JSON file
+#' path <- tempfile("duckplyr_test_", fileext = ".json")
+#' writeLines('[{"a": 1, "b": "x"}, {"a": 2, "b": "y"}]', path)
+#'
+#' # Reading needs the json extension
+#' db_exec("INSTALL json")
+#' db_exec("LOAD json")
+#' read_json_duckdb(path)
+read_json_duckdb <- function(path, ..., prudence = c("thrifty", "lavish", "stingy"), options = list()) {
+  check_dots_empty()
+
+  read_file_duckdb(path, "read_json", prudence = prudence, options = options)
+}
+# end R/read_json_duckdb.R
+
+
+# begin R/read_parquet_duckdb.R
+#' Read Parquet files using DuckDB
+#'
+#' @description
+#' `read_parquet_duckdb()` reads a Parquet file using DuckDB's `read_parquet()` table function.
+#'
+#' @inheritParams read_file_duckdb
+#' @param options Arguments to the DuckDB `read_parquet` table function.
+#'
+#' @seealso [read_csv_duckdb()], [read_json_duckdb()]
+#'
+#' @export
+read_parquet_duckdb <- function(path, ..., prudence = c("thrifty", "lavish", "stingy"), options = list()) {
+  check_dots_empty()
+
+  read_file_duckdb(path, "read_parquet", prudence = prudence, options = options)
+}
+# end R/read_parquet_duckdb.R
 
 
 # begin R/reframe.R
@@ -5013,7 +5113,6 @@ duckplyr_macros <- c(
   "|" = "(x, y) AS (x OR y)",
   "&" = "(x, y) AS (x AND y)",
   "!" = "(x) AS (NOT x)",
-  "n_distinct" = "(x) AS (COUNT(DISTINCT x))",
   #
   "wday" = "(x) AS CAST(weekday(CAST (x AS DATE)) + 1 AS int32)",
   #
@@ -5031,6 +5130,10 @@ duckplyr_macros <- c(
   "___mean_na" = "(x) AS (CASE WHEN SUM(CASE WHEN x IS NULL THEN 1 ELSE 0 END) > 0 THEN NULL ELSE AVG(x) END)",
   "___sd_na" = "(x) AS (CASE WHEN SUM(CASE WHEN x IS NULL THEN 1 ELSE 0 END) > 0 THEN NULL ELSE STDDEV(x) END)",
   "___median_na" = "(x) AS (CASE WHEN SUM(CASE WHEN x IS NULL THEN 1 ELSE 0 END) > 0 THEN NULL ELSE percentile_cont(0.5) WITHIN GROUP (ORDER BY x) END)",
+  #
+  # In n_distinct() many NAs count as 1 if not filtered out with na.rm = TRUE
+  "___n_distinct_na" = "(x) AS (CASE WHEN SUM(CASE WHEN x IS NULL THEN 1 ELSE 0 END) > 0 THEN (COUNT(DISTINCT x)+1) ELSE COUNT(DISTINCT x) END)",
+  "___n_distinct" = "(x) AS (COUNT(DISTINCT x))",
   #
   NULL
 )
@@ -5172,17 +5275,9 @@ vec_ptype_safe <- function(x) {
 }
 
 #' @export
-rel_to_df.duckdb_relation <- function(
-  rel,
-  ...,
-  prudence = NULL,
-  allow_materialization = TRUE,
-  n_rows = Inf,
-  n_cells = Inf
-) {
+rel_to_df.duckdb_relation <- function(rel, ..., prudence = NULL) {
   if (is.null(prudence)) {
-    # Legacy
-    return(duckdb$rel_to_altrep(rel, allow_materialization, n_rows, n_cells))
+    cli::cli_abort("Argument {.arg {prudence}} is missing.")
   }
 
   # Same code in new_duckdb_tibble(), to avoid recursion there
@@ -6085,7 +6180,7 @@ rel_try <- function(call, rel, ...) {
 
   if (Sys.getenv("DUCKPLYR_FALLBACK_FORCE") == "TRUE") {
     stats$fallback <- stats$fallback + 1L
-    return()
+    return("Fallback enforced")
   }
 
   dots <- list(...)
@@ -6101,7 +6196,7 @@ rel_try <- function(call, rel, ...) {
         if (Sys.getenv("DUCKPLYR_FALLBACK_INFO") == "TRUE") {
           inform(message = c(
             "Cannot process duckplyr query with DuckDB, falling back to dplyr.",
-            i = message
+            i = cli::format_inline(message)
           ))
         }
         if (Sys.getenv("DUCKPLYR_FORCE") == "TRUE") {
@@ -7363,14 +7458,51 @@ duckplyr_slice <- function(.data, ...) {
 # end R/slice.R
 
 
+# begin R/slice_head-rd.R
+#' @title Subset rows using their positions
+#'
+#' @description  This is a method for the [dplyr::slice_head()] generic.
+#' `slice_head()` selects the first rows.
+#'
+#' @inheritParams dplyr::slice_head
+#' @examples
+#' library(duckplyr)
+#' df <- data.frame(x = 1:3)
+#' df <- slice_head(df, n = 2)
+#' df
+#' @seealso [dplyr::slice_head()]
+#' @rdname slice_head.duckplyr_df
+#' @name slice_head.duckplyr_df
+NULL
+# end R/slice_head-rd.R
+
+
 # begin R/slice_head.R
 # Generated by 02-duckplyr_df-methods.R
+#' @rdname slice_head.duckplyr_df
 #' @export
 slice_head.data.frame <- function(.data, ..., n, prop, by = NULL) {
+  if (!missing(n)) {
+    n_valid <- (n >= 0)
+  } else {
+    n_valid <- TRUE
+  }
+
   # Our implementation
   duckplyr_error <- rel_try(NULL,
-    "No relational implementation for {.code slice_head()}" = TRUE,
+    #' @section Fallbacks:
+    #' There is no DuckDB translation in `slice_head.duckplyr_df()`
+    #' - if `by` or `prop` is provided,
+    #' - with a negative `n`.
+    #'
+    #' These features fall back to [slice_head()], see `vignette("fallback")` for details.
+    "{.code slice_head(by = ...)} not supported" = !missing(by),
+    "{.code slice_head(prop = ...)} not supported" = !missing(prop),
+    "{.code slice_head(n = ...)} with negative values not supported" = !n_valid,
     {
+      rel <- duckdb_rel_from_df(.data)
+      out_rel <- rel_limit(rel, n)
+      out <- duckplyr_reconstruct(out_rel, .data)
       return(out)
     }
   )
@@ -7917,6 +8049,9 @@ rel_find_call <- function(fun, env, call = caller_env()) {
     "wday" = "lubridate",
     "strftime" = "base",
     "substr" = "base",
+
+    "coalesce" = "dplyr",
+
     NULL
   )
   # Remember to update limits.Rmd when adding new functions!
@@ -8001,7 +8136,7 @@ rel_translate_lang <- function(
   }
 
 
-  if (!(name %in% c("wday", "strftime", "lag", "lead", "sum", "min", "max", "any", "all", "mean", "median", "sd"))) {
+  if (!(name %in% c("wday", "strftime", "lag", "lead", "sum", "min", "max", "any", "all", "mean", "median", "sd", "n_distinct"))) {
     if (!is.null(names(expr)) && any(names(expr) != "")) {
       # Fix grepl() and sum()/min()/max() logic below when allowing matching by argument name
       cli::cli_abort("Can't translate named argument {.code {name}({names(expr)[names(expr) != ''][[1]]} = )}.", call = call)
@@ -8078,6 +8213,11 @@ rel_translate_lang <- function(
           cli::cli_abort("object not found, should also be triggered by the dplyr fallback", call = call)
         }
       }
+    },
+    "coalesce" = {
+      if (length(expr) != 3) {
+        cli::cli_abort("Can only translate {.call coalesce(x, y)} with two arguments.", call = call)
+      }
     }
   )
 
@@ -8096,6 +8236,7 @@ rel_translate_lang <- function(
     ">=" = "r_base::>=",
     "==" = "r_base::==",
     "!=" = "r_base::!=",
+    "coalesce" = "___coalesce",
 
     NULL
   )
@@ -8112,6 +8253,7 @@ rel_translate_lang <- function(
 
     # Aggregates
     "sum", "min", "max", "any", "all", "mean", "sd", "median",
+    "n_distinct",
     #
     NULL
   )
@@ -8150,7 +8292,7 @@ rel_translate_lang <- function(
 
   # Other primitives: prod, range
   # Other aggregates: var(), cum*(), quantile()
-  if (name %in% c("sum", "min", "max", "any", "all", "mean", "sd", "median")) {
+  if (name %in% c("sum", "min", "max", "any", "all", "mean", "sd", "median", "n_distinct")) {
     is_primitive <- (name %in% c("sum", "min", "max", "any", "all"))
 
     if (is_primitive) {
@@ -8181,18 +8323,26 @@ rel_translate_lang <- function(
     }
 
     if (window) {
-      if (identical(na_rm, FALSE)) {
-        cli::cli_abort(call = call, c(
-          "{.code {name}(na.rm = FALSE)} not supported in window functions",
-          i = "Use {.code {name}(na.rm = TRUE)} after checking for missing values"
-        ))
-      } else if (!identical(na_rm, TRUE)) {
-        cli::cli_abort("Invalid value for {.arg na.rm} in call to {.fun {name}}", call = call)
+      if (name == "n_distinct") {
+        cli::cli_abort("{.code {name}()} not supported in window functions", call = call)
+      } else {
+        if (identical(na_rm, FALSE)) {
+          cli::cli_abort(call = call, c(
+            "{.code {name}(na.rm = FALSE)} not supported in window functions",
+            i = "Use {.code {name}(na.rm = TRUE)} after checking for missing values"
+          ))
+        } else if (!identical(na_rm, TRUE)) {
+          cli::cli_abort("Invalid value for {.arg na.rm} in call to {.fun {name}}", call = call)
+        }
       }
     } else {
       if (identical(na_rm, FALSE)) {
         aliased_name <- paste0("___", name, "_na") # ___sum_na, ___min_na, ___max_na
-      } else if (!identical(na_rm, TRUE)) {
+      } else if (identical(na_rm, TRUE)) {
+        if (name == "n_distinct") {
+          aliased_name <- paste0("___", name)         
+        }
+      } else {
         cli::cli_abort("Invalid value for {.arg na.rm} in call to {.fun {name}}", call = call)
       }
     }
