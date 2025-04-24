@@ -705,10 +705,6 @@ compute_parquet <- function(x, path, ..., prudence = NULL, options = NULL) {
 #' This is slow, and mostly useful for debugging.
 #' The default is to check roundtrip of attributes.
 #'
-#' `DUCKPLYR_EXPERIMENTAL`: If `TRUE`, pass `experimental = TRUE`
-#' to certain duckdb functions.
-#' Currently unused.
-#'
 #' `DUCKPLYR_METHODS_OVERWRITE`: If `TRUE`, call `methods_overwrite()`
 #' when the package is loaded.
 #'
@@ -5320,8 +5316,7 @@ check_df_for_rel <- function(df, call = caller_env()) {
 
   # FIXME: For some other reason, it seems crucial to assign the result to a
   # variable before returning it
-  experimental <- (Sys.getenv("DUCKPLYR_EXPERIMENTAL") == "TRUE")
-  out <- duckdb$rel_from_df(con, df, experimental = experimental)
+  out <- duckdb$rel_from_df(con, df)
 
   roundtrip <- duckdb$rapi_rel_to_altrep(out)
   if (Sys.getenv("DUCKPLYR_CHECK_ROUNDTRIP") == "TRUE") {
@@ -5611,12 +5606,8 @@ to_duckdb_expr <- function(x) {
       # Example: https://github.com/dschafer/activatr/issues/18
       check_df_for_rel(vctrs::new_data_frame(list(constant = x$val)))
 
-      if ("experimental" %in% names(formals(duckdb$expr_constant))) {
-        experimental <- (Sys.getenv("DUCKPLYR_EXPERIMENTAL") == "TRUE")
-        out <- duckdb$expr_constant(x$val, experimental = experimental)
-      } else {
-        out <- duckdb$expr_constant(x$val)
-      }
+      out <- duckdb$expr_constant(x$val)
+
       if (!is.null(x$alias)) {
         duckdb$expr_set_alias(out, x$alias)
       }
@@ -5689,16 +5680,7 @@ to_duckdb_expr_meta <- function(x) {
       out
     },
     relational_relexpr_constant = {
-      out <- expr(
-        # FIXME: always pass experimental flag once it's merged
-        if ("experimental" %in% names(formals(duckdb$expr_constant))) {
-          # experimental is set at the top,
-          # the sym() gymnastics are to satisfy R CMD check
-          duckdb$expr_constant(!!x$val, experimental = !!sym("experimental"))
-        } else {
-          duckdb$expr_constant(!!x$val)
-        }
-      )
+      out <- expr(duckdb$expr_constant(!!x$val))
 
       if (!is.null(x$alias)) {
         out <- expr({
@@ -7487,6 +7469,116 @@ duckplyr_setequal <- function(x, y, ...) {
   out
 }
 # end R/setequal.R
+
+
+# begin R/sets.R
+# https://github.com/tidyverse/duckplyr/issues/654
+#
+# FIXME: Remove when dplyr 1.1.5 is out
+
+# Helpers -----------------------------------------------------------------
+
+is_compatible <- function(x, y, ignore_col_order = TRUE, convert = TRUE) {
+  if (!is.data.frame(y)) {
+    return("`y` must be a data frame.")
+  }
+
+  nc <- df_n_col(x)
+  if (nc != df_n_col(y)) {
+    return(
+      c(x = glue("Different number of columns: {nc} vs {df_n_col(y)}."))
+    )
+  }
+
+  names_x <- names(x)
+  names_y <- names(y)
+
+  names_y_not_in_x <- setdiff(names_y, names_x)
+  names_x_not_in_y <- setdiff(names_x, names_y)
+
+  if (length(names_y_not_in_x) == 0L && length(names_x_not_in_y) == 0L) {
+    # check if same order
+    if (!isTRUE(ignore_col_order)) {
+      if (!identical(names_x, names_y)) {
+        return(c(x = "Same column names, but different order."))
+      }
+    }
+  } else {
+    # names are not the same, explain why
+
+    msg <- c()
+    if (length(names_y_not_in_x)) {
+      wrong <- glue_collapse(glue('`{names_y_not_in_x}`'), sep = ", ")
+      msg <- c(
+        msg,
+        x = glue("Cols in `y` but not `x`: {wrong}.")
+      )
+    }
+    if (length(names_x_not_in_y)) {
+      wrong <- glue_collapse(glue('`{names_x_not_in_y}`'), sep = ", ")
+      msg <- c(
+        msg,
+        x = glue("Cols in `x` but not `y`: {wrong}.")
+      )
+    }
+    return(msg)
+  }
+
+  msg <- c()
+  for (name in names_x) {
+    x_i <- x[[name]]
+    y_i <- y[[name]]
+
+    if (convert) {
+      tryCatch(
+        vec_ptype2(x_i, y_i),
+        error = function(e) {
+          msg <<- c(
+            msg,
+            x = glue(
+              "Incompatible types for column `{name}`: {vec_ptype_full(x_i)} vs {vec_ptype_full(y_i)}."
+            )
+          )
+        }
+      )
+    } else {
+      if (!identical(vec_ptype(x_i), vec_ptype(y_i))) {
+        msg <- c(
+          msg,
+          x = glue(
+            "Different types for column `{name}`: {vec_ptype_full(x_i)} vs {vec_ptype_full(y_i)}."
+          )
+        )
+      }
+    }
+  }
+  if (length(msg)) {
+    return(msg)
+  }
+
+  TRUE
+}
+
+check_compatible <- function(
+  x,
+  y,
+  ignore_col_order = TRUE,
+  convert = TRUE,
+  error_call = caller_env()
+) {
+  compat <- is_compatible(
+    x,
+    y,
+    ignore_col_order = ignore_col_order,
+    convert = convert
+  )
+  if (isTRUE(compat)) {
+    return()
+  }
+
+  abort(c("`x` and `y` are not compatible.", compat), call = error_call)
+}
+# end R/sets.R
 
 
 # begin R/slice.R
