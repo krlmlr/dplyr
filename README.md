@@ -51,7 +51,7 @@ alternative backends:
 - [dbplyr](https://dbplyr.tidyverse.org/) for data stored in a
   relational database. Translates your dplyr code to SQL.
 
-- [duckplyr](https://duckdblabs.github.io/duckplyr/) for using
+- [duckplyr](https://tidyverse.github.io/duckplyr/) for using
   [duckdb](https://duckdb.org) on large, in-memory datasets with zero
   extra copies. Translates your dplyr code to high performance duckdb
   queries with an automatic R fallback when translation isn’t possible.
@@ -170,11 +170,9 @@ starwars %>%
 If you encounter a clear bug, please file an issue with a minimal
 reproducible example on
 [GitHub](https://github.com/tidyverse/dplyr/issues). For questions and
-other discussion, please use
-[community.rstudio.com](https://community.rstudio.com/) or the
-[manipulatr mailing list](https://groups.google.com/d/forum/manipulatr).
+other discussion, please use [forum.posit.co](https://forum.posit.co/).
 
-------------------------------------------------------------------------
+## Code of conduct
 
 Please note that this project is released with a [Contributor Code of
 Conduct](https://dplyr.tidyverse.org/CODE_OF_CONDUCT). By participating

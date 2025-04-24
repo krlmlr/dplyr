@@ -24,3 +24,5 @@ bench-libs
 doc
 Meta
 /dplyr_*.tar.gz
+compile_commands.json
+.cache

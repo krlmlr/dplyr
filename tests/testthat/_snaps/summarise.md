@@ -77,7 +77,7 @@
       summarise(df2)
     Condition
       Error in `summarise()`:
-      ! Can't transform a data frame with `NA` or `""` names.
+      ! Can't transform a data frame with missing names.
 
 # summarise() gives meaningful errors
 
@@ -125,6 +125,16 @@
       Error in `summarise()`:
       i In argument: `a = rlang::env(a = 1)`.
       i In group 1: `x = 1`, `y = 1`.
+      Caused by error:
+      ! `a` must be a vector, not an environment.
+    Code
+      (expect_error(tibble(x = 1, y = c(1, 2, 2), y2 = c(1, 2, 2), z = runif(3)) %>%
+        group_by(x, y, y2) %>% summarise(a = rlang::env(a = 1))))
+    Output
+      <error/rlang_error>
+      Error in `summarise()`:
+      i In argument: `a = rlang::env(a = 1)`.
+      i In group 1: `x = 1`, `y = 1`, `y2 = 1`.
       Caused by error:
       ! `a` must be a vector, not an environment.
     Code

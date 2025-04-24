@@ -7,10 +7,10 @@
 #'
 #' @family grouping functions
 #' @inheritParams arrange
-#' @param ... In `group_by()`, variables or computations to group by.
-#'   Computations are always done on the ungrouped data frame.
-#'   To perform computations on the grouped data, you need to use
-#'   a separate `mutate()` step before the `group_by()`.
+#' @param ... <[`data-masking`][rlang::args_data_masking]> In `group_by()`,
+#'   variables or computations to group by. Computations are always done on the
+#'   ungrouped data frame. To perform computations on the grouped data, you need
+#'   to use a separate `mutate()` step before the `group_by()`.
 #'   Computations are not allowed in `nest_by()`.
 #'   In `ungroup()`, variables to remove from the grouping.
 #' @param .add When `FALSE`, the default, `group_by()` will
@@ -183,7 +183,7 @@ ungroup_data_frame <- function(x, ...) {
   x
 }
 
-#' Prepare for grouping.
+#' Prepare for grouping and other operations
 #'
 #' `*_prepare()` performs standard manipulation that is needed prior
 #' to actual data processing. They are only be needed by packages
