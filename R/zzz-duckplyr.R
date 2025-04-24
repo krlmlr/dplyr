@@ -4528,7 +4528,6 @@ duckplyr_nest_join <- function(x, y, by = NULL, copy = FALSE, keep = NULL, name 
 #' - [rows_upsert()]
 #' - [rowwise()]
 #' - [setequal()]
-#' - [slice_head()]
 #' - [slice_sample()]
 #' - [slice_tail()]
 #' - [slice()]
