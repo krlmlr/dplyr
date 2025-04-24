@@ -213,3 +213,17 @@ Edit `run*.R` to include exceptions.
 - gutenbergr
     - `%in%` for a vector of >50k elements
 
+- datacutr
+    - False positive, type-unstable `NA`
+
+- immunarch
+    - False positive, interpreting the temporary DuckDB file as data
+
+- admiral
+    - False positive, https://github.com/pharmaverse/admiral/pull/2655
+
+- optic
+    - Not reviewed, too much
+
+- pointblank
+    - `min(FALSE)` is `0`
