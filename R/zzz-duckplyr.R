@@ -1612,13 +1612,13 @@ prudence_parse <- function(prudence, call = caller_env()) {
       }
     }
     allow_materialization <- is.finite(n_rows) || is.finite(n_cells)
-    prudence <- "frugal"
+    prudence <- "stingy"
   } else if (!is.character(prudence)) {
     cli::cli_abort("{.arg prudence} must be an unnamed character vector or a named numeric vector", call = call)
   } else {
-    prudence <- arg_match(prudence, c("lavish", "frugal", "thrifty"), error_call = call)
+    prudence <- arg_match(prudence, c("lavish", "stingy", "thrifty"), error_call = call)
 
-    allow_materialization <- !identical(prudence, "frugal")
+    allow_materialization <- !identical(prudence, "stingy")
     if (!allow_materialization) {
       n_cells <- 0
     } else if (identical(prudence, "thrifty")) {
@@ -1642,7 +1642,7 @@ get_prudence_duckplyr_df <- function(x) {
 
   prudence <- attr(x, "prudence")
   if (is.null(prudence)) {
-    return("frugal")
+    return("stingy")
   }
 
   if (identical(prudence, c(cells = 1e6))) {
@@ -1707,7 +1707,7 @@ duckplyr_execute <- function(sql) {
 #' @param ... For `duckdb_tibble()`, passed on to [tibble()].
 #'   For `as_duckdb_tibble()`, passed on to methods.
 #' @param .prudence,prudence Either a string:
-#'   - `"frugal"`:  a frugal data frame,
+#'   - `"stingy"`:  a stingy data frame,
 #'   - `"lavish"`: a lavish data frame,
 #'   - `"thrifty"`: allow the materialization up to a maximum size of 1 million cells.
 #'
@@ -1739,12 +1739,12 @@ duckplyr_execute <- function(sql) {
 #'
 #' x$a
 #'
-#' y <- duckdb_tibble(a = 1, .prudence = "frugal")
+#' y <- duckdb_tibble(a = 1, .prudence = "stingy")
 #' y
 #' try(length(y$a))
 #' length(collect(y)$a)
 #' @export
-duckdb_tibble <- function(..., .prudence = c("lavish", "thrifty", "frugal")) {
+duckdb_tibble <- function(..., .prudence = c("lavish", "thrifty", "stingy")) {
   out <- tibble::tibble(...)
 
   # Side effect: check compatibility
@@ -1764,7 +1764,7 @@ duckdb_tibble <- function(..., .prudence = c("lavish", "thrifty", "frugal")) {
 #' @param x The object to convert or to test.
 #' @rdname duckdb_tibble
 #' @export
-as_duckdb_tibble <- function(x, ..., prudence = c("lavish", "thrifty", "frugal")) {
+as_duckdb_tibble <- function(x, ..., prudence = c("lavish", "thrifty", "stingy")) {
   # Handle the prudence arg in the generic, only the other args will be dispatched
   as_duckdb_tibble <- function(x, ...) {
     UseMethod("as_duckdb_tibble")
@@ -1782,7 +1782,7 @@ as_duckdb_tibble.tbl_duckdb_connection <- function(x, ...) {
   sql <- dbplyr::remote_query(x)
 
   # Start restrictive to avoid accidental materialization
-  read_sql_duckdb(sql, prudence = "frugal", con = con)
+  read_sql_duckdb(sql, prudence = "stingy", con = con)
 }
 
 #' @export
@@ -3662,7 +3662,7 @@ NULL
 #'
 #' @rdname read_file_duckdb
 #' @export
-read_parquet_duckdb <- function(path, ..., prudence = c("thrifty", "lavish", "frugal"), options = list()) {
+read_parquet_duckdb <- function(path, ..., prudence = c("thrifty", "lavish", "stingy"), options = list()) {
   check_dots_empty()
 
   read_file_duckdb(path, "read_parquet", prudence = prudence, options = options)
@@ -3699,7 +3699,7 @@ read_parquet_duckdb <- function(path, ..., prudence = c("thrifty", "lavish", "fr
 #'   path,
 #'   options = list(delim = ",", types = list(c("DOUBLE", "VARCHAR")))
 #' )
-read_csv_duckdb <- function(path, ..., prudence = c("thrifty", "lavish", "frugal"), options = list()) {
+read_csv_duckdb <- function(path, ..., prudence = c("thrifty", "lavish", "stingy"), options = list()) {
   check_dots_empty()
 
   read_file_duckdb(path, "read_csv_auto", prudence = prudence, options = options)
@@ -3720,7 +3720,7 @@ read_csv_duckdb <- function(path, ..., prudence = c("thrifty", "lavish", "frugal
 #' db_exec("INSTALL json")
 #' db_exec("LOAD json")
 #' read_json_duckdb(path)
-read_json_duckdb <- function(path, ..., prudence = c("thrifty", "lavish", "frugal"), options = list()) {
+read_json_duckdb <- function(path, ..., prudence = c("thrifty", "lavish", "stingy"), options = list()) {
   check_dots_empty()
 
   read_file_duckdb(path, "read_json", prudence = prudence, options = options)
@@ -3739,8 +3739,8 @@ read_json_duckdb <- function(path, ..., prudence = c("thrifty", "lavish", "fruga
 #' @param table_function The name of a table-valued
 #'   DuckDB function such as `"read_parquet"`,
 #'   `"read_csv"`, `"read_csv_auto"` or `"read_json"`.
-#' @param prudence Logical, whether to create a frugal duckplyr frame.
-#'   By default, a frugal duckplyr frame, with a limit of one million cells, is created.
+#' @param prudence Logical, whether to create a stingy duckplyr frame.
+#'   By default, a stingy duckplyr frame, with a limit of one million cells, is created.
 #'   See `vignette("prudence")` for details.
 #' @param options Arguments to the DuckDB function
 #'   indicated by `table_function`.
@@ -3753,7 +3753,7 @@ read_file_duckdb <- function(
   path,
   table_function,
   ...,
-  prudence = c("thrifty", "lavish", "frugal"),
+  prudence = c("thrifty", "lavish", "stingy"),
   options = list()
 ) {
   check_dots_empty()
@@ -4215,7 +4215,7 @@ mutate.data.frame <- function(.data, ..., .by = NULL, .keep = c("all", "used", "
 
       names_used <- character()
       names_new <- character()
-      current_data <- rel_to_df(rel, prudence = "frugal")
+      current_data <- rel_to_df(rel, prudence = "stingy")
 
       # FIXME: use fewer projections
       for (i in seq_along(dots)) {
@@ -4263,7 +4263,7 @@ mutate.data.frame <- function(.data, ..., .by = NULL, .keep = c("all", "used", "
         }
 
         rel <- rel_project(rel, unname(exprs))
-        current_data <- rel_to_df(rel, prudence = "frugal")
+        current_data <- rel_to_df(rel, prudence = "stingy")
       }
 
       if (length(by_names) > 0) {
@@ -6192,7 +6192,7 @@ check_prudence <- function(x, duckplyr_error, call = caller_env()) {
     duckplyr_error_msg <- if (is.character(duckplyr_error)) duckplyr_error
     duckplyr_error_parent <- if (is_condition(duckplyr_error)) duckplyr_error
     cli::cli_abort(parent = duckplyr_error_parent, call = call, c(
-      "This operation cannot be carried out by DuckDB, and the input is a frugal duckplyr frame.",
+      "This operation cannot be carried out by DuckDB, and the input is a stingy duckplyr frame.",
       "*" = duckplyr_error_msg,
       "i" = 'Use {.code compute(prudence = "lavish")} to materialize to temporary storage and continue with {.pkg duckplyr}.',
       "i" = 'See {.run vignette("prudence")} for other options.'
@@ -7527,7 +7527,7 @@ duckplyr_slice_tail <- function(.data, ...) {
 #' @export
 #' @examples
 #' read_sql_duckdb("FROM duckdb_settings()")
-read_sql_duckdb <- function(sql, ..., prudence = c("thrifty", "lavish", "frugal"), con = NULL) {
+read_sql_duckdb <- function(sql, ..., prudence = c("thrifty", "lavish", "stingy"), con = NULL) {
   if (!is_string(sql)) {
     cli::cli_abort("{.arg sql} must be a string.")
   }
