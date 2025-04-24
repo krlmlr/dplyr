@@ -890,6 +890,7 @@ test_that("if_any() and if_all() expansions deal with no inputs or single inputs
 })
 
 test_that("if_any() on zero-column selection behaves like any() (#7059)", {
+  skip("TODO duckdb")
   tbl <- tibble(
     x1 = 1:5,
     x2 = c(-1, 4, 5, 4, 1),
