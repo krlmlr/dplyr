@@ -161,12 +161,12 @@ arrange.data.frame <- function(.data, ..., .by_group = FALSE, .locale = NULL) {
 
   duckplyr_error <- rel_try(list(name = "arrange", x = .data, args = try_list(dots = dots, .by_group = .by_group)),
     #' @section Fallbacks:
-    #' You cannot use `arrange.duckplyr_df()`
+    #' There is no DuckDB translation in `arrange.duckplyr_df()`
     #' - with `.by_group = TRUE`,
     #' - providing a value for the `.locale` argument,
     #' - providing a value for the `dplyr.legacy_locale` option.
     #'
-    #' If you do the code will fall back to `dplyr::arrange()` without any error.
+    #' These features fall back to [dplyr::arrange()], see `vignette("fallback")` for details.
     "{.arg .by_group} = {.value TRUE} not supported" = !identical(.by_group, FALSE),
     "{.arg .locale} argument not supported" = !is.null(.locale),
     "dplyr.legacy_locale not supported" = isTRUE(getOption("dplyr.legacy_locale")),
@@ -338,6 +338,26 @@ duckplyr_auto_copy <- function(x, y, ...) {
 # end R/auto_copy.R
 
 
+# begin R/can_load_extension.R
+can_load_extension <- function(name) {
+  tryCatch(
+    callr::r(args = list(name), function(name) {
+      con <- DBI::dbConnect(duckdb::duckdb())
+      DBI::dbExecute(con, paste0("INSTALL ", name))
+      DBI::dbExecute(con, paste0("LOAD ", name))
+      TRUE
+    }),
+    error = function(e) FALSE
+  )
+}
+
+on_load({
+  env <- environment()
+  assign("can_load_extension", memoise::memoise(can_load_extension), envir = env)
+})
+# end R/can_load_extension.R
+
+
 # begin R/collect-rd.R
 #' @title Force conversion to a data frame
 #'
@@ -395,9 +415,27 @@ duckplyr_collect <- function(x, ...) {
 #'
 #' @inheritParams dplyr::compute
 #' @inheritParams duckdb_tibble
+#' @param x A duckplyr frame.
 #' @param name The name of the table to store the result in.
 #' @param schema_name The schema to store the result in, defaults to the current schema.
 #' @param temporary Set to `FALSE` to store the result in a permanent table.
+#' @param prudence Memory protection, controls if DuckDB may convert
+#'   intermediate results in DuckDB-managed memory to data frames in R memory.
+#'
+#'   - `"lavish"`: regardless of size,
+#'   - `"stingy"`: never,
+#'   - `"thrifty"`: up to a maximum size of 1 million cells.
+#'
+#' The default is to inherit from the input.
+#' This argument is provided here only for convenience.
+#' The same effect can be achieved by forwarding the output to [as_duckdb_tibble()]
+#' with the desired prudence.
+#' See `vignette("prudence")` for more information.
+#'
+# @inheritSection duckdb_tibble Fine-tuning prudence # Omitting here, too much detail
+#'
+#' @return A duckplyr frame.
+#'
 #' @examples
 #' library(duckplyr)
 #' df <- duckdb_tibble(x = c(1, 2))
@@ -483,62 +521,33 @@ duckplyr_compute <- function(x, ...) {
 # end R/compute.R
 
 
-# begin R/compute_file.R
-#' @title Compute results to a file
+# begin R/compute_csv.R
+#' Compute results to a CSV file
 #'
-#' @description
-#' These functions apply to duckplyr frames.
-#' They executes a query and stores the results in a flat file.
+#' For a duckplyr frame, this function executes the query
+#' and stores the results in a CSV file,
+#' without converting it to an R data frame.
 #' The result is a duckplyr frame that can be used with subsequent dplyr verbs.
-#'
-#' `compute_parquet()` creates a Parquet file.
+#' This function can also be used as a CSV writer for regular data frames.
 #'
 #' @inheritParams rlang::args_dots_empty
 #' @inheritParams compute.duckplyr_df
-#' @param path The path to store the result in.
+#' @inheritParams compute_parquet
 #' @param options A list of additional options to pass to create the storage format,
-#'   see <https://duckdb.org/docs/data/parquet/overview#writing-to-parquet-files>
-#'   or <https://duckdb.org/docs/data/csv/overview#writing-using-the-copy-statement>
+#'   see <https://duckdb.org/docs/sql/statements/copy.html#csv-options>
 #'   for details.
+#'
+#' @return A duckplyr frame.
 #'
 #' @export
 #' @examples
 #' library(duckplyr)
 #' df <- data.frame(x = c(1, 2))
 #' df <- mutate(df, y = 2)
-#' path <- tempfile(fileext = ".parquet")
-#' df <- compute_parquet(df, path)
-#' explain(df)
-#' @seealso [compute.duckplyr_df()], [dplyr::collect()]
-#' @name compute_file
-compute_parquet <- function(x, path, ..., prudence = NULL, options = NULL) {
-  check_dots_empty()
-
-  if (is.null(options)) {
-    options <- list()
-  }
-
-  if (is.null(prudence)) {
-    prudence <- get_prudence_duckplyr_df(x)
-  }
-
-  rel <- duckdb_rel_from_df(x)
-
-  duckdb$rel_to_parquet(rel, path, options)
-
-  # If the path is a directory, we assume that the user wants to write multiple files
-  if (dir.exists(path)) {
-    path <- file.path(path, "**", "**.parquet")
-  }
-
-  read_parquet_duckdb(path, prudence = prudence)
-}
-
-#' compute_csv()
-#'
-#' `compute_csv()` creates a CSV file.
-#' @rdname compute_file
-#' @export
+#' path <- tempfile(fileext = ".csv")
+#' df <- compute_csv(df, path)
+#' readLines(path)
+#' @seealso [compute_parquet()], [compute.duckplyr_df()], [dplyr::collect()]
 compute_csv <- function(x, path, ..., prudence = NULL, options = NULL) {
   check_dots_empty()
 
@@ -561,7 +570,60 @@ compute_csv <- function(x, path, ..., prudence = NULL, options = NULL) {
 
   read_csv_duckdb(path, prudence = prudence)
 }
-# end R/compute_file.R
+# end R/compute_csv.R
+
+
+# begin R/compute_parquet.R
+#' Compute results to a Parquet file
+#'
+#' For a duckplyr frame, this function executes the query
+#' and stores the results in a Parquet file,
+#' without converting it to an R data frame.
+#' The result is a duckplyr frame that can be used with subsequent dplyr verbs.
+#' This function can also be used as a Parquet writer for regular data frames.
+#'
+#' @inheritParams rlang::args_dots_empty
+#' @inheritParams compute.duckplyr_df
+#' @param x A duckplyr frame.
+#' @param path The path of the Parquet file to create.
+#' @param options A list of additional options to pass to create the Parquet file,
+#'   see <https://duckdb.org/docs/sql/statements/copy.html#parquet-options>
+#'   for details.
+#'
+#' @return A duckplyr frame.
+#'
+#' @export
+#' @examples
+#' library(duckplyr)
+#' df <- data.frame(x = c(1, 2))
+#' df <- mutate(df, y = 2)
+#' path <- tempfile(fileext = ".parquet")
+#' df <- compute_parquet(df, path)
+#' explain(df)
+#' @seealso [compute_csv()], [compute.duckplyr_df()], [dplyr::collect()]
+compute_parquet <- function(x, path, ..., prudence = NULL, options = NULL) {
+  check_dots_empty()
+
+  if (is.null(options)) {
+    options <- list()
+  }
+
+  if (is.null(prudence)) {
+    prudence <- get_prudence_duckplyr_df(x)
+  }
+
+  rel <- duckdb_rel_from_df(x)
+
+  duckdb$rel_to_parquet(rel, path, options)
+
+  # If the path is a directory, we assume that the user wants to write multiple files
+  if (dir.exists(path)) {
+    path <- file.path(path, "**", "**.parquet")
+  }
+
+  read_parquet_duckdb(path, prudence = prudence)
+}
+# end R/compute_parquet.R
 
 
 # begin R/config.R
@@ -915,12 +977,12 @@ count.data.frame <- function(x, ..., wt = NULL, sort = FALSE, name = NULL, .drop
   # Passing `name` reliably is surprisingly complicated.
   duckplyr_error <- rel_try(list(name = "count", x = x, args = try_list(dots = enquos(...), wt = enquo(wt), sort = sort, .drop = .drop)),
     #' @section Fallbacks:
-    #' You cannot use `count.duckplyr_df()`
+    #' There is no DuckDB translation in `count.duckplyr_df()`
     #' - with complex expressions in `...`,
     #' - with `.drop = FALSE`,
     #' - with `sort = TRUE`.
     #'
-    #' If you do the code will fall back to `dplyr::count()` without any error.
+    #' These features fall back to [dplyr::count()], see `vignette("fallback")` for details.
     "{.code count()} requires columns in {.arg ...}" = !all(is_name),
     "{.code count()} only implemented for {.arg .drop} = {.value TRUE}" = !.drop,
     "{.code count()} only implemented for {.arg sort} = {.value FALSE}" = sort,
@@ -1555,13 +1617,11 @@ new_duckdb_tibble <- function(x, class = NULL, prudence = "lavish", adjust_prude
 
   # Before setting class, needs prudence_parsed
   if (adjust_prudence) {
-    rel <- duckdb_rel_from_df(x)
+    rel <- duckdb_rel_from_df(x, call = error_call)
 
     # Copied from rel_to_df.duckdb_relation(), to avoid recursion
     x <- duckdb$rel_to_altrep(
       rel,
-      # FIXME: Remove allow_materialization with duckdb >= 1.2.0
-      allow_materialization = prudence_parsed$allow_materialization,
       n_rows = prudence_parsed$n_rows,
       n_cells = prudence_parsed$n_cells
     )
@@ -1616,6 +1676,15 @@ prudence_parse <- function(prudence, call = caller_env()) {
   } else if (!is.character(prudence)) {
     cli::cli_abort("{.arg prudence} must be an unnamed character vector or a named numeric vector", call = call)
   } else {
+    if (identical(prudence, "frugal")) {
+      lifecycle::deprecate_warn("1.0.0",
+        I('Use `prudence = "stingy"` instead, `prudence = "frugal"`'),
+        always = TRUE,
+        env = call
+      )
+      prudence <- "stingy"
+    }
+    # Can't change second argument to arg_match() here
     prudence <- arg_match(prudence, c("lavish", "stingy", "thrifty"), error_call = call)
 
     allow_materialization <- !identical(prudence, "stingy")
@@ -1628,8 +1697,6 @@ prudence_parse <- function(prudence, call = caller_env()) {
 
   list(
     prudence = prudence,
-    # FIXME: Remove allow_materialization with duckdb >= 1.2.0
-    allow_materialization = allow_materialization,
     n_rows = n_rows,
     n_cells = n_cells
   )
@@ -1701,31 +1768,33 @@ duckplyr_execute <- function(sql) {
 #' For such objects,
 #' dplyr verbs such as [mutate()], [select()] or [filter()]  will use DuckDB.
 #'
-#' `duckdb_tibble()` works like [tibble()], returning a lavish duckplyr data frame by default.
-#' See `vignette("prudence")` for details.
+#' `duckdb_tibble()` works like [tibble()].
 #'
 #' @param ... For `duckdb_tibble()`, passed on to [tibble()].
 #'   For `as_duckdb_tibble()`, passed on to methods.
-#' @param .prudence,prudence Either a string:
-#'   - `"stingy"`:  a stingy data frame,
-#'   - `"lavish"`: a lavish data frame,
-#'   - `"thrifty"`: allow the materialization up to a maximum size of 1 million cells.
+#' @param prudence,.prudence Memory protection, controls if DuckDB may convert
+#'   intermediate results in DuckDB-managed memory to data frames in R memory.
 #'
-#' Or a named vector with at least one of
-#'   - `cells` (numeric)
-#'   - `rows` (numeric)
+#'   - `"lavish"`: regardless of size,
+#'   - `"stingy"`: never,
+#'   - `"thrifty"`: up to a maximum size of 1 million cells.
 #'
-#' to allow materialization for data up to a certain size,
-#' measured in cells (values) and rows in the resulting data frame.
+#' The default is `"lavish"` for `duckdb_tibble()` and `as_duckdb_tibble()`,
+#' and may be different for other functions.
+#' See `vignette("prudence")` for more information.
+#'
+#' @section Fine-tuning prudence:
+#' `r lifecycle::badge("experimental")`
+#'
+#' The `prudence` argument can also be a named numeric vector
+#' with at least one of `cells` or `rows`
+#' to limit the cells (values) and rows in the resulting data frame
+#' after automatic materialization.
+#' If both limits are specified, both are enforced.
 #' The equivalent of `"thrifty"` is `c(cells = 1e6)`.
 #'
-#' If `cells` is specified but not `rows`, `rows` is `Inf`.
-#' If `rows` is specified but not `cells`, `cells` is `Inf`.
-#'
-#' The default is to inherit the prudence of the input.
-#'
 #' @return For `duckdb_tibble()` and `as_duckdb_tibble()`, an object with the following classes:
-#'   - `"prudent_duckplyr_df"` if `.prudence` is not `"lavish"`
+#'   - `"prudent_duckplyr_df"` if `prudence` is not `"lavish"`
 #'   - `"duckplyr_df"`
 #'   - Classes of a [tibble]
 #'
@@ -1864,10 +1933,15 @@ is_duckdb_tibble <- function(x) {
 #' The \pkg{duckplyr} package relies on a DBI connection
 #' to an in-memory database.
 #' The `db_exec()` function allows running SQL statements
-#' with this connection to, e.g., set up credentials
+#' with side effects on this connection.
+#' It can be used to execute statements that start with
+#' `PRAGMA`, `SET`, or `ATTACH`
+#' to, e.g., set up credentials, change configuration options,
 #' or attach other databases.
 #' See <https://duckdb.org/docs/configuration/overview.html>
-#' for more information on the configuration options.
+#' for more information on the configuration options,
+#' and <https://duckdb.org/docs/sql/statements/attach.html>
+#' for attaching databases.
 #'
 #' @seealso [read_sql_duckdb()]
 #'
@@ -1901,6 +1975,8 @@ db_exec <- function(sql, ..., con = NULL) {
 #' than `print()`, and is more focused on human readable output than `str()`.
 #'
 #' @inheritParams dplyr::explain
+#'
+#' @return The input, invisibly.
 #' @examples
 #' library(duckplyr)
 #' df <- duckdb_tibble(x = c(1, 2))
@@ -1947,7 +2023,7 @@ duckplyr_explain <- function(.data, ...) {
 # begin R/filter-rd.R
 #' @title Keep rows that match a condition
 #'
-#' @description  This is a method for the [dplyr::select()] generic.
+#' @description  This is a method for the [dplyr::filter()] generic.
 #' See "Fallbacks" section for differences in implementation.
 #' The `filter()` function is used to subset a data frame,
 #' retaining all rows that satisfy your conditions.
@@ -1980,13 +2056,13 @@ filter.data.frame <- function(.data, ..., .by = NULL, .preserve = FALSE) {
 
   duckplyr_error <- rel_try(list(name = "filter", x = .data, args = try_list(dots = dots, by = by, preserve = .preserve)),
     #' @section Fallbacks:
-    #' You cannot use `filter.duckplyr_df()`
+    #' There is no DuckDB translation in `filter.duckplyr_df()`
     #' - with no filter conditions,
     #' - nor for a grouped operation (if `.by` is set).
     #'
-    #' If you do the code will fall back to `dplyr::filter()` without any error.
+    #' These features fall back to [dplyr::filter()], see `vignette("fallback")` for details.
     "Can't use relational without filter conditions." = (length(dots) == 0),
-    "{.code filter(by = ...)} not implemented, try {.code mutate(by = ...)} followed by a simple {.code filter()}." = (!quo_is_null(by)), # (length(by$names) > 0),
+    "{.code filter(.by = ...)} not implemented, try {.code mutate(.by = ...)} followed by a simple {.code filter()}." = (!quo_is_null(by)), # (length(by$names) > 0),
     {
       rel <- duckdb_rel_from_df(.data)
       exprs <- rel_translate_dots(dots, .data)
@@ -2045,7 +2121,7 @@ duckplyr_filter <- function(.data, ...) {
 #'
 #' Provides a variant of `nycflights13::flights` that is compatible with duckplyr,
 #' as a tibble:
-#' the timezone has been set to UTC to work around a current limitation of duckplyr, see `vignette("limits.html")`.
+#' the timezone has been set to UTC to work around a current limitation of duckplyr, see `vignette("limits")`.
 #' Call [as_duckdb_tibble()] to enable duckplyr operations.
 #'
 #' @export
@@ -2091,15 +2167,15 @@ full_join.data.frame <- function(x, y, by = NULL, copy = FALSE, suffix = c(".x",
   # Our implementation
   duckplyr_error <- rel_try(list(name = "full_join", x = x, y = y, args = try_list(by = if (!is.null(by) && !is_cross_by(by)) as_join_by(by), copy = copy, keep = keep, na_matches = na_matches, multiple = multiple, relationship = relationship)),
     #' @section Fallbacks:
-    #' You cannot use `full_join.duckplyr_df()`
+    #' There is no DuckDB translation in `full_join.duckplyr_df()`
     #' - for an implicit cross join,
     #' - for a value of the `multiple` argument that isn't the default `"all"`.
     #'
-    #' If you do the code will fall back to `dplyr::full_join()` without any error.
+    #' These features fall back to [dplyr::full_join()], see `vignette("fallback")` for details.
     "No implicit cross joins for {.code full_join()}" = is_cross_by(by),
     "{.arg multiple} not supported" = !identical(multiple, "all"),
     {
-      out <- rel_join_impl(x, y, by, "full", na_matches, suffix, keep, relationship, error_call)
+      out <- rel_join_impl(x, y, by, "full", na_matches, suffix, keep, error_call)
       return(out)
     }
   )
@@ -3271,17 +3347,17 @@ inner_join.data.frame <- function(x, y, by = NULL, copy = FALSE, suffix = c(".x"
   # Our implementation
   duckplyr_error <- rel_try(list(name = "inner_join", x = x, y = y, args = try_list(by = if (!is.null(by) && !is_cross_by(by)) as_join_by(by), copy = copy, keep = keep, na_matches = na_matches, multiple = multiple, unmatched = unmatched, relationship = relationship)),
     #' @section Fallbacks:
-    #' You cannot use `inner_join.duckplyr_df()`
+    #' There is no DuckDB translation in `inner_join.duckplyr_df()`
     #' - for an implicit crossjoin,
     #' - for a value of the `multiple` argument that isn't the default `"all"`.
     #' - for a value of the `unmatched` argument that isn't the default `"drop"`.
     #'
-    #' If you do the code will fall back to `dplyr::inner_join()` without any error.
+    #' These features fall back to [dplyr::inner_join()], see `vignette("fallback")` for details.
     "No implicit cross joins for {.code inner_join()}" = is_cross_by(by),
     "{.arg multiple} not supported" = !identical(multiple, "all"),
     "{.arg unmatched} not supported" = !identical(unmatched, "drop"),
     {
-      out <- rel_join_impl(x, y, by, "inner", na_matches, suffix, keep, relationship, error_call)
+      out <- rel_join_impl(x, y, by, "inner", na_matches, suffix, keep, error_call)
       return(out)
     }
   )
@@ -3365,11 +3441,11 @@ intersect.data.frame <- function(x, y, ...) {
 
   duckplyr_error <- rel_try(list(name = "intersect", x = x, y = y),
     #' @section Fallbacks:
-    #' You cannot use `intersect.duckplyr_df()`
+    #' There is no DuckDB translation in `intersect.duckplyr_df()`
     #' - if column names are duplicated in one of the tables,
     #' - if column names are different in both tables.
     #'
-    #' If you do the code will fall back to `dplyr::intersect()` without any error.
+    #' These features fall back to [dplyr::intersect()], see `vignette("fallback")` for details.
     "No duplicate names" = !identical(x_names, y_names) && anyDuplicated(x_names) && anyDuplicated(y_names),
     "Tables of different width" = length(x_names) != length(y_names),
     "Name mismatch" = !identical(x_names, y_names) && !all(y_names %in% x_names),
@@ -3646,158 +3722,6 @@ df_to_parquet <- function(data, path) {
 # end R/io-parquet.R
 
 
-# begin R/io2.R
-#' Read Parquet, CSV, and other files using DuckDB
-#'
-#' @description
-#' These functions ingest data from a file.
-#' In many cases, these functions return immediately because they only read the metadata.
-#' The actual data is only read when it is actually processed.
-#'
-#' @name read_file_duckdb
-NULL
-
-#' @description
-#' `read_parquet_duckdb()` reads a CSV file using DuckDB's `read_parquet()` table function.
-#'
-#' @rdname read_file_duckdb
-#' @export
-read_parquet_duckdb <- function(path, ..., prudence = c("thrifty", "lavish", "stingy"), options = list()) {
-  check_dots_empty()
-
-  read_file_duckdb(path, "read_parquet", prudence = prudence, options = options)
-}
-
-#' @description
-#' `read_csv_duckdb()` reads a CSV file using DuckDB's `read_csv_auto()` table function.
-#'
-#' @rdname read_file_duckdb
-#' @export
-#' @examples
-#' # Create simple CSV file
-#' path <- tempfile("duckplyr_test_", fileext = ".csv")
-#' write.csv(data.frame(a = 1:3, b = letters[4:6]), path, row.names = FALSE)
-#'
-#' # Reading is immediate
-#' df <- read_csv_duckdb(path)
-#'
-#' # Names are always available
-#' names(df)
-#'
-#' # Materialization upon access is turned off by default
-#' try(print(df$a))
-#'
-#' # Materialize explicitly
-#' collect(df)$a
-#'
-#' # Automatic materialization with prudence = "lavish"
-#' df <- read_csv_duckdb(path, prudence = "lavish")
-#' df$a
-#'
-#' # Specify column types
-#' read_csv_duckdb(
-#'   path,
-#'   options = list(delim = ",", types = list(c("DOUBLE", "VARCHAR")))
-#' )
-read_csv_duckdb <- function(path, ..., prudence = c("thrifty", "lavish", "stingy"), options = list()) {
-  check_dots_empty()
-
-  read_file_duckdb(path, "read_csv_auto", prudence = prudence, options = options)
-}
-
-#' @description
-#' `read_json_duckdb()` reads a JSON file using DuckDB's `read_json()` table function.
-#'
-#' @rdname read_file_duckdb
-#' @export
-#' @examples
-#'
-#' # Create and read a simple JSON file
-#' path <- tempfile("duckplyr_test_", fileext = ".json")
-#' writeLines('[{"a": 1, "b": "x"}, {"a": 2, "b": "y"}]', path)
-#'
-#' # Reading needs the json extension
-#' db_exec("INSTALL json")
-#' db_exec("LOAD json")
-#' read_json_duckdb(path)
-read_json_duckdb <- function(path, ..., prudence = c("thrifty", "lavish", "stingy"), options = list()) {
-  check_dots_empty()
-
-  read_file_duckdb(path, "read_json", prudence = prudence, options = options)
-}
-
-#' @description
-#' `read_file_duckdb()` uses arbitrary readers to read data.
-#' See <https://duckdb.org/docs/data/overview> for a documentation
-#' of the available functions and their options.
-#' To read multiple files with the same schema,
-#' pass a wildcard or a character vector to the `path` argument,
-#'
-#' @inheritParams rlang::args_dots_empty
-#'
-#' @param path Path to files, glob patterns `*` and `?` are supported.
-#' @param table_function The name of a table-valued
-#'   DuckDB function such as `"read_parquet"`,
-#'   `"read_csv"`, `"read_csv_auto"` or `"read_json"`.
-#' @param prudence Logical, whether to create a stingy duckplyr frame.
-#'   By default, a stingy duckplyr frame, with a limit of one million cells, is created.
-#'   See `vignette("prudence")` for details.
-#' @param options Arguments to the DuckDB function
-#'   indicated by `table_function`.
-#'
-#' @return A duckplyr frame, see [as_duckdb_tibble()] for details.
-#'
-#' @rdname read_file_duckdb
-#' @export
-read_file_duckdb <- function(
-  path,
-  table_function,
-  ...,
-  prudence = c("thrifty", "lavish", "stingy"),
-  options = list()
-) {
-  check_dots_empty()
-
-  if (!rlang::is_character(path)) {
-    cli::cli_abort("{.arg path} must be a character vector.")
-  }
-
-  if (length(path) != 1) {
-    path <- list(path)
-  }
-
-  duckfun(table_function, c(list(path), options), prudence = prudence)
-}
-
-duckfun <- function(table_function, args, ..., prudence) {
-  if (!is.list(args)) {
-    cli::cli_abort("{.arg args} must be a list.")
-  }
-  if (length(args) == 0) {
-    cli::cli_abort("{.arg args} must not be empty.")
-  }
-
-  # FIXME: For some reason, it's important to create an alias here
-  con <- get_default_duckdb_connection()
-
-  # FIXME: Provide better duckdb API
-  path <- args[[1]]
-  options <- args[-1]
-
-  rel <- duckdb$rel_from_table_function(
-    con,
-    table_function,
-    list(path),
-    options
-  )
-
-  meta_rel_register_file(rel, table_function, path, options)
-
-  rel_to_df(rel, prudence = prudence)
-}
-# end R/io2.R
-
-
 # begin R/is_duckplyr_df.R
 #' Class predicate for duckplyr data frames
 #'
@@ -3837,7 +3761,6 @@ rel_join_impl <- function(
   na_matches,
   suffix = c(".x", ".y"),
   keep = NULL,
-  relationship = NULL,
   error_call = caller_env()
 ) {
   mutating <- !(join %in% c("semi", "anti"))
@@ -3855,10 +3778,6 @@ rel_join_impl <- function(
     by <- join_by_common(x_names, y_names, error_call = error_call)
   } else {
     by <- as_join_by(by, error_call = error_call)
-  }
-
-  if (mutating) {
-    check_relationship(relationship, x, y, by, error_call = error_call)
   }
 
   x_by <- by$x
@@ -3972,65 +3891,6 @@ rel_join_impl <- function(
 
   return(out)
 }
-
-check_relationship <- function(relationship, x, y, by, error_call) {
-  if (is_null(relationship)) {
-    # FIXME: Determine behavior based on option
-    if (!is_key(x, by$x) && !is_key(y, by$y)) {
-      warn_join(
-        message = c(
-          "Detected an unexpected many-to-many relationship between `x` and `y`.",
-          i = paste0(
-            "If a many-to-many relationship is expected, ",
-            "set `relationship = \"many-to-many\"` to silence this warning."
-          )
-        ),
-        class = "dplyr_warning_join_relationship_many_to_many",
-        call = error_call
-      )
-    }
-    return()
-  }
-
-  if (relationship %in% c("one-to-many", "one-to-one")) {
-    if (!is_key(x, by$x)) {
-      stop_join(
-        message = c(
-          glue("Each row in `{x_name}` must match at most 1 row in `{y_name}`."),
-        ),
-        class = paste0("dplyr_error_join_relationship_", gsub("-", "_", relationship)),
-        call = error_call
-      )
-    }
-  }
-
-  if (relationship %in% c("many-to-one", "one-to-one")) {
-    if (!is_key(y, by$y)) {
-      stop_join(
-        message = c(
-          glue("Each row in `{y_name}` must match at most 1 row in `{x_name}`."),
-        ),
-        class = paste0("dplyr_error_join_relationship_", gsub("-", "_", relationship)),
-        call = error_call
-      )
-    }
-  }
-}
-
-is_key <- function(x, cols) {
-  local_options(duckdb.materialize_message = FALSE)
-
-  rows <-
-    x %>%
-    # FIXME: Why does this materialize
-    # as_duckplyr_tibble() %>%
-    summarize(.by = c(!!!syms(cols)), `___n` = n()) %>%
-    filter(`___n` > 1L) %>%
-    head(1L) %>%
-    nrow()
-
-  rows == 0
-}
 # end R/join.R
 
 
@@ -4110,18 +3970,18 @@ left_join.data.frame <- function(x, y, by = NULL, copy = FALSE, suffix = c(".x",
   # Our implementation
   duckplyr_error <- rel_try(list(name = "left_join", x = x, y = y, args = try_list(by = if (!is.null(by) && !is_cross_by(by)) as_join_by(by), copy = copy, keep = keep, na_matches = na_matches, multiple = multiple, unmatched = unmatched, relationship = relationship)),
     #' @section Fallbacks:
-    #' You cannot use `left_join.duckplyr_df()`
+    #' There is no DuckDB translation in `left_join.duckplyr_df()`
     #' - for an implicit cross join,
     #' - for a value of the `multiple` argument that isn't the default `"all"`.
     #' - for a value of the `unmatched` argument that isn't the default `"drop"`.
     #'
-    #' If you do the code will fall back to `dplyr::left_join()` without any error.
+    #' These features fall back to [dplyr::left_join()], see `vignette("fallback")` for details.
 
     "No implicit cross joins for {.code left_join()}" = is_cross_by(by),
     "{.arg multiple} not supported" = !identical(multiple, "all"),
     "{.arg unmatched} not supported" = !identical(unmatched, "drop"),
     {
-      out <- rel_join_impl(x, y, by, "left", na_matches, suffix, keep, relationship, error_call)
+      out <- rel_join_impl(x, y, by, "left", na_matches, suffix, keep, error_call)
       return(out)
     }
   )
@@ -4787,10 +4647,10 @@ pull.data.frame <- function(.data, var = -1, name = NULL, ...) {
 
   duckplyr_error <- rel_try(list(name = "pull", .data = .data),
     #' @section Fallbacks:
-    #' You cannot use `pull.duckplyr_df()`
+    #' There is no DuckDB translation in `pull.duckplyr_df()`
     #' - with a selection that returns no columns.
     #'
-    #' If you do the code will fall back to `dplyr::pull()` without any error.
+    #' These features fall back to [dplyr::pull()], see `vignette("fallback")` for details.
     "Zero-column result set not supported." = (length(exprs) == 0),
     {
       rel <- duckdb_rel_from_df(.data)
@@ -4829,6 +4689,189 @@ duckplyr_pull <- function(.data, ...) {
   out
 }
 # end R/pull.R
+
+
+# begin R/read_csv_duckdb.R
+#' Read CSV files using DuckDB
+#'
+#' @description
+#' `read_csv_duckdb()` reads a CSV file using DuckDB's `read_csv_auto()` table function.
+#'
+#' @inheritParams read_file_duckdb
+#' @param options Arguments to the DuckDB `read_csv_auto` table function.
+#'
+#' @seealso [read_parquet_duckdb()], [read_json_duckdb()]
+#'
+#' @export
+#' @examples
+#' # Create simple CSV file
+#' path <- tempfile("duckplyr_test_", fileext = ".csv")
+#' write.csv(data.frame(a = 1:3, b = letters[4:6]), path, row.names = FALSE)
+#'
+#' # Reading is immediate
+#' df <- read_csv_duckdb(path)
+#'
+#' # Names are always available
+#' names(df)
+#'
+#' # Materialization upon access is turned off by default
+#' try(print(df$a))
+#'
+#' # Materialize explicitly
+#' collect(df)$a
+#'
+#' # Automatic materialization with prudence = "lavish"
+#' df <- read_csv_duckdb(path, prudence = "lavish")
+#' df$a
+#'
+#' # Specify column types
+#' read_csv_duckdb(
+#'   path,
+#'   options = list(delim = ",", types = list(c("DOUBLE", "VARCHAR")))
+#' )
+read_csv_duckdb <- function(path, ..., prudence = c("thrifty", "lavish", "stingy"), options = list()) {
+  check_dots_empty()
+
+  read_file_duckdb(path, "read_csv_auto", prudence = prudence, options = options)
+}
+# end R/read_csv_duckdb.R
+
+
+# begin R/read_file_duckdb.R
+#' Read files using DuckDB
+#'
+#' @description
+#' `read_file_duckdb()` uses arbitrary readers to read data.
+#' See <https://duckdb.org/docs/data/overview> for a documentation
+#' of the available functions and their options.
+#' To read multiple files with the same schema,
+#' pass a wildcard or a character vector to the `path` argument,
+#'
+#' @inheritParams rlang::args_dots_empty
+#'
+#' @param path Path to files, glob patterns `*` and `?` are supported.
+#' @param table_function The name of a table-valued
+#'   DuckDB function such as `"read_parquet"`,
+#'   `"read_csv"`, `"read_csv_auto"` or `"read_json"`.
+#' @param prudence Memory protection, controls if DuckDB may convert
+#'   intermediate results in DuckDB-managed memory to data frames in R memory.
+#'
+#'   - `"thrifty"`: up to a maximum size of 1 million cells,
+#'   - `"lavish"`: regardless of size,
+#'   - `"stingy"`: never.
+#'
+#' The default is `"thrifty"` for the ingestion functions,
+#' and may be different for other functions.
+#' See `vignette("prudence")` for more information.
+#'
+#' @param options Arguments to the DuckDB function
+#'   indicated by `table_function`.
+#'
+#' @inheritSection duckdb_tibble Fine-tuning prudence
+#'
+#' @return A duckplyr frame, see [as_duckdb_tibble()] for details.
+#'
+#' @seealso [read_csv_duckdb()], [read_parquet_duckdb()], [read_json_duckdb()]
+#'
+#' @rdname read_file_duckdb
+#' @export
+read_file_duckdb <- function(
+  path,
+  table_function,
+  ...,
+  prudence = c("thrifty", "lavish", "stingy"),
+  options = list()
+) {
+  check_dots_empty()
+
+  if (!rlang::is_character(path)) {
+    cli::cli_abort("{.arg path} must be a character vector.")
+  }
+
+  if (length(path) != 1) {
+    path <- list(path)
+  }
+
+  duckfun(table_function, c(list(path), options), prudence = prudence)
+}
+
+duckfun <- function(table_function, args, ..., prudence) {
+  if (!is.list(args)) {
+    cli::cli_abort("{.arg args} must be a list.")
+  }
+  if (length(args) == 0) {
+    cli::cli_abort("{.arg args} must not be empty.")
+  }
+
+  # FIXME: For some reason, it's important to create an alias here
+  con <- get_default_duckdb_connection()
+
+  # FIXME: Provide better duckdb API
+  path <- args[[1]]
+  options <- args[-1]
+
+  rel <- duckdb$rel_from_table_function(
+    con,
+    table_function,
+    list(path),
+    options
+  )
+
+  meta_rel_register_file(rel, table_function, path, options)
+
+  rel_to_df(rel, prudence = prudence)
+}
+# end R/read_file_duckdb.R
+
+
+# begin R/read_json_duckdb.R
+#' Read JSON files using DuckDB
+#'
+#' @description
+#' `read_json_duckdb()` reads a JSON file using DuckDB's `read_json()` table function.
+#'
+#' @inheritParams read_file_duckdb
+#' @param options Arguments to the DuckDB `read_json` table function.
+#'
+#' @seealso [read_csv_duckdb()], [read_parquet_duckdb()]
+#'
+#' @export
+#' @examplesIf identical(Sys.getenv("IN_PKGDOWN"), "TRUE")
+#'
+#' # Create and read a simple JSON file
+#' path <- tempfile("duckplyr_test_", fileext = ".json")
+#' writeLines('[{"a": 1, "b": "x"}, {"a": 2, "b": "y"}]', path)
+#'
+#' # Reading needs the json extension
+#' db_exec("INSTALL json")
+#' db_exec("LOAD json")
+#' read_json_duckdb(path)
+read_json_duckdb <- function(path, ..., prudence = c("thrifty", "lavish", "stingy"), options = list()) {
+  check_dots_empty()
+
+  read_file_duckdb(path, "read_json", prudence = prudence, options = options)
+}
+# end R/read_json_duckdb.R
+
+
+# begin R/read_parquet_duckdb.R
+#' Read Parquet files using DuckDB
+#'
+#' @description
+#' `read_parquet_duckdb()` reads a Parquet file using DuckDB's `read_parquet()` table function.
+#'
+#' @inheritParams read_file_duckdb
+#' @param options Arguments to the DuckDB `read_parquet` table function.
+#'
+#' @seealso [read_csv_duckdb()], [read_json_duckdb()]
+#'
+#' @export
+read_parquet_duckdb <- function(path, ..., prudence = c("thrifty", "lavish", "stingy"), options = list()) {
+  check_dots_empty()
+
+  read_file_duckdb(path, "read_parquet", prudence = prudence, options = options)
+}
+# end R/read_parquet_duckdb.R
 
 
 # begin R/reframe.R
@@ -4974,7 +5017,7 @@ duckplyr_macros <- c(
   #
   "___divide" = "(x, y) AS CASE WHEN y = 0 THEN CASE WHEN x = 0 THEN CAST('NaN' AS double) WHEN x > 0 THEN CAST('+Infinity' AS double) ELSE CAST('-Infinity' AS double) END ELSE CAST(x AS double) / y END",
   #
-  "is.na" = "(x) AS (x IS NULL OR isnan(x))",
+  "is.na" = "(x) AS (x IS NULL)",
   "n" = "() AS CAST(COUNT(*) AS int32)",
   #
   "___log10" = "(x) AS CASE WHEN x < 0 THEN CAST('NaN' AS double) WHEN x = 0 THEN CAST('-Inf' AS double) ELSE log10(x) END",
@@ -5001,16 +5044,11 @@ duckplyr_macros <- c(
   # FIXME: Need a better way?
   "suppressWarnings" = "(x) AS (x)",
   #
-  "___sum" = "(x) AS (CASE WHEN COUNT(x) = 0 THEN 0 ELSE SUM(x) END)",
-  "___sum_na" = "(x) AS (CASE WHEN SUM(CASE WHEN x IS NULL THEN 1 ELSE 0 END) > 0 THEN NULL ELSE CASE WHEN COUNT(x) = 0 THEN 0 ELSE SUM(x) END END)",
-  "___min" = "(x) AS MIN(x)",
+  "___sum_na" = "(x) AS (CASE WHEN SUM(CASE WHEN x IS NULL THEN 1 ELSE 0 END) > 0 THEN NULL ELSE SUM(x) END)",
   "___min_na" = "(x) AS (CASE WHEN SUM(CASE WHEN x IS NULL THEN 1 ELSE 0 END) > 0 THEN NULL ELSE MIN(x) END)",
-  "___max" = "(x) AS MAX(x)",
   "___max_na" = "(x) AS (CASE WHEN SUM(CASE WHEN x IS NULL THEN 1 ELSE 0 END) > 0 THEN NULL ELSE MAX(x) END)",
-  "___any" = "(x) AS (CASE WHEN COUNT(x) = 0 THEN FALSE ELSE bool_or(x) END)",
-  "___any_na" = "(x) AS (CASE WHEN SUM(CASE WHEN x IS NULL THEN 1 ELSE 0 END) > 0 THEN NULL ELSE CASE WHEN COUNT(x) = 0 THEN FALSE ELSE bool_or(x) END END)",
-  "___all" = "(x) AS (CASE WHEN COUNT(x) = 0 THEN TRUE ELSE bool_and(x) END)",
-  "___all_na" = "(x) AS (CASE WHEN SUM(CASE WHEN x IS NULL THEN 1 ELSE 0 END) > 0 THEN NULL ELSE CASE WHEN COUNT(x) = 0 THEN TRUE ELSE bool_and(x) END END)",
+  "___any_na" = "(x) AS (CASE WHEN SUM(CASE WHEN x IS NULL THEN 1 ELSE 0 END) > 0 THEN NULL ELSE bool_or(x) END)",
+  "___all_na" = "(x) AS (CASE WHEN SUM(CASE WHEN x IS NULL THEN 1 ELSE 0 END) > 0 THEN NULL ELSE bool_and(x) END)",
   "___mean_na" = "(x) AS (CASE WHEN SUM(CASE WHEN x IS NULL THEN 1 ELSE 0 END) > 0 THEN NULL ELSE AVG(x) END)",
   "___sd_na" = "(x) AS (CASE WHEN SUM(CASE WHEN x IS NULL THEN 1 ELSE 0 END) > 0 THEN NULL ELSE STDDEV(x) END)",
   "___median_na" = "(x) AS (CASE WHEN SUM(CASE WHEN x IS NULL THEN 1 ELSE 0 END) > 0 THEN NULL ELSE percentile_cont(0.5) WITHIN GROUP (ORDER BY x) END)",
@@ -5038,7 +5076,7 @@ create_default_duckdb_connection <- function() {
   con
 }
 
-duckdb_rel_from_df <- function(df) {
+duckdb_rel_from_df <- function(df, call = caller_env()) {
   # FIXME: make generic
   stopifnot(is.data.frame(df))
 
@@ -5060,7 +5098,7 @@ duckdb_rel_from_df <- function(df) {
     df <- as_duckplyr_df_impl(df)
   }
 
-  out <- check_df_for_rel(df)
+  out <- check_df_for_rel(df, call)
 
   meta_rel_register_df(out, df)
 
@@ -5139,14 +5177,6 @@ check_df_for_rel <- function(df, call = caller_env()) {
       if (!identical(df_attrib, roundtrip_attrib)) {
         cli::cli_abort("Attributes are lost during conversion. Affected column: {.var {names(df)[[i]]}}.", call = call)
       }
-      # Always check roundtrip for timestamp columns
-      # duckdb uses microsecond precision only, this is in some cases
-      # less than R does
-      if (inherits(df[[i]], "POSIXct")) {
-        if (!identical(df[[i]], roundtrip[[i]])) {
-          cli::cli_abort("Imperfect roundtrip. Affected column: {.var {names(df)[[i]]}}.", call = call)
-        }
-      }
     }
   }
 
@@ -5180,8 +5210,6 @@ rel_to_df.duckdb_relation <- function(
   prudence_parsed <- prudence_parse(prudence)
   out <- duckdb$rel_to_altrep(
     rel,
-    # FIXME: Remove allow_materialization with duckdb >= 1.2.0
-    allow_materialization = prudence_parsed$allow_materialization,
     n_rows = prudence_parsed$n_rows,
     n_cells = prudence_parsed$n_cells
   )
@@ -6094,7 +6122,7 @@ rel_try <- function(call, rel, ...) {
         if (Sys.getenv("DUCKPLYR_FALLBACK_INFO") == "TRUE") {
           inform(message = c(
             "Cannot process duckplyr query with DuckDB, falling back to dplyr.",
-            i = message
+            i = cli::format_inline(message)
           ))
         }
         if (Sys.getenv("DUCKPLYR_FORCE") == "TRUE") {
@@ -6240,10 +6268,10 @@ relocate.data.frame <- function(.data, ..., .before = NULL, .after = NULL) {
   # Ensure `relocate()` appears in call stack
   duckplyr_error <- rel_try(list(name = "relocate", x = .data, args = try_list(dots = enquos(...), .before = enquo(.before), .after = enquo(.after))),
     #' @section Fallbacks:
-    #' You cannot use `relocate.duckplyr_df()`
+    #' There is no DuckDB translation in `relocate.duckplyr_df()`
     #' - with a selection that returns no columns.
     #'
-    #' If you do the code will fall back to `dplyr::relocate()` without any error.
+    #' These features fall back to [dplyr::relocate()], see `vignette("fallback")` for details.
     "Zero-column result set not supported." = (length(exprs) == 0),
     {
       rel <- duckdb_rel_from_df(.data)
@@ -6325,10 +6353,10 @@ rename.data.frame <- function(.data, ...) {
 
   duckplyr_error <- rel_try(list(name = "rename", x = .data, args = try_list(dots = enquos(...))),
     #' @section Fallbacks:
-    #' You cannot use `rename.duckplyr_df()`
+    #' There is no DuckDB translation in `rename.duckplyr_df()`
     #' - with a selection that returns no columns.
     #'
-    #' If you do the code will fall back to `dplyr::rename()` without any error.
+    #' These features fall back to [dplyr::rename()], see `vignette("fallback")` for details.
     "Zero-column result set not supported." = (length(exprs) == 0),
     {
       rel <- duckdb_rel_from_df(.data)
@@ -6456,17 +6484,17 @@ right_join.data.frame <- function(x, y, by = NULL, copy = FALSE, suffix = c(".x"
   # Our implementation
   duckplyr_error <- rel_try(list(name = "right_join", x = x, y = y, args = try_list(by = if (!is.null(by) && !is_cross_by(by)) as_join_by(by), copy = copy, keep = keep, na_matches = na_matches, multiple = multiple, unmatched = unmatched, relationship = relationship)),
     #' @section Fallbacks:
-    #' You cannot use `right_join.duckplyr_df()`
+    #' There is no DuckDB translation in `right_join.duckplyr_df()`
     #' - for an implicit cross join,
     #' - for a value of the `multiple` argument that isn't the default `"all"`.
     #' - for a value of the `unmatched` argument that isn't the default `"drop"`.
     #'
-    #' If you do the code will fall back to `dplyr::right_join()` without any error.
+    #' These features fall back to [dplyr::right_join()], see `vignette("fallback")` for details.
     "No implicit cross joins for {.code right_join()}" = is_cross_by(by),
     "{.arg multiple} not supported" = !identical(multiple, "all"),
     "{.arg unmatched} not supported" = !identical(unmatched, "drop"),
     {
-      out <- rel_join_impl(x, y, by, "right", na_matches, suffix, keep, relationship, error_call)
+      out <- rel_join_impl(x, y, by, "right", na_matches, suffix, keep, error_call)
       return(out)
     }
   )
@@ -7046,11 +7074,11 @@ select.data.frame <- function(.data, ...) {
     # We could count and create a zero-col data frame, but we can't
     # create a duckplyr frame from it anyway.
     #' @section Fallbacks:
-    #' You cannot use `select.duckplyr_df()`
+    #' There is no DuckDB translation in `select.duckplyr_df()`
     #' - with no expression,
     #' - nor with a selection that returns no columns.
     #'
-    #' If you do the code will fall back to `dplyr::select()` without any error.
+    #' These features fall back to [dplyr::select()], see `vignette("fallback")` for details.
     "Zero-column result set not supported." = (length(exprs) == 0),
     {
       rel <- duckdb_rel_from_df(.data)
@@ -7203,11 +7231,11 @@ setdiff.data.frame <- function(x, y, ...) {
 
   duckplyr_error <- rel_try(list(name = "setdiff", x = x, y = y),
     #' @section Fallbacks:
-    #' You cannot use `setdiff.duckplyr_df()`
+    #' There is no DuckDB translation in `setdiff.duckplyr_df()`
     #' - if column names are duplicated in one of the tables,
     #' - if column names are different in both tables.
     #'
-    #' If you do the code will fall back to `dplyr::setdiff()` without any error.
+    #' These features fall back to [dplyr::setdiff()], see `vignette("fallback")` for details.
     "No duplicate names" = !identical(x_names, y_names) && anyDuplicated(x_names) && anyDuplicated(y_names),
     "Tables of different width" = length(x_names) != length(y_names),
     "Name mismatch" = !identical(x_names, y_names) && !all(y_names %in% x_names),
@@ -7615,10 +7643,10 @@ summarise.data.frame <- function(.data, ..., .by = NULL, .groups = NULL) {
 
   duckplyr_error <- rel_try(list(name = "summarise", x = .data, args = try_list(dots = enquos(...), by = syms(by), .groups = .groups)),
     #' @section Fallbacks:
-    #' You cannot use `summarise.duckplyr_df()`
+    #' There is no DuckDB translation in `summarise.duckplyr_df()`
     #' - with `.groups = "rowwise"`.
     #'
-    #' If you do the code will fall back to `dplyr::summarise()` without any error.
+    #' These features fall back to [dplyr::summarise()], see `vignette("fallback")` for details.
     '{.code summarise()} with {.arg .groups} = {.value "rowwise")} not supported' = identical(.groups, "rowwise"),
     {
       rel <- duckdb_rel_from_df(.data)
@@ -7752,11 +7780,11 @@ symdiff.data.frame <- function(x, y, ...) {
   duckplyr_error <- rel_try(list(name = "symdiff", x = x, y = y),
     "No duplicate names" = !identical(x_names, y_names) && anyDuplicated(x_names) && anyDuplicated(y_names),
     #' @section Fallbacks:
-    #' You cannot use `symdiff.duckplyr_df()`
+    #' There is no DuckDB translation in `symdiff.duckplyr_df()`
     #' - if column names are duplicated in one of the tables,
     #' - if column names are different in both tables.
     #'
-    #' If you do the code will fall back to `dplyr::symdiff()` without any error.
+    #' These features fall back to [dplyr::symdiff()], see `vignette("fallback")` for details.
     "No duplicate names" = !identical(x_names, y_names) && anyDuplicated(x_names) && anyDuplicated(y_names),
     "Tables of different width" = length(x_names) != length(y_names),
     "Name mismatch" = !identical(x_names, y_names) && !all(y_names %in% x_names),
@@ -7825,7 +7853,7 @@ rel_find_call <- function(fun, env, call = caller_env()) {
     # Fully qualified name, no check needed
     return(c(name[[2]], name[[3]]))
   } else if (length(name) != 1) {
-    cli::cli_abort("Can't translate function {.code {expr_deparse(fun)}}.")
+    cli::cli_abort("Can't translate function {.code {expr_deparse(fun)}}.", call = call)
   }
 
   # Order from https://docs.google.com/spreadsheets/d/1j3AFOKiAknTGpXU1uSH7JzzscgYjVbUEwmdRHS7268E/edit?gid=769885824#gid=769885824,
@@ -7915,7 +7943,7 @@ rel_find_call <- function(fun, env, call = caller_env()) {
   # Remember to update limits.Rmd when adding new functions!
 
   if (is.null(pkgs)) {
-    cli::cli_abort("No translation for function {.fun {name}}.")
+    cli::cli_abort("No translation for function {.fun {name}}.", call = call)
   }
 
   # https://github.com/tidyverse/dplyr/pull/7046
@@ -8010,8 +8038,7 @@ rel_translate_lang <- function(
       if (!is.null(pkg) && pkg != "lubridate") {
         cli::cli_abort("Don't know how to translate {.code {pkg}::{name}}.", call = call)
       }
-      def <- lubridate::wday
-      call <- call_match(expr, def, dots_env = env)
+      call <- call_match(expr, lubridate::wday, dots_env = env)
       args <- as.list(call[-1])
       bad <- !(names(args) %in% c("x"))
       if (any(bad)) {
@@ -8022,8 +8049,7 @@ rel_translate_lang <- function(
       }
     },
     "strftime" = {
-      def <- strftime
-      call <- call_match(expr, def, dots_env = env)
+      call <- call_match(expr, strftime, dots_env = env)
       args <- as.list(call[-1])
       bad <- !(names(args) %in% c("x", "format"))
       if (any(bad)) {
@@ -8149,11 +8175,13 @@ rel_translate_lang <- function(
     is_primitive <- (name %in% c("sum", "min", "max", "any", "all"))
 
     if (is_primitive) {
-      def <- function(..., na.rm = FALSE) {}
+      def_primitive <- function(..., na.rm = FALSE) {}
+      def <- def_primitive
       good_names <- c("", "na.rm")
       unnamed_args <- 1
     } else {
-      def <- function(x, ..., na.rm = FALSE) {}
+      def_regular <- function(x, ..., na.rm = FALSE) {}
+      def <- def_regular
       good_names <- c("x", "na.rm")
       unnamed_args <- 0
     }
@@ -8187,9 +8215,6 @@ rel_translate_lang <- function(
         aliased_name <- paste0("___", name, "_na") # ___sum_na, ___min_na, ___max_na
       } else if (!identical(na_rm, TRUE)) {
         cli::cli_abort("Invalid value for {.arg na.rm} in call to {.fun {name}}", call = call)
-      } else if (name %in% c("sum", "any", "all")) {
-        # Edge case: sum(integer()) is 0, not NA
-        aliased_name <- paste0("___", name)
       }
     }
 
@@ -8326,10 +8351,10 @@ transmute.data.frame <- function(.data, ...) {
 
   duckplyr_error <- rel_try(list(name = "transmute", x = .data, args = try_list(dots = enquos(...))),
     #' @section Fallbacks:
-    #' You cannot use `transmute.duckplyr_df()`
+    #' There is no DuckDB translation in `transmute.duckplyr_df()`
     #' - with a selection that returns no columns:
     #'
-    #' If you do the code will fall back to `dplyr::transmute()` without any error.
+    #' These features fall back to [dplyr::transmute()], see `vignette("fallback")` for details.
     "Zero-column result set not supported." = (length(dots) == 0),
     {
       exprs <- rel_translate_dots(dots, .data)
@@ -8531,11 +8556,11 @@ union_all.data.frame <- function(x, y, ...) {
   duckplyr_error <- rel_try(list(name = "union_all", x = x, y = y),
     "No duplicate names" = !identical(x_names, y_names) && anyDuplicated(x_names) && anyDuplicated(y_names),
     #' @section Fallbacks:
-    #' You cannot use `union_all.duckplyr_df()`
+    #' There is no DuckDB translation in `union_all.duckplyr_df()`
     #' - if column names are duplicated in one of the tables,
     #' - if column names are different in both tables.
     #'
-    #' If you do the code will fall back to `dplyr::union_all()` without any error.
+    #' These features fall back to [dplyr::union_all()], see `vignette("fallback")` for details.
     "No duplicate names" = !identical(x_names, y_names) && anyDuplicated(x_names) && anyDuplicated(y_names),
     "Tables of different width" = length(x_names) != length(y_names),
     "Name mismatch" = !identical(x_names, y_names) && !all(y_names %in% x_names),
