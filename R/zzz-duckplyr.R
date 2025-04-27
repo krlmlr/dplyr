@@ -5213,7 +5213,7 @@ create_default_duckdb_connection <- function() {
   dir.create(dbroot, recursive = TRUE, showWarnings = FALSE)
 
   drv <- duckdb::duckdb(dbdir = dbdir)
-  con <- DBI::dbConnect(drv)
+  con <- DBI::dbConnect(drv, timezone_out = "")
 
   DBI::dbExecute(con, paste0("pragma temp_directory='", dbroot, "'"))
 
@@ -5324,8 +5324,21 @@ check_df_for_rel <- function(df, call = caller_env()) {
     for (i in seq_along(df)) {
       df_attrib <- attributes(df[[i]])
       roundtrip_attrib <- attributes(roundtrip[[i]])
-      if (!identical(df_attrib, roundtrip_attrib)) {
-        cli::cli_abort("Attributes are lost during conversion. Affected column: {.var {names(df)[[i]]}}.", call = call)
+      df_attrib$tzone <- NULL
+      df_attrib$class <- NULL
+      if (length(df_attrib) == 0) {
+        df_attrib <- NULL
+      }
+      roundtrip_attrib$tzone <- NULL
+      roundtrip_attrib$class <- NULL
+      if (length(roundtrip_attrib) == 0) {
+        roundtrip_attrib <- NULL
+      }
+      if (!setequal(names(df_attrib), names(roundtrip_attrib))) {
+        cli::cli_abort("Different attribute sets during conversion. Affected column: {.var {names(df)[[i]]}}.", call = call)
+      }
+      if (!identical(df_attrib, roundtrip_attrib[names(df_attrib)])) {
+        cli::cli_abort("Attributes are changed during conversion. Affected column: {.var {names(df)[[i]]}}.", call = call)
       }
     }
   }
