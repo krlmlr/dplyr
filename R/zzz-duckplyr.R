@@ -5213,7 +5213,7 @@ create_default_duckdb_connection <- function() {
   dir.create(dbroot, recursive = TRUE, showWarnings = FALSE)
 
   drv <- duckdb::duckdb(dbdir = dbdir)
-  con <- DBI::dbConnect(drv, timezone_out = "")
+  con <- DBI::dbConnect(drv)
 
   DBI::dbExecute(con, paste0("pragma temp_directory='", dbroot, "'"))
 
@@ -5293,26 +5293,9 @@ check_df_for_rel <- function(df, call = caller_env()) {
 
     col_class <- class(col)
     if (length(col_class) == 1) {
-      valid <- col_class %in% c(
-        "logical",
-        "integer",
-        "numeric",
-        "character",
-        "raw",
-        "Date",
-        "difftime",
-        "factor",
-        "list",
-        "data.frame"
-      )
-    } else if (identical(col_class, c("POSIXct", "POSIXt"))) {
-      valid <- TRUE
-    } else if (identical(col_class, c("hms", "difftime"))) {
-      valid <- TRUE
-    } else if (identical(col_class, c("tbl_df", "tbl", "data.frame"))) {
-      valid <- TRUE
-    } else if (identical(col_class, c("blob", "vctrs_list_of", "vctrs_vctr", "list"))) {
-      valid <- TRUE
+      valid <- col_class %in% c("logical", "integer", "numeric", "character", "Date", "difftime")
+    } else if (length(col_class) == 2) {
+      valid <- identical(col_class, c("POSIXct", "POSIXt")) || identical(col_class, c("hms", "difftime"))
     } else {
       valid <- FALSE
     }
@@ -5341,21 +5324,8 @@ check_df_for_rel <- function(df, call = caller_env()) {
     for (i in seq_along(df)) {
       df_attrib <- attributes(df[[i]])
       roundtrip_attrib <- attributes(roundtrip[[i]])
-      df_attrib$tzone <- NULL
-      df_attrib$class <- NULL
-      if (length(df_attrib) == 0) {
-        df_attrib <- NULL
-      }
-      roundtrip_attrib$tzone <- NULL
-      roundtrip_attrib$class <- NULL
-      if (length(roundtrip_attrib) == 0) {
-        roundtrip_attrib <- NULL
-      }
-      if (!setequal(names(df_attrib), names(roundtrip_attrib))) {
-        cli::cli_abort("Different attribute sets during conversion. Affected column: {.var {names(df)[[i]]}}.", call = call)
-      }
-      if (!identical(df_attrib, roundtrip_attrib[names(df_attrib)])) {
-        cli::cli_abort("Attributes are changed during conversion. Affected column: {.var {names(df)[[i]]}}.", call = call)
+      if (!identical(df_attrib, roundtrip_attrib)) {
+        cli::cli_abort("Attributes are lost during conversion. Affected column: {.var {names(df)[[i]]}}.", call = call)
       }
     }
   }
