@@ -1,8 +1,8 @@
 ## revdepcheck results
 
-We checked 148 reverse dependencies, comparing R CMD check results across CRAN and dev versions of this package.
+We checked 28 reverse dependencies, comparing R CMD check results across CRAN and dev versions of this package.
 
- * We saw 28 new problems
+ * We saw 16 new problems
  * We failed to check 0 packages
 
 Issues with CRAN packages are summarised below.
@@ -13,13 +13,7 @@ Issues with CRAN packages are summarised below.
 * admiral
   checking tests ... ERROR
 
-* ARUtools
-  checking tests ... ERROR
-
 * BaHZING
-  checking tests ... ERROR
-
-* bayesmove
   checking tests ... ERROR
 
 * cytominer
@@ -28,27 +22,13 @@ Issues with CRAN packages are summarised below.
 * datacutr
   checking tests ... ERROR
 
-* dispositionEffect
-  checking tests ... ERROR
-
 * DrugExposureDiagnostics
   checking tests ... ERROR
-
-* EBASE
-  checking tests ... ERROR
-  checking re-building of vignette outputs ... ERROR
 
 * eSDM
   checking re-building of vignette outputs ... ERROR
 
-* evsim
-  checking examples ... ERROR
-  checking tests ... ERROR
-
 * ezplot
-  checking tests ... ERROR
-
-* fastplyr
   checking tests ... ERROR
 
 * GeoTox
@@ -62,38 +42,14 @@ Issues with CRAN packages are summarised below.
 * heemod
   checking tests ... ERROR
 
-* hydroroute
-  checking examples ... ERROR
-  checking re-building of vignette outputs ... ERROR
-
 * immunarch
   checking examples ... ERROR
 
 * iNZightTools
   checking tests ... ERROR
 
-* LightLogR
-  checking tests ... ERROR
-
-* mpathsenser
-  checking examples ... ERROR
-  checking tests ... ERROR
-
-* mvMonitoring
-  checking examples ... ERROR
-  checking tests ... ERROR
-  checking re-building of vignette outputs ... ERROR
-
-* NHSRplotthedots
-  checking tests ... ERROR
-
 * optic
   checking tests ... ERROR
-
-* padr
-  checking examples ... ERROR
-  checking tests ... ERROR
-  checking re-building of vignette outputs ... ERROR
 
 * pointblank
   checking tests ... ERROR
@@ -102,7 +58,5 @@ Issues with CRAN packages are summarised below.
   checking tests ... ERROR
 
 * sapfluxnetr
-  checking examples ... ERROR
   checking tests ... ERROR
-  checking re-building of vignette outputs ... ERROR
 
