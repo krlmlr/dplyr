@@ -1,9 +1,9 @@
 ## revdepcheck results
 
-We checked 9175 reverse dependencies, comparing R CMD check results across CRAN and dev versions of this package.
+We checked 300 reverse dependencies, comparing R CMD check results across CRAN and dev versions of this package.
 
- * We saw 310 new problems
- * We failed to check 27 packages
+ * We saw 273 new problems
+ * We failed to check 0 packages
 
 Issues with CRAN packages are summarised below.
 
@@ -35,9 +35,6 @@ Issues with CRAN packages are summarised below.
   checking examples ... ERROR
   checking tests ... ERROR
 
-* arrow
-  checking tests ... ERROR
-
 * autoimport
   checking tests ... ERROR
 
@@ -67,6 +64,7 @@ Issues with CRAN packages are summarised below.
   checking tests ... ERROR
 
 * bib2df
+  checking examples ... ERROR
   checking tests ... ERROR
   checking re-building of vignette outputs ... ERROR
 
@@ -79,9 +77,6 @@ Issues with CRAN packages are summarised below.
 
 * broom.helpers
   checking tests ... ERROR
-
-* BSTZINB
-  checking re-building of vignette outputs ... ERROR
 
 * bundle
   checking examples ... ERROR
@@ -101,6 +96,7 @@ Issues with CRAN packages are summarised below.
 * chevron
   checking examples ... ERROR
   checking tests ... ERROR
+  checking re-building of vignette outputs ... ERROR
 
 * chisquare
   checking examples ... ERROR
@@ -134,20 +130,12 @@ Issues with CRAN packages are summarised below.
 * consortr
   checking examples ... ERROR
 
-* corella
-  checking examples ... ERROR
-  checking tests ... ERROR
-  checking re-building of vignette outputs ... ERROR
-
 * correlationfunnel
   checking examples ... ERROR
   checking tests ... ERROR
   checking re-building of vignette outputs ... ERROR
 
 * crosstable
-  checking tests ... ERROR
-
-* CruzPlot
   checking tests ... ERROR
 
 * CSCNet
@@ -164,9 +152,6 @@ Issues with CRAN packages are summarised below.
 * cthist
   checking tests ... ERROR
 
-* ctrdata
-  checking examples ... ERROR
-
 * cubble
   checking re-building of vignette outputs ... ERROR
 
@@ -176,6 +161,7 @@ Issues with CRAN packages are summarised below.
 * cvdprevent
   checking examples ... ERROR
   checking tests ... ERROR
+  checking re-building of vignette outputs ... ERROR
 
 * cvms
   checking tests ... ERROR
@@ -193,10 +179,6 @@ Issues with CRAN packages are summarised below.
 * DALEXtra
   checking tests ... ERROR
 
-* dann
-  checking examples ... ERROR
-  checking tests ... ERROR
-
 * daqapo
   checking re-building of vignette outputs ... ERROR
 
@@ -207,10 +189,11 @@ Issues with CRAN packages are summarised below.
   checking tests ... ERROR
 
 * dawaR
-  checking re-building of vignette outputs ... ERROR
+  checking examples ... ERROR
 
 * dbGaPCheckup
   checking examples ... ERROR
+  checking re-building of vignette outputs ... ERROR
 
 * deident
   checking re-building of vignette outputs ... ERROR
@@ -232,9 +215,6 @@ Issues with CRAN packages are summarised below.
   checking examples ... ERROR
   checking tests ... ERROR
 
-* dreamer
-  checking tests ... ERROR
-
 * DrugExposureDiagnostics
   checking tests ... ERROR
 
@@ -243,23 +223,19 @@ Issues with CRAN packages are summarised below.
 
 * dtrackr
   checking examples ... ERROR
-  checking re-building of vignette outputs ... ERROR
-
-* DTSEA
-  checking re-building of vignette outputs ... ERROR
 
 * dunlin
   checking tests ... ERROR
 
 * dyngen
   checking examples ... ERROR
-  checking tests ... ERROR
 
 * easyalluvial
   checking examples ... ERROR
   checking tests ... ERROR
 
 * econid
+  checking examples ... ERROR
   checking tests ... ERROR
 
 * eHDPrep
@@ -269,9 +245,6 @@ Issues with CRAN packages are summarised below.
 * embed
   checking examples ... ERROR
   checking tests ... ERROR
-
-* eph
-  checking examples ... ERROR
 
 * epicmodel
   checking examples ... ERROR
@@ -328,9 +301,6 @@ Issues with CRAN packages are summarised below.
 * flexlsx
   checking tests ... ERROR
 
-* forestControl
-  checking tests ... ERROR
-
 * ForestElementsR
   checking examples ... ERROR
   checking tests ... ERROR
@@ -353,16 +323,10 @@ Issues with CRAN packages are summarised below.
 * funkyheatmap
   checking tests ... ERROR
 
-* funspotr
-  checking examples ... ERROR
-
 * GeoTox
   checking examples ... ERROR
   checking tests ... ERROR
   checking re-building of vignette outputs ... ERROR
-
-* ggfacto
-  checking examples ... ERROR
 
 * gggenomes
   checking examples ... ERROR
@@ -375,6 +339,7 @@ Issues with CRAN packages are summarised below.
   checking re-building of vignette outputs ... ERROR
 
 * ggstackplot
+  checking examples ... ERROR
   checking tests ... ERROR
   checking re-building of vignette outputs ... ERROR
 
@@ -401,9 +366,6 @@ Issues with CRAN packages are summarised below.
 * gsDesign
   checking re-building of vignette outputs ... ERROR
 
-* gsDesign2
-  checking re-building of vignette outputs ... ERROR
-
 * gt
   checking tests ... ERROR
 
@@ -413,20 +375,12 @@ Issues with CRAN packages are summarised below.
 * GTFSwizard
   checking examples ... ERROR
 
-* gtsummary
-  checking examples ... ERROR
-  checking tests ... ERROR
-  checking re-building of vignette outputs ... ERROR
-
 * guideR
   checking examples ... ERROR
   checking tests ... ERROR
 
 * hablar
   checking re-building of vignette outputs ... ERROR
-
-* handwriterRF
-  checking tests ... ERROR
 
 * hardhat
   checking examples ... ERROR
@@ -436,7 +390,6 @@ Issues with CRAN packages are summarised below.
 * headliner
   checking examples ... ERROR
   checking tests ... ERROR
-  checking re-building of vignette outputs ... ERROR
 
 * healthdb
   checking tests ... ERROR
@@ -452,6 +405,7 @@ Issues with CRAN packages are summarised below.
   checking tests ... ERROR
 
 * huito
+  checking examples ... ERROR
   checking re-building of vignette outputs ... ERROR
 
 * immunarch
@@ -499,9 +453,6 @@ Issues with CRAN packages are summarised below.
   checking examples ... ERROR
   checking re-building of vignette outputs ... ERROR
 
-* lessR
-  checking installed package size ... NOTE
-
 * libr
   checking tests ... ERROR
 
@@ -534,9 +485,6 @@ Issues with CRAN packages are summarised below.
 * manydist
   checking examples ... ERROR
 
-* manynet
-  checking installed package size ... NOTE
-
 * mapme.biodiversity
   checking tests ... ERROR
   checking re-building of vignette outputs ... ERROR
@@ -564,6 +512,7 @@ Issues with CRAN packages are summarised below.
   checking tests ... ERROR
 
 * metacore
+  checking examples ... ERROR
   checking tests ... ERROR
   checking re-building of vignette outputs ... ERROR
 
@@ -578,6 +527,7 @@ Issues with CRAN packages are summarised below.
 
 * MiscMetabar
   checking examples ... ERROR
+  checking tests ... ERROR
 
 * MLDataR
   checking examples ... ERROR
@@ -609,19 +559,12 @@ Issues with CRAN packages are summarised below.
 * msSPChelpR
   checking re-building of vignette outputs ... ERROR
 
-* mtdesign
-  checking tests ... ERROR
-
 * multiverse
   checking tests ... ERROR
 
-* mxfda
-  checking examples ... ERROR
-  checking tests ... ERROR
-  checking re-building of vignette outputs ... ERROR
-
 * namedropR
   checking tests ... ERROR
+  checking re-building of vignette outputs ... ERROR
 
 * NetCoupler
   checking examples ... ERROR
@@ -658,13 +601,13 @@ Issues with CRAN packages are summarised below.
   checking re-building of vignette outputs ... ERROR
 
 * oncomsm
-  checking examples ... ERROR
   checking re-building of vignette outputs ... ERROR
 
 * optic
   checking tests ... ERROR
 
 * orbital
+  checking examples ... ERROR
   checking tests ... ERROR
   checking re-building of vignette outputs ... ERROR
 
@@ -674,30 +617,14 @@ Issues with CRAN packages are summarised below.
 * parcats
   checking tests ... ERROR
 
-* partition
-  checking examples ... ERROR
-  checking tests ... ERROR
-  checking re-building of vignette outputs ... ERROR
-
-* partR2
-  checking tests ... ERROR
-  checking re-building of vignette outputs ... ERROR
-
 * PatientProfiles
   checking re-building of vignette outputs ... ERROR
-
-* peacesciencer
-  checking examples ... ERROR
 
 * PhenotypeR
   checking re-building of vignette outputs ... ERROR
 
 * photobiology
   checking examples ... ERROR
-
-* photobiologyInOut
-  checking examples ... ERROR
-  checking re-building of vignette outputs ... ERROR
 
 * PKNCA
   checking tests ... ERROR
@@ -707,7 +634,6 @@ Issues with CRAN packages are summarised below.
   checking tests ... ERROR
 
 * pointblank
-  checking examples ... ERROR
   checking tests ... ERROR
 
 * postcard
@@ -717,18 +643,17 @@ Issues with CRAN packages are summarised below.
   checking examples ... ERROR
 
 * ppsr
-  checking examples ... ERROR
   checking tests ... ERROR
 
 * preventr
   checking tests ... ERROR
 
 * probably
-  checking examples ... ERROR
   checking tests ... ERROR
 
 * processpredictR
   checking examples ... ERROR
+  checking re-building of vignette outputs ... ERROR
 
 * psychmeta
   checking examples ... ERROR
@@ -768,9 +693,6 @@ Issues with CRAN packages are summarised below.
   checking tests ... ERROR
   checking re-building of vignette outputs ... ERROR
 
-* REDCapCAST
-  checking re-building of vignette outputs ... ERROR
-
 * REDCapTidieR
   checking examples ... ERROR
   checking tests ... ERROR
@@ -781,21 +703,14 @@ Issues with CRAN packages are summarised below.
 * RevGadgets
   checking tests ... ERROR
 
-* rfars
-  checking re-building of vignette outputs ... ERROR
-
 * ridigbio
   checking re-building of vignette outputs ... ERROR
-
-* RKorAPClient
-  checking tests ... ERROR
 
 * rmdl
   checking tests ... ERROR
 
 * rolap
   checking examples ... ERROR
-  checking tests ... ERROR
   checking re-building of vignette outputs ... ERROR
 
 * romic
@@ -808,18 +723,8 @@ Issues with CRAN packages are summarised below.
 * rsample
   checking tests ... ERROR
 
-* rstatix
-  checking examples ... ERROR
-
-* ruminate
-  checking examples ... ERROR
-  checking tests ... ERROR
-
 * RVA
   checking re-building of vignette outputs ... ERROR
-
-* rWCVP
-  checking tests ... ERROR
 
 * sampler
   checking examples ... ERROR
@@ -833,28 +738,18 @@ Issues with CRAN packages are summarised below.
 * scimo
   checking examples ... ERROR
   checking tests ... ERROR
-  checking re-building of vignette outputs ... ERROR
 
 * scPloidy
   checking tests ... ERROR
-  checking re-building of vignette outputs ... ERROR
 
 * scSpatialSIM
   checking re-building of vignette outputs ... ERROR
-
-* ShinyItemAnalysis
-  checking installed package size ... NOTE
 
 * siera
   checking examples ... ERROR
 
 * simtrial
   checking examples ... ERROR
-
-* smdi
-  checking examples ... ERROR
-  checking tests ... ERROR
-  checking re-building of vignette outputs ... ERROR
 
 * sparseR
   checking tests ... ERROR
@@ -867,9 +762,6 @@ Issues with CRAN packages are summarised below.
 
 * srvyr
   checking tests ... ERROR
-
-* ssimparser
-  checking examples ... ERROR
 
 * SSLR
   checking examples ... ERROR
@@ -912,9 +804,6 @@ Issues with CRAN packages are summarised below.
 * surveyexplorer
   checking examples ... ERROR
   checking tests ... ERROR
-
-* surveytable
-  checking re-building of vignette outputs ... ERROR
 
 * swfscDAS
   checking examples ... ERROR
@@ -962,6 +851,7 @@ Issues with CRAN packages are summarised below.
 
 * tidyAML
   checking examples ... ERROR
+  checking re-building of vignette outputs ... ERROR
 
 * tidyclust
   checking examples ... ERROR
@@ -986,22 +876,18 @@ Issues with CRAN packages are summarised below.
   checking re-building of vignette outputs ... ERROR
 
 * tidyplots
-  checking re-building of vignette outputs ... ERROR
-
-* tidyquant
-  checking tests ... ERROR
+  checking examples ... ERROR
 
 * tidyr
   checking tests ... ERROR
-
-* tidywikidatar
-  checking examples ... ERROR
+  checking re-building of vignette outputs ... ERROR
 
 * tidyxl
   checking re-building of vignette outputs ... ERROR
 
 * timetk
   checking examples ... ERROR
+  checking tests ... ERROR
   checking re-building of vignette outputs ... ERROR
 
 * TKCat
@@ -1021,9 +907,6 @@ Issues with CRAN packages are summarised below.
   checking examples ... ERROR
   checking tests ... ERROR
 
-* TrialEmulation
-  checking tests ... ERROR
-
 * tsibble
   checking tests ... ERROR
 
@@ -1031,13 +914,12 @@ Issues with CRAN packages are summarised below.
   checking examples ... ERROR
 
 * unpivotr
+  checking examples ... ERROR
+  checking tests ... ERROR
   checking re-building of vignette outputs ... ERROR
 
 * unstruwwel
   checking tests ... ERROR
-
-* usdoj
-  checking examples ... ERROR
 
 * viraldomain
   checking tests ... ERROR
@@ -1092,6 +974,7 @@ Issues with CRAN packages are summarised below.
   checking tests ... ERROR
 
 * xpose.xtras
+  checking examples ... ERROR
   checking tests ... ERROR
 
 * yamlet
@@ -1100,32 +983,3 @@ Issues with CRAN packages are summarised below.
 * ycevo
   checking tests ... ERROR
 
-### Failed to check
-
-* additive           (NA)
-* agua               (NA)
-* baguette           (NA)
-* bayesian           (NA)
-* bonsai             (NA)
-* cuda.ml            (NA)
-* discrim            (NA)
-* easysurv           (NA)
-* fastml             (NA)
-* finnts             (NA)
-* IIS                (NA)
-* LLMAgentR          (NA)
-* lnmixsurv          (NA)
-* modeltime          (NA)
-* modeltime.ensemble (NA)
-* modeltime.resample (NA)
-* multilevelmod      (NA)
-* offsetreg          (NA)
-* parsnip            (NA)
-* plsmod             (NA)
-* poissonreg         (NA)
-* rshift             (NA)
-* rules              (NA)
-* sae.projection     (NA)
-* string2path        (NA)
-* tidydann           (NA)
-* tidysdm            (NA)

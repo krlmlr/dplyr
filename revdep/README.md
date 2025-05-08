@@ -1,38 +1,6 @@
 # Revdeps
 
-## Failed to check (27)
-
-|package            |version |error  |warning |note |
-|:------------------|:-------|:------|:-------|:----|
-|[additive](failures.md#additive)|1.0.1   |__+1__ |        |     |
-|[agua](failures.md#agua)|0.1.4   |__+1__ |        |     |
-|[baguette](failures.md#baguette)|1.1.0   |__+1__ |        |     |
-|[bayesian](failures.md#bayesian)|1.0.1   |__+1__ |        |     |
-|[bonsai](failures.md#bonsai)|0.3.2   |__+1__ |        |     |
-|[cuda.ml](failures.md#cudaml)|0.3.2   |__+1__ |        |-2   |
-|[discrim](failures.md#discrim)|1.0.1   |__+1__ |        |     |
-|[easysurv](failures.md#easysurv)|2.0.1   |__+1__ |        |     |
-|[fastml](failures.md#fastml)|0.5.0   |__+1__ |        |     |
-|[finnts](failures.md#finnts)|0.5.0   |__+1__ |        |     |
-|IIS                |?       |       |        |     |
-|[LLMAgentR](failures.md#llmagentr)|0.2.2   |__+1__ |        |     |
-|[lnmixsurv](failures.md#lnmixsurv)|3.1.6   |__+1__ |        |-4   |
-|[modeltime](failures.md#modeltime)|1.3.1   |__+1__ |        |     |
-|[modeltime.ensemble](failures.md#modeltimeensemble)|1.0.4   |__+1__ |        |     |
-|[modeltime.resample](failures.md#modeltimeresample)|0.2.3   |__+1__ |        |-1   |
-|[multilevelmod](failures.md#multilevelmod)|1.0.0   |__+1__ |        |     |
-|[offsetreg](failures.md#offsetreg)|1.1.1   |__+1__ |        |     |
-|[parsnip](failures.md#parsnip)|1.3.1   |__+1__ |        |-1   |
-|[plsmod](failures.md#plsmod)|1.0.0   |__+1__ |        |     |
-|[poissonreg](failures.md#poissonreg)|1.0.1   |__+1__ |        |     |
-|rshift             |3.1.2   |1      |        |     |
-|[rules](failures.md#rules)|1.0.2   |__+1__ |        |     |
-|[sae.projection](failures.md#saeprojection)|0.1.3   |__+1__ |        |-1   |
-|string2path        |0.2.2   |1      |        |     |
-|[tidydann](failures.md#tidydann)|1.0.1   |__+1__ |        |     |
-|[tidysdm](failures.md#tidysdm)|1.0.0   |__+1__ |        |     |
-
-## New problems (310)
+## New problems (273)
 
 |package                 |version   |error    |warning |note     |
 |:-----------------------|:---------|:--------|:-------|:--------|
@@ -42,7 +10,6 @@
 |[admiralpeds](problems.md#admiralpeds)|0.2.0     |__+3__   |        |         |
 |[anomalize](problems.md#anomalize)|0.3.0     |__+3__   |        |         |
 |[applicable](problems.md#applicable)|0.1.1     |__+2__   |        |         |
-|[arrow](problems.md#arrow)|19.0.1.1  |__+1__   |        |2        |
 |[autoimport](problems.md#autoimport)|0.1.1     |__+1__   |        |         |
 |[autoslider.core](problems.md#autoslidercore)|0.2.4     |1 __+2__ |        |1        |
 |[autostats](problems.md#autostats)|0.4.1     |__+2__   |        |1        |
@@ -51,16 +18,15 @@
 |[bayesmove](problems.md#bayesmove)|0.2.1     |__+1__   |        |1        |
 |[beaver](problems.md#beaver)|1.0.0     |__+1__   |        |         |
 |[bestNormalize](problems.md#bestnormalize)|1.9.1     |__+2__   |        |         |
-|[bib2df](problems.md#bib2df)|1.1.2.0   |__+2__   |        |         |
+|[bib2df](problems.md#bib2df)|1.1.2.0   |__+3__   |        |         |
 |[BiVariAn](problems.md#bivarian)|1.0.1     |__+2__   |        |         |
 |[broom](problems.md#broom)|1.0.8     |__+1__   |        |         |
 |[broom.helpers](problems.md#broomhelpers)|1.21.0    |__+1__   |        |         |
-|[BSTZINB](problems.md#bstzinb)|2.0.0     |__+1__   |        |         |
 |[bundle](problems.md#bundle)|0.1.2     |__+2__   |        |         |
 |[butcher](problems.md#butcher)|0.3.5     |__+2__   |        |         |
 |[caret](problems.md#caret)|7.0-1     |__+1__   |        |         |
 |[CDMConnector](problems.md#cdmconnector)|2.0.0     |__+2__   |        |1        |
-|[chevron](problems.md#chevron)|0.2.11    |__+2__   |        |         |
+|[chevron](problems.md#chevron)|0.2.11    |__+3__   |        |         |
 |[chisquare](problems.md#chisquare)|1.1.1     |__+1__   |        |         |
 |[CKMRpop](problems.md#ckmrpop)|0.1.3     |__+2__   |        |1        |
 |[cmhc](problems.md#cmhc)|0.2.10    |__+1__   |        |1        |
@@ -70,47 +36,40 @@
 |[CohortSymmetry](problems.md#cohortsymmetry)|0.2.4     |__+2__   |        |         |
 |[comperes](problems.md#comperes)|0.2.7     |__+1__   |        |         |
 |[consortr](problems.md#consortr)|0.9.1     |__+1__   |        |         |
-|[corella](problems.md#corella)|0.1.4     |__+3__   |        |2        |
 |[correlationfunnel](problems.md#correlationfunnel)|0.2.0     |__+3__   |        |1        |
 |[crosstable](problems.md#crosstable)|0.8.1     |__+1__   |        |         |
-|[CruzPlot](problems.md#cruzplot)|1.4.9     |__+1__   |        |1        |
 |[CSCNet](problems.md#cscnet)|0.1.2     |__+1__   |        |         |
 |[csquares](problems.md#csquares)|0.1.0     |__+3__   |        |         |
 |[cstidy](problems.md#cstidy)|2023.5.24 |__+1__   |        |         |
 |[cthist](problems.md#cthist)|2.1.11    |__+1__   |        |         |
-|[ctrdata](problems.md#ctrdata)|1.22.1    |__+1__   |        |         |
 |[cubble](problems.md#cubble)|1.0.0     |__+1__   |        |1        |
 |[Cubist](problems.md#cubist)|0.5.0     |__+1__   |        |1        |
-|[cvdprevent](problems.md#cvdprevent)|0.2.1     |__+2__   |        |         |
+|[cvdprevent](problems.md#cvdprevent)|0.2.1     |__+3__   |        |         |
 |[cvms](problems.md#cvms)|1.7.0     |__+2__   |        |         |
 |[cytominer](problems.md#cytominer)|0.2.2     |__+1__   |        |1        |
 |[D2MCS](problems.md#d2mcs)|1.0.1     |__+1__   |        |         |
 |[d3r](problems.md#d3r)  |1.1.0     |__+1__   |        |1        |
 |[DALEXtra](problems.md#dalextra)|2.3.0     |__+1__   |        |         |
-|[dann](problems.md#dann)|1.0.2     |__+2__   |        |         |
 |[daqapo](problems.md#daqapo)|0.3.2     |__+1__   |        |         |
 |[data.validator](problems.md#datavalidator)|0.2.1     |__+1__   |        |         |
 |[datacutr](problems.md#datacutr)|0.2.3     |__+1__   |        |         |
 |[dawaR](problems.md#dawar)|0.3.0     |__+1__   |        |         |
-|[dbGaPCheckup](problems.md#dbgapcheckup)|1.1.0     |__+1__   |        |1        |
+|[dbGaPCheckup](problems.md#dbgapcheckup)|1.1.0     |__+2__   |        |1        |
 |[deident](problems.md#deident)|1.0.0     |__+1__   |        |1        |
 |[depower](problems.md#depower)|2025.1.20 |__+1__   |        |         |
 |[Dict](problems.md#dict)|0.1.0     |__+1__   |        |2        |
 |[DisImpact](problems.md#disimpact)|0.0.21    |__+2__   |        |         |
 |[dlookr](problems.md#dlookr)|0.6.3     |__+1__   |        |1        |
 |[dm](problems.md#dm)    |1.0.11    |__+2__   |        |         |
-|[dreamer](problems.md#dreamer)|3.2.0     |__+1__   |        |         |
 |[DrugExposureDiagnostics](problems.md#drugexposurediagnostics)|1.1.2     |__+1__   |        |         |
 |[DSSAT](problems.md#dssat)|0.0.9     |__+1__   |        |         |
-|[dtrackr](problems.md#dtrackr)|0.4.6     |__+2__   |        |         |
-|[DTSEA](problems.md#dtsea)|0.0.3     |__+1__   |        |         |
+|[dtrackr](problems.md#dtrackr)|0.4.6     |__+1__   |        |         |
 |[dunlin](problems.md#dunlin)|0.1.10    |__+1__   |        |         |
-|[dyngen](problems.md#dyngen)|1.0.5     |__+2__   |        |1        |
+|[dyngen](problems.md#dyngen)|1.0.5     |__+1__   |        |1        |
 |[easyalluvial](problems.md#easyalluvial)|0.3.2     |__+2__   |        |         |
-|[econid](problems.md#econid)|0.0.1     |__+1__   |        |1        |
+|[econid](problems.md#econid)|0.0.1     |__+2__   |        |1        |
 |[eHDPrep](problems.md#ehdprep)|1.3.3     |__+2__   |        |1        |
 |[embed](problems.md#embed)|1.1.5     |__+2__   |        |1        |
-|[eph](problems.md#eph)  |1.0.2     |1 __+1__ |        |1        |
 |[epicmodel](problems.md#epicmodel)|0.2.0     |__+3__   |        |         |
 |[epubr](problems.md#epubr)|0.6.5     |__+2__   |        |         |
 |[ERDbuilder](problems.md#erdbuilder)|1.0.0     |__+1__   |        |         |
@@ -127,41 +86,35 @@
 |[filters](problems.md#filters)|0.3.1     |__+1__   |        |         |
 |[finetune](problems.md#finetune)|1.2.0     |__+1__   |        |         |
 |[flexlsx](problems.md#flexlsx)|0.3.5     |__+1__   |        |         |
-|[forestControl](problems.md#forestcontrol)|0.2.2     |__+1__   |        |         |
 |[ForestElementsR](problems.md#forestelementsr)|2.1.0     |__+3__   |        |1        |
 |[forestmangr](problems.md#forestmangr)|0.9.8     |__+1__   |        |         |
 |[forgts](problems.md#forgts)|0.0.1     |__+3__   |        |         |
 |[ftExtra](problems.md#ftextra)|0.6.4     |__+1__   |        |         |
 |[functiondepends](problems.md#functiondepends)|0.2.3     |__+1__   |        |         |
 |[funkyheatmap](problems.md#funkyheatmap)|0.5.2     |__+1__   |        |1        |
-|[funspotr](problems.md#funspotr)|0.0.4     |__+1__   |        |1        |
 |[GeoTox](problems.md#geotox)|0.2.0     |__+3__   |        |1        |
-|[ggfacto](problems.md#ggfacto)|0.3.2     |__+1__   |        |         |
 |[gggenomes](problems.md#gggenomes)|1.0.1     |__+2__   |        |         |
 |[ggRtsy](problems.md#ggrtsy)|0.1.0     |__+1__   |        |1        |
 |[ggspectra](problems.md#ggspectra)|0.3.15    |__+1__   |        |         |
-|[ggstackplot](problems.md#ggstackplot)|0.4.1     |__+2__   |        |         |
+|[ggstackplot](problems.md#ggstackplot)|0.4.1     |__+3__   |        |         |
 |[ggVennDiagram](problems.md#ggvenndiagram)|1.5.2     |__+3__   |        |1        |
 |[globaltrends](problems.md#globaltrends)|0.0.14    |__+1__   |        |         |
 |[Greg](problems.md#greg)|2.0.2     |__+1__   |        |         |
 |[grobblR](problems.md#grobblr)|0.2.1     |__+3__   |        |         |
 |[gscramble](problems.md#gscramble)|1.0.1     |__+2__   |        |         |
 |[gsDesign](problems.md#gsdesign)|3.6.7     |__+1__   |        |         |
-|[gsDesign2](problems.md#gsdesign2)|1.1.3     |__+1__   |        |         |
 |[gt](problems.md#gt)    |1.0.0     |__+1__   |        |2        |
 |[gtExtras](problems.md#gtextras)|0.5.0     |1 __+1__ |        |         |
 |[GTFSwizard](problems.md#gtfswizard)|1.1.0     |__+1__   |        |2        |
-|[gtsummary](problems.md#gtsummary)|2.2.0     |__+3__   |        |         |
 |[guideR](problems.md#guider)|0.4.0     |__+2__   |        |         |
 |[hablar](problems.md#hablar)|0.3.2     |__+1__   |        |         |
-|[handwriterRF](problems.md#handwriterrf)|1.1.1     |__+1__   |        |         |
 |[hardhat](problems.md#hardhat)|1.4.1     |__+3__   |        |         |
-|[headliner](problems.md#headliner)|0.0.3     |__+3__   |        |         |
+|[headliner](problems.md#headliner)|0.0.3     |__+2__   |        |         |
 |[healthdb](problems.md#healthdb)|0.4.1     |__+1__   |        |         |
 |[healthyR.ai](problems.md#healthyrai)|0.1.1     |__+2__   |        |         |
 |[healthyR.ts](problems.md#healthyrts)|0.3.1     |__+1__   |        |1        |
 |[heemod](problems.md#heemod)|1.0.2     |__+1__   |        |         |
-|[huito](problems.md#huito)|0.2.5     |__+1__   |        |         |
+|[huito](problems.md#huito)|0.2.5     |__+2__   |        |         |
 |[immunarch](problems.md#immunarch)|0.9.1     |__+1__   |        |1        |
 |[imputeGeneric](problems.md#imputegeneric)|0.1.0     |__+1__   |        |         |
 |[IncidencePrevalence](problems.md#incidenceprevalence)|1.2.0     |__+1__   |        |         |
@@ -175,7 +128,6 @@
 |[jpcity](problems.md#jpcity)|0.3.0     |__+1__   |        |         |
 |[lavaanPlot](problems.md#lavaanplot)|0.8.1     |__+1__   |        |1        |
 |[ldmppr](problems.md#ldmppr)|1.0.4     |__+2__   |        |         |
-|[lessR](problems.md#lessr)|4.4.2     |         |        |__+1__   |
 |[libr](problems.md#libr)|1.3.9     |__+1__   |        |         |
 |[licoread](problems.md#licoread)|0.1.1     |__+3__   |        |1        |
 |[LightLogR](problems.md#lightlogr)|0.5.3     |__+2__   |        |1        |
@@ -185,7 +137,6 @@
 |[LTFHPlus](problems.md#ltfhplus)|2.1.2     |__+1__   |        |         |
 |[MachineShop](problems.md#machineshop)|3.8.0     |__+2__   |        |1        |
 |[manydist](problems.md#manydist)|0.4.3     |__+1__   |        |         |
-|[manynet](problems.md#manynet)|1.3.2     |         |        |2 __+1__ |
 |[mapme.biodiversity](problems.md#mapmebiodiversity)|0.9.4     |__+2__   |        |         |
 |[markovmix](problems.md#markovmix)|0.1.3     |__+2__   |        |         |
 |[marquee](problems.md#marquee)|1.0.0     |__+1__   |        |1        |
@@ -193,11 +144,11 @@
 |[matsindf](problems.md#matsindf)|0.4.8     |__+2__   |        |         |
 |[mcp](problems.md#mcp)  |0.3.4     |__+1__   |        |         |
 |[measr](problems.md#measr)|1.0.0     |__+1__   |        |3        |
-|[metacore](problems.md#metacore)|0.1.3     |__+2__   |        |         |
+|[metacore](problems.md#metacore)|0.1.3     |__+3__   |        |         |
 |[metalite.ae](problems.md#metaliteae)|0.1.3     |__+1__   |        |         |
 |[metatools](problems.md#metatools)|0.1.6     |1 __+1__ |        |         |
 |[miRetrieve](problems.md#miretrieve)|1.3.4     |__+1__   |        |         |
-|[MiscMetabar](problems.md#miscmetabar)|0.14.2    |__+1__   |        |1        |
+|[MiscMetabar](problems.md#miscmetabar)|0.14.2    |__+2__   |        |1        |
 |[MLDataR](problems.md#mldatar)|1.0.1     |__+2__   |        |1        |
 |[mmrm](problems.md#mmrm)|0.3.14    |__+2__   |        |1 __+1__ |
 |[modelgrid](problems.md#modelgrid)|1.2.0     |__+2__   |        |         |
@@ -206,10 +157,8 @@
 |[mpathsenser](problems.md#mpathsenser)|1.2.3     |__+2__   |        |         |
 |[mpindex](problems.md#mpindex)|0.2.1     |__+1__   |        |         |
 |[msSPChelpR](problems.md#msspchelpr)|0.9.1     |__+1__   |        |1        |
-|[mtdesign](problems.md#mtdesign)|0.1.2     |__+1__   |        |         |
 |[multiverse](problems.md#multiverse)|0.6.2     |__+1__   |        |         |
-|[mxfda](problems.md#mxfda)|0.2.2-1   |__+3__   |        |1        |
-|[namedropR](problems.md#namedropr)|2.4.1     |__+1__   |        |1        |
+|[namedropR](problems.md#namedropr)|2.4.1     |__+2__   |        |1        |
 |[NetCoupler](problems.md#netcoupler)|0.1.0     |__+3__   |        |         |
 |[NeuroDecodeR](problems.md#neurodecoder)|0.2.0     |__+2__   |        |         |
 |[nplyr](problems.md#nplyr)|0.2.0     |__+3__   |        |         |
@@ -219,27 +168,23 @@
 |[omock](problems.md#omock)|0.3.2     |__+3__   |        |         |
 |[omopgenerics](problems.md#omopgenerics)|1.1.1     |__+1__   |        |         |
 |[OmopSketch](problems.md#omopsketch)|0.3.2     |__+1__   |        |1        |
-|[oncomsm](problems.md#oncomsm)|0.1.4     |__+2__   |        |2        |
+|[oncomsm](problems.md#oncomsm)|0.1.4     |__+1__   |        |2        |
 |[optic](problems.md#optic)|1.0.1     |__+1__   |        |         |
-|[orbital](problems.md#orbital)|0.3.0     |__+2__   |        |         |
+|[orbital](problems.md#orbital)|0.3.0     |__+3__   |        |         |
 |[ORFID](problems.md#orfid)|1.0.2     |__+1__   |        |         |
 |[parcats](problems.md#parcats)|0.0.5     |__+1__   |        |         |
-|[partition](problems.md#partition)|0.2.2     |__+3__   |        |1        |
-|[partR2](problems.md#partr2)|0.9.2     |__+2__   |        |1        |
 |[PatientProfiles](problems.md#patientprofiles)|1.3.1     |__+1__   |        |         |
-|[peacesciencer](problems.md#peacesciencer)|1.1.0     |__+1__   |        |1        |
 |[PhenotypeR](problems.md#phenotyper)|0.1.4     |__+1__   |        |         |
 |[photobiology](problems.md#photobiology)|0.12.0    |__+1__   |        |2        |
-|[photobiologyInOut](problems.md#photobiologyinout)|0.4.30    |__+2__   |        |         |
 |[PKNCA](problems.md#pknca)|0.11.0    |__+2__   |        |         |
 |[plutor](problems.md#plutor)|0.1.0     |__+1__   |        |         |
-|[pointblank](problems.md#pointblank)|0.12.2    |__+2__   |        |1        |
+|[pointblank](problems.md#pointblank)|0.12.2    |__+1__   |        |1        |
 |[postcard](problems.md#postcard)|1.0.0     |__+1__   |        |         |
 |[PPbigdata](problems.md#ppbigdata)|1.0.0     |__+1__   |        |         |
-|[ppsr](problems.md#ppsr)|0.0.5     |__+2__   |        |1        |
+|[ppsr](problems.md#ppsr)|0.0.5     |__+1__   |        |1        |
 |[preventr](problems.md#preventr)|0.11.0    |__+1__   |        |         |
-|[probably](problems.md#probably)|1.0.3     |__+2__   |        |         |
-|[processpredictR](problems.md#processpredictr)|0.1.0     |__+1__   |        |         |
+|[probably](problems.md#probably)|1.0.3     |__+1__   |        |         |
+|[processpredictR](problems.md#processpredictr)|0.1.0     |__+2__   |        |         |
 |[psychmeta](problems.md#psychmeta)|2.7.0     |__+1__   |        |1        |
 |[PubChemR](problems.md#pubchemr)|2.1.4     |__+1__   |        |1        |
 |[PUMP](problems.md#pump)|1.0.4     |__+2__   |        |         |
@@ -250,36 +195,27 @@
 |[readapra](problems.md#readapra)|0.2.1     |__+1__   |        |         |
 |[ready4](problems.md#ready4)|0.1.18    |__+2__   |        |         |
 |[recipes](problems.md#recipes)|1.3.0     |__+3__   |        |1        |
-|[REDCapCAST](problems.md#redcapcast)|25.3.2    |__+1__   |        |         |
 |[REDCapTidieR](problems.md#redcaptidier)|1.2.2     |__+2__   |        |         |
 |[REddyProc](problems.md#reddyproc)|1.3.3     |__+1__   |        |1        |
 |[RevGadgets](problems.md#revgadgets)|1.2.1     |__+1__   |        |         |
-|[rfars](problems.md#rfars)|1.2.0     |__+1__   |        |1        |
 |[ridigbio](problems.md#ridigbio)|0.4.1     |__+1__   |        |         |
-|[RKorAPClient](problems.md#rkorapclient)|1.0.0     |__+1__   |        |         |
 |[rmdl](problems.md#rmdl)|0.1.0     |__+1__   |        |         |
-|[rolap](problems.md#rolap)|2.5.1     |__+3__   |        |1        |
+|[rolap](problems.md#rolap)|2.5.1     |__+2__   |        |1        |
 |[romic](problems.md#romic)|1.1.3     |__+1__   |        |1        |
 |[RplotterPkg](problems.md#rplotterpkg)|0.1.3     |__+2__   |        |1        |
 |[rsample](problems.md#rsample)|1.3.0     |__+1__   |        |         |
-|[rstatix](problems.md#rstatix)|0.7.2     |__+1__   |        |1        |
-|[ruminate](problems.md#ruminate)|0.3.1     |__+2__   |        |         |
 |[RVA](problems.md#rva)  |0.0.5     |__+1__   |        |2        |
-|[rWCVP](problems.md#rwcvp)|1.2.4     |__+1__   |        |2        |
 |[sampler](problems.md#sampler)|0.2.4     |__+1__   |        |         |
 |[sapfluxnetr](problems.md#sapfluxnetr)|0.1.4     |__+1__   |        |1        |
 |[saros](problems.md#saros)|1.5.1     |__+1__   |        |         |
-|[scimo](problems.md#scimo)|0.0.2     |__+3__   |        |1        |
-|[scPloidy](problems.md#scploidy)|0.6.2     |__+2__   |        |         |
+|[scimo](problems.md#scimo)|0.0.2     |__+2__   |        |1        |
+|[scPloidy](problems.md#scploidy)|0.6.2     |__+1__   |        |         |
 |[scSpatialSIM](problems.md#scspatialsim)|0.1.3.4   |__+1__   |        |         |
-|[ShinyItemAnalysis](problems.md#shinyitemanalysis)|1.5.4     |         |        |__+1__   |
 |[siera](problems.md#siera)|0.3.0     |__+1__   |        |         |
 |[simtrial](problems.md#simtrial)|0.4.2     |__+1__   |        |1        |
-|[smdi](problems.md#smdi)|0.3.1     |__+3__   |        |         |
 |[sparseR](problems.md#sparser)|0.3.2     |__+2__   |        |         |
 |[spinifex](problems.md#spinifex)|0.3.8     |__+3__   |        |         |
 |[srvyr](problems.md#srvyr)|1.3.0     |__+1__   |        |         |
-|[ssimparser](problems.md#ssimparser)|0.1.1     |__+1__   |        |         |
 |[SSLR](problems.md#sslr)|0.9.3.3   |__+2__   |        |         |
 |[stabiliser](problems.md#stabiliser)|1.0.6     |__+1__   |        |1        |
 |[stacks](problems.md#stacks)|1.1.0     |__+2__   |        |         |
@@ -292,7 +228,6 @@
 |[sunburstR](problems.md#sunburstr)|2.1.8     |__+3__   |        |2        |
 |[SunsVoc](problems.md#sunsvoc)|0.1.2     |__+2__   |        |1        |
 |[surveyexplorer](problems.md#surveyexplorer)|0.2.0     |__+2__   |        |         |
-|[surveytable](problems.md#surveytable)|0.9.7     |__+1__   |-1      |         |
 |[swfscDAS](problems.md#swfscdas)|0.6.3     |__+3__   |        |         |
 |[tablespan](problems.md#tablespan)|0.2.1     |__+2__   |        |         |
 |[tabnet](problems.md#tabnet)|0.7.0     |__+1__   |        |         |
@@ -305,7 +240,7 @@
 |[TDIagree](problems.md#tdiagree)|0.1.0     |__+1__   |        |         |
 |[textrecipes](problems.md#textrecipes)|1.1.0     |__+3__   |        |1        |
 |[themis](problems.md#themis)|1.0.3     |__+2__   |        |         |
-|[tidyAML](problems.md#tidyaml)|0.0.5     |__+1__   |        |         |
+|[tidyAML](problems.md#tidyaml)|0.0.5     |__+2__   |        |         |
 |[tidyclust](problems.md#tidyclust)|0.2.4     |__+2__   |        |         |
 |[tidycomm](problems.md#tidycomm)|0.4.1     |__+1__   |        |         |
 |[tidyfit](problems.md#tidyfit)|0.7.4     |__+1__   |        |         |
@@ -313,22 +248,18 @@
 |[tidyindex](problems.md#tidyindex)|0.1.0     |__+1__   |        |1        |
 |[tidyjson](problems.md#tidyjson)|0.3.2     |__+3__   |        |1        |
 |[tidyplots](problems.md#tidyplots)|0.2.2     |__+1__   |        |         |
-|[tidyquant](problems.md#tidyquant)|1.0.11    |__+1__   |        |         |
-|[tidyr](problems.md#tidyr)|1.3.1     |__+1__   |        |1        |
-|[tidywikidatar](problems.md#tidywikidatar)|0.5.9     |__+1__   |        |1        |
+|[tidyr](problems.md#tidyr)|1.3.1     |__+2__   |        |1        |
 |[tidyxl](problems.md#tidyxl)|1.0.10    |__+1__   |        |1        |
-|[timetk](problems.md#timetk)|2.9.0     |__+2__   |        |1        |
+|[timetk](problems.md#timetk)|2.9.0     |__+3__   |        |1        |
 |[TKCat](problems.md#tkcat)|1.1.12    |__+1__   |        |1        |
 |[tourr](problems.md#tourr)|1.2.4     |__+2__   |        |         |
 |[tradeoffaucdim](problems.md#tradeoffaucdim)|0.1.0     |__+1__   |        |1        |
 |[TransProR](problems.md#transpror)|1.0.3     |__+1__   |        |         |
 |[TreatmentPatterns](problems.md#treatmentpatterns)|3.0.3     |__+2__   |        |         |
-|[TrialEmulation](problems.md#trialemulation)|0.0.4.2   |__+1__   |        |         |
 |[tsibble](problems.md#tsibble)|1.1.6     |__+1__   |        |         |
 |[tune](problems.md#tune)|1.3.0     |__+1__   |        |         |
-|[unpivotr](problems.md#unpivotr)|0.6.4     |__+1__   |        |         |
+|[unpivotr](problems.md#unpivotr)|0.6.4     |__+3__   |        |         |
 |[unstruwwel](problems.md#unstruwwel)|0.2.2     |__+1__   |        |1        |
-|[usdoj](problems.md#usdoj)|1.1.1     |__+1__   |        |         |
 |[viraldomain](problems.md#viraldomain)|0.0.6     |__+1__   |        |         |
 |[viralmodels](problems.md#viralmodels)|1.3.3     |__+1__   |        |         |
 |[viralx](problems.md#viralx)|1.3.0     |__+2__   |        |         |
@@ -343,7 +274,7 @@
 |[workflowsets](problems.md#workflowsets)|1.1.0     |__+2__   |        |1        |
 |[woylier](problems.md#woylier)|0.0.9     |__+1__   |        |         |
 |[xlr](problems.md#xlr)  |1.0.3     |__+1__   |        |         |
-|[xpose.xtras](problems.md#xposextras)|0.0.2     |__+1__   |        |2        |
-|[yamlet](problems.md#yamlet)|1.2.1     |__+1__   |        |         |
+|[xpose.xtras](problems.md#xposextras)|0.0.2     |__+2__   |        |2        |
+|[yamlet](problems.md#yamlet)|1.2.1     |__+1__   |1       |         |
 |[ycevo](problems.md#ycevo)|0.2.1     |__+1__   |        |         |
 
