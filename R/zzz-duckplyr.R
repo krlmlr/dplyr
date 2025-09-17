@@ -1,5 +1,6 @@
 # begin R/aaa-meta.R
 # Overwritten in meta.R
+meta_reset <- function(...) {}
 meta_call <- function(...) {}
 meta_ext_register <- function(...) {}
 meta_rel_register <- function(...) {}
@@ -394,6 +395,21 @@ duckplyr_auto_copy <- function(x, y, ...) {
   out
 }
 # end R/auto_copy.R
+
+
+# begin R/bisect_reduce.R
+bisect_reduce <- function(x, fun) {
+  n <- length(x)
+  if (n == 1) {
+    return(x[[1]])
+  }
+  mid <- floor(n / 2)
+  incl <- seq_len(mid)
+  left <- bisect_reduce(x[incl], fun)
+  right <- bisect_reduce(x[-incl], fun)
+  fun(left, right)
+}
+# end R/bisect_reduce.R
 
 
 # begin R/can_load_extension.R
@@ -1698,7 +1714,7 @@ is_prudent_duckplyr_df <- function(x) {
   inherits(x, "prudent_duckplyr_df")
 }
 
-prudence_parse <- function(prudence, call = caller_env()) {
+prudence_parse <- function(prudence, remote, call = caller_env()) {
   n_rows <- Inf
   n_cells <- Inf
 
@@ -1743,7 +1759,11 @@ prudence_parse <- function(prudence, call = caller_env()) {
     if (!allow_materialization) {
       n_cells <- 0
     } else if (identical(prudence, "thrifty")) {
-      n_cells <- 1e6
+      if (isTRUE(remote)) {
+        n_cells <- 1e3
+      } else {
+        n_cells <- 1e6
+      }
     }
   }
 
@@ -4936,14 +4956,17 @@ read_file_duckdb <- function(
     cli::cli_abort("{.arg path} must be a character vector.")
   }
 
-  if (length(path) != 1) {
-    path <- list(path)
-  }
+  remote <- any(grepl("^[a-zA-Z]+://", path))
 
-  duckfun(table_function, c(list(path), options), prudence = prudence)
+  duckfun(
+    table_function,
+    c(list(list(path)), options),
+    prudence = prudence,
+    remote = remote
+  )
 }
 
-duckfun <- function(table_function, args, ..., prudence) {
+duckfun <- function(table_function, args, ..., prudence, remote = FALSE) {
   if (!is.list(args)) {
     cli::cli_abort("{.arg args} must be a list.")
   }
@@ -4967,7 +4990,7 @@ duckfun <- function(table_function, args, ..., prudence) {
 
   meta_rel_register_file(rel, table_function, path, options)
 
-  rel_to_df(rel, prudence = prudence)
+  rel_to_df(rel, prudence = prudence, remote = remote)
 }
 # end R/read_file_duckdb.R
 
@@ -5343,13 +5366,13 @@ vec_ptype_safe <- function(x) {
 }
 
 #' @export
-rel_to_df.duckdb_relation <- function(rel, ..., prudence = NULL) {
+rel_to_df.duckdb_relation <- function(rel, ..., prudence = NULL, remote = FALSE) {
   if (is.null(prudence)) {
     cli::cli_abort("Argument {.arg {prudence}} is missing.")
   }
 
   # Same code in new_duckdb_tibble(), to avoid recursion there
-  prudence_parsed <- prudence_parse(prudence)
+  prudence_parsed <- prudence_parse(prudence, remote)
   out <- duckdb$rel_to_altrep(
     rel,
     n_rows = prudence_parsed$n_rows,
@@ -8226,9 +8249,8 @@ rel_find_call_candidates <- function(fun, call = caller_env()) {
   } else if (name[[1]] == "::") {
     my_pkg <- name[[2]]
     name <- name[[3]]
-    pkgs <- rel_find_packages(name)
 
-    if (my_pkg %in% pkgs) {
+    if (my_pkg == "dd" || my_pkg %in% rel_find_packages(name)) {
       # Package name provided by the user, shortcut if found in list of packages
       # (requires non-NULL pkgs), no check needed
       return(list(
@@ -8328,8 +8350,15 @@ rel_translate_lang <- function(
 
   # Special case: passthrough to DuckDB
   if (pkg == "dd") {
+    args_r <- as.list(expr[-1])
+
     # FIXME: How to deal with window functions?
-    args <- map(as.list(expr[-1]), do_translate, in_window = in_window)
+    args <- map(args_r, do_translate, in_window = in_window)
+
+    if (!is.null(names(args_r))) {
+      need_names <- (names(args_r) != "")
+      args[need_names] <- map2(args[need_names], names(args_r)[need_names], relexpr_set_alias)
+    }
     fun <- relexpr_function(name, args)
     return(fun)
   }
@@ -8412,7 +8441,7 @@ rel_translate_lang <- function(
       consts <- map(values, do_translate)
       ops <- map(consts, ~ list(lhs, .x))
       cmp <- map(ops, relexpr_function, name = "r_base::==")
-      alt <- reduce(cmp, function(.x, .y) {
+      alt <- bisect_reduce(cmp, function(.x, .y) {
         relexpr_function("|", list(.x, .y))
       })
       coalesce <- relexpr_function("___coalesce", list(alt, relexpr_constant(has_na)))
