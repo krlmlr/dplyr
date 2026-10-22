@@ -104,7 +104,14 @@ anti_join.data.frame <- function(x, y, by = NULL, copy = FALSE, ..., na_matches 
   # dplyr implementation
   check_dots_empty0(...)
   y <- auto_copy(x, y, copy = copy)
-  join_filter(x, y, by = by, type = "anti", na_matches = na_matches, user_env = caller_env())
+  join_filter(
+    x,
+    y,
+    by = by,
+    type = "anti",
+    na_matches = na_matches,
+    user_env = caller_env()
+  )
 }
 
 duckplyr_anti_join <- function(x, y, ...) {
@@ -129,13 +136,11 @@ duckplyr_anti_join <- function(x, y, ...) {
 #'
 #' @description  This is a method for the [dplyr::arrange()] generic.
 #' See "Fallbacks" section for differences in implementation.
-#' `arrange()` orders the rows of a data frame by the values of selected
-#' columns.
+#' `arrange()` orders the rows of a data frame by the values of selected columns.
 #'
-#' Unlike other dplyr verbs, `arrange()` largely ignores grouping; you
-#' need to explicitly mention grouping variables (or use  `.by_group = TRUE`)
-#' in order to group by them, and functions of variables are evaluated
-#' once per data frame, not once per group.
+#' Unlike other dplyr verbs, `arrange()` largely ignores grouping;
+#' you need to explicitly mention grouping variables (or use  `.by_group = TRUE`) in order to group by them,
+#' and functions of variables are evaluated once per data frame, not once per group.
 #'
 #'
 #' @inheritParams dplyr::arrange
@@ -252,8 +257,8 @@ duckplyr_arrange <- function(.data, ...) {
 #' This behavior is likely to change, do not rely on it.
 #'
 #' @details
-#' Set the `DUCKPLYR_FALLBACK_INFO` and `DUCKPLYR_FORCE` environment variables
-#' for more control over the behavior, see [config] for more details.
+#' Set the `DUCKPLYR_FALLBACK_INFO` and `DUCKPLYR_FORCE` environment variables for more control over the behavior,
+#' see [config] for more details.
 #'
 #' @param .data data frame or tibble to transform
 #'
@@ -273,11 +278,17 @@ as_duckplyr_df <- function(.data) {
 
 as_duckplyr_df_impl <- function(x, error_call = caller_env()) {
   # FIXME: Move to as_duckdb_tibble()
-  if (!identical(class(x), "data.frame") && !identical(class(x), c("tbl_df", "tbl", "data.frame"))) {
-    cli::cli_abort(call = error_call, c(
-      "Must pass a plain data frame or a tibble, not {.obj_type_friendly {x}}.",
-      i = "Convert it with {.fun as.data.frame} or {.fun tibble::as_tibble}."
-    ))
+  if (
+    !identical(class(x), "data.frame") &&
+      !identical(class(x), c("tbl_df", "tbl", "data.frame"))
+  ) {
+    cli::cli_abort(
+      call = error_call,
+      c(
+        "Must pass a plain data frame or a tibble, not {.obj_type_friendly {x}}.",
+        i = "Convert it with {.fun as.data.frame} or {.fun tibble::as_tibble}."
+      )
+    )
   }
 
   new_duckdb_tibble(x, class = class(x), error_call = error_call)
@@ -296,7 +307,11 @@ as_duckplyr_df_impl <- function(x, error_call = caller_env()) {
 #' @rdname as_duckplyr_df
 #' @export
 as_duckplyr_tibble <- function(.data) {
-  lifecycle::deprecate_soft("1.0.0", "as_duckplyr_tibble()", "as_duckdb_tibble()")
+  lifecycle::deprecate_soft(
+    "1.0.0",
+    "as_duckplyr_tibble()",
+    "as_duckdb_tibble()"
+  )
 
   if (inherits(.data, "tbl_duckdb_connection")) {
     con <- dbplyr::remote_con(.data)
@@ -319,8 +334,7 @@ as_duckplyr_tibble <- function(.data) {
 #' @description
 #' `r lifecycle::badge("experimental")`
 #'
-#' This function converts a lazy duckplyr frame or a data frame
-#' to a dbplyr table in duckplyr's internal connection.
+#' This function converts a lazy duckplyr frame or a data frame to a dbplyr table in duckplyr's internal connection.
 #' This allows using dbplyr functions on the data,
 #' including hand-written SQL queries.
 #' Use [as_duckdb_tibble()] to convert back to a lazy duckplyr frame.
@@ -351,7 +365,8 @@ as_tbl <- function(.data) {
   reg.finalizer(
     scope_guard,
     function(e) {
-      tryCatch(DBI::dbExecute(con, paste0("DROP VIEW ", name)),
+      tryCatch(
+        DBI::dbExecute(con, paste0("DROP VIEW ", name)),
         # Ignore errors
         error = function(e) {
           message(conditionMessage(e))
@@ -365,7 +380,7 @@ as_tbl <- function(.data) {
   duckdb$rel_to_view(rel, "", name, temporary = TRUE)
 
   out <- dplyr::tbl(con, name)
-  attr(out, "duckplyr_scope_guard") <- scope_guard
+  attr(out$lazy_query, "duckplyr_scope_guard") <- scope_guard
   out
 }
 # end R/as_tbl.R
@@ -427,7 +442,11 @@ can_load_extension <- function(name) {
 
 on_load({
   env <- environment()
-  assign("can_load_extension", memoise::memoise(can_load_extension), envir = env)
+  assign(
+    "can_load_extension",
+    memoise::memoise(can_load_extension),
+    envir = env
+  )
 })
 # end R/can_load_extension.R
 
@@ -493,8 +512,8 @@ duckplyr_collect <- function(x, ...) {
 #' @param name The name of the table to store the result in.
 #' @param schema_name The schema to store the result in, defaults to the current schema.
 #' @param temporary Set to `FALSE` to store the result in a permanent table.
-#' @param prudence Memory protection, controls if DuckDB may convert
-#'   intermediate results in DuckDB-managed memory to data frames in R memory.
+#' @param prudence Memory protection,
+#'   controls if DuckDB may convert intermediate results in DuckDB-managed memory to data frames in R memory.
 #'
 #'   - `"lavish"`: regardless of size,
 #'   - `"stingy"`: never,
@@ -502,8 +521,7 @@ duckplyr_collect <- function(x, ...) {
 #'
 #' The default is to inherit from the input.
 #' This argument is provided here only for convenience.
-#' The same effect can be achieved by forwarding the output to [as_duckdb_tibble()]
-#' with the desired prudence.
+#' The same effect can be achieved by forwarding the output to [as_duckdb_tibble()] with the desired prudence.
 #' See `vignette("prudence")` for more information.
 #'
 # @inheritSection duckdb_tibble Fine-tuning prudence # Omitting here, too much detail
@@ -596,20 +614,17 @@ duckplyr_compute <- function(x, ...) {
 # begin R/compute_csv.R
 #' Compute results to a CSV file
 #'
-#' For a duckplyr frame, this function executes the query
-#' and stores the results in a CSV file,
-#' without converting it to an R data frame.
+#' This is a generic function that executes a query
+#' and stores the results in a CSV file.
+#' For a duckplyr frame, the materialization occurs outside of R.
 #' The result is a duckplyr frame that can be used with subsequent dplyr verbs.
-#' This function can also be used as a CSV writer for regular data frames.
 #'
 #' @inheritParams rlang::args_dots_empty
-#' @inheritParams compute.duckplyr_df
-#' @inheritParams compute_parquet
-#' @param options A list of additional options to pass to create the storage format,
-#'   see <https://duckdb.org/docs/sql/statements/copy.html#csv-options>
-#'   for details.
+#' @param x A data frame or lazy data frame.
+#' @param path The path of the CSV file to create.
+#' @param ... Additional arguments passed to methods.
 #'
-#' @return A duckplyr frame.
+#' @return A data frame (the class may vary based on the input).
 #'
 #' @export
 #' @examples
@@ -620,7 +635,23 @@ duckplyr_compute <- function(x, ...) {
 #' df <- compute_csv(df, path)
 #' readLines(path)
 #' @seealso [compute_parquet()], [compute.duckplyr_df()], [dplyr::collect()]
-compute_csv <- function(x, path, ..., prudence = NULL, options = NULL) {
+compute_csv <- function(x, path, ...) {
+  UseMethod("compute_csv")
+}
+
+#' @inheritParams compute.duckplyr_df
+#' @param options A list of additional options to pass to create the storage format,
+#'   see <https://duckdb.org/docs/sql/statements/copy.html#csv-options> for details.
+#'
+#' @rdname compute_csv
+#' @export
+compute_csv.data.frame <- function(
+  x,
+  path,
+  ...,
+  prudence = NULL,
+  options = NULL
+) {
   check_dots_empty()
 
   if (is.null(options)) {
@@ -640,7 +671,25 @@ compute_csv <- function(x, path, ..., prudence = NULL, options = NULL) {
     path <- file.path(path, "**", "**.csv")
   }
 
-  read_csv_duckdb(path, prudence = prudence)
+  # Filter out write-only options before reading
+  read_options <- options[intersect(
+    names(options),
+    get_duckdb_read_opts("read_csv_auto")
+  )]
+  read_csv_duckdb(path, prudence = prudence, options = read_options)
+}
+
+#' @rdname compute_csv
+#' @export
+compute_csv.data.frame <- function(
+  x,
+  path,
+  ...,
+  prudence = NULL,
+  options = NULL
+) {
+  x <- as_duckdb_tibble(x)
+  compute_csv.duckplyr_df(x, path, ..., prudence = prudence, options = options)
 }
 # end R/compute_csv.R
 
@@ -648,21 +697,17 @@ compute_csv <- function(x, path, ..., prudence = NULL, options = NULL) {
 # begin R/compute_parquet.R
 #' Compute results to a Parquet file
 #'
-#' For a duckplyr frame, this function executes the query
-#' and stores the results in a Parquet file,
-#' without converting it to an R data frame.
+#' This is a generic function that executes a query
+#' and stores the results in a Parquet file.
+#' For a duckplyr frame, the materialization occurs outside of R.
 #' The result is a duckplyr frame that can be used with subsequent dplyr verbs.
-#' This function can also be used as a Parquet writer for regular data frames.
 #'
 #' @inheritParams rlang::args_dots_empty
-#' @inheritParams compute.duckplyr_df
-#' @param x A duckplyr frame.
+#' @param x A data frame or lazy data frame.
 #' @param path The path of the Parquet file to create.
-#' @param options A list of additional options to pass to create the Parquet file,
-#'   see <https://duckdb.org/docs/sql/statements/copy.html#parquet-options>
-#'   for details.
+#' @param ... Additional arguments passed to methods.
 #'
-#' @return A duckplyr frame.
+#' @return A data frame (the class may vary based on the input).
 #'
 #' @export
 #' @examples
@@ -673,7 +718,23 @@ compute_csv <- function(x, path, ..., prudence = NULL, options = NULL) {
 #' df <- compute_parquet(df, path)
 #' explain(df)
 #' @seealso [compute_csv()], [compute.duckplyr_df()], [dplyr::collect()]
-compute_parquet <- function(x, path, ..., prudence = NULL, options = NULL) {
+compute_parquet <- function(x, path, ...) {
+  UseMethod("compute_parquet")
+}
+
+#' @inheritParams compute.duckplyr_df
+#' @param options A list of additional options to pass to create the Parquet file,
+#'   see <https://duckdb.org/docs/sql/statements/copy.html#parquet-options> for details.
+#'
+#' @rdname compute_parquet
+#' @export
+compute_parquet.data.frame <- function(
+  x,
+  path,
+  ...,
+  prudence = NULL,
+  options = NULL
+) {
   check_dots_empty()
 
   if (is.null(options)) {
@@ -693,7 +754,31 @@ compute_parquet <- function(x, path, ..., prudence = NULL, options = NULL) {
     path <- file.path(path, "**", "**.parquet")
   }
 
-  read_parquet_duckdb(path, prudence = prudence)
+  # Filter out write-only options before reading
+  read_options <- options[intersect(
+    names(options),
+    get_duckdb_read_opts("read_parquet")
+  )]
+  read_parquet_duckdb(path, prudence = prudence, options = read_options)
+}
+
+#' @rdname compute_parquet
+#' @export
+compute_parquet.data.frame <- function(
+  x,
+  path,
+  ...,
+  prudence = NULL,
+  options = NULL
+) {
+  x <- as_duckdb_tibble(x)
+  compute_parquet.duckplyr_df(
+    x,
+    path,
+    ...,
+    prudence = prudence,
+    options = options
+  )
 }
 # end R/compute_parquet.R
 
@@ -701,8 +786,7 @@ compute_parquet <- function(x, path, ..., prudence = NULL, options = NULL) {
 # begin R/config.R
 #' Configuration options
 #'
-#' The behavior of duckplyr can be fine-tuned with several environment variables,
-#' and one option.
+#' The behavior of duckplyr can be fine-tuned with several environment variables, and one option.
 #'
 #' @section Environment variables:
 #'
@@ -711,8 +795,7 @@ compute_parquet <- function(x, path, ..., prudence = NULL, options = NULL) {
 #'
 #' `DUCKPLYR_OUTPUT_ORDER`: If `TRUE`, row output order is preserved.
 #' The default may change the row order where dplyr would keep it stable.
-#' Preserving the order leads to more complicated execution plans
-#' with less potential for optimization, and thus may be slower.
+#' Preserving the order leads to more complicated execution plans with less potential for optimization, and thus may be slower.
 #'
 #' `DUCKPLYR_FORCE`: If `TRUE`, fail if duckdb cannot handle a request.
 #'
@@ -724,8 +807,7 @@ compute_parquet <- function(x, path, ..., prudence = NULL, options = NULL) {
 #' `DUCKPLYR_METHODS_OVERWRITE`: If `TRUE`, call `methods_overwrite()`
 #' when the package is loaded.
 #'
-#' See [fallback] for more options related to printing, logging, and uploading
-#' of fallback events.
+#' See [fallback] for more options related to printing, logging, and uploading of fallback events.
 #'
 # Not available in the CRAN package:
 # `DUCKPLYR_META_ENABLE`: Skip recording the operations, replay not available.
@@ -782,16 +864,29 @@ NULL
 #' @param ... Additional options used by user defined constructors through the `opts` object
 #' @return An object of class <constructive_options/constructive_options_relational_relexpr_constant>
 #' @noRd
-opts_relational_relexpr_constant <- function(constructor = c("relexpr_constant", "next"), ...) {
-  constructive::.cstr_options("relational_relexpr_constant", constructor = constructor[[1]], ...)
+opts_relational_relexpr_constant <- function(
+  constructor = c("relexpr_constant", "next"),
+  ...
+) {
+  constructive::.cstr_options(
+    "relational_relexpr_constant",
+    constructor = constructor[[1]],
+    ...
+  )
 }
 
 .cstr_construct.relational_relexpr_constant <- function(x, ...) {
-  opts <- list(...)$opts$relational_relexpr_constant %||% opts_relational_relexpr_constant()
-  if (is_corrupted_relational_relexpr_constant(x) || opts$constructor == "next") {
+  opts <- list(...)$opts$relational_relexpr_constant %||%
+    opts_relational_relexpr_constant()
+  if (
+    is_corrupted_relational_relexpr_constant(x) || opts$constructor == "next"
+  ) {
     return(NextMethod())
   }
-  UseMethod(".cstr_construct.relational_relexpr_constant", structure(NA, class = opts$constructor))
+  UseMethod(
+    ".cstr_construct.relational_relexpr_constant",
+    structure(NA, class = opts$constructor)
+  )
 }
 
 is_corrupted_relational_relexpr_constant <- function(x) {
@@ -800,7 +895,10 @@ is_corrupted_relational_relexpr_constant <- function(x) {
 
 #' @export
 #' @method .cstr_construct.relational_relexpr_constant relexpr_constant
-.cstr_construct.relational_relexpr_constant.relexpr_constant <- function(x, ...) {
+.cstr_construct.relational_relexpr_constant.relexpr_constant <- function(
+  x,
+  ...
+) {
   # opts <- list(...)$opts$relational_relexpr_constant %||% opts_relational_relexpr_constant()
   args <- compact(list(
     x$val,
@@ -808,13 +906,18 @@ is_corrupted_relational_relexpr_constant <- function(x) {
   ))
   code <- constructive::.cstr_apply(args, fun = "relexpr_constant", ...)
   constructive::.cstr_repair_attributes(
-    x, code, ...,
+    x,
+    code,
+    ...,
     idiomatic_class = c("relational_relexpr_constant", "relational_relexpr")
   )
 }
 
 on_load({
-  vctrs::s3_register("constructive::.cstr_construct", "relational_relexpr_constant")
+  vctrs::s3_register(
+    "constructive::.cstr_construct",
+    "relational_relexpr_constant"
+  )
 })
 # end R/construct_constant.R
 
@@ -832,23 +935,34 @@ on_load({
 #' @param ... Additional options used by user defined constructors through the `opts` object
 #' @return An object of class <constructive_options/constructive_options_relational_relexpr_function>
 #' @noRd
-opts_relational_relexpr_function <- function(constructor = c("relexpr_function", "next"), ...) {
-  # What's forwarded through `...`will be accessible through the `opts`
-  # object in the methods.
+opts_relational_relexpr_function <- function(
+  constructor = c("relexpr_function", "next"),
+  ...
+) {
+  # What's forwarded through `...`will be accessible through the `opts` object in the methods.
   # You might add arguments to the function, to document those options,
   # don't forget to forward them below as well
-  constructive::.cstr_options("relational_relexpr_function", constructor = constructor[[1]], ...)
+  constructive::.cstr_options(
+    "relational_relexpr_function",
+    constructor = constructor[[1]],
+    ...
+  )
 }
 
 .cstr_construct.relational_relexpr_function <- function(x, ...) {
   # There is probably no need for you to modify this function at all
-  opts <- list(...)$opts$relational_relexpr_function %||% opts_relational_relexpr_function()
-  if (is_corrupted_relational_relexpr_function(x) || opts$constructor == "next") {
+  opts <- list(...)$opts$relational_relexpr_function %||%
+    opts_relational_relexpr_function()
+  if (
+    is_corrupted_relational_relexpr_function(x) || opts$constructor == "next"
+  ) {
     return(NextMethod())
   }
-  # This odd looking code dispatches to a method based on the name of
-  # the constructor rather than the class
-  UseMethod(".cstr_construct.relational_relexpr_function", structure(NA, class = opts$constructor))
+  # This odd looking code dispatches to a method based on the name of the constructor rather than the class
+  UseMethod(
+    ".cstr_construct.relational_relexpr_function",
+    structure(NA, class = opts$constructor)
+  )
 }
 
 is_corrupted_relational_relexpr_function <- function(x) {
@@ -859,27 +973,33 @@ is_corrupted_relational_relexpr_function <- function(x) {
 
 #' @export
 #' @method .cstr_construct.relational_relexpr_function relexpr_function
-.cstr_construct.relational_relexpr_function.relexpr_function <- function(x, ...) {
+.cstr_construct.relational_relexpr_function.relexpr_function <- function(
+  x,
+  ...
+) {
   # If needed, fetch additional options fed through opts_relational_relexpr_function()
   # opts <- list(...)$opts$relational_relexpr_function %||% opts_relational_relexpr_function()
 
   # Instead of the call below we need to fetch the args of the constructor in `x`.
-  args <- Filter(function(.x) !is.null(.x), list(
-    x$name,
-    x$args,
-    alias = x$alias
-  ))
+  args <- Filter(
+    function(.x) !is.null(.x),
+    list(
+      x$name,
+      x$args,
+      alias = x$alias
+    )
+  )
 
-  # This creates a call relexpr_function(...) where ... is the constructed code
-  # of the arguments stored in `args`
-  # Sometimes we want to construct the code of the args separately, i.e. store
-  # code rather than objects in `args`, and use `recurse = FALSE` below
+  # This creates a call relexpr_function(...) where ... is the constructed code of the arguments stored in `args`
+  # Sometimes we want to construct the code of the args separately,
+  # i.e. store code rather than objects in `args`, and use `recurse = FALSE` below
   code <- constructive::.cstr_apply(args, fun = "relexpr_function", ...)
 
-  # constructive::.cstr_repair_attributes() makes sure that attributes that are not built
-  # by the idiomatic constructor are generated
+  # constructive::.cstr_repair_attributes() makes sure that attributes that are not built by the idiomatic constructor are generated
   constructive::.cstr_repair_attributes(
-    x, code, ...,
+    x,
+    code,
+    ...,
     # attributes built by the constructor
     # ignore =,
 
@@ -889,7 +1009,10 @@ is_corrupted_relational_relexpr_function <- function(x) {
 }
 
 on_load({
-  vctrs::s3_register("constructive::.cstr_construct", "relational_relexpr_function")
+  vctrs::s3_register(
+    "constructive::.cstr_construct",
+    "relational_relexpr_function"
+  )
 })
 # end R/construct_function.R
 
@@ -907,16 +1030,29 @@ on_load({
 #' @param ... Additional options used by user defined constructors through the `opts` object
 #' @return An object of class <constructive_options/constructive_options_relational_relexpr_reference>
 #' @noRd
-opts_relational_relexpr_reference <- function(constructor = c("relexpr_reference", "next"), ...) {
-  constructive::.cstr_options("relational_relexpr_reference", constructor = constructor[[1]], ...)
+opts_relational_relexpr_reference <- function(
+  constructor = c("relexpr_reference", "next"),
+  ...
+) {
+  constructive::.cstr_options(
+    "relational_relexpr_reference",
+    constructor = constructor[[1]],
+    ...
+  )
 }
 
 .cstr_construct.relational_relexpr_reference <- function(x, ...) {
-  opts <- list(...)$opts$relational_relexpr_reference %||% opts_relational_relexpr_reference()
-  if (is_corrupted_relational_relexpr_reference(x) || opts$constructor == "next") {
+  opts <- list(...)$opts$relational_relexpr_reference %||%
+    opts_relational_relexpr_reference()
+  if (
+    is_corrupted_relational_relexpr_reference(x) || opts$constructor == "next"
+  ) {
     return(NextMethod())
   }
-  UseMethod(".cstr_construct.relational_relexpr_reference", structure(NA, class = opts$constructor))
+  UseMethod(
+    ".cstr_construct.relational_relexpr_reference",
+    structure(NA, class = opts$constructor)
+  )
 }
 
 is_corrupted_relational_relexpr_reference <- function(x) {
@@ -925,7 +1061,10 @@ is_corrupted_relational_relexpr_reference <- function(x) {
 
 #' @export
 #' @method .cstr_construct.relational_relexpr_reference relexpr_reference
-.cstr_construct.relational_relexpr_reference.relexpr_reference <- function(x, ...) {
+.cstr_construct.relational_relexpr_reference.relexpr_reference <- function(
+  x,
+  ...
+) {
   # opts <- list(...)$opts$relational_relexpr_reference %||% opts_relational_relexpr_reference()
   args <- compact(list(
     x$name,
@@ -934,13 +1073,18 @@ is_corrupted_relational_relexpr_reference <- function(x) {
   ))
   code <- constructive::.cstr_apply(args, fun = "relexpr_reference", ...)
   constructive::.cstr_repair_attributes(
-    x, code, ...,
+    x,
+    code,
+    ...,
     idiomatic_class = c("relational_relexpr_reference", "relational_relexpr")
   )
 }
 
 on_load({
-  vctrs::s3_register("constructive::.cstr_construct", "relational_relexpr_reference")
+  vctrs::s3_register(
+    "constructive::.cstr_construct",
+    "relational_relexpr_reference"
+  )
 })
 # end R/construct_reference.R
 
@@ -958,16 +1102,27 @@ on_load({
 #' @param ... Additional options used by user defined constructors through the `opts` object
 #' @return An object of class <constructive_options/constructive_options_relational_relexpr_window>
 #' @noRd
-opts_relational_relexpr_window <- function(constructor = c("relexpr_window", "next"), ...) {
-  constructive::.cstr_options("relational_relexpr_window", constructor = constructor[[1]], ...)
+opts_relational_relexpr_window <- function(
+  constructor = c("relexpr_window", "next"),
+  ...
+) {
+  constructive::.cstr_options(
+    "relational_relexpr_window",
+    constructor = constructor[[1]],
+    ...
+  )
 }
 
 .cstr_construct.relational_relexpr_window <- function(x, ...) {
-  opts <- list(...)$opts$relational_relexpr_window %||% opts_relational_relexpr_window()
+  opts <- list(...)$opts$relational_relexpr_window %||%
+    opts_relational_relexpr_window()
   if (is_corrupted_relational_relexpr_window(x) || opts$constructor == "next") {
     return(NextMethod())
   }
-  UseMethod(".cstr_construct.relational_relexpr_window", structure(NA, class = opts$constructor))
+  UseMethod(
+    ".cstr_construct.relational_relexpr_window",
+    structure(NA, class = opts$constructor)
+  )
 }
 
 is_corrupted_relational_relexpr_window <- function(x) {
@@ -978,23 +1133,31 @@ is_corrupted_relational_relexpr_window <- function(x) {
 #' @method .cstr_construct.relational_relexpr_window relexpr_window
 .cstr_construct.relational_relexpr_window.relexpr_window <- function(x, ...) {
   # opts <- list(...)$opts$relational_relexpr_window %||% opts_relational_relexpr_window()
-  args <- Filter(function(.x) !is.null(.x), list(
-    x$expr,
-    x$partitions,
-    order_bys = if (length(x$order_bys) > 0) x$order_bys,
-    offset_expr = x$offset_expr,
-    default_expr = x$default_expr,
-    alias = x$alias
-  ))
+  args <- Filter(
+    function(.x) !is.null(.x),
+    list(
+      x$expr,
+      x$partitions,
+      order_bys = if (length(x$order_bys) > 0) x$order_bys,
+      offset_expr = x$offset_expr,
+      default_expr = x$default_expr,
+      alias = x$alias
+    )
+  )
   code <- constructive::.cstr_apply(args, fun = "relexpr_window", ...)
   constructive::.cstr_repair_attributes(
-    x, code, ...,
+    x,
+    code,
+    ...,
     idiomatic_class = c("relational_relexpr_window", "relational_relexpr")
   )
 }
 
 on_load({
-  vctrs::s3_register("constructive::.cstr_construct", "relational_relexpr_window")
+  vctrs::s3_register(
+    "constructive::.cstr_construct",
+    "relational_relexpr_window"
+  )
 })
 # end R/construct_window.R
 
@@ -1005,11 +1168,9 @@ on_load({
 #' @description  This is a method for the [dplyr::count()] generic.
 #' See "Fallbacks" section for differences in implementation.
 #' `count()` lets you quickly count the unique values of one or more variables:
-#' `df %>% count(a, b)` is roughly equivalent to
-#' `df %>% group_by(a, b) %>% summarise(n = n())`.
-#' `count()` is paired with `tally()`, a lower-level helper that is equivalent
-#' to `df %>% summarise(n = n())`. Supply `wt` to perform weighted counts,
-#' switching the summary from `n = n()` to `n = sum(wt)`.
+#' `df %>% count(a, b)` is roughly equivalent to `df %>% group_by(a, b) %>% summarise(n = n())`.
+#' `count()` is paired with `tally()`, a lower-level helper that is equivalent to `df %>% summarise(n = n())`.
+#' Supply `wt` to perform weighted counts, switching the summary from `n = n()` to `n = sum(wt)`.
 #'
 #' @inheritParams dplyr::count
 #' @examples
@@ -1042,8 +1203,10 @@ count.data.frame <- function(x, ..., wt = NULL, sort = FALSE, name = NULL, .drop
     check_string(name, call = dplyr_error_call())
   }
 
+  wt <- enquo(wt)
+
   # Passing `name` reliably is surprisingly complicated.
-  duckplyr_error <- rel_try(list(name = "count", x = x, args = try_list(dots = enquos(...), wt = enquo(wt), sort = sort, .drop = .drop)),
+  duckplyr_error <- rel_try(list(name = "count", x = x, args = try_list(dots = enquos(...), wt = wt, sort = sort, .drop = .drop)),
     #' @section Fallbacks:
     #' There is no DuckDB translation in `count.duckplyr_df()`
     #' - with complex expressions in `...`,
@@ -1064,7 +1227,7 @@ count.data.frame <- function(x, ..., wt = NULL, sort = FALSE, name = NULL, .drop
       if (name %in% by_chr) {
         cli::cli_abort("Name clash in `count()`")
       }
-      n <- tally_n(x, {{ wt }})
+      n <- tally_n(x, wt)
 
       groups <- rel_translate_dots(by, x)
       aggregates <- list(rel_translate(n, x, alias = name))
@@ -1087,7 +1250,7 @@ count.data.frame <- function(x, ..., wt = NULL, sort = FALSE, name = NULL, .drop
   check_prudence(x, duckplyr_error)
 
   count <- count_data_frame
-  out <- count(x, ..., wt = {{ wt }}, sort = sort, name = name, .drop = .drop)
+  out <- count(x, ..., wt = !!wt, sort = sort, name = name, .drop = .drop)
   return(out)
 
   # dplyr implementation
@@ -1099,7 +1262,8 @@ count.data.frame <- function(x, ..., wt = NULL, sort = FALSE, name = NULL, .drop
     out <- x
   }
 
-  out <- tally(out, wt = !!enquo(wt), sort = sort, name = name)
+  wt <- compat_wt(enquo(wt))
+  out <- tally(out, wt = !!wt, sort = sort, name = name)
 
   # Ensure grouping is transient
   out <- dplyr_reconstruct(out, x)
@@ -1410,7 +1574,8 @@ duckplyr_mutate_keep <- function(out, keep, used, names_new, names_groups) {
 
   names <- names(out)
 
-  names_keep <- switch(keep,
+  names_keep <- switch(
+    keep,
     used = names(used)[used],
     unused = names(used)[!used],
     none = character(),
@@ -1433,7 +1598,7 @@ duckdb <- asNamespace("duckdb")
 # A simplified version of functions in dplyr's across.R
 
 duckplyr_expand_across <- function(data, quo) {
-  stopifnot(is.character(data))
+  stopifnot(is.data.frame(data))
 
   quo_data <- attr(quo, "dplyr:::data")
   if (!quo_is_call(quo, "across", ns = c("", "dplyr")) || quo_data$is_named) {
@@ -1449,32 +1614,28 @@ duckplyr_expand_across <- function(data, quo) {
     envir = env
   )
 
-  # Abort expansion if there are any expression supplied because dots
-  # must be evaluated once per group in the data mask. Expanding the
-  # `across()` call would lead to either `n_group * n_col` evaluations
-  # if dots are delayed or only 1 evaluation if they are eagerly
-  # evaluated.
+  # Abort expansion if there are any expression supplied because dots must be evaluated once per group in the data mask.
+  # Expanding the `across()` call would lead to either `n_group * n_col` evaluations
+  # if dots are delayed or only 1 evaluation if they are eagerly evaluated.
   if (!is_null(expr$...)) {
     return(NULL)
   }
 
   if (".unpack" %in% names(expr)) {
-    # In dplyr this evaluates in the mask to reproduce the `mutate()` or
-    # `summarise()` context. We don't have a mask here but it's probably fine in
-    # almost all cases.
+    # In dplyr this evaluates in the mask to reproduce the `mutate()` or `summarise()` context.
+    # We don't have a mask here but it's probably fine in almost all cases.
     unpack <- eval_tidy(expr$.unpack, env = env)
   } else {
     unpack <- FALSE
   }
 
-  # Abort expansion if unpacking as expansion makes named expressions and we
-  # need the expressions to remain unnamed
+  # Abort expansion if unpacking as expansion makes named expressions
+  # and we need the expressions to remain unnamed
   if (!is_false(unpack)) {
     return(NULL)
   }
 
-  # Differentiate between missing and null (`match.call()` doesn't
-  # expand default argument)
+  # Differentiate between missing and null (`match.call()` doesn't expand default argument)
   if (!(".cols" %in% names(expr))) {
     # This is deprecated, let dplyr warn
     return(NULL)
@@ -1490,9 +1651,8 @@ duckplyr_expand_across <- function(data, quo) {
   fns <- as_quosure(expr$.fns, env)
   fns <- quo_eval_fns(fns, mask = env, error_call = error_call)
 
-  # In dplyr this evaluates in the mask to reproduce the `mutate()` or
-  # `summarise()` context. We don't have a mask here but it's probably fine in
-  # almost all cases.
+  # In dplyr this evaluates in the mask to reproduce the `mutate()` or `summarise()` context.
+  # We don't have a mask here but it's probably fine in almost all cases.
   names <- eval_tidy(expr$.names, env = env)
 
   setup <- duckplyr_across_setup(
@@ -1518,7 +1678,7 @@ duckplyr_expand_across <- function(data, quo) {
   n_fns <- length(fns)
 
   seq_vars <- seq_len(n_vars)
-  seq_fns  <- seq_len(n_fns)
+  seq_fns <- seq_len(n_fns)
 
   exprs <- new_list(n_vars * n_fns, names = names)
 
@@ -1553,18 +1713,18 @@ duckplyr_expand_across <- function(data, quo) {
   exprs
 }
 
-duckplyr_across_setup <- function(data,
-                                  cols,
-                                  fns,
-                                  names,
-                                  .caller_env,
-                                  error_call = caller_env()) {
-  data <- set_names(seq_along(data), data)
-
+duckplyr_across_setup <- function(
+  data,
+  cols,
+  fns,
+  names,
+  .caller_env,
+  error_call = caller_env()
+) {
   vars <- tidyselect::eval_select(
     cols,
     data = data,
-    allow_predicates = FALSE,
+    allow_predicates = TRUE,
     error_call = error_call
   )
   names_vars <- names(vars)
@@ -1595,9 +1755,10 @@ duckplyr_across_setup <- function(data,
     }
   }
 
-  glue_mask <- across_glue_mask(.caller_env,
+  glue_mask <- across_glue_mask(
+    .caller_env,
     .col = rep(names_vars, each = length(fns)),
-    .fn  = rep(names_fns , length(vars))
+    .fn = rep(names_fns, length(vars))
   )
   names <- vec_as_names(
     glue(names, .envir = glue_mask),
@@ -1613,7 +1774,12 @@ duckplyr_across_setup <- function(data,
 }
 
 fn_to_expr <- function(fn, env) {
-  fn_env <- environment(fn)
+  if (is.primitive(fn)) {
+    fn_env <- getNamespace("base")
+  } else {
+    fn_env <- environment(fn)
+  }
+
   if (!is_namespace(fn_env)) {
     return(fn)
   }
@@ -1637,11 +1803,14 @@ fn_to_expr <- function(fn, env) {
   out
 }
 
-# Memoize get_ns_exports_lookup() to avoid recomputing the hash of
-# every function in every namespace every time
+# Memoize get_ns_exports_lookup() to avoid recomputing the hash of every function in every namespace every time
 on_load({
   env <- environment()
-  assign("get_ns_exports_lookup", memoise::memoise(get_ns_exports_lookup), envir = env)
+  assign(
+    "get_ns_exports_lookup",
+    memoise::memoise(get_ns_exports_lookup),
+    envir = env
+  )
 })
 
 get_ns_exports_lookup <- function(ns) {
@@ -1668,7 +1837,13 @@ test_duckplyr_expand_across <- function(data, expr) {
 # begin R/duckplyr_df.R
 #' @param prudence Only adds the class, does not recreate the relation object!
 #' @noRd
-new_duckdb_tibble <- function(x, class = NULL, prudence = "lavish", adjust_prudence = FALSE, error_call = caller_env()) {
+new_duckdb_tibble <- function(
+  x,
+  class = NULL,
+  prudence = "lavish",
+  adjust_prudence = FALSE,
+  error_call = caller_env()
+) {
   if (is.null(class)) {
     class <- c("tbl_df", "tbl", "data.frame")
   } else {
@@ -1720,32 +1895,47 @@ prudence_parse <- function(prudence, remote, call = caller_env()) {
 
   if (is.numeric(prudence)) {
     if (is.null(names(prudence))) {
-      cli::cli_abort("{.arg prudence} must have names if it is a named vector.", call = call)
+      cli::cli_abort(
+        "{.arg prudence} must have names if it is a named vector.",
+        call = call
+      )
     }
     extra_names <- setdiff(names(prudence), c("rows", "cells"))
     if (length(extra_names) > 0) {
-      cli::cli_abort("Unknown name in {.arg prudence}: {extra_names[[1]]}", call = call)
+      cli::cli_abort(
+        "Unknown name in {.arg prudence}: {extra_names[[1]]}",
+        call = call
+      )
     }
 
     if ("rows" %in% names(prudence)) {
       n_rows <- prudence[["rows"]]
       if (is.na(n_rows) || n_rows < 0) {
-        cli::cli_abort("The {.val rows} component of {.arg prudence} must be a non-negative integer", call = call)
+        cli::cli_abort(
+          "The {.val rows} component of {.arg prudence} must be a non-negative integer",
+          call = call
+        )
       }
     }
     if ("cells" %in% names(prudence)) {
       n_cells <- prudence[["cells"]]
       if (is.na(n_cells) || n_cells < 0) {
-        cli::cli_abort("The {.val cells} component of {.arg prudence} must be a non-negative integer", call = call)
+        cli::cli_abort(
+          "The {.val cells} component of {.arg prudence} must be a non-negative integer",
+          call = call
+        )
       }
     }
-    allow_materialization <- is.finite(n_rows) || is.finite(n_cells)
     prudence <- "stingy"
   } else if (!is.character(prudence)) {
-    cli::cli_abort("{.arg prudence} must be an unnamed character vector or a named numeric vector", call = call)
+    cli::cli_abort(
+      "{.arg prudence} must be an unnamed character vector or a named numeric vector",
+      call = call
+    )
   } else {
     if (identical(prudence, "frugal")) {
-      lifecycle::deprecate_warn("1.0.0",
+      lifecycle::deprecate_warn(
+        "1.0.0",
         I('Use `prudence = "stingy"` instead, `prudence = "frugal"`'),
         always = TRUE,
         env = call
@@ -1753,10 +1943,13 @@ prudence_parse <- function(prudence, remote, call = caller_env()) {
       prudence <- "stingy"
     }
     # Can't change second argument to arg_match() here
-    prudence <- arg_match(prudence, c("lavish", "stingy", "thrifty"), error_call = call)
+    prudence <- arg_match(
+      prudence,
+      c("lavish", "stingy", "thrifty"),
+      error_call = call
+    )
 
-    allow_materialization <- !identical(prudence, "stingy")
-    if (!allow_materialization) {
+    if (identical(prudence, "stingy")) {
       n_cells <- 0
     } else if (identical(prudence, "thrifty")) {
       if (isTRUE(remote)) {
@@ -1817,13 +2010,10 @@ duckplyr_reconstruct <- function(rel, template) {
 #' @description
 #' `r lifecycle::badge("deprecated")`
 #'
-#' The \pkg{duckplyr} package relies on a DBI connection
-#' to an in-memory database.
-#' The `duckplyr_execute()` function allows running SQL statements
-#' with this connection to, e.g., set up credentials
-#' or attach other databases.
-#' See <https://duckdb.org/docs/configuration/overview.html>
-#' for more information on the configuration options.
+#' The \pkg{duckplyr} package relies on a DBI connection to an in-memory database.
+#' The `duckplyr_execute()` function allows running SQL statements with this connection
+#' to, e.g., set up credentials or attach other databases.
+#' See <https://duckdb.org/docs/configuration/overview.html> for more information on the configuration options.
 #'
 #' @param sql The statement to run.
 #' @return The return value of the [DBI::dbExecute()] call, invisibly.
@@ -1854,8 +2044,8 @@ duckplyr_execute <- function(sql) {
 #'
 #' @param ... For `duckdb_tibble()`, passed on to [tibble()].
 #'   For `as_duckdb_tibble()`, passed on to methods.
-#' @param prudence,.prudence Memory protection, controls if DuckDB may convert
-#'   intermediate results in DuckDB-managed memory to data frames in R memory.
+#' @param prudence,.prudence Memory protection,
+#'   controls if DuckDB may convert intermediate results in DuckDB-managed memory to data frames in R memory.
 #'
 #'   - `"lavish"`: regardless of size,
 #'   - `"stingy"`: never,
@@ -1868,10 +2058,8 @@ duckplyr_execute <- function(sql) {
 #' @section Fine-tuning prudence:
 #' `r lifecycle::badge("experimental")`
 #'
-#' The `prudence` argument can also be a named numeric vector
-#' with at least one of `cells` or `rows`
-#' to limit the cells (values) and rows in the resulting data frame
-#' after automatic materialization.
+#' The `prudence` argument can also be a named numeric vector with at least one of `cells` or `rows`
+#' to limit the cells (values) and rows in the resulting data frame after automatic materialization.
 #' If both limits are specified, both are enforced.
 #' The equivalent of `"thrifty"` is `c(cells = 1e6)`.
 #'
@@ -1898,7 +2086,12 @@ duckplyr_execute <- function(sql) {
 duckdb_tibble <- function(..., .prudence = c("lavish", "thrifty", "stingy")) {
   out <- tibble::tibble(...)
 
-  new_duckdb_tibble(out, class(out), prudence = .prudence, adjust_prudence = TRUE)
+  new_duckdb_tibble(
+    out,
+    class(out),
+    prudence = .prudence,
+    adjust_prudence = TRUE
+  )
 }
 
 #' as_duckdb_tibble
@@ -1909,14 +2102,23 @@ duckdb_tibble <- function(..., .prudence = c("lavish", "thrifty", "stingy")) {
 #' @param x The object to convert or to test.
 #' @rdname duckdb_tibble
 #' @export
-as_duckdb_tibble <- function(x, ..., prudence = c("lavish", "thrifty", "stingy")) {
+as_duckdb_tibble <- function(
+  x,
+  ...,
+  prudence = c("lavish", "thrifty", "stingy")
+) {
   # Handle the prudence arg in the generic, only the other args will be dispatched
   as_duckdb_tibble <- function(x, ...) {
     UseMethod("as_duckdb_tibble")
   }
 
   out <- as_duckdb_tibble(x, ...)
-  new_duckdb_tibble(out, class(out), prudence = prudence, adjust_prudence = TRUE)
+  new_duckdb_tibble(
+    out,
+    class(out),
+    prudence = prudence,
+    adjust_prudence = TRUE
+  )
 }
 
 #' @export
@@ -1941,7 +2143,13 @@ as_duckdb_tibble.data.frame <- function(x, ...) {
   check_dots_empty()
 
   # Only if not materialized yet
-  if (is.null(duckdb$rel_from_altrep_df(x, strict = FALSE, allow_materialized = FALSE))) {
+  if (
+    is.null(duckdb$rel_from_altrep_df(
+      x,
+      strict = FALSE,
+      allow_materialized = FALSE
+    ))
+  ) {
     x <- as_tibble(x)
   }
 
@@ -2006,18 +2214,12 @@ is_duckdb_tibble <- function(x) {
 # begin R/exec.R
 #' Execute a statement for the default connection
 #'
-#' The \pkg{duckplyr} package relies on a DBI connection
-#' to an in-memory database.
-#' The `db_exec()` function allows running SQL statements
-#' with side effects on this connection.
-#' It can be used to execute statements that start with
-#' `PRAGMA`, `SET`, or `ATTACH`
-#' to, e.g., set up credentials, change configuration options,
-#' or attach other databases.
-#' See <https://duckdb.org/docs/configuration/overview.html>
-#' for more information on the configuration options,
-#' and <https://duckdb.org/docs/sql/statements/attach.html>
-#' for attaching databases.
+#' The \pkg{duckplyr} package relies on a DBI connection to an in-memory database.
+#' The `db_exec()` function allows running SQL statements with side effects on this connection.
+#' It can be used to execute statements that start with `PRAGMA`, `SET`, or `ATTACH`
+#' to, e.g., set up credentials, change configuration options, or attach other databases.
+#' See <https://duckdb.org/docs/configuration/overview.html> for more information on the configuration options,
+#' and <https://duckdb.org/docs/sql/statements/attach.html> for attaching databases.
 #'
 #' @seealso [read_sql_duckdb()]
 #'
@@ -2047,8 +2249,8 @@ db_exec <- function(sql, ..., con = NULL) {
 #' @title Explain details of a tbl
 #'
 #' @description  This is a method for the [dplyr::explain()] generic.
-#' This is a generic function which gives more details about an object
-#' than `print()`, and is more focused on human readable output than `str()`.
+#' This is a generic function which gives more details about an object than `print()`,
+#' and is more focused on human readable output than `str()`.
 #'
 #' @inheritParams dplyr::explain
 #'
@@ -2069,7 +2271,8 @@ NULL
 #' @rdname explain.duckplyr_df
 #' @export
 explain.data.frame <- function(x, ...) {
-  duckplyr_error <- rel_try(list(name = "explain", x = x),
+  duckplyr_error <- rel_try(
+    list(name = "explain", x = x),
     "No restrictions" = FALSE,
     {
       rel <- duckdb_rel_from_df(x)
@@ -2078,7 +2281,9 @@ explain.data.frame <- function(x, ...) {
     }
   )
 
-  writeLines("Can't convert to relational, fallback implementation will be used.")
+  writeLines(
+    "Can't convert to relational, fallback implementation will be used."
+  )
   invisible(x)
 }
 
@@ -2164,18 +2369,13 @@ filter.data.frame <- function(.data, ..., .by = NULL, .preserve = FALSE) {
   return(out)
 
   # dplyr implementation
-  dots <- dplyr_quosures(...)
-  check_filter(dots)
-
-  by <- compute_by(
-    by = {{ .by }},
-    data = .data,
-    by_arg = ".by",
-    data_arg = ".data"
+  filter_impl(
+    .data = .data,
+    ...,
+    .by = {{ .by }},
+    .preserve = .preserve,
+    .verb = "filter"
   )
-
-  loc <- filter_rows(.data, dots, by)
-  dplyr_row_slice(.data, loc, preserve = .preserve)
 }
 
 duckplyr_filter <- function(.data, ...) {
@@ -2190,6 +2390,86 @@ duckplyr_filter <- function(.data, ...) {
   out
 }
 # end R/filter.R
+
+
+# begin R/filter_out.R
+# Generated by 02-duckplyr_df-methods.R
+#' @rdname filter.duckplyr_df
+#' @export
+filter_out.data.frame <- function(.data, ..., .by = NULL, .preserve = FALSE) {
+  force(.data)
+
+  dots <- dplyr_quosures(...)
+  check_filter(dots)
+
+  by <- enquo(.by)
+
+  duckplyr_error <- rel_try(list(name = "filter_out", x = .data, args = try_list(dots = dots, by = by, preserve = .preserve)),
+    #' @section Fallbacks:
+    #' There is no DuckDB translation in `filter_out.duckplyr_df()`
+    #' - with no filter conditions,
+    #' - nor for a grouped operation (if `.by` is set).
+    #'
+    #' These features fall back to [dplyr::filter_out()], see `vignette("fallback")` for details.
+    "Can't use relational without filter conditions." = (length(dots) == 0),
+    "{.code filter_out(.by = ...)} not implemented, try {.code mutate(.by = ...)} followed by a simple {.code filter_out()}." = (!quo_is_null(by)),
+    {
+      rel <- duckdb_rel_from_df(.data)
+      exprs <- rel_translate_dots(dots, .data)
+
+      rel <- oo_prep(rel)
+
+      # Negate the filter: filter_out keeps rows where NOT ALL conditions are TRUE.
+      # For each expression, wrap in COALESCE(expr, FALSE) to treat NA as FALSE,
+      # then negate the conjunction. This is equivalent to:
+      # NOT (COALESCE(expr1, FALSE) AND COALESCE(expr2, FALSE) AND ...)
+      false_expr <- relexpr_constant(FALSE)
+      coalesced <- lapply(exprs, function(expr) {
+        relexpr_function("___coalesce", list(expr, false_expr))
+      })
+      conjunction <- Reduce(function(a, b) {
+        relexpr_function("&", list(a, b))
+      }, coalesced)
+      negated <- relexpr_function("!", list(conjunction))
+
+      rel <- rel_filter(rel, list(negated))
+
+      out_rel <- oo_restore(rel)
+
+      out <- duckplyr_reconstruct(out_rel, .data)
+      return(out)
+    }
+  )
+
+  # dplyr forward
+  check_prudence(.data, duckplyr_error)
+
+  filter_out <- filter_out_data_frame
+  out <- filter_out(.data, ..., .by = {{ .by }}, .preserve = .preserve)
+  return(out)
+
+  # dplyr implementation
+  filter_impl(
+    .data = .data,
+    ...,
+    .by = {{ .by }},
+    .preserve = .preserve,
+    .verb = "filter_out"
+  )
+}
+
+duckplyr_filter_out <- function(.data, ...) {
+  try_fetch(
+    .data <- as_duckplyr_df_impl(.data),
+    error = function(e) {
+      testthat::skip(conditionMessage(e))
+    }
+  )
+  out <- filter_out(.data, ...)
+  class(out) <- setdiff(class(out), "duckplyr_df")
+  out
+}
+# end R/filter_out.R
 
 
 # begin R/flights.R
@@ -2670,10 +2950,10 @@ group_indices.data.frame <- function(.data, ...) {
 
   # dplyr implementation
   if (dots_n(...) > 0) {
-    lifecycle::deprecate_warn(
-      "1.0.0", "group_indices(... = )",
-      details = "Please `group_by()` first",
-      always = TRUE
+    lifecycle::deprecate_stop(
+      "1.0.0",
+      "group_indices(... = )",
+      details = "Please `group_by()` first"
     )
     .data <- group_by(.data, ...)
   }
@@ -2717,12 +2997,11 @@ group_keys.data.frame <- function(.tbl, ...) {
 
   # dplyr implementation
   if (dots_n(...) > 0) {
-    lifecycle::deprecate_warn(
-      "1.0.0", "group_keys(... = )",
-      details = "Please `group_by()` first",
-      always = TRUE
+    lifecycle::deprecate_stop(
+      "1.0.0",
+      "group_keys(... = )",
+      details = "Please `group_by()` first"
     )
-    .tbl <- group_by(.tbl, ...)
   }
   out <- group_data(.tbl)
   group_keys0(out)
@@ -2769,9 +3048,13 @@ group_map.data.frame <- function(.data, .f, ..., .keep = FALSE, keep = deprecate
 
   # dplyr implementation
   if (!missing(keep)) {
-    lifecycle::deprecate_warn("1.0.0", "group_map(keep = )", "group_map(.keep = )", always = TRUE)
-    .keep <- keep
+    lifecycle::deprecate_stop(
+      "1.0.0",
+      "group_map(keep = )",
+      "group_map(.keep = )"
+    )
   }
+
   .f <- as_group_map_function(.f)
 
   # call the function on each group
@@ -2787,7 +3070,10 @@ group_map.data.frame <- function(.data, .f, ..., .keep = FALSE, keep = deprecate
     map2(chunks, group_keys, .f, ...)
   } else {
     # calling .f with .x and .y set to prototypes
-    structure(list(), ptype = .f(attr(chunks, "ptype"), keys[integer(0L), ], ...))
+    structure(
+      list(),
+      ptype = .f(attr(chunks, "ptype"), keys[integer(0L), ], ...)
+    )
   }
 }
 
@@ -2832,8 +3118,11 @@ group_modify.data.frame <- function(.data, .f, ..., .keep = FALSE, keep = deprec
 
   # dplyr implementation
   if (!missing(keep)) {
-    lifecycle::deprecate_warn("1.0.0", "group_modify(keep = )", "group_modify(.keep = )", always = TRUE)
-    .keep <- keep
+    lifecycle::deprecate_stop(
+      "1.0.0",
+      "group_modify(keep = )",
+      "group_modify(.keep = )"
+    )
   }
   .f <- as_group_map_function(.f)
   .f(.data, group_keys(.data), ...)
@@ -2960,8 +3249,11 @@ group_split.data.frame <- function(.tbl, ..., .keep = TRUE, keep = deprecated())
 
   # dplyr implementation
   if (!missing(keep)) {
-    lifecycle::deprecate_warn("1.0.0", "group_split(keep = )", "group_split(.keep = )", always = TRUE)
-    .keep <- keep
+    lifecycle::deprecate_stop(
+      "1.0.0",
+      "group_split(keep = )",
+      "group_split(.keep = )"
+    )
   }
   data <- group_by(.tbl, ...)
   group_split_impl(data, .keep = .keep)
@@ -3122,7 +3414,10 @@ is_desc <- function(expr, env, call) {
   }
 
   if (length(expr) > 2) {
-    cli::cli_abort("Function {.fun desc} must be called with exactly one argument.", call = call)
+    cli::cli_abort(
+      "Function {.fun desc} must be called with exactly one argument.",
+      call = call
+    )
   }
 
   TRUE
@@ -3585,35 +3880,32 @@ duckplyr_intersect <- function(x, y, ...) {
 #' `r lifecycle::badge("deprecated")`
 #'
 #' `df_from_file()` uses arbitrary table functions to read data.
-#' See <https://duckdb.org/docs/data/overview> for a documentation
-#' of the available functions and their options.
+#' See <https://duckdb.org/docs/data/overview> for a documentation of the available functions and their options.
 #' To read multiple files with the same schema,
 #' pass a wildcard or a character vector to the `path` argument,
 #'
 #' @inheritParams rlang::args_dots_empty
 #'
 #' @param path Path to files, glob patterns `*` and `?` are supported.
-#' @param table_function The name of a table-valued
-#'   DuckDB function such as `"read_parquet"`,
-#'   `"read_csv"`, `"read_csv_auto"` or `"read_json"`.
-#' @param options Arguments to the DuckDB function
-#'   indicated by `table_function`.
+#' @param table_function The name of a table-valued DuckDB function
+#'   such as `"read_parquet"`, `"read_csv"`, `"read_csv_auto"` or `"read_json"`.
+#' @param options Arguments to the DuckDB function indicated by `table_function`.
 #' @param class The class of the output.
 #'   By default, a tibble is created.
 #'   The returned object will always be a data frame.
-#'   Use `class = "data.frame"` or `class = character()`
-#'   to create a plain data frame.
+#'   Use `class = "data.frame"` or `class = character()` to create a plain data frame.
 #'
-#' @return A data frame for `df_from_file()`, or a `duckplyr_df` for
-#'   `duckplyr_df_from_file()`, extended by the provided `class`.
+#' @return A data frame for `df_from_file()`, or a `duckplyr_df` for `duckplyr_df_from_file()`, extended by the provided `class`.
 #'
 #' @export
 #' @keywords internal
-df_from_file <- function(path,
-                         table_function,
-                         ...,
-                         options = list(),
-                         class = NULL) {
+df_from_file <- function(
+  path,
+  table_function,
+  ...,
+  options = list(),
+  class = NULL
+) {
   check_dots_empty()
   lifecycle::deprecate_soft("1.0.0", "df_from_file()", "read_file_duckdb()")
 
@@ -3654,13 +3946,18 @@ df_from_file <- function(path,
 #' @rdname df_from_file
 #' @export
 duckplyr_df_from_file <- function(
-    path,
-    table_function,
-    ...,
-    options = list(),
-    class = NULL) {
+  path,
+  table_function,
+  ...,
+  options = list(),
+  class = NULL
+) {
   check_dots_empty()
-  lifecycle::deprecate_soft("1.0.0", "duckplyr_df_from_file()", "read_file_duckdb()")
+  lifecycle::deprecate_soft(
+    "1.0.0",
+    "duckplyr_df_from_file()",
+    "read_file_duckdb()"
+  )
 
   out <- df_from_file(path, table_function, options = options, class = class)
   as_duckplyr_df_impl(out)
@@ -3677,8 +3974,8 @@ default_df_class <- function() {
 #'
 #' @description
 #' These functions ingest data from a file using a table function.
-#' The results are transparently converted to a data frame, but the data is only read when
-#' the resulting data frame is actually accessed.
+#' The results are transparently converted to a data frame,
+#' but the data is only read when the resulting data frame is actually accessed.
 #'
 #' `df_from_csv()` reads a CSV file using the `read_csv_auto()` table function.
 #'
@@ -3696,11 +3993,19 @@ default_df_class <- function() {
 #' names(df)
 #' df$a
 #'
-#' # Return as tibble, specify column types:
+#' # Return as tibble, specify column types positionally:
 #' df_from_file(
 #'   path,
 #'   "read_csv",
 #'   options = list(delim = ",", types = list(c("DOUBLE", "VARCHAR"))),
+#'   class = class(tibble())
+#' )
+#'
+#' # Specify column types by name:
+#' df_from_file(
+#'   path,
+#'   "read_csv",
+#'   options = list(delim = ",", types = list(c(a = "DOUBLE", b = "VARCHAR"))),
 #'   class = class(tibble())
 #' )
 df_from_csv <- function(path, ..., options = list(), class = NULL) {
@@ -3728,7 +4033,11 @@ df_from_csv <- function(path, ..., options = list(), class = NULL) {
 #' unlink(c(path, path2))
 duckplyr_df_from_csv <- function(path, ..., options = list(), class = NULL) {
   check_dots_empty()
-  lifecycle::deprecate_soft("1.0.0", "duckplyr_df_from_csv()", "read_csv_duckdb()")
+  lifecycle::deprecate_soft(
+    "1.0.0",
+    "duckplyr_df_from_csv()",
+    "read_csv_duckdb()"
+  )
 
   duckplyr_df_from_file(path, "read_csv_auto", options = options, class = class)
 }
@@ -3745,7 +4054,11 @@ duckplyr_df_from_csv <- function(path, ..., options = list(), class = NULL) {
 #' @export
 df_from_parquet <- function(path, ..., options = list(), class = NULL) {
   check_dots_empty()
-  lifecycle::deprecate_soft("1.0.0", "df_from_parquet()", "read_parquet_duckdb()")
+  lifecycle::deprecate_soft(
+    "1.0.0",
+    "df_from_parquet()",
+    "read_parquet_duckdb()"
+  )
 
   df_from_file(path, "read_parquet", options = options, class = class)
 }
@@ -3757,9 +4070,18 @@ df_from_parquet <- function(path, ..., options = list(), class = NULL) {
 #'
 #' @rdname df_from_file
 #' @export
-duckplyr_df_from_parquet <- function(path, ..., options = list(), class = NULL) {
+duckplyr_df_from_parquet <- function(
+  path,
+  ...,
+  options = list(),
+  class = NULL
+) {
   check_dots_empty()
-  lifecycle::deprecate_soft("1.0.0", "duckplyr_df_from_parquet()", "read_parquet_duckdb()")
+  lifecycle::deprecate_soft(
+    "1.0.0",
+    "duckplyr_df_from_parquet()",
+    "read_parquet_duckdb()"
+  )
 
   duckplyr_df_from_file(path, "read_parquet", options = options, class = class)
 }
@@ -3888,12 +4210,18 @@ rel_join_impl <- function(
     if (length(intersect(x_names, y_names)) != 0) {
       x_names_remap <- paste0(x_names, "_x")
       x_by <- paste0(x_by, "_x")
-      x_exprs <- exprs_from_loc(x, set_names(seq_along(x_names_remap), x_names_remap))
+      x_exprs <- exprs_from_loc(
+        x,
+        set_names(seq_along(x_names_remap), x_names_remap)
+      )
       x_rel <- rel_project(x_rel, x_exprs)
 
       y_names_remap <- paste0(y_names, "_y")
       y_by <- paste0(y_by, "_y")
-      y_exprs <- exprs_from_loc(y, set_names(seq_along(y_names_remap), y_names_remap))
+      y_exprs <- exprs_from_loc(
+        y,
+        set_names(seq_along(y_names_remap), y_names_remap)
+      )
       y_rel <- rel_project(y_rel, y_exprs)
     } else {
       x_names_remap <- x_names
@@ -3947,7 +4275,11 @@ rel_join_impl <- function(
       eq_idx <- (by$condition == "==")
 
       if (join == "right") {
-        exprs[by_pos[eq_idx]] <- map2(y_by[eq_idx], names(vars$x$key)[eq_idx], relexpr_set_alias)
+        exprs[by_pos[eq_idx]] <- map2(
+          y_by[eq_idx],
+          names(vars$x$key)[eq_idx],
+          relexpr_set_alias
+        )
       } else {
         exprs[by_pos[eq_idx]] <- pmap(
           list(x_by[eq_idx], y_by[eq_idx], names(vars$x$key)[eq_idx]),
@@ -4002,11 +4334,9 @@ join_ptype_common <- function(x, y, vars, error_call = caller_env()) {
 #' Retrieve details about the most recent computation
 #'
 #' Before a result is computed, it is specified as a "relation" object.
-#' This function retrieves this object for the last computation that led to the
-#' materialization of a data frame.
+#' This function retrieves this object for the last computation that led to the materialization of a data frame.
 #'
-#' @return A duckdb "relation" object, or `NULL` if no computation has been
-#'   performed yet.
+#' @return A duckdb "relation" object, or `NULL` if no computation has been performed yet.
 #' @export
 last_rel <- function() {
   duckplyr_the$last_rel
@@ -4022,6 +4352,32 @@ on_load({
 })
 
 duckplyr_the <- new_environment()
+
+# Retrieve the supported read parameters for a DuckDB table function,
+# caching the result in duckplyr_the for subsequent calls.
+get_duckdb_read_opts <- function(fn_name) {
+  cache_key <- paste0(fn_name, "_read_opts")
+  cached <- duckplyr_the[[cache_key]]
+  if (!is.null(cached)) {
+    return(cached)
+  }
+
+  con <- get_default_duckdb_connection()
+  res <- DBI::dbGetQuery(
+    con,
+    paste0(
+      "SELECT parameters FROM duckdb_functions() ",
+      "WHERE function_type = 'table' AND function_name = '",
+      fn_name,
+      "'"
+    )
+  )
+  params <- res$parameters[[1]]
+  # Remove "col0" which is the positional file path argument
+  opts <- sort(params[params != "col0"])
+  duckplyr_the[[cache_key]] <- opts
+  opts
+}
 # end R/last.R
 
 
@@ -4150,10 +4506,6 @@ mutate.data.frame <- function(.data, ..., .by = NULL, .keep = c("all", "used", "
     {
       rel <- duckdb_rel_from_df(.data)
 
-      if (length(by_names) > 0) {
-        rel <- oo_prep(rel)
-      }
-
       dots <- dplyr_quosures(...)
       dots <- fix_auto_name(dots)
       names_dots <- names(dots)
@@ -4168,7 +4520,7 @@ mutate.data.frame <- function(.data, ..., .by = NULL, .keep = c("all", "used", "
         name_dot <- names_dots[[i]]
 
         # Try expanding this `dot` if we see it is an `across()` call
-        expanded <- duckplyr_expand_across(names(current_data), dot)
+        expanded <- duckplyr_expand_across(current_data, dot)
 
         if (is.null(expanded)) {
           # Nothing we can expand, create a list with just the 1 expression to
@@ -4183,8 +4535,9 @@ mutate.data.frame <- function(.data, ..., .by = NULL, .keep = c("all", "used", "
 
         names_quos <- names(quos)
 
-        # Set up `exprs` outside the loop. All expressions expanded from an
-        # `across()` are evaluated together using the same projection.
+        # Translate all expressions first, recording window function usage
+        # via the `has_window` attribute set by rel_translate
+        uses_window <- FALSE
         exprs <- imap(set_names(names(current_data)), relexpr_reference, rel = NULL)
 
         for (j in seq_along(quos)) {
@@ -4202,17 +4555,33 @@ mutate.data.frame <- function(.data, ..., .by = NULL, .keep = c("all", "used", "
             need_window = TRUE
           )
           exprs[[new_pos]] <- new_expr
+          uses_window <- uses_window || isTRUE(attr(new_expr, "has_window"))
 
           new_names_used <- intersect(attr(new_expr, "used"), names(.data))
           names_used <- c(names_used, setdiff(new_names_used, names_used))
         }
 
-        rel <- rel_project(rel, unname(exprs))
-        current_data <- rel_to_df(rel, prudence = "stingy")
-      }
+        # Use oo_prep/oo_restore only if any expression uses window functions
+        # (needed for lead()/lag()/sum() with .by, etc.) or if output order
+        # preservation is globally forced.
+        oo <- uses_window || oo_force()
 
-      if (length(by_names) > 0) {
-        rel <- oo_restore(rel)
+        if (oo) {
+          rel <- oo_prep(rel, force = TRUE)
+          # oo_prep appends ___row_number after the current columns; include it
+          # in exprs so it passes through the projection and is available for
+          # oo_restore_order to sort by.
+          exprs[["___row_number"]] <- relexpr_reference("___row_number")
+        }
+
+        rel <- rel_project(rel, unname(exprs))
+
+        if (oo) {
+          rel <- oo_restore_order(rel, force = TRUE)
+          rel <- oo_restore_cols(rel, force = TRUE)
+        }
+
+        current_data <- rel_to_df(rel, prudence = "stingy")
       }
 
       out <- duckplyr_reconstruct(rel, .data)
@@ -4570,12 +4939,13 @@ oo_force <- function() {
 }
 
 oo_prep <- function(
-    rel,
-    colname = "___row_number",
-    ...,
-    extra_cols_pre = character(),
-    extra_cols_post = character(),
-    force = oo_force()) {
+  rel,
+  colname = "___row_number",
+  ...,
+  extra_cols_pre = character(),
+  extra_cols_post = character(),
+  force = oo_force()
+) {
   check_dots_empty0(...)
 
   if (!force) {
@@ -4585,31 +4955,46 @@ oo_prep <- function(
   names <- rel_names(rel)
 
   if (colname %in% names) {
-    cli::cli_abort("Can't use column {.var {colname}} already present in rel for order preservation")
+    cli::cli_abort(
+      "Can't use column {.var {colname}} already present in rel for order preservation"
+    )
   }
 
   proj_exprs <- imap(set_names(names), relexpr_reference, rel = NULL)
   proj_exprs <- c(
     proj_exprs,
-    if (length(extra_cols_pre)) map(extra_cols_pre, relexpr_constant, val = NA_integer_),
+    if (length(extra_cols_pre)) {
+      map(extra_cols_pre, relexpr_constant, val = NA_integer_)
+    },
     list(relexpr_window(
       relexpr_function("row_number", list()),
       partitions = list(),
       alias = colname
     )),
-    if (length(extra_cols_post)) map(extra_cols_post, relexpr_constant, val = NA_integer_),
+    if (length(extra_cols_post)) {
+      map(extra_cols_post, relexpr_constant, val = NA_integer_)
+    },
     NULL
   )
 
   rel_project(rel, unname(proj_exprs))
 }
 
-oo_restore <- function(rel, colname = "___row_number", column_rels = list(NULL)) {
+oo_restore <- function(
+  rel,
+  colname = "___row_number",
+  column_rels = list(NULL)
+) {
   rel <- oo_restore_order(rel, colname, column_rels)
   oo_restore_cols(rel, colname)
 }
 
-oo_restore_order <- function(rel, colname = "___row_number", column_rels = list(NULL), force = oo_force()) {
+oo_restore_order <- function(
+  rel,
+  colname = "___row_number",
+  column_rels = list(NULL),
+  force = oo_force()
+) {
   if (!force) {
     return(rel)
   }
@@ -4618,7 +5003,12 @@ oo_restore_order <- function(rel, colname = "___row_number", column_rels = list(
   rel_order(rel, order_exprs)
 }
 
-oo_restore_cols <- function(rel, colname = "___row_number", extra = NULL, force = oo_force()) {
+oo_restore_cols <- function(
+  rel,
+  colname = "___row_number",
+  extra = NULL,
+  force = oo_force()
+) {
   if (!force) {
     if (!is.null(extra)) {
       names <- setdiff(rel_names(rel), extra)
@@ -4675,14 +5065,12 @@ ark_register_method <- function(generic, class, method) {
       quote(method)
     )),
     error = function(cnd) {
-      # Errors indicate that we aren't in ark and `.ark.register_method()`
-      # doesn't exist, or we called it wrong.
+      # Errors indicate that we aren't in ark and `.ark.register_method()` doesn't exist, or we called it wrong.
       NULL
     },
     warning = function(cnd) {
-      # Warnings likely indicate that we are in ark < 0.1.176, where duckplyr
-      # was not yet allowed to register ark methods, and ark would warn about
-      # this.
+      # Warnings likely indicate that we are in ark < 0.1.176,
+      # where duckplyr was not yet allowed to register ark methods, and ark would warn about this.
       NULL
     }
   )
@@ -4700,9 +5088,8 @@ duckplyr_df_variable_display_value <- function(x, ...) {
   paste0("[? rows x ", n_col, " ", col_word, "] <duckplyr_df>")
 }
 
-# You don't ever see this on the Positron side because it's a table and we
-# show the table icon instead, but we still need this because Ark will otherwise
-# try and compute the number of rows (materializing the query).
+# You don't ever see this on the Positron side because it's a table and we show the table icon instead,
+# but we still need this because Ark will otherwise try and compute the number of rows (materializing the query).
 duckplyr_df_variable_display_type <- function(x, ...) {
   "duckplyr_df"
 }
@@ -4748,7 +5135,10 @@ tbl_format_setup.data.frame <- function(
   max_footer_lines,
   focus
 ) {
-  local_options(duckdb.materialize_callback = NULL, duckdb.materialize_message = NULL)
+  local_options(
+    duckdb.materialize_callback = NULL,
+    duckdb.materialize_message = NULL
+  )
   NextMethod()
 }
 # end R/print.R
@@ -4892,15 +5282,31 @@ duckplyr_pull <- function(.data, ...) {
 #' df <- read_csv_duckdb(path, prudence = "lavish")
 #' df$a
 #'
-#' # Specify column types
+#' # Specify column types positionally
 #' read_csv_duckdb(
 #'   path,
 #'   options = list(delim = ",", types = list(c("DOUBLE", "VARCHAR")))
 #' )
-read_csv_duckdb <- function(path, ..., prudence = c("thrifty", "lavish", "stingy"), options = list()) {
+#'
+#' # Specify column types by name
+#' read_csv_duckdb(
+#'   path,
+#'   options = list(types = list(c(a = "DOUBLE", b = "VARCHAR")))
+#' )
+read_csv_duckdb <- function(
+  path,
+  ...,
+  prudence = c("thrifty", "lavish", "stingy"),
+  options = list()
+) {
   check_dots_empty()
 
-  read_file_duckdb(path, "read_csv_auto", prudence = prudence, options = options)
+  read_file_duckdb(
+    path,
+    "read_csv_auto",
+    prudence = prudence,
+    options = options
+  )
 }
 # end R/read_csv_duckdb.R
 
@@ -4910,19 +5316,17 @@ read_csv_duckdb <- function(path, ..., prudence = c("thrifty", "lavish", "stingy
 #'
 #' @description
 #' `read_file_duckdb()` uses arbitrary readers to read data.
-#' See <https://duckdb.org/docs/data/overview> for a documentation
-#' of the available functions and their options.
+#' See <https://duckdb.org/docs/data/overview> for a documentation of the available functions and their options.
 #' To read multiple files with the same schema,
 #' pass a wildcard or a character vector to the `path` argument,
 #'
 #' @inheritParams rlang::args_dots_empty
 #'
 #' @param path Path to files, glob patterns `*` and `?` are supported.
-#' @param table_function The name of a table-valued
-#'   DuckDB function such as `"read_parquet"`,
-#'   `"read_csv"`, `"read_csv_auto"` or `"read_json"`.
-#' @param prudence Memory protection, controls if DuckDB may convert
-#'   intermediate results in DuckDB-managed memory to data frames in R memory.
+#' @param table_function The name of a table-valued DuckDB function
+#'   such as `"read_parquet"`, `"read_csv"`, `"read_csv_auto"` or `"read_json"`.
+#' @param prudence Memory protection,
+#'   controls if DuckDB may convert intermediate results in DuckDB-managed memory to data frames in R memory.
 #'
 #'   - `"thrifty"`: up to a maximum size of 1 million cells,
 #'   - `"lavish"`: regardless of size,
@@ -4932,8 +5336,7 @@ read_csv_duckdb <- function(path, ..., prudence = c("thrifty", "lavish", "stingy
 #' and may be different for other functions.
 #' See `vignette("prudence")` for more information.
 #'
-#' @param options Arguments to the DuckDB function
-#'   indicated by `table_function`.
+#' @param options Arguments to the DuckDB function indicated by `table_function`.
 #'
 #' @inheritSection duckdb_tibble Fine-tuning prudence
 #'
@@ -4958,9 +5361,13 @@ read_file_duckdb <- function(
 
   remote <- any(grepl("^[a-zA-Z]+://", path))
 
+  if (length(path) != 1) {
+    path <- list(path)
+  }
+
   duckfun(
     table_function,
-    c(list(list(path)), options),
+    c(list(path), options),
     prudence = prudence,
     remote = remote
   )
@@ -5017,7 +5424,12 @@ duckfun <- function(table_function, args, ..., prudence, remote = FALSE) {
 #' db_exec("INSTALL json")
 #' db_exec("LOAD json")
 #' read_json_duckdb(path)
-read_json_duckdb <- function(path, ..., prudence = c("thrifty", "lavish", "stingy"), options = list()) {
+read_json_duckdb <- function(
+  path,
+  ...,
+  prudence = c("thrifty", "lavish", "stingy"),
+  options = list()
+) {
   check_dots_empty()
 
   read_file_duckdb(path, "read_json", prudence = prudence, options = options)
@@ -5037,12 +5449,123 @@ read_json_duckdb <- function(path, ..., prudence = c("thrifty", "lavish", "sting
 #' @seealso [read_csv_duckdb()], [read_json_duckdb()]
 #'
 #' @export
-read_parquet_duckdb <- function(path, ..., prudence = c("thrifty", "lavish", "stingy"), options = list()) {
+read_parquet_duckdb <- function(
+  path,
+  ...,
+  prudence = c("thrifty", "lavish", "stingy"),
+  options = list()
+) {
   check_dots_empty()
 
   read_file_duckdb(path, "read_parquet", prudence = prudence, options = options)
 }
 # end R/read_parquet_duckdb.R
+
+
+# begin R/read_tbl_duckdb.R
+#' Read a table from a DuckDB database file
+#'
+#' @description
+#' `r lifecycle::badge("experimental")`
+#'
+#' `read_tbl_duckdb()` reads a table from a DuckDB database file by attaching the database file and reading the specified table.
+#'
+#' The database file is attached to the default duckplyr connection
+#' and remains attached for the duration of the R session
+#' to support lazy evaluation.
+#'
+#' @inheritParams read_file_duckdb
+#' @inheritParams rlang::args_dots_empty
+#' @param path Path to the DuckDB database file.
+#' @param table_name The name of the table to read.
+#' @param schema The schema name where the table is located.
+#'   Defaults to `"main"`.
+#'
+#' @seealso [read_sql_duckdb()], [db_exec()]
+#'
+#' @return A duckplyr frame, see [as_duckdb_tibble()] for details.
+#'
+#' @export
+#' @examplesIf rlang::is_interactive()
+#' # Create a temporary DuckDB database with a table
+#' db_path <- tempfile(fileext = ".duckdb")
+#' con <- DBI::dbConnect(duckdb::duckdb(), db_path)
+#' DBI::dbWriteTable(con, "test_table", data.frame(a = 1:3, b = c("x", "y", "z")))
+#' DBI::dbDisconnect(con)
+#'
+#' # Read the table from the database file
+#' df <- read_tbl_duckdb(db_path, "test_table")
+#' print(df)
+#'
+#' # Clean up
+#' unlink(db_path)
+read_tbl_duckdb <- function(
+  path,
+  table_name,
+  ...,
+  schema = "main",
+  prudence = c("thrifty", "lavish", "stingy")
+) {
+  check_dots_empty()
+
+  if (!is_string(path)) {
+    cli::cli_abort("{.arg path} must be a string.")
+  }
+  if (!is_string(table_name)) {
+    cli::cli_abort("{.arg table_name} must be a string.")
+  }
+  if (!is_string(schema)) {
+    cli::cli_abort("{.arg schema} must be a string.")
+  }
+
+  con <- get_default_duckdb_connection()
+
+  # Normalize path for consistent database aliasing
+  path <- normalizePath(path, mustWork = TRUE)
+
+  # Generate a deterministic alias based on the file path using rlang::hash()
+  path_hash <- substr(rlang::hash(path), 1, 16)
+  db_alias <- paste0("duckplyr_db_", path_hash)
+
+  # Check if database is already attached, attach if not
+  attached_dbs <- DBI::dbGetQuery(
+    con,
+    "SELECT database_name FROM duckdb_databases()"
+  )
+  if (!(db_alias %in% attached_dbs$database_name)) {
+    # Escape path for SQL (replace single quotes with escaped quotes)
+    escaped_path <- gsub("'", "''", path)
+    attach_sql <- paste0(
+      "ATTACH '",
+      escaped_path,
+      "' AS \"",
+      db_alias,
+      "\" (READ_ONLY)"
+    )
+    DBI::dbExecute(con, attach_sql)
+  }
+
+  # Construct SQL to read the table
+  # Escape identifiers by doubling any double quotes
+  escaped_schema <- gsub('"', '""', schema)
+  escaped_table <- gsub('"', '""', table_name)
+  sql <- paste0(
+    "SELECT * FROM \"",
+    db_alias,
+    "\".\"",
+    escaped_schema,
+    "\".\"",
+    escaped_table,
+    "\""
+  )
+
+  rel <- duckdb$rel_from_sql(con, sql)
+
+  meta_rel_register(rel, expr(duckdb$rel_from_sql(con, !!sql)))
+
+  rel_to_df(rel, prudence = prudence)
+}
+# end R/read_tbl_duckdb.R
 
 
 # begin R/reframe.R
@@ -5068,7 +5591,7 @@ reframe.data.frame <- function(.data, ..., .by = NULL) {
   by <- compute_by({{ .by }}, .data, by_arg = ".by", data_arg = ".data")
 
   cols <- summarise_cols(.data, dplyr_quosures(...), by, "reframe")
-  out <- summarise_build(by, cols)
+  out <- summarise_build(by, cols, "reframe")
 
   if (!is_tibble(.data)) {
     # The `by` group data we build from is always a tibble,
@@ -5161,7 +5684,11 @@ default_duckdb_connection <- new.env(parent = emptyenv())
 get_default_duckdb_connection <- function() {
   if (is.null(default_duckdb_connection$con)) {
     default_duckdb_connection$con <- create_default_duckdb_connection()
-    reg.finalizer(default_duckdb_connection, onexit = TRUE, reset_default_duckdb_connection)
+    reg.finalizer(
+      default_duckdb_connection,
+      onexit = TRUE,
+      reset_default_duckdb_connection
+    )
   }
   default_duckdb_connection$con
 }
@@ -5174,61 +5701,6 @@ reset_default_duckdb_connection <- function(e = NULL) {
   # duckdb::duckdb_shutdown(e$con@driver)
   e$con <- NULL
 }
-
-duckplyr_macros <- c(
-  # https://github.com/duckdb/duckdb-r/pull/156
-  "___null" = "() AS CAST(NULL AS BOOLEAN)",
-  #
-  "<" = "(x, y) AS (x < y)",
-  "<=" = "(x, y) AS (x <= y)",
-  ">" = "(x, y) AS (x > y)",
-  ">=" = "(x, y) AS (x >= y)",
-  "==" = "(x, y) AS (x == y)",
-  "!=" = "(x, y) AS (x != y)",
-  #
-  "___divide" = "(x, y) AS CASE WHEN y = 0 THEN CASE WHEN x = 0 THEN CAST('NaN' AS double) WHEN x > 0 THEN CAST('+Infinity' AS double) ELSE CAST('-Infinity' AS double) END ELSE CAST(x AS double) / y END",
-  #
-  "is.na" = "(x) AS (x IS NULL)",
-  "n" = "() AS CAST(COUNT(*) AS int32)",
-  #
-  "___log10" = "(x) AS CASE WHEN x < 0 THEN CAST('NaN' AS double) WHEN x = 0 THEN CAST('-Inf' AS double) ELSE log10(x) END",
-  "___log" = "(x) AS CASE WHEN x < 0 THEN CAST('NaN' AS double) WHEN x = 0 THEN CAST('-Inf' AS double) ELSE ln(x) END",
-  # TPCH
-
-  # https://github.com/duckdb/duckdb/discussions/8599
-  # "as.Date" = '(x) AS strptime(x, \'%Y-%m-%d\')',
-
-  "sub" = "(pattern, replacement, x) AS (regexp_replace(x, pattern, replacement))",
-  "gsub" = "(pattern, replacement, x) AS (regexp_replace(x, pattern, replacement, 'g'))",
-  "grepl" = "(pattern, x) AS (CASE WHEN x IS NULL THEN FALSE ELSE regexp_matches(x, pattern) END)",
-  "if_else" = "(test, yes, no) AS (CASE WHEN test IS NULL THEN NULL ELSE CASE WHEN test THEN yes ELSE no END END)",
-  "|" = "(x, y) AS (x OR y)",
-  "&" = "(x, y) AS (x AND y)",
-  "!" = "(x) AS (NOT x)",
-  #
-  "wday" = "(x) AS CAST(weekday(CAST (x AS DATE)) + 1 AS int32)",
-  #
-  "___eq_na_matches_na" = "(x, y) AS (x IS NOT DISTINCT FROM y)",
-  "___coalesce" = "(x, y) AS COALESCE(x, y)",
-  #
-  # FIXME: Need a better way?
-  "suppressWarnings" = "(x) AS (x)",
-  #
-  "___sum_na" = "(x) AS (CASE WHEN SUM(CASE WHEN x IS NULL THEN 1 ELSE 0 END) > 0 THEN NULL ELSE SUM(x) END)",
-  "___min_na" = "(x) AS (CASE WHEN SUM(CASE WHEN x IS NULL THEN 1 ELSE 0 END) > 0 THEN NULL ELSE MIN(x) END)",
-  "___max_na" = "(x) AS (CASE WHEN SUM(CASE WHEN x IS NULL THEN 1 ELSE 0 END) > 0 THEN NULL ELSE MAX(x) END)",
-  "___any_na" = "(x) AS (CASE WHEN SUM(CASE WHEN x IS NULL THEN 1 ELSE 0 END) > 0 THEN NULL ELSE bool_or(x) END)",
-  "___all_na" = "(x) AS (CASE WHEN SUM(CASE WHEN x IS NULL THEN 1 ELSE 0 END) > 0 THEN NULL ELSE bool_and(x) END)",
-  "___mean_na" = "(x) AS (CASE WHEN SUM(CASE WHEN x IS NULL THEN 1 ELSE 0 END) > 0 THEN NULL ELSE AVG(x) END)",
-  "___sd_na" = "(x) AS (CASE WHEN SUM(CASE WHEN x IS NULL THEN 1 ELSE 0 END) > 0 THEN NULL ELSE STDDEV(x) END)",
-  "___median_na" = "(x) AS (CASE WHEN SUM(CASE WHEN x IS NULL THEN 1 ELSE 0 END) > 0 THEN NULL ELSE percentile_cont(0.5) WITHIN GROUP (ORDER BY x) END)",
-  #
-  # In n_distinct() many NAs count as 1 if not filtered out with na.rm = TRUE
-  "___n_distinct_na" = "(x) AS (CASE WHEN SUM(CASE WHEN x IS NULL THEN 1 ELSE 0 END) > 0 THEN (COUNT(DISTINCT x)+1) ELSE COUNT(DISTINCT x) END)",
-  "___n_distinct" = "(x) AS (COUNT(DISTINCT x))",
-  #
-  NULL
-)
 
 create_default_duckdb_connection <- function() {
   dbroot <- Sys.getenv("DUCKPLYR_TEMP_DIR", file.path(tempdir(), "duckplyr"))
@@ -5243,7 +5715,12 @@ create_default_duckdb_connection <- function() {
   duckdb$rapi_load_rfuns(drv@database_ref)
 
   for (i in seq_along(duckplyr_macros)) {
-    sql <- paste0('CREATE MACRO "', names(duckplyr_macros)[[i]], '"', duckplyr_macros[[i]])
+    sql <- paste0(
+      'CREATE MACRO "',
+      names(duckplyr_macros)[[i]],
+      '"',
+      duckplyr_macros[[i]]
+    )
     DBI::dbExecute(con, sql)
   }
 
@@ -5254,7 +5731,11 @@ duckdb_rel_from_df <- function(df, call = caller_env()) {
   # FIXME: make generic
   stopifnot(is.data.frame(df))
 
-  rel <- duckdb$rel_from_altrep_df(df, strict = FALSE, allow_materialized = FALSE)
+  rel <- duckdb$rel_from_altrep_df(
+    df,
+    strict = FALSE,
+    allow_materialized = FALSE
+  )
   if (!is.null(rel)) {
     # Once we're here, we know it's an ALTREP data frame
     # We don't get here if it's already materialized
@@ -5272,8 +5753,13 @@ duckdb_rel_from_df <- function(df, call = caller_env()) {
     df <- as_duckplyr_df_impl(df)
   }
 
-  out <- check_df_for_rel(df, call)
+  con <- get_default_duckdb_connection()
 
+  # FIXME: For some reason, it seems crucial to assign the result to a variable before returning it
+  experimental <- (Sys.getenv("DUCKPLYR_EXPERIMENTAL") == "TRUE")
+  out <- duckdb$rel_from_df(con, df, experimental = experimental)
+
+  check_df_for_rel(out, df, call)
   meta_rel_register_df(out, df)
 
   out
@@ -5282,78 +5768,22 @@ duckdb_rel_from_df <- function(df, call = caller_env()) {
   # duckdb$rel_from_df(get_default_duckdb_connection(), df)
 }
 
-# FIXME: This should be duckdb's responsibility
-check_df_for_rel <- function(df, call = caller_env()) {
-  rni <- .row_names_info(df, 0L)
-  if (is.character(rni)) {
-    cli::cli_abort("Need data frame without row names to convert to relational, got character row names.", call = call)
-  }
-  if (length(rni) != 0) {
-    if (length(rni) != 2L || !is.na(rni[[1]])) {
-      cli::cli_abort("Need data frame without row names to convert to relational, got numeric row names.", call = call)
-    }
+check_df_for_rel <- function(rel, df, call = caller_env()) {
+  if (Sys.getenv("DUCKPLYR_CHECK_ROUNDTRIP") != "TRUE") {
+    return()
   }
 
-  if (length(df) == 0L) {
-    cli::cli_abort("Can't convert empty data frame to relational.", call = call)
-  }
-
-  for (i in seq_along(df)) {
-    col <- .subset2(df, i)
-    if (!is.null(names(col))) {
-      cli::cli_abort("Can't convert named vectors to relational. Affected column: {.var {names(df)[[i]]}}.", call = call)
-    }
-    if (!is.null(dim(col))) {
-      cli::cli_abort("Can't convert arrays or matrices to relational. Affected column: {.var {names(df)[[i]]}}.", call = call)
-    }
-    if (isS4(col)) {
-      cli::cli_abort("Can't convert S4 columns to relational. Affected column: {.var {names(df)[[i]]}}.", call = call)
-    }
-
-    # Factors: https://github.com/duckdb/duckdb/issues/8561
-
-    # When adding new classes, make sure to adapt the first test in test-relational-duckdb.R
-
-    col_class <- class(col)
-    if (length(col_class) == 1) {
-      valid <- col_class %in% c("logical", "integer", "numeric", "character", "Date", "difftime")
-    } else if (length(col_class) == 2) {
-      valid <- identical(col_class, c("POSIXct", "POSIXt")) || identical(col_class, c("hms", "difftime"))
-    } else {
-      valid <- FALSE
-    }
-    if (!valid) {
-      cli::cli_abort("Can't convert columns of class {.cls {col_class}} to relational. Affected column: {.var {names(df)[[i]]}}.", call = call)
-    }
-  }
-
-  # FIXME: For some reason, it's important to create an alias here
-  con <- get_default_duckdb_connection()
-
-  # FIXME: For some other reason, it seems crucial to assign the result to a
-  # variable before returning it
-  out <- duckdb$rel_from_df(con, df)
-
-  roundtrip <- duckdb$rapi_rel_to_altrep(out)
-  if (Sys.getenv("DUCKPLYR_CHECK_ROUNDTRIP") == "TRUE") {
-    rlang::with_options(duckdb.materialize_callback = NULL, {
-      for (i in seq_along(df)) {
-        if (!identical(df[[i]], roundtrip[[i]])) {
-          cli::cli_abort("Imperfect roundtrip. Affected column: {.var {names(df)[[i]]}}.", call = call)
-        }
-      }
-    })
-  } else {
+  roundtrip <- duckdb$rapi_rel_to_altrep(rel)
+  rlang::with_options(duckdb.materialize_callback = NULL, {
     for (i in seq_along(df)) {
-      df_attrib <- attributes(df[[i]])
-      roundtrip_attrib <- attributes(roundtrip[[i]])
-      if (!identical(df_attrib, roundtrip_attrib)) {
-        cli::cli_abort("Attributes are lost during conversion. Affected column: {.var {names(df)[[i]]}}.", call = call)
+      if (!identical(df[[i]], roundtrip[[i]])) {
+        cli::cli_abort(
+          "Imperfect roundtrip. Affected column: {.var {names(df)[[i]]}}.",
+          call = call
+        )
       }
     }
-  }
-
-  out
+  })
 }
 
 # https://github.com/r-lib/vctrs/issues/1956
@@ -5366,7 +5796,12 @@ vec_ptype_safe <- function(x) {
 }
 
 #' @export
-rel_to_df.duckdb_relation <- function(rel, ..., prudence = NULL, remote = FALSE) {
+rel_to_df.duckdb_relation <- function(
+  rel,
+  ...,
+  prudence = NULL,
+  remote = FALSE
+) {
   if (is.null(prudence)) {
     cli::cli_abort("Argument {.arg {prudence}} is missing.")
   }
@@ -5387,10 +5822,13 @@ rel_filter.duckdb_relation <- function(rel, exprs, ...) {
   duckdb_exprs <- to_duckdb_exprs(exprs)
   out <- duckdb$rel_filter(rel, duckdb_exprs)
 
-  meta_rel_register(out, expr(duckdb$rel_filter(
-    !!meta_rel_get(rel)$name,
-    list(!!!to_duckdb_exprs_meta(exprs))
-  )))
+  meta_rel_register(
+    out,
+    expr(duckdb$rel_filter(
+      !!meta_rel_get(rel)$name,
+      list(!!!to_duckdb_exprs_meta(exprs))
+    ))
+  )
 
   out
 }
@@ -5401,10 +5839,13 @@ rel_project.duckdb_relation <- function(rel, exprs, ...) {
 
   out <- duckdb$rel_project(rel, duckdb_exprs)
 
-  meta_rel_register(out, expr(duckdb$rel_project(
-    !!meta_rel_get(rel)$name,
-    list(!!!to_duckdb_exprs_meta(exprs))
-  )))
+  meta_rel_register(
+    out,
+    expr(duckdb$rel_project(
+      !!meta_rel_get(rel)$name,
+      list(!!!to_duckdb_exprs_meta(exprs))
+    ))
+  )
 
   check_duplicate_names(out)
 
@@ -5422,11 +5863,14 @@ rel_aggregate.duckdb_relation <- function(rel, groups, aggregates, ...) {
     aggregates = duckdb_aggregates
   )
 
-  meta_rel_register(out, expr(duckdb$rel_aggregate(
-    !!meta_rel_get(rel)$name,
-    groups = list(!!!to_duckdb_exprs_meta(groups)),
-    aggregates = list(!!!to_duckdb_exprs_meta(aggregates))
-  )))
+  meta_rel_register(
+    out,
+    expr(duckdb$rel_aggregate(
+      !!meta_rel_get(rel)$name,
+      groups = list(!!!to_duckdb_exprs_meta(groups)),
+      aggregates = list(!!!to_duckdb_exprs_meta(aggregates))
+    ))
+  )
 
   check_duplicate_names(out)
 
@@ -5439,16 +5883,26 @@ rel_order.duckdb_relation <- function(rel, orders, ascending = NULL, ...) {
 
   out <- duckdb$rel_order(rel, duckdb_orders, ascending)
 
-  meta_rel_register(out, expr(duckdb$rel_order(
-    !!meta_rel_get(rel)$name,
-    list(!!!to_duckdb_exprs_meta(orders))
-  )))
+  meta_rel_register(
+    out,
+    expr(duckdb$rel_order(
+      !!meta_rel_get(rel)$name,
+      list(!!!to_duckdb_exprs_meta(orders))
+    ))
+  )
 
   out
 }
 
 #' @export
-rel_join.duckdb_relation <- function(left, right, conds, join, join_ref_type, ...) {
+rel_join.duckdb_relation <- function(
+  left,
+  right,
+  conds,
+  join,
+  join_ref_type,
+  ...
+) {
   duckdb_conds <- to_duckdb_exprs(conds)
   if (join == "full") {
     join <- "outer"
@@ -5458,22 +5912,28 @@ rel_join.duckdb_relation <- function(left, right, conds, join, join_ref_type, ..
     # Compatibility with older duckdb versions
     out <- duckdb$rel_join(left, right, duckdb_conds, join)
 
-    meta_rel_register(out, expr(duckdb$rel_join(
-      !!meta_rel_get(left)$name,
-      !!meta_rel_get(right)$name,
-      list(!!!to_duckdb_exprs_meta(conds)),
-      !!join
-    )))
+    meta_rel_register(
+      out,
+      expr(duckdb$rel_join(
+        !!meta_rel_get(left)$name,
+        !!meta_rel_get(right)$name,
+        list(!!!to_duckdb_exprs_meta(conds)),
+        !!join
+      ))
+    )
   } else {
     out <- duckdb$rel_join(left, right, duckdb_conds, join, join_ref_type)
 
-    meta_rel_register(out, expr(duckdb$rel_join(
-      !!meta_rel_get(left)$name,
-      !!meta_rel_get(right)$name,
-      list(!!!to_duckdb_exprs_meta(conds)),
-      !!join,
-      !!join_ref_type
-    )))
+    meta_rel_register(
+      out,
+      expr(duckdb$rel_join(
+        !!meta_rel_get(left)$name,
+        !!meta_rel_get(right)$name,
+        list(!!!to_duckdb_exprs_meta(conds)),
+        !!join,
+        !!join_ref_type
+      ))
+    )
   }
 
   check_duplicate_names(out)
@@ -5485,10 +5945,13 @@ rel_join.duckdb_relation <- function(left, right, conds, join, join_ref_type, ..
 rel_limit.duckdb_relation <- function(rel, n, ...) {
   out <- duckdb$rel_limit(rel, n)
 
-  meta_rel_register(out, expr(duckdb$rel_limit(
-    !!meta_rel_get(rel)$name,
-    !!n
-  )))
+  meta_rel_register(
+    out,
+    expr(duckdb$rel_limit(
+      !!meta_rel_get(rel)$name,
+      !!n
+    ))
+  )
 
   out
 }
@@ -5497,9 +5960,12 @@ rel_limit.duckdb_relation <- function(rel, n, ...) {
 rel_distinct.duckdb_relation <- function(rel, ...) {
   out <- duckdb$rel_distinct(rel)
 
-  meta_rel_register(out, expr(duckdb$rel_distinct(
-    !!meta_rel_get(rel)$name
-  )))
+  meta_rel_register(
+    out,
+    expr(duckdb$rel_distinct(
+      !!meta_rel_get(rel)$name
+    ))
+  )
 
   out
 }
@@ -5508,10 +5974,13 @@ rel_distinct.duckdb_relation <- function(rel, ...) {
 rel_set_intersect.duckdb_relation <- function(rel_a, rel_b, ...) {
   out <- duckdb$rel_set_intersect(rel_a, rel_b)
 
-  meta_rel_register(out, expr(duckdb$rel_set_intersect(
-    !!meta_rel_get(rel_a)$name,
-    !!meta_rel_get(rel_b)$name
-  )))
+  meta_rel_register(
+    out,
+    expr(duckdb$rel_set_intersect(
+      !!meta_rel_get(rel_a)$name,
+      !!meta_rel_get(rel_b)$name
+    ))
+  )
 
   out
 }
@@ -5520,10 +5989,13 @@ rel_set_intersect.duckdb_relation <- function(rel_a, rel_b, ...) {
 rel_set_diff.duckdb_relation <- function(rel_a, rel_b, ...) {
   out <- duckdb$rel_set_diff(rel_a, rel_b)
 
-  meta_rel_register(out, expr(duckdb$rel_set_diff(
-    !!meta_rel_get(rel_a)$name,
-    !!meta_rel_get(rel_b)$name
-  )))
+  meta_rel_register(
+    out,
+    expr(duckdb$rel_set_diff(
+      !!meta_rel_get(rel_a)$name,
+      !!meta_rel_get(rel_b)$name
+    ))
+  )
 
   out
 }
@@ -5532,10 +6004,13 @@ rel_set_diff.duckdb_relation <- function(rel_a, rel_b, ...) {
 rel_set_symdiff.duckdb_relation <- function(rel_a, rel_b, ...) {
   out <- duckdb$rel_set_symdiff(rel_a, rel_b)
 
-  meta_rel_register(out, expr(duckdb$rel_set_symdiff(
-    !!meta_rel_get(rel_a)$name,
-    !!meta_rel_get(rel_b)$name
-  )))
+  meta_rel_register(
+    out,
+    expr(duckdb$rel_set_symdiff(
+      !!meta_rel_get(rel_a)$name,
+      !!meta_rel_get(rel_b)$name
+    ))
+  )
 
   out
 }
@@ -5544,10 +6019,13 @@ rel_set_symdiff.duckdb_relation <- function(rel_a, rel_b, ...) {
 rel_union_all.duckdb_relation <- function(rel_a, rel_b, ...) {
   out <- duckdb$rel_union_all(rel_a, rel_b)
 
-  meta_rel_register(out, expr(duckdb$rel_union_all(
-    !!meta_rel_get(rel_a)$name,
-    !!meta_rel_get(rel_b)$name
-  )))
+  meta_rel_register(
+    out,
+    expr(duckdb$rel_union_all(
+      !!meta_rel_get(rel_a)$name,
+      !!meta_rel_get(rel_b)$name
+    ))
+  )
 
   out
 }
@@ -5564,10 +6042,13 @@ rel_alias.duckdb_relation <- function(rel, ...) {}
 rel_set_alias.duckdb_relation <- function(rel, alias, ...) {
   out <- duckdb$rel_set_alias(rel, alias)
 
-  meta_rel_register(out, expr(duckdb$rel_set_alias(
-    !!meta_rel_get(rel)$name,
-    !!alias
-  )))
+  meta_rel_register(
+    out,
+    expr(duckdb$rel_set_alias(
+      !!meta_rel_get(rel)$name,
+      !!alias
+    ))
+  )
 
   out
 }
@@ -5582,7 +6063,8 @@ to_duckdb_exprs <- function(exprs) {
 }
 
 to_duckdb_expr <- function(x) {
-  switch(class(x)[[1]],
+  switch(
+    class(x)[[1]],
     relational_relexpr_reference = {
       out <- duckdb$expr_reference(x$name, if (is.null(x$rel)) "" else x$rel)
       if (!is.null(x$alias)) {
@@ -5598,7 +6080,11 @@ to_duckdb_expr <- function(x) {
       out
     },
     relational_relexpr_function = {
-      out <- duckdb$expr_function(x$name, to_duckdb_exprs(x$args))
+      out <- duckdb$expr_function(
+        x$name,
+        to_duckdb_exprs(x$args),
+        order_bys = to_duckdb_exprs(x$order_bys)
+      )
       if (!is.null(x$alias)) {
         duckdb$expr_set_alias(out, x$alias)
       }
@@ -5618,12 +6104,7 @@ to_duckdb_expr <- function(x) {
       out
     },
     relational_relexpr_constant = {
-      # FIXME: Should be duckdb's responsibility
-      # Example: https://github.com/dschafer/activatr/issues/18
-      check_df_for_rel(vctrs::new_data_frame(list(constant = x$val)))
-
       out <- duckdb$expr_constant(x$val)
-
       if (!is.null(x$alias)) {
         duckdb$expr_set_alias(out, x$alias)
       }
@@ -5639,7 +6120,8 @@ to_duckdb_exprs_meta <- function(exprs) {
 }
 
 to_duckdb_expr_meta <- function(x) {
-  switch(class(x)[[1]],
+  switch(
+    class(x)[[1]],
     relational_relexpr_reference = {
       args <- list(x$name)
       if (!is.null(x$rel)) {
@@ -5656,7 +6138,10 @@ to_duckdb_expr_meta <- function(x) {
       out
     },
     relational_relexpr_comparison = {
-      out <- expr(duckdb$expr_comparison(!!x$cmp_op, list(!!!to_duckdb_exprs_meta(x$exprs))))
+      out <- expr(duckdb$expr_comparison(
+        !!x$cmp_op,
+        list(!!!to_duckdb_exprs_meta(x$exprs))
+      ))
       if (!is.null(x$alias)) {
         out <- expr({
           tmp_expr <- !!out
@@ -5668,7 +6153,12 @@ to_duckdb_expr_meta <- function(x) {
     },
     relational_relexpr_function = {
       meta_macro_register(x$name)
-      out <- expr(duckdb$expr_function(!!x$name, list(!!!to_duckdb_exprs_meta(x$args))))
+      order_bys_meta <- to_duckdb_exprs_meta(x$order_bys)
+      out <- expr(duckdb$expr_function(
+        !!x$name,
+        list(!!!to_duckdb_exprs_meta(x$args)),
+        order_bys = list(!!!order_bys_meta)
+      ))
       if (!is.null(x$alias)) {
         out <- expr({
           tmp_expr <- !!out
@@ -5715,7 +6205,9 @@ to_duckdb_expr_meta <- function(x) {
 check_duplicate_names <- function(rel) {
   # https://github.com/duckdb/duckdb/discussions/14682
   if (anyDuplicated(tolower(duckdb$rel_names(rel)))) {
-    cli::cli_abort("Column names are case-insensitive in duckdb, fallback required.")
+    cli::cli_abort(
+      "Column names are case-insensitive in duckdb, fallback required."
+    )
   }
 }
 # end R/relational-duckdb.R
@@ -5725,8 +6217,7 @@ check_duplicate_names <- function(rel) {
 #' Relational expressions
 #'
 #' @description
-#' These functions provide a backend-agnostic way to construct expression trees
-#' built of column references, constants, and functions.
+#' These functions provide a backend-agnostic way to construct expression trees built of column references, constants, and functions.
 #' All subexpressions in an expression tree can have an alias.
 #'
 #' `new_relexpr()` constructs an object of class `"relational_relexpr"`.
@@ -5768,7 +6259,10 @@ relexpr_reference <- function(name, rel = NULL, alias = NULL) {
   stopifnot(is_string(name))
   stopifnot(is.null(rel) || inherits(rel, "duckdb_relation"))
   stopifnot(is.null(alias) || is_string(alias))
-  new_relexpr(list(name = name, rel = rel, alias = alias), class = "relational_relexpr_reference")
+  new_relexpr(
+    list(name = name, rel = rel, alias = alias),
+    class = "relational_relexpr_reference"
+  )
 }
 
 #' relexpr_constant
@@ -5782,7 +6276,10 @@ relexpr_reference <- function(name, rel = NULL, alias = NULL) {
 relexpr_constant <- function(val, alias = NULL) {
   stopifnot(length(val) == 1)
   stopifnot(is.null(alias) || is_string(alias))
-  new_relexpr(list(val = val, alias = alias), class = "relational_relexpr_constant")
+  new_relexpr(
+    list(val = val, alias = alias),
+    class = "relational_relexpr_constant"
+  )
 }
 
 #' relexpr_function
@@ -5794,11 +6291,15 @@ relexpr_constant <- function(val, alias = NULL) {
 #' @rdname new_relexpr
 #' @return an object of class `"relational_relexpr"`
 #' @export
-relexpr_function <- function(name, args, alias = NULL) {
+relexpr_function <- function(name, args, alias = NULL, order_bys = NULL) {
   stopifnot(is_string(name))
   stopifnot(is.list(args))
+  stopifnot(is.null(order_bys) || is.list(order_bys))
   stopifnot(is.null(alias) || is_string(alias))
-  new_relexpr(list(name = name, args = args, alias = alias), class = "relational_relexpr_function")
+  new_relexpr(
+    list(name = name, args = args, order_bys = order_bys, alias = alias),
+    class = "relational_relexpr_function"
+  )
 }
 
 #' relexpr_comparison
@@ -5813,7 +6314,10 @@ relexpr_function <- function(name, args, alias = NULL) {
 relexpr_comparison <- function(cmp_op, exprs) {
   stopifnot(is_string(cmp_op))
   stopifnot(is.list(exprs))
-  new_relexpr(list(cmp_op = cmp_op, exprs = exprs), class = "relational_relexpr_comparison")
+  new_relexpr(
+    list(cmp_op = cmp_op, exprs = exprs),
+    class = "relational_relexpr_comparison"
+  )
 }
 
 
@@ -5829,17 +6333,20 @@ relexpr_comparison <- function(cmp_op, exprs) {
 #' @rdname new_relexpr
 #' @export
 relexpr_window <- function(
-    expr,
-    partitions,
-    order_bys = list(),
-    offset_expr = NULL,
-    default_expr = NULL,
-    alias = NULL) {
+  expr,
+  partitions,
+  order_bys = list(),
+  offset_expr = NULL,
+  default_expr = NULL,
+  alias = NULL
+) {
   stopifnot(inherits(expr, "relational_relexpr"))
   stopifnot(is.list(partitions))
   stopifnot(is.list(order_bys))
   stopifnot(is.null(offset_expr) || inherits(offset_expr, "relational_relexpr"))
-  stopifnot(is.null(default_expr) || inherits(default_expr, "relational_relexpr"))
+  stopifnot(
+    is.null(default_expr) || inherits(default_expr, "relational_relexpr")
+  )
   stopifnot(is.null(alias) || is_string(alias))
   new_relexpr(
     list(
@@ -5885,7 +6392,10 @@ rel_stats_clean <- function() {
 }
 
 rel_stats_get <- function() {
-  arrange(tibble::enframe(unlist(as.list(rel_stats_env)), "fun", "count"), desc(count))
+  arrange(
+    tibble::enframe(unlist(as.list(rel_stats_env)), "fun", "count"),
+    desc(count)
+  )
 }
 
 #' Relational implementer's interface
@@ -5978,8 +6488,7 @@ rel_filter <- function(rel, exprs, ...) {
 #' rel_project
 #'
 #' `rel_project()` selects columns or creates new columns,
-#' to be used by [dplyr::select()], [dplyr::rename()],
-#' [dplyr::mutate()], [dplyr::relocate()], and others.
+#' to be used by [dplyr::select()], [dplyr::rename()], [dplyr::mutate()], [dplyr::relocate()], and others.
 #'
 #' @rdname new_relational
 #' @export
@@ -6069,12 +6578,14 @@ rel_order <- function(rel, orders, ascending, ...) {
 #' }
 #'
 #' rel_join(new_dfrel(data.frame(mpg = 21)), mtcars_rel)
-rel_join <- function(left,
-                     right,
-                     conds,
-                     join = c("inner", "left", "right", "outer", "cross", "semi", "anti"),
-                     join_ref_type = c("regular", "natural", "cross", "positional", "asof"),
-                     ...) {
+rel_join <- function(
+  left,
+  right,
+  conds,
+  join = c("inner", "left", "right", "outer", "cross", "semi", "anti"),
+  join_ref_type = c("regular", "natural", "cross", "positional", "asof"),
+  ...
+) {
   rel_stats_env$rel_join <- (rel_stats_env$rel_join %||% 0L) + 1L
   UseMethod("rel_join")
 }
@@ -6130,7 +6641,8 @@ rel_distinct <- function(rel, ...) {
 #' @rdname new_relational
 #' @export
 rel_set_intersect <- function(rel_a, rel_b, ...) {
-  rel_stats_env$rel_set_intersect <- (rel_stats_env$rel_set_intersect %||% 0L) + 1L
+  rel_stats_env$rel_set_intersect <- (rel_stats_env$rel_set_intersect %||% 0L) +
+    1L
   UseMethod("rel_set_intersect")
 }
 
@@ -6272,10 +6784,12 @@ rel_try <- function(call, rel, ...) {
         }
 
         if (Sys.getenv("DUCKPLYR_FALLBACK_INFO") == "TRUE") {
-          inform(message = c(
-            "Cannot process duckplyr query with DuckDB, falling back to dplyr.",
-            i = cli::format_inline(message)
-          ))
+          inform(
+            message = c(
+              "Cannot process duckplyr query with DuckDB, falling back to dplyr.",
+              i = cli::format_inline(message)
+            )
+          )
         }
         if (Sys.getenv("DUCKPLYR_FORCE") == "TRUE") {
           cli::cli_abort(c(
@@ -6291,7 +6805,10 @@ rel_try <- function(call, rel, ...) {
 
   if (Sys.getenv("DUCKPLYR_FORCE") == "TRUE") {
     force(rel)
-    cli::cli_abort("Must use a {.code return()} in {.code rel_try()}.", .internal = TRUE)
+    cli::cli_abort(
+      "Must use a {.code return()} in {.code rel_try()}.",
+      .internal = TRUE
+    )
   }
 
   out <- rlang::try_fetch(rel, error = identity)
@@ -6299,14 +6816,20 @@ rel_try <- function(call, rel, ...) {
     tel_collect(out, call)
 
     if (Sys.getenv("DUCKPLYR_FALLBACK_INFO") == "TRUE") {
-      rlang::cnd_signal(rlang::message_cnd(message = "Error processing duckplyr query with DuckDB, falling back to dplyr.", parent = out))
+      rlang::cnd_signal(rlang::message_cnd(
+        message = "Error processing duckplyr query with DuckDB, falling back to dplyr.",
+        parent = out
+      ))
     }
     stats$fallback <- stats$fallback + 1L
     return(out)
   }
 
   # Never reached due to return() in code
-  cli::cli_abort("Must use a {.code return()} in {.code rel_try()}.", .internal = TRUE)
+  cli::cli_abort(
+    "Must use a {.code return()} in {.code rel_try()}.",
+    .internal = TRUE
+  )
 }
 
 rel_translate_dots <- function(dots, data, call = caller_env()) {
@@ -6328,7 +6851,7 @@ rel_translate_dots_summarise <- function(dots, data, call = caller_env()) {
     current_names <- c(names(data), .x$new)
 
     dot <- dots[[.y]]
-    expanded <- duckplyr_expand_across(current_names, dot)
+    expanded <- duckplyr_expand_across(data, dot)
 
     if (is.null(expanded)) {
       new <- names(dots)[[.y]]
@@ -6341,13 +6864,15 @@ rel_translate_dots_summarise <- function(dots, data, call = caller_env()) {
       ))
     } else {
       new <- names(expanded)
-      translation <- imap(expanded, function(expr, name) rel_translate(
-        expr,
-        alias = name,
-        data,
-        names_forbidden = .x$new,
-        call = call
-      ))
+      translation <- imap(expanded, function(expr, name) {
+        rel_translate(
+          expr,
+          alias = name,
+          data,
+          names_forbidden = .x$new,
+          call = call
+        )
+      })
     }
 
     list(
@@ -6360,7 +6885,10 @@ rel_translate_dots_summarise <- function(dots, data, call = caller_env()) {
 
 new_failing_mask <- function(names_data) {
   env <- new_environment()
-  walk(names_data, ~ env_bind_lazy(env, !!.x := stop("Can't access data in this context")))
+  walk(
+    names_data,
+    ~ env_bind_lazy(env, !!.x := stop("Can't access data in this context"))
+  )
   new_data_mask(env)
 }
 
@@ -6371,12 +6899,16 @@ check_prudence <- function(x, duckplyr_error, call = caller_env()) {
   if (is.character(msg)) {
     duckplyr_error_msg <- if (is.character(duckplyr_error)) duckplyr_error
     duckplyr_error_parent <- if (is_condition(duckplyr_error)) duckplyr_error
-    cli::cli_abort(parent = duckplyr_error_parent, call = call, c(
-      "This operation cannot be carried out by DuckDB, and the input is a stingy duckplyr frame.",
-      "*" = duckplyr_error_msg,
-      "i" = 'Use {.code compute(prudence = "lavish")} to materialize to temporary storage and continue with {.pkg duckplyr}.',
-      "i" = 'See {.run vignette("prudence")} for other options.'
-    ))
+    cli::cli_abort(
+      parent = duckplyr_error_parent,
+      call = call,
+      c(
+        "This operation cannot be carried out by DuckDB, and the input is a stingy duckplyr frame.",
+        "*" = duckplyr_error_msg,
+        "i" = 'Use {.code compute(prudence = "lavish")} to materialize to temporary storage and continue with {.pkg duckplyr}.',
+        "i" = 'See {.run vignette("prudence")} for other options.'
+      )
+    )
   }
 }
 # end R/relational.R
@@ -6474,8 +7006,7 @@ duckplyr_relocate <- function(.data, ...) {
 #'
 #' @description  This is a method for the [dplyr::rename()] generic.
 #' See "Fallbacks" section for differences in implementation.
-#' `rename()` changes the names of individual variables
-#' using `new_name = old_name` syntax.
+#' `rename()` changes the names of individual variables using `new_name = old_name` syntax.
 #'
 #' @inheritParams dplyr::rename
 #' @examples
@@ -6786,8 +7317,14 @@ rows_delete.data.frame <- function(x, y, by = NULL, ..., unmatched = c("error", 
 
   extra <- setdiff(names(y), names(y_key))
   if (!is_empty(extra)) {
-    message <- glue("Ignoring extra `y` columns: ", commas(tick_if_needed(extra)))
-    inform(message, class = c("dplyr_message_delete_extra_cols", "dplyr_message"))
+    message <- glue(
+      "Ignoring extra `y` columns: ",
+      commas(tick_if_needed(extra))
+    )
+    inform(
+      message,
+      class = c("dplyr_message_delete_extra_cols", "dplyr_message")
+    )
   }
 
   loc <- vec_match(x_key, y_key)
@@ -7189,10 +7726,9 @@ duckplyr_rowwise <- function(data, ...) {
 #' @description  This is a method for the [dplyr::select()] generic.
 #' See "Fallbacks" section for differences in implementation.
 #' Select (and optionally rename) variables in a data frame,
-#' using a concise mini-language that makes it easy to refer to variables
-#' based on their name (e.g. `a:f` selects all columns from a on the left
-#' to f on the right) or type
-#' (e.g. `where(is.numeric)` selects all numeric columns).
+#' using a concise mini-language that makes it easy to refer to variables based on their name
+#' (e.g. `a:f` selects all columns from a on the left to f on the right)
+#' or type (e.g. `where(is.numeric)` selects all numeric columns).
 #'
 #' @inheritParams dplyr::select
 #' @examples
@@ -7325,7 +7861,14 @@ semi_join.data.frame <- function(x, y, by = NULL, copy = FALSE, ..., na_matches 
   # dplyr implementation
   check_dots_empty0(...)
   y <- auto_copy(x, y, copy = copy)
-  join_filter(x, y, by = by, type = "semi", na_matches = na_matches, user_env = caller_env())
+  join_filter(
+    x,
+    y,
+    by = by,
+    type = "semi",
+    na_matches = na_matches,
+    user_env = caller_env()
+  )
 }
 
 duckplyr_semi_join <- function(x, y, ...) {
@@ -7852,9 +8395,14 @@ duckplyr_slice_tail <- function(.data, ...) {
 #' @param con The connection, defaults to the default connection.
 #'
 #' @export
-#' @examples
+#' @examplesIf getRversion() >= "4.3"
 #' read_sql_duckdb("FROM duckdb_settings()")
-read_sql_duckdb <- function(sql, ..., prudence = c("thrifty", "lavish", "stingy"), con = NULL) {
+read_sql_duckdb <- function(
+  sql,
+  ...,
+  prudence = c("thrifty", "lavish", "stingy"),
+  con = NULL
+) {
   if (!is_string(sql)) {
     cli::cli_abort("{.arg sql} must be a string.")
   }
@@ -7874,7 +8422,11 @@ read_sql_duckdb <- function(sql, ..., prudence = c("thrifty", "lavish", "stingy"
 
 
 # begin R/stats.R
-stats <- new_environment(list(attempts = 0L, fallback = 0L, calls = character()))
+stats <- new_environment(list(
+  attempts = 0L,
+  fallback = 0L,
+  calls = character()
+))
 
 #' Show stats
 #'
@@ -8007,11 +8559,7 @@ summarise.data.frame <- function(.data, ..., .by = NULL, .groups = NULL) {
   by <- compute_by({{ .by }}, .data, by_arg = ".by", data_arg = ".data")
 
   cols <- summarise_cols(.data, dplyr_quosures(...), by, "summarise")
-  out <- summarise_build(by, cols)
-
-  if (!cols$all_one) {
-    summarise_deprecate_variable_size()
-  }
+  out <- summarise_build(by, cols, "summarise")
 
   if (!is_tibble(.data)) {
     # The `by` group data we build from is always a tibble,
@@ -8145,9 +8693,65 @@ duckplyr_symdiff <- function(x, y, ...) {
 # begin R/translate.R
 # Documented in `.github/CONTRIBUTING.md`
 
+duckplyr_macros <- c(
+  # https://github.com/duckdb/duckdb-r/pull/156
+  "___null" = "() AS CAST(NULL AS BOOLEAN)",
+  #
+  "<" = "(x, y) AS (x < y)",
+  "<=" = "(x, y) AS (x <= y)",
+  ">" = "(x, y) AS (x > y)",
+  ">=" = "(x, y) AS (x >= y)",
+  "==" = "(x, y) AS (x == y)",
+  "!=" = "(x, y) AS (x != y)",
+  #
+  "___divide" = "(x, y) AS CASE WHEN y = 0 THEN CASE WHEN x = 0 THEN CAST('NaN' AS double) WHEN x > 0 THEN CAST('+Infinity' AS double) ELSE CAST('-Infinity' AS double) END ELSE CAST(x AS double) / y END",
+  #
+  "is.na" = "(x) AS (x IS NULL)",
+  "n" = "() AS CAST(COUNT(*) AS int32)",
+  #
+  "___log10" = "(x) AS CASE WHEN x < 0 THEN CAST('NaN' AS double) WHEN x = 0 THEN CAST('-Inf' AS double) ELSE log10(x) END",
+  "___log" = "(x) AS CASE WHEN x < 0 THEN CAST('NaN' AS double) WHEN x = 0 THEN CAST('-Inf' AS double) ELSE ln(x) END",
+  # TPCH
+
+  # https://github.com/duckdb/duckdb/discussions/8599
+  # "as.Date" = '(x) AS strptime(x, \'%Y-%m-%d\')',
+
+  "sub" = "(pattern, replacement, x) AS (regexp_replace(x, pattern, replacement))",
+  "gsub" = "(pattern, replacement, x) AS (regexp_replace(x, pattern, replacement, 'g'))",
+  "grepl" = "(pattern, x) AS (CASE WHEN x IS NULL THEN FALSE ELSE regexp_matches(x, pattern) END)",
+  "if_else" = "(test, yes, no) AS (CASE WHEN test IS NULL THEN NULL ELSE CASE WHEN test THEN yes ELSE no END END)",
+  "|" = "(x, y) AS (x OR y)",
+  "&" = "(x, y) AS (x AND y)",
+  "!" = "(x) AS (NOT x)",
+  #
+  "wday" = "(x) AS CAST(weekday(CAST (x AS DATE)) + 1 AS int32)",
+  #
+  "___eq_na_matches_na" = "(x, y) AS (x IS NOT DISTINCT FROM y)",
+  "___coalesce" = "(x, y) AS COALESCE(x, y)",
+  #
+  # FIXME: Need a better way?
+  "suppressWarnings" = "(x) AS (x)",
+  #
+  "___sum_na" = "(x) AS (CASE WHEN SUM(CASE WHEN x IS NULL THEN 1 ELSE 0 END) > 0 THEN NULL ELSE SUM(x) END)",
+  "___min_na" = "(x) AS (CASE WHEN SUM(CASE WHEN x IS NULL THEN 1 ELSE 0 END) > 0 THEN NULL ELSE MIN(x) END)",
+  "___max_na" = "(x) AS (CASE WHEN SUM(CASE WHEN x IS NULL THEN 1 ELSE 0 END) > 0 THEN NULL ELSE MAX(x) END)",
+  "___any_na" = "(x) AS (CASE WHEN SUM(CASE WHEN x IS NULL THEN 1 ELSE 0 END) > 0 THEN NULL ELSE bool_or(x) END)",
+  "___all_na" = "(x) AS (CASE WHEN SUM(CASE WHEN x IS NULL THEN 1 ELSE 0 END) > 0 THEN NULL ELSE bool_and(x) END)",
+  "___mean_na" = "(x) AS (CASE WHEN SUM(CASE WHEN x IS NULL THEN 1 ELSE 0 END) > 0 THEN NULL ELSE AVG(x) END)",
+  "___sd_na" = "(x) AS (CASE WHEN SUM(CASE WHEN x IS NULL THEN 1 ELSE 0 END) > 0 THEN NULL ELSE STDDEV(x) END)",
+  "___median_na" = "(x) AS (CASE WHEN SUM(CASE WHEN x IS NULL THEN 1 ELSE 0 END) > 0 THEN NULL ELSE percentile_cont(0.5) WITHIN GROUP (ORDER BY x) END)",
+  #
+  # In n_distinct() many NAs count as 1 if not filtered out with na.rm = TRUE
+  "___n_distinct_na" = "(x) AS (CASE WHEN SUM(CASE WHEN x IS NULL THEN 1 ELSE 0 END) > 0 THEN (COUNT(DISTINCT x)+1) ELSE COUNT(DISTINCT x) END)",
+  "___n_distinct" = "(x) AS (COUNT(DISTINCT x))",
+  #
+  NULL
+)
+
 rel_find_packages <- function(name) {
   # Remember to update limits.Rmd when adding new functions!
-  switch(name,
+  switch(
+    name,
     # Handled in a special way, not mentioned here
     "desc" = "dplyr",
 
@@ -8187,7 +8791,7 @@ rel_find_packages <- function(name) {
     # ":" = "base",
     # "as.character" = "base",
     # "paste" = "base",
-    # "round" = "base",
+    "round" = "base",
     # "paste0" = "base",
     # "length" = "base",
     # ".data$" = "dplyr",
@@ -8217,6 +8821,13 @@ rel_find_packages <- function(name) {
     "suppressWarnings" = "base",
     "lag" = "dplyr",
     "lead" = "dplyr",
+    "first" = "dplyr",
+    "last" = "dplyr",
+    "nth" = "dplyr",
+    # "rank" = "dplyr",
+    # "dense_rank" = "dplyr",
+    # "percent_rank" = "dplyr",
+    # "cume_dist" = "dplyr",
     "log10" = "base",
     "log" = "base",
     "hour" = "lubridate",
@@ -8232,6 +8843,7 @@ rel_find_packages <- function(name) {
   )
   # Remember to update limits.Rmd when adding new functions!
 }
+
 
 rel_find_call_candidates <- function(fun, call = caller_env()) {
   name <- as.character(fun)
@@ -8251,8 +8863,7 @@ rel_find_call_candidates <- function(fun, call = caller_env()) {
     name <- name[[3]]
 
     if (my_pkg == "dd" || my_pkg %in% rel_find_packages(name)) {
-      # Package name provided by the user, shortcut if found in list of packages
-      # (requires non-NULL pkgs), no check needed
+      # Package name provided by the user, shortcut if found in list of packages (requires non-NULL pkgs), no check needed
       return(list(
         packages = my_pkg,
         name = name,
@@ -8274,7 +8885,10 @@ rel_find_call_candidates <- function(fun, call = caller_env()) {
     }
   }
 
-  cli::cli_abort("Can't translate function {.code {expr_deparse(fun)}()}.", call = call)
+  cli::cli_abort(
+    "Can't translate function {.code {expr_deparse(fun)}()}.",
+    call = call
+  )
 }
 
 rel_find_call <- function(fun, env, call = caller_env()) {
@@ -8306,9 +8920,15 @@ rel_find_call <- function(fun, env, call = caller_env()) {
   }
 
   if (length(pkgs) == 1) {
-    cli::cli_abort("Function {.fun {name}} does not map to {.fun {pkgs}::{name}}.", call = call)
+    cli::cli_abort(
+      "Function {.fun {name}} does not map to {.fun {pkgs}::{name}}.",
+      call = call
+    )
   } else {
-    cli::cli_abort("Function {.fun {name}} does not map to the corresponding function in {.pkg {pkgs}}.", call = call)
+    cli::cli_abort(
+      "Function {.fun {name}} does not map to the corresponding function in {.pkg {pkgs}}.",
+      call = call
+    )
   }
 }
 
@@ -8342,7 +8962,8 @@ rel_translate_lang <- function(
   partition,
   in_window,
   need_window,
-  call = caller_env()
+  call = caller_env(),
+  record_window = NULL
 ) {
   pkg_name <- rel_find_call(expr[[1]], env, call = call)
   pkg <- pkg_name[[1]]
@@ -8357,7 +8978,11 @@ rel_translate_lang <- function(
 
     if (!is.null(names(args_r))) {
       need_names <- (names(args_r) != "")
-      args[need_names] <- map2(args[need_names], names(args_r)[need_names], relexpr_set_alias)
+      args[need_names] <- map2(
+        args[need_names],
+        names(args_r)[need_names],
+        relexpr_set_alias
+      )
     }
     fun <- relexpr_function(name, args)
     return(fun)
@@ -8365,7 +8990,10 @@ rel_translate_lang <- function(
 
   if (name %in% c(">", "<", "==", ">=", "<=")) {
     if (length(expr) != 3) {
-      cli::cli_abort("Expected three expressions for comparison. Got {length(expr)}", call = call)
+      cli::cli_abort(
+        "Expected three expressions for comparison. Got {length(expr)}",
+        call = call
+      )
     }
 
     class_left <- infer_class_of_expr(expr[[2]], data)
@@ -8381,43 +9009,76 @@ rel_translate_lang <- function(
     }
   }
 
-
-  if (!(name %in% c("wday", "strftime", "lag", "lead", "sum", "min", "max", "any", "all", "mean", "median", "sd", "n_distinct"))) {
-    if (!is.null(names(expr)) && any(names(expr) != "")) {
-      # Fix grepl() and sum()/min()/max() logic below when allowing matching by argument name
-      cli::cli_abort("Can't translate named argument {.code {name}({names(expr)[names(expr) != ''][[1]]} = )}.", call = call)
+  # Apply call_match() unconditionally to normalize named arguments
+  fn_def <- get0(name, envir = asNamespace(pkg), mode = "function")
+  if (!is.null(fn_def)) {
+    # Use args() for primitives whose formals() returns NULL
+    fn_for_match <- fn_def
+    if (is.null(formals(fn_def))) {
+      fn_for_match <- args(fn_def)
+    }
+    if (!is.null(fn_for_match)) {
+      expr <- call_match(expr, fn_for_match, dots_env = env)
     }
   }
 
-  switch(name,
+  switch(
+    name,
     "(" = {
       return(do_translate(expr[[2]], in_window = in_window))
     },
     # Hack
     "wday" = {
       if (!is.null(pkg) && pkg != "lubridate") {
-        cli::cli_abort("Don't know how to translate {.code {pkg}::{name}}.", call = call)
+        cli::cli_abort(
+          "Don't know how to translate {.code {pkg}::{name}}.",
+          call = call
+        )
       }
-      call <- call_match(expr, lubridate::wday, dots_env = env)
-      args <- as.list(call[-1])
+      # call_match() already applied above
+      args <- as.list(expr[-1])
       bad <- !(names(args) %in% c("x"))
       if (any(bad)) {
-        cli::cli_abort("{name}({names(args)[which(bad)[[1]]]} = ) not supported", call = call)
+        cli::cli_abort(
+          "{.code {name}({names(args)[which(bad)[[1]]]} = )} not supported",
+          call = call
+        )
       }
       if (!is.null(getOption("lubridate.week.start"))) {
-        cli::cli_abort('{.code wday()} with {.code option("lubridate.week.start")} not supported', call = call)
+        cli::cli_abort(
+          '{.code wday()} with {.code option("lubridate.week.start")} not supported',
+          call = call
+        )
       }
     },
     "strftime" = {
-      call <- call_match(expr, strftime, dots_env = env)
-      args <- as.list(call[-1])
+      # call_match() already applied above
+      args <- as.list(expr[-1])
       bad <- !(names(args) %in% c("x", "format"))
       if (any(bad)) {
-        cli::cli_abort("{name}({names(args)[which(bad)[[1]]]} = ) not supported", call = call)
+        cli::cli_abort(
+          "{.code {name}({names(args)[which(bad)[[1]]]} = )} not supported",
+          call = call
+        )
+      }
+    },
+    "if_else" = {
+      # call_match() already applied above; validate only supported args are used
+      args <- as.list(expr[-1])
+      bad <- !(names(args) %in% c("condition", "true", "false"))
+      if (any(bad)) {
+        cli::cli_abort(
+          "{.code {name}({names(args)[which(bad)[[1]]]} = )} not supported",
+          call = call
+        )
       }
     },
     "%in%" = {
-      values <- eval_tidy(expr[[3]], data = new_failing_mask(names(data)), env = env)
+      values <- eval_tidy(
+        expr[[3]],
+        data = new_failing_mask(names(data)),
+        env = env
+      )
       if (length(values) == 0) {
         return(relexpr_constant(FALSE))
       }
@@ -8435,7 +9096,10 @@ rel_translate_lang <- function(
       }
 
       if (length(values) > 100) {
-        cli::cli_abort("Can't translate {.code {name}} with more than 100 values.", call = call)
+        cli::cli_abort(
+          "Can't translate {.code {name}} with more than 100 values.",
+          call = call
+        )
       }
 
       consts <- map(values, do_translate)
@@ -8444,7 +9108,10 @@ rel_translate_lang <- function(
       alt <- bisect_reduce(cmp, function(.x, .y) {
         relexpr_function("|", list(.x, .y))
       })
-      coalesce <- relexpr_function("___coalesce", list(alt, relexpr_constant(has_na)))
+      coalesce <- relexpr_function(
+        "___coalesce",
+        list(alt, relexpr_constant(has_na))
+      )
       meta_ext_register()
       return(coalesce)
     },
@@ -8456,22 +9123,60 @@ rel_translate_lang <- function(
         if (exists(var_name, envir = env)) {
           return(do_translate(get(var_name, env), in_window = in_window))
         } else {
-          cli::cli_abort("object not found, should also be triggered by the dplyr fallback", call = call)
+          cli::cli_abort(
+            "object not found, should also be triggered by the dplyr fallback",
+            call = call
+          )
         }
       }
     },
     "coalesce" = {
       if (length(expr) != 3) {
-        cli::cli_abort("Can only translate {.call coalesce(x, y)} with two arguments.", call = call)
+        cli::cli_abort(
+          "Can only translate {.call coalesce(x, y)} with two arguments.",
+          call = call
+        )
       }
-    }
+    },
+    "nth" = {
+      n <- expr$n
+      if (!is.numeric(n) || length(n) != 1L || is.na(n) || n <= 0) {
+        cli::cli_abort(
+          "{.fun nth} can only be translated with a positive scalar {.arg n}",
+          call = call
+        )
+      }
+    },
+    "round" = {
+      if (is.null(expr$digits)) {
+        expr$digits <- 0L
+      } else {
+        digits <- expr$digits
+        if (
+          is_expression(digits) &&
+            digits[[1]] == "-" &&
+            length(digits) == 2 &&
+            is.numeric(digits[[2]])
+        ) {
+          digits <- -digits[[2]]
+        }
+        if (
+          !is.numeric(digits) ||
+            length(digits) != 1L ||
+            is.na(digits) ||
+            !is_integerish(digits)
+        ) {
+          cli::cli_abort(
+            "{.fun round} can only be translated with a scalar integerish {.arg digits}",
+            call = call
+          )
+        }
+        expr$digits <- as.integer(digits)
+      }
+    },
   )
 
   aliases <- c(
-    "sd" = "stddev",
-    "first" = "first_value",
-    "last" = "last_value",
-    "nth" = "nth_value",
     "/" = "___divide",
     "log10" = "___log10",
     "log" = "___log",
@@ -8483,30 +9188,61 @@ rel_translate_lang <- function(
     "==" = "r_base::==",
     "!=" = "r_base::!=",
     "coalesce" = "___coalesce",
+    "round" = "round_even",
 
     NULL
   )
 
-  known_window <- c(
-    # Window functions
-    "row_number",
-    # Not yet implemented
-    "ntile",
-    "first", "last", "nth",
-    # Difficult to implement
-    "rank", "dense_rank", "percent_rank", "cume_dist",
-    "lead", "lag",
+  # Named list of c(window_alias, non_window_alias) for functions that can appear in window context.
+  # NA_character_ means "not applicable" for that context (function can't be used there).
+  known_window <- list(
+    # Window-only functions (no aggregate form)
+    row_number = c("row_number", NA_character_),
+    ntile = c("ntile", NA_character_), # Not yet implemented
+    rank = c("rank", NA_character_), # Difficult to implement
+    dense_rank = c("dense_rank", NA_character_),
+    percent_rank = c("percent_rank", NA_character_),
+    cume_dist = c("cume_dist", NA_character_),
 
-    # Aggregates
-    "sum", "min", "max", "any", "all", "mean", "sd", "median",
-    "n_distinct",
-    #
+    # Both window and aggregate, different DuckDB function names
+    first = c("first_value", "first"),
+    last = c("last_value", "last"),
+    nth = c("nth_value", NA_character_), # aggregate uses array_extract() -- see else branch
+    n = c("count_star", "n"), # window uses count_star; non-window uses n() macro
+
+    # Same function name in both window and aggregate contexts
+    lead = rep("lead", 2),
+    lag = rep("lag", 2),
+
+    # Aggregates (same DuckDB name; na.rm handling overrides aliased_name separately)
+    sum = rep("sum", 2),
+    min = rep("min", 2),
+    max = rep("max", 2),
+    any = rep("any", 2),
+    all = rep("all", 2),
+    mean = rep("mean", 2),
+    sd = rep("stddev", 2),
+    median = rep("median", 2),
+    n_distinct = rep("n_distinct", 2),
+
     NULL
   )
 
-  window <- need_window && (name %in% known_window)
+  window <- need_window && (name %in% names(known_window))
 
-  if (name %in% names(aliases)) {
+  if (window && !is.null(record_window)) {
+    record_window()
+  }
+
+  if (name %in% names(known_window)) {
+    idx <- if (window) 1L else 2L
+    aliased_name <- known_window[[name]][[idx]]
+    if (is.na(aliased_name)) {
+      aliased_name <- name
+    } else if (grepl("^r_base::", aliased_name)) {
+      meta_ext_register()
+    }
+  } else if (name %in% names(aliases)) {
     aliased_name <- aliases[[name]]
     if (grepl("^r_base::", aliased_name)) {
       meta_ext_register()
@@ -8518,12 +9254,21 @@ rel_translate_lang <- function(
   order_bys <- list()
   offset_expr <- NULL
   default_expr <- NULL
-  if (name %in% c("lag", "lead")) {
+  nth_n <- NULL
+  if (name %in% c("lag", "lead", "first", "last", "nth")) {
+    # call_match() already applied above; extract special arguments
     # x, n = 1L, default = NULL, order_by = NULL
-    expr <- call_match(expr, lag, dots_env = env)
 
-    offset_expr <- relexpr_constant(expr$n %||% 1L)
-    expr$n <- NULL
+    if (name %in% c("lag", "lead")) {
+      offset_expr <- relexpr_constant(expr$n %||% 1L)
+      expr$n <- NULL
+    }
+
+    if (name == "nth" && !window) {
+      # Extract n as integer for aggregate context (array_extract requires BIGINT)
+      nth_n <- relexpr_constant(as.integer(expr$n))
+      expr$n <- NULL
+    }
 
     if (!is.null(expr$default)) {
       default_expr <- do_translate(expr$default, in_window = TRUE)
@@ -8531,54 +9276,83 @@ rel_translate_lang <- function(
     }
 
     if (!is.null(expr$order_by)) {
-      order_bys <- list(do_translate(expr$order_by, in_window = TRUE))
+      order_by_expr <- expr$order_by
+      if (is_desc(order_by_expr, env, call)) {
+        # desc() in order_by is not yet supported for window/aggregate functions.
+        # Native DESC ordering in DuckDB-R expressions is tracked in:
+        # https://github.com/duckdb/duckdb-r/issues/2074
+        cli::cli_abort(
+          "{.fun desc} in {.arg order_by} is not yet supported.",
+          call = call
+        )
+      } else {
+        order_bys <- list(do_translate(
+          order_by_expr,
+          in_window = in_window || window
+        ))
+      }
       expr$order_by <- NULL
     }
-  }
+  } else if (
+    name %in%
+      c("sum", "min", "max", "any", "all", "mean", "sd", "median", "n_distinct")
+  ) {
+    # Other primitives: prod, range
+    # Other aggregates: var(), cum*(), quantile()
+    has_dots_data <- (name %in%
+      c("sum", "min", "max", "any", "all", "n_distinct"))
 
-  # Other primitives: prod, range
-  # Other aggregates: var(), cum*(), quantile()
-  if (name %in% c("sum", "min", "max", "any", "all", "mean", "sd", "median", "n_distinct")) {
-    is_primitive <- (name %in% c("sum", "min", "max", "any", "all"))
-
-    if (is_primitive) {
-      def_primitive <- function(..., na.rm = FALSE) {}
-      def <- def_primitive
+    if (has_dots_data) {
       good_names <- c("", "na.rm")
       unnamed_args <- 1
     } else {
-      def_regular <- function(x, ..., na.rm = FALSE) {}
-      def <- def_regular
       good_names <- c("x", "na.rm")
       unnamed_args <- 0
     }
 
-    expr <- call_match(expr, def, dots_env = env)
+    # call_match() already applied above
     args <- as.list(expr[-1])
     bad <- !(names(args) %in% good_names)
     if (sum(names2(args) == "") != unnamed_args) {
-      cli::cli_abort("{.fun {name}} needs exactly one argument besides the optional {.arg na.rm}", call = call)
+      cli::cli_abort(
+        "{.fun {name}} needs exactly one argument besides the optional {.arg na.rm}",
+        call = call
+      )
     }
     if (any(bad)) {
-      cli::cli_abort("{.code {name}({names(args)[which(bad)[[1]]]} = )} not supported", call = call)
+      cli::cli_abort(
+        "{.code {name}({names(args)[which(bad)[[1]]]} = )} not supported",
+        call = call
+      )
     }
 
-    na_rm <- FALSE
-    if (length(args) > 1) {
-      na_rm <- eval(args[[2]], env)
+    na_rm_expr <- expr$na.rm
+    if (!is.null(na_rm_expr)) {
+      na_rm <- eval(na_rm_expr, env)
+    } else {
+      na_rm <- FALSE
     }
 
     if (window) {
       if (name == "n_distinct") {
-        cli::cli_abort("{.code {name}()} not supported in window functions", call = call)
+        cli::cli_abort(
+          "{.code {name}()} not supported in window functions",
+          call = call
+        )
       } else {
         if (identical(na_rm, FALSE)) {
-          cli::cli_abort(call = call, c(
-            "{.code {name}(na.rm = FALSE)} not supported in window functions",
-            i = "Use {.code {name}(na.rm = TRUE)} after checking for missing values"
-          ))
+          cli::cli_abort(
+            call = call,
+            c(
+              "{.code {name}(na.rm = FALSE)} not supported in window functions",
+              i = "Use {.code {name}(na.rm = TRUE)} after checking for missing values"
+            )
+          )
         } else if (!identical(na_rm, TRUE)) {
-          cli::cli_abort("Invalid value for {.arg na.rm} in call to {.fun {name}}", call = call)
+          cli::cli_abort(
+            "Invalid value for {.arg na.rm} in call to {.fun {name}}",
+            call = call
+          )
         }
       }
     } else {
@@ -8589,7 +9363,10 @@ rel_translate_lang <- function(
           aliased_name <- paste0("___", name)
         }
       } else {
-        cli::cli_abort("Invalid value for {.arg na.rm} in call to {.fun {name}}", call = call)
+        cli::cli_abort(
+          "Invalid value for {.arg na.rm} in call to {.fun {name}}",
+          call = call
+        )
       }
     }
 
@@ -8599,13 +9376,16 @@ rel_translate_lang <- function(
   args <- map(as.list(expr[-1]), do_translate, in_window = in_window || window)
 
   if (name == "grepl") {
-    if (!inherits(args[[1]], "relational_relexpr_constant")) {
-      cli::cli_abort("Only constant patterns are supported in {.fun grepl}", call = call)
+    if (!inherits(args$pattern, "relational_relexpr_constant")) {
+      cli::cli_abort(
+        "Only constant patterns are supported in {.fun grepl}",
+        call = call
+      )
     }
   }
 
-  fun <- relexpr_function(aliased_name, args)
   if (window) {
+    fun <- relexpr_function(aliased_name, args)
     partitions <- map(partition, relexpr_reference)
     fun <- relexpr_window(
       fun,
@@ -8615,9 +9395,19 @@ rel_translate_lang <- function(
       default_expr = default_expr
     )
 
-    if (name == "row_number") {
+    if (name == "row_number" || name == "n") {
       fun <- relexpr_function("r_base::as.integer", list(fun))
       meta_ext_register()
+    }
+  } else {
+    # Special handling for nth() in aggregate context:
+    # translate to array_extract(list(x ORDER BY ...), n)
+    if (name == "nth") {
+      x_arg <- args[[1]]
+      list_agg <- relexpr_function("list", list(x_arg), order_bys = order_bys)
+      fun <- relexpr_function("array_extract", list(list_agg, nth_n))
+    } else {
+      fun <- relexpr_function(aliased_name, args, order_bys = order_bys)
     }
   }
   fun
@@ -8640,19 +9430,28 @@ rel_translate <- function(
     env <- quo_get_env(quo)
   }
   used <- character()
+  used_window <- FALSE
 
   do_translate <- function(expr, in_window = FALSE, top_level = FALSE) {
     stopifnot(!is_quosure(expr))
-    switch(typeof(expr),
+    switch(
+      typeof(expr),
       character = ,
       integer = ,
       double = relexpr_constant(expr),
       # https://github.com/duckdb/duckdb-r/pull/156
-      logical = if (top_level && length(expr) == 1 && is.na(expr)) relexpr_function("___null", list()) else relexpr_constant(expr),
+      logical = if (top_level && length(expr) == 1 && is.na(expr)) {
+        relexpr_function("___null", list())
+      } else {
+        relexpr_constant(expr)
+      },
       #
       symbol = {
         if (as.character(expr) %in% names_forbidden) {
-          cli::cli_abort("Can't reuse summary variable {.var {as.character(expr)}}.", call = call)
+          cli::cli_abort(
+            "Can't reuse summary variable {.var {as.character(expr)}}.",
+            call = call
+          )
         }
         if (as.character(expr) %in% names(data)) {
           ref <- as.character(expr)
@@ -8674,10 +9473,16 @@ rel_translate <- function(
         partition,
         in_window,
         need_window,
-        call = call
+        call = call,
+        record_window = function() {
+          used_window <<- TRUE
+        }
       ),
       #
-      cli::cli_abort("Internal: Unknown type {.val {typeof(expr)}}", call = call)
+      cli::cli_abort(
+        "Internal: Unknown type {.val {typeof(expr)}}",
+        call = call
+      )
     )
   }
 
@@ -8687,7 +9492,7 @@ rel_translate <- function(
     out <- relexpr_set_alias(out, alias)
   }
 
-  structure(out, used = used)
+  structure(out, used = used, has_window = used_window)
 }
 # end R/translate.R
 
@@ -8695,11 +9500,13 @@ rel_translate <- function(
 # begin R/transmute-rd.R
 #' @title Create, modify, and delete columns
 #'
-#' @description  This is a method for the [dplyr::transmute()] generic.
+#' @description
+#' `r lifecycle::badge("superseded")`
+#'
+#' This is a method for the [dplyr::transmute()] generic.
 #' See "Fallbacks" section for differences in implementation.
 #' `transmute()` creates a new data frame containing only the specified computations.
 #' It's superseded because you can perform the same job with `mutate(.keep = "none")`.
-
 
 #'
 #' @inheritParams dplyr::transmute
@@ -8732,9 +9539,53 @@ transmute.data.frame <- function(.data, ...) {
     #' These features fall back to [dplyr::transmute()], see `vignette("fallback")` for details.
     "Zero-column result set not supported." = (length(dots) == 0),
     {
-      exprs <- rel_translate_dots(dots, .data)
       rel <- duckdb_rel_from_df(.data)
-      out_rel <- rel_project(rel, exprs)
+      names_dots <- names(dots)
+      names_new <- character()
+      current_data <- rel_to_df(rel, prudence = "stingy")
+
+      # Process expressions sequentially to allow referencing new variables
+      for (i in seq_along(dots)) {
+        dot <- dots[[i]]
+        name_dot <- names_dots[[i]]
+
+        # Try expanding this `dot` if we see it is an `across()` call
+        expanded <- duckplyr_expand_across(current_data, dot)
+
+        if (is.null(expanded)) {
+          quos <- set_names(list(dot), name_dot)
+        } else {
+          quos <- expanded
+          quos <- fix_auto_name(quos)
+        }
+
+        names_quos <- names(quos)
+
+        # Set up exprs with all current columns
+        exprs <- imap(set_names(names(current_data)), relexpr_reference, rel = NULL)
+
+        for (j in seq_along(quos)) {
+          quo <- quos[[j]]
+          new <- names_quos[[j]]
+
+          names_new <- c(names_new, new)
+
+          new_pos <- match(new, names(current_data), nomatch = length(current_data) + j)
+          new_expr <- rel_translate(
+            quo,
+            current_data,
+            alias = new
+          )
+          exprs[[new_pos]] <- new_expr
+        }
+
+        rel <- rel_project(rel, unname(exprs))
+        current_data <- rel_to_df(rel, prudence = "stingy")
+      }
+
+      # Select only the new columns (transmute behavior)
+      final_exprs <- imap(set_names(names_new), relexpr_reference, rel = NULL)
+      out_rel <- rel_project(rel, unname(final_exprs))
       out <- duckplyr_reconstruct(out_rel, .data)
       return(out)
     }

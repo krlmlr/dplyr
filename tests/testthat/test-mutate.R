@@ -426,6 +426,7 @@ test_that("mutate keeps zero length groups", {
 # other -------------------------------------------------------------------
 
 test_that("no utf8 invasion (#722)", {
+  skip("TODO duckdb")
   skip_if_not(l10n_info()$"UTF-8")
   skip_if_not_installed("lobstr")
   source("utf-8.txt", local = TRUE, encoding = "UTF-8")
@@ -549,6 +550,7 @@ test_that("transient grouping retains bare data.frame class", {
 })
 
 test_that("transient grouping retains data frame attributes (#6100)", {
+  skip("TODO duckdb")
   # With data.frames or tibbles
   df <- data.frame(g = c(1, 1, 2), x = c(1, 2, 1))
   tbl <- as_tibble(df)

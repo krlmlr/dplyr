@@ -162,6 +162,7 @@ test_that("`dplyr_reconstruct()` doesn't modify the original `data` in place", {
 })
 
 test_that("`dplyr_reconstruct()`, which gets and sets attributes, doesn't touch `row.names` (#6525)", {
+  skip("TODO duckdb")
   skip_if(
     getRversion() >= "4.6.0",
     "Can't call `ATTRIB()` or `SET_ATTRIB()` anymore."

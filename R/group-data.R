@@ -92,7 +92,7 @@ group_keys <- function(.tbl, ...) {
   UseMethod("group_keys")
 }
 #' @export
-group_keys.data.frame <- function(.tbl, ...) {
+group_keys_data_frame <- function(.tbl, ...) {
   if (dots_n(...) > 0) {
     lifecycle::deprecate_stop(
       "1.0.0",
@@ -131,7 +131,7 @@ group_indices <- function(.data, ...) {
   UseMethod("group_indices")
 }
 #' @export
-group_indices.data.frame <- function(.data, ...) {
+group_indices_data_frame <- function(.data, ...) {
   if (dots_n(...) > 0) {
     lifecycle::deprecate_stop(
       "1.0.0",
@@ -150,7 +150,7 @@ group_vars <- function(x) {
   UseMethod("group_vars")
 }
 #' @export
-group_vars.data.frame <- function(x) {
+group_vars_data_frame <- function(x) {
   setdiff(names(group_data(x)), ".rows")
 }
 
@@ -160,7 +160,7 @@ groups <- function(x) {
   UseMethod("groups")
 }
 #' @export
-groups.data.frame <- function(x) {
+groups_data_frame <- function(x) {
   syms(group_vars(x))
 }
 
@@ -168,7 +168,7 @@ groups.data.frame <- function(x) {
 #' @rdname group_data
 group_size <- function(x) UseMethod("group_size")
 #' @export
-group_size.data.frame <- function(x) {
+group_size_data_frame <- function(x) {
   lengths(group_rows(x))
 }
 
@@ -176,6 +176,6 @@ group_size.data.frame <- function(x) {
 #' @rdname group_data
 n_groups <- function(x) UseMethod("n_groups")
 #' @export
-n_groups.data.frame <- function(x) {
+n_groups_data_frame <- function(x) {
   nrow(group_data(x))
 }

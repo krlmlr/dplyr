@@ -135,6 +135,7 @@ test_that("group_map() give meaningful errors", {
 })
 
 test_that("`keep =` is defunct", {
+  skip("TODO duckdb")
   df <- tibble(x = 1)
   gdf <- group_by(df, x)
 

@@ -228,7 +228,7 @@ filter_out <- function(.data, ..., .by = NULL, .preserve = FALSE) {
 }
 
 #' @export
-filter.data.frame <- function(.data, ..., .by = NULL, .preserve = FALSE) {
+filter_data_frame <- function(.data, ..., .by = NULL, .preserve = FALSE) {
   filter_impl(
     .data = .data,
     ...,
@@ -239,7 +239,7 @@ filter.data.frame <- function(.data, ..., .by = NULL, .preserve = FALSE) {
 }
 
 #' @export
-filter_out.data.frame <- function(.data, ..., .by = NULL, .preserve = FALSE) {
+filter_out_data_frame <- function(.data, ..., .by = NULL, .preserve = FALSE) {
   filter_impl(
     .data = .data,
     ...,

@@ -139,7 +139,7 @@ group_by <- function(
 }
 
 #' @export
-group_by.data.frame <- function(
+group_by_data_frame <- function(
   .data,
   ...,
   .add = FALSE,
@@ -186,7 +186,7 @@ ungroup.rowwise_df <- function(x, ...) {
 }
 
 #' @export
-ungroup.data.frame <- function(x, ...) {
+ungroup_data_frame <- function(x, ...) {
   check_dots_empty()
   x
 }

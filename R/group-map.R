@@ -124,7 +124,7 @@ group_map <- function(.data, .f, ..., .keep = FALSE) {
 }
 
 #' @export
-group_map.data.frame <- function(
+group_map_data_frame <- function(
   .data,
   .f,
   ...,
@@ -169,7 +169,7 @@ group_modify <- function(.data, .f, ..., .keep = FALSE) {
 }
 
 #' @export
-group_modify.data.frame <- function(
+group_modify_data_frame <- function(
   .data,
   .f,
   ...,

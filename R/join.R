@@ -262,7 +262,7 @@ inner_join <- function(
 
 #' @export
 #' @rdname mutate-joins
-inner_join.data.frame <- function(
+inner_join_data_frame <- function(
   x,
   y,
   by = NULL,
@@ -308,7 +308,7 @@ left_join <- function(
 
 #' @export
 #' @rdname mutate-joins
-left_join.data.frame <- function(
+left_join_data_frame <- function(
   x,
   y,
   by = NULL,
@@ -354,7 +354,7 @@ right_join <- function(
 
 #' @export
 #' @rdname mutate-joins
-right_join.data.frame <- function(
+right_join_data_frame <- function(
   x,
   y,
   by = NULL,
@@ -400,7 +400,7 @@ full_join <- function(
 
 #' @export
 #' @rdname mutate-joins
-full_join.data.frame <- function(
+full_join_data_frame <- function(
   x,
   y,
   by = NULL,
@@ -479,7 +479,7 @@ semi_join <- function(x, y, by = NULL, copy = FALSE, ...) {
 
 #' @export
 #' @rdname filter-joins
-semi_join.data.frame <- function(
+semi_join_data_frame <- function(
   x,
   y,
   by = NULL,
@@ -507,7 +507,7 @@ anti_join <- function(x, y, by = NULL, copy = FALSE, ...) {
 
 #' @export
 #' @rdname filter-joins
-anti_join.data.frame <- function(
+anti_join_data_frame <- function(
   x,
   y,
   by = NULL,
@@ -588,7 +588,7 @@ nest_join <- function(
 
 #' @export
 #' @rdname nest_join
-nest_join.data.frame <- function(
+nest_join_data_frame <- function(
   x,
   y,
   by = NULL,

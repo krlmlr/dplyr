@@ -132,7 +132,7 @@ rows_insert <- function(
 }
 
 #' @export
-rows_insert.data.frame <- function(
+rows_insert_data_frame <- function(
   x,
   y,
   by = NULL,
@@ -173,7 +173,7 @@ rows_append <- function(x, y, ..., copy = FALSE, in_place = FALSE) {
 }
 
 #' @export
-rows_append.data.frame <- function(x, y, ..., copy = FALSE, in_place = FALSE) {
+rows_append_data_frame <- function(x, y, ..., copy = FALSE, in_place = FALSE) {
   check_dots_empty()
   rows_df_in_place(in_place)
 
@@ -200,7 +200,7 @@ rows_update <- function(
 }
 
 #' @export
-rows_update.data.frame <- function(
+rows_update_data_frame <- function(
   x,
   y,
   by = NULL,
@@ -273,7 +273,7 @@ rows_patch <- function(
 }
 
 #' @export
-rows_patch.data.frame <- function(
+rows_patch_data_frame <- function(
   x,
   y,
   by = NULL,
@@ -345,7 +345,7 @@ rows_upsert <- function(x, y, by = NULL, ..., copy = FALSE, in_place = FALSE) {
 }
 
 #' @export
-rows_upsert.data.frame <- function(
+rows_upsert_data_frame <- function(
   x,
   y,
   by = NULL,
@@ -419,7 +419,7 @@ rows_delete <- function(
 }
 
 #' @export
-rows_delete.data.frame <- function(
+rows_delete_data_frame <- function(
   x,
   y,
   by = NULL,

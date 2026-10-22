@@ -86,7 +86,7 @@ count <- function(x, ..., wt = NULL, sort = FALSE, name = NULL) {
 
 #' @export
 #' @rdname count
-count.data.frame <- function(
+count_data_frame <- function(
   x,
   ...,
   wt = NULL,
@@ -169,7 +169,7 @@ add_count.default <- function(
 }
 
 #' @export
-add_count.data.frame <- function(
+add_count_data_frame <- function(
   x,
   ...,
   wt = NULL,

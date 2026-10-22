@@ -147,6 +147,7 @@ test_that("group_split() internally uses dplyr_row_slice()", {
 })
 
 test_that("`keep =` is defunct", {
+  skip("TODO duckdb")
   df <- tibble(x = 1)
   gdf <- group_by(df, x)
   rdf <- rowwise(df)

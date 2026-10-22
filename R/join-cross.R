@@ -45,7 +45,7 @@ cross_join <- function(x, y, ..., copy = FALSE, suffix = c(".x", ".y")) {
 }
 
 #' @export
-cross_join.data.frame <- function(
+cross_join_data_frame <- function(
   x,
   y,
   ...,

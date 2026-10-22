@@ -141,7 +141,7 @@ slice <- function(.data, ..., .by = NULL, .preserve = FALSE) {
 }
 
 #' @export
-slice.data.frame <- function(.data, ..., .by = NULL, .preserve = FALSE) {
+slice_data_frame <- function(.data, ..., .by = NULL, .preserve = FALSE) {
   check_dots_unnamed()
 
   dots <- enquos(...)
@@ -167,7 +167,7 @@ slice_head <- function(.data, ..., n, prop, by = NULL) {
 }
 
 #' @export
-slice_head.data.frame <- function(.data, ..., n, prop, by = NULL) {
+slice_head_data_frame <- function(.data, ..., n, prop, by = NULL) {
   check_dots_empty0(...)
 
   size <- get_slice_size(n = n, prop = prop)
@@ -191,7 +191,7 @@ slice_tail <- function(.data, ..., n, prop, by = NULL) {
 }
 
 #' @export
-slice_tail.data.frame <- function(.data, ..., n, prop, by = NULL) {
+slice_tail_data_frame <- function(.data, ..., n, prop, by = NULL) {
   check_dots_empty0(...)
 
   size <- get_slice_size(n = n, prop = prop)
@@ -357,7 +357,7 @@ slice_sample <- function(
 }
 
 #' @export
-slice_sample.data.frame <- function(
+slice_sample_data_frame <- function(
   .data,
   ...,
   n,

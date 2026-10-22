@@ -47,7 +47,7 @@ group_split <- function(.tbl, ..., .keep = TRUE) {
 }
 
 #' @export
-group_split.data.frame <- function(
+group_split_data_frame <- function(
   .tbl,
   ...,
   .keep = TRUE,

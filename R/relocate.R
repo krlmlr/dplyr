@@ -51,7 +51,7 @@ relocate <- function(.data, ..., .before = NULL, .after = NULL) {
 }
 
 #' @export
-relocate.data.frame <- function(.data, ..., .before = NULL, .after = NULL) {
+relocate_data_frame <- function(.data, ..., .before = NULL, .after = NULL) {
   loc <- eval_relocate(
     expr = expr(c(...)),
     data = .data,

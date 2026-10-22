@@ -100,7 +100,7 @@ symdiff.default <- function(x, y, ...) {
 }
 
 #' @export
-intersect.data.frame <- function(x, y, ...) {
+intersect_data_frame <- function(x, y, ...) {
   check_dots_empty()
   check_compatible(x, y)
 
@@ -110,7 +110,7 @@ intersect.data.frame <- function(x, y, ...) {
 }
 
 #' @export
-union.data.frame <- function(x, y, ...) {
+union_data_frame <- function(x, y, ...) {
   check_dots_empty()
   check_compatible(x, y)
 
@@ -120,7 +120,7 @@ union.data.frame <- function(x, y, ...) {
 }
 
 #' @export
-union_all.data.frame <- function(x, y, ...) {
+union_all_data_frame <- function(x, y, ...) {
   check_dots_empty()
   check_compatible(x, y)
 
@@ -129,7 +129,7 @@ union_all.data.frame <- function(x, y, ...) {
 }
 
 #' @export
-setdiff.data.frame <- function(x, y, ...) {
+setdiff_data_frame <- function(x, y, ...) {
   check_dots_empty()
   check_compatible(x, y)
 
@@ -139,7 +139,7 @@ setdiff.data.frame <- function(x, y, ...) {
 }
 
 #' @export
-setequal.data.frame <- function(x, y, ...) {
+setequal_data_frame <- function(x, y, ...) {
   check_dots_empty()
   check_compatible(x, y)
 
@@ -148,7 +148,7 @@ setequal.data.frame <- function(x, y, ...) {
 }
 
 #' @export
-symdiff.data.frame <- function(x, y, ...) {
+symdiff_data_frame <- function(x, y, ...) {
   check_dots_empty()
   check_compatible(x, y)
 
