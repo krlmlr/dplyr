@@ -47,7 +47,7 @@
     Code
       union(df1, df2)
     Condition
-      Error in `union_all()`:
+      Error in `union()`:
       ! `x` and `y` are not compatible.
       x Different number of columns: 1 vs 2.
     Code

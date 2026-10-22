@@ -169,7 +169,7 @@
     Code
       arrange(df, pick(y))
     Condition
-      Error in `mutate()`:
+      Error in `arrange()`:
       i In argument: `..1 = pick(y)`.
       Caused by error in `pick()`:
       ! Can't select columns that don't exist.
@@ -180,12 +180,12 @@
     Code
       arrange(df, foo(pick(x)))
     Condition
-      Error in `mutate()`:
+      Error in `arrange()`:
       i In argument: `..1 = foo(pick(x))`.
       Caused by error in `foo()`:
       ! could not find function "foo"
 
-# `filter()` with `pick()` that uses invalid tidy-selection errors
+# `filter()` / `filter_out()` with `pick()` that uses invalid tidy-selection errors
 
     Code
       filter(df, pick(x, a))
@@ -207,13 +207,35 @@
       ! Can't select columns that don't exist.
       x Column `a` doesn't exist.
 
-# `filter()` that doesn't use `pick()` result correctly errors
+---
+
+    Code
+      filter_out(df, pick(x, a))
+    Condition
+      Error in `filter_out()`:
+      i In argument: `pick(x, a)`.
+      Caused by error in `pick()`:
+      ! Can't select columns that don't exist.
+      x Column `a` doesn't exist.
+
+---
+
+    Code
+      filter_out(df, pick_wrapper(x, a))
+    Condition
+      Error in `filter_out()`:
+      i In argument: `pick_wrapper(x, a)`.
+      Caused by error in `pick()`:
+      ! Can't select columns that don't exist.
+      x Column `a` doesn't exist.
+
+# `filter()` / `filter_out()` that doesn't use `pick()` result correctly errors
 
     Code
       filter(df, pick(x, y)$x)
     Condition
       Error in `filter()`:
-      i In argument: `asNamespace("dplyr")$dplyr_pick_tibble(x = x, y = y)$x`.
+      i In argument: `pick(x, y)$x`.
       Caused by error:
       ! `..1` must be a logical vector, not a double vector.
 
@@ -223,6 +245,26 @@
       filter(df, pick_wrapper(x, y)$x)
     Condition
       Error in `filter()`:
+      i In argument: `pick_wrapper(x, y)$x`.
+      Caused by error:
+      ! `..1` must be a logical vector, not a double vector.
+
+---
+
+    Code
+      filter_out(df, pick(x, y)$x)
+    Condition
+      Error in `filter_out()`:
+      i In argument: `pick(x, y)$x`.
+      Caused by error:
+      ! `..1` must be a logical vector, not a double vector.
+
+---
+
+    Code
+      filter_out(df, pick_wrapper(x, y)$x)
+    Condition
+      Error in `filter_out()`:
       i In argument: `pick_wrapper(x, y)$x`.
       Caused by error:
       ! `..1` must be a logical vector, not a double vector.

@@ -46,7 +46,6 @@ SEXP symbols::current_group_id = Rf_install("dplyr:::current_group_id");
 SEXP symbols::current_group_size = Rf_install("dplyr:::current_group_size");
 SEXP symbols::current_expression = Rf_install("current_expression");
 SEXP symbols::rows = Rf_install("rows");
-SEXP symbols::caller = Rf_install("caller");
 SEXP symbols::current_data = Rf_install("current_data");
 SEXP symbols::dot_drop = Rf_install(".drop");
 SEXP symbols::dplyr_internal_error = Rf_install("dplyr_internal_error");
@@ -77,9 +76,9 @@ SEXP dplyr_init_library(SEXP ns_dplyr, SEXP ns_vctrs, SEXP ns_rlang) {
   dplyr::envs::ns_dplyr = ns_dplyr;
   dplyr::envs::ns_vctrs = ns_vctrs;
   dplyr::envs::ns_rlang = ns_rlang;
-  dplyr::functions::vec_chop = PROTECT(Rf_findVarInFrame(ns_vctrs, Rf_install("vec_chop")));
-  dplyr::functions::dot_subset2 = PROTECT(Rf_findVarInFrame(R_BaseEnv, Rf_install(".subset2")));
-  dplyr::functions::list = PROTECT(Rf_findVarInFrame(R_BaseEnv, Rf_install("list")));
+  dplyr::functions::vec_chop = PROTECT(env_get(ns_vctrs, Rf_install("vec_chop")));
+  dplyr::functions::dot_subset2 = PROTECT(env_get(R_BaseEnv, Rf_install(".subset2")));
+  dplyr::functions::list = PROTECT(env_get(R_BaseEnv, Rf_install("list")));
   dplyr::functions::function = PROTECT(Rf_eval(Rf_install("function"), R_BaseEnv));
 
   R_PreserveObject(dplyr::functions::vec_chop);
@@ -109,9 +108,10 @@ static const R_CallMethodDef CallEntries[] = {
   {"dplyr_mask_eval_all", (DL_FUNC)& dplyr_mask_eval_all, 2},
   {"dplyr_mask_eval_all_summarise", (DL_FUNC)& dplyr_mask_eval_all_summarise, 2},
   {"dplyr_mask_eval_all_mutate", (DL_FUNC)& dplyr_mask_eval_all_mutate, 2},
-  {"dplyr_mask_eval_all_filter", (DL_FUNC)& dplyr_mask_eval_all_filter, 4},
+  {"dplyr_mask_eval_all_filter", (DL_FUNC)& dplyr_mask_eval_all_filter, 5},
 
-  {"dplyr_summarise_recycle_chunks_in_place", (DL_FUNC)& dplyr_summarise_recycle_chunks_in_place, 2},
+  {"dplyr_summarise_check_all_size_one", (DL_FUNC)& dplyr_summarise_check_all_size_one, 2},
+  {"dplyr_reframe_recycle_horizontally_in_place", (DL_FUNC)& dplyr_reframe_recycle_horizontally_in_place, 3},
 
   {"dplyr_group_indices", (DL_FUNC)& dplyr_group_indices, 2},
   {"dplyr_group_keys", (DL_FUNC)& dplyr_group_keys, 1},
@@ -121,7 +121,7 @@ static const R_CallMethodDef CallEntries[] = {
 
   {"dplyr_lazy_vec_chop_impl", (DL_FUNC)& dplyr_lazy_vec_chop, 5},
   {"dplyr_make_mask_bindings", (DL_FUNC)& dplyr_make_mask_bindings, 2},
-  {"env_resolved", (DL_FUNC)& env_resolved, 2},
+  {"ffi_env_bindings_are_used", (DL_FUNC)& ffi_env_bindings_are_used, 2},
 
   {"dplyr_extract_chunks", (DL_FUNC)& dplyr_extract_chunks, 2},
 

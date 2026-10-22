@@ -84,20 +84,20 @@
 #'
 #' ```{r}
 #' gdf <-
-#'   tibble(g = c(1, 1, 2, 3), v1 = 10:13, v2 = 20:23) %>%
+#'   tibble(g = c(1, 1, 2, 3), v1 = 10:13, v2 = 20:23) |>
 #'   group_by(g)
 #'
 #' set.seed(1)
 #'
 #' # Outside: 1 normal variate
 #' n <- rnorm(1)
-#' gdf %>% mutate(across(v1:v2, ~ .x + n))
+#' gdf |> mutate(across(v1:v2, ~ .x + n))
 #'
 #' # Inside a verb: 3 normal variates (ngroup)
-#' gdf %>% mutate(n = rnorm(1), across(v1:v2, ~ .x + n))
+#' gdf |> mutate(n = rnorm(1), across(v1:v2, ~ .x + n))
 #'
 #' # Inside `across()`: 6 normal variates (ncol * ngroup)
-#' gdf %>% mutate(across(v1:v2, ~ .x + rnorm(1)))
+#' gdf |> mutate(across(v1:v2, ~ .x + rnorm(1)))
 #' ```
 #'
 #' @examples
@@ -105,45 +105,49 @@
 #' iris <- as_tibble(iris)
 #'
 #' # across() -----------------------------------------------------------------
+#' # Using everything() to apply the same function to all columns
+#' iris |>
+#'   mutate(across(everything(), as.character))
+#'
 #' # Different ways to select the same set of columns
 #' # See <https://tidyselect.r-lib.org/articles/syntax.html> for details
-#' iris %>%
+#' iris |>
 #'   mutate(across(c(Sepal.Length, Sepal.Width), round))
-#' iris %>%
+#' iris |>
 #'   mutate(across(c(1, 2), round))
-#' iris %>%
+#' iris |>
 #'   mutate(across(1:Sepal.Width, round))
-#' iris %>%
+#' iris |>
 #'   mutate(across(where(is.double) & !c(Petal.Length, Petal.Width), round))
 #'
 #' # Using an external vector of names
 #' cols <- c("Sepal.Length", "Petal.Width")
-#' iris %>%
+#' iris |>
 #'   mutate(across(all_of(cols), round))
 #'
 #' # If the external vector is named, the output columns will be named according
 #' # to those names
 #' names(cols) <- tolower(cols)
-#' iris %>%
+#' iris |>
 #'   mutate(across(all_of(cols), round))
 #'
 #' # A purrr-style formula
-#' iris %>%
-#'   group_by(Species) %>%
+#' iris |>
+#'   group_by(Species) |>
 #'   summarise(across(starts_with("Sepal"), ~ mean(.x, na.rm = TRUE)))
 #'
 #' # A named list of functions
-#' iris %>%
-#'   group_by(Species) %>%
+#' iris |>
+#'   group_by(Species) |>
 #'   summarise(across(starts_with("Sepal"), list(mean = mean, sd = sd)))
 #'
 #' # Use the .names argument to control the output names
-#' iris %>%
-#'   group_by(Species) %>%
+#' iris |>
+#'   group_by(Species) |>
 #'   summarise(across(starts_with("Sepal"), mean, .names = "mean_{.col}"))
 #'
-#' iris %>%
-#'   group_by(Species) %>%
+#' iris |>
+#'   group_by(Species) |>
 #'   summarise(
 #'     across(
 #'       starts_with("Sepal"),
@@ -154,13 +158,13 @@
 #'
 #' # If a named external vector is used for column selection, .names will use
 #' # those names when constructing the output names
-#' iris %>%
-#'   group_by(Species) %>%
+#' iris |>
+#'   group_by(Species) |>
 #'   summarise(across(all_of(cols), mean, .names = "mean_{.col}"))
 #'
 #' # When the list is not named, .fn is replaced by the function's position
-#' iris %>%
-#'   group_by(Species) %>%
+#' iris |>
+#'   group_by(Species) |>
 #'   summarise(
 #'     across(starts_with("Sepal"), list(mean, sd), .names = "{.col}.fn{.fn}")
 #'   )
@@ -171,16 +175,16 @@
 #'   tibble(quantile = probs, value = quantile(x, probs))
 #' }
 #'
-#' iris %>%
+#' iris |>
 #'   reframe(across(starts_with("Sepal"), quantile_df))
 #'
 #' # Use .unpack to automatically expand these packed data frames into their
 #' # individual columns
-#' iris %>%
+#' iris |>
 #'   reframe(across(starts_with("Sepal"), quantile_df, .unpack = TRUE))
 #'
 #' # .unpack can utilize a glue specification if you don't like the defaults
-#' iris %>%
+#' iris |>
 #'   reframe(
 #'     across(starts_with("Sepal"), quantile_df, .unpack = "{outer}.{inner}")
 #'   )
@@ -191,24 +195,25 @@
 #'   purrr::map_dfr(lags, lag, x = x)
 #' }
 #'
-#' iris %>%
-#'   group_by(Species) %>%
-#'   mutate(across(starts_with("Sepal"), multilag, .unpack = TRUE)) %>%
+#' iris |>
+#'   group_by(Species) |>
+#'   mutate(across(starts_with("Sepal"), multilag, .unpack = TRUE)) |>
 #'   select(Species, starts_with("Sepal"))
 #'
 #' # if_any() and if_all() ----------------------------------------------------
-#' iris %>%
+#' iris |>
 #'   filter(if_any(ends_with("Width"), ~ . > 4))
-#' iris %>%
+#' iris |>
+#'   filter_out(if_any(ends_with("Width"), ~ . > 4))
+#'
+#' iris |>
 #'   filter(if_all(ends_with("Width"), ~ . > 2))
+#' iris |>
+#'   filter_out(if_all(ends_with("Width"), ~ . > 2))
 #'
 #' @export
 #' @seealso [c_across()] for a function that returns a vector
-across <- function(.cols,
-                   .fns,
-                   ...,
-                   .names = NULL,
-                   .unpack = FALSE) {
+across <- function(.cols, .fns, ..., .names = NULL, .unpack = FALSE) {
   mask <- peek_mask()
   caller_env <- caller_env()
 
@@ -267,10 +272,11 @@ across <- function(.cols,
       " " = "# Now",
       " " = "across(a:b, \\(x) mean(x, na.rm = TRUE))"
     )
-    lifecycle::deprecate_soft(
+    lifecycle::deprecate_warn(
       when = "1.1.0",
       what = "across(...)",
-      details = details
+      details = details,
+      id = "dplyr-across-fns-dots"
     )
   }
 
@@ -323,7 +329,8 @@ across <- function(.cols,
         out[[k]] <- fn(col, ...)
         k <- k + 1L
       }
-    }, error = function(cnd) {
+    },
+    error = function(cnd) {
       bullets <- c(
         glue("Can't compute column `{names[k]}`.")
       )
@@ -348,31 +355,21 @@ across <- function(.cols,
 if_any <- function(.cols, .fns, ..., .names = NULL) {
   context_local("across_if_fn", "if_any")
   context_local("across_frame", current_env())
-  if_across(`|`, across({{ .cols }}, .fns, ..., .names = .names))
+  df <- across({{ .cols }}, .fns, ..., .names = .names)
+  x <- dplyr_new_list(df)
+  size <- vec_size(df)
+  dplyr_list_pany(x, size = size)
 }
+
 #' @rdname across
 #' @export
 if_all <- function(.cols, .fns, ..., .names = NULL) {
   context_local("across_if_fn", "if_all")
   context_local("across_frame", current_env())
-  if_across(`&`, across({{ .cols }}, .fns, ..., .names = .names))
-}
-
-if_across <- function(op, df) {
-  n <- nrow(df)
-
-  if (!length(df)) {
-    return(TRUE)
-  }
-
-  combine <- function(x, y) {
-    if (is_null(x)) {
-      y
-    } else {
-      op(x, y)
-    }
-  }
-  reduce(df, combine, .init = NULL)
+  df <- across({{ .cols }}, .fns, ..., .names = .names)
+  x <- dplyr_new_list(df)
+  size <- vec_size(df)
+  dplyr_list_pall(x, size = size)
 }
 
 #' Combine values from multiple columns
@@ -391,8 +388,8 @@ if_across <- function(op, df) {
 #' @export
 #' @examples
 #' df <- tibble(id = 1:4, w = runif(4), x = runif(4), y = runif(4), z = runif(4))
-#' df %>%
-#'   rowwise() %>%
+#' df |>
+#'   rowwise() |>
 #'   mutate(
 #'     sum = sum(c_across(w:z)),
 #'     sd = sd(c_across(w:z))
@@ -416,18 +413,22 @@ across_glue_mask <- function(.col, .fn, .caller_env) {
   glue_mask <- env(.caller_env, .col = .col, .fn = .fn)
   # TODO: we can make these bindings louder later
   env_bind_active(
-    glue_mask, col = function() glue_mask$.col, fn = function() glue_mask$.fn
+    glue_mask,
+    col = function() glue_mask$.col,
+    fn = function() glue_mask$.fn
   )
   glue_mask
 }
 
-across_setup <- function(cols,
-                         fns,
-                         names,
-                         .caller_env,
-                         mask,
-                         error_call = caller_env(),
-                         across_if_fn = "across") {
+across_setup <- function(
+  cols,
+  fns,
+  names,
+  .caller_env,
+  mask,
+  error_call = caller_env(),
+  across_if_fn = "across"
+) {
   cols <- enquo(cols)
 
   # `across()` is evaluated in a data mask so we need to remove the
@@ -439,7 +440,9 @@ across_setup <- function(cols,
   if (is.null(fns) && quo_is_call(cols, "~")) {
     bullets <- c(
       "Must supply a column selection.",
-      i = glue("You most likely meant: `{across_if_fn}(everything(), {as_label(cols)})`."),
+      i = glue(
+        "You most likely meant: `{across_if_fn}(everything(), {as_label(cols)})`."
+      ),
       i = "The first argument `.cols` selects a set of columns.",
       i = "The second argument `.fns` operates on each selected columns."
     )
@@ -495,9 +498,10 @@ across_setup <- function(cols,
     }
   }
 
-  glue_mask <- across_glue_mask(.caller_env,
+  glue_mask <- across_glue_mask(
+    .caller_env,
     .col = rep(names_vars, each = length(fns)),
-    .fn  = rep(names_fns , length(vars))
+    .fn = rep(names_fns, length(vars))
   )
   names <- vec_as_names(
     glue(names, .envir = glue_mask),
@@ -600,79 +604,82 @@ dplyr_quosures <- function(...) {
   quosures
 }
 
-# When mutate() or summarise() have an unnamed call to across() at the top level, e.g.
-# summarise(across(<...>)) or mutate(across(<...>))
+# Expand an `if_any()` or `if_all()` call
 #
-# a call to top_across(<...>) is evaluated instead.
-# top_across() returns a flattened list of expressions along with some
-# information about the "current column" for each expression
-# in the "columns" attribute:
+# Always guaranteed to be 1 quosure in, 1 quosure out, unlike `expand_across()`.
 #
-# For example with: summarise(across(c(x, y), mean, .names = "mean_{.col}")) top_across() will return
-# something like:
+# For the dplyr backend, the main reason we expand at all is to evaluate
+# tidyselection exactly once (rather than once per group), because tidyselection
+# is rather slow.
 #
-# structure(
-#   list(mean_x = expr(mean(x)), mean_y = expr(mean(y)))
-#   columns = c("x", "y")
-# )
-
-# Technically this always returns a single quosure but we wrap it in a
-# list to follow the pattern in `expand_across()`
+# At one point we believed `if_any()` and `if_all()` could be implemented as
+# "pure expansion" that would run before dispatching to other backends, like
+# dbplyr. In theory this could expand to a chain of `&` and `|` operations that
+# dbplyr would already know how to translate (so dbplyr itself would not have to
+# know how to implement `if_any()` and `if_all()`), but in practice we need more
+# error checking than what `x & y & z` gets us, so we actually expand to a
+# vctrs-backed implementation since the "pure expansion" ideas have never played
+# out.
 expand_if_across <- function(quo) {
-  quo_data <- attr(quo, "dplyr:::data")
-  if (!quo_is_call(quo, c("if_any", "if_all"), ns = c("", "dplyr"))) {
-    return(list(quo))
+  if (quo_is_call(quo, "if_any", ns = c("", "dplyr"))) {
+    variant <- "any"
+  } else if (quo_is_call(quo, "if_all", ns = c("", "dplyr"))) {
+    variant <- "all"
+  } else {
+    # Refuse to expand
+    return(quo)
   }
 
+  # `definition` is the same between the two for the purposes of `match.call()`
+  definition <- if_any
+
   call <- match.call(
-    definition = if_any,
+    definition = definition,
     call = quo_get_expr(quo),
     expand.dots = FALSE,
     envir = quo_get_env(quo)
   )
+
   if (!is_null(call$...)) {
-    return(list(quo))
+    # Refuse to expand
+    return(quo)
   }
 
-  if (is_call(call, "if_any")) {
-    op <- "|"
+  if (variant == "any") {
     if_fn <- "if_any"
-    empty <- FALSE
+    dplyr_fn <- "dplyr_list_pany"
   } else {
-    op <- "&"
     if_fn <- "if_all"
-    empty <- TRUE
+    dplyr_fn <- "dplyr_list_pall"
   }
 
+  # `expand_across()` will always expand at this point given that we bailed on
+  # `...` usage early on, which is the only case that would stop expansion.
+  #
+  # Set frame here for backtrace truncation. But override error call via
+  # `local_error_call()` so it refers to the function we're expanding, e.g.
+  # `if_any()` and not `expand_if_across()`.
   context_local("across_if_fn", if_fn)
-
-  # Set frame here for backtrace truncation. But override error call
-  # via `local_error_call()` so it refers to the function we're
-  # expanding, e.g. `if_any()` and not `expand_if_across()`.
   context_local("across_frame", current_env())
   local_error_call(call(if_fn))
-
   call[[1]] <- quote(across)
   quos <- expand_across(quo_set_expr(quo, call))
 
-  # Select all rows if there are no inputs for if_all(),
-  # but select no rows if there are no inputs for if_any().
-  if (!length(quos)) {
-    return(list(quo(!!empty)))
-  }
+  expr <- expr({
+    x <- list(!!!quos)
+    ns <- asNamespace("dplyr")
 
-  combine <- function(x, y) {
-    if (is_null(x)) {
-      y
-    } else {
-      call(op, x, y)
-    }
-  }
-  expr <- reduce(quos, combine, .init = NULL)
+    # In the evaluation path, `across()` automatically recycles to common size,
+    # so we must here as well for compatibility. `across()` also returns a 0
+    # col, 1 row data frame in the case of no inputs so that it will recycle to
+    # the group size, which we also do here.
+    size <- ns[["dplyr_list_size_common"]](x, absent = 1L, call = call(!!if_fn))
+    x <- ns[["dplyr_list_recycle_common"]](x, size = size, call = call(!!if_fn))
 
-  # Use `as_quosure()` instead of `new_quosure()` to avoid rewrapping
-  # quosure in case of single input
-  list(as_quosure(expr, env = baseenv()))
+    ns[[!!dplyr_fn]](x, size = size, error_call = call(!!if_fn))
+  })
+
+  new_quosure(expr, env = baseenv())
 }
 
 expand_across <- function(quo) {
@@ -785,7 +792,7 @@ expand_across <- function(quo) {
   n_fns <- length(fns)
 
   seq_vars <- seq_len(n_vars)
-  seq_fns  <- seq_len(n_fns)
+  seq_fns <- seq_len(n_fns)
 
   exprs <- new_list(n_vars * n_fns, names = names)
 
@@ -852,7 +859,9 @@ across_missing_cols_deprecate_warn <- function() {
     when = "1.1.0",
     what = I(glue("Using `{across_if_fn}()` without supplying `.cols`")),
     details = "Please supply `.cols` instead.",
-    user_env = user_env
+    user_env = user_env,
+    always = TRUE,
+    id = "dplyr-across-missing-cols"
   )
 }
 
@@ -861,7 +870,9 @@ c_across_missing_cols_deprecate_warn <- function(user_env = caller_env(2)) {
     when = "1.1.0",
     what = I("Using `c_across()` without supplying `cols`"),
     details = "Please supply `cols` instead.",
-    user_env = user_env
+    user_env = user_env,
+    always = TRUE,
+    id = "dplyr-c-across-missing-cols"
   )
 }
 

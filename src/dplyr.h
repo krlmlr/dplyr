@@ -7,23 +7,51 @@
 #include <R_ext/Rdynload.h>
 #include <Rversion.h>
 
-#define UTF8_MASK (1<<3)
-#define ASCII_MASK (1<<6)
-
-#define IS_ASCII(x) (LEVELS(x) & ASCII_MASK)
-#define IS_UTF8(x) (LEVELS(x) & UTF8_MASK)
-
-#if (R_VERSION < R_Version(3, 5, 0))
-# define LOGICAL_RO(x) ((const int*) LOGICAL(x))
-# define INTEGER_RO(x) ((const int*) INTEGER(x))
-# define REAL_RO(x) ((const double*) REAL(x))
-# define COMPLEX_RO(x) ((const Rcomplex*) COMPLEX(x))
-# define STRING_PTR_RO(x) ((const SEXP*) STRING_PTR(x))
-# define RAW_RO(x) ((const Rbyte*) RAW(x))
-# define DATAPTR_RO(x) ((const void*) STRING_PTR(x))
+#if (R_VERSION < R_Version(4, 5, 0))
+# define VECTOR_PTR_RO(x) ((const SEXP*) DATAPTR_RO(x))
 #endif
 
-#define VECTOR_PTR_RO(x) ((const SEXP*) DATAPTR_RO(x))
+#if (R_VERSION < R_Version(4, 6, 0))
+// Pulled exactly as is from R
+// https://github.com/r-devel/r-svn/blob/a39f4a28848fd02a1310b455353a871f2bb1965b/src/main/attrib.c#L2014
+// https://github.com/r-devel/r-svn/blob/a39f4a28848fd02a1310b455353a871f2bb1965b/doc/manual/R-exts.texi#L17920
+static inline
+SEXP R_mapAttrib(SEXP x, SEXP (*FUN)(SEXP, SEXP, void *), void *data) {
+  PROTECT_INDEX api;
+  SEXP a = ATTRIB(x);
+  SEXP val = NULL;
+
+  PROTECT_WITH_INDEX(a, &api);
+  while (a != R_NilValue) {
+    SEXP tag = PROTECT(TAG(a));
+    SEXP attr = PROTECT(CAR(a));
+    val = FUN(tag, attr, data);
+    UNPROTECT(2);
+    if (val != NULL)
+      break;
+    REPROTECT(a = CDR(a), api);
+  }
+  UNPROTECT(1);
+  return val;
+}
+#endif
+
+// Poorman's version of rlang's `r_env_get()`, which more faithfully handles
+// edge cases like active bindings, promises, and missing args. Only use this
+// for extracting a simple variable that you KNOW exists in the env, like
+// anything in our `private` envs.
+static inline
+SEXP env_get(SEXP env, SEXP sym) {
+#if R_VERSION >= R_Version(4, 5, 0)
+  return R_getVar(sym, env, FALSE);
+#else
+  SEXP value = Rf_findVarInFrame3(env, sym, FALSE);
+  if (value == R_UnboundValue) {
+    Rf_errorcall(R_NilValue, "object '%s' not found", CHAR(PRINTNAME(sym)));
+  }
+  return value;
+#endif
+}
 
 namespace dplyr {
 
@@ -41,7 +69,6 @@ struct symbols {
   static SEXP current_group_size;
   static SEXP current_expression;
   static SEXP rows;
-  static SEXP caller;
   static SEXP current_data;
   static SEXP dot_drop;
   static SEXP dplyr_internal_error;
@@ -77,9 +104,8 @@ namespace rlang {
 SEXP eval_tidy(SEXP expr, SEXP data, SEXP env);
 SEXP as_data_pronoun(SEXP x);
 SEXP new_data_mask(SEXP bottom, SEXP top);
-SEXP str_as_symbol(SEXP);
-SEXP quo_get_expr(SEXP quo);
-void env_unbind(SEXP, SEXP);
+SEXP str_as_symbol(SEXP str);
+bool is_quosure(SEXP x);
 }
 
 namespace vctrs {
@@ -109,8 +135,16 @@ SEXP dplyr_validate_rowwise_df(SEXP df);
 SEXP dplyr_mask_eval_all(SEXP quo, SEXP env_private);
 SEXP dplyr_mask_eval_all_summarise(SEXP quo, SEXP env_private);
 SEXP dplyr_mask_eval_all_mutate(SEXP quo, SEXP env_private);
-SEXP dplyr_mask_eval_all_filter(SEXP quos, SEXP env_private, SEXP s_n, SEXP env_filter);
-SEXP dplyr_summarise_recycle_chunks_in_place(SEXP list_of_chunks, SEXP list_of_result);
+SEXP dplyr_mask_eval_all_filter(SEXP quos, SEXP invert, SEXP env_private, SEXP s_n, SEXP env_filter);
+SEXP dplyr_summarise_check_all_size_one(
+  SEXP result_per_group_per_expression,
+  SEXP s_n_groups
+);
+SEXP dplyr_reframe_recycle_horizontally_in_place(
+  SEXP result_per_group_per_expression,
+  SEXP result_per_expression,
+  SEXP s_n_groups
+);
 SEXP dplyr_group_indices(SEXP data, SEXP rows);
 SEXP dplyr_group_keys(SEXP group_data);
 
@@ -119,7 +153,7 @@ SEXP dplyr_mask_binding_add(SEXP env_private, SEXP s_name, SEXP ptype, SEXP chun
 
 SEXP dplyr_lazy_vec_chop(SEXP data, SEXP rows, SEXP env_current_group_info, SEXP ffi_grouped, SEXP ffi_rowwise);
 SEXP dplyr_make_mask_bindings(SEXP chops, SEXP data);
-SEXP env_resolved(SEXP env, SEXP names);
+SEXP ffi_env_bindings_are_used(SEXP env_chops, SEXP names);
 void add_mask_binding(SEXP name, SEXP env_mask_bindings, SEXP env_chops);
 
 SEXP dplyr_extract_chunks(SEXP df_list, SEXP df_ptype);
@@ -127,22 +161,21 @@ SEXP dplyr_extract_chunks(SEXP df_list, SEXP df_ptype);
 SEXP copy_df_attribs(SEXP result, SEXP template_);
 
 #define DPLYR_MASK_INIT()                                                                                            \
-  SEXP rows = PROTECT(Rf_findVarInFrame(env_private, dplyr::symbols::rows));                                         \
+  SEXP rows = PROTECT(env_get(env_private, dplyr::symbols::rows));                                                   \
   const SEXP* v_rows = VECTOR_PTR_RO(rows);                                                                          \
   R_xlen_t ngroups = XLENGTH(rows);                                                                                  \
-  SEXP caller = PROTECT(Rf_findVarInFrame(env_private, dplyr::symbols::caller));                                     \
-  SEXP env_mask_bindings = PROTECT(Rf_findVarInFrame(env_private, dplyr::symbols::env_mask_bindings));               \
+  SEXP env_mask_bindings = PROTECT(env_get(env_private, dplyr::symbols::env_mask_bindings));                         \
   SEXP pronoun = PROTECT(rlang::as_data_pronoun(env_mask_bindings));                                                 \
-  SEXP env_current_group_info = PROTECT(Rf_findVarInFrame(env_private, dplyr::symbols::env_current_group_info));     \
-  SEXP current_group_id = PROTECT(Rf_findVarInFrame(env_current_group_info, dplyr::symbols::current_group_id));      \
+  SEXP env_current_group_info = PROTECT(env_get(env_private, dplyr::symbols::env_current_group_info));               \
+  SEXP current_group_id = PROTECT(env_get(env_current_group_info, dplyr::symbols::current_group_id));                \
   int* p_current_group_id = INTEGER(current_group_id);                                                               \
   *p_current_group_id = 0;                                                                                           \
-  SEXP current_group_size = PROTECT(Rf_findVarInFrame(env_current_group_info, dplyr::symbols::current_group_size));  \
+  SEXP current_group_size = PROTECT(env_get(env_current_group_info, dplyr::symbols::current_group_size));            \
   int* p_current_group_size = INTEGER(current_group_size);                                                           \
   *p_current_group_size = 0
 
 #define DPLYR_MASK_FINALISE()                                  \
-  UNPROTECT(7);                                                \
+  UNPROTECT(6);                                                \
   *p_current_group_id = 0;                                     \
   *p_current_group_size = 0
 
@@ -159,8 +192,8 @@ SEXP copy_df_attribs(SEXP result, SEXP template_);
   *p_current_group_id = INDEX + 1;                             \
   *p_current_group_size = Rf_xlength(v_rows[INDEX])
 
-#define DPLYR_MASK_EVAL(quo)                                   \
-  rlang::eval_tidy(quo, mask, caller)
+#define DPLYR_MASK_EVAL(quo, env)                              \
+  rlang::eval_tidy(quo, mask, env)
 
 #define DPLYR_ERROR_INIT(n)                                    \
   SEXP error_data = PROTECT(Rf_allocVector(VECSXP, n));              \

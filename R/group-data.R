@@ -29,8 +29,7 @@
 #' group.
 #' @param .data,.tbl,x A data frame or extension (like a tibble or grouped
 #'   tibble).
-#' @param ... Use of `...` is now deprecated; please use `group_by()` first
-#'   instead.
+#' @param ... Unused.
 #' @keywords internal
 #' @examples
 #' df <- tibble(x = c(1,1,2,2))
@@ -77,7 +76,7 @@ group_data.grouped_df <- function(.data) {
   withCallingHandlers(
     validate_grouped_df(.data),
     error = function(cnd) {
-      msg  <- glue("`.data` must be a valid <grouped_df> object.")
+      msg <- glue("`.data` must be a valid <grouped_df> object.")
       abort(msg, parent = cnd, call = error_call)
     }
   )
@@ -93,14 +92,13 @@ group_keys <- function(.tbl, ...) {
   UseMethod("group_keys")
 }
 #' @export
-group_keys_data_frame <- function(.tbl, ...) {
+group_keys.data.frame <- function(.tbl, ...) {
   if (dots_n(...) > 0) {
-    lifecycle::deprecate_warn(
-      "1.0.0", "group_keys(... = )",
-      details = "Please `group_by()` first",
-      always = TRUE
+    lifecycle::deprecate_stop(
+      "1.0.0",
+      "group_keys(... = )",
+      details = "Please `group_by()` first"
     )
-    .tbl <- group_by(.tbl, ...)
   }
   out <- group_data(.tbl)
   group_keys0(out)
@@ -120,19 +118,25 @@ group_rows <- function(.data) {
 #' @rdname group_data
 group_indices <- function(.data, ...) {
   if (nargs() == 0) {
-    lifecycle::deprecate_warn("1.0.0", "group_indices()", "cur_group_id()", always = TRUE)
+    lifecycle::deprecate_warn(
+      "1.0.0",
+      I("`group_indices()` with no arguments"),
+      "cur_group_id()",
+      always = TRUE,
+      id = "dplyr-group-indices-no-arguments"
+    )
     return(cur_group_id())
   }
 
   UseMethod("group_indices")
 }
 #' @export
-group_indices_data_frame <- function(.data, ...) {
+group_indices.data.frame <- function(.data, ...) {
   if (dots_n(...) > 0) {
-    lifecycle::deprecate_warn(
-      "1.0.0", "group_indices(... = )",
-      details = "Please `group_by()` first",
-      always = TRUE
+    lifecycle::deprecate_stop(
+      "1.0.0",
+      "group_indices(... = )",
+      details = "Please `group_by()` first"
     )
     .data <- group_by(.data, ...)
   }
@@ -146,7 +150,7 @@ group_vars <- function(x) {
   UseMethod("group_vars")
 }
 #' @export
-group_vars_data_frame <- function(x) {
+group_vars.data.frame <- function(x) {
   setdiff(names(group_data(x)), ".rows")
 }
 
@@ -156,7 +160,7 @@ groups <- function(x) {
   UseMethod("groups")
 }
 #' @export
-groups_data_frame <- function(x) {
+groups.data.frame <- function(x) {
   syms(group_vars(x))
 }
 
@@ -164,7 +168,7 @@ groups_data_frame <- function(x) {
 #' @rdname group_data
 group_size <- function(x) UseMethod("group_size")
 #' @export
-group_size_data_frame <- function(x) {
+group_size.data.frame <- function(x) {
   lengths(group_rows(x))
 }
 
@@ -172,6 +176,6 @@ group_size_data_frame <- function(x) {
 #' @rdname group_data
 n_groups <- function(x) UseMethod("n_groups")
 #' @export
-n_groups_data_frame <- function(x) {
+n_groups.data.frame <- function(x) {
   nrow(group_data(x))
 }

@@ -29,13 +29,17 @@
 #' @export
 transmute <- function(.data, ...) {
   # dplyr 1.1.0
-  lifecycle::signal_stage("superseded", "transmute()", I("mutate(.keep = 'none')"))
+  lifecycle::signal_stage(
+    "superseded",
+    "transmute()",
+    I("mutate(.keep = 'none')")
+  )
 
   UseMethod("transmute")
 }
 
 #' @export
-transmute_data_frame <- function(.data, ...) {
+transmute.data.frame <- function(.data, ...) {
   dots <- check_transmute_args(...)
   dots <- dplyr_quosures(!!!dots)
 
@@ -66,7 +70,13 @@ transmute_data_frame <- function(.data, ...) {
 
 # helpers -----------------------------------------------------------------
 
-check_transmute_args <- function(..., .keep, .before, .after, error_call = caller_env()) {
+check_transmute_args <- function(
+  ...,
+  .keep,
+  .before,
+  .after,
+  error_call = caller_env()
+) {
   if (!missing(.keep)) {
     abort("The `.keep` argument is not supported.", call = error_call)
   }

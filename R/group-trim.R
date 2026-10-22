@@ -14,9 +14,9 @@
 #' @export
 #' @family grouping functions
 #' @examples
-#' iris %>%
-#'   group_by(Species) %>%
-#'   filter(Species == "setosa", .preserve = TRUE) %>%
+#' iris |>
+#'   group_by(Species) |>
+#'   filter(Species == "setosa", .preserve = TRUE) |>
 #'   group_trim()
 group_trim <- function(.tbl, .drop = group_by_drop_default(.tbl)) {
   lifecycle::signal_stage("experimental", "group_trim()")
@@ -24,7 +24,7 @@ group_trim <- function(.tbl, .drop = group_by_drop_default(.tbl)) {
 }
 
 #' @export
-group_trim_data_frame <- function(.tbl, .drop = group_by_drop_default(.tbl)) {
+group_trim.data.frame <- function(.tbl, .drop = group_by_drop_default(.tbl)) {
   .tbl
 }
 

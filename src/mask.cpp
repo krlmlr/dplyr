@@ -1,19 +1,29 @@
 #include "dplyr.h"
-
-SEXP as_utf8(SEXP s) {
-  if (!IS_UTF8(s) && !IS_ASCII(s)) {
-    s = Rf_mkCharCE(Rf_translateCharUTF8(s), CE_UTF8);
-  }
-  return s;
-}
+#include "utils.h"
 
 R_xlen_t find_first(SEXP haystack, SEXP needle) {
-  SEXP needle_utf8 = PROTECT(as_utf8(needle));
-  R_xlen_t n = XLENGTH(haystack);
-  R_xlen_t i_name = 0;
-  for (; i_name < n; i_name++) {
-    if (needle_utf8 == as_utf8(STRING_ELT(haystack, i_name))) break;
+  if (!string_is_ascii_or_utf8(needle)) {
+    needle = string_as_utf8(needle);
   }
+  PROTECT(needle);
+
+  const R_xlen_t n = XLENGTH(haystack);
+  R_xlen_t i_name = 0;
+
+  for (; i_name < n; ++i_name) {
+    SEXP haystack_elt = STRING_ELT(haystack, i_name);
+
+    if (!string_is_ascii_or_utf8(haystack_elt)) {
+      // No need to `PROTECT()`, we do a pointer comparison
+      // and then throw it away
+      haystack_elt = string_as_utf8(haystack_elt);
+    }
+
+    if (needle == haystack_elt) {
+      break;
+    }
+  }
+
   UNPROTECT(1);
   return i_name;
 }
@@ -35,7 +45,7 @@ SEXP dplyr_mask_binding_add(SEXP env_private, SEXP s_name, SEXP ptype, SEXP chun
   SEXP name = STRING_ELT(s_name, 0);
 
   // we assume control over these
-  SEXP current_data = PROTECT(Rf_findVarInFrame(env_private, dplyr::symbols::current_data));
+  SEXP current_data = PROTECT(env_get(env_private, dplyr::symbols::current_data));
   SEXP current_vars = PROTECT(Rf_getAttrib(current_data, R_NamesSymbol));
 
   // search for position of name
@@ -63,10 +73,10 @@ SEXP dplyr_mask_binding_add(SEXP env_private, SEXP s_name, SEXP ptype, SEXP chun
   }
 
   SEXP sym_name = PROTECT(rlang::str_as_symbol(name));
-  SEXP chops = PROTECT(Rf_findVarInFrame(env_private, dplyr::symbols::chops));
+  SEXP chops = PROTECT(env_get(env_private, dplyr::symbols::chops));
   Rf_defineVar(sym_name, chunks, chops);
 
-  SEXP env_mask_bindings = PROTECT(Rf_findVarInFrame(env_private, dplyr::symbols::env_mask_bindings));
+  SEXP env_mask_bindings = PROTECT(env_get(env_private, dplyr::symbols::env_mask_bindings));
   add_mask_binding(sym_name, env_mask_bindings, chops);
 
   UNPROTECT(5);
@@ -76,7 +86,7 @@ SEXP dplyr_mask_binding_add(SEXP env_private, SEXP s_name, SEXP ptype, SEXP chun
 SEXP dplyr_mask_binding_remove(SEXP env_private, SEXP s_name) {
   SEXP name = STRING_ELT(s_name, 0);
 
-  SEXP current_data = PROTECT(Rf_findVarInFrame(env_private, dplyr::symbols::current_data));
+  SEXP current_data = PROTECT(env_get(env_private, dplyr::symbols::current_data));
   SEXP current_vars = PROTECT(Rf_getAttrib(current_data, R_NamesSymbol));
 
   // search for position of name
@@ -98,11 +108,11 @@ SEXP dplyr_mask_binding_remove(SEXP env_private, SEXP s_name) {
 
     SEXP sym_name = PROTECT(rlang::str_as_symbol(name));
 
-    SEXP chops = PROTECT(Rf_findVarInFrame(env_private, dplyr::symbols::chops));
-    SEXP env_mask_bindings = PROTECT(Rf_findVarInFrame(env_private, dplyr::symbols::env_mask_bindings));
+    SEXP chops = PROTECT(env_get(env_private, dplyr::symbols::chops));
+    SEXP env_mask_bindings = PROTECT(env_get(env_private, dplyr::symbols::env_mask_bindings));
 
-    rlang::env_unbind(env_mask_bindings, sym_name);
-    rlang::env_unbind(chops, sym_name);
+    R_removeVarFromFrame(sym_name, env_mask_bindings);
+    R_removeVarFromFrame(sym_name, chops);
 
     UNPROTECT(5);
   }

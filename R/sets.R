@@ -68,11 +68,10 @@ NULL
 #' @export
 union_all <- function(x, y, ...) UseMethod("union_all")
 #' @export
-union_all.default <- function (x, y, ...) {
+union_all.default <- function(x, y, ...) {
   check_dots_empty()
   vec_c(x, y)
 }
-
 
 #' @name setops
 #' @aliases setdiff
@@ -94,14 +93,14 @@ symdiff <- function(x, y, ...) {
   UseMethod("symdiff")
 }
 #' @export
-symdiff.default <- function (x, y, ...) {
+symdiff.default <- function(x, y, ...) {
   check_dots_empty()
   # Default is defined in terms of base R methods
   setdiff(union(x, y), intersect(x, y))
 }
 
 #' @export
-intersect_data_frame <- function(x, y, ...) {
+intersect.data.frame <- function(x, y, ...) {
   check_dots_empty()
   check_compatible(x, y)
 
@@ -111,7 +110,7 @@ intersect_data_frame <- function(x, y, ...) {
 }
 
 #' @export
-union_data_frame <- function(x, y, ...) {
+union.data.frame <- function(x, y, ...) {
   check_dots_empty()
   check_compatible(x, y)
 
@@ -121,7 +120,7 @@ union_data_frame <- function(x, y, ...) {
 }
 
 #' @export
-union_all_data_frame <- function(x, y, ...) {
+union_all.data.frame <- function(x, y, ...) {
   check_dots_empty()
   check_compatible(x, y)
 
@@ -130,7 +129,7 @@ union_all_data_frame <- function(x, y, ...) {
 }
 
 #' @export
-setdiff_data_frame <- function(x, y, ...) {
+setdiff.data.frame <- function(x, y, ...) {
   check_dots_empty()
   check_compatible(x, y)
 
@@ -140,7 +139,7 @@ setdiff_data_frame <- function(x, y, ...) {
 }
 
 #' @export
-setequal_data_frame <- function(x, y, ...) {
+setequal.data.frame <- function(x, y, ...) {
   check_dots_empty()
   check_compatible(x, y)
 
@@ -149,7 +148,7 @@ setequal_data_frame <- function(x, y, ...) {
 }
 
 #' @export
-symdiff_data_frame <- function(x, y, ...) {
+symdiff.data.frame <- function(x, y, ...) {
   check_dots_empty()
   check_compatible(x, y)
 
@@ -217,7 +216,9 @@ is_compatible <- function(x, y, ignore_col_order = TRUE, convert = TRUE) {
         error = function(e) {
           msg <<- c(
             msg,
-            x = glue("Incompatible types for column `{name}`: {vec_ptype_full(x_i)} vs {vec_ptype_full(y_i)}.")
+            x = glue(
+              "Incompatible types for column `{name}`: {vec_ptype_full(x_i)} vs {vec_ptype_full(y_i)}."
+            )
           )
         }
       )
@@ -225,7 +226,9 @@ is_compatible <- function(x, y, ignore_col_order = TRUE, convert = TRUE) {
       if (!identical(vec_ptype(x_i), vec_ptype(y_i))) {
         msg <- c(
           msg,
-          x = glue("Different types for column `{name}`: {vec_ptype_full(x_i)} vs {vec_ptype_full(y_i)}.")
+          x = glue(
+            "Different types for column `{name}`: {vec_ptype_full(x_i)} vs {vec_ptype_full(y_i)}."
+          )
         )
       }
     }
@@ -237,8 +240,19 @@ is_compatible <- function(x, y, ignore_col_order = TRUE, convert = TRUE) {
   TRUE
 }
 
-check_compatible <- function(x, y, ignore_col_order = TRUE, convert = TRUE, error_call = caller_env()) {
-  compat <- is_compatible(x, y, ignore_col_order = ignore_col_order, convert = convert)
+check_compatible <- function(
+  x,
+  y,
+  ignore_col_order = TRUE,
+  convert = TRUE,
+  error_call = caller_env()
+) {
+  compat <- is_compatible(
+    x,
+    y,
+    ignore_col_order = ignore_col_order,
+    convert = convert
+  )
   if (isTRUE(compat)) {
     return()
   }
