@@ -158,8 +158,6 @@ void add_mask_binding(SEXP name, SEXP env_mask_bindings, SEXP env_chops);
 
 SEXP dplyr_extract_chunks(SEXP df_list, SEXP df_ptype);
 
-SEXP copy_df_attribs(SEXP result, SEXP template_);
-
 #define DPLYR_MASK_INIT()                                                                                            \
   SEXP rows = PROTECT(env_get(env_private, dplyr::symbols::rows));                                                   \
   const SEXP* v_rows = VECTOR_PTR_RO(rows);                                                                          \
