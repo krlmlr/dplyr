@@ -1,0 +1,28 @@
+# minorparties (1.0.0)
+
+* GitHub mirror: <https://github.com/cran/minorparties>
+
+Run `revdepcheck::revdep_details(, "minorparties")` for more info
+
+## Error before installation
+
+### Devel
+
+```
+new check timed out after 1801s, at: * checking tests ...
+
+
+
+
+
+```
+### CRAN
+
+```
+new check timed out after 1801s, at: * checking tests ...
+
+
+
+
+
+```

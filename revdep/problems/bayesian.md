@@ -1,0 +1,38 @@
+# bayesian (1.0.1)
+
+* GitHub: <https://github.com/hsbadr/bayesian>
+* Email: <mailto:badr@jhu.edu>
+* GitHub mirror: <https://github.com/cran/bayesian>
+
+Run `revdepcheck::revdep_details(, "bayesian")` for more info
+
+## Newly broken
+
+*   checking whether startup messages can be suppressed ... NOTE
+     ```
+     duckdb keeps downloaded extensions and secrets in a temporary directory:
+     ℹ /tmp/RtmpIouz29/working_dir/RtmpWuf1P0/duckdb
+     This is removed when the R session ends.
+     • Extensions are re-downloaded each session.
+     • Secrets are lost.
+     ℹ Run duckdb(shared_home = TRUE) (or create ~/.duckdb) to keep them (suitable for most users).
+     ℹ Run duckdb(shared_home = FALSE) to accept the temporary directory (and silence this message).
+     ℹ See ?duckdb_storage for details and alternatives.
+     
+     It looks like this package (or a package it requires) has a startup
+     message which cannot be suppressed: see ?packageStartupMessage.
+     ```
+
+## In both
+
+*   checking S3 generic/method consistency ... NOTE
+     ```
+     Mismatches for apparent methods not registered:
+     check_args:
+       function(object, call)
+     check_args.bayesian:
+       function(object)
+     See section ‘Registering S3 methods’ in the ‘Writing R Extensions’
+     manual.
+     ```
+
