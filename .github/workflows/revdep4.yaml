@@ -358,11 +358,17 @@ jobs:
         id: base
         env:
           REVDEPX_PUSH: "1"
+          # Rig-only: GITHUB_TOKEN is denied pushing a new GHCR package for
+          # krlmlr/dplyr (run 39740058197). The base image tag is derived from
+          # the recipe alone, so the public image krlmlr/duckplyr's revdep4
+          # already pushed is the same image and is found without a push.
+          # If the recipe changes and that tag is missing, this fails again.
+          REVDEPX_BASE_REPO: ghcr.io/krlmlr/duckplyr/revdepx-base
         run: |
           set -eu
           repo=$(printf '%s' "${GITHUB_REPOSITORY}" | tr '[:upper:]' '[:lower:]')
           ref=$("${REVDEPX_DIR}/base-image.sh" \
-            "${REVDEPX_R_VERSION}" "ghcr.io/${repo}/revdepx-base" | tail -n 1)
+            "${REVDEPX_R_VERSION}" "${REVDEPX_BASE_REPO:-ghcr.io/${repo}/revdepx-base}" | tail -n 1)
           echo "Base image: ${ref}"
           echo "image=${ref}" >> "${GITHUB_OUTPUT}"
         shell: bash
