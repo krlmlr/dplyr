@@ -83,6 +83,16 @@
 # deliverable; only infrastructure failures fail jobs.
 
 on:
+  # Rig-only addition: krlmlr/dplyr's default branch does not carry this file,
+  # and GitHub refuses to dispatch a workflow it has never seen. A push that
+  # touches this file registers it with a run whose jobs are all skipped
+  # (plan and base are gated on workflow_dispatch below, everything else
+  # needs them); afterwards the API can dispatch it on this branch.
+  push:
+    branches:
+      - f-revdep-duckplyr
+    paths:
+      - .github/workflows/revdep4.yaml
   workflow_dispatch:
     inputs:
       ref:
@@ -225,6 +235,8 @@ env:
 
 jobs:
   plan:
+    if: github.event_name == 'workflow_dispatch'
+
     runs-on: ubuntu-26.04
 
     # Planning is minutes, not hours: the preflight that used to share this
@@ -303,7 +315,7 @@ jobs:
     # No needs: the base image depends only on the recipe in the checkout and
     # the resolved R version, so this runs in parallel with planning. A base
     # that already exists in the registry is found by tag and costs seconds.
-    if: inputs.dry-run != true
+    if: github.event_name == 'workflow_dispatch' && inputs.dry-run != true
 
     runs-on: ubuntu-26.04
 
